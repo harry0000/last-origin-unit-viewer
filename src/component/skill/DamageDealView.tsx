@@ -15,7 +15,7 @@ const DamageDealView: React.FC<{ damage_deal: DamageDeal, area: SkillAreaType }>
   const { t } = useTranslation();
 
   return (
-    <div css={{ color: 'white' }}>
+    <div css={{ color: '#ccc', marginTop: 10 }}>
       <span>{area === SkillAreaType.Single ? t('effect:damage_deal.target.single') : t('effect:damage_deal.target.area')}</span>
       {ifNonNullable(
         damage_deal.effective,

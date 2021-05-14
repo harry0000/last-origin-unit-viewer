@@ -26,7 +26,7 @@ const EffectDetailRow: React.FC<{
         fontWeight: 'bold',
         borderRadius: 3,
         backgroundColor: '#1c3042',
-        padding: '3px 5px',
+        padding: '3px 8px',
         marginTop: 5
       }}
     >
