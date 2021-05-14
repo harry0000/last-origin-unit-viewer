@@ -7233,7 +7233,7 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'diagonal_adjacent',
       equipment_effects: [{
-        conditions: [{ trigger: 'start_wave' }],
+        conditions: [{ trigger: 'start_wave', state: { target: [{ unit: 'bioroid' }] } }],
         details: {
           target: {
             atk_up: { base: { milliPercentage: 16500 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', cannot_be_dispelled: true },
