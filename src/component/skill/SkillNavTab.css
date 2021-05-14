@@ -1,0 +1,32 @@
+.skill.nav-tabs {
+  border-bottom: 2px solid #ccc;
+}
+
+.skill.active-skill.nav-tabs {
+  border-bottom: 2px solid #ffcc00;
+}
+
+.skill.passive-skill.nav-tabs {
+  border-bottom: 2px solid #32b7fb;
+}
+
+.skill.nav-tabs .nav-link {
+  margin-bottom: -2px;
+  border: 2px solid transparent;
+}
+
+.skill.nav-tabs .nav-item.show .nav-link,
+.skill.nav-tabs .nav-link.active {
+  background-color: transparent;
+  border-width: 2px;
+}
+
+.skill.nav-tabs .nav-item.show .active-skill.nav-link,
+.skill.nav-tabs .active-skill.nav-link.active {
+  border-color: #ffcc00 #ffcc00 #0a101e;
+}
+
+.skill.nav-tabs .nav-item.show .passive-skill.nav-link,
+.skill.nav-tabs .passive-skill.nav-link.active {
+  border-color: #32b7fb #32b7fb #0a101e;
+}

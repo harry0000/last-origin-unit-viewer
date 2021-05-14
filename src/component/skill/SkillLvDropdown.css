@@ -1,0 +1,17 @@
+.skill-lv.dropdown {
+  display: inline;
+}
+
+.skill-lv.dropdown > a {
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+}
+
+.skill-lv.dropdown > a:hover {
+  text-decoration: none;
+}
+
+.skill-lv.dropdown > a > svg {
+  width: 0.9em;
+}
