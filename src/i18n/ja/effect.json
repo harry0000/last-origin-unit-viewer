@@ -367,6 +367,15 @@
   "times": "{{count}}回",
   "cannot_be_dispelled": "解除不可",
 
+  "effects_as_equipment": {
+    "description": {
+      "prefix": "※スキルの効果は ",
+      "suffix": " に分類されます",
+      "as_equipment": "装備と同じカテゴリー"
+    },
+    "annotation": "このスキルの効果は、他のスキルの発動条件に使用されません"
+  },
+
   "case": "場合",
   "below_effects": "以下の効果",
 

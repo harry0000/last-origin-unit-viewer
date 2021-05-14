@@ -10,6 +10,7 @@ import { Badge, Col, Container, Row, Tab } from 'react-bootstrap';
 
 import AreaOfEffectGrid from './AreaOfEffectGrid';
 import DamageDealView from './DamageDealView';
+import EffectsAsEquipmentDescriptionView from './EffectsAsEquipmentDescriptionView';
 import SkillEffectsView from './SkillEffectsView';
 import SkillLvDropdown from './SkillLvDropdown';
 
@@ -60,7 +61,8 @@ type SkillProp = {
   cost?: SkillApCostValue,
   range?: SkillRangeValue,
   rank_up?: boolean,
-  form?: UnitForms
+  form?: UnitForms,
+  effects_as_equipment?: boolean
 }
 
 type ActiveSkillTabType  = Exclude<SkillTabType, typeof SkillTabType['Passive1' | 'Passive2' | 'Passive3']>
@@ -70,7 +72,7 @@ function activeSkillProp(
   eventKey: ActiveSkillTabType,
   unit: Unit | undefined,
   t: TFunction
-): Omit<SkillProp, 'rank_up'> | undefined {
+): Omit<SkillProp, 'rank_up' | 'effects_as_equipment'> | undefined {
   if (!unit) {
     return undefined;
   }
@@ -105,29 +107,40 @@ function passiveSkillProp(
     return undefined;
   }
 
-  const unitNumber = unit.unitNumber;
-  const { no, skill, skillLv } = (() => {
+  const { no, skill, lv } = (() => {
     switch (eventKey) {
     case 'passive1':
-      return { no: 1, skill: unit.passive1Skill, skillLv: unit.skillLv.passive1Lv };
+      return { no: 1, skill: unit.passive1Skill, lv: unit.skillLv.passive1Lv };
     case 'passive2':
-      return { no: 2, skill: unit.passive2Skill, skillLv: unit.skillLv.passive2Lv };
+      return { no: 2, skill: unit.passive2Skill, lv: unit.skillLv.passive2Lv };
     case 'passive3':
-      return { no: 3, skill: unit.passive3Skill, skillLv: unit.skillLv.passive3Lv };
+      return { no: 3, skill: unit.passive3Skill, lv: unit.skillLv.passive3Lv };
     }
   })();
-  const form = skill && 'form' in skill ? skill.form : undefined;
 
-  return skill && skillLv && {
+  if (!skill || !lv) {
+    return undefined;
+  }
+
+  const unitNumber = unit.unitNumber;
+  const { effects, effects_as_equipment } = (() => {
+    return 'effects' in skill ?
+      { effects: skill.effects, effects_as_equipment: false } :
+      { effects: skill.equipment_effects, effects_as_equipment: true };
+  })();
+  const form = 'form' in skill ? skill.form : undefined;
+
+  return {
     unitNumber,
     name: form ?
       t('skill:form_passive', { no, unit: unitNumber, form }) :
       t('skill:passive', { no, unit: unitNumber }),
-    lv: skillLv,
+    lv,
     area: skill.area,
-    effects: 'effects' in skill ? skill.effects : skill.equipment_effects,
+    effects,
+    rank_up: skill.rank_up,
     form,
-    rank_up: skill.rank_up
+    effects_as_equipment
   };
 }
 
@@ -142,7 +155,18 @@ const SkillPane: React.FC<{
     <Tab.Pane eventKey={eventKey}>
       {ifNonNullable(
         skill,
-        ({ unitNumber, name, lv, damage_deal, effects, area, cost, range, rank_up, form }) => (
+        ({
+          unitNumber,
+          name, lv,
+          damage_deal,
+          effects,
+          area,
+          cost,
+          range,
+          rank_up,
+          form,
+          effects_as_equipment
+        }) => (
           <Container
             fluid
             css={{
@@ -179,6 +203,7 @@ const SkillPane: React.FC<{
             <Row>
               <Col xs={{ order: 'last', span: 12 }} sm={{ order: 'first', span: 9 }}>
                 {ifNonNullable(damage_deal, v => (<DamageDealView damage_deal={v} area={area} />))}
+                {ifTruthy(!!effects_as_equipment, (<EffectsAsEquipmentDescriptionView />))}
                 <SkillEffectsView effects={effects} unitNumber={unitNumber} area={area} />
               </Col>
               <Col xs={{ order: 'first', span: 12 }} sm={{ order: 'last', span: 3 }}>
