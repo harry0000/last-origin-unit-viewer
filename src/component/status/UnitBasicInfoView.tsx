@@ -18,7 +18,7 @@ const UnitBasicInfoIcon: React.FC<{ unit?: UnitBasicInfo }> = ({ unit }) => {
           margin: '0 auto',
           height: unit.rank !== 'ss' ? 65 : 75
         }}
-        src={`/icon/${unit.rank}_${unit.role}.png`}
+        src={`${process.env.PUBLIC_URL}/icon/${unit.rank}_${unit.role}.png`}
       />
     )
   );

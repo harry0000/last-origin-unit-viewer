@@ -42,7 +42,7 @@ const Badge: React.FC<{ rank: UnitRank, role: UnitRole }> = ({ rank, role }) => 
         left: -5,
         height
       }}
-      src={`/icon/${rank}_${role}.png`}
+      src={`${process.env.PUBLIC_URL}/icon/${rank}_${role}.png`}
     />
   );
 };
@@ -72,7 +72,7 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
         }}
         onClick={onClick}
       >
-        <Image src={`/unit_icon/${unit.no}.png`} rounded fluid />
+        <Image src={`${process.env.PUBLIC_URL}/unit_icon/${unit.no}.png`} rounded fluid />
         <Badge rank={unit.rank} role={unit.role} />
       </div>
     </OverlayTrigger>
