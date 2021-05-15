@@ -1,0 +1,19 @@
+name: run-tests
+on:
+  push:
+    branches-ignore:
+      - master
+    tags-ignore:
+      - '**'
+jobs:
+  npm-run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+
+      - name: Setup
+        run: npm install
+
+      - name: Test
+        run: CI=true npm test
