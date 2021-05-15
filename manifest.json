@@ -1,0 +1,12 @@
+{
+  "short_name": "L.O. Unit Viewer",
+  "name": "Last Origin Unit Viewer",
+  "icons": [
+    { "src": "192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "512.png", "type": "image/png", "sizes": "512x512" }
+  ],
+  "start_url": ".",
+  "display": "browser",
+  "theme_color": "#212529",
+  "background_color": "#212529"
+}
