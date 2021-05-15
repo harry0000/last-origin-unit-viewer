@@ -1,0 +1,56 @@
+export type SkillEffectTagStackValue = 1 | 2 | 3 | 5
+
+export type SkillEffectTag =
+  'ignite' |
+  'wet' |
+  'freeze' |
+  'corrosion' |
+  'overloaded' |
+  'plasma_generator' |
+  'electric_charge' |
+  'sadistic_chef' |
+  'practice_begins' |
+  'masochistic_nature' |
+  'sadistic_nature' |
+  'revenger' |
+  'alert_mode' |
+  'yummy' |
+  'elan_vital' |
+  'attack_command' |
+  'defense_command' |
+  'camouflage' |
+  'elation' |
+  'f_armory_deployment' |
+  'enhance_output' |
+  'scrap_collect' |
+  'devour' |
+  'electromagnatic_consonance' |
+  'max_output_burst' |
+  'deploy_great_shield' |
+  'arrogance' |
+  'hubris' |
+  'where_are_you_looking_at' |
+  'viff_activate' |
+  'overwhelming_cuteness' |
+  'observation_data_reception' |
+  'guiding_technique' |
+  'balance_seeker' |
+  'secretive_research' |
+  'workaholic' |
+  'lucky_hit' |
+  'bulk_up' |
+  'bravery' |
+  'duel_target' |
+  'duelist' |
+  'second_coming' |
+  'command_offense_troop' |
+  'command_defense_troop' |
+  'cheerleader' |
+  'with_flammables' |
+  'clear_and_serene' |
+  'foresight' |
+  'mimesis' |
+  'psychic_barrier' |
+  'overexcitement' |
+  'controlling_excitement' |
+  'predator'

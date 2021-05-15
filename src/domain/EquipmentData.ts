@@ -1,0 +1,23 @@
+import { equipmentData } from '../data/equipmentData';
+
+export const EquipmentType = {
+  Chip: 'chip',
+  Os: 'os',
+  Gear: 'gear'
+} as const;
+export type EquipmentType = typeof EquipmentType[keyof typeof EquipmentType]
+
+export const EquipmentRank = {
+  SS: 'ss',
+  S: 's',
+  A: 'a',
+  B: 'b'
+} as const;
+export type EquipmentRank = typeof EquipmentRank[keyof typeof EquipmentRank]
+
+export type EnhancementLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+
+export type EquipmentValue = number | { [EquipmentRank.SS]: number }
+
+export type EquipmentId = keyof typeof equipmentData
+export type EquipmentData = typeof equipmentData[EquipmentId]

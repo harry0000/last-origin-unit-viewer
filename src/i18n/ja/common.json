@@ -1,0 +1,85 @@
+{
+  "form": {
+    "unit": {
+      "rank": {
+        "ss": "SS",
+        "s": "S",
+        "a": "A",
+        "b": "B"
+      },
+      "role": {
+        "attacker": "攻撃",
+        "defender": "保護",
+        "supporter": "支援"
+      },
+      "type": {
+        "light": "軽装",
+        "heavy": "重装",
+        "flying": "機動"
+      }
+    },
+    "skill_effect_condition": "詳細条件",
+    "skill": {
+      "fire_active": "火炎属性攻撃",
+      "ice_active": "冷気属性攻撃",
+      "electric_active": "電気属性攻撃",
+      "row_column_protect": "行/列保護",
+      "target_protect":  "指定保護",
+      "attack_assist": "攻撃支援",
+      "atk_cri_acc_buff": "ATK/CRI/命中バフ",
+      "atk_cri_acc_debuff": "ATK/CRI/命中デバフ",
+      "def_eva_buff": "DEF/回避バフ",
+      "def_eva_debuff": "DEF/回避デバフ",
+      "spd_ap_buff": "行動力/APバフ",
+      "spd_ap_debuff": "行動力/APデバフ",
+      "damage_reduction": "ダメージ減少/バリア付与",
+      "ignore_def_dr_barrier_dr": "防御力/ダメージ減少/バリア無視",
+      "anti_unit_type": "対軽装/重装/機動ダメージアップ",
+      "ignore_protect": "保護無視",
+      "counterattack": "反撃",
+      "reconnaissance":  "偵察",
+      "attribute_resist":  "属性耐性アップ/ダウン",
+      "range": "射程アップ/ダウン",
+      "marked_provoked": "標的/挑発",
+      "immovable_silenced_stunned": "移動不可/沈黙/行動不能",
+      "wet_corrosion_overloaded": "浸水/腐食/過負荷",
+      "remove_buff_debuff": "バフ/デバフ/状態異常解除"
+    }
+  },
+  "unit": {
+    "role": {
+      "attacker": "攻撃機",
+      "defender": "保護機",
+      "supporter": "支援機"
+    },
+    "type": {
+      "light": "軽装",
+      "heavy": "重装",
+      "flying": "機動"
+    }
+  },
+  "status": {
+    "atk": "攻撃力",
+    "def": "防御力",
+    "acc": "命中率",
+    "eva": "回避率",
+    "cri": "クリティカル率",
+    "spd": "行動力",
+    "ap": "AP"
+  },
+  "skill": {
+    "lv": "Lv.",
+    "ap": "AP",
+    "range": "射程",
+    "area": "スキル範囲",
+    "fixed_area": "固定範囲",
+    "effective_rate": {
+      "high": "75%",
+      "middle": "50%",
+      "weak": "25%"
+    },
+    "rank_up": "ランクアップスキル"
+  },
+  "form_change": "モードチェンジ",
+  "empty": "―"
+}
