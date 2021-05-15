@@ -20,7 +20,7 @@ const EffectsAsEquipmentDescriptionView: React.FC = () => {
         placement='auto'
         overlay={<Tooltip id='tooltip-effects-as-equipment'>{t('effect:effects_as_equipment.annotation')}</Tooltip>}
       >
-        <span css={{ textDecoration: 'underline' }}>
+        <span css={{ cursor: 'help', textDecoration: 'underline' }}>
           {t('effect:effects_as_equipment.description.as_equipment')}
         </span>
       </OverlayTrigger>
