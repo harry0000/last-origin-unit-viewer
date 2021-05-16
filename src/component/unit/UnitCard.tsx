@@ -42,6 +42,7 @@ const Badge: React.FC<{ rank: UnitRank, role: UnitRole }> = ({ rank, role }) => 
         left: -5,
         height
       }}
+      alt={`${rank} ${role}`}
       src={`${process.env.PUBLIC_URL}/icon/${rank}_${role}.png`}
     />
   );
@@ -57,11 +58,12 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
       setStore(store.selectUnit(unit));
     }
   };
+  const unitName = t('unit:display', { number: unit.no });
 
   return (
     <OverlayTrigger
       placement='auto'
-      overlay={<Tooltip id='tooltip-unit-number-and-name'>{t('unit:display', { number: unit.no })}</Tooltip>}
+      overlay={<Tooltip id='tooltip-unit-number-and-name'>{unitName}</Tooltip>}
     >
       <div
         css={{
@@ -72,7 +74,12 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
         }}
         onClick={onClick}
       >
-        <Image src={`${process.env.PUBLIC_URL}/unit_icon/${unit.no}.png`} rounded fluid />
+        <Image
+          fluid
+          rounded
+          alt={unitName}
+          src={`${process.env.PUBLIC_URL}/unit_icon/${unit.no}.png`}
+        />
         <Badge rank={unit.rank} role={unit.role} />
       </div>
     </OverlayTrigger>
