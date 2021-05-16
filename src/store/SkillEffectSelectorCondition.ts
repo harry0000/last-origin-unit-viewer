@@ -228,7 +228,7 @@ export function matchSkillConditions(
     case SkillEffectSelectorCondition.SpdApBuff:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.spd_up || !!e.ap_up || !!e.set_ap);
     case SkillEffectSelectorCondition.SpdApDebuff:
-      return checkAllSkillEffectDetails(actives, passives, e => !!e.def_down || !!e.eva_down);
+      return checkAllSkillEffectDetails(actives, passives, e => !!e.spd_down || !!e.ap_down);
     case SkillEffectSelectorCondition.DamageReduction:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.damage_reduction || !!e.minimize_damage || !!e.nullify_damage || !!e.barrier);
     case SkillEffectSelectorCondition.IgnoreDefDrBarrierDR:
