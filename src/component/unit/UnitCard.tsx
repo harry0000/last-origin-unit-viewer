@@ -31,19 +31,19 @@ const selectedUnitBoxShadow: CSSObject = {
 };
 
 const Badge: React.FC<{ rank: UnitRank, role: UnitRole }> = ({ rank, role }) => {
-  const top    = rank === 'ss' ? -10 : -5;
-  const height = rank === 'ss' ? 45 : 40;
+  const [top, height, width] = rank === 'ss' ? [-10, 45, 52] : [-5, 40, 40];
 
   return (
     <Image
       css={{
         position: 'absolute',
         top,
-        left: -5,
-        height
+        left: -5
       }}
+      height={height}
+      width={width}
       alt={`${rank} ${role}`}
-      src={`${process.env.PUBLIC_URL}/icon/${rank}_${role}.png`}
+      src={`${process.env.PUBLIC_URL}/icon/${rank}_${role}.webp`}
     />
   );
 };
@@ -77,8 +77,10 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
         <Image
           fluid
           rounded
+          height={100}
+          width={100}
           alt={unitName}
-          src={`${process.env.PUBLIC_URL}/unit_icon/${unit.no}.png`}
+          src={`${process.env.PUBLIC_URL}/unit_icon/${unit.no}.webp`}
         />
         <Badge rank={unit.rank} role={unit.role} />
       </div>

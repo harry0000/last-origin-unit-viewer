@@ -8,20 +8,20 @@ import { Image } from 'react-bootstrap';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 import { ifNonNullable } from '../../util/react';
 
-const UnitBasicInfoIcon: React.FC<{ unit?: UnitBasicInfo }> = ({ unit }) => {
-  return ifNonNullable(
-    unit,
-    unit => (
-      <Image
-        css={{
-          display: 'block',
-          margin: '0 auto',
-          height: unit.rank !== 'ss' ? 65 : 75
-        }}
-        alt={`${unit.rank} ${unit.role}`}
-        src={`${process.env.PUBLIC_URL}/icon/${unit.rank}_${unit.role}.png`}
-      />
-    )
+const UnitBasicInfoIcon: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
+  const [height, width] = unit.rank === 'ss' ? [75, 87] : [65, 65];
+
+  return (
+    <Image
+      css={{
+        display: 'block',
+        margin: '0 auto'
+      }}
+      height={height}
+      width={width}
+      alt={`${unit.rank} ${unit.role}`}
+      src={`${process.env.PUBLIC_URL}/icon/${unit.rank}_${unit.role}.webp`}
+    />
   );
 };
 
@@ -44,7 +44,7 @@ export const UnitBasicInfoView: React.FC<{ unit?: UnitBasicInfo }> = ({ unit }) 
           flexBasis: 90
         }}
       >
-        <UnitBasicInfoIcon unit={unit} />
+        {ifNonNullable(unit, v => (<UnitBasicInfoIcon unit={v} />))}
       </div>
       <div
         css={{
