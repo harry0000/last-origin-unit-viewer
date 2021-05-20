@@ -1,4 +1,5 @@
 import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
+import { Sequence } from '../../util/type';
 
 export const AreaOfEffectCellType = {
   Effective: 'effective',
@@ -9,7 +10,7 @@ export const AreaOfEffectCellType = {
 } as const;
 export type AreaOfEffectCellType = typeof AreaOfEffectCellType[keyof typeof AreaOfEffectCellType];
 
-type TenKeyPosition = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+type TenKeyPosition = Sequence<9>
 
 export type AreaOfEffectCell = Readonly<{
   select?: TenKeyPosition,

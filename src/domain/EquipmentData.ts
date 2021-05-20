@@ -1,4 +1,5 @@
 import { equipmentData } from '../data/equipmentData';
+import { Sequence } from '../util/type';
 
 export const EquipmentType = {
   Chip: 'chip',
@@ -15,7 +16,7 @@ export const EquipmentRank = {
 } as const;
 export type EquipmentRank = typeof EquipmentRank[keyof typeof EquipmentRank]
 
-export type EnhancementLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+export type EnhancementLevel = 0 | Sequence<10>
 
 export type EquipmentValue = number | { [EquipmentRank.SS]: number }
 
