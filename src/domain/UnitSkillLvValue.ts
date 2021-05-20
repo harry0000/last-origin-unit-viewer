@@ -1,7 +1,8 @@
 import { UnitBasicInfo } from './UnitBasicInfo';
 import { availableRanksPerUnit } from './UnitRankValue';
+import { Sequence } from '../util/type';
 
-export type SkillLv = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+export type SkillLv = Sequence<10>
 
 function checkAvailablePassive(unit: UnitBasicInfo): number {
   return availableRanksPerUnit[unit.no].reduce((acc, v) => {
