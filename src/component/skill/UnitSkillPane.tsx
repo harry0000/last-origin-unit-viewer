@@ -11,8 +11,8 @@ import { Badge, Col, Container, Row, Tab } from 'react-bootstrap';
 import AreaOfEffectGrid from './AreaOfEffectGrid';
 import DamageDealView from './DamageDealView';
 import EffectsAsEquipmentDescriptionView from './EffectsAsEquipmentDescriptionView';
+import NumberValueDropdown from '../common/NumberValueDropdown';
 import SkillEffectsView from './SkillEffectsView';
-import SkillLvDropdown from './SkillLvDropdown';
 
 import { DamageDeal, SkillEffect } from '../../domain/UnitSkill';
 import { SkillApCostValue, SkillRangeValue } from '../../domain/UnitSkillData';
@@ -144,6 +144,8 @@ function passiveSkillProp(
   };
 }
 
+const skillLvItems = [...Array(10)].map((v, i) => 10 - i) as ReadonlyArray<SkillLv>;
+
 const SkillPane: React.FC<{
   eventKey: SkillTabType,
   skill?: SkillProp,
@@ -191,10 +193,12 @@ const SkillPane: React.FC<{
                   display: 'flex',
                   userSelect: 'none'
                 }}>
-                  <span>{t('skill.lv')}</span>
-                  <SkillLvDropdown
-                    css={{ marginLeft: 5, marginRight: 'auto', flexShrink: 0 }}
-                    lv={lv}
+                  <span css={{ marginRight: 5 }}>{t('lv')}</span>
+                  <NumberValueDropdown
+                    css={{ flexShrink: 0 }}
+                    id="skill-lv-dropdown"
+                    items={skillLvItems}
+                    value={lv}
                     onChange={onSkillLvChange}
                   />
                 </div>

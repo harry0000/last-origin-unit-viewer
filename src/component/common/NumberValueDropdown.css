@@ -1,0 +1,26 @@
+.numeric.dropdown {
+  display: inline;
+  border: 2px solid #444;
+  border-radius: 5px;
+  padding: 0 5px 0 10px;
+}
+
+.numeric.dropdown > a {
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+}
+
+.numeric.dropdown > a.dropdown-toggle:hover {
+  text-decoration: none;
+}
+
+.numeric.dropdown a.dropdown-toggle::after {
+  margin-left: 0.5em;
+}
+
+.numeric.dropdown .dropdown-menu.show {
+  min-width: 5rem;
+  max-height: 15rem;
+  overflow-y: scroll;
+}
