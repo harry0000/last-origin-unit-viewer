@@ -4,28 +4,32 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
 
 import { UnitAlias, unitNumbersForAlias } from '../../domain/UnitAlias';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
+
+import './UnitAliasView.css';
 
 const UnitAliasView: React.FC<{
   unitAlias: UnitAlias,
   selfUnitNumber: UnitNumber
 }> = ({ unitAlias, selfUnitNumber }) => {
   const { t } = useTranslation();
-  const toolTip = (
-    <Tooltip id='tooltip-unit-alias'>
-      {[...unitNumbersForAlias[unitAlias]]
-        .filter(n => n !== selfUnitNumber)
-        .map(n => (<div key={n} css={{ textAlign: 'left' }}>{t('unit:display', { number: n })}</div>))}
-    </Tooltip>
+  const popover = (
+    <Popover id="popover-unit-alias" className="as-tooltip">
+      <Popover.Content>
+        {[...unitNumbersForAlias[unitAlias]]
+          .filter(n => n !== selfUnitNumber)
+          .map(n => (<div key={n} css={{ textAlign: 'left' }}>{t('unit:display', { number: n })}</div>))}
+      </Popover.Content>
+    </Popover>
   );
 
   return (
     <OverlayTrigger
       placement='auto'
-      overlay={toolTip}
+      overlay={popover}
     >
       <span css={{ cursor: 'help', textDecoration: 'underline' }}>
         {t(`effect:unit.${unitAlias}`)}
