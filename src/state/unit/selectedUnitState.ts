@@ -2,20 +2,19 @@ import { DefaultValue, selector } from 'recoil';
 
 import { Unit } from '../../domain/Unit';
 
-import { unitStoreState } from './unitStoreState';
+import { unitState } from './unitState';
 import { unitSelectorStoreState } from './unitSelectorStoreState';
 
 export const selectedUnitState = selector<Unit | undefined>({
   key: 'selectedUnitState',
   get: ({ get }) => {
     const selector = get(unitSelectorStoreState);
-    const store    = get(unitStoreState);
 
-    return selector.selectedUnit && store.getUnit(selector.selectedUnit);
+    return selector.selectedUnit && get(unitState(selector.selectedUnit));
   },
-  set: ({ get, set }, newValue) => {
+  set: ({ set }, newValue) => {
     if (newValue && !(newValue instanceof DefaultValue)) {
-      set(unitStoreState, get(unitStoreState).setUnit(newValue));
+      set(unitState(newValue.basicInfo), newValue);
     }
   }
 });
