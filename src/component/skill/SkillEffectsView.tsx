@@ -19,11 +19,8 @@ const SkillEffectView: React.FC<{ effect: SkillEffect, unitNumber: UnitNumber, a
         borderRadius: 5,
         marginTop: 10,
         padding: 5,
-        '& > .skill-effect-details': {
+        '& > .skill-effect-details:not(:first-of-type)': {
           marginTop: 10
-        },
-        '& > .skill-effect-details:first-of-type': {
-          marginTop: 0
         }
       }}
     >
