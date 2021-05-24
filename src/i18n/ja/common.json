@@ -58,17 +58,32 @@
       "flying": "機動"
     }
   },
+  "lv": "Lv.",
   "status": {
+    "lv_mode": {
+      "label": "Auto",
+      "annotation": "使用ポイントに応じてLvを自動計算"
+    },
+    "remain_points": "PTS",
+    "reset_points": "ポイントをリセット",
+    "hp": "HP",
     "atk": "攻撃力",
     "def": "防御力",
     "acc": "命中率",
     "eva": "回避率",
     "cri": "クリティカル率",
     "spd": "行動力",
-    "ap": "AP"
+    "ap": "AP",
+    "fire_resist": "火炎属性耐性",
+    "ice_resist": "冷気属性耐性",
+    "electric_resist": "電気属性耐性",
+    "effected": {
+      "enhancement": "強化Lv. {{value}}",
+      "core_link": "コアリンク ( + {{value}} % )",
+      "equipment": "$t(equipment:{{name}}) 強化Lv. {{value}}"
+    }
   },
   "skill": {
-    "lv": "Lv.",
     "ap": "AP",
     "range": "射程",
     "area": "スキル範囲",

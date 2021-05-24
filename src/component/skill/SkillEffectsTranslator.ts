@@ -3,7 +3,7 @@ import { TFunction } from 'i18next';
 import { NonNullableEntry } from '../../util/object';
 import { AroundSkillEffectValue, SkillEffectValue } from '../../domain/UnitSkill';
 import { Effect } from '../../domain/Effect';
-import { calculateValue, MilliPercentageValue } from '../../domain/EffectValue';
+import { calcValue, MilliPercentageValue } from '../../domain/EffectValue';
 
 export type SkillEffectDetailsEntry =
   NonNullableEntry<keyof SkillEffectValue, SkillEffectValue> |
@@ -15,7 +15,7 @@ function getDetail(body: string, value: SkillEffectDetailsEntry[1], t: TFunction
   const rate = 'rate' in value && value.rate ?
     typeof value.rate === 'string' ?
       `${t(`effect:rate.${value.rate}`)}${t('effect:separator')}` :
-      `${t('effect:rate.percentage', { value: calculateValue(value.rate) })}${t('effect:separator')}` :
+      `${t('effect:rate.percentage', { value: calcValue(value.rate) })}${t('effect:separator')}` :
     '';
   const additions = [
     'times' in value && value.times ?
@@ -54,7 +54,7 @@ function translateMilliPercentageDetail(
 ): SkillEffectDetailsProps {
   return {
     tag: getTag(value, t),
-    detail: getDetail(t(`effect:effect.description.${effect}`, { value: calculateValue(value) }), value, t),
+    detail: getDetail(t(`effect:effect.description.${effect}`, { value: calcValue(value) }), value, t),
     term: getTerm(value, t)
   };
 }
@@ -125,7 +125,7 @@ export function translateSkillEffectDetails(
     return {
       tag: getTag(entry[1], t),
       detail: getDetail(
-        t(`effect:effect.description.${entry[0]}`, { value: calculateValue(entry[1]) }),
+        t(`effect:effect.description.${entry[0]}`, { value: calcValue(entry[1]) }),
         entry[1],
         t
       ),
@@ -158,7 +158,7 @@ export function translateSkillEffectDetails(
     };
   }
   case Effect.ActivationRatePercentageUp: {
-    const value  = calculateValue(entry[1]);
+    const value  = calcValue(entry[1]);
     const effect = entry[1].effect;
 
     return {

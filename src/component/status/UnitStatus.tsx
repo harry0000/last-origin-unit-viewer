@@ -9,16 +9,16 @@ import { UnitBasicInfoView } from './UnitBasicInfoView';
 import { UnitFormSelector } from './UnitFormSelector';
 
 import { selectedUnitState } from '../../state/unit/selectedUnitState';
+import UnitStatusParameter from './UnitStatusParameter';
 
 const UnitStatus: React.FC<{ className?: string, css?: Interpolation<Theme> }> = (props) => {
   const unit = useRecoilValue(selectedUnitState);
 
   return (
-    <div {...props}>
+    <div {...props} css={{ userSelect: 'none' }}>
       <UnitBasicInfoView unit={unit?.basicInfo} />
-      <div css={{ padding: '5px 0 5px 90px' }}>
-        <UnitFormSelector />
-      </div>
+      <UnitStatusParameter />
+      <UnitFormSelector css={{ marginTop: 10 }} />
     </div>
   );
 };

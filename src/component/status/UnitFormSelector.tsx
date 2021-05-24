@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { Theme, jsx } from '@emotion/react';
+import { Interpolation } from '@emotion/serialize';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
@@ -12,36 +13,27 @@ import SVGIcon from '../icon/SVGIcon';
 import { isFormChangeUnit } from '../../domain/Unit';
 import { selectedUnitState } from '../../state/unit/selectedUnitState';
 
-export const UnitFormSelector: React.FC = () => {
+export const UnitFormSelector: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
   const { t } = useTranslation();
   const [unit, setUnit] = useRecoilState(selectedUnitState);
 
   return unit && isFormChangeUnit(unit) ?
-    (<div>
+    (<div {...props} css={{ padding: '5px 0 5px 10px' }}>
       <OverlayTrigger
         placement='auto'
         overlay={<Tooltip id='tooltip-form-change'>{t('form_change')}</Tooltip>}
       >
         <Button
           variant="secondary"
+          css={{ lineHeight: '1.2', marginRight: 10 }}
           onClick={() => { setUnit(unit => unit && isFormChangeUnit(unit) ? unit.changeForm(): unit); }}
         >
-          <SVGIcon
-            css={{
-              height: 24,
-              width: 24
-            }}
-          >
+          <SVGIcon css={{ height: 20, width: 20 }}>
             <ArrowSync />
           </SVGIcon>
         </Button>
       </OverlayTrigger>
-      <span
-        css={{
-          color: '#eee',
-          marginLeft: 10
-        }}
-      >
+      <span css={{ color: '#eee' }}>
         {t(`effect:form.${unit.unitForm()}`)}
       </span>
     </div>) :

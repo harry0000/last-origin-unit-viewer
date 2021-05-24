@@ -9,15 +9,13 @@ import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { UnitAlias, unitNumbersForAlias } from '../../domain/UnitAlias';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 
-import './UnitAliasView.css';
-
 const UnitAliasView: React.FC<{
   unitAlias: UnitAlias,
   selfUnitNumber: UnitNumber
 }> = ({ unitAlias, selfUnitNumber }) => {
   const { t } = useTranslation();
   const popover = (
-    <Popover id="popover-unit-alias" className="as-tooltip">
+    <Popover id="popover-unit-alias" css={{ opacity: '0.9' }}>
       <Popover.Content>
         {[...unitNumbersForAlias[unitAlias]]
           .filter(n => n !== selfUnitNumber)
