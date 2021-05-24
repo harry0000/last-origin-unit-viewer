@@ -100,9 +100,10 @@ class UnitSelectorStore {
   }
 
   selectUnit(unit: UnitBasicInfo): UnitSelectorStore {
-    return this.updateStore({
-      selectedUnit: unit
-    });
+    if (unit.no !== this.selectedUnit?.no) {
+      return this.updateStore({ selectedUnit: unit });
+    }
+    return this;
   }
 
   isRankSelected(rank: UnitRank): boolean {

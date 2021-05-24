@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { DamageDeal } from '../../domain/UnitSkill';
 import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
-import { calculateValue } from '../../domain/EffectValue';
+import { calcValue } from '../../domain/EffectValue';
 
 import { AttributeColorStyle } from './AttributeColorStyle';
 import { ifNonNullable } from '../../util/react';
@@ -23,7 +23,7 @@ const DamageDealView: React.FC<{ damage_deal: DamageDeal, area: SkillAreaType }>
       )}
       <span>{t('status.atk')}</span>
       <span css={{ margin: '0 5px', color: '#fc0', fontWeight: 'bold' }}>
-        {calculateValue(damage_deal)}%
+        {calcValue(damage_deal)}%
       </span>
       <span>{t('effect:as_preposition')}</span>
       {ifNonNullable(

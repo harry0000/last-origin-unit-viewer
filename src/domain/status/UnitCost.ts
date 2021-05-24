@@ -1,4 +1,4 @@
-import { UnitRank } from './UnitBasicInfo';
+import { UnitRank } from '../UnitBasicInfo';
 
 export type UnitCost = {
   part: number,

@@ -3,22 +3,18 @@
 import { Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 
 import { UnitBasicInfoView } from './UnitBasicInfoView';
 import { UnitFormSelector } from './UnitFormSelector';
 
-import { selectedUnitState } from '../../state/unit/selectedUnitState';
+import UnitStatusParameter from './UnitStatusParameter';
 
 const UnitStatus: React.FC<{ className?: string, css?: Interpolation<Theme> }> = (props) => {
-  const unit = useRecoilValue(selectedUnitState);
-
   return (
-    <div {...props}>
-      <UnitBasicInfoView unit={unit?.basicInfo} />
-      <div css={{ padding: '5px 0 5px 90px' }}>
-        <UnitFormSelector />
-      </div>
+    <div {...props} css={{ userSelect: 'none' }}>
+      <UnitBasicInfoView />
+      <UnitStatusParameter />
+      <UnitFormSelector css={{ marginTop: 10 }} />
     </div>
   );
 };

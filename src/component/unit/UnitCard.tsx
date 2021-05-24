@@ -30,7 +30,7 @@ const selectedUnitBoxShadow: CSSObject = {
   }
 };
 
-const Badge: React.FC<{ rank: UnitRank, role: UnitRole }> = ({ rank, role }) => {
+const Badge: React.FC<{ rank: UnitRank, role: UnitRole }> = React.memo(({ rank, role }) => {
   const [top, height, width] = rank === 'ss' ? [-10, 45, 52] : [-5, 40, 40];
 
   return (
@@ -46,18 +46,13 @@ const Badge: React.FC<{ rank: UnitRank, role: UnitRole }> = ({ rank, role }) => 
       src={`${process.env.PUBLIC_URL}/icon/${rank}_${role}.webp`}
     />
   );
-};
+});
 
 const UnitCard: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
   const { t } = useTranslation();
 
   const [store, setStore] = useRecoilState(unitSelectorStoreState);
   const isSelected = unit.no === store.selectedUnit?.no;
-  const onClick = () => {
-    if (!isSelected) {
-      setStore(store.selectUnit(unit));
-    }
-  };
   const unitName = t('unit:display', { number: unit.no });
 
   return (
@@ -72,7 +67,7 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
           userSelect: 'none',
           ...(isSelected ? selectedUnitBoxShadow : {})
         }}
-        onClick={onClick}
+        onClick={() => setStore(s => s.selectUnit(unit))}
       >
         <Image
           fluid
