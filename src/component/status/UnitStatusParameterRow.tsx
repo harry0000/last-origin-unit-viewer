@@ -42,7 +42,7 @@ const StatusIcon: React.FC<{ status: Parameter }> = ({ status }) => {
   );
 };
 
-const StatusParameterLabel: React.FC<{ parameter: Parameter }> = ({ parameter }) => {
+const StatusParameterLabel: React.FC<{ parameter: Parameter }> = React.memo(({ parameter }) => {
   const { t } = useTranslation();
 
   return (
@@ -51,7 +51,7 @@ const StatusParameterLabel: React.FC<{ parameter: Parameter }> = ({ parameter })
       <div css={{ fontSize: '0.9em' }}><span>{t(`status.${parameter}`)}</span></div>
     </div>
   );
-};
+});
 
 type StatusEffects = ReadonlyArray<HpEffect | AtkEffect | DefEffect | AccEffect | EvaEffect | CriEffect>
 type StatusParameterValues = {

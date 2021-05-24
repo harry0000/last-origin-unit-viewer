@@ -30,7 +30,7 @@ const selectedUnitBoxShadow: CSSObject = {
   }
 };
 
-const Badge: React.FC<{ rank: UnitRank, role: UnitRole }> = ({ rank, role }) => {
+const Badge: React.FC<{ rank: UnitRank, role: UnitRole }> = React.memo(({ rank, role }) => {
   const [top, height, width] = rank === 'ss' ? [-10, 45, 52] : [-5, 40, 40];
 
   return (
@@ -46,7 +46,7 @@ const Badge: React.FC<{ rank: UnitRank, role: UnitRole }> = ({ rank, role }) => 
       src={`${process.env.PUBLIC_URL}/icon/${rank}_${role}.webp`}
     />
   );
-};
+});
 
 const UnitCard: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
   const { t } = useTranslation();
