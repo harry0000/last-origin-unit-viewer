@@ -15,12 +15,12 @@ const MainContainer: React.FC = () => {
   return (
     <React.Fragment>
       <Header />
-      <div className='main'>
+      <main className='main'>
         <UnitSelector className='main-content' />
         <UnitList className='main-content' />
         <UnitStatus className='main-content' />
         <UnitSkillList className='main-content' />
-      </div>
+      </main>
     </React.Fragment>
   );
 };
