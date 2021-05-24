@@ -1,13 +1,13 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { CSSObject, jsx, Theme } from '@emotion/react';
+import { Interpolation } from '@emotion/serialize';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { filteredUnitsState } from '../../state/unit/filteredUnitsState';
 
 import UnitCard from './UnitCard';
-import { Interpolation } from '@emotion/serialize';
 
 const customScrollBar: CSSObject = {
   scrollbarColor: '#ffcc00 #514E55',
@@ -28,9 +28,21 @@ const customScrollBar: CSSObject = {
   }
 };
 
-const UnitList: React.FC<{ className?: string, css?: Interpolation<Theme> }> = (props) => {
+const UnitCards: React.FC = () => {
   const units = useRecoilValue(filteredUnitsState);
 
+  return (
+    <React.Fragment>
+      {units.map(unit => {
+        return (
+          <UnitCard key={unit.no} unit={unit} />
+        );
+      })}
+    </React.Fragment>
+  );
+};
+
+const UnitList: React.FC<{ className?: string, css?: Interpolation<Theme> }> = (props) => {
   return (
     <div
       {...props}
@@ -42,19 +54,15 @@ const UnitList: React.FC<{ className?: string, css?: Interpolation<Theme> }> = (
       }}
     >
       <div
-        css={
-          {
-            display: 'grid',
-            gridGap: 10,
-            gridTemplateColumns: 'repeat(auto-fill, 100px)',
-            gridTemplateRows: 'repeat(auto-fill, 100px)',
-            justifyContent: 'space-evenly'
-          }
-        }
+        css={{
+          display: 'grid',
+          gridGap: 10,
+          gridTemplateColumns: 'repeat(auto-fill, 100px)',
+          gridTemplateRows: 'repeat(auto-fill, 100px)',
+          justifyContent: 'space-evenly'
+        }}
       >
-        {units.map(c => (
-          <UnitCard key={c.no} unit={c} />
-        ))}
+        <UnitCards />
       </div>
     </div>
   );

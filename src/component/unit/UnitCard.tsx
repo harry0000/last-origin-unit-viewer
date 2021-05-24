@@ -53,11 +53,6 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
 
   const [store, setStore] = useRecoilState(unitSelectorStoreState);
   const isSelected = unit.no === store.selectedUnit?.no;
-  const onClick = () => {
-    if (!isSelected) {
-      setStore(store.selectUnit(unit));
-    }
-  };
   const unitName = t('unit:display', { number: unit.no });
 
   return (
@@ -72,7 +67,7 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
           userSelect: 'none',
           ...(isSelected ? selectedUnitBoxShadow : {})
         }}
-        onClick={onClick}
+        onClick={() => setStore(s => s.selectUnit(unit))}
       >
         <Image
           fluid
