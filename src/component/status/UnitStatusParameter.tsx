@@ -75,6 +75,7 @@ const ResetPointsButton: React.FC<{ disabled: boolean, onClick: () => void }> = 
     >
       <Button
         variant="danger"
+        aria-label="Reset points"
         css={{ lineHeight: '1.2' }}
         disabled={disabled}
         onClick={onClick}
