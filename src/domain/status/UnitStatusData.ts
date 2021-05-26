@@ -1,5 +1,5 @@
 import { UnitNumber } from '../UnitBasicInfo';
-import { IntegerValue, MicroValue, MilliPercentageValue, ValueUnit } from '../EffectValue';
+import { IntegerValue, MicroValue, MilliPercentageValue, ValueUnit } from '../SkillEffectValue';
 
 type ParameterPerLevel<T extends Exclude<ValueUnit, 'microValue' | 'milliPercentage'>> = {
   1: { [key in T]: number },

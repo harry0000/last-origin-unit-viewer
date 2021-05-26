@@ -18,7 +18,5 @@ export type EquipmentRank = typeof EquipmentRank[keyof typeof EquipmentRank]
 
 export type EnhancementLevel = 0 | Sequence<10>
 
-export type EquipmentValue = number | { [EquipmentRank.SS]: number }
-
 export type EquipmentId = keyof typeof equipmentData
 export type EquipmentData = typeof equipmentData[EquipmentId]

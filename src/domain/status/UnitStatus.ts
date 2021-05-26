@@ -5,7 +5,7 @@ import {
   calcMicroValues,
   calcMilliPercentageValues,
   calcMilliValues
-} from '../EffectValue';
+} from '../SkillEffectValue';
 import UnitBaseParameter from './UnitBaseParameter';
 import UnitStatusEffect from './UnitStatusEffect';
 

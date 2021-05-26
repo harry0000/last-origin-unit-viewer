@@ -14,13 +14,13 @@ import {
   SkillEffectActivationCondition,
   SkillEffectActivationState, UnitTypeAndRole
 } from '../../domain/SkillEffectActivationCondition';
-import { EffectActivationState } from '../../domain/Effect';
 import { SkillEffect } from '../../domain/UnitSkill';
 import { UnitAlias } from '../../domain/UnitAlias';
 import { UnitKind, UnitNumber, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
 
 import { NonNullableEntry } from '../../util/object';
 import { ifNonNullable, ifTruthy } from '../../util/react';
+import { EffectActivationState } from '../../domain/EffectActivationState';
 
 type SkillEffectActivationStateValues =
   ReadonlyArray<ActivationSelfState> |

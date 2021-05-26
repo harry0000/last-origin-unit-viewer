@@ -1,5 +1,5 @@
 import { UnitBasicInfo } from '../UnitBasicInfo';
-import { IntegerValue, MilliPercentageValue, MilliValue } from '../EffectValue';
+import { IntegerValue, MilliPercentageValue, MilliValue } from '../SkillEffectValue';
 
 type ParameterLv = {
   hpLv?: number,

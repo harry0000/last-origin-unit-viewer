@@ -3,17 +3,21 @@ import {
   SkillApCostValue,
   SkillRangeValue
 } from './UnitSkillData';
-import { Effect, EquipmentEffectOnly } from './Effect';
 import {
-  IntegerValue,
+  Effect,
+  EquipmentEffectOnly,
   IntegerValueEffectKey,
   MicroValueEffectKey,
   MilliPercentageEffectKey,
-  MilliPercentageValue,
   NoValueEffectKey,
   PushPullEffectKey,
-  RangeUpDownEffectKey, ValueUnit
-} from './EffectValue';
+  RangeUpDownEffectKey
+} from './Effect';
+import {
+  IntegerValue,
+  MilliPercentageValue,
+  ValueUnit
+} from './SkillEffectValue';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import { SkillEffectActivationRate } from './SkillEffectActivationRate';
 import { SkillEffectActivationCondition } from './SkillEffectActivationCondition';

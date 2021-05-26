@@ -6,7 +6,8 @@ import {
   UnitSkillData,
   isPassiveSkillData
 } from '../domain/UnitSkillData';
-import { Effect, EffectActivationState } from '../domain/Effect';
+import { Effect } from '../domain/Effect';
+import { EffectActivationState } from '../domain/EffectActivationState';
 import { FormChangeUnits } from '../domain/UnitFormValue';
 import { SkillEffectData, SkillEffectDataValue } from '../domain/SkillEffectData';
 import { SkillEffectTag } from '../domain/SkillEffectTag';

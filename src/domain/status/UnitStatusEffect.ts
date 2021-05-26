@@ -1,6 +1,6 @@
 import UnitParameterEnhancementLv from './UnitParameterEnhancementLv';
 import { EquipmentId } from '../EquipmentData';
-import { IntegerValue, MilliPercentageValue, MilliValue } from '../EffectValue';
+import { IntegerValue, MilliPercentageValue, MilliValue } from '../SkillEffectValue';
 
 // TODO: Add full_link & rank_up
 type StatusEffected = {

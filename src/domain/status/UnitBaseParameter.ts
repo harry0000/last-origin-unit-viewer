@@ -1,4 +1,4 @@
-import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue } from '../EffectValue';
+import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue } from '../SkillEffectValue';
 import { UnitLvValue } from './UnitLv';
 import { UnitNumber } from '../UnitBasicInfo';
 

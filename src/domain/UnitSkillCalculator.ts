@@ -15,7 +15,9 @@ import {
   Passive1Skill,
   Passive2Skill,
   Passive3Skill,
-  SkillEffect, SkillEffectValue, AroundSkillEffectValue
+  SkillEffect,
+  SkillEffectValue,
+  AroundSkillEffectValue
 } from './UnitSkill';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import { AroundSkillEffectDataValue, SkillEffectData, SkillEffectDataValue } from './SkillEffectData';
@@ -23,15 +25,18 @@ import { UnitBasicData, UnitNumber, UnitRank, UnitRankComparator } from './UnitB
 import UnitFormValue, { FormChangeUnitNumbers, FormChangeUnits } from './UnitFormValue';
 import UnitSkillLvValue, { SkillLv } from './UnitSkillLvValue';
 import { unitSkillData } from '../data/unitSkillData';
-import { Effect, EquipmentEffectOnly } from './Effect';
 import {
+  Effect,
+  EquipmentEffectOnly,
   IntegerValueEffectKey,
   MicroValueEffectKey,
   MilliPercentageEffectKey,
   NoValueEffectKey,
-  RangeUpDownEffectKey,
+  RangeUpDownEffectKey
+} from './Effect';
+import {
   ValueUnit
-} from './EffectValue';
+} from './SkillEffectValue';
 import { foldObjectNonNullableEntry, NonNullableEntry } from '../util/object';
 
 type Value<T extends ValueUnit> =

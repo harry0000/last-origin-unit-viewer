@@ -11,7 +11,7 @@ import UnitStatusParameterButton from './UnitStatusParameterButton';
 
 import { AccEffect, AtkEffect, CriEffect, DefEffect, EvaEffect, HpEffect } from '../../domain/status/UnitStatusEffect';
 import UnitStatus from '../../domain/status/UnitStatus';
-import { calcMilliPercentageValue, calcMilliValue, calcValue } from '../../domain/EffectValue';
+import { calcMilliPercentageValue, calcMilliValue, calcValue } from '../../domain/SkillEffectValue';
 
 const parameterCol: CSSObject = {
   fontSize: '1.2em',
