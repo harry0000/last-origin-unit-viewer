@@ -1495,7 +1495,7 @@ export const unitStatusData: UnitStatusData = {
   93: {
     hp: {
       1: { value: 163 },
-      90: { value: 1578 }
+      90: { value: 1758 }
     },
     atk: {
       1: { milliValue: 59000 },
