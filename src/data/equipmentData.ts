@@ -24,17 +24,17 @@ export const equipmentData = {
     type: 'chip',
     id: 'action_chip',
     status_effects: [
-      { spd_up: { microValue: { ss: 1500000 } } },
-      { spd_up: { microValue: { ss: 1575000 } } },
-      { spd_up: { microValue: { ss: 1650000 } } },
-      { spd_up: { microValue: { ss: 1725000 } } },
-      { spd_up: { microValue: { ss: 1800000 } } },
-      { spd_up: { microValue: { ss: 1875000 } } },
-      { spd_up: { microValue: { ss: 1950000 } } },
-      { spd_up: { microValue: { ss: 2025000 } } },
-      { spd_up: { microValue: { ss: 2100000 } } },
-      { spd_up: { microValue: { ss: 2175000 } } },
-      { spd_up: { microValue: { ss: 2250000 } } }
+      { spd_up: { microValue: { ss: 150000 } } },
+      { spd_up: { microValue: { ss: 157500 } } },
+      { spd_up: { microValue: { ss: 165000 } } },
+      { spd_up: { microValue: { ss: 172500 } } },
+      { spd_up: { microValue: { ss: 180000 } } },
+      { spd_up: { microValue: { ss: 187500 } } },
+      { spd_up: { microValue: { ss: 195000 } } },
+      { spd_up: { microValue: { ss: 202500 } } },
+      { spd_up: { microValue: { ss: 210000 } } },
+      { spd_up: { microValue: { ss: 217500 } } },
+      { spd_up: { microValue: { ss: 225000 } } }
     ]
   },
   // {
@@ -167,17 +167,17 @@ export const equipmentData = {
     type: 'chip',
     id: 'exp_chip',
     equipment_effects: [
-      [{ condition: { trigger: 'attack' }, max_stack: 3, details: { exp_up: { milliPercentage: { ss: 3800 } } } }],
-      [{ condition: { trigger: 'attack' }, max_stack: 3, details: { exp_up: { milliPercentage: { ss: 4000 } } } }],
-      [{ condition: { trigger: 'attack' }, max_stack: 3, details: { exp_up: { milliPercentage: { ss: 4200 } } } }],
-      [{ condition: { trigger: 'attack' }, max_stack: 3, details: { exp_up: { milliPercentage: { ss: 4400 } } } }],
-      [{ condition: { trigger: 'attack' }, max_stack: 3, details: { exp_up: { milliPercentage: { ss: 4800 } } } }],
-      [{ condition: { trigger: 'attack' }, max_stack: 3, details: { exp_up: { milliPercentage: { ss: 5200 } } } }],
-      [{ condition: { trigger: 'attack' }, max_stack: 3, details: { exp_up: { milliPercentage: { ss: 5600 } } } }],
-      [{ condition: { trigger: 'attack' }, max_stack: 3, details: { exp_up: { milliPercentage: { ss: 6200 } } } }],
-      [{ condition: { trigger: 'attack' }, max_stack: 3, details: { exp_up: { milliPercentage: { ss: 6800 } } } }],
-      [{ condition: { trigger: 'attack' }, max_stack: 3, details: { exp_up: { milliPercentage: { ss: 7400 } } } }],
-      [{ condition: { trigger: 'attack' }, max_stack: 3, details: { exp_up: { milliPercentage: { ss: 8000 } } } }]
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 3800 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 4000 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 4200 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 4400 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 4800 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 5200 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 5600 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 6200 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 6800 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 7400 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 8000 }, max_stack: 3 } } }]
     ]
   },
   hp_chip: {
@@ -298,7 +298,7 @@ export const equipmentData = {
   atflir_reinforcement_chip: {
     type: 'chip',
     id: 'atflir_reinforcement_chip',
-    requirement: {
+    exclusive: {
       unit: 55
     },
     status_effects: [
@@ -318,7 +318,7 @@ export const equipmentData = {
   aerial_defense_os: {
     type: 'os',
     id: 'aerial_defense_os',
-    requirement: {
+    exclusive: {
       type: 'flying',
       role: 'defender'
     },
@@ -574,7 +574,10 @@ export const equipmentData = {
   },
   // runaway_inducement_os: {
   //   type: 'os',
-  //   id: 'runaway_inducement_os'
+  //   id: 'runaway_inducement_os',
+  //   exclusive: {
+  //     unit: 224
+  //   }
   // },
   watchers_eye_type_d_os: {
     type: 'os',
