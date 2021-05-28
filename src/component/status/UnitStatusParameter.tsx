@@ -114,7 +114,7 @@ const UnitStatusParameter: React.FC = () => {
         </div>
         <div css={remainPointsStyle}>
           <div css={{ display: 'inline-block', width: '50%', textAlign: 'right' }}>{status ? status.remainPoints : 0}</div>
-          <div css={{ display: 'inline-block', width: '50%', textAlign: 'left' }}>&nbsp;{t('status.remain_points')}</div>
+          <div css={{ display: 'inline-block', width: '50%', textAlign: 'left', fontSize: '0.8em' }}>&nbsp;{t('status.remain_points')}</div>
         </div>
         <div css={resetPointsStyle}>
           <ResetPointsButton
