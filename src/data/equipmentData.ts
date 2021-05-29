@@ -1379,18 +1379,96 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue: 2000000 } } }]
     ]
   },
-  // mini_lilith: {
-  //   type: 'gear',
-  //   id: 'mini_lilith'
-  // },
-  // mini_hachiko: {
-  //   type: 'gear',
-  //   id: 'mini_hachiko'
-  // },
-  // mini_perrault: {
-  //   type: 'gear',
-  //   id: 'mini_perrault'
-  // },
+  mini_hachiko: {
+    type: 'gear',
+    id: 'mini_hachiko',
+    status_effects: [
+      { hp_up: { value: 150 }, def_up: { milliValue: 30000 } },
+      { hp_up: { value: 180 }, def_up: { milliValue: 33000 } },
+      { hp_up: { value: 210 }, def_up: { milliValue: 36000 } },
+      { hp_up: { value: 240 }, def_up: { milliValue: 39000 } },
+      { hp_up: { value: 270 }, def_up: { milliValue: 42000 } },
+      { hp_up: { value: 300 }, def_up: { milliValue: 45000 } },
+      { hp_up: { value: 330 }, def_up: { milliValue: 48000 } },
+      { hp_up: { value: 360 }, def_up: { milliValue: 51000 } },
+      { hp_up: { value: 390 }, def_up: { milliValue: 54000 } },
+      { hp_up: { value: 420 }, def_up: { milliValue: 57000 } },
+      { hp_up: { value: 450 }, def_up: { milliValue: 60000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { value: 100, times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { value: 150, times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { value: 200, times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { value: 250, times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { value: 300, times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { value: 350, times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { value: 400, times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { value: 450, times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { value: 500, times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { value: 550, times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { value: 600, times: 1 } } }]
+    ]
+  },
+  mini_lilith: {
+    type: 'gear',
+    id: 'mini_lilith',
+    status_effects: [
+      { atk_up: { milliValue: 30000 }, acc_up: { milliPercentage: 15000 } },
+      { atk_up: { milliValue: 36000 }, acc_up: { milliPercentage: 16500 } },
+      { atk_up: { milliValue: 42000 }, acc_up: { milliPercentage: 18000 } },
+      { atk_up: { milliValue: 48000 }, acc_up: { milliPercentage: 19500 } },
+      { atk_up: { milliValue: 54000 }, acc_up: { milliPercentage: 21000 } },
+      { atk_up: { milliValue: 60000 }, acc_up: { milliPercentage: 22500 } },
+      { atk_up: { milliValue: 66000 }, acc_up: { milliPercentage: 24000 } },
+      { atk_up: { milliValue: 72000 }, acc_up: { milliPercentage: 25500 } },
+      { atk_up: { milliValue: 78000 }, acc_up: { milliPercentage: 27000 } },
+      { atk_up: { milliValue: 84000 }, acc_up: { milliPercentage: 28500 } },
+      { atk_up: { milliValue: 90000 }, acc_up: { milliPercentage: 30000 } }
+    ],
+    equipment_effects: [
+      [{ details: { damage_reduction: { milliPercentage:   500 } } }],
+      [{ details: { damage_reduction: { milliPercentage:  1000 } } }],
+      [{ details: { damage_reduction: { milliPercentage:  2000 } } }],
+      [{ details: { damage_reduction: { milliPercentage:  3000 } } }],
+      [{ details: { damage_reduction: { milliPercentage:  4000 } } }],
+      [{ details: { damage_reduction: { milliPercentage:  5000 } } }],
+      [{ details: { damage_reduction: { milliPercentage:  6000 } } }],
+      [{ details: { damage_reduction: { milliPercentage:  7000 } } }],
+      [{ details: { damage_reduction: { milliPercentage:  8000 } } }],
+      [{ details: { damage_reduction: { milliPercentage:  9000 } } }],
+      [{ details: { damage_reduction: { milliPercentage: 10000 } } }]
+    ]
+  },
+  mini_perrault: {
+    type: 'gear',
+    id: 'mini_perrault',
+    status_effects: [
+      { eva_up: { milliPercentage:  7000 }, acc_up: { milliPercentage: 15000 } },
+      { eva_up: { milliPercentage:  8400 }, acc_up: { milliPercentage: 16500 } },
+      { eva_up: { milliPercentage:  9800 }, acc_up: { milliPercentage: 18000 } },
+      { eva_up: { milliPercentage: 11200 }, acc_up: { milliPercentage: 19500 } },
+      { eva_up: { milliPercentage: 12600 }, acc_up: { milliPercentage: 21000 } },
+      { eva_up: { milliPercentage: 14000 }, acc_up: { milliPercentage: 22500 } },
+      { eva_up: { milliPercentage: 15400 }, acc_up: { milliPercentage: 24000 } },
+      { eva_up: { milliPercentage: 16800 }, acc_up: { milliPercentage: 25500 } },
+      { eva_up: { milliPercentage: 18200 }, acc_up: { milliPercentage: 27000 } },
+      { eva_up: { milliPercentage: 19600 }, acc_up: { milliPercentage: 28500 } },
+      { eva_up: { milliPercentage: 21000 }, acc_up: { milliPercentage: 30000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue:  50000 } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue: 100000 } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue: 150000 } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue: 200000 } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue: 250000 } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue: 300000 } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue: 350000 } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue: 400000 } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue: 450000 } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue: 500000 } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue: 550000 } } }]
+    ]
+  },
   '40mm_du_rounds': {
     type: 'gear',
     id: '40mm_du_rounds',
