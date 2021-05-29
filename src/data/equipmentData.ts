@@ -788,66 +788,6 @@ export const equipmentData = {
       [{ details: { damage_reduction: { milliPercentage: { ss: 10000 } } } }]
     ]
   },
-  cooling_pack: {
-    type: 'gear',
-    id: 'cooling_pack',
-    status_effects: [
-      { fire_resist_up: { milliPercentage: 25000 } },
-      { fire_resist_up: { milliPercentage: 27500 } },
-      { fire_resist_up: { milliPercentage: 30000 } },
-      { fire_resist_up: { milliPercentage: 32500 } },
-      { fire_resist_up: { milliPercentage: 35000 } },
-      { fire_resist_up: { milliPercentage: 37500 } },
-      { fire_resist_up: { milliPercentage: 40000 } },
-      { fire_resist_up: { milliPercentage: 42500 } },
-      { fire_resist_up: { milliPercentage: 45000 } },
-      { fire_resist_up: { milliPercentage: 47500 } },
-      { fire_resist_up: { milliPercentage: 50000 } }
-    ],
-    equipment_effects: [
-      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  500000 } } }],
-      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  550000 } } }],
-      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  600000 } } }],
-      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  650000 } } }],
-      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  700000 } } }],
-      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  750000 } } }],
-      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  800000 } } }],
-      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  850000 } } }],
-      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  900000 } } }],
-      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  950000 } } }],
-      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue: 1000000 } } }]
-    ]
-  },
-  crystal_ball_of_fate: {
-    type: 'gear',
-    id: 'crystal_ball_of_fate',
-    status_effects: [
-      { acc_up: { milliPercentage:  5000 }, eva_up: { milliPercentage:  5000 } },
-      { acc_up: { milliPercentage:  6000 }, eva_up: { milliPercentage:  6000 } },
-      { acc_up: { milliPercentage:  7000 }, eva_up: { milliPercentage:  7000 } },
-      { acc_up: { milliPercentage:  8000 }, eva_up: { milliPercentage:  8000 } },
-      { acc_up: { milliPercentage:  9000 }, eva_up: { milliPercentage:  9000 } },
-      { acc_up: { milliPercentage: 10000 }, eva_up: { milliPercentage: 10000 } },
-      { acc_up: { milliPercentage: 11000 }, eva_up: { milliPercentage: 11000 } },
-      { acc_up: { milliPercentage: 12000 }, eva_up: { milliPercentage: 12000 } },
-      { acc_up: { milliPercentage: 13000 }, eva_up: { milliPercentage: 13000 } },
-      { acc_up: { milliPercentage: 14000 }, eva_up: { milliPercentage: 14000 } },
-      { acc_up: { milliPercentage: 15000 }, eva_up: { milliPercentage: 15000 } }
-    ],
-    equipment_effects: [
-      [{ details: { spd_up: { milliPercentage:  5000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
-      [{ details: { spd_up: { milliPercentage:  6000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
-      [{ details: { spd_up: { milliPercentage:  7000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
-      [{ details: { spd_up: { milliPercentage:  8000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
-      [{ details: { spd_up: { milliPercentage:  9000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
-      [{ details: { spd_up: { milliPercentage: 10000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
-      [{ details: { spd_up: { milliPercentage: 11000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
-      [{ details: { spd_up: { milliPercentage: 12000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
-      [{ details: { spd_up: { milliPercentage: 13000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
-      [{ details: { spd_up: { milliPercentage: 14000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
-      [{ details: { spd_up: { milliPercentage: 15000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }]
-    ]
-  },
   decoy_hologram: {
     type: 'gear',
     id: 'decoy_hologram',
@@ -965,34 +905,21 @@ export const equipmentData = {
       { ice_resist_up: { milliPercentage: { ss: 70000 } } }
     ]
   },
-  grand_cru_chocolate: {
+  shock_spray: {
     type: 'gear',
-    id: 'grand_cru_chocolate',
+    id: 'shock_spray',
     status_effects: [
-      { atk_up: { milliValue:  50000 }, eva_up: { milliPercentage:  5000 } },
-      { atk_up: { milliValue:  55000 }, eva_up: { milliPercentage:  6000 } },
-      { atk_up: { milliValue:  60000 }, eva_up: { milliPercentage:  7000 } },
-      { atk_up: { milliValue:  65000 }, eva_up: { milliPercentage:  8000 } },
-      { atk_up: { milliValue:  70000 }, eva_up: { milliPercentage:  9000 } },
-      { atk_up: { milliValue:  75000 }, eva_up: { milliPercentage: 10000 } },
-      { atk_up: { milliValue:  80000 }, eva_up: { milliPercentage: 11000 } },
-      { atk_up: { milliValue:  85000 }, eva_up: { milliPercentage: 12000 } },
-      { atk_up: { milliValue:  90000 }, eva_up: { milliPercentage: 13000 } },
-      { atk_up: { milliValue:  95000 }, eva_up: { milliPercentage: 14000 } },
-      { atk_up: { milliValue: 100000 }, eva_up: { milliPercentage: 15000 } }
-    ],
-    equipment_effects: [
-      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue:  500000 } } }],
-      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue:  600000 } } }],
-      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue:  700000 } } }],
-      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue:  800000 } } }],
-      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue:  900000 } } }],
-      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue: 1000000 } } }],
-      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue: 1200000 } } }],
-      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue: 1400000 } } }],
-      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue: 1600000 } } }],
-      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue: 1800000 } } }],
-      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue: 2000000 } } }]
+      { electric_resist_up: { milliPercentage: { ss: 35000 } } },
+      { electric_resist_up: { milliPercentage: { ss: 38500 } } },
+      { electric_resist_up: { milliPercentage: { ss: 42000 } } },
+      { electric_resist_up: { milliPercentage: { ss: 45500 } } },
+      { electric_resist_up: { milliPercentage: { ss: 49000 } } },
+      { electric_resist_up: { milliPercentage: { ss: 52500 } } },
+      { electric_resist_up: { milliPercentage: { ss: 56000 } } },
+      { electric_resist_up: { milliPercentage: { ss: 59500 } } },
+      { electric_resist_up: { milliPercentage: { ss: 63000 } } },
+      { electric_resist_up: { milliPercentage: { ss: 66500 } } },
+      { electric_resist_up: { milliPercentage: { ss: 70000 } } }
     ]
   },
   heavy_sight: {
@@ -1032,99 +959,6 @@ export const equipmentData = {
   //   type: 'gear',
   //   id: 'high_power_generator'
   // },
-  horns_of_the_evil_overlord: {
-    type: 'gear',
-    id: 'horns_of_the_evil_overlord',
-    equipment_effects: [
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  5000 }, acc_up: { milliPercentage:  5000 }, cri_up: { milliPercentage:  2500 }, defense_penetration: { milliPercentage: 10000 }, stunned: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  6000 }, acc_up: { milliPercentage:  6000 }, cri_up: { milliPercentage:  3000 }, defense_penetration: { milliPercentage: 11000 }, stunned: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  7000 }, acc_up: { milliPercentage:  7000 }, cri_up: { milliPercentage:  3500 }, defense_penetration: { milliPercentage: 12000 }, stunned: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  8000 }, acc_up: { milliPercentage:  8000 }, cri_up: { milliPercentage:  4000 }, defense_penetration: { milliPercentage: 13000 }, stunned: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  9000 }, acc_up: { milliPercentage:  9000 }, cri_up: { milliPercentage:  4500 }, defense_penetration: { milliPercentage: 14000 }, stunned: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 10000 }, acc_up: { milliPercentage: 10000 }, cri_up: { milliPercentage:  5000 }, defense_penetration: { milliPercentage: 15000 }, stunned: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 11000 }, acc_up: { milliPercentage: 12000 }, cri_up: { milliPercentage:  6000 }, defense_penetration: { milliPercentage: 17000 }, stunned: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 12000 }, acc_up: { milliPercentage: 15000 }, cri_up: { milliPercentage:  7000 }, defense_penetration: { milliPercentage: 19000 }, stunned: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 13000 }, acc_up: { milliPercentage: 18000 }, cri_up: { milliPercentage:  8000 }, defense_penetration: { milliPercentage: 21000 }, stunned: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 14000 }, acc_up: { milliPercentage: 21000 }, cri_up: { milliPercentage:  9000 }, defense_penetration: { milliPercentage: 23000 }, stunned: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 15000 }, acc_up: { milliPercentage: 25000 }, cri_up: { milliPercentage: 10000 }, defense_penetration: { milliPercentage: 25000 }, stunned: { rate: 'constant' } } }]
-    ]
-  },
-  lunar_magic_filled_rice_cakes: {
-    type: 'gear',
-    id: 'lunar_magic_filled_rice_cakes',
-    equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 15000, rate: 'constant' }, acc_up: { milliPercentage: 25000, rate: 'constant' }, eva_up: { milliPercentage: 25000, rate: 'constant' }, damage_reduction: { milliPercentage: 15000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 18000, rate: 'constant' }, acc_up: { milliPercentage: 30000, rate: 'constant' }, eva_up: { milliPercentage: 30000, rate: 'constant' }, damage_reduction: { milliPercentage: 18000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 21000, rate: 'constant' }, acc_up: { milliPercentage: 35000, rate: 'constant' }, eva_up: { milliPercentage: 35000, rate: 'constant' }, damage_reduction: { milliPercentage: 21000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 24000, rate: 'constant' }, acc_up: { milliPercentage: 40000, rate: 'constant' }, eva_up: { milliPercentage: 40000, rate: 'constant' }, damage_reduction: { milliPercentage: 24000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 27000, rate: 'constant' }, acc_up: { milliPercentage: 45000, rate: 'constant' }, eva_up: { milliPercentage: 45000, rate: 'constant' }, damage_reduction: { milliPercentage: 27000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 30000, rate: 'constant' }, acc_up: { milliPercentage: 50000, rate: 'constant' }, eva_up: { milliPercentage: 50000, rate: 'constant' }, damage_reduction: { milliPercentage: 30000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 33000, rate: 'constant' }, acc_up: { milliPercentage: 55000, rate: 'constant' }, eva_up: { milliPercentage: 55000, rate: 'constant' }, damage_reduction: { milliPercentage: 33000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 36000, rate: 'constant' }, acc_up: { milliPercentage: 60000, rate: 'constant' }, eva_up: { milliPercentage: 60000, rate: 'constant' }, damage_reduction: { milliPercentage: 36000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 39000, rate: 'constant' }, acc_up: { milliPercentage: 65000, rate: 'constant' }, eva_up: { milliPercentage: 65000, rate: 'constant' }, damage_reduction: { milliPercentage: 39000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 42000, rate: 'constant' }, acc_up: { milliPercentage: 70000, rate: 'constant' }, eva_up: { milliPercentage: 70000, rate: 'constant' }, damage_reduction: { milliPercentage: 42000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 45000, rate: 'constant' }, acc_up: { milliPercentage: 75000, rate: 'constant' }, eva_up: { milliPercentage: 75000, rate: 'constant' }, damage_reduction: { milliPercentage: 45000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }]
-    ]
-  },
-  lunch_box: {
-    type: 'gear',
-    id: 'lunch_box',
-    equipment_effects: [
-      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  5000 }, spd_up: { milliPercentage:  5000 } } }],
-      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  5500 }, spd_up: { milliPercentage:  5500 } } }],
-      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  6000 }, spd_up: { milliPercentage:  6000 } } }],
-      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  6500 }, spd_up: { milliPercentage:  6500 } } }],
-      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  7000 }, spd_up: { milliPercentage:  7000 } } }],
-      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  7500 }, spd_up: { milliPercentage:  7500 } } }],
-      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  8000 }, spd_up: { milliPercentage:  8000 } } }],
-      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  8500 }, spd_up: { milliPercentage:  8500 } } }],
-      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  9000 }, spd_up: { milliPercentage:  9000 } } }],
-      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  9500 }, spd_up: { milliPercentage:  9500 } } }],
-      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 10000 }, spd_up: { milliPercentage: 10000 } } }]
-    ]
-  },
-  // mini_lilith: {
-  //   type: 'gear',
-  //   id: 'mini_lilith'
-  // },
-  // mini_hachiko: {
-  //   type: 'gear',
-  //   id: 'mini_hachiko'
-  // },
-  // mini_perrault: {
-  //   type: 'gear',
-  //   id: 'mini_perrault'
-  // },
-  nitro_ex_3000: {
-    type: 'gear',
-    id: 'nitro_ex_3000',
-    status_effects: [
-      { ice_resist_up: { milliPercentage: 25000 }, eva_up: { milliPercentage: 10000 }, spd_up: { microValue: 100000 } },
-      { ice_resist_up: { milliPercentage: 27500 }, eva_up: { milliPercentage: 12000 }, spd_up: { microValue: 120000 } },
-      { ice_resist_up: { milliPercentage: 30000 }, eva_up: { milliPercentage: 14000 }, spd_up: { microValue: 140000 } },
-      { ice_resist_up: { milliPercentage: 32500 }, eva_up: { milliPercentage: 16000 }, spd_up: { microValue: 160000 } },
-      { ice_resist_up: { milliPercentage: 35000 }, eva_up: { milliPercentage: 18000 }, spd_up: { microValue: 180000 } },
-      { ice_resist_up: { milliPercentage: 37500 }, eva_up: { milliPercentage: 20000 }, spd_up: { microValue: 200000 } },
-      { ice_resist_up: { milliPercentage: 40000 }, eva_up: { milliPercentage: 22000 }, spd_up: { microValue: 220000 } },
-      { ice_resist_up: { milliPercentage: 42500 }, eva_up: { milliPercentage: 24000 }, spd_up: { microValue: 240000 } },
-      { ice_resist_up: { milliPercentage: 45000 }, eva_up: { milliPercentage: 26000 }, spd_up: { microValue: 260000 } },
-      { ice_resist_up: { milliPercentage: 47500 }, eva_up: { milliPercentage: 28000 }, spd_up: { microValue: 280000 } },
-      { ice_resist_up: { milliPercentage: 50000 }, eva_up: { milliPercentage: 30000 }, spd_up: { microValue: 300000 } }
-    ],
-    equipment_effects: [
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage: 100000 } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  90000 } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  80000 } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  70000 } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  60000 } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  50000 } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  40000 } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  30000 } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  20000 } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  10000 } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:   3000 } } }]
-    ]
-  },
   // o_d_amplifier: {
   //   type: 'gear',
   //   id: 'o_d_amplifier'
@@ -1244,23 +1078,6 @@ export const equipmentData = {
       [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: { ss: 6000 } }, def_up: { milliPercentage: { ss: 10000 } }, exp_up: { milliPercentage: { ss: 7500 } } } }]
     ]
   },
-  shock_spray: {
-    type: 'gear',
-    id: 'shock_spray',
-    status_effects: [
-      { electric_resist_up: { milliPercentage: { ss: 35000 } } },
-      { electric_resist_up: { milliPercentage: { ss: 38500 } } },
-      { electric_resist_up: { milliPercentage: { ss: 42000 } } },
-      { electric_resist_up: { milliPercentage: { ss: 45500 } } },
-      { electric_resist_up: { milliPercentage: { ss: 49000 } } },
-      { electric_resist_up: { milliPercentage: { ss: 52500 } } },
-      { electric_resist_up: { milliPercentage: { ss: 56000 } } },
-      { electric_resist_up: { milliPercentage: { ss: 59500 } } },
-      { electric_resist_up: { milliPercentage: { ss: 63000 } } },
-      { electric_resist_up: { milliPercentage: { ss: 66500 } } },
-      { electric_resist_up: { milliPercentage: { ss: 70000 } } }
-    ]
-  },
   stimpack: {
     type: 'gear',
     id: 'stimpack',
@@ -1276,36 +1093,6 @@ export const equipmentData = {
       [{ details: { spd_up: { milliPercentage: { ss: 11000 } } } }, { condition: { trigger: 'start_wave' }, details: { battle_continuation: { value: { ss: 265 }, times: 1 } } }],
       [{ details: { spd_up: { milliPercentage: { ss: 11500 } } } }, { condition: { trigger: 'start_wave' }, details: { battle_continuation: { value: { ss: 280 }, times: 1 } } }],
       [{ details: { spd_up: { milliPercentage: { ss: 12000 } } } }, { condition: { trigger: 'start_wave' }, details: { battle_continuation: { value: { ss: 300 }, times: 1 } } }]
-    ]
-  },
-  sunblock: {
-    type: 'gear',
-    id: 'sunblock',
-    status_effects: [
-      { fire_resist_up: { milliPercentage: 25000 } },
-      { fire_resist_up: { milliPercentage: 27500 } },
-      { fire_resist_up: { milliPercentage: 30000 } },
-      { fire_resist_up: { milliPercentage: 32500 } },
-      { fire_resist_up: { milliPercentage: 35000 } },
-      { fire_resist_up: { milliPercentage: 37500 } },
-      { fire_resist_up: { milliPercentage: 40000 } },
-      { fire_resist_up: { milliPercentage: 42500 } },
-      { fire_resist_up: { milliPercentage: 45000 } },
-      { fire_resist_up: { milliPercentage: 47500 } },
-      { fire_resist_up: { milliPercentage: 50000 } }
-    ],
-    equipment_effects: [
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  5000 }, cri_up: { milliPercentage:  5000 }, spd_up: { milliPercentage:  5000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  6000 }, cri_up: { milliPercentage:  6000 }, spd_up: { milliPercentage:  6000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  7000 }, cri_up: { milliPercentage:  7000 }, spd_up: { milliPercentage:  7000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  8000 }, cri_up: { milliPercentage:  8000 }, spd_up: { milliPercentage:  8000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  9000 }, cri_up: { milliPercentage:  9000 }, spd_up: { milliPercentage:  9000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 10000 }, cri_up: { milliPercentage: 10000 }, spd_up: { milliPercentage: 10000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 11000 }, cri_up: { milliPercentage: 11000 }, spd_up: { milliPercentage: 11000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 12000 }, cri_up: { milliPercentage: 12000 }, spd_up: { milliPercentage: 12000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 13000 }, cri_up: { milliPercentage: 13000 }, spd_up: { milliPercentage: 13000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 14000 }, cri_up: { milliPercentage: 14000 }, spd_up: { milliPercentage: 14000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 15000 }, cri_up: { milliPercentage: 15000 }, spd_up: { milliPercentage: 15000 } } }]
     ]
   },
   tactical_bombing_equipment: {
@@ -1391,6 +1178,219 @@ export const equipmentData = {
       [{ details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss: 100000 } } } } }]
     ]
   },
+  lunch_box: {
+    type: 'gear',
+    id: 'lunch_box',
+    equipment_effects: [
+      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  5000 }, spd_up: { milliPercentage:  5000 } } }],
+      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  5500 }, spd_up: { milliPercentage:  5500 } } }],
+      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  6000 }, spd_up: { milliPercentage:  6000 } } }],
+      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  6500 }, spd_up: { milliPercentage:  6500 } } }],
+      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  7000 }, spd_up: { milliPercentage:  7000 } } }],
+      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  7500 }, spd_up: { milliPercentage:  7500 } } }],
+      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  8000 }, spd_up: { milliPercentage:  8000 } } }],
+      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  8500 }, spd_up: { milliPercentage:  8500 } } }],
+      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  9000 }, spd_up: { milliPercentage:  9000 } } }],
+      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  9500 }, spd_up: { milliPercentage:  9500 } } }],
+      [{ condition: { state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 10000 }, spd_up: { milliPercentage: 10000 } } }]
+    ]
+  },
+  cooling_pack: {
+    type: 'gear',
+    id: 'cooling_pack',
+    status_effects: [
+      { fire_resist_up: { milliPercentage: 25000 } },
+      { fire_resist_up: { milliPercentage: 27500 } },
+      { fire_resist_up: { milliPercentage: 30000 } },
+      { fire_resist_up: { milliPercentage: 32500 } },
+      { fire_resist_up: { milliPercentage: 35000 } },
+      { fire_resist_up: { milliPercentage: 37500 } },
+      { fire_resist_up: { milliPercentage: 40000 } },
+      { fire_resist_up: { milliPercentage: 42500 } },
+      { fire_resist_up: { milliPercentage: 45000 } },
+      { fire_resist_up: { milliPercentage: 47500 } },
+      { fire_resist_up: { milliPercentage: 50000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  500000 } } }],
+      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  550000 } } }],
+      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  600000 } } }],
+      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  650000 } } }],
+      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  700000 } } }],
+      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  750000 } } }],
+      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  800000 } } }],
+      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  850000 } } }],
+      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  900000 } } }],
+      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue:  950000 } } }],
+      [{ condition: { trigger: 'attack' }, details: { ap_up: { microValue: 1000000 } } }]
+    ]
+  },
+  sunblock: {
+    type: 'gear',
+    id: 'sunblock',
+    status_effects: [
+      { fire_resist_up: { milliPercentage: 25000 } },
+      { fire_resist_up: { milliPercentage: 27500 } },
+      { fire_resist_up: { milliPercentage: 30000 } },
+      { fire_resist_up: { milliPercentage: 32500 } },
+      { fire_resist_up: { milliPercentage: 35000 } },
+      { fire_resist_up: { milliPercentage: 37500 } },
+      { fire_resist_up: { milliPercentage: 40000 } },
+      { fire_resist_up: { milliPercentage: 42500 } },
+      { fire_resist_up: { milliPercentage: 45000 } },
+      { fire_resist_up: { milliPercentage: 47500 } },
+      { fire_resist_up: { milliPercentage: 50000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  5000 }, cri_up: { milliPercentage:  5000 }, spd_up: { milliPercentage:  5000 } } }],
+      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  6000 }, cri_up: { milliPercentage:  6000 }, spd_up: { milliPercentage:  6000 } } }],
+      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  7000 }, cri_up: { milliPercentage:  7000 }, spd_up: { milliPercentage:  7000 } } }],
+      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  8000 }, cri_up: { milliPercentage:  8000 }, spd_up: { milliPercentage:  8000 } } }],
+      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  9000 }, cri_up: { milliPercentage:  9000 }, spd_up: { milliPercentage:  9000 } } }],
+      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 10000 }, cri_up: { milliPercentage: 10000 }, spd_up: { milliPercentage: 10000 } } }],
+      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 11000 }, cri_up: { milliPercentage: 11000 }, spd_up: { milliPercentage: 11000 } } }],
+      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 12000 }, cri_up: { milliPercentage: 12000 }, spd_up: { milliPercentage: 12000 } } }],
+      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 13000 }, cri_up: { milliPercentage: 13000 }, spd_up: { milliPercentage: 13000 } } }],
+      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 14000 }, cri_up: { milliPercentage: 14000 }, spd_up: { milliPercentage: 14000 } } }],
+      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 15000 }, cri_up: { milliPercentage: 15000 }, spd_up: { milliPercentage: 15000 } } }]
+    ]
+  },
+  horns_of_the_evil_overlord: {
+    type: 'gear',
+    id: 'horns_of_the_evil_overlord',
+    equipment_effects: [
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  5000 }, acc_up: { milliPercentage:  5000 }, cri_up: { milliPercentage:  2500 }, defense_penetration: { milliPercentage: 10000 }, stunned: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  6000 }, acc_up: { milliPercentage:  6000 }, cri_up: { milliPercentage:  3000 }, defense_penetration: { milliPercentage: 11000 }, stunned: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  7000 }, acc_up: { milliPercentage:  7000 }, cri_up: { milliPercentage:  3500 }, defense_penetration: { milliPercentage: 12000 }, stunned: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  8000 }, acc_up: { milliPercentage:  8000 }, cri_up: { milliPercentage:  4000 }, defense_penetration: { milliPercentage: 13000 }, stunned: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  9000 }, acc_up: { milliPercentage:  9000 }, cri_up: { milliPercentage:  4500 }, defense_penetration: { milliPercentage: 14000 }, stunned: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 10000 }, acc_up: { milliPercentage: 10000 }, cri_up: { milliPercentage:  5000 }, defense_penetration: { milliPercentage: 15000 }, stunned: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 11000 }, acc_up: { milliPercentage: 12000 }, cri_up: { milliPercentage:  6000 }, defense_penetration: { milliPercentage: 17000 }, stunned: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 12000 }, acc_up: { milliPercentage: 15000 }, cri_up: { milliPercentage:  7000 }, defense_penetration: { milliPercentage: 19000 }, stunned: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 13000 }, acc_up: { milliPercentage: 18000 }, cri_up: { milliPercentage:  8000 }, defense_penetration: { milliPercentage: 21000 }, stunned: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 14000 }, acc_up: { milliPercentage: 21000 }, cri_up: { milliPercentage:  9000 }, defense_penetration: { milliPercentage: 23000 }, stunned: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 15000 }, acc_up: { milliPercentage: 25000 }, cri_up: { milliPercentage: 10000 }, defense_penetration: { milliPercentage: 25000 }, stunned: { rate: 'constant' } } }]
+    ]
+  },
+  lunar_magic_filled_rice_cakes: {
+    type: 'gear',
+    id: 'lunar_magic_filled_rice_cakes',
+    equipment_effects: [
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 15000, rate: 'constant' }, acc_up: { milliPercentage: 25000, rate: 'constant' }, eva_up: { milliPercentage: 25000, rate: 'constant' }, damage_reduction: { milliPercentage: 15000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 18000, rate: 'constant' }, acc_up: { milliPercentage: 30000, rate: 'constant' }, eva_up: { milliPercentage: 30000, rate: 'constant' }, damage_reduction: { milliPercentage: 18000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 21000, rate: 'constant' }, acc_up: { milliPercentage: 35000, rate: 'constant' }, eva_up: { milliPercentage: 35000, rate: 'constant' }, damage_reduction: { milliPercentage: 21000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 24000, rate: 'constant' }, acc_up: { milliPercentage: 40000, rate: 'constant' }, eva_up: { milliPercentage: 40000, rate: 'constant' }, damage_reduction: { milliPercentage: 24000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 27000, rate: 'constant' }, acc_up: { milliPercentage: 45000, rate: 'constant' }, eva_up: { milliPercentage: 45000, rate: 'constant' }, damage_reduction: { milliPercentage: 27000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 30000, rate: 'constant' }, acc_up: { milliPercentage: 50000, rate: 'constant' }, eva_up: { milliPercentage: 50000, rate: 'constant' }, damage_reduction: { milliPercentage: 30000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 33000, rate: 'constant' }, acc_up: { milliPercentage: 55000, rate: 'constant' }, eva_up: { milliPercentage: 55000, rate: 'constant' }, damage_reduction: { milliPercentage: 33000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 36000, rate: 'constant' }, acc_up: { milliPercentage: 60000, rate: 'constant' }, eva_up: { milliPercentage: 60000, rate: 'constant' }, damage_reduction: { milliPercentage: 36000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 39000, rate: 'constant' }, acc_up: { milliPercentage: 65000, rate: 'constant' }, eva_up: { milliPercentage: 65000, rate: 'constant' }, damage_reduction: { milliPercentage: 39000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 42000, rate: 'constant' }, acc_up: { milliPercentage: 70000, rate: 'constant' }, eva_up: { milliPercentage: 70000, rate: 'constant' }, damage_reduction: { milliPercentage: 42000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 45000, rate: 'constant' }, acc_up: { milliPercentage: 75000, rate: 'constant' }, eva_up: { milliPercentage: 75000, rate: 'constant' }, damage_reduction: { milliPercentage: 45000, rate: 'constant' }, all_debuff_removal: { rate: 'constant' } } }]
+    ]
+  },
+  crystal_ball_of_fate: {
+    type: 'gear',
+    id: 'crystal_ball_of_fate',
+    status_effects: [
+      { acc_up: { milliPercentage:  5000 }, eva_up: { milliPercentage:  5000 } },
+      { acc_up: { milliPercentage:  6000 }, eva_up: { milliPercentage:  6000 } },
+      { acc_up: { milliPercentage:  7000 }, eva_up: { milliPercentage:  7000 } },
+      { acc_up: { milliPercentage:  8000 }, eva_up: { milliPercentage:  8000 } },
+      { acc_up: { milliPercentage:  9000 }, eva_up: { milliPercentage:  9000 } },
+      { acc_up: { milliPercentage: 10000 }, eva_up: { milliPercentage: 10000 } },
+      { acc_up: { milliPercentage: 11000 }, eva_up: { milliPercentage: 11000 } },
+      { acc_up: { milliPercentage: 12000 }, eva_up: { milliPercentage: 12000 } },
+      { acc_up: { milliPercentage: 13000 }, eva_up: { milliPercentage: 13000 } },
+      { acc_up: { milliPercentage: 14000 }, eva_up: { milliPercentage: 14000 } },
+      { acc_up: { milliPercentage: 15000 }, eva_up: { milliPercentage: 15000 } }
+    ],
+    equipment_effects: [
+      [{ details: { spd_up: { milliPercentage:  5000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ details: { spd_up: { milliPercentage:  6000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ details: { spd_up: { milliPercentage:  7000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ details: { spd_up: { milliPercentage:  8000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ details: { spd_up: { milliPercentage:  9000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ details: { spd_up: { milliPercentage: 10000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ details: { spd_up: { milliPercentage: 11000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ details: { spd_up: { milliPercentage: 12000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ details: { spd_up: { milliPercentage: 13000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ details: { spd_up: { milliPercentage: 14000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ details: { spd_up: { milliPercentage: 15000 } } }, { condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }]
+    ]
+  },
+  nitro_ex_3000: {
+    type: 'gear',
+    id: 'nitro_ex_3000',
+    status_effects: [
+      { ice_resist_up: { milliPercentage: 25000 }, eva_up: { milliPercentage: 10000 }, spd_up: { microValue: 100000 } },
+      { ice_resist_up: { milliPercentage: 27500 }, eva_up: { milliPercentage: 12000 }, spd_up: { microValue: 120000 } },
+      { ice_resist_up: { milliPercentage: 30000 }, eva_up: { milliPercentage: 14000 }, spd_up: { microValue: 140000 } },
+      { ice_resist_up: { milliPercentage: 32500 }, eva_up: { milliPercentage: 16000 }, spd_up: { microValue: 160000 } },
+      { ice_resist_up: { milliPercentage: 35000 }, eva_up: { milliPercentage: 18000 }, spd_up: { microValue: 180000 } },
+      { ice_resist_up: { milliPercentage: 37500 }, eva_up: { milliPercentage: 20000 }, spd_up: { microValue: 200000 } },
+      { ice_resist_up: { milliPercentage: 40000 }, eva_up: { milliPercentage: 22000 }, spd_up: { microValue: 220000 } },
+      { ice_resist_up: { milliPercentage: 42500 }, eva_up: { milliPercentage: 24000 }, spd_up: { microValue: 240000 } },
+      { ice_resist_up: { milliPercentage: 45000 }, eva_up: { milliPercentage: 26000 }, spd_up: { microValue: 260000 } },
+      { ice_resist_up: { milliPercentage: 47500 }, eva_up: { milliPercentage: 28000 }, spd_up: { microValue: 280000 } },
+      { ice_resist_up: { milliPercentage: 50000 }, eva_up: { milliPercentage: 30000 }, spd_up: { microValue: 300000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage: 100000 } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  90000 } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  80000 } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  70000 } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  60000 } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  50000 } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  40000 } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  30000 } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  20000 } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:  10000 } } }],
+      [{ condition: { trigger: 'start_round', state: { unit: 'bioroid' } }, details: { acc_down: { milliPercentage: 100000 }, rate: { milliPercentage:   3000 } } }]
+    ]
+  },
+  grand_cru_chocolate: {
+    type: 'gear',
+    id: 'grand_cru_chocolate',
+    status_effects: [
+      { atk_up: { milliValue:  50000 }, eva_up: { milliPercentage:  5000 } },
+      { atk_up: { milliValue:  55000 }, eva_up: { milliPercentage:  6000 } },
+      { atk_up: { milliValue:  60000 }, eva_up: { milliPercentage:  7000 } },
+      { atk_up: { milliValue:  65000 }, eva_up: { milliPercentage:  8000 } },
+      { atk_up: { milliValue:  70000 }, eva_up: { milliPercentage:  9000 } },
+      { atk_up: { milliValue:  75000 }, eva_up: { milliPercentage: 10000 } },
+      { atk_up: { milliValue:  80000 }, eva_up: { milliPercentage: 11000 } },
+      { atk_up: { milliValue:  85000 }, eva_up: { milliPercentage: 12000 } },
+      { atk_up: { milliValue:  90000 }, eva_up: { milliPercentage: 13000 } },
+      { atk_up: { milliValue:  95000 }, eva_up: { milliPercentage: 14000 } },
+      { atk_up: { milliValue: 100000 }, eva_up: { milliPercentage: 15000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue:  500000 } } }],
+      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue:  600000 } } }],
+      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue:  700000 } } }],
+      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue:  800000 } } }],
+      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue:  900000 } } }],
+      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue: 1000000 } } }],
+      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue: 1200000 } } }],
+      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue: 1400000 } } }],
+      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue: 1600000 } } }],
+      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue: 1800000 } } }],
+      [{ condition: { trigger: 'start_wave', state: { unit: 'android' } }, details: { ap_up: { microValue: 2000000 } } }]
+    ]
+  },
+  // mini_lilith: {
+  //   type: 'gear',
+  //   id: 'mini_lilith'
+  // },
+  // mini_hachiko: {
+  //   type: 'gear',
+  //   id: 'mini_hachiko'
+  // },
+  // mini_perrault: {
+  //   type: 'gear',
+  //   id: 'mini_perrault'
+  // },
   '40mm_du_rounds': {
     type: 'gear',
     id: '40mm_du_rounds',
