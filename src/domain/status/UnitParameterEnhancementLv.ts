@@ -1,6 +1,6 @@
 import { UnitBasicInfo } from '../UnitBasicInfo';
 import { IntegerValue, MilliPercentageValue, MilliValue } from '../ValueUnit';
-import { EnhancementStatusEffect, StatusEffect } from '../StatusEffect';
+import { EnhancementStatusEffect } from '../StatusEffect';
 
 type ParameterLv = {
   hpLv?: number,
