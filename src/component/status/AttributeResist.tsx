@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import { DamageAttribute } from '../../domain/UnitSkillData';
-import UnitStatus from '../../domain/status/UnitStatus';
 import { useRecoilValue } from 'recoil';
 import { selectedUnitStatusState } from '../../state/unit/selectedUnitStatusState';
 import StatusEffectsView from './StatusEffectsView';
