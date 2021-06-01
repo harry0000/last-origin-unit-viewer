@@ -9,7 +9,7 @@ import {
   PhantomForm,
   SirenForm
 } from './UnitFormValue';
-import { MilliPercentageValue } from './EffectValue';
+import { MilliPercentageValue } from './ValueUnit';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import {
   SkillEffects,

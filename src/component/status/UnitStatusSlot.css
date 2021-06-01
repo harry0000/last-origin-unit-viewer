@@ -1,0 +1,61 @@
+.slot-container .label {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.slot-row {
+  display: flex;
+}
+
+.slot-cell {
+  border: 2px solid rgba(255, 255, 255, .2);
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .slot-cell {
+    height: 55px;
+    width: 55px;
+  }
+  .slot-cell:not(:first-of-type) {
+    margin-left: 10px;
+  }
+  .slot.dropdown {
+    height: 47px;
+    width: 47px;
+  }
+  .slot.dropdown > a {
+    display: inline-block;
+    height: 47px;
+    width: 47px;
+  }
+}
+
+@media (min-width: 480px) {
+  .slot-cell  {
+    height: 70px;
+    width: 70px;
+  }
+  .slot-cell:not(:first-of-type) {
+    margin-left: 15px;
+  }
+  .slot.dropdown {
+    height: 62px;
+    width: 62px;
+  }
+  .slot.dropdown > a {
+    display: inline-block;
+    height: 62px;
+    width: 62px;
+  }
+}
+
+.slot.dropdown {
+  border-radius: 3px;
+  background-color: rgba(28, 48, 66, .5);
+}
+
+.slot.dropdown.show {
+  position: absolute;
+}

@@ -8,6 +8,9 @@ import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import { DamageAttribute } from '../../domain/UnitSkillData';
 import UnitStatus from '../../domain/status/UnitStatus';
+import { useRecoilValue } from 'recoil';
+import { selectedUnitStatusState } from '../../state/unit/selectedUnitStatusState';
+import StatusEffectsView from './StatusEffectsView';
 
 const AttributeResist: React.FC<{
   attribute: DamageAttribute,
@@ -15,35 +18,54 @@ const AttributeResist: React.FC<{
 }> = ({ attribute, value }) => {
   const { t } = useTranslation();
   const alt = t(`status.${attribute}_resist`);
+  const parameter = (() => {
+    switch (attribute) {
+    case 'fire':
+      return 'fireResist';
+    case 'ice':
+      return 'iceResist';
+    case 'electric':
+      return 'electricResist';
+    }
+  })();
 
   return (
-    <div>
-      <OverlayTrigger
-        placement="auto"
-        overlay={<Tooltip id='tooltip-attribute-resist'>{alt}</Tooltip>}
-      >
-        <Image
-          height={24}
-          width={24}
-          alt={alt}
-          src={`${process.env.PUBLIC_URL}/icon/attribute_${attribute}.webp`}
-        />
-      </OverlayTrigger>
-      <div css={{ display: 'inline-block', width: '3em', textAlign: 'right' }}>
-        <span>{value ?? 0}</span><span>%</span>
+    <div css={{ display: 'flex', flexDirection: 'column' }}>
+      <div>
+        <OverlayTrigger
+          placement="auto"
+          overlay={<Tooltip id='tooltip-attribute-resist'>{alt}</Tooltip>}
+        >
+          <Image
+            height={24}
+            width={24}
+            alt={alt}
+            src={`${process.env.PUBLIC_URL}/icon/attribute_${attribute}.webp`}
+          />
+        </OverlayTrigger>
+        <div css={{ display: 'inline-block', width: '3.5em', textAlign: 'right' }}>
+          <span>{value ?? 0}</span>&nbsp;<span>%</span>
+        </div>
       </div>
+      <StatusEffectsView parameter={parameter} />
     </div>
   );
 };
 
-export const FireResist: React.FC<{ status?: UnitStatus }> = ({ status }) => {
-  return (<AttributeResist attribute={DamageAttribute.Fire} value={status?.fireResistValue} />);
+export const FireResist: React.FC = () => {
+  const status = useRecoilValue(selectedUnitStatusState);
+
+  return (<AttributeResist attribute={DamageAttribute.Fire} value={status?.fireResist} />);
 };
 
-export const IceResist: React.FC<{ status?: UnitStatus }> = ({ status }) => {
-  return (<AttributeResist attribute={DamageAttribute.Ice} value={status?.iceResistValue} />);
+export const IceResist: React.FC = () => {
+  const status = useRecoilValue(selectedUnitStatusState);
+
+  return (<AttributeResist attribute={DamageAttribute.Ice} value={status?.iceResist} />);
 };
 
-export const ElectricResist: React.FC<{ status?: UnitStatus }> = ({ status }) => {
-  return (<AttributeResist attribute={DamageAttribute.Electric} value={status?.electricResistValue} />);
+export const ElectricResist: React.FC = () => {
+  const status = useRecoilValue(selectedUnitStatusState);
+
+  return (<AttributeResist attribute={DamageAttribute.Electric} value={status?.electricResist} />);
 };

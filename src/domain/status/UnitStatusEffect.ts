@@ -1,97 +1,143 @@
+import { Effect } from '../Effect';
+import {
+  IntegerValue,
+  MicroValue,
+  MilliPercentageValue,
+  MilliValue,
+  sumMicroValues,
+  sumMilliPercentageValues,
+  sumMilliValues,
+  sumValues,
+  ValueTypes
+} from '../ValueUnit';
+import {
+  EnhancementStatusEffect,
+  IntegerValueStatusEffectKey,
+  MicroValueStatusEffectKey,
+  MilliPercentageStatusEffectKey,
+  MilliValueStatusEffectKey,
+  StatusEffect, StatusEffectKey
+} from '../StatusEffect';
+import UnitEquipment from './UnitEquipment';
+import UnitLv from './UnitLv';
 import UnitParameterEnhancementLv from './UnitParameterEnhancementLv';
-import { EquipmentId } from '../EquipmentData';
-import { IntegerValue, MilliPercentageValue, MilliValue } from '../EffectValue';
 
-// TODO: Add full_link & rank_up
-type StatusEffected = {
-  effectedBy: {
-    name: 'core_link' | EquipmentId,
-    value: number
+function reverseSign(value: ValueTypes): ValueTypes {
+  if ('milliValue' in value) {
+    return { milliValue: -value.milliValue };
+  } else if ('microValue' in value) {
+    return { microValue: -value.microValue };
+  } else if ('milliPercentage' in value) {
+    return { milliPercentage: -value.milliPercentage };
   }
+
+  return { value: -value.value };
 }
 
-type EnhancementStatusEffected = {
-  effectedBy: {
-    name: 'enhancement',
-    value: number
-  }
-}
+function pickValues(...effects: StatusEffect[]): (...keys: IntegerValueStatusEffectKey[]) => IntegerValue[]
+function pickValues(...effects: StatusEffect[]): (...keys: MilliValueStatusEffectKey[]) => MilliValue[]
+function pickValues(...effects: StatusEffect[]): (...keys: MicroValueStatusEffectKey[]) => MicroValue[]
+function pickValues(...effects: StatusEffect[]): (...keys: MilliPercentageStatusEffectKey[]) => MilliPercentageValue[]
+// eslint-disable-next-line
+function pickValues(...effects: StatusEffect[]): (...keys: StatusEffectKey[]) => any[] {
+  return function (...keys: StatusEffectKey[]) {
+    const values: unknown[] = [];
+    effects.forEach(e => {
+      if (!e) return;
 
-export type EnhanceableStatusEffected = StatusEffected | EnhancementStatusEffected
-
-export type HpEffect = IntegerValue & EnhanceableStatusEffected
-export type AtkEffect = MilliValue & EnhanceableStatusEffected
-export type DefEffect = MilliValue & EnhanceableStatusEffected
-export type AccEffect = MilliPercentageValue & EnhanceableStatusEffected
-export type EvaEffect = MilliPercentageValue & EnhanceableStatusEffected
-export type CriEffect = MilliPercentageValue & EnhanceableStatusEffected
-
-function effectedBy(enhancementLv: number): EnhancementStatusEffected['effectedBy'] {
-  return { name: 'enhancement', value: enhancementLv };
-}
-
-function buildEffects(
-  enhancements: UnitParameterEnhancementLv
-): [
-  ReadonlyArray<HpEffect>,
-  ReadonlyArray<AtkEffect>,
-  ReadonlyArray<DefEffect>,
-  ReadonlyArray<AccEffect>,
-  ReadonlyArray<EvaEffect>,
-  ReadonlyArray<CriEffect>
-] {
-  const hp: Array<HpEffect> = enhancements.hpLv > 0 ? [{ ...enhancements.hpEnhancedValue, effectedBy: effectedBy(enhancements.hpLv) }] : [];
-  const atk: Array<AtkEffect> = enhancements.atkLv > 0 ? [{ ...enhancements.atkEnhancedValue, effectedBy: effectedBy(enhancements.atkLv) }] : [];
-  const def: Array<DefEffect> = enhancements.defLv > 0 ? [{ ...enhancements.defEnhancedValue, effectedBy: effectedBy(enhancements.defLv) }] : [];
-  const acc: Array<AccEffect> = enhancements.accLv > 0 ? [{ ...enhancements.accEnhancedValue, effectedBy: effectedBy(enhancements.accLv) }] : [];
-  const eva: Array<EvaEffect> = enhancements.evaLv > 0 ? [{ ...enhancements.evaEnhancedValue, effectedBy: effectedBy(enhancements.evaLv) }] : [];
-  const cri: Array<CriEffect> = enhancements.criLv > 0 ? [{ ...enhancements.criEnhancedValue, effectedBy: effectedBy(enhancements.criLv) }] : [];
-
-  return [hp, atk, def, acc, eva, cri];
+      keys.forEach(key => {
+        const v = e[key];
+        if (v) {
+          switch (key) {
+          case 'atk_down':
+          case 'def_down':
+          case 'acc_down':
+          case 'eva_down':
+          case 'cri_down':
+          case 'spd_down':
+          case 'fire_resist_down':
+          case 'ice_resist_down':
+          case 'electric_resist_down':
+            values.push(reverseSign(v));
+            break;
+          default:
+            values.push(v);
+            break;
+          }
+        }
+      });
+    });
+    return values;
+  };
 }
 
 class UnitStatusEffect {
 
-  readonly hpEffects: ReadonlyArray<HpEffect>;
-  readonly atkEffects: ReadonlyArray<AtkEffect>;
-  readonly defEffects: ReadonlyArray<DefEffect>;
-  readonly accEffects: ReadonlyArray<AccEffect>;
-  readonly evaEffects: ReadonlyArray<EvaEffect>;
-  readonly criEffects: ReadonlyArray<CriEffect>;
+  readonly enhancement: EnhancementStatusEffect;
+  readonly chip1: StatusEffect;
+  readonly chip2: StatusEffect;
+  readonly os: StatusEffect;
+  readonly gear: StatusEffect;
 
-  constructor(enhancements: UnitParameterEnhancementLv) {
-    const [hp, atk, def, acc, eva, cri] = buildEffects(enhancements);
+  constructor(
+    unitLv: UnitLv,
+    enhancements: UnitParameterEnhancementLv,
+    equipments: UnitEquipment
+  ) {
+    this.enhancement = enhancements.statusEffects;
+    this.chip1 = equipments.chip1StatusEffects(unitLv);
+    this.chip2 = equipments.chip2StatusEffects(unitLv);
+    this.os    = equipments.osStatusEffects(unitLv);
+    this.gear  = equipments.gearStatusEffects(unitLv);
+  }
 
-    this.hpEffects = hp;
-    this.atkEffects = atk;
-    this.defEffects = def;
-    this.accEffects = acc;
-    this.evaEffects = eva;
-    this.criEffects = cri;
+  private pickValues(...keys: IntegerValueStatusEffectKey[]): IntegerValue[]
+  private pickValues(...keys: MilliValueStatusEffectKey[]): MilliValue[]
+  private pickValues(...keys: MicroValueStatusEffectKey[]): MicroValue[]
+  private pickValues(...keys: MilliPercentageStatusEffectKey[]): MilliPercentageValue[]
+  // eslint-disable-next-line
+  private pickValues(...keys: any[]): any[] {
+    return pickValues(this.enhancement, this.chip1, this.chip2, this.os, this.gear)(...keys);
   }
 
   get hpValue(): IntegerValue {
-    return { value: this.hpEffects.reduce((acc, e) => acc + e.value, 0) };
+    return sumValues(...this.pickValues(Effect.HpUp));
   }
 
   get atkValue(): MilliValue {
-    return { milliValue: this.atkEffects.reduce((acc, e) => acc + e.milliValue, 0) };
+    return sumMilliValues(...this.pickValues(Effect.AtkUp, Effect.AtkDown));
   }
 
   get defValue(): MilliValue {
-    return { milliValue: this.defEffects.reduce((acc, e) => acc + e.milliValue, 0) };
+    return sumMilliValues(...this.pickValues(Effect.DefUp, Effect.DefDown));
   }
 
   get accValue(): MilliPercentageValue {
-    return { milliPercentage: this.accEffects.reduce((acc, e) => acc + e.milliPercentage, 0) };
+    return sumMilliPercentageValues(...this.pickValues(Effect.AccUp, Effect.AccDown));
   }
 
   get evaValue(): MilliPercentageValue {
-    return { milliPercentage: this.evaEffects.reduce((acc, e) => acc + e.milliPercentage, 0) };
+    return sumMilliPercentageValues(...this.pickValues(Effect.EvaUp, Effect.EvaDown));
   }
 
   get criValue(): MilliPercentageValue {
-    return { milliPercentage: this.criEffects.reduce((acc, e) => acc + e.milliPercentage, 0) };
+    return sumMilliPercentageValues(...this.pickValues(Effect.CriUp, Effect.CriDown));
+  }
+
+  get spdValue(): MicroValue {
+    return sumMicroValues(...this.pickValues(Effect.SpdUp, Effect.SpdDown));
+  }
+
+  get fireResistValue(): MilliPercentageValue {
+    return sumMilliPercentageValues(...this.pickValues(Effect.FireResistUp, Effect.FireResistDown));
+  }
+
+  get iceResistValue(): MilliPercentageValue {
+    return sumMilliPercentageValues(...this.pickValues(Effect.IceResistUp, Effect.IceResistDown));
+  }
+
+  get electricResistValue(): MilliPercentageValue {
+    return sumMilliPercentageValues(...this.pickValues(Effect.ElectricResistUp, Effect.ElectricResistDown));
   }
 }
 

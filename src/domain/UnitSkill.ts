@@ -3,17 +3,14 @@ import {
   SkillApCostValue,
   SkillRangeValue
 } from './UnitSkillData';
-import { Effect, EquipmentEffectOnly } from './Effect';
+import {
+  Effect
+} from './Effect';
 import {
   IntegerValue,
-  IntegerValueEffectKey,
-  MicroValueEffectKey,
-  MilliPercentageEffectKey,
   MilliPercentageValue,
-  NoValueEffectKey,
-  PushPullEffectKey,
-  RangeUpDownEffectKey, ValueUnit
-} from './EffectValue';
+  ValueUnit
+} from './ValueUnit';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import { SkillEffectActivationRate } from './SkillEffectActivationRate';
 import { SkillEffectActivationCondition } from './SkillEffectActivationCondition';
@@ -32,6 +29,13 @@ import {
   UnitForms
 } from './UnitFormValue';
 import { SkillEffectTimesValue } from './SkillEffectTimesValue';
+import {
+  EquipmentEffectOnly,
+  IntegerValueEffectKey,
+  MicroValueEffectKey,
+  MilliPercentageEffectKey, NoValueEffectKey, PushPullEffectKey,
+  RangeUpDownEffectKey
+} from './SkillEffect';
 
 type SkillEffectAddition = Readonly<{
   tag?: SkillEffectTag,

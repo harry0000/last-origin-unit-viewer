@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { DamageDeal } from '../../domain/UnitSkill';
 import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
-import { calcValue } from '../../domain/EffectValue';
+import { calcValue } from '../../domain/ValueUnit';
 
 import { AttributeColorStyle } from './AttributeColorStyle';
 import { ifNonNullable } from '../../util/react';

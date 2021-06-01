@@ -2,13 +2,16 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
+
 import { Image } from 'react-bootstrap';
 
-import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
-import { ifNonNullable } from '../../util/react';
-import { useRecoilValue } from 'recoil';
 import { selectedUnitBasicInfoState } from '../../state/unit/unitSelectorStoreState';
+
+import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
+
+import { ifNonNullable } from '../../util/react';
 
 const UnitBasicInfoIcon: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
   const [height, width] = unit.rank === 'ss' ? [75, 87] : [65, 65];
@@ -27,7 +30,7 @@ const UnitBasicInfoIcon: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
   );
 };
 
-export const UnitBasicInfoView: React.FC = () => {
+const UnitBasicInfoView: React.FC = () => {
   const { t } = useTranslation();
   const unit = useRecoilValue(selectedUnitBasicInfoState);
   const name = unit ? t(`unit:name.${unit.no}`) : '';
@@ -82,3 +85,5 @@ export const UnitBasicInfoView: React.FC = () => {
     </div>
   );
 };
+
+export default UnitBasicInfoView;

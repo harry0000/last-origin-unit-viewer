@@ -15,7 +15,9 @@ import {
   Passive1Skill,
   Passive2Skill,
   Passive3Skill,
-  SkillEffect, SkillEffectValue, AroundSkillEffectValue
+  SkillEffect,
+  SkillEffectValue,
+  AroundSkillEffectValue
 } from './UnitSkill';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import { AroundSkillEffectDataValue, SkillEffectData, SkillEffectDataValue } from './SkillEffectData';
@@ -23,16 +25,15 @@ import { UnitBasicData, UnitNumber, UnitRank, UnitRankComparator } from './UnitB
 import UnitFormValue, { FormChangeUnitNumbers, FormChangeUnits } from './UnitFormValue';
 import UnitSkillLvValue, { SkillLv } from './UnitSkillLvValue';
 import { unitSkillData } from '../data/unitSkillData';
-import { Effect, EquipmentEffectOnly } from './Effect';
+import { Effect } from './Effect';
+import { ValueUnit } from './ValueUnit';
+import { foldObjectNonNullableEntry, NonNullableEntry } from '../util/object';
 import {
   IntegerValueEffectKey,
   MicroValueEffectKey,
-  MilliPercentageEffectKey,
-  NoValueEffectKey,
-  RangeUpDownEffectKey,
-  ValueUnit
-} from './EffectValue';
-import { foldObjectNonNullableEntry, NonNullableEntry } from '../util/object';
+  MilliPercentageEffectKey, NoValueEffectKey,
+  RangeUpDownEffectKey
+} from './SkillEffect';
 
 type Value<T extends ValueUnit> =
   {
@@ -187,9 +188,9 @@ function calculateRangeUpDownEffectValue(
 }
 
 function calculateIntegerValueEffectValue(
-  data: NonNullable<SkillEffectDataValue[Exclude<IntegerValueEffectKey, EquipmentEffectOnly>]>,
+  data: NonNullable<SkillEffectDataValue[IntegerValueEffectKey]>,
   lv: SkillLv
-): SkillEffectValue[Exclude<IntegerValueEffectKey, EquipmentEffectOnly>] {
+): SkillEffectValue[IntegerValueEffectKey] {
   return {
     ...calculateAddition(data, lv),
     ...calculateDataValue('value', data, lv)
