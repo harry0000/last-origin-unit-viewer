@@ -1,14 +1,7 @@
 import {
-  Effect,
-  EquipmentEffectOnly,
-  IntegerValueEffectKey,
-  MicroValueEffectKey,
-  MilliPercentageEffectKey,
-  NoValueEffectKey,
-  PushPullEffectKey,
-  RangeUpDownEffectKey
+  Effect
 } from './Effect';
-import { IntegerValue, ValueUnit } from './SkillEffectValue';
+import { IntegerValue, ValueUnit } from './ValueUnit';
 import { SkillEffectActivationCondition } from './SkillEffectActivationCondition';
 import { SkillEffectActivationRate } from './SkillEffectActivationRate';
 import { SkillEffectScaleFactor } from './SkillEffectScaleFactor';
@@ -17,6 +10,13 @@ import { SkillEffectTerm, SkillEffectTermRoundsValue } from './SkillEffectTerm';
 import { SkillEffectTimesValue } from './SkillEffectTimesValue';
 import { SkillEffective } from './SkillEffective';
 import { UnitForms } from './UnitFormValue';
+import {
+  EquipmentEffectOnly,
+  IntegerValueEffectKey,
+  MicroValueEffectKey,
+  MilliPercentageEffectKey, NoValueEffectKey, PushPullEffectKey,
+  RangeUpDownEffectKey
+} from './SkillEffect';
 
 type EffectValue<T extends ValueUnit> =
   {

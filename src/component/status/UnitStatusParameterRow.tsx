@@ -3,15 +3,16 @@
 import { CSSObject, Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
 import React from 'react';
-import { SetterOrUpdater } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
-import { Col, Image, OverlayTrigger, Popover, Row } from 'react-bootstrap';
+import { Col, Image, Row } from 'react-bootstrap';
+import StatusEffectsView from './StatusEffectsView';
 import UnitStatusParameterButton from './UnitStatusParameterButton';
 
-import { AccEffect, AtkEffect, CriEffect, DefEffect, EvaEffect, HpEffect } from '../../domain/status/UnitStatusEffect';
-import UnitStatus from '../../domain/status/UnitStatus';
-import { calcMilliPercentageValue, calcMilliValue, calcValue } from '../../domain/SkillEffectValue';
+import { selectedUnitStatusState } from '../../state/unit/selectedUnitStatusState';
+
+import { formatMicroValue, formatMilliPercentage, formatMilliValue } from './UnitStatusParameterFormatter';
 
 const parameterCol: CSSObject = {
   fontSize: '1.2em',
@@ -22,11 +23,6 @@ const pointsCol: CSSObject = {
   fontWeight: 'bold',
   textAlign: 'right'
 };
-
-const effectValueColor = {
-  positive: { color: '#3c3' },
-  negative: { color: '#c33' }
-} as const;
 
 type Parameter = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri' | 'spd'
 
@@ -53,220 +49,19 @@ const StatusParameterLabel: React.FC<{ parameter: Parameter }> = React.memo(({ p
   );
 });
 
-type StatusEffects = ReadonlyArray<HpEffect | AtkEffect | DefEffect | AccEffect | EvaEffect | CriEffect>
-type StatusParameterValues = {
-  value: number,
-  base: number,
-  effectsValue: number,
-  effects: StatusEffects
-}
-
-function buildValues(parameter: Exclude<Parameter, 'spd'>, status?: UnitStatus): StatusParameterValues {
-  if (!status) {
-    return {
-      value: 0,
-      base: 0,
-      effectsValue: 0,
-      effects: []
-    };
-  }
-
-  switch (parameter) {
-  case 'hp':
-    return {
-      value: status.hp,
-      base: status.baseParameters.hp.value,
-      effectsValue: status.effects.hpValue.value,
-      effects: status.effects.hpEffects
-    };
-  case 'atk':
-    return {
-      value: status.atk,
-      base: calcMilliValue(status.baseParameters.atk),
-      effectsValue: calcMilliValue(status.effects.atkValue),
-      effects: status.effects.atkEffects
-    };
-  case 'def':
-    return {
-      value: status.def,
-      base: calcMilliValue(status.baseParameters.def),
-      effectsValue: calcMilliValue(status.effects.defValue),
-      effects: status.effects.defEffects
-    };
-  case 'acc':
-    return {
-      value: status.acc,
-      base: calcMilliPercentageValue(status.baseParameters.acc),
-      effectsValue: calcMilliPercentageValue(status.effects.accValue),
-      effects: status.effects.accEffects
-    };
-  case 'eva':
-    return {
-      value: status.eva,
-      base: calcMilliPercentageValue(status.baseParameters.eva),
-      effectsValue: calcMilliPercentageValue(status.effects.evaValue),
-      effects: status.effects.evaEffects
-    };
-  case 'cri':
-    return {
-      value: status.cri,
-      base: calcMilliPercentageValue(status.baseParameters.cri),
-      effectsValue: calcMilliPercentageValue(status.effects.criValue),
-      effects: status.effects.criEffects
-    };
-  }
-}
-
-const StatusParameterValueView: React.FC<{
-  css?: Interpolation<Theme>,
-  parameter: Parameter,
-  value: number
-}> = ({ parameter, value, ...others }) => {
-  const display = (() => {
-    switch (parameter) {
-    case 'hp':
-      return `${value}`;
-    case 'atk':
-    case 'def':
-      return `${value.toFixed(2)}`;
-    case 'acc':
-    case 'eva':
-    case 'cri':
-      return `${value.toFixed(2)} %`;
-    case 'spd':
-      return `${value.toFixed(3)}`;
-    }
-  })();
-
-  return (<span {...others}>{display}</span>);
-};
-
-const StatusEffectValueView: React.FC<{
-  css?: Interpolation<Theme>,
-  parameter: Parameter,
-  value: number
-}> = ({ parameter, value, ...others }) => {
-  const [sign, color] =
-    value === 0 ?
-      ['+', undefined] :
-      value > 0 ?
-        ['+', effectValueColor.positive] :
-        ['-', effectValueColor.negative];
-  const display = (() => {
-    switch (parameter) {
-    case 'hp':
-      return `${sign} ${Math.abs(value)}`;
-    case 'atk':
-    case 'def':
-      return `${sign} ${Math.abs(value).toFixed(2)}`;
-    case 'acc':
-    case 'eva':
-    case 'cri':
-      return `${sign} ${Math.abs(value).toFixed(2)} %`;
-    case 'spd':
-      return `${sign} ${Math.abs(value).toFixed(3)}`;
-    }
-  })();
-
-  return (<span {...others} css={color}>{display}</span>);
-};
-
-const StatusEffectsView: React.FC<{
-  parameter: Parameter,
-  values: StatusParameterValues
-}> = ({ parameter, values }) => {
-  const { t } = useTranslation();
-
-  const EffectsView = () => {
-    if (values.effects.length > 0) {
-      const { effectsValue } = values;
-      const popover = (
-        <Popover id="popover-unit-status-effects" css={{ maxWidth: 'none' }}>
-          <Popover.Content css={{ padding: 2 }}>
-            <div css={{
-              display: 'flex',
-              flexDirection: 'column',
-              borderRadius: 3,
-              '& > div:not(:first-of-type)': {
-                marginTop: 2
-              }
-            }}>
-              {values.effects.map(e => {
-                return (
-                  <div
-                    key={JSON.stringify(e)}
-                    css={{
-                      display: 'flex',
-                      color: '#ccc',
-                      fontSize: '0.9em',
-                      fontWeight: 'bold',
-                      backgroundColor: '#0a101e',
-                      borderRadius: 3,
-                      padding: '3px 8px'
-                    }}
-                  >
-                    <div css={{ flexShrink: 0 }}>
-                      {t(`status.effected.${e.effectedBy.name}`, { value: e.effectedBy.value })}
-                    </div>
-                    <div css={{ width: 120, textAlign: 'right' }}>
-                      <StatusEffectValueView parameter={parameter} value={calcValue(e)} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </Popover.Content>
-        </Popover>
-      );
-
-      return (
-        <OverlayTrigger
-          placement='bottom'
-          overlay={popover}
-        >
-          <span>
-            <StatusEffectValueView
-              css={{ textDecoration: 'underline' }}
-              parameter={parameter}
-              value={effectsValue}
-            />
-          </span>
-        </OverlayTrigger>
-      );
-    } else {
-      return (<StatusEffectValueView parameter={parameter} value={0} />);
-    }
-  };
-
-  return (
-    <div css={{
-      display: 'flex',
-      justifyContent: 'flex-end',
-      width: 110,
-      marginLeft: 'auto'
-    }}>
-      <div css={{ marginRight: 'auto' }}>(</div>
-      <div css={{ marginLeft: 'auto' }}>
-        <EffectsView />
-      </div>
-      <div>&nbsp;)</div>
-    </div>
-  );
-};
-
 const UnitStatusParameterRow: React.FC<{
   css?: Interpolation<Theme>,
   parameter: Exclude<Parameter, 'spd'>,
-  values: StatusParameterValues,
-  lv?: number,
+  value?: string,
+  enhancedLv: number | undefined,
   upDisabled: boolean,
   downDisabled: boolean,
   onUpClicked: () => void,
   onDownClicked: () => void
 }> = ({
   parameter,
-  values,
-  lv,
+  value,
+  enhancedLv,
   upDisabled,
   downDisabled,
   onUpClicked,
@@ -282,14 +77,14 @@ const UnitStatusParameterRow: React.FC<{
         sm={{ span: 3, order: 1 }}
         css={{ padding: 0 }}
       >
-        <StatusParameterLabel parameter={parameter}/>
+        <StatusParameterLabel parameter={parameter} />
       </Col>
       <Col
         xs={{ span: 4, order: 2 }}
         sm={{ span: 2, order: 2 }}
-        css={parameterCol}
+        css={{ ...parameterCol, paddingLeft: 0 }}
       >
-        <StatusParameterValueView parameter={parameter} value={values.value} />
+        <span>{value}</span>
       </Col>
       <Col
         xs={{ offset: 3, span: 5, order: 4 }}
@@ -297,8 +92,11 @@ const UnitStatusParameterRow: React.FC<{
         css={{ ...parameterCol, fontSize: '0.9em', color: '#888' }}
       >
         <StatusEffectsView
+          css={{
+            width: 110,
+            marginLeft: 'auto'
+          }}
           parameter={parameter}
-          values={values}
         />
       </Col>
       <Col
@@ -307,7 +105,7 @@ const UnitStatusParameterRow: React.FC<{
         css={{ ...pointsCol, paddingRight: 0 }}
       >
         <span>{t('lv')}</span>
-        <span css={{ display: 'inline-block', width: '2em', textAlign: 'right' }}>{lv ?? 0}</span>
+        <span css={{ display: 'inline-block', width: '2em', textAlign: 'right' }}>{enhancedLv ?? 0}</span>
       </Col>
       <Col
         xs={{ span: 'auto', order: 5 }}
@@ -335,33 +133,51 @@ const UnitStatusParameterRow: React.FC<{
   );
 };
 
-export const SpdParameterRow: React.FC<{
-  css?: Interpolation<Theme>,
-  status?: UnitStatus
-}> = ({ status, ...others }) => {
+export const SpdParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
+  const status = useRecoilValue(selectedUnitStatusState);
+
   return (
-    <Row {...others}>
-      <Col xs={4} sm={3} css={{ padding: 0 }}>
-        <StatusParameterLabel parameter='spd' />
+    <Row {...props}>
+      <Col
+        xs={{ span: 4, order: 1 }}
+        sm={{ span: 3, order: 1 }}
+        css={{ padding: 0 }}
+      >
+        <StatusParameterLabel parameter="spd" />
       </Col>
-      <Col xs={4} sm={2} css={parameterCol}>
-        <StatusParameterValueView parameter='spd' value={status?.spdValue ?? 0} />
+      <Col
+        xs={{ span: 4, order: 2 }}
+        sm={{ span: 2, order: 2 }}
+        css={{ ...parameterCol, paddingLeft: 0 }}
+      >
+        <span>{formatMicroValue(status?.spd)}</span>
+      </Col>
+      <Col
+        xs={{ offset: 3, span: 5, order: 4 }}
+        sm={{ offset: 0, span: 2, order: 3 }}
+        css={{ ...parameterCol, fontSize: '0.9em', color: '#888' }}
+      >
+        <StatusEffectsView
+          css={{
+            width: 110,
+            marginLeft: 'auto'
+          }}
+          parameter="spd"
+        />
       </Col>
     </Row>
   );
 };
 
-export const HpParameterRow: React.FC<{
-  css?: Interpolation<Theme>,
-  status?: UnitStatus,
-  setStatus: SetterOrUpdater<UnitStatus | undefined>
-}> = ({ status, setStatus, ...others }) => {
+export const HpParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
+  const [status, setStatus] = useRecoilState(selectedUnitStatusState);
+
   return (
     <UnitStatusParameterRow
-      {...others}
+      {...props}
       parameter="hp"
-      values={buildValues('hp', status)}
-      lv={status?.hpLv}
+      value={`${status?.hp ?? '0'}`}
+      enhancedLv={status?.hpLv}
       upDisabled={!status?.enableUpHpLv}
       downDisabled={!status?.enableDownHpLv}
       onUpClicked={() => { setStatus(s => s?.upHpLv()); }}
@@ -370,17 +186,15 @@ export const HpParameterRow: React.FC<{
   );
 };
 
-export const AtkParameterRow: React.FC<{
-  css?: Interpolation<Theme>,
-  status?: UnitStatus,
-  setStatus: SetterOrUpdater<UnitStatus | undefined>
-}> = ({ status, setStatus, ...others }) => {
+export const AtkParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
+  const [status, setStatus] = useRecoilState(selectedUnitStatusState);
+
   return (
     <UnitStatusParameterRow
-      {...others}
+      {...props}
       parameter="atk"
-      values={buildValues('atk', status)}
-      lv={status?.atkLv}
+      value={formatMilliValue(status?.atk)}
+      enhancedLv={status?.atkLv}
       upDisabled={!status?.enableUpAtkLv}
       downDisabled={!status?.enableDownAtkLv}
       onUpClicked={() => { setStatus(s => s?.upAtkLv()); }}
@@ -389,17 +203,15 @@ export const AtkParameterRow: React.FC<{
   );
 };
 
-export const DefParameterRow: React.FC<{
-  css?: Interpolation<Theme>,
-  status?: UnitStatus,
-  setStatus: SetterOrUpdater<UnitStatus | undefined>
-}> = ({ status, setStatus, ...others }) => {
+export const DefParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
+  const [status, setStatus] = useRecoilState(selectedUnitStatusState);
+
   return (
     <UnitStatusParameterRow
-      {...others}
+      {...props}
       parameter="def"
-      values={buildValues('def', status)}
-      lv={status?.defLv}
+      value={formatMilliValue(status?.def)}
+      enhancedLv={status?.defLv}
       upDisabled={!status?.enableUpDefLv}
       downDisabled={!status?.enableDownDefLv}
       onUpClicked={() => { setStatus(s => s?.upDefLv()); }}
@@ -408,17 +220,15 @@ export const DefParameterRow: React.FC<{
   );
 };
 
-export const AccParameterRow: React.FC<{
-  css?: Interpolation<Theme>,
-  status?: UnitStatus,
-  setStatus: SetterOrUpdater<UnitStatus | undefined>
-}> = ({ status, setStatus, ...others }) => {
+export const AccParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
+  const [status, setStatus] = useRecoilState(selectedUnitStatusState);
+
   return (
     <UnitStatusParameterRow
-      {...others}
+      {...props}
       parameter="acc"
-      values={buildValues('acc', status)}
-      lv={status?.accLv}
+      value={formatMilliPercentage(status?.acc)}
+      enhancedLv={status?.accLv}
       upDisabled={!status?.enableUpAccLv}
       downDisabled={!status?.enableDownAccLv}
       onUpClicked={() => { setStatus(s => s?.upAccLv()); }}
@@ -427,17 +237,15 @@ export const AccParameterRow: React.FC<{
   );
 };
 
-export const EvaParameterRow: React.FC<{
-  css?: Interpolation<Theme>,
-  status?: UnitStatus,
-  setStatus: SetterOrUpdater<UnitStatus | undefined>
-}> = ({ status, setStatus, ...others }) => {
+export const EvaParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
+  const [status, setStatus] = useRecoilState(selectedUnitStatusState);
+
   return (
     <UnitStatusParameterRow
-      {...others}
+      {...props}
       parameter="eva"
-      values={buildValues('eva', status)}
-      lv={status?.evaLv}
+      value={formatMilliPercentage(status?.eva)}
+      enhancedLv={status?.evaLv}
       upDisabled={!status?.enableUpEvaLv}
       downDisabled={!status?.enableDownEvaLv}
       onUpClicked={() => { setStatus(s => s?.upEvaLv()); }}
@@ -446,17 +254,15 @@ export const EvaParameterRow: React.FC<{
   );
 };
 
-export const CriParameterRow: React.FC<{
-  css?: Interpolation<Theme>,
-  status?: UnitStatus,
-  setStatus: SetterOrUpdater<UnitStatus | undefined>
-}> = ({ status, setStatus, ...others }) => {
+export const CriParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
+  const [status, setStatus] = useRecoilState(selectedUnitStatusState);
+
   return (
     <UnitStatusParameterRow
-      {...others}
+      {...props}
       parameter="cri"
-      values={buildValues('cri', status)}
-      lv={status?.criLv}
+      value={formatMilliPercentage(status?.cri)}
+      enhancedLv={status?.criLv}
       upDisabled={!status?.enableUpCriLv}
       downDisabled={!status?.enableDownCriLv}
       onUpClicked={() => { setStatus(s => s?.upCriLv()); }}

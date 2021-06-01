@@ -47,6 +47,12 @@
     }
   },
   "unit": {
+    "rank": {
+      "ss": "SS",
+      "s": "S",
+      "a": "A",
+      "b": "B"
+    },
     "role": {
       "attacker": "攻撃機",
       "defender": "保護機",
@@ -78,10 +84,15 @@
     "ice_resist": "冷気属性耐性",
     "electric_resist": "電気属性耐性",
     "effected": {
-      "enhancement": "強化Lv. {{value}}",
-      "core_link": "コアリンク ( + {{value}} % )",
-      "equipment": "$t(equipment:{{name}}) 強化Lv. {{value}}"
-    }
+      "enhancement": "強化Lv. {{lv}}",
+      "core_link": "リンクボーナス (+ {{value}} %)",
+      "full_link": "フルリンクボーナス (+ {{value}} %)",
+      "equipment": "$t(equipment:{{id}}) Lv. {{lv}}",
+      "rank_up": "${common:unit.rank.{{rank}}}ランクアップボーナス"
+    },
+    "core_link": "コアリンク",
+    "equipment": "装備",
+    "remove_equipment": "装備解除"
   },
   "skill": {
     "ap": "AP",

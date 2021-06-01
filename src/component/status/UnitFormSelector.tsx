@@ -13,12 +13,12 @@ import SVGIcon from '../icon/SVGIcon';
 import { isFormChangeUnit } from '../../domain/Unit';
 import { selectedUnitState } from '../../state/unit/selectedUnitState';
 
-export const UnitFormSelector: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
+const UnitFormSelector: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
   const { t } = useTranslation();
   const [unit, setUnit] = useRecoilState(selectedUnitState);
 
   return unit && isFormChangeUnit(unit) ?
-    (<div {...props} css={{ padding: '5px 0 5px 10px' }}>
+    (<div {...props}>
       <OverlayTrigger
         placement='auto'
         overlay={<Tooltip id='tooltip-form-change'>{t('form_change')}</Tooltip>}
@@ -39,3 +39,5 @@ export const UnitFormSelector: React.FC<{ css?: Interpolation<Theme> }> = (props
     </div>) :
     null;
 };
+
+export default UnitFormSelector;

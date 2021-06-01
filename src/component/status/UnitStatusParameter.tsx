@@ -11,7 +11,8 @@ import {
   CriParameterRow,
   DefParameterRow,
   EvaParameterRow,
-  HpParameterRow, SpdParameterRow
+  HpParameterRow,
+  SpdParameterRow
 } from './UnitStatusParameterRow';
 import { ArrowReset } from '../icon/FluentIcons';
 import { Button, Col, Container, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
@@ -48,9 +49,12 @@ const divider: CSSObject = {
   borderTop: '2px dashed #444'
 };
 
+const bottomDivider: CSSObject = {
+  borderBottom: '2px dashed #444'
+};
+
 const rowPadding: CSSObject = {
-  margin: '0 -5px 0',
-  padding: '8px 0'
+  padding: '10px 0'
 };
 
 const rowPaddingWithDivider = {
@@ -93,13 +97,13 @@ const ResetPointsButton: React.FC<{ disabled: boolean, onClick: () => void }> = 
   );
 };
 
-const UnitStatusParameter: React.FC = () => {
+const LvContainer: React.FC = () => {
   const { t } = useTranslation();
   const [status, setStatus] = useRecoilState(selectedUnitStatusState);
 
   return (
-    <div css={{ color: '#ccc', marginTop: 5 }}>
-      <div css={{ display: 'flex', padding: '0 10px' }}>
+    <React.Fragment>
+      <div css={{ display: 'flex' }}>
         <div css={unitLvStyle}>
           <span css={{ marginRight: 5 }}>{t('lv')}</span>
           {status?.lvMode === 'manual' ?
@@ -123,21 +127,27 @@ const UnitStatusParameter: React.FC = () => {
           />
         </div>
       </div>
-      <div css={{ padding: '0 10px' }}>
-        <UnitLvModeToggleButton disabled={!status} lvMode={status?.lvMode} onChange={() => { setStatus(s => s?.toggleLvMode()); }} />
-      </div>
-      <Container fluid css={{ paddingTop: 5, paddingBottom: 5, marginTop: 10 }}>
-        <HpParameterRow css={rowPadding} status={status} setStatus={setStatus} />
-        <AtkParameterRow css={rowPaddingWithDivider} status={status} setStatus={setStatus} />
-        <DefParameterRow css={rowPaddingWithDivider} status={status} setStatus={setStatus} />
-        <AccParameterRow css={rowPaddingWithDivider} status={status} setStatus={setStatus} />
-        <EvaParameterRow css={rowPaddingWithDivider} status={status} setStatus={setStatus} />
-        <CriParameterRow css={rowPaddingWithDivider} status={status} setStatus={setStatus} />
-        <SpdParameterRow css={rowPaddingWithDivider} status={status} />
-        <Row css={rowPaddingWithDivider}>
-          <Col xs="auto"><FireResist status={status} /></Col>
-          <Col xs="auto"><IceResist status={status} /></Col>
-          <Col xs="auto"><ElectricResist status={status} /></Col>
+      <UnitLvModeToggleButton disabled={!status} lvMode={status?.lvMode} onChange={() => { setStatus(s => s?.toggleLvMode()); }} />
+    </React.Fragment>
+  );
+};
+
+const UnitStatusParameter: React.FC = () => {
+  return (
+    <div css={{ color: '#ccc' }}>
+      <LvContainer />
+      <Container fluid css={{ marginTop: 10 }}>
+        <HpParameterRow css={rowPadding} />
+        <AtkParameterRow css={rowPaddingWithDivider} />
+        <DefParameterRow css={rowPaddingWithDivider} />
+        <AccParameterRow css={rowPaddingWithDivider} />
+        <EvaParameterRow css={rowPaddingWithDivider} />
+        <CriParameterRow css={rowPaddingWithDivider} />
+        <SpdParameterRow css={rowPaddingWithDivider} />
+        <Row css={{ ...rowPaddingWithDivider, ...bottomDivider, justifyContent: 'space-evenly' }}>
+          <Col xs="auto" css={{ padding: '0 5px' }}><FireResist /></Col>
+          <Col xs="auto" css={{ padding: '0 5px' }}><IceResist /></Col>
+          <Col xs="auto" css={{ padding: '0 5px' }}><ElectricResist /></Col>
         </Row>
       </Container>
     </div>

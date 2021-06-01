@@ -1,9 +1,20 @@
 {
+  "rank": {
+    "ss": "SS",
+    "s": "S",
+    "a": "A",
+    "b": "B"
+  },
   "suffix": {
     "ss": "EX",
     "s": "SP",
     "a": "MP",
     "b": "RE"
+  },
+  "type": {
+    "chip": "回路",
+    "os": "OS",
+    "gear": "補助装備"
   },
   "accuracy_chip": "演算強化回路",
   "accuracy_chip_beta": "",
@@ -30,9 +41,9 @@
   "atflir_reinforcement_chip": "ATFLIR強化回路",
   "aerial_defense_os": "高機動マニューバシステム",
   "anti_air_os": "対機動戦闘システム",
+  "anti_flying_heavy_os": "",
   "anti_heavy_os": "対重装戦闘システム",
   "anti_heavy_light_os": "",
-  "anti_flying_heavy_os": "",
   "anti_light_os": "対軽装戦闘システム",
   "anti_light_flying_os": "",
   "assault_os": "強襲型戦闘システム",
@@ -70,9 +81,9 @@
   "horns_of_the_evil_overlord": "ポックル大魔王の角",
   "lunar_magic_filled_rice_cakes": "月の魔力が封印された月見餅",
   "lunch_box": "ソワンの手作り弁当",
-  "mini_lilith": "",
-  "mini_hachiko": "",
-  "mini_perrault": "",
+  "mini_hachiko": "ミニハチコ",
+  "mini_lilith": "ミニリリス",
+  "mini_perrault": "ミニペロ",
   "nitro_ex_3000": "ニトロEX3000",
   "o_d_amplifier": "",
   "observation_gear": "観測装備",

@@ -1,3 +1,4 @@
+import { Chip, Gear, Os } from '../EquipmentData';
 import { UnitBasicInfo, UnitNumber } from '../UnitBasicInfo';
 import UnitLv, { UnitLvMode, UnitLvValue } from './UnitLv';
 import UnitParameterEnhancementLv from './UnitParameterEnhancementLv';
@@ -5,13 +6,15 @@ import {
   calcMicroValues,
   calcMilliPercentageValues,
   calcMilliValues
-} from '../SkillEffectValue';
+} from '../ValueUnit';
 import UnitBaseParameter from './UnitBaseParameter';
 import UnitStatusEffect from './UnitStatusEffect';
+import UnitEquipment, { ChipEquipment, GearEquipment, OsEquipment } from './UnitEquipment';
 
 type StateParams = {
   lv?: UnitLv,
-  parameters?: UnitParameterEnhancementLv
+  parameters?: UnitParameterEnhancementLv,
+  equipments?: UnitEquipment
 }
 
 class UnitStatus {
@@ -19,6 +22,7 @@ class UnitStatus {
   readonly unit: UnitBasicInfo;
   readonly #lv: UnitLv;
   readonly #enhancements: UnitParameterEnhancementLv;
+  readonly #equipments: UnitEquipment;
   readonly baseParameters: UnitBaseParameter;
   readonly effects: UnitStatusEffect;
 
@@ -27,7 +31,8 @@ class UnitStatus {
   constructor(
     unit: UnitBasicInfo,
     lv?: UnitLv,
-    enhancements?: UnitParameterEnhancementLv
+    enhancements?: UnitParameterEnhancementLv,
+    equipments?: UnitEquipment
   ) {
     const l = lv ?? new UnitLv();
     const e = enhancements ?? new UnitParameterEnhancementLv(unit);
@@ -43,18 +48,26 @@ class UnitStatus {
 
     this.remainPoints = this.#lv.points - this.#enhancements.points;
     this.baseParameters = new UnitBaseParameter(this.unit.no, this.#lv.value);
-    this.effects = new UnitStatusEffect(this.#enhancements);
+    this.#equipments = equipments ?? new UnitEquipment(this.unit);
+    this.effects = new UnitStatusEffect(this.#lv, this.#enhancements, this.#equipments);
   }
 
   private get hasRemainPoints(): boolean {
     return this.remainPoints > 0;
   }
 
-  private updateState({ lv, parameters }: StateParams): UnitStatus {
+  private updateState({ lv, parameters, equipments }: StateParams): UnitStatus {
+    if (lv && lv === this.#lv ||
+        parameters && parameters === this.#enhancements ||
+        equipments && equipments === this.#equipments) {
+      return this;
+    }
+
     return new UnitStatus(
       this.unit,
       lv ?? this.#lv,
-      parameters ?? this.#enhancements
+      parameters ?? this.#enhancements,
+      equipments ?? this.#equipments
     );
   }
 
@@ -114,20 +127,20 @@ class UnitStatus {
     return calcMilliPercentageValues(this.baseParameters.cri, this.effects.criValue);
   }
 
-  get spdValue(): number {
-    return calcMicroValues(this.baseParameters.spd);
+  get spd(): number {
+    return calcMicroValues(this.baseParameters.spd, this.effects.spdValue);
   }
 
-  get fireResistValue(): number {
-    return calcMilliPercentageValues(this.baseParameters.fireResist);
+  get fireResist(): number {
+    return calcMilliPercentageValues(this.baseParameters.fireResist, this.effects.fireResistValue);
   }
 
-  get iceResistValue(): number {
-    return calcMilliPercentageValues(this.baseParameters.iceResist);
+  get iceResist(): number {
+    return calcMilliPercentageValues(this.baseParameters.iceResist, this.effects.iceResistValue);
   }
 
-  get electricResistValue(): number {
-    return calcMilliPercentageValues(this.baseParameters.electricResist);
+  get electricResist(): number {
+    return calcMilliPercentageValues(this.baseParameters.electricResist, this.effects.electricResistValue);
   }
 
   get hpLv(): number { return this.#enhancements.hpLv; }
@@ -237,6 +250,86 @@ class UnitStatus {
       return this.updateState({ parameters: this.#enhancements.downCriLv() });
     }
     return this;
+  }
+
+  get chip1(): ChipEquipment | undefined {
+    return this.#equipments.chip1;
+  }
+
+  get chip1AvailableLv(): UnitLvValue {
+    return this.#equipments.chip1AvailableLv;
+  }
+
+  get chip2(): ChipEquipment | undefined {
+    return this.#equipments.chip2;
+  }
+
+  get chip2AvailableLv(): UnitLvValue {
+    return this.#equipments.chip2AvailableLv;
+  }
+
+  get os(): OsEquipment | undefined {
+    return this.#equipments.os;
+  }
+
+  get osAvailableLv(): UnitLvValue {
+    return this.#equipments.osAvailableLv;
+  }
+
+  get isChip1Available(): boolean {
+    return this.#equipments.isChip1Available(this.#lv);
+  }
+
+  get isChip2Available(): boolean {
+    return this.#equipments.isChip2Available(this.#lv);
+  }
+
+  get isOsAvailable(): boolean {
+    return this.#equipments.isOsAvailable(this.#lv);
+  }
+
+  get isGearAvailable(): boolean {
+    return this.#equipments.isGearAvailable(this.#lv);
+  }
+
+  get gear(): GearEquipment | undefined {
+    return this.#equipments.gear;
+  }
+
+  get gearAvailableLv(): UnitLvValue {
+    return this.#equipments.gearAvailableLv;
+  }
+
+  equipChip1(chip: Chip): UnitStatus {
+    return this.updateState({ equipments: this.#equipments.equipChip1(chip) });
+  }
+
+  removeChip1(): UnitStatus {
+    return this.updateState({ equipments: this.#equipments.removeChip1() });
+  }
+
+  equipChip2(chip: Chip): UnitStatus {
+    return this.updateState({ equipments: this.#equipments.equipChip2(chip) });
+  }
+
+  removeChip2(): UnitStatus {
+    return this.updateState({ equipments: this.#equipments.removeChip2() });
+  }
+
+  equipOs(os: Os): UnitStatus {
+    return this.updateState({ equipments: this.#equipments.equipOs(os) });
+  }
+
+  removeOs(): UnitStatus {
+    return this.updateState({ equipments: this.#equipments.removeOs() });
+  }
+
+  equipGear(gear: Gear): UnitStatus {
+    return this.updateState({ equipments: this.#equipments.equipGear(gear) });
+  }
+
+  removeGear(): UnitStatus {
+    return this.updateState({ equipments: this.#equipments.removeGear() });
   }
 }
 

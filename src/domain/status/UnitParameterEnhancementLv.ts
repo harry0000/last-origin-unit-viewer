@@ -1,5 +1,6 @@
 import { UnitBasicInfo } from '../UnitBasicInfo';
-import { IntegerValue, MilliPercentageValue, MilliValue } from '../SkillEffectValue';
+import { IntegerValue, MilliPercentageValue, MilliValue } from '../ValueUnit';
+import { EnhancementStatusEffect, StatusEffect } from '../StatusEffect';
 
 type ParameterLv = {
   hpLv?: number,
@@ -67,6 +68,17 @@ class UnitParameterEnhancementLv {
       evaLv: 0,
       criLv: 0
     });
+  }
+
+  get statusEffects(): EnhancementStatusEffect {
+    const hp  = this.hpLv > 0  ? { hp_up: this.hpEnhancedValue } : {};
+    const atk = this.atkLv > 0 ? { atk_up: this.atkEnhancedValue } : {};
+    const def = this.defLv > 0 ? { def_up: this.defEnhancedValue } : {};
+    const acc = this.accLv > 0 ? { acc_up: this.accEnhancedValue } : {};
+    const eva = this.evaLv > 0 ? { eva_up: this.evaEnhancedValue } : {};
+    const cri = this.criLv > 0 ? { cri_up: this.criEnhancedValue } : {};
+
+    return Object.assign({}, hp, atk, def, acc, eva, cri);
   }
 
   get hpEnhancedValue(): IntegerValue {

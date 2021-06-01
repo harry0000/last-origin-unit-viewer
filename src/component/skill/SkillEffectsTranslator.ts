@@ -3,7 +3,7 @@ import { TFunction } from 'i18next';
 import { NonNullableEntry } from '../../util/object';
 import { AroundSkillEffectValue, SkillEffectValue } from '../../domain/UnitSkill';
 import { Effect } from '../../domain/Effect';
-import { calcValue, MilliPercentageValue } from '../../domain/SkillEffectValue';
+import { calcValue, MilliPercentageValue } from '../../domain/ValueUnit';
 
 export type SkillEffectDetailsEntry =
   NonNullableEntry<keyof SkillEffectValue, SkillEffectValue> |

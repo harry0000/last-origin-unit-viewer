@@ -25,19 +25,15 @@ import { UnitBasicData, UnitNumber, UnitRank, UnitRankComparator } from './UnitB
 import UnitFormValue, { FormChangeUnitNumbers, FormChangeUnits } from './UnitFormValue';
 import UnitSkillLvValue, { SkillLv } from './UnitSkillLvValue';
 import { unitSkillData } from '../data/unitSkillData';
+import { Effect } from './Effect';
+import { ValueUnit } from './ValueUnit';
+import { foldObjectNonNullableEntry, NonNullableEntry } from '../util/object';
 import {
-  Effect,
-  EquipmentEffectOnly,
   IntegerValueEffectKey,
   MicroValueEffectKey,
-  MilliPercentageEffectKey,
-  NoValueEffectKey,
+  MilliPercentageEffectKey, NoValueEffectKey,
   RangeUpDownEffectKey
-} from './Effect';
-import {
-  ValueUnit
-} from './SkillEffectValue';
-import { foldObjectNonNullableEntry, NonNullableEntry } from '../util/object';
+} from './SkillEffect';
 
 type Value<T extends ValueUnit> =
   {
@@ -192,9 +188,9 @@ function calculateRangeUpDownEffectValue(
 }
 
 function calculateIntegerValueEffectValue(
-  data: NonNullable<SkillEffectDataValue[Exclude<IntegerValueEffectKey, EquipmentEffectOnly>]>,
+  data: NonNullable<SkillEffectDataValue[IntegerValueEffectKey]>,
   lv: SkillLv
-): SkillEffectValue[Exclude<IntegerValueEffectKey, EquipmentEffectOnly>] {
+): SkillEffectValue[IntegerValueEffectKey] {
   return {
     ...calculateAddition(data, lv),
     ...calculateDataValue('value', data, lv)

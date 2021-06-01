@@ -1,0 +1,51 @@
+.equipment.slot.dropdown > a > .equipment-toggle-view {
+  display: inline-block;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.equipment.slot.dropdown .equipment-menu.dropdown-menu.show {
+  max-height: 15rem;
+  min-width: 230px;
+  overflow-y: scroll;
+  background-color: #888;
+  padding: 2px;
+}
+
+.equipment-menu.dropdown-menu.show .equipment-menu-grid {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(auto-fill, 60px);
+  grid-auto-rows: 105px;
+  justify-content: space-evenly;
+  background-color: #0a101e;
+  border-radius: 3px;
+  padding: 10px 0;
+}
+
+.equipment-menu.dropdown-menu.show .equipment-menu-grid a.dropdown-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px;
+  width: 55px;
+}
+
+.equipment-menu.dropdown-menu.show .equipment-menu-grid a.dropdown-item .label {
+  color: #ccc;
+  font-size: 0.5em;
+  font-weight: bold;
+  white-space: break-spaces;
+}
+
+.equipment-menu.dropdown-menu.show .equipment-menu-grid a.dropdown-item.active .label,
+.equipment-menu.dropdown-menu.show .equipment-menu-grid a.dropdown-item:active .label,
+.equipment-menu.dropdown-menu.show .equipment-menu-grid a.dropdown-item:focus .label,
+.equipment-menu.dropdown-menu.show .equipment-menu-grid a.dropdown-item:hover .label {
+  color: #16181b;
+}
+
+.equipment-menu.dropdown-menu.show .equipment-menu-grid a.dropdown-item:hover {
+  background-color: #888;
+}
