@@ -17,7 +17,7 @@ const UnitStatus: React.FC<{ className?: string, css?: Interpolation<Theme> }> =
         userSelect: 'none',
         overflowY: 'hidden',
         padding: '0 10px',
-        '& > *:not(:first-child)': {
+        '& > *:not(:first-of-type)': {
           marginTop: 15
         }
       }}
