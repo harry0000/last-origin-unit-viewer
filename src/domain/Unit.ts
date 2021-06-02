@@ -5,7 +5,7 @@ import {
   Passive2Skill,
   Passive3Skill
 } from './UnitSkill';
-import { UnitBasicInfo, UnitNumber, UnitRank } from './UnitBasicInfo';
+import { UnitBasicInfo, UnitNumber } from './UnitBasicInfo';
 import UnitFormValue, {
   FormChangeUnitBasicInfo,
   FormChangeUnitNumbers,
@@ -15,7 +15,6 @@ import UnitFormValue, {
   isFormChangeUnitBasicInfo,
   isFormChangeUnitNumber
 } from './UnitFormValue';
-import UnitRankValue from './UnitRankValue';
 import UnitSkillLvValue, { SkillLv } from './UnitSkillLvValue';
 import { calculateFormChangeUnitSkill, calculateUnitSkill } from './UnitSkillCalculator';
 
@@ -49,20 +48,16 @@ export function isFormChangeUnit<N extends FormChangeUnitNumbers>(arg: Unit): ar
 abstract class Unit {
 
   readonly basicInfo: UnitBasicInfo;
-  protected readonly rank: UnitRankValue;
   readonly skillLv: UnitSkillLvValue;
 
   protected constructor(
     basicInfo: UnitBasicInfo,
-    rank?: UnitRankValue,
     skillLv?: UnitSkillLvValue
   ) {
     this.basicInfo = basicInfo;
-    this.rank      = rank    ?? new UnitRankValue(basicInfo);
     this.skillLv   = skillLv ?? new UnitSkillLvValue(basicInfo);
   }
 
-  protected abstract updateUnitRankValue(rank: UnitRankValue): Unit
   protected abstract updateSkillLvValue(lv: UnitSkillLvValue): Unit
 
   get unitNumber(): UnitNumber {
@@ -75,18 +70,6 @@ abstract class Unit {
   abstract get passive1Skill(): Passive1Skill | undefined
   abstract get passive2Skill(): Passive2Skill | undefined
   abstract get passive3Skill(): Passive3Skill | undefined
-
-  availableUnitRanks(): ReadonlyArray<UnitRank> {
-    return this.rank.availableUnitRanks;
-  }
-
-  unitRank(): UnitRank {
-    return this.rank.unitRank;
-  }
-
-  changeUnitRank(rank: UnitRank): Unit {
-    return this.updateUnitRankValue(this.rank.changeUnitRank(rank));
-  }
 
   changeActive1SkillLv(lv: SkillLv): Unit {
     return this.updateSkillLvValue(this.skillLv.setActive1Lv(lv));
@@ -121,10 +104,9 @@ class FormLessUnit extends Unit {
 
   constructor(
     unit: FormLessUnitBasicInfo,
-    rank?: UnitRankValue,
     skillLv?: UnitSkillLvValue
   ) {
-    super(unit, rank, skillLv);
+    super(unit, skillLv);
 
     this.#unit = unit;
 
@@ -136,12 +118,8 @@ class FormLessUnit extends Unit {
     this.passive3Skill = ps3;
   }
 
-  protected updateUnitRankValue(rank: UnitRankValue): Unit {
-    return new FormLessUnit(this.#unit, rank, this.skillLv);
-  }
-
   protected updateSkillLvValue(lv: UnitSkillLvValue): Unit {
-    return new FormLessUnit(this.#unit, this.rank, lv);
+    return new FormLessUnit(this.#unit, lv);
   }
 }
 
@@ -152,11 +130,10 @@ abstract class FormChangeUnit<N extends FormChangeUnitNumbers> extends Unit {
 
   protected constructor(
     unit: FormChangeUnitBasicInfo<N>,
-    rank?: UnitRankValue,
     skillLv?: UnitSkillLvValue,
     form?: UnitFormValue<N>
   ) {
-    super(unit, rank, skillLv);
+    super(unit, skillLv);
 
     this.unit = unit;
     this.form = form ?? UnitFormValue.build(unit);
@@ -183,11 +160,10 @@ class AlexandraUnit extends FormChangeUnit<typeof FormChangeUnits.Alexandra> {
 
   constructor(
     unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Alexandra>,
-    rank?: UnitRankValue,
     skillLv?: UnitSkillLvValue,
     form?: UnitFormValue<typeof FormChangeUnits.Alexandra>
   ) {
-    super(unit, rank, skillLv, form);
+    super(unit, skillLv, form);
 
     const [as1, as2, ps1, ps2, ps3] = calculateFormChangeUnitSkill({ unitNumber: unit.no, basicInfo: unit, skillLv: this.skillLv, form: this.form });
     this.active1Skill = as1;
@@ -197,18 +173,14 @@ class AlexandraUnit extends FormChangeUnit<typeof FormChangeUnits.Alexandra> {
     this.passive3Skill = ps3;
   }
 
-  protected updateUnitRankValue(rank: UnitRankValue): Unit {
-    return new AlexandraUnit(this.unit, rank, this.skillLv, this.form);
-  }
-
   protected updateSkillLvValue(lv: UnitSkillLvValue): Unit {
-    return new AlexandraUnit(this.unit, this.rank, lv, this.form);
+    return new AlexandraUnit(this.unit, lv, this.form);
   }
 
   protected updateUnitFormValue(
     form: UnitFormValue<typeof FormChangeUnits.Alexandra>
   ): FormChangeUnit<typeof FormChangeUnits.Alexandra> {
-    return new AlexandraUnit(this.unit, this.rank, this.skillLv, form);
+    return new AlexandraUnit(this.unit, this.skillLv, form);
   }
 }
 
@@ -222,11 +194,10 @@ class LeonaUnit extends FormChangeUnit<typeof FormChangeUnits.Leona> {
 
   constructor(
     unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Leona>,
-    rank?: UnitRankValue,
     skillLv?: UnitSkillLvValue,
     form?: UnitFormValue<typeof FormChangeUnits.Leona>
   ) {
-    super(unit, rank, skillLv, form);
+    super(unit, skillLv, form);
 
     const [as1, as2, ps1, ps2, ps3] = calculateFormChangeUnitSkill({ unitNumber: unit.no, basicInfo: unit, skillLv: this.skillLv, form: this.form });
     this.active1Skill = as1;
@@ -236,16 +207,12 @@ class LeonaUnit extends FormChangeUnit<typeof FormChangeUnits.Leona> {
     this.passive3Skill = ps3;
   }
 
-  protected updateUnitRankValue(rank: UnitRankValue): Unit {
-    return new LeonaUnit(this.unit, rank, this.skillLv, this.form);
-  }
-
   protected updateSkillLvValue(lv: UnitSkillLvValue): Unit {
-    return new LeonaUnit(this.unit, this.rank, lv, this.form);
+    return new LeonaUnit(this.unit, lv, this.form);
   }
 
   protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Leona>): FormChangeUnit<typeof FormChangeUnits.Leona> {
-    return new LeonaUnit(this.unit, this.rank, this.skillLv, form);
+    return new LeonaUnit(this.unit, this.skillLv, form);
   }
 }
 
@@ -259,11 +226,10 @@ class BloodyPantherUnit extends FormChangeUnit<typeof FormChangeUnits.BloodyPant
 
   constructor(
     unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.BloodyPanther>,
-    rank?: UnitRankValue,
     skillLv?: UnitSkillLvValue,
     form?: UnitFormValue<typeof FormChangeUnits.BloodyPanther>
   ) {
-    super(unit, rank, skillLv, form);
+    super(unit, skillLv, form);
 
     const [as1, as2, ps1, ps2, ps3] = calculateFormChangeUnitSkill({ unitNumber: unit.no, basicInfo: unit, skillLv: this.skillLv, form: this.form });
     this.active1Skill = as1;
@@ -273,16 +239,12 @@ class BloodyPantherUnit extends FormChangeUnit<typeof FormChangeUnits.BloodyPant
     this.passive3Skill = ps3;
   }
 
-  protected updateUnitRankValue(rank: UnitRankValue): Unit {
-    return new BloodyPantherUnit(this.unit, rank, this.skillLv, this.form);
-  }
-
   protected updateSkillLvValue(lv: UnitSkillLvValue): Unit {
-    return new BloodyPantherUnit(this.unit, this.rank, lv, this.form);
+    return new BloodyPantherUnit(this.unit, lv, this.form);
   }
 
   protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.BloodyPanther>): FormChangeUnit<typeof FormChangeUnits.BloodyPanther> {
-    return new BloodyPantherUnit(this.unit, this.rank, this.skillLv, form);
+    return new BloodyPantherUnit(this.unit, this.skillLv, form);
   }
 }
 
@@ -296,11 +258,10 @@ class EmilyUnit extends FormChangeUnit<typeof FormChangeUnits.Emily> {
 
   constructor(
     unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Emily>,
-    rank?: UnitRankValue,
     skillLv?: UnitSkillLvValue,
     form?: UnitFormValue<typeof FormChangeUnits.Emily>
   ) {
-    super(unit, rank, skillLv, form);
+    super(unit, skillLv, form);
 
     const [as1, as2, ps1, ps2, ps3] = calculateFormChangeUnitSkill({ unitNumber: unit.no, basicInfo: unit, skillLv: this.skillLv, form: this.form });
     this.active1Skill = as1;
@@ -310,16 +271,12 @@ class EmilyUnit extends FormChangeUnit<typeof FormChangeUnits.Emily> {
     this.passive3Skill = ps3;
   }
 
-  protected updateUnitRankValue(rank: UnitRankValue): Unit {
-    return new EmilyUnit(this.unit, rank, this.skillLv, this.form);
-  }
-
   protected updateSkillLvValue(lv: UnitSkillLvValue): Unit {
-    return new EmilyUnit(this.unit, this.rank, lv, this.form);
+    return new EmilyUnit(this.unit, lv, this.form);
   }
 
   protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Emily>): FormChangeUnit<typeof FormChangeUnits.Emily> {
-    return new EmilyUnit(this.unit, this.rank, this.skillLv, form);
+    return new EmilyUnit(this.unit, this.skillLv, form);
   }
 }
 
@@ -333,11 +290,10 @@ class PhantomUnit extends FormChangeUnit<typeof FormChangeUnits.Phantom> {
 
   constructor(
     unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Phantom>,
-    rank?: UnitRankValue,
     skillLv?: UnitSkillLvValue,
     form?: UnitFormValue<typeof FormChangeUnits.Phantom>
   ) {
-    super(unit, rank, skillLv, form);
+    super(unit, skillLv, form);
 
     const [as1, as2, ps1, ps2, ps3] = calculateFormChangeUnitSkill({ unitNumber: unit.no, basicInfo: unit, skillLv: this.skillLv, form: this.form });
     this.active1Skill = as1;
@@ -347,16 +303,12 @@ class PhantomUnit extends FormChangeUnit<typeof FormChangeUnits.Phantom> {
     this.passive3Skill = ps3;
   }
 
-  protected updateUnitRankValue(rank: UnitRankValue): Unit {
-    return new PhantomUnit(this.unit, rank, this.skillLv, this.form);
-  }
-
   protected updateSkillLvValue(lv: UnitSkillLvValue): Unit {
-    return new PhantomUnit(this.unit, this.rank, lv, this.form);
+    return new PhantomUnit(this.unit, lv, this.form);
   }
 
   protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Phantom>): FormChangeUnit<typeof FormChangeUnits.Phantom> {
-    return new PhantomUnit(this.unit, this.rank, this.skillLv, form);
+    return new PhantomUnit(this.unit, this.skillLv, form);
   }
 }
 
@@ -370,11 +322,10 @@ class SirenUnit extends FormChangeUnit<typeof FormChangeUnits.Siren> {
 
   constructor(
     unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Siren>,
-    rank?: UnitRankValue,
     skillLv?: UnitSkillLvValue,
     form?: UnitFormValue<typeof FormChangeUnits.Siren>
   ) {
-    super(unit, rank, skillLv, form);
+    super(unit, skillLv, form);
 
     const [as1, as2, ps1, ps2, ps3] = calculateFormChangeUnitSkill({ unitNumber: unit.no, basicInfo: unit, skillLv: this.skillLv, form: this.form });
     this.active1Skill = as1;
@@ -384,16 +335,12 @@ class SirenUnit extends FormChangeUnit<typeof FormChangeUnits.Siren> {
     this.passive3Skill = ps3;
   }
 
-  protected updateUnitRankValue(rank: UnitRankValue): Unit {
-    return new SirenUnit(this.unit, rank, this.skillLv, this.form);
-  }
-
   protected updateSkillLvValue(lv: UnitSkillLvValue): Unit {
-    return new SirenUnit(this.unit, this.rank, lv, this.form);
+    return new SirenUnit(this.unit, lv, this.form);
   }
 
   protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Siren>): FormChangeUnit<typeof FormChangeUnits.Siren> {
-    return new SirenUnit(this.unit, this.rank, this.skillLv, form);
+    return new SirenUnit(this.unit, this.skillLv, form);
   }
 }
 
@@ -407,11 +354,10 @@ class FortressUnit extends FormChangeUnit<typeof FormChangeUnits.Fortress> {
 
   constructor(
     unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Fortress>,
-    rank?: UnitRankValue,
     skillLv?: UnitSkillLvValue,
     form?: UnitFormValue<typeof FormChangeUnits.Fortress>
   ) {
-    super(unit, rank, skillLv, form);
+    super(unit, skillLv, form);
 
     const [as1, as2, ps1, ps2, ps3] = calculateFormChangeUnitSkill({ unitNumber: unit.no, basicInfo: unit, skillLv: this.skillLv, form: this.form });
     this.active1Skill = as1;
@@ -421,16 +367,12 @@ class FortressUnit extends FormChangeUnit<typeof FormChangeUnits.Fortress> {
     this.passive3Skill = ps3;
   }
 
-  protected updateUnitRankValue(rank: UnitRankValue): Unit {
-    return new FortressUnit(this.unit, rank, this.skillLv, this.form);
-  }
-
   protected updateSkillLvValue(lv: UnitSkillLvValue): Unit {
-    return new FortressUnit(this.unit, this.rank, lv, this.form);
+    return new FortressUnit(this.unit, lv, this.form);
   }
 
   protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Fortress>): FormChangeUnit<typeof FormChangeUnits.Fortress> {
-    return new FortressUnit(this.unit, this.rank, this.skillLv, form);
+    return new FortressUnit(this.unit, this.skillLv, form);
   }
 }
 
