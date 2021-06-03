@@ -70,7 +70,6 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
         onClick={() => setStore(s => s.selectUnit(unit))}
       >
         <Image
-          fluid
           rounded
           height={100}
           width={100}
