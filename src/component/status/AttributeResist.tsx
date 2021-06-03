@@ -42,11 +42,11 @@ const AttributeResist: React.FC<{
             src={`${process.env.PUBLIC_URL}/icon/attribute_${attribute}.webp`}
           />
         </OverlayTrigger>
-        <div css={{ display: 'inline-block', width: '3.5em', textAlign: 'right' }}>
+        <div css={{ display: 'inline-block', width: '3.5em', textAlign: 'right', fontWeight: 'bold' }}>
           <span>{value ?? 0}</span>&nbsp;<span>%</span>
         </div>
       </div>
-      <StatusEffectsView parameter={parameter} />
+      <StatusEffectsView css={{ color: '#888', fontSize: '0.9em', fontWeight: 'bold' }} parameter={parameter} />
     </div>
   );
 };
