@@ -10,7 +10,7 @@ import { Col, Image, Row } from 'react-bootstrap';
 import StatusEffectsView from './StatusEffectsView';
 import UnitStatusParameterButton from './UnitStatusParameterButton';
 
-import { selectedUnitStatusState } from '../../state/unit/selectedUnitStatusState';
+import { selectedUnitStatusState } from '../../state/status/selectedUnitStatusState';
 
 import { formatMicroValue, formatMilliPercentage, formatMilliValue } from './UnitStatusParameterFormatter';
 

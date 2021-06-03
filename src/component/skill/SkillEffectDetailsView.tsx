@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Badge } from 'react-bootstrap';
 import { SkillEffectDetailsEntry, translateSkillEffectDetails } from './SkillEffectsTranslator';
 
-import { AroundSkillEffectValue, SkillEffect, SkillEffectValue } from '../../domain/UnitSkill';
+import { AroundSkillEffectValue, SkillEffect, SkillEffectValue } from '../../domain/UnitSkills';
 import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
 
 import { ifNonNullable } from '../../util/react';

@@ -17,7 +17,7 @@ import {
   MilliPercentageStatusEffectKey,
   MilliValueStatusEffectKey,
   StatusEffect, StatusEffectKey
-} from '../StatusEffect';
+} from './StatusEffect';
 import UnitEquipment from './UnitEquipment';
 import UnitLv from './UnitLv';
 import UnitParameterEnhancementLv from './UnitParameterEnhancementLv';

@@ -14,12 +14,12 @@ import EffectsAsEquipmentDescriptionView from './EffectsAsEquipmentDescriptionVi
 import NumberValueDropdown from '../common/NumberValueDropdown';
 import SkillEffectsView from './SkillEffectsView';
 
-import { DamageDeal, SkillEffect } from '../../domain/UnitSkill';
+import { DamageDeal, SkillEffect } from '../../domain/UnitSkills';
 import { SkillApCostValue, SkillRangeValue } from '../../domain/UnitSkillData';
 import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
 import { SkillLv } from '../../domain/UnitSkillLvValue';
 import { SkillTabType } from './UnitSkillList';
-import { Unit } from '../../domain/Unit';
+import { UnitSkill } from '../../domain/UnitSkill';
 import { UnitForms } from '../../domain/UnitFormValue';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 
@@ -70,17 +70,17 @@ type PassiveSkillTabType = Exclude<SkillTabType, typeof SkillTabType['Active1' |
 
 function activeSkillProp(
   eventKey: ActiveSkillTabType,
-  unit: Unit | undefined,
+  unitSkill: UnitSkill | undefined,
   t: TFunction
 ): Omit<SkillProp, 'rank_up' | 'effects_as_equipment'> | undefined {
-  if (!unit) {
+  if (!unitSkill) {
     return undefined;
   }
 
-  const unitNumber = unit.unitNumber;
+  const unitNumber = unitSkill.unit.no;
   const { no, skill, skillLv } = eventKey === 'active1' ?
-    { no: 1, skill: unit.active1Skill, skillLv: unit.skillLv.active1Lv } :
-    { no: 2, skill: unit.active2Skill, skillLv: unit.skillLv.active2Lv };
+    { no: 1, skill: unitSkill.active1Skill, skillLv: unitSkill.skillLv.active1Lv } :
+    { no: 2, skill: unitSkill.active2Skill, skillLv: unitSkill.skillLv.active2Lv };
   const form = 'form' in skill ? skill.form : undefined;
 
   return {
@@ -100,21 +100,21 @@ function activeSkillProp(
 
 function passiveSkillProp(
   eventKey: PassiveSkillTabType,
-  unit: Unit | undefined,
+  unitSkill: UnitSkill | undefined,
   t: TFunction
 ): Omit<SkillProp, 'damage_deal' | 'cost' | 'range'> | undefined {
-  if (!unit) {
+  if (!unitSkill) {
     return undefined;
   }
 
   const { no, skill, lv } = (() => {
     switch (eventKey) {
     case 'passive1':
-      return { no: 1, skill: unit.passive1Skill, lv: unit.skillLv.passive1Lv };
+      return { no: 1, skill: unitSkill.passive1Skill, lv: unitSkill.skillLv.passive1Lv };
     case 'passive2':
-      return { no: 2, skill: unit.passive2Skill, lv: unit.skillLv.passive2Lv };
+      return { no: 2, skill: unitSkill.passive2Skill, lv: unitSkill.skillLv.passive2Lv };
     case 'passive3':
-      return { no: 3, skill: unit.passive3Skill, lv: unit.skillLv.passive3Lv };
+      return { no: 3, skill: unitSkill.passive3Skill, lv: unitSkill.skillLv.passive3Lv };
     }
   })();
 
@@ -122,7 +122,7 @@ function passiveSkillProp(
     return undefined;
   }
 
-  const unitNumber = unit.unitNumber;
+  const unitNumber = unitSkill.unit.no;
   const { effects, effects_as_equipment } = (() => {
     return 'effects' in skill ?
       { effects: skill.effects, effects_as_equipment: false } :
@@ -252,7 +252,7 @@ const SkillPane: React.FC<{
 };
 
 export const Active1SkillPane: React.FC<{
-  unit: Unit | undefined,
+  unit: UnitSkill | undefined,
   onSkillLvChange: (lv: SkillLv) => void
 }> = ({ unit, onSkillLvChange }) => {
   const { t } = useTranslation();
@@ -268,7 +268,7 @@ export const Active1SkillPane: React.FC<{
 };
 
 export const Active2SkillPane: React.FC<{
-  unit: Unit | undefined,
+  unit: UnitSkill | undefined,
   onSkillLvChange: (lv: SkillLv) => void
 }> = ({ unit, onSkillLvChange }) => {
   const { t } = useTranslation();
@@ -284,7 +284,7 @@ export const Active2SkillPane: React.FC<{
 };
 
 export const Passive1SkillPane: React.FC<{
-  unit: Unit | undefined
+  unit: UnitSkill | undefined
   onSkillLvChange: (lv: SkillLv) => void
 }> = ({ unit, onSkillLvChange }) => {
   const { t } = useTranslation();
@@ -300,7 +300,7 @@ export const Passive1SkillPane: React.FC<{
 };
 
 export const Passive2SkillPane: React.FC<{
-  unit: Unit | undefined
+  unit: UnitSkill | undefined
   onSkillLvChange: (lv: SkillLv) => void
 }> = ({ unit, onSkillLvChange }) => {
   const { t } = useTranslation();
@@ -316,7 +316,7 @@ export const Passive2SkillPane: React.FC<{
 };
 
 export const Passive3SkillPane: React.FC<{
-  unit: Unit | undefined
+  unit: UnitSkill | undefined
   onSkillLvChange: (lv: SkillLv) => void
 }> = ({ unit, onSkillLvChange }) => {
   const { t } = useTranslation();

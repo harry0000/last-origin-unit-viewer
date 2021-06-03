@@ -1,5 +1,5 @@
-import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue } from './ValueUnit';
-import { Effect } from './Effect';
+import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue } from '../ValueUnit';
+import { Effect } from '../Effect';
 
 export type IntegerValueStatusEffectKey = typeof Effect.HpUp
 export type MilliValueStatusEffectKey = typeof Effect['AtkUp' | 'AtkDown' | 'DefUp' | 'DefDown']

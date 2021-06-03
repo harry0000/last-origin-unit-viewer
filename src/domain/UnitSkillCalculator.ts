@@ -18,7 +18,7 @@ import {
   SkillEffect,
   SkillEffectValue,
   AroundSkillEffectValue
-} from './UnitSkill';
+} from './UnitSkills';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import { AroundSkillEffectDataValue, SkillEffectData, SkillEffectDataValue } from './SkillEffectData';
 import { UnitBasicData, UnitNumber, UnitRank, UnitRankComparator } from './UnitBasicInfo';

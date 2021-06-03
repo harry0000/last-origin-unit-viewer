@@ -8,7 +8,7 @@ import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import { DamageAttribute } from '../../domain/UnitSkillData';
 import { useRecoilValue } from 'recoil';
-import { selectedUnitStatusState } from '../../state/unit/selectedUnitStatusState';
+import { selectedUnitStatusState } from '../../state/status/selectedUnitStatusState';
 import StatusEffectsView from './StatusEffectsView';
 
 const AttributeResist: React.FC<{

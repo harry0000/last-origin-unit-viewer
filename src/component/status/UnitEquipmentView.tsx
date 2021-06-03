@@ -14,7 +14,7 @@ import {
   selectedUnitAvailableGearEquipment,
   selectedUnitAvailableOsEquipment
 } from '../../state/unit/availableEquipment';
-import { selectedUnitStatusState } from '../../state/unit/selectedUnitStatusState';
+import { selectedUnitStatusState } from '../../state/status/selectedUnitStatusState';
 
 import { ifNonNullable } from '../../util/react';
 

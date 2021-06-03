@@ -21,7 +21,7 @@ import NumberValueDropdown from '../common/NumberValueDropdown';
 import SVGIcon from '../icon/SVGIcon';
 import UnitLvModeToggleButton from './UnitLvModeToggleButton';
 
-import { selectedUnitStatusState } from '../../state/unit/selectedUnitStatusState';
+import { selectedUnitStatusState } from '../../state/status/selectedUnitStatusState';
 
 import { UnitLvValue } from '../../domain/status/UnitLv';
 

@@ -10,12 +10,12 @@ import { ArrowSync } from '../icon/FluentIcons';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SVGIcon from '../icon/SVGIcon';
 
-import { isFormChangeUnit } from '../../domain/Unit';
-import { selectedUnitState } from '../../state/unit/selectedUnitState';
+import { isFormChangeUnit } from '../../domain/UnitSkill';
+import { selectedUnitSkillState } from '../../state/unit/selectedUnitSkillState';
 
 const UnitFormSelector: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
   const { t } = useTranslation();
-  const [unit, setUnit] = useRecoilState(selectedUnitState);
+  const [unit, setUnit] = useRecoilState(selectedUnitSkillState);
 
   return unit && isFormChangeUnit(unit) ?
     (<div {...props}>

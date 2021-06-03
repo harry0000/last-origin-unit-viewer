@@ -10,10 +10,10 @@ import { useTranslation } from 'react-i18next';
 
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 
-import { selectedUnitStatusState } from '../../state/unit/selectedUnitStatusState';
+import { selectedUnitStatusState } from '../../state/status/selectedUnitStatusState';
 
 import { ChipEquipment, GearEquipment, OsEquipment } from '../../domain/status/UnitEquipment';
-import { StatusEffect } from '../../domain/StatusEffect';
+import { StatusEffect } from '../../domain/status/StatusEffect';
 import UnitStatus from '../../domain/status/UnitStatus';
 import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../domain/ValueUnit';
 import {

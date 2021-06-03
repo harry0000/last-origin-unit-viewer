@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next';
 
 import { NonNullableEntry } from '../../util/object';
-import { AroundSkillEffectValue, SkillEffectValue } from '../../domain/UnitSkill';
+import { AroundSkillEffectValue, SkillEffectValue } from '../../domain/UnitSkills';
 import { Effect } from '../../domain/Effect';
 import { calcValue, MilliPercentageValue } from '../../domain/ValueUnit';
 

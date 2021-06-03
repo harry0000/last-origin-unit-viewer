@@ -7,7 +7,7 @@ import {
   Os, StatusEffectData
 } from '../EquipmentData';
 import { Effect } from '../Effect';
-import { StatusEffect } from '../StatusEffect';
+import { StatusEffect } from './StatusEffect';
 import { UnitBasicInfo } from '../UnitBasicInfo';
 import UnitLv, { UnitLvValue } from './UnitLv';
 import { toIntegerValue, toMicroValue, toMilliPercentageValue, toMilliValue } from '../EquipmentEffectValue';

@@ -20,7 +20,7 @@ import {
   PassiveSkillIcon
 } from '../icon/SkillIcons';
 
-import { selectedUnitState } from '../../state/unit/selectedUnitState';
+import { selectedUnitSkillState } from '../../state/unit/selectedUnitSkillState';
 import { unitSkillTabState } from '../../state/ui/unitSkillTabState';
 
 import './SkillNavTab.css';
@@ -60,7 +60,7 @@ const SkillNavItem: React.FC<{ eventKey: SkillTabType, disabled: boolean, childr
 
 const UnitSkillList: React.FC<{ className?: string, css?: Interpolation<Theme> }> = (props) => {
   const [activeTab, setActiveTab] = useRecoilState(unitSkillTabState);
-  const [unit, setUnit] = useRecoilState(selectedUnitState);
+  const [unit, setUnit] = useRecoilState(selectedUnitSkillState);
 
   const enableActives  = !!unit;
   const enablePassive1 = unit && unit.passive1Skill;
