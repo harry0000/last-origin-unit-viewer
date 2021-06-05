@@ -7,13 +7,13 @@ import { useTranslation } from 'react-i18next';
 import SVGIcon from '../icon/SVGIcon';
 import { LockClosed } from '../icon/FluentIcons';
 
-import { UnitLvValue } from '../../domain/status/UnitLv';
+import { EquipmentSlotAvailableLv } from '../../domain/status/UnitEquipment';
 
 import { ifTruthy } from '../../util/react';
 
 const SlotUnavailableOverlay: React.FC<{
   show: boolean,
-  availableLv: UnitLvValue
+  availableLv: EquipmentSlotAvailableLv
 }> = React.memo(({ show, availableLv }) => {
   const { t } = useTranslation();
 

@@ -1,15 +1,15 @@
 import { UnitNumber } from '../UnitBasicInfo';
-import { IntegerValue, MicroValue, MilliPercentageValue, ValueUnit } from '../ValueUnit';
+import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue, ValueUnit } from '../ValueUnit';
 
-type ParameterPerLevel<T extends Exclude<ValueUnit, 'microValue' | 'milliPercentage'>> = {
+export type ParameterPerLevel<T extends Exclude<ValueUnit, 'microValue' | 'milliPercentage'>> = {
   1: { [key in T]: number },
   90: { [key in T]: number }
 }
 
 type GrowParameter = Readonly<{
-  hp: ParameterPerLevel<'value'>,
-  atk: ParameterPerLevel<'milliValue'>,
-  def: ParameterPerLevel<'milliValue'>
+  hp: ParameterPerLevel<keyof IntegerValue>,
+  atk: ParameterPerLevel<keyof MilliValue>,
+  def: ParameterPerLevel<keyof MilliValue>
 }>
 
 type FixedParameter = Readonly<{

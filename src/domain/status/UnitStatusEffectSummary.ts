@@ -18,9 +18,6 @@ import {
   MilliValueStatusEffectKey,
   StatusEffect, StatusEffectKey
 } from './StatusEffect';
-import UnitEquipment from './UnitEquipment';
-import UnitLv from './UnitLv';
-import UnitParameterEnhancementLv from './UnitParameterEnhancementLv';
 
 function reverseSign(value: ValueTypes): ValueTypes {
   if ('milliValue' in value) {
@@ -71,24 +68,26 @@ function pickValues(...effects: StatusEffect[]): (...keys: StatusEffectKey[]) =>
   };
 }
 
-class UnitStatusEffect {
+class UnitStatusEffectSummary {
 
-  readonly enhancement: EnhancementStatusEffect;
-  readonly chip1: StatusEffect;
-  readonly chip2: StatusEffect;
-  readonly os: StatusEffect;
-  readonly gear: StatusEffect;
+  readonly #enhancement: EnhancementStatusEffect;
+  readonly #chip1: StatusEffect;
+  readonly #chip2: StatusEffect;
+  readonly #os: StatusEffect;
+  readonly #gear: StatusEffect;
 
   constructor(
-    unitLv: UnitLv,
-    enhancements: UnitParameterEnhancementLv,
-    equipments: UnitEquipment
+    enhancement: EnhancementStatusEffect,
+    chip1: StatusEffect,
+    chip2: StatusEffect,
+    os: StatusEffect,
+    gear: StatusEffect
   ) {
-    this.enhancement = enhancements.statusEffects;
-    this.chip1 = equipments.chip1StatusEffects(unitLv);
-    this.chip2 = equipments.chip2StatusEffects(unitLv);
-    this.os    = equipments.osStatusEffects(unitLv);
-    this.gear  = equipments.gearStatusEffects(unitLv);
+    this.#enhancement = enhancement;
+    this.#chip1 = chip1;
+    this.#chip2 = chip2;
+    this.#os    = os;
+    this.#gear  = gear;
   }
 
   private pickValues(...keys: IntegerValueStatusEffectKey[]): IntegerValue[]
@@ -97,48 +96,48 @@ class UnitStatusEffect {
   private pickValues(...keys: MilliPercentageStatusEffectKey[]): MilliPercentageValue[]
   // eslint-disable-next-line
   private pickValues(...keys: any[]): any[] {
-    return pickValues(this.enhancement, this.chip1, this.chip2, this.os, this.gear)(...keys);
+    return pickValues(this.#enhancement, this.#chip1, this.#chip2, this.#os, this.#gear)(...keys);
   }
 
-  get hpValue(): IntegerValue {
+  get hp(): IntegerValue {
     return sumValues(...this.pickValues(Effect.HpUp));
   }
 
-  get atkValue(): MilliValue {
+  get atk(): MilliValue {
     return sumMilliValues(...this.pickValues(Effect.AtkUp, Effect.AtkDown));
   }
 
-  get defValue(): MilliValue {
+  get def(): MilliValue {
     return sumMilliValues(...this.pickValues(Effect.DefUp, Effect.DefDown));
   }
 
-  get accValue(): MilliPercentageValue {
+  get acc(): MilliPercentageValue {
     return sumMilliPercentageValues(...this.pickValues(Effect.AccUp, Effect.AccDown));
   }
 
-  get evaValue(): MilliPercentageValue {
+  get eva(): MilliPercentageValue {
     return sumMilliPercentageValues(...this.pickValues(Effect.EvaUp, Effect.EvaDown));
   }
 
-  get criValue(): MilliPercentageValue {
+  get cri(): MilliPercentageValue {
     return sumMilliPercentageValues(...this.pickValues(Effect.CriUp, Effect.CriDown));
   }
 
-  get spdValue(): MicroValue {
+  get spd(): MicroValue {
     return sumMicroValues(...this.pickValues(Effect.SpdUp, Effect.SpdDown));
   }
 
-  get fireResistValue(): MilliPercentageValue {
+  get fireResist(): MilliPercentageValue {
     return sumMilliPercentageValues(...this.pickValues(Effect.FireResistUp, Effect.FireResistDown));
   }
 
-  get iceResistValue(): MilliPercentageValue {
+  get iceResist(): MilliPercentageValue {
     return sumMilliPercentageValues(...this.pickValues(Effect.IceResistUp, Effect.IceResistDown));
   }
 
-  get electricResistValue(): MilliPercentageValue {
+  get electricResist(): MilliPercentageValue {
     return sumMilliPercentageValues(...this.pickValues(Effect.ElectricResistUp, Effect.ElectricResistDown));
   }
 }
 
-export default UnitStatusEffect;
+export default UnitStatusEffectSummary;

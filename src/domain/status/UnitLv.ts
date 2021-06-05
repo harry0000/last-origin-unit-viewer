@@ -15,7 +15,7 @@ class UnitLv {
   }
 
   setLv(value: UnitLvValue): UnitLv {
-    if (this.mode === 'auto') {
+    if (this.mode === 'auto' || value === this.value) {
       return this;
     } else {
       return new UnitLv(value, this.mode);

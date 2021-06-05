@@ -1,4 +1,3 @@
-import { UnitBasicInfo } from '../UnitBasicInfo';
 import { IntegerValue, MilliPercentageValue, MilliValue } from '../ValueUnit';
 import { EnhancementStatusEffect } from './StatusEffect';
 
@@ -15,8 +14,6 @@ const MaxEnhancementLv = 300;
 
 class UnitParameterEnhancementLv {
 
-  readonly #unit: UnitBasicInfo;
-
   readonly hpLv: number;
   readonly atkLv: number;
   readonly defLv: number;
@@ -25,7 +22,6 @@ class UnitParameterEnhancementLv {
   readonly criLv: number;
 
   constructor(
-    unit: UnitBasicInfo,
     hpLv?: number,
     atkLv?: number,
     defLv?: number,
@@ -33,8 +29,6 @@ class UnitParameterEnhancementLv {
     evaLv?: number,
     criLv?: number
   ) {
-    this.#unit = unit;
-
     this.hpLv = hpLv ?? 0;
     this.atkLv = atkLv ?? 0;
     this.defLv = defLv ?? 0;
@@ -43,9 +37,8 @@ class UnitParameterEnhancementLv {
     this.criLv = criLv ?? 0;
   }
 
-  private updateParameterLv({ hpLv, atkLv, defLv, accLv, evaLv, criLv }: ParameterLv): UnitParameterEnhancementLv {
+  updateParameterLv({ hpLv, atkLv, defLv, accLv, evaLv, criLv }: ParameterLv): UnitParameterEnhancementLv {
     return new UnitParameterEnhancementLv(
-      this.#unit,
       hpLv ?? this.hpLv,
       atkLv ?? this.atkLv,
       defLv ?? this.defLv,

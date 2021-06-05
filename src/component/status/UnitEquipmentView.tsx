@@ -10,34 +10,41 @@ import EquipmentSelector from './EquipmentSelector';
 import { Chip, EquipmentType, Gear, Os } from '../../domain/EquipmentData';
 
 import {
+  chip1SlotAvailableState,
+  chip2SlotAvailableState,
+  gearSlotAvailableState, osSlotAvailableState, selectedUnitChip1EquipmentState, selectedUnitChip2EquipmentState,
+  selectedUnitGearEquipmentState,
+  selectedUnitOsEquipmentState
+} from '../../state/equipment/unitEquipmentState';
+import {
   selectedUnitAvailableChipEquipment,
   selectedUnitAvailableGearEquipment,
   selectedUnitAvailableOsEquipment
-} from '../../state/unit/availableEquipment';
-import { selectedUnitStatusState } from '../../state/status/selectedUnitStatusState';
+} from '../../state/equipment/availableEquipment';
 
 import { ifNonNullable } from '../../util/react';
 
 import './UnitStatusSlot.css';
 
 const Chip1Selector: React.FC = () => {
+  const [chip1, setChip1] = useRecoilState(selectedUnitChip1EquipmentState);
   const chips = useRecoilValue(selectedUnitAvailableChipEquipment);
-  const [status, setStatus] = useRecoilState(selectedUnitStatusState);
+  const available = useRecoilValue(chip1SlotAvailableState);
 
   return (
     ifNonNullable(
-      status,
-      s => (
+      chip1,
+      c => (
         <EquipmentSelector
           id="chip1-equipment-dropdown"
-          value={s.chip1}
+          value={c.chip1}
           type={EquipmentType.Chip}
           items={chips}
           onSelect={(chip: Chip | undefined) => {
-            setStatus(s => chip ? s?.equipChip1(chip) : s?.removeChip1());
+            setChip1(s => chip ? s?.equipChip1(chip) : s?.removeChip1());
           }}
-          available={s.isChip1Available}
-          availableLv={s.chip1AvailableLv}
+          available={available}
+          availableLv={c.chip1AvailableLv}
         />
       )
     )
@@ -45,23 +52,24 @@ const Chip1Selector: React.FC = () => {
 };
 
 const Chip2Selector: React.FC = () => {
+  const [chip2, setChip2] = useRecoilState(selectedUnitChip2EquipmentState);
   const chips = useRecoilValue(selectedUnitAvailableChipEquipment);
-  const [status, setStatus] = useRecoilState(selectedUnitStatusState);
+  const available = useRecoilValue(chip2SlotAvailableState);
 
   return (
     ifNonNullable(
-      status,
-      s => (
+      chip2,
+      c => (
         <EquipmentSelector
           id="chip2-equipment-dropdown"
-          value={s.chip2}
+          value={c.chip2}
           type={EquipmentType.Chip}
           items={chips}
           onSelect={(chip: Chip | undefined) => {
-            setStatus(s => chip ? s?.equipChip2(chip) : s?.removeChip2());
+            setChip2(s => chip ? s?.equipChip2(chip) : s?.removeChip2());
           }}
-          available={s.isChip2Available}
-          availableLv={s.chip2AvailableLv}
+          available={available}
+          availableLv={c.chip2AvailableLv}
         />
       )
     )
@@ -69,23 +77,24 @@ const Chip2Selector: React.FC = () => {
 };
 
 const OsSelector: React.FC = () => {
+  const [os, setOs] = useRecoilState(selectedUnitOsEquipmentState);
   const oses = useRecoilValue(selectedUnitAvailableOsEquipment);
-  const [status, setStatus] = useRecoilState(selectedUnitStatusState);
+  const available = useRecoilValue(osSlotAvailableState);
 
   return (
     ifNonNullable(
-      status,
-      s => (
+      os,
+      o => (
         <EquipmentSelector
           id="os-equipment-dropdown"
-          value={s.os}
+          value={o.os}
           type={EquipmentType.Os}
           items={oses}
           onSelect={(os: Os | undefined) => {
-            setStatus(s => os ? s?.equipOs(os) : s?.removeOs());
+            setOs(s => os ? s?.equipOs(os) : s?.removeOs());
           }}
-          available={s.isOsAvailable}
-          availableLv={s.osAvailableLv}
+          available={available}
+          availableLv={o.osAvailableLv}
         />
       )
     )
@@ -93,23 +102,24 @@ const OsSelector: React.FC = () => {
 };
 
 const GearSelector: React.FC = () => {
+  const [gear, setGear] = useRecoilState(selectedUnitGearEquipmentState);
   const gears = useRecoilValue(selectedUnitAvailableGearEquipment);
-  const [status, setStatus] = useRecoilState(selectedUnitStatusState);
+  const available = useRecoilValue(gearSlotAvailableState);
 
   return (
     ifNonNullable(
-      status,
-      s => (
+      gear,
+      g => (
         <EquipmentSelector
           id="gear-equipment-dropdown"
-          value={s.gear}
+          value={g.gear}
           type={EquipmentType.Gear}
           items={gears}
           onSelect={(gear: Gear | undefined) => {
-            setStatus(s => gear ? s?.equipGear(gear) : s?.removeGear());
+            setGear(s => gear ? s?.equipGear(gear) : s?.removeGear());
           }}
-          available={s.isGearAvailable}
-          availableLv={s.gearAvailableLv}
+          available={available}
+          availableLv={g.gearAvailableLv}
         />
       )
     )

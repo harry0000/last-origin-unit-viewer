@@ -2,14 +2,14 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import StatusEffectsView from './StatusEffectsView';
 
 import { DamageAttribute } from '../../domain/UnitSkillData';
-import { useRecoilValue } from 'recoil';
-import { selectedUnitStatusState } from '../../state/status/selectedUnitStatusState';
-import StatusEffectsView from './StatusEffectsView';
+import { selectedUnitStatusParameterState } from '../../state/status/unitStatusParameterState';
 
 const AttributeResist: React.FC<{
   attribute: DamageAttribute,
@@ -52,19 +52,19 @@ const AttributeResist: React.FC<{
 };
 
 export const FireResist: React.FC = () => {
-  const status = useRecoilValue(selectedUnitStatusState);
+  const status = useRecoilValue(selectedUnitStatusParameterState);
 
   return (<AttributeResist attribute={DamageAttribute.Fire} value={status?.fireResist} />);
 };
 
 export const IceResist: React.FC = () => {
-  const status = useRecoilValue(selectedUnitStatusState);
+  const status = useRecoilValue(selectedUnitStatusParameterState);
 
   return (<AttributeResist attribute={DamageAttribute.Ice} value={status?.iceResist} />);
 };
 
 export const ElectricResist: React.FC = () => {
-  const status = useRecoilValue(selectedUnitStatusState);
+  const status = useRecoilValue(selectedUnitStatusParameterState);
 
   return (<AttributeResist attribute={DamageAttribute.Electric} value={status?.electricResist} />);
 };
