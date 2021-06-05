@@ -151,7 +151,7 @@ export class UnitChip2Equipment {
   }
 
   get chip2AvailableLv(): EquipmentSlotAvailableLv {
-    return unitEquipmentSlot[this.unit.no].chip1;
+    return unitEquipmentSlot[this.unit.no].chip2;
   }
 
   isChip2Available(lv: UnitLvValue): boolean {
