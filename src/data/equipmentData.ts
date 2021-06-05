@@ -79,17 +79,17 @@ export const equipmentData = {
     type: 'chip',
     id: 'attack_chip_beta',
     status_effects: [
-      { atk_up: { milliValue: { ss:  60000 } }, eva_down: { milliPercentage: { ss:  6000 } } },
-      { atk_up: { milliValue: { ss:  66000 } }, eva_down: { milliPercentage: { ss:  6600 } } },
-      { atk_up: { milliValue: { ss:  72000 } }, eva_down: { milliPercentage: { ss:  7200 } } },
-      { atk_up: { milliValue: { ss:  78000 } }, eva_down: { milliPercentage: { ss:  7800 } } },
-      { atk_up: { milliValue: { ss:  84000 } }, eva_down: { milliPercentage: { ss:  8400 } } },
-      { atk_up: { milliValue: { ss:  90000 } }, eva_down: { milliPercentage: { ss:  9000 } } },
-      { atk_up: { milliValue: { ss:  96000 } }, eva_down: { milliPercentage: { ss:  9600 } } },
-      { atk_up: { milliValue: { ss: 102000 } }, eva_down: { milliPercentage: { ss: 10200 } } },
-      { atk_up: { milliValue: { ss: 108000 } }, eva_down: { milliPercentage: { ss: 10800 } } },
-      { atk_up: { milliValue: { ss: 114000 } }, eva_down: { milliPercentage: { ss: 11400 } } },
-      { atk_up: { milliValue: { ss: 120000 } }, eva_down: { milliPercentage: { ss: 12000 } } }
+      { atk_up: { milliValue:  60000 }, eva_down: { milliPercentage:  6000 } },
+      { atk_up: { milliValue:  66000 }, eva_down: { milliPercentage:  6600 } },
+      { atk_up: { milliValue:  72000 }, eva_down: { milliPercentage:  7200 } },
+      { atk_up: { milliValue:  78000 }, eva_down: { milliPercentage:  7800 } },
+      { atk_up: { milliValue:  84000 }, eva_down: { milliPercentage:  8400 } },
+      { atk_up: { milliValue:  90000 }, eva_down: { milliPercentage:  9000 } },
+      { atk_up: { milliValue:  96000 }, eva_down: { milliPercentage:  9600 } },
+      { atk_up: { milliValue: 102000 }, eva_down: { milliPercentage: 10200 } },
+      { atk_up: { milliValue: 108000 }, eva_down: { milliPercentage: 10800 } },
+      { atk_up: { milliValue: 114000 }, eva_down: { milliPercentage: 11400 } },
+      { atk_up: { milliValue: 120000 }, eva_down: { milliPercentage: 12000 } }
     ]
   },
   critical_chip: {
@@ -109,10 +109,23 @@ export const equipmentData = {
       { cri_up: { milliPercentage: { ss: 28000 } } }
     ]
   },
-  // critical_chip_beta: {
-  //   type: 'chip',
-  //   id: 'critical_chip_beta'
-  // },
+  critical_chip_beta: {
+    type: 'chip',
+    id: 'critical_chip_beta',
+    status_effects: [
+      { cri_up: { milliPercentage:  9600 }, def_down: { milliValue: 27000 } },
+      { cri_up: { milliPercentage:     0 }, def_down: { milliValue:     0 } },
+      { cri_up: { milliPercentage:     0 }, def_down: { milliValue:     0 } },
+      { cri_up: { milliPercentage:     0 }, def_down: { milliValue:     0 } },
+      { cri_up: { milliPercentage:     0 }, def_down: { milliValue:     0 } },
+      { cri_up: { milliPercentage:     0 }, def_down: { milliValue:     0 } },
+      { cri_up: { milliPercentage:     0 }, def_down: { milliValue:     0 } },
+      { cri_up: { milliPercentage:     0 }, def_down: { milliValue:     0 } },
+      { cri_up: { milliPercentage:     0 }, def_down: { milliValue:     0 } },
+      { cri_up: { milliPercentage:     0 }, def_down: { milliValue:     0 } },
+      { cri_up: { milliPercentage: 33600 }, def_down: { milliValue: 54000 } }
+    ]
+  },
   defense_chip: {
     type: 'chip',
     id: 'defense_chip',
@@ -201,17 +214,17 @@ export const equipmentData = {
     type: 'chip',
     id: 'hp_chip_beta',
     status_effects: [
-      { hp_up: { value: { ss: 240 } }, atk_down: { milliValue: { ss: 25000 } } },
-      { hp_up: { value: { ss: 288 } }, atk_down: { milliValue: { ss: 27500 } } },
-      { hp_up: { value: { ss: 336 } }, atk_down: { milliValue: { ss: 30000 } } },
-      { hp_up: { value: { ss: 384 } }, atk_down: { milliValue: { ss: 32500 } } },
-      { hp_up: { value: { ss: 432 } }, atk_down: { milliValue: { ss: 35000 } } },
-      { hp_up: { value: { ss: 480 } }, atk_down: { milliValue: { ss: 37500 } } },
-      { hp_up: { value: { ss: 528 } }, atk_down: { milliValue: { ss: 40000 } } },
-      { hp_up: { value: { ss: 576 } }, atk_down: { milliValue: { ss: 42500 } } },
-      { hp_up: { value: { ss: 624 } }, atk_down: { milliValue: { ss: 45000 } } },
-      { hp_up: { value: { ss: 672 } }, atk_down: { milliValue: { ss: 47500 } } },
-      { hp_up: { value: { ss: 720 } }, atk_down: { milliValue: { ss: 50000 } } }
+      { hp_up: { value: 240 }, atk_down: { milliValue: 25000 } },
+      { hp_up: { value: 288 }, atk_down: { milliValue: 27500 } },
+      { hp_up: { value: 336 }, atk_down: { milliValue: 30000 } },
+      { hp_up: { value: 384 }, atk_down: { milliValue: 32500 } },
+      { hp_up: { value: 432 }, atk_down: { milliValue: 35000 } },
+      { hp_up: { value: 480 }, atk_down: { milliValue: 37500 } },
+      { hp_up: { value: 528 }, atk_down: { milliValue: 40000 } },
+      { hp_up: { value: 576 }, atk_down: { milliValue: 42500 } },
+      { hp_up: { value: 624 }, atk_down: { milliValue: 45000 } },
+      { hp_up: { value: 672 }, atk_down: { milliValue: 47500 } },
+      { hp_up: { value: 720 }, atk_down: { milliValue: 50000 } }
     ]
   },
   lightweight_chip: {
@@ -495,47 +508,47 @@ export const equipmentData = {
     type: 'os',
     id: 'offense_os',
     equipment_effects: [
-      [{ details: { atk_up: { milliPercentage: { ss: 14500 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 15000 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 15500 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 16000 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 16500 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 17000 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 17500 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 18000 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 18500 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 19000 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 20000 } }, damage_taken_increased: { milliPercentage: 25000 } } }]
+      [{ details: { atk_up: { milliPercentage: { ss: 14500 } }, spd_up: { milliPercentage: { ss: 2750 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
+      [{ details: { atk_up: { milliPercentage: { ss: 15000 } }, spd_up: { milliPercentage: { ss: 3000 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
+      [{ details: { atk_up: { milliPercentage: { ss: 15500 } }, spd_up: { milliPercentage: { ss: 3500 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
+      [{ details: { atk_up: { milliPercentage: { ss: 16000 } }, spd_up: { milliPercentage: { ss: 4000 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
+      [{ details: { atk_up: { milliPercentage: { ss: 16500 } }, spd_up: { milliPercentage: { ss: 4500 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
+      [{ details: { atk_up: { milliPercentage: { ss: 17000 } }, spd_up: { milliPercentage: { ss: 5000 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
+      [{ details: { atk_up: { milliPercentage: { ss: 17500 } }, spd_up: { milliPercentage: { ss: 5500 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
+      [{ details: { atk_up: { milliPercentage: { ss: 18000 } }, spd_up: { milliPercentage: { ss: 6000 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
+      [{ details: { atk_up: { milliPercentage: { ss: 18500 } }, spd_up: { milliPercentage: { ss: 6500 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
+      [{ details: { atk_up: { milliPercentage: { ss: 19000 } }, spd_up: { milliPercentage: { ss: 7000 } }, damage_taken_increased: { milliPercentage: 25000 } } }],
+      [{ details: { atk_up: { milliPercentage: { ss: 20000 } }, spd_up: { milliPercentage: { ss: 7500 } }, damage_taken_increased: { milliPercentage: 25000 } } }]
     ]
   },
   precision_os: {
     type: 'os',
     id: 'precision_os',
     status_effects: [
-      { acc_up: { milliPercentage: { ss: 25000 } } },
-      { acc_up: { milliPercentage: { ss: 27500 } } },
-      { acc_up: { milliPercentage: { ss: 30000 } } },
-      { acc_up: { milliPercentage: { ss: 32500 } } },
-      { acc_up: { milliPercentage: { ss: 35000 } } },
-      { acc_up: { milliPercentage: { ss: 37500 } } },
-      { acc_up: { milliPercentage: { ss: 40000 } } },
-      { acc_up: { milliPercentage: { ss: 42500 } } },
-      { acc_up: { milliPercentage: { ss: 45000 } } },
-      { acc_up: { milliPercentage: { ss: 47500 } } },
-      { acc_up: { milliPercentage: { ss: 50000 } } }
+      { acc_up: { milliPercentage: { ss: 25000 } }, cri_up: { milliPercentage: { ss:  4000 } } },
+      { acc_up: { milliPercentage: { ss: 27500 } }, cri_up: { milliPercentage: { ss:  4800 } } },
+      { acc_up: { milliPercentage: { ss: 30000 } }, cri_up: { milliPercentage: { ss:  5600 } } },
+      { acc_up: { milliPercentage: { ss: 32500 } }, cri_up: { milliPercentage: { ss:  6400 } } },
+      { acc_up: { milliPercentage: { ss: 35000 } }, cri_up: { milliPercentage: { ss:  7200 } } },
+      { acc_up: { milliPercentage: { ss: 37500 } }, cri_up: { milliPercentage: { ss:  8000 } } },
+      { acc_up: { milliPercentage: { ss: 40000 } }, cri_up: { milliPercentage: { ss:  8800 } } },
+      { acc_up: { milliPercentage: { ss: 42500 } }, cri_up: { milliPercentage: { ss:  9600 } } },
+      { acc_up: { milliPercentage: { ss: 45000 } }, cri_up: { milliPercentage: { ss: 10400 } } },
+      { acc_up: { milliPercentage: { ss: 47500 } }, cri_up: { milliPercentage: { ss: 11200 } } },
+      { acc_up: { milliPercentage: { ss: 50000 } }, cri_up: { milliPercentage: { ss: 12000 } } }
     ],
     equipment_effects: [
-      [{ details: { atk_up: { milliPercentage: { ss: 12500 } }, spd_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 13000 } }, spd_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 13500 } }, spd_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 14000 } }, spd_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 14500 } }, spd_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 15000 } }, spd_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 15500 } }, spd_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 16000 } }, spd_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 16500 } }, spd_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 17000 } }, spd_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_up: { milliPercentage: { ss: 17500 } }, spd_down: { milliPercentage: 8000 } } }]
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 12500 } }, spd_down: { milliPercentage: 8000 }, effect_removal: { effect: 'acc_down' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 13000 } }, spd_down: { milliPercentage: 8000 }, effect_removal: { effect: 'acc_down' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 13500 } }, spd_down: { milliPercentage: 8000 }, effect_removal: { effect: 'acc_down' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 14000 } }, spd_down: { milliPercentage: 8000 }, effect_removal: { effect: 'acc_down' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 14500 } }, spd_down: { milliPercentage: 8000 }, effect_removal: { effect: 'acc_down' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 15000 } }, spd_down: { milliPercentage: 8000 }, effect_removal: { effect: 'acc_down' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 15500 } }, spd_down: { milliPercentage: 8000 }, effect_removal: { effect: 'acc_down' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 16000 } }, spd_down: { milliPercentage: 8000 }, effect_removal: { effect: 'acc_down' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 16500 } }, spd_down: { milliPercentage: 8000 }, effect_removal: { effect: 'acc_down' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 17000 } }, spd_down: { milliPercentage: 8000 }, effect_removal: { effect: 'acc_down' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 17500 } }, spd_down: { milliPercentage: 8000 }, effect_removal: { effect: 'acc_down' } } }]
     ]
   },
   recon_os: {
@@ -1048,34 +1061,47 @@ export const equipmentData = {
       { acc_up: { milliPercentage: 50000 }, spd_up: { microValue: 200000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'end_wave' }, details: { reconnaissance: {} } }],
-      [{ condition: { trigger: 'end_wave' }, details: { reconnaissance: {} } }],
-      [{ condition: { trigger: 'end_wave' }, details: { reconnaissance: {} } }],
-      [{ condition: { trigger: 'end_wave' }, details: { reconnaissance: {} } }],
-      [{ condition: { trigger: 'end_wave' }, details: { reconnaissance: {} } }],
-      [{ condition: { trigger: 'end_wave' }, details: { reconnaissance: {} } }],
-      [{ condition: { trigger: 'end_wave' }, details: { reconnaissance: {} } }],
-      [{ condition: { trigger: 'end_wave' }, details: { reconnaissance: {} } }],
-      [{ condition: { trigger: 'end_wave' }, details: { reconnaissance: {} } }],
-      [{ condition: { trigger: 'end_wave' }, details: { reconnaissance: {} } }],
-      [{ condition: { trigger: 'end_wave' }, details: { reconnaissance: {} } }]
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: {} } }]
     ]
   },
   recycling_module: {
     type: 'gear',
     id: 'recycling_module',
+    status_effects: [
+      { hp_up: { value: { ss: 150 } } },
+      { hp_up: { value: { ss: 165 } } },
+      { hp_up: { value: { ss: 180 } } },
+      { hp_up: { value: { ss: 195 } } },
+      { hp_up: { value: { ss: 210 } } },
+      { hp_up: { value: { ss: 225 } } },
+      { hp_up: { value: { ss: 240 } } },
+      { hp_up: { value: { ss: 255 } } },
+      { hp_up: { value: { ss: 270 } } },
+      { hp_up: { value: { ss: 285 } } },
+      { hp_up: { value: { ss: 300 } } }
+    ],
     equipment_effects: [
-      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: { ss: 3000 } }, def_up: { milliPercentage: { ss:  6000 } }, exp_up: { milliPercentage: { ss: 4500 } } } }],
-      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: { ss: 3200 } }, def_up: { milliPercentage: { ss:  6400 } }, exp_up: { milliPercentage: { ss: 4800 } } } }],
-      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: { ss: 3400 } }, def_up: { milliPercentage: { ss:  6800 } }, exp_up: { milliPercentage: { ss: 5100 } } } }],
-      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: { ss: 3600 } }, def_up: { milliPercentage: { ss:  7200 } }, exp_up: { milliPercentage: { ss: 5400 } } } }],
-      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: { ss: 3800 } }, def_up: { milliPercentage: { ss:  7600 } }, exp_up: { milliPercentage: { ss: 5700 } } } }],
-      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: { ss: 4000 } }, def_up: { milliPercentage: { ss:  8000 } }, exp_up: { milliPercentage: { ss: 6000 } } } }],
-      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: { ss: 4200 } }, def_up: { milliPercentage: { ss:  8400 } }, exp_up: { milliPercentage: { ss: 6300 } } } }],
-      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: { ss: 4500 } }, def_up: { milliPercentage: { ss:  8800 } }, exp_up: { milliPercentage: { ss: 6600 } } } }],
-      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: { ss: 5000 } }, def_up: { milliPercentage: { ss:  9200 } }, exp_up: { milliPercentage: { ss: 6900 } } } }],
-      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: { ss: 5500 } }, def_up: { milliPercentage: { ss:  9600 } }, exp_up: { milliPercentage: { ss: 7200 } } } }],
-      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: { ss: 6000 } }, def_up: { milliPercentage: { ss: 10000 } }, exp_up: { milliPercentage: { ss: 7500 } } } }]
+      [{ condition: { trigger: 'enemy_killed' }, details: { ap_up: { microValue: { ss: 300000 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { ap_up: { microValue: { ss: 350000 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { ap_up: { microValue: { ss: 400000 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { ap_up: { microValue: { ss: 450000 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { ap_up: { microValue: { ss: 500000 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { ap_up: { microValue: { ss: 550000 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { ap_up: { microValue: { ss: 600000 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { ap_up: { microValue: { ss: 650000 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { ap_up: { microValue: { ss: 700000 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { ap_up: { microValue: { ss: 750000 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { ap_up: { microValue: { ss: 800000 } } } }]
     ]
   },
   stimpack: {
