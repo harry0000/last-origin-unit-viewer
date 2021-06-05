@@ -21,9 +21,9 @@ import NumberValueDropdown from '../common/NumberValueDropdown';
 import SVGIcon from '../icon/SVGIcon';
 import UnitLvModeToggleButton from './UnitLvModeToggleButton';
 
-import { selectedUnitStatusState } from '../../state/unit/selectedUnitStatusState';
 
 import { UnitLvValue } from '../../domain/status/UnitLv';
+import { selectedUnitEnhancementStatusState } from '../../state/status/unitEnhancementStatusState';
 
 const unitLvStyle: CSSObject = {
   fontSize: '1.4em',
@@ -99,7 +99,7 @@ const ResetPointsButton: React.FC<{ disabled: boolean, onClick: () => void }> = 
 
 const LvContainer: React.FC = () => {
   const { t } = useTranslation();
-  const [status, setStatus] = useRecoilState(selectedUnitStatusState);
+  const [status, setStatus] = useRecoilState(selectedUnitEnhancementStatusState);
 
   return (
     <React.Fragment>

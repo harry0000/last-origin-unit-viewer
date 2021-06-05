@@ -1,8 +1,9 @@
 import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue } from '../ValueUnit';
 import { UnitLvValue } from './UnitLv';
-import { UnitNumber } from '../UnitBasicInfo';
+import { UnitBasicInfo } from '../UnitBasicInfo';
 
 import { unitStatusData } from '../../data/unitStatusData';
+import { ParameterPerLevel } from './UnitStatusData';
 
 function calculateAddition(_1: number, _90: number, lv: UnitLvValue): number {
   return ((_90 - _1) / 89) * (lv - 1);
@@ -25,9 +26,9 @@ function calculateMilliValueParam(data: { 1: MilliValue, 90: MilliValue }, lv: U
 
 class UnitBaseParameter {
 
-  readonly hp: IntegerValue;
-  readonly atk: MilliValue;
-  readonly def: MilliValue;
+  readonly #hp: ParameterPerLevel<keyof IntegerValue>;
+  readonly #atk: ParameterPerLevel<keyof MilliValue>;
+  readonly #def: ParameterPerLevel<keyof MilliValue>;
   readonly acc: MilliPercentageValue;
   readonly eva: MilliPercentageValue;
   readonly cri: MilliPercentageValue;
@@ -37,21 +38,33 @@ class UnitBaseParameter {
   readonly iceResist: MilliPercentageValue;
   readonly electricResist: MilliPercentageValue;
 
-  constructor(no: UnitNumber, lv: UnitLvValue) {
-    this.hp = calculateIntegerParam(unitStatusData[no].hp, lv);
-    this.atk = calculateMilliValueParam(unitStatusData[no].atk, lv);
-    this.def = calculateMilliValueParam(unitStatusData[no].def, lv);
+  constructor(unit: UnitBasicInfo) {
+    const data = unitStatusData[unit.no];
+    this.#hp = data.hp;
+    this.#atk = data.atk;
+    this.#def = data.def;
 
-    this.acc = unitStatusData[no].acc;
-    this.eva = unitStatusData[no].eva;
-    this.cri = unitStatusData[no].cri;
-    this.spd = unitStatusData[no].spd;
+    this.acc = data.acc;
+    this.eva = data.eva;
+    this.cri = data.cri;
+    this.spd = data.spd;
 
-    this.fireResist     = unitStatusData[no].fireResist;
-    this.iceResist      = unitStatusData[no].iceResist;
-    this.electricResist = unitStatusData[no].electricResist;
+    this.fireResist     = data.fireResist;
+    this.iceResist      = data.iceResist;
+    this.electricResist = data.electricResist;
   }
 
+  hp(lv: UnitLvValue): IntegerValue {
+    return calculateIntegerParam(this.#hp, lv);
+  }
+
+  atk(lv: UnitLvValue): MilliValue {
+    return calculateMilliValueParam(this.#atk, lv);
+  }
+
+  def(lv: UnitLvValue): MilliValue {
+    return calculateMilliValueParam(this.#def, lv);
+  }
 }
 
 export default UnitBaseParameter;

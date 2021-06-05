@@ -1,7 +1,12 @@
-import { atom, selector } from 'recoil';
+import { atom, atomFamily, selector } from 'recoil';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 import UnitSelectorStore from '../../store/UnitSelectorStore';
 import { unitSkillTabState } from '../ui/unitSkillTabState';
+
+export const unitSelectedState = atomFamily<boolean, UnitBasicInfo>({
+  key: 'unitSelectedState',
+  default: false
+});
 
 const unitSelectorStoreAtomState = atom({
   key: 'unitSelectorStoreState',
@@ -13,9 +18,20 @@ export const unitSelectorStoreState = selector<UnitSelectorStore>({
   get: ({ get }) => {
     return get(unitSelectorStoreAtomState);
   },
-  set: ({ set }, newValue) => {
-    set(unitSelectorStoreAtomState, newValue);
+  set: ({ get, set }, newValue) => {
     if (newValue instanceof UnitSelectorStore) {
+      const prev = get(unitSelectorStoreAtomState).selectedUnit;
+      const next = newValue.selectedUnit;
+      if (prev !== next) {
+        if (prev) {
+          set(unitSelectedState(prev), false);
+        }
+        if (next) {
+          set(unitSelectedState(next), true);
+        }
+      }
+
+      set(unitSelectorStoreAtomState, newValue);
       set(unitSkillTabState, newValue.selectedUnit ? 'active1' : undefined);
     }
   }

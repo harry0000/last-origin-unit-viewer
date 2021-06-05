@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { DamageDeal } from '../../domain/UnitSkill';
+import { DamageDeal } from '../../domain/UnitSkills';
 import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
 import { calcValue } from '../../domain/ValueUnit';
 

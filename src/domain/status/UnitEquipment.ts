@@ -7,14 +7,16 @@ import {
   Os, StatusEffectData
 } from '../EquipmentData';
 import { Effect } from '../Effect';
-import { StatusEffect } from '../StatusEffect';
-import { UnitBasicInfo } from '../UnitBasicInfo';
-import UnitLv, { UnitLvValue } from './UnitLv';
+import { StatusEffect } from './StatusEffect';
+import { UnitBasicInfo, UnitNumber } from '../UnitBasicInfo';
+import { UnitLvValue } from './UnitLv';
 import { toIntegerValue, toMicroValue, toMilliPercentageValue, toMilliValue } from '../EquipmentEffectValue';
 
 import { unitEquipmentSlot } from '../../data/unitEquipmentSlot';
 
 import { foldObjectNonNullableEntry } from '../../util/object';
+
+export type EquipmentSlotAvailableLv = typeof unitEquipmentSlot[UnitNumber][keyof typeof unitEquipmentSlot[UnitNumber]]
 
 type EquipmentAttribute = {
   rank: EquipmentRank,
@@ -24,8 +26,6 @@ type EquipmentAttribute = {
 export type ChipEquipment = { equipped: Chip } & EquipmentAttribute
 export type OsEquipment   = { equipped: Os } & EquipmentAttribute
 export type GearEquipment = { equipped: Gear } & EquipmentAttribute
-
-export type EquipmentSlot = 'chip1' | 'chip2' | 'os' | 'gear'
 
 const emptyEffect: StatusEffect = {};
 
@@ -68,152 +68,206 @@ function extractStatusEffect(data: StatusEffectData): StatusEffect {
   })({});
 }
 
-class UnitEquipment {
+export class UnitChip1Equipment {
 
-  readonly #unit: UnitBasicInfo;
+  readonly unit: UnitBasicInfo;
   readonly chip1: ChipEquipment | undefined;
-  readonly chip2: ChipEquipment | undefined;
-  readonly os: OsEquipment | undefined;
-  readonly gear: GearEquipment | undefined;
 
   constructor(
     unit: UnitBasicInfo,
-    chip1?: ChipEquipment,
-    chip2?: ChipEquipment,
-    os?: OsEquipment,
-    gear?: GearEquipment,
+    chip1?: ChipEquipment
   ) {
-    this.#unit = unit;
-
+    this.unit = unit;
     this.chip1 = chip1;
-    this.chip2 = chip2;
-    this.os    = os;
-    this.gear  = gear;
   }
 
-  equipChip1(chip: Chip): UnitEquipment {
-    if (chip !== this.chip1?.equipped && matchExclusive(this.#unit, chip)) {
+  equipChip1(chip: Chip): UnitChip1Equipment {
+    if (
+      chip !== this.chip1?.equipped &&
+      matchExclusive(this.unit, chip)
+    ) {
       const newChip = { equipped: chip, ...defaultAttribute };
-      return new UnitEquipment(this.#unit, newChip, this.chip2, this.os, this.gear);
+      return new UnitChip1Equipment(this.unit, newChip);
     }
     return this;
   }
 
-  removeChip1(): UnitEquipment {
+  removeChip1(): UnitChip1Equipment {
     if (this.chip1) {
-      return new UnitEquipment(this.#unit, undefined, this.chip2, this.os, this.gear);
+      return new UnitChip1Equipment(this.unit, undefined);
     }
     return this;
   }
 
-  equipChip2(chip: Chip): UnitEquipment {
-    if (chip !== this.chip2?.equipped && matchExclusive(this.#unit, chip)) {
-      const newChip = { equipped: chip, ...defaultAttribute };
-      return new UnitEquipment(this.#unit, this.chip1, newChip, this.os, this.gear);
-    }
-    return this;
+  get chip1AvailableLv(): EquipmentSlotAvailableLv {
+    return unitEquipmentSlot[this.unit.no].chip1;
   }
 
-  removeChip2(): UnitEquipment {
-    if (this.chip2) {
-      return new UnitEquipment(this.#unit, this.chip1, undefined, this.os, this.gear);
-    }
-    return this;
+  isChip1Available(lv: UnitLvValue): boolean {
+    return lv >= this.chip1AvailableLv;
   }
 
-  equipOs(os: Os): UnitEquipment {
-    if (os !== this.os?.equipped && matchExclusive(this.#unit, os)) {
-      const newOs = { equipped: os, ...defaultAttribute };
-      return new UnitEquipment(this.#unit, this.chip1, this.chip2, newOs, this.gear);
-    }
-    return this;
-  }
-
-  removeOs(): UnitEquipment {
-    if (this.os) {
-      return new UnitEquipment(this.#unit, this.chip1, this.chip2, undefined, this.gear);
-    }
-    return this;
-  }
-
-  equipGear(gear: Gear): UnitEquipment {
-    if (gear !== this.gear?.equipped && matchExclusive(this.#unit, gear)) {
-      const newGear = { equipped: gear, ...defaultAttribute };
-      return new UnitEquipment(this.#unit, this.chip1, this.chip2, this.os, newGear);
-    }
-    return this;
-  }
-
-  removeGear(): UnitEquipment {
-    if (this.gear) {
-      return new UnitEquipment(this.#unit, this.chip1, this.chip2, this.os, undefined);
-    }
-    return this;
-  }
-
-  get chip1AvailableLv(): UnitLvValue {
-    return unitEquipmentSlot[this.#unit.no].chip1;
-  }
-
-  get chip2AvailableLv(): UnitLvValue {
-    return unitEquipmentSlot[this.#unit.no].chip2;
-  }
-
-  get osAvailableLv(): UnitLvValue {
-    return unitEquipmentSlot[this.#unit.no].os;
-  }
-
-  get gearAvailableLv(): UnitLvValue {
-    return unitEquipmentSlot[this.#unit.no].gear;
-  }
-
-  isChip1Available(unitLv: UnitLv): boolean {
-    return this.chip1AvailableLv <= unitLv.value;
-  }
-
-  isChip2Available(unitLv: UnitLv): boolean {
-    return this.chip2AvailableLv <= unitLv.value;
-  }
-
-  isOsAvailable(unitLv: UnitLv): boolean {
-    return this.osAvailableLv <= unitLv.value;
-  }
-
-  isGearAvailable(unitLv: UnitLv): boolean {
-    return this.gearAvailableLv <= unitLv.value;
-  }
-
-  chip1StatusEffects(unitLv: UnitLv): StatusEffect {
-    if (this.isChip1Available(unitLv) && this.chip1 && 'status_effects' in this.chip1.equipped) {
+  chip1StatusEffects(lv: UnitLvValue): StatusEffect {
+    if (
+      this.isChip1Available(lv) &&
+      this.chip1 && 'status_effects' in this.chip1.equipped
+    ) {
       return extractStatusEffect(this.chip1.equipped.status_effects[this.chip1.enhanceLv]);
-    } else {
-      return emptyEffect;
-    }
-  }
-
-  chip2StatusEffects(unitLv: UnitLv): StatusEffect {
-    if (this.isChip2Available(unitLv) && this.chip2 && 'status_effects' in this.chip2.equipped) {
-      return extractStatusEffect(this.chip2.equipped.status_effects[this.chip2.enhanceLv]);
-    } else {
-      return emptyEffect;
-    }
-  }
-
-  osStatusEffects(unitLv: UnitLv): StatusEffect {
-    if (this.isOsAvailable(unitLv) && this.os && 'status_effects' in this.os.equipped) {
-      return extractStatusEffect(this.os.equipped.status_effects[this.os.enhanceLv]);
-    } else {
-      return emptyEffect;
-    }
-  }
-
-  gearStatusEffects(unitLv: UnitLv): StatusEffect {
-    if (this.isGearAvailable(unitLv) && this.gear && 'status_effects' in this.gear.equipped) {
-      return extractStatusEffect(this.gear.equipped.status_effects[this.gear.enhanceLv]);
     } else {
       return emptyEffect;
     }
   }
 }
 
-export default UnitEquipment;
+export class UnitChip2Equipment {
+
+  readonly unit: UnitBasicInfo;
+  readonly chip2: ChipEquipment | undefined;
+
+  constructor(
+    unit: UnitBasicInfo,
+    chip2?: ChipEquipment
+  ) {
+    this.unit = unit;
+    this.chip2 = chip2;
+  }
+
+  equipChip2(chip: Chip): UnitChip2Equipment {
+    if (
+      chip !== this.chip2?.equipped &&
+      matchExclusive(this.unit, chip)
+    ) {
+      const newChip = { equipped: chip, ...defaultAttribute };
+      return new UnitChip2Equipment(this.unit, newChip);
+    }
+    return this;
+  }
+
+  removeChip2(): UnitChip2Equipment {
+    if (this.chip2) {
+      return new UnitChip2Equipment(this.unit, undefined);
+    }
+    return this;
+  }
+
+  get chip2AvailableLv(): EquipmentSlotAvailableLv {
+    return unitEquipmentSlot[this.unit.no].chip1;
+  }
+
+  isChip2Available(lv: UnitLvValue): boolean {
+    return lv >= this.chip2AvailableLv;
+  }
+
+  chip2StatusEffects(lv: UnitLvValue): StatusEffect {
+    if (
+      this.isChip2Available(lv) &&
+      this.chip2 && 'status_effects' in this.chip2.equipped
+    ) {
+      return extractStatusEffect(this.chip2.equipped.status_effects[this.chip2.enhanceLv]);
+    } else {
+      return emptyEffect;
+    }
+  }
+}
+
+export class UnitOsEquipment {
+
+  readonly unit: UnitBasicInfo;
+  readonly os: OsEquipment | undefined;
+
+  constructor(
+    unit: UnitBasicInfo,
+    os?: OsEquipment
+  ) {
+    this.unit = unit;
+    this.os = os;
+  }
+
+  equipOs(os: Os): UnitOsEquipment {
+    if (
+      os !== this.os?.equipped &&
+      matchExclusive(this.unit, os)
+    ) {
+      const newOs = { equipped: os, ...defaultAttribute };
+      return new UnitOsEquipment(this.unit, newOs);
+    }
+    return this;
+  }
+
+  removeOs(): UnitOsEquipment {
+    if (this.os) {
+      return new UnitOsEquipment(this.unit, undefined);
+    }
+    return this;
+  }
+
+  get osAvailableLv(): EquipmentSlotAvailableLv {
+    return unitEquipmentSlot[this.unit.no].os;
+  }
+
+  isOsAvailable(lv: UnitLvValue): boolean {
+    return lv >= this.osAvailableLv;
+  }
+
+  osStatusEffects(lv: UnitLvValue): StatusEffect {
+    if (
+      this.isOsAvailable(lv) &&
+      this.os && 'status_effects' in this.os.equipped
+    ) {
+      return extractStatusEffect(this.os.equipped.status_effects[this.os.enhanceLv]);
+    } else {
+      return emptyEffect;
+    }
+  }
+}
+
+export class UnitGearEquipment {
+
+  readonly unit: UnitBasicInfo;
+  readonly gear: GearEquipment | undefined;
+
+  constructor(
+    unit: UnitBasicInfo,
+    gear?: GearEquipment
+  ) {
+    this.unit = unit;
+    this.gear = gear;
+  }
+
+  equipGear(gear: Gear): UnitGearEquipment {
+    if (
+      gear !== this.gear?.equipped &&
+      matchExclusive(this.unit, gear)
+    ) {
+      const newGear = { equipped: gear, ...defaultAttribute };
+      return new UnitGearEquipment(this.unit, newGear);
+    }
+    return this;
+  }
+
+  removeGear(): UnitGearEquipment {
+    if (this.gear) {
+      return new UnitGearEquipment(this.unit, undefined);
+    }
+    return this;
+  }
+
+  get gearAvailableLv(): EquipmentSlotAvailableLv {
+    return unitEquipmentSlot[this.unit.no].gear;
+  }
+
+  isGearAvailable(lv: UnitLvValue): boolean {
+    return lv >= this.gearAvailableLv;
+  }
+
+  gearStatusEffects(lv: UnitLvValue): StatusEffect {
+    if (
+      this.isGearAvailable(lv) &&
+      this.gear && 'status_effects' in this.gear.equipped
+    ) {
+      return extractStatusEffect(this.gear.equipped.status_effects[this.gear.enhanceLv]);
+    } else {
+      return emptyEffect;
+    }
+  }
+}

@@ -17,8 +17,7 @@ import {
   Gear,
   Os
 } from '../../domain/EquipmentData';
-import { ChipEquipment, GearEquipment, OsEquipment } from '../../domain/status/UnitEquipment';
-import { UnitLvValue } from '../../domain/status/UnitLv';
+import { ChipEquipment, EquipmentSlotAvailableLv, GearEquipment, OsEquipment } from '../../domain/status/UnitEquipment';
 
 import './EquipmentSelector.css';
 
@@ -37,7 +36,7 @@ type Props<T extends EquipmentData> = {
   items: ReadonlyArray<T>,
   onSelect: (equipment: T | undefined) => void,
   available: boolean,
-  availableLv: UnitLvValue
+  availableLv: EquipmentSlotAvailableLv
 }
 
 const EquipmentSelectorMenuItem: React.FC<{

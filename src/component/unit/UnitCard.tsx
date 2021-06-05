@@ -3,11 +3,11 @@
 import { CSSObject, jsx } from '@emotion/react';
 import React from 'react';
 import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import type { UnitBasicInfo, UnitRank, UnitRole } from '../../domain/UnitBasicInfo';
-import { unitSelectorStoreState } from '../../state/unit/unitSelectorStoreState';
+import { unitSelectedState, unitSelectorStoreState } from '../../state/unit/unitSelectorStoreState';
 
 const selectedUnitBoxShadow: CSSObject = {
   '&::before': {
@@ -48,11 +48,11 @@ const Badge: React.FC<{ rank: UnitRank, role: UnitRole }> = React.memo(({ rank, 
   );
 });
 
-const UnitCard: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
+const UnitCard: React.FC<{ unit: UnitBasicInfo }> = React.memo(({ unit }) => {
   const { t } = useTranslation();
 
-  const [store, setStore] = useRecoilState(unitSelectorStoreState);
-  const isSelected = unit.no === store.selectedUnit?.no;
+  const selected = useRecoilValue(unitSelectedState(unit));
+  const setStore = useSetRecoilState(unitSelectorStoreState);
   const unitName = t('unit:display', { number: unit.no });
 
   return (
@@ -65,12 +65,11 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
           position: 'relative',
           cursor: 'pointer',
           userSelect: 'none',
-          ...(isSelected ? selectedUnitBoxShadow : {})
+          ...(selected ? selectedUnitBoxShadow : {})
         }}
         onClick={() => setStore(s => s.selectUnit(unit))}
       >
         <Image
-          fluid
           rounded
           height={100}
           width={100}
@@ -81,6 +80,6 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
       </div>
     </OverlayTrigger>
   );
-};
+});
 
 export default UnitCard;

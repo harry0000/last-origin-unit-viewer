@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { CSSObject, jsx, Theme } from '@emotion/react';
+import { CSSObject, Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
@@ -28,21 +28,9 @@ const customScrollBar: CSSObject = {
   }
 };
 
-const UnitCards: React.FC = () => {
+const UnitList: React.FC<{ className?: string, css?: Interpolation<Theme> }> = (props) => {
   const units = useRecoilValue(filteredUnitsState);
 
-  return (
-    <React.Fragment>
-      {units.map(unit => {
-        return (
-          <UnitCard key={unit.no} unit={unit} />
-        );
-      })}
-    </React.Fragment>
-  );
-};
-
-const UnitList: React.FC<{ className?: string, css?: Interpolation<Theme> }> = (props) => {
   return (
     <div
       {...props}
@@ -62,7 +50,11 @@ const UnitList: React.FC<{ className?: string, css?: Interpolation<Theme> }> = (
           justifyContent: 'space-evenly'
         }}
       >
-        <UnitCards />
+        {units.map(unit => {
+          return (
+            <UnitCard key={unit.no} unit={unit} />
+          );
+        })}
       </div>
     </div>
   );

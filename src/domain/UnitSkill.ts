@@ -1,174 +1,378 @@
 import {
-  DamageAttribute,
-  SkillApCostValue,
-  SkillRangeValue
-} from './UnitSkillData';
-import {
-  Effect
-} from './Effect';
-import {
-  IntegerValue,
-  MilliPercentageValue,
-  ValueUnit
-} from './ValueUnit';
-import { SkillAreaType } from './SkillAreaOfEffect';
-import { SkillEffectActivationRate } from './SkillEffectActivationRate';
-import { SkillEffectActivationCondition } from './SkillEffectActivationCondition';
-import { SkillEffectScaleFactor } from './SkillEffectScaleFactor';
-import { SkillEffectTag, SkillEffectTagStackValue } from './SkillEffectTag';
-import { SkillEffectTerm, SkillEffectTermRoundsValue } from './SkillEffectTerm';
-import { SkillEffective } from './SkillEffective';
-import {
-  AlexandraForm,
-  BloodyPantherForm,
-  EmilyForm,
-  FortressForm,
-  LeonaForm,
-  PhantomForm,
-  SirenForm,
-  UnitForms
+  Active1Skill,
+  Active2Skill,
+  Passive1Skill,
+  Passive2Skill,
+  Passive3Skill
+} from './UnitSkills';
+import { UnitBasicInfo } from './UnitBasicInfo';
+import UnitFormValue, {
+  FormChangeUnitBasicInfo,
+  FormChangeUnitNumbers,
+  FormChangeUnits,
+  FormLessUnitBasicInfo,
+  FormPerUnit,
+  isFormChangeUnitBasicInfo,
+  isFormChangeUnitNumber
 } from './UnitFormValue';
-import { SkillEffectTimesValue } from './SkillEffectTimesValue';
-import {
-  EquipmentEffectOnly,
-  IntegerValueEffectKey,
-  MicroValueEffectKey,
-  MilliPercentageEffectKey, NoValueEffectKey, PushPullEffectKey,
-  RangeUpDownEffectKey
-} from './SkillEffect';
+import UnitSkillLvValue, { SkillLv } from './UnitSkillLvValue';
+import { calculateFormChangeUnitSkill, calculateUnitSkill } from './UnitSkillCalculator';
 
-type SkillEffectAddition = Readonly<{
-  tag?: SkillEffectTag,
-  max_stack?: SkillEffectTagStackValue,
-  term?:
-    typeof SkillEffectTerm['Immediate' | 'Infinite'] |
-    {
-      readonly [SkillEffectTerm.ForRounds]: SkillEffectTermRoundsValue
-    },
-  rate?: SkillEffectActivationRate | MilliPercentageValue,
-  times?: SkillEffectTimesValue,
-  cannot_be_dispelled?: true
-}>
-
-type ValueWithAddition<T extends ValueUnit> =
-  { readonly [key in T]: number } & SkillEffectAddition
-
-export type SkillEffectValue = Readonly<{
-  [E in Exclude<Effect, EquipmentEffectOnly>]?:
-    E extends NoValueEffectKey ?
-      SkillEffectAddition :
-    E extends PushPullEffectKey | RangeUpDownEffectKey ?
-      IntegerValue<1 | 2> & SkillEffectAddition :
-    E extends IntegerValueEffectKey ?
-      ValueWithAddition<'value'> :
-    E extends MicroValueEffectKey ?
-      ValueWithAddition<'microValue'> :
-    E extends typeof Effect.EffectRemoval ?
-      ({
-        effect: Effect
-      } | {
-        effects: ReadonlyArray<Effect>
-      }) & SkillEffectAddition :
-    E extends typeof Effect.PreventsEffect ?
-      { effect: Effect } & SkillEffectAddition :
-    E extends typeof Effect.ActivationRatePercentageUp ?
-      { effect: Effect } & ValueWithAddition<'milliPercentage'> :
-    E extends typeof Effect['TagStack' | 'TagRelease'] ?
-      { tag: SkillEffectTag } & Omit<SkillEffectAddition, 'tag'> :
-    E extends typeof Effect.TagUnstack ?
-      {
-        tag: SkillEffectTag,
-        effect?: Effect,
-        value: number
-      } & Omit<SkillEffectAddition, 'tag'> :
-    E extends typeof Effect['FormChange' | 'FormRelease'] ?
-      { form: UnitForms } & SkillEffectAddition :
-    E extends typeof Effect['DefDown' | 'EvaUp' | 'StatusResistUp'] ?
-      ValueWithAddition<'milliPercentage'> |
-      ReadonlyArray<ValueWithAddition<'milliPercentage'>> :
-    E extends Exclude<MilliPercentageEffectKey, typeof Effect['DefDown' | 'EvaUp' | 'StatusResistUp']> ?
-      ValueWithAddition<'milliPercentage'> :
-      never
-}>
-
-export type AroundSkillEffectValue = Readonly<{
-  [Effect.FixedDamage]?: ValueWithAddition<'milliPercentage'>
-}>
-
-export type SkillEffect = Readonly<{
-  conditions?:
-    readonly [SkillEffectActivationCondition] |
-    readonly [SkillEffectActivationCondition, SkillEffectActivationCondition],
-  effective?: SkillEffective,
-  scale_factor?: SkillEffectScaleFactor,
-  details: {
-    readonly self?: SkillEffectValue,
-    readonly target?: SkillEffectValue,
-    readonly around?: AroundSkillEffectValue
+export function buildUnit(unit: UnitBasicInfo): UnitSkill {
+  if (isFormChangeUnitBasicInfo(unit)) {
+    switch (unit.no) {
+    case FormChangeUnits.Alexandra:
+      return new AlexandraUnit(unit);
+    case FormChangeUnits.Leona:
+      return new LeonaUnit(unit);
+    case FormChangeUnits.BloodyPanther:
+      return new BloodyPantherUnit(unit);
+    case FormChangeUnits.Emily:
+      return new EmilyUnit(unit);
+    case FormChangeUnits.Phantom:
+      return new PhantomUnit(unit);
+    case FormChangeUnits.Siren:
+      return new SirenUnit(unit);
+    case FormChangeUnits.Fortress:
+      return new FortressUnit(unit);
+    }
+  } else {
+    return new FormLessUnit(unit);
   }
-}>
-
-export type DamageDeal = {
-  milliPercentage: number,
-  attribute?: DamageAttribute,
-  effective?: typeof SkillEffective.NextRound
 }
 
-export type FormlessActiveSkill = Readonly<{
-  damage_deal?: DamageDeal,
-  cost: SkillApCostValue,
-  range: SkillRangeValue,
-  area: SkillAreaType,
-  effects: ReadonlyArray<SkillEffect>
-}>
+export function isFormChangeUnit<N extends FormChangeUnitNumbers>(arg: UnitSkill): arg is FormChangeUnit<N> {
+  return isFormChangeUnitNumber(arg.unit.no);
+}
 
-export type FormlessPassiveSkill = Readonly<{
-  area: SkillAreaType,
-  effects: ReadonlyArray<SkillEffect>,
-  rank_up: boolean
-}>
+abstract class UnitSkill {
 
-export type FormlessPassiveSkillAsEquipmentEffect = Readonly<{
-  area: SkillAreaType,
-  equipment_effects: ReadonlyArray<SkillEffect>,
-  rank_up: boolean
-}>
+  readonly unit: UnitBasicInfo;
+  readonly skillLv: UnitSkillLvValue;
 
-type WithForm<S, F extends UnitForms> = S & { readonly form: F }
+  protected constructor(
+    unit: UnitBasicInfo,
+    skillLv?: UnitSkillLvValue
+  ) {
+    this.unit    = unit;
+    this.skillLv = skillLv ?? new UnitSkillLvValue(unit);
+  }
 
-export type Active1Skill =
-  FormlessActiveSkill |
-  WithForm<FormlessActiveSkill, AlexandraForm> |
-  WithForm<FormlessActiveSkill, BloodyPantherForm> |
-  WithForm<FormlessActiveSkill, PhantomForm> |
-  WithForm<FormlessActiveSkill, SirenForm> |
-  WithForm<FormlessActiveSkill, FortressForm>
+  protected abstract updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill
 
-export type Active2Skill =
-  FormlessActiveSkill |
-  WithForm<FormlessActiveSkill, AlexandraForm> |
-  WithForm<FormlessActiveSkill, BloodyPantherForm> |
-  WithForm<FormlessActiveSkill, EmilyForm> |
-  WithForm<FormlessActiveSkill, PhantomForm> |
-  WithForm<FormlessActiveSkill, SirenForm> |
-  WithForm<FormlessActiveSkill, FortressForm>
+  abstract get active1Skill(): Active1Skill
+  abstract get active2Skill(): Active2Skill
 
-export type FormlessPassive1Skill =
-  FormlessPassiveSkill |
-  FormlessPassiveSkillAsEquipmentEffect
+  abstract get passive1Skill(): Passive1Skill | undefined
+  abstract get passive2Skill(): Passive2Skill | undefined
+  abstract get passive3Skill(): Passive3Skill | undefined
 
-export type Passive1Skill =
-  FormlessPassive1Skill |
-  WithForm<FormlessPassiveSkill, AlexandraForm> |
-  WithForm<FormlessPassiveSkill, LeonaForm> |
-  WithForm<FormlessPassiveSkill, PhantomForm> |
-  WithForm<FormlessPassiveSkill, FortressForm>
+  changeActive1SkillLv(lv: SkillLv): UnitSkill {
+    return this.updateSkillLvValue(this.skillLv.setActive1Lv(lv));
+  }
 
-export type Passive2Skill =
-  FormlessPassiveSkill |
-  WithForm<FormlessPassiveSkill, LeonaForm> |
-  WithForm<FormlessPassiveSkill, SirenForm>
+  changeActive2SkillLv(lv: SkillLv): UnitSkill {
+    return this.updateSkillLvValue(this.skillLv.setActive2Lv(lv));
+  }
 
-export type Passive3Skill =
-  FormlessPassiveSkill |
-  WithForm<FormlessPassiveSkill, BloodyPantherForm>
+  changePassive1SkillLv(lv: SkillLv): UnitSkill {
+    return this.updateSkillLvValue(this.skillLv.setPassive1Lv(lv));
+  }
+
+  changePassive2SkillLv(lv: SkillLv): UnitSkill {
+    return this.updateSkillLvValue(this.skillLv.setPassive2Lv(lv));
+  }
+
+  changePassive3SkillLv(lv: SkillLv): UnitSkill {
+    return this.updateSkillLvValue(this.skillLv.setPassive3Lv(lv));
+  }
+
+}
+
+class FormLessUnit extends UnitSkill {
+
+  readonly #unit: FormLessUnitBasicInfo;
+  readonly active1Skill: Active1Skill;
+  readonly active2Skill: Active2Skill;
+  readonly passive1Skill: Passive1Skill | undefined;
+  readonly passive2Skill: Passive2Skill | undefined;
+  readonly passive3Skill: Passive3Skill | undefined;
+
+  constructor(
+    unit: FormLessUnitBasicInfo,
+    skillLv?: UnitSkillLvValue
+  ) {
+    super(unit, skillLv);
+
+    this.#unit = unit;
+
+    const [as1, as2, ps1, ps2, ps3] = calculateUnitSkill(this.#unit.no, unit, this.skillLv);
+    this.active1Skill = as1;
+    this.active2Skill = as2;
+    this.passive1Skill = ps1;
+    this.passive2Skill = ps2;
+    this.passive3Skill = ps3;
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new FormLessUnit(this.#unit, lv);
+  }
+}
+
+abstract class FormChangeUnit<N extends FormChangeUnitNumbers> extends UnitSkill {
+
+  protected readonly formChangeUnit: FormChangeUnitBasicInfo<N>
+  protected readonly form: UnitFormValue<N>;
+
+  protected constructor(
+    unit: FormChangeUnitBasicInfo<N>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<N>
+  ) {
+    super(unit, skillLv);
+
+    this.formChangeUnit = unit;
+    this.form = form ?? UnitFormValue.build(unit);
+  }
+
+  protected abstract updateUnitFormValue(form: UnitFormValue<N>): FormChangeUnit<N>
+
+  unitForm(): FormPerUnit<N> {
+    return this.form.unitForm;
+  }
+
+  changeForm(): FormChangeUnit<N> {
+    return this.updateUnitFormValue(this.form.changeForm());
+  }
+}
+
+class AlexandraUnit extends FormChangeUnit<typeof FormChangeUnits.Alexandra> {
+
+  readonly active1Skill: Active1Skill;
+  readonly active2Skill: Active2Skill;
+  readonly passive1Skill: Passive1Skill | undefined;
+  readonly passive2Skill: Passive2Skill | undefined;
+  readonly passive3Skill: Passive3Skill | undefined;
+
+  constructor(
+    unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Alexandra>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<typeof FormChangeUnits.Alexandra>
+  ) {
+    super(unit, skillLv, form);
+
+    const [as1, as2, ps1, ps2, ps3] = calculateFormChangeUnitSkill({ unitNumber: unit.no, basicInfo: unit, skillLv: this.skillLv, form: this.form });
+    this.active1Skill = as1;
+    this.active2Skill = as2;
+    this.passive1Skill = ps1;
+    this.passive2Skill = ps2;
+    this.passive3Skill = ps3;
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new AlexandraUnit(this.formChangeUnit, lv, this.form);
+  }
+
+  protected updateUnitFormValue(
+    form: UnitFormValue<typeof FormChangeUnits.Alexandra>
+  ): FormChangeUnit<typeof FormChangeUnits.Alexandra> {
+    return new AlexandraUnit(this.formChangeUnit, this.skillLv, form);
+  }
+}
+
+class LeonaUnit extends FormChangeUnit<typeof FormChangeUnits.Leona> {
+
+  readonly active1Skill: Active1Skill;
+  readonly active2Skill: Active2Skill;
+  readonly passive1Skill: Passive1Skill | undefined;
+  readonly passive2Skill: Passive2Skill | undefined;
+  readonly passive3Skill: Passive3Skill | undefined;
+
+  constructor(
+    unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Leona>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<typeof FormChangeUnits.Leona>
+  ) {
+    super(unit, skillLv, form);
+
+    const [as1, as2, ps1, ps2, ps3] = calculateFormChangeUnitSkill({ unitNumber: unit.no, basicInfo: unit, skillLv: this.skillLv, form: this.form });
+    this.active1Skill = as1;
+    this.active2Skill = as2;
+    this.passive1Skill = ps1;
+    this.passive2Skill = ps2;
+    this.passive3Skill = ps3;
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new LeonaUnit(this.formChangeUnit, lv, this.form);
+  }
+
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Leona>): FormChangeUnit<typeof FormChangeUnits.Leona> {
+    return new LeonaUnit(this.formChangeUnit, this.skillLv, form);
+  }
+}
+
+class BloodyPantherUnit extends FormChangeUnit<typeof FormChangeUnits.BloodyPanther> {
+
+  readonly active1Skill: Active1Skill;
+  readonly active2Skill: Active2Skill;
+  readonly passive1Skill: Passive1Skill | undefined;
+  readonly passive2Skill: Passive2Skill | undefined;
+  readonly passive3Skill: Passive3Skill | undefined;
+
+  constructor(
+    unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.BloodyPanther>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<typeof FormChangeUnits.BloodyPanther>
+  ) {
+    super(unit, skillLv, form);
+
+    const [as1, as2, ps1, ps2, ps3] = calculateFormChangeUnitSkill({ unitNumber: unit.no, basicInfo: unit, skillLv: this.skillLv, form: this.form });
+    this.active1Skill = as1;
+    this.active2Skill = as2;
+    this.passive1Skill = ps1;
+    this.passive2Skill = ps2;
+    this.passive3Skill = ps3;
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new BloodyPantherUnit(this.formChangeUnit, lv, this.form);
+  }
+
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.BloodyPanther>): FormChangeUnit<typeof FormChangeUnits.BloodyPanther> {
+    return new BloodyPantherUnit(this.formChangeUnit, this.skillLv, form);
+  }
+}
+
+class EmilyUnit extends FormChangeUnit<typeof FormChangeUnits.Emily> {
+
+  readonly active1Skill: Active1Skill;
+  readonly active2Skill: Active2Skill;
+  readonly passive1Skill: Passive1Skill | undefined;
+  readonly passive2Skill: Passive2Skill | undefined;
+  readonly passive3Skill: Passive3Skill | undefined;
+
+  constructor(
+    unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Emily>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<typeof FormChangeUnits.Emily>
+  ) {
+    super(unit, skillLv, form);
+
+    const [as1, as2, ps1, ps2, ps3] = calculateFormChangeUnitSkill({ unitNumber: unit.no, basicInfo: unit, skillLv: this.skillLv, form: this.form });
+    this.active1Skill = as1;
+    this.active2Skill = as2;
+    this.passive1Skill = ps1;
+    this.passive2Skill = ps2;
+    this.passive3Skill = ps3;
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new EmilyUnit(this.formChangeUnit, lv, this.form);
+  }
+
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Emily>): FormChangeUnit<typeof FormChangeUnits.Emily> {
+    return new EmilyUnit(this.formChangeUnit, this.skillLv, form);
+  }
+}
+
+class PhantomUnit extends FormChangeUnit<typeof FormChangeUnits.Phantom> {
+
+  readonly active1Skill: Active1Skill;
+  readonly active2Skill: Active2Skill;
+  readonly passive1Skill: Passive1Skill | undefined;
+  readonly passive2Skill: Passive2Skill | undefined;
+  readonly passive3Skill: Passive3Skill | undefined;
+
+  constructor(
+    unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Phantom>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<typeof FormChangeUnits.Phantom>
+  ) {
+    super(unit, skillLv, form);
+
+    const [as1, as2, ps1, ps2, ps3] = calculateFormChangeUnitSkill({ unitNumber: unit.no, basicInfo: unit, skillLv: this.skillLv, form: this.form });
+    this.active1Skill = as1;
+    this.active2Skill = as2;
+    this.passive1Skill = ps1;
+    this.passive2Skill = ps2;
+    this.passive3Skill = ps3;
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new PhantomUnit(this.formChangeUnit, lv, this.form);
+  }
+
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Phantom>): FormChangeUnit<typeof FormChangeUnits.Phantom> {
+    return new PhantomUnit(this.formChangeUnit, this.skillLv, form);
+  }
+}
+
+class SirenUnit extends FormChangeUnit<typeof FormChangeUnits.Siren> {
+
+  readonly active1Skill: Active1Skill;
+  readonly active2Skill: Active2Skill;
+  readonly passive1Skill: Passive1Skill | undefined;
+  readonly passive2Skill: Passive2Skill | undefined;
+  readonly passive3Skill: Passive3Skill | undefined;
+
+  constructor(
+    unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Siren>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<typeof FormChangeUnits.Siren>
+  ) {
+    super(unit, skillLv, form);
+
+    const [as1, as2, ps1, ps2, ps3] = calculateFormChangeUnitSkill({ unitNumber: unit.no, basicInfo: unit, skillLv: this.skillLv, form: this.form });
+    this.active1Skill = as1;
+    this.active2Skill = as2;
+    this.passive1Skill = ps1;
+    this.passive2Skill = ps2;
+    this.passive3Skill = ps3;
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new SirenUnit(this.formChangeUnit, lv, this.form);
+  }
+
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Siren>): FormChangeUnit<typeof FormChangeUnits.Siren> {
+    return new SirenUnit(this.formChangeUnit, this.skillLv, form);
+  }
+}
+
+class FortressUnit extends FormChangeUnit<typeof FormChangeUnits.Fortress> {
+
+  readonly active1Skill: Active1Skill;
+  readonly active2Skill: Active2Skill;
+  readonly passive1Skill: Passive1Skill | undefined;
+  readonly passive2Skill: Passive2Skill | undefined;
+  readonly passive3Skill: Passive3Skill | undefined;
+
+  constructor(
+    unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Fortress>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<typeof FormChangeUnits.Fortress>
+  ) {
+    super(unit, skillLv, form);
+
+    const [as1, as2, ps1, ps2, ps3] = calculateFormChangeUnitSkill({ unitNumber: unit.no, basicInfo: unit, skillLv: this.skillLv, form: this.form });
+    this.active1Skill = as1;
+    this.active2Skill = as2;
+    this.passive1Skill = ps1;
+    this.passive2Skill = ps2;
+    this.passive3Skill = ps3;
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new FortressUnit(this.formChangeUnit, lv, this.form);
+  }
+
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Fortress>): FormChangeUnit<typeof FormChangeUnits.Fortress> {
+    return new FortressUnit(this.formChangeUnit, this.skillLv, form);
+  }
+}
+
+export type {
+  UnitSkill,
+  FormChangeUnit
+};

@@ -7,7 +7,7 @@ import SkillEffectConditionView from './SkillEffectConditionView';
 import SkillEffectDetailsView from './SkillEffectDetailsView';
 
 import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
-import { SkillEffect } from '../../domain/UnitSkill';
+import { SkillEffect } from '../../domain/UnitSkills';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 import { ifNonNullable } from '../../util/react';
 
