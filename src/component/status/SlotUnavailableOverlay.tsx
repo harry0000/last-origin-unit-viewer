@@ -27,10 +27,7 @@ const SlotUnavailableOverlay: React.FC<{
           alignItems: 'center',
           justifyContent: 'center',
           position: 'absolute',
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
+          inset: 0,
           backgroundColor: 'rgba(0, 0, 0, 0.75)'
         }}>
         <SVGIcon css={{ height: 24, width: 24 }}>

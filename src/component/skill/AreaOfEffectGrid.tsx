@@ -52,10 +52,7 @@ const AreaOfEffectCell: React.FC<{ selected: boolean, type: AreaOfEffectCellType
         css={{
           borderRadius: 2,
           position: 'absolute',
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
+          inset: 0,
           backgroundColor: selected ? '#16d4d4' : cellColorStyle[AreaOfEffectCellType.None]
         }}
       />
