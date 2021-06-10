@@ -21,8 +21,8 @@ import NumberValueDropdown from '../common/NumberValueDropdown';
 import SVGIcon from '../icon/SVGIcon';
 import UnitLvModeToggleButton from './UnitLvModeToggleButton';
 
-
 import { UnitLvValue } from '../../domain/status/UnitLv';
+
 import { selectedUnitEnhancementStatusState } from '../../state/status/unitEnhancementStatusState';
 
 const unitLvStyle: CSSObject = {
@@ -145,9 +145,9 @@ const UnitStatusParameter: React.FC = () => {
         <CriParameterRow css={rowPaddingWithDivider} />
         <SpdParameterRow css={rowPaddingWithDivider} />
         <Row css={{ ...rowPaddingWithDivider, ...bottomDivider, justifyContent: 'space-evenly' }}>
-          <Col xs="auto" css={{ padding: '0 5px' }}><FireResist /></Col>
-          <Col xs="auto" css={{ padding: '0 5px' }}><IceResist /></Col>
-          <Col xs="auto" css={{ padding: '0 5px' }}><ElectricResist /></Col>
+          <Col xs="auto" css={{ padding: 0 }}><FireResist /></Col>
+          <Col xs="auto" css={{ padding: 0 }}><IceResist /></Col>
+          <Col xs="auto" css={{ padding: 0 }}><ElectricResist /></Col>
         </Row>
       </Container>
     </div>

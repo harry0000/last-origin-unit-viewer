@@ -1,7 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { Theme, jsx } from '@emotion/react';
-import { Interpolation } from '@emotion/serialize';
+import { jsx } from '@emotion/react';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
@@ -13,12 +12,12 @@ import SVGIcon from '../icon/SVGIcon';
 import { isFormChangeUnit } from '../../domain/UnitSkill';
 import { selectedUnitSkillState } from '../../state/unit/selectedUnitSkillState';
 
-const UnitFormSelector: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
+const UnitFormSelector: React.FC = () => {
   const { t } = useTranslation();
   const [unit, setUnit] = useRecoilState(selectedUnitSkillState);
 
   return unit && isFormChangeUnit(unit) ?
-    (<div {...props}>
+    (<div css={{ padding: '5px 0' }}>
       <OverlayTrigger
         placement='auto'
         overlay={<Tooltip id='tooltip-form-change'>{t('form_change')}</Tooltip>}

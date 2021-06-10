@@ -39,7 +39,7 @@ type Props<T extends EquipmentData> = {
   availableLv: EquipmentSlotAvailableLv
 }
 
-const EquipmentSelectorMenuItem: React.FC<{
+const EquipmentItem: React.FC<{
   eventKey?: EquipmentId,
   active: boolean,
   label: string,
@@ -48,7 +48,7 @@ const EquipmentSelectorMenuItem: React.FC<{
   return (
     <Dropdown.Item
       {...others}
-      className="equipment-menu-item"
+      className="equipment"
       eventKey={eventKey}
       active={active}
     >
@@ -63,6 +63,23 @@ const EquipmentSelectorMenuItem: React.FC<{
   );
 };
 
+function RemoveEquipmentItem<T extends EquipmentData>(props: {
+  active: boolean,
+  type: Props<T>['type']
+}) {
+  const { t } = useTranslation();
+  const { active, type, ...others } = props;
+
+  return (
+    <EquipmentItem
+      {...others}
+      active={active}
+      label={t('status.remove_equipment')}
+      src={`${process.env.PUBLIC_URL}/icon/placeholder_${type}.webp`}
+    />
+  );
+}
+
 function EquipmentSelectorMenu<T extends EquipmentData>(
   props: Omit<Props<T>, 'id' | 'onSelect' | 'available' | 'availableLv'>
 ): ReturnType<React.FC<Omit<Props<T>, 'id' | 'onSelect' | 'available' | 'availableLv'>>> {
@@ -70,15 +87,11 @@ function EquipmentSelectorMenu<T extends EquipmentData>(
   const { value, type, items, ...others } = props;
 
   return (
-    <Dropdown.Menu {...others} className="equipment-menu">
+    <Dropdown.Menu {...others} className="equipment">
       <div className="equipment-menu-grid">
-        <EquipmentSelectorMenuItem
-          active={!value?.equipped.id}
-          label={t('status.remove_equipment')}
-          src={`${process.env.PUBLIC_URL}/icon/placeholder_${type}.webp`}
-        />
+        <RemoveEquipmentItem type={type} active={!value?.equipped.id} />
         {items.map(item => (
-          <EquipmentSelectorMenuItem
+          <EquipmentItem
             key={item.id}
             eventKey={item.id}
             active={item.id === value?.equipped.id}

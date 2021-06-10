@@ -42,7 +42,7 @@ const AttributeResist: React.FC<{
             src={`${process.env.PUBLIC_URL}/icon/attribute_${attribute}.webp`}
           />
         </OverlayTrigger>
-        <div css={{ display: 'inline-block', width: '3.5em', textAlign: 'right', fontWeight: 'bold' }}>
+        <div css={{ display: 'inline-block', width: '4.2em', textAlign: 'right', fontWeight: 'bold' }}>
           <span>{value ?? 0}</span>&nbsp;<span>%</span>
         </div>
       </div>

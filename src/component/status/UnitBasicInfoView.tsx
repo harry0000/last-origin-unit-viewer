@@ -56,7 +56,8 @@ const UnitBasicInfoView: React.FC = () => {
         css={{
           flexGrow: 1,
           alignSelf: 'center',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          userSelect: 'text'
         }}
       >
         <div
