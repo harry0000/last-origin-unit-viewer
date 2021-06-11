@@ -9,23 +9,24 @@ import { ArrowSync } from '../icon/FluentIcons';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SVGIcon from '../icon/SVGIcon';
 
-import { isFormChangeUnit } from '../../domain/UnitSkill';
-import { selectedUnitSkillState } from '../../state/unit/selectedUnitSkillState';
+import { selectedUnitSkillState } from '../../state/skill/unitSkillState';
+
+import { isFormChangeUnitSkill } from '../../domain/UnitSkill';
 
 const UnitFormSelector: React.FC = () => {
   const { t } = useTranslation();
   const [unit, setUnit] = useRecoilState(selectedUnitSkillState);
 
-  return unit && isFormChangeUnit(unit) ?
+  return unit && isFormChangeUnitSkill(unit) ?
     (<div css={{ padding: '5px 0' }}>
       <OverlayTrigger
-        placement='auto'
+        placement='top'
         overlay={<Tooltip id='tooltip-form-change'>{t('form_change')}</Tooltip>}
       >
         <Button
           variant="secondary"
           css={{ lineHeight: '1.2', marginRight: 10 }}
-          onClick={() => { setUnit(unit => unit && isFormChangeUnit(unit) ? unit.changeForm(): unit); }}
+          onClick={() => { setUnit(unit => unit && isFormChangeUnitSkill(unit) ? unit.changeForm(): unit); }}
         >
           <SVGIcon css={{ height: 20, width: 20 }}>
             <ArrowSync />

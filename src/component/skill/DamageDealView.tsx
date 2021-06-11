@@ -4,19 +4,31 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { DamageDeal } from '../../domain/UnitSkills';
 import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
 import { calcValue } from '../../domain/ValueUnit';
 
 import { AttributeColorStyle } from './AttributeColorStyle';
+import { SkillType } from './UnitSkillList';
+import { useDamageDeal } from '../../hook/skill/DamageDeal';
+
 import { ifNonNullable } from '../../util/react';
 
-const DamageDealView: React.FC<{ damage_deal: DamageDeal, area: SkillAreaType }> = ({ damage_deal, area }) => {
+const DamageDealView: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
   const { t } = useTranslation();
+  const props = useDamageDeal(skillType);
+  if (!props[0]) {
+    return null;
+  }
+
+  const [, damage_deal, area] = props;
 
   return (
     <div css={{ color: '#ccc', marginTop: 10 }}>
-      <span>{area === SkillAreaType.Single ? t('effect:damage_deal.target.single') : t('effect:damage_deal.target.area')}</span>
+      <span>
+        {area === SkillAreaType.Single ?
+          t('effect:damage_deal.target.single') :
+          t('effect:damage_deal.target.area')}
+      </span>
       {ifNonNullable(
         damage_deal.effective,
         effective => (<span>{t(`effect:effective.${effective}`)}{t('effect:separator')}</span>)

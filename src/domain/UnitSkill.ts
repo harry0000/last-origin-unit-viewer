@@ -37,11 +37,11 @@ export function buildUnit(unit: UnitBasicInfo): UnitSkill {
       return new FortressUnit(unit);
     }
   } else {
-    return new FormLessUnit(unit);
+    return new FormLessUnitSkill(unit);
   }
 }
 
-export function isFormChangeUnit<N extends FormChangeUnitNumbers>(arg: UnitSkill): arg is FormChangeUnit<N> {
+export function isFormChangeUnitSkill<N extends FormChangeUnitNumbers>(arg: UnitSkill): arg is FormChangeUnitSkill<N> {
   return isFormChangeUnitNumber(arg.unit.no);
 }
 
@@ -86,10 +86,9 @@ abstract class UnitSkill {
   changePassive3SkillLv(lv: SkillLv): UnitSkill {
     return this.updateSkillLvValue(this.skillLv.setPassive3Lv(lv));
   }
-
 }
 
-class FormLessUnit extends UnitSkill {
+class FormLessUnitSkill extends UnitSkill {
 
   readonly #unit: FormLessUnitBasicInfo;
   readonly active1Skill: Active1Skill;
@@ -115,11 +114,11 @@ class FormLessUnit extends UnitSkill {
   }
 
   protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
-    return new FormLessUnit(this.#unit, lv);
+    return new FormLessUnitSkill(this.#unit, lv);
   }
 }
 
-abstract class FormChangeUnit<N extends FormChangeUnitNumbers> extends UnitSkill {
+abstract class FormChangeUnitSkill<N extends FormChangeUnitNumbers> extends UnitSkill {
 
   protected readonly formChangeUnit: FormChangeUnitBasicInfo<N>
   protected readonly form: UnitFormValue<N>;
@@ -135,18 +134,18 @@ abstract class FormChangeUnit<N extends FormChangeUnitNumbers> extends UnitSkill
     this.form = form ?? UnitFormValue.build(unit);
   }
 
-  protected abstract updateUnitFormValue(form: UnitFormValue<N>): FormChangeUnit<N>
+  protected abstract updateUnitFormValue(form: UnitFormValue<N>): FormChangeUnitSkill<N>
 
   unitForm(): FormPerUnit<N> {
     return this.form.unitForm;
   }
 
-  changeForm(): FormChangeUnit<N> {
+  changeForm(): FormChangeUnitSkill<N> {
     return this.updateUnitFormValue(this.form.changeForm());
   }
 }
 
-class AlexandraUnit extends FormChangeUnit<typeof FormChangeUnits.Alexandra> {
+class AlexandraUnit extends FormChangeUnitSkill<typeof FormChangeUnits.Alexandra> {
 
   readonly active1Skill: Active1Skill;
   readonly active2Skill: Active2Skill;
@@ -175,12 +174,12 @@ class AlexandraUnit extends FormChangeUnit<typeof FormChangeUnits.Alexandra> {
 
   protected updateUnitFormValue(
     form: UnitFormValue<typeof FormChangeUnits.Alexandra>
-  ): FormChangeUnit<typeof FormChangeUnits.Alexandra> {
+  ): FormChangeUnitSkill<typeof FormChangeUnits.Alexandra> {
     return new AlexandraUnit(this.formChangeUnit, this.skillLv, form);
   }
 }
 
-class LeonaUnit extends FormChangeUnit<typeof FormChangeUnits.Leona> {
+class LeonaUnit extends FormChangeUnitSkill<typeof FormChangeUnits.Leona> {
 
   readonly active1Skill: Active1Skill;
   readonly active2Skill: Active2Skill;
@@ -207,12 +206,12 @@ class LeonaUnit extends FormChangeUnit<typeof FormChangeUnits.Leona> {
     return new LeonaUnit(this.formChangeUnit, lv, this.form);
   }
 
-  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Leona>): FormChangeUnit<typeof FormChangeUnits.Leona> {
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Leona>): FormChangeUnitSkill<typeof FormChangeUnits.Leona> {
     return new LeonaUnit(this.formChangeUnit, this.skillLv, form);
   }
 }
 
-class BloodyPantherUnit extends FormChangeUnit<typeof FormChangeUnits.BloodyPanther> {
+class BloodyPantherUnit extends FormChangeUnitSkill<typeof FormChangeUnits.BloodyPanther> {
 
   readonly active1Skill: Active1Skill;
   readonly active2Skill: Active2Skill;
@@ -239,12 +238,12 @@ class BloodyPantherUnit extends FormChangeUnit<typeof FormChangeUnits.BloodyPant
     return new BloodyPantherUnit(this.formChangeUnit, lv, this.form);
   }
 
-  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.BloodyPanther>): FormChangeUnit<typeof FormChangeUnits.BloodyPanther> {
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.BloodyPanther>): FormChangeUnitSkill<typeof FormChangeUnits.BloodyPanther> {
     return new BloodyPantherUnit(this.formChangeUnit, this.skillLv, form);
   }
 }
 
-class EmilyUnit extends FormChangeUnit<typeof FormChangeUnits.Emily> {
+class EmilyUnit extends FormChangeUnitSkill<typeof FormChangeUnits.Emily> {
 
   readonly active1Skill: Active1Skill;
   readonly active2Skill: Active2Skill;
@@ -271,12 +270,12 @@ class EmilyUnit extends FormChangeUnit<typeof FormChangeUnits.Emily> {
     return new EmilyUnit(this.formChangeUnit, lv, this.form);
   }
 
-  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Emily>): FormChangeUnit<typeof FormChangeUnits.Emily> {
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Emily>): FormChangeUnitSkill<typeof FormChangeUnits.Emily> {
     return new EmilyUnit(this.formChangeUnit, this.skillLv, form);
   }
 }
 
-class PhantomUnit extends FormChangeUnit<typeof FormChangeUnits.Phantom> {
+class PhantomUnit extends FormChangeUnitSkill<typeof FormChangeUnits.Phantom> {
 
   readonly active1Skill: Active1Skill;
   readonly active2Skill: Active2Skill;
@@ -303,12 +302,12 @@ class PhantomUnit extends FormChangeUnit<typeof FormChangeUnits.Phantom> {
     return new PhantomUnit(this.formChangeUnit, lv, this.form);
   }
 
-  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Phantom>): FormChangeUnit<typeof FormChangeUnits.Phantom> {
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Phantom>): FormChangeUnitSkill<typeof FormChangeUnits.Phantom> {
     return new PhantomUnit(this.formChangeUnit, this.skillLv, form);
   }
 }
 
-class SirenUnit extends FormChangeUnit<typeof FormChangeUnits.Siren> {
+class SirenUnit extends FormChangeUnitSkill<typeof FormChangeUnits.Siren> {
 
   readonly active1Skill: Active1Skill;
   readonly active2Skill: Active2Skill;
@@ -335,12 +334,12 @@ class SirenUnit extends FormChangeUnit<typeof FormChangeUnits.Siren> {
     return new SirenUnit(this.formChangeUnit, lv, this.form);
   }
 
-  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Siren>): FormChangeUnit<typeof FormChangeUnits.Siren> {
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Siren>): FormChangeUnitSkill<typeof FormChangeUnits.Siren> {
     return new SirenUnit(this.formChangeUnit, this.skillLv, form);
   }
 }
 
-class FortressUnit extends FormChangeUnit<typeof FormChangeUnits.Fortress> {
+class FortressUnit extends FormChangeUnitSkill<typeof FormChangeUnits.Fortress> {
 
   readonly active1Skill: Active1Skill;
   readonly active2Skill: Active2Skill;
@@ -367,12 +366,12 @@ class FortressUnit extends FormChangeUnit<typeof FormChangeUnits.Fortress> {
     return new FortressUnit(this.formChangeUnit, lv, this.form);
   }
 
-  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Fortress>): FormChangeUnit<typeof FormChangeUnits.Fortress> {
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Fortress>): FormChangeUnitSkill<typeof FormChangeUnits.Fortress> {
     return new FortressUnit(this.formChangeUnit, this.skillLv, form);
   }
 }
 
 export type {
   UnitSkill,
-  FormChangeUnit
+  FormChangeUnitSkill
 };
