@@ -4,17 +4,24 @@ import { UnitStatusParameter } from '../../domain/status/UnitStatusParameter';
 
 import { selectedUnitBasicInfoState } from '../unit/unitSelectorStoreState';
 import { unitBaseParameterState } from './unitBaseParameterState';
+import {
+  unitChip1EquipmentStatusEffectState,
+  unitChip2EquipmentStatusEffectState,
+  unitGearEquipmentStatusEffectState,
+  unitOsEquipmentStatusEffectState
+} from '../equipment/unitEquipmentStatusEffectState';
 import { unitEnhancementStatusState } from './unitEnhancementStatusState';
-import { unitUnitStatusEffectSummaryState } from './unitStatusEffectState';
 
 const unitStatusParameterState = selectorFamily<UnitStatusParameter, UnitBasicInfo>({
   key: 'unitStatusParameterState',
   get: (unit) => ({ get }) => {
-
     return new UnitStatusParameter(
       get(unitEnhancementStatusState(unit)),
       get(unitBaseParameterState(unit)),
-      get(unitUnitStatusEffectSummaryState(unit))
+      get(unitChip1EquipmentStatusEffectState(unit)),
+      get(unitChip2EquipmentStatusEffectState(unit)),
+      get(unitOsEquipmentStatusEffectState(unit)),
+      get(unitGearEquipmentStatusEffectState(unit))
     );
   }
 });

@@ -2,19 +2,19 @@ import { selector, selectorFamily } from 'recoil';
 import { StatusEffect } from '../../domain/status/StatusEffect';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
-import { unitEnhancementStatusState } from '../status/unitEnhancementStatusState';
 import {
   unitChip1EquipmentState,
   unitChip2EquipmentState,
   unitGearEquipmentState,
   unitOsEquipmentState
 } from './unitEquipmentState';
+import { unitLvState } from '../status/unitEnhancementStatusState';
 import { selectedUnitBasicInfoState } from '../unit/unitSelectorStoreState';
 
 export const unitChip1EquipmentStatusEffectState = selectorFamily<StatusEffect, UnitBasicInfo>({
   key: 'unitChip1EquipmentStatusEffectState',
   get: (unit) => ({ get }) => {
-    const unitLv = get(unitEnhancementStatusState(unit)).lv;
+    const unitLv = get(unitLvState(unit));
     return get(unitChip1EquipmentState(unit)).chip1StatusEffects(unitLv);
   }
 });
@@ -22,7 +22,7 @@ export const unitChip1EquipmentStatusEffectState = selectorFamily<StatusEffect, 
 export const unitChip2EquipmentStatusEffectState = selectorFamily<StatusEffect, UnitBasicInfo>({
   key: 'unitChip2EquipmentStatusEffectState',
   get: (unit) => ({ get }) => {
-    const unitLv = get(unitEnhancementStatusState(unit)).lv;
+    const unitLv = get(unitLvState(unit));
     return get(unitChip2EquipmentState(unit)).chip2StatusEffects(unitLv);
   }
 });
@@ -30,7 +30,7 @@ export const unitChip2EquipmentStatusEffectState = selectorFamily<StatusEffect, 
 export const unitOsEquipmentStatusEffectState = selectorFamily<StatusEffect, UnitBasicInfo>({
   key: 'unitOsEquipmentStatusEffectState',
   get: (unit) => ({ get }) => {
-    const unitLv = get(unitEnhancementStatusState(unit)).lv;
+    const unitLv = get(unitLvState(unit));
     return get(unitOsEquipmentState(unit)).osStatusEffects(unitLv);
   }
 });
@@ -38,7 +38,7 @@ export const unitOsEquipmentStatusEffectState = selectorFamily<StatusEffect, Uni
 export const unitGearEquipmentStatusEffectState = selectorFamily<StatusEffect, UnitBasicInfo>({
   key: 'unitGearEquipmentStatusEffectState',
   get: (unit) => ({ get }) => {
-    const unitLv = get(unitEnhancementStatusState(unit)).lv;
+    const unitLv = get(unitLvState(unit));
     return get(unitGearEquipmentState(unit)).gearStatusEffects(unitLv);
   }
 });
