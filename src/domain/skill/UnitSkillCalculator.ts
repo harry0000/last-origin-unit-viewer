@@ -1,9 +1,11 @@
 import {
   ActiveSkillData,
-  PassiveSkillData, PassiveSkillDataAsEquipmentEffect,
+  PassiveSkillData,
+  PassiveSkillDataAsEquipmentEffect,
   SkillApCostData,
   SkillApCostValue,
-  SkillAreaOfEffectData, UnitSkillData
+  SkillAreaOfEffectData,
+  UnitSkillData
 } from './UnitSkillData';
 import {
   Active1Skill,
@@ -21,7 +23,7 @@ import {
 } from './UnitSkills';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import { AroundSkillEffectDataValue, SkillEffectData, SkillEffectDataValue } from './SkillEffectData';
-import { UnitBasicData, UnitNumber, UnitRank, UnitRankComparator } from '../UnitBasicInfo';
+import { UnitBasicData, UnitNumber } from '../UnitBasicInfo';
 import UnitFormValue, { FormChangeUnitNumbers, FormChangeUnits } from '../UnitFormValue';
 import UnitSkillLvValue, { SkillLv } from './UnitSkillLvValue';
 import { unitSkillData } from '../../data/unitSkillData';
@@ -378,81 +380,67 @@ function calculateActiveSkills(
   ];
 }
 
-function calculatePassiveSkill(data: PassiveSkillData, lv: SkillLv | undefined, rank_up: boolean): FormlessPassiveSkill | undefined
-function calculatePassiveSkill(data: PassiveSkillDataAsEquipmentEffect, lv: SkillLv | undefined, rank_up: boolean): FormlessPassiveSkillAsEquipmentEffect | undefined
-function calculatePassiveSkill(data: PassiveSkillData | PassiveSkillDataAsEquipmentEffect, lv: SkillLv | undefined, rank_up: boolean): FormlessPassiveSkill | FormlessPassiveSkillAsEquipmentEffect | undefined
-function calculatePassiveSkill(data: PassiveSkillData | PassiveSkillDataAsEquipmentEffect, lv: SkillLv | undefined, rank_up: boolean): FormlessPassiveSkill | FormlessPassiveSkillAsEquipmentEffect | undefined {
+function calculatePassiveSkill(data: PassiveSkillData, lv: SkillLv | undefined): FormlessPassiveSkill | undefined
+function calculatePassiveSkill(data: PassiveSkillDataAsEquipmentEffect, lv: SkillLv | undefined): FormlessPassiveSkillAsEquipmentEffect | undefined
+function calculatePassiveSkill(data: PassiveSkillData | PassiveSkillDataAsEquipmentEffect, lv: SkillLv | undefined): FormlessPassiveSkill | FormlessPassiveSkillAsEquipmentEffect | undefined
+function calculatePassiveSkill(data: PassiveSkillData | PassiveSkillDataAsEquipmentEffect, lv: SkillLv | undefined): FormlessPassiveSkill | FormlessPassiveSkillAsEquipmentEffect | undefined {
   if (!lv) {
     return undefined;
   } else if ('effects' in data) {
     const effects = calculateEffects(data.effects, lv);
     return {
       area: calculateArea(data.area, lv),
-      effects,
-      rank_up
+      effects
     };
   } else {
     const equipment_effects = calculateEffects(data.equipment_effects, lv);
     return {
       area: calculateArea(data.area, lv),
-      equipment_effects,
-      rank_up
+      equipment_effects
     };
   }
 }
 
 function calculatePassiveSkills(
   passive: UnitSkillData[Exclude<UnitNumber, FormChangeUnitNumbers>]['passive'],
-  skillLvValue: UnitSkillLvValue,
-  unitBaseRank: UnitRank
+  skillLvValue: UnitSkillLvValue
 ): [FormlessPassiveSkill | FormlessPassiveSkillAsEquipmentEffect | undefined, FormlessPassiveSkill | undefined, FormlessPassiveSkill | undefined] {
-  const isPassive1RankUp = UnitRankComparator.a.greaterThan(unitBaseRank);
-  const isPassive2RankUp = UnitRankComparator.s.greaterThan(unitBaseRank);
-  const isPassive3RankUp = UnitRankComparator.ss.greaterThan(unitBaseRank);
-
   const ps1 = passive.length > 0 ? passive[0] : undefined;
   const ps2 = passive.length > 1 ? passive[1] : undefined;
   const ps3 = passive.length > 2 ? passive[2] : undefined;
 
   return [
-    ps1 ? calculatePassiveSkill(ps1, skillLvValue.passive1Lv, isPassive1RankUp) : undefined,
-    ps2 ? calculatePassiveSkill(ps2, skillLvValue.passive2Lv, isPassive2RankUp) : undefined,
-    ps3 ? calculatePassiveSkill(ps3, skillLvValue.passive3Lv, isPassive3RankUp) : undefined
+    ps1 ? calculatePassiveSkill(ps1, skillLvValue.passive1Lv) : undefined,
+    ps2 ? calculatePassiveSkill(ps2, skillLvValue.passive2Lv) : undefined,
+    ps3 ? calculatePassiveSkill(ps3, skillLvValue.passive3Lv) : undefined
   ];
 }
 
 export function calculateUnitSkill<N extends Exclude<UnitNumber, FormChangeUnitNumbers>>(
   unitNumber: N,
-  basicInfo: UnitBasicData[N],
   skillLv: UnitSkillLvValue
 ): [FormlessActiveSkill, FormlessActiveSkill, FormlessPassive1Skill | undefined, FormlessPassiveSkill | undefined, FormlessPassiveSkill | undefined] {
-  const baseRank = basicInfo.rank;
   const skillData = unitSkillData[unitNumber];
 
   return [
     ...calculateActiveSkills(skillData.active, skillLv),
-    ...calculatePassiveSkills(skillData.passive, skillLv, baseRank)
+    ...calculatePassiveSkills(skillData.passive, skillLv)
   ];
 }
 
 type Args = Readonly<
-  { unitNumber: typeof FormChangeUnits.Alexandra,     basicInfo: UnitBasicData[typeof FormChangeUnits.Alexandra],     skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Alexandra>     } |
-  { unitNumber: typeof FormChangeUnits.Leona,         basicInfo: UnitBasicData[typeof FormChangeUnits.Leona],         skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Leona>         } |
-  { unitNumber: typeof FormChangeUnits.BloodyPanther, basicInfo: UnitBasicData[typeof FormChangeUnits.BloodyPanther], skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.BloodyPanther> } |
-  { unitNumber: typeof FormChangeUnits.Emily,         basicInfo: UnitBasicData[typeof FormChangeUnits.Emily],         skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Emily>         } |
-  { unitNumber: typeof FormChangeUnits.Phantom,       basicInfo: UnitBasicData[typeof FormChangeUnits.Phantom],       skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Phantom>       } |
-  { unitNumber: typeof FormChangeUnits.Siren,         basicInfo: UnitBasicData[typeof FormChangeUnits.Siren],         skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Siren>         } |
-  { unitNumber: typeof FormChangeUnits.Fortress,      basicInfo: UnitBasicData[typeof FormChangeUnits.Fortress],      skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Fortress>      }
+  { unitNumber: typeof FormChangeUnits.Alexandra,     skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Alexandra>     } |
+  { unitNumber: typeof FormChangeUnits.Leona,         skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Leona>         } |
+  { unitNumber: typeof FormChangeUnits.BloodyPanther, skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.BloodyPanther> } |
+  { unitNumber: typeof FormChangeUnits.Emily,         skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Emily>         } |
+  { unitNumber: typeof FormChangeUnits.Phantom,       skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Phantom>       } |
+  { unitNumber: typeof FormChangeUnits.Siren,         skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Siren>         } |
+  { unitNumber: typeof FormChangeUnits.Fortress,      skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Fortress>      }
 >
 
 export function calculateFormChangeUnitSkill(
   args: Args
 ): [Active1Skill, Active2Skill, Passive1Skill | undefined, Passive2Skill | undefined, Passive3Skill | undefined] {
-  const baseRank = args.basicInfo.rank;
-  const isPassive1RankUp = UnitRankComparator.a.greaterThan(baseRank);
-  const isPassive2RankUp = UnitRankComparator.s.greaterThan(baseRank);
-  const isPassive3RankUp = UnitRankComparator.ss.greaterThan(baseRank);
-
   switch (args.unitNumber) {
   case FormChangeUnits.Alexandra: {
     const skillData = unitSkillData[args.unitNumber];
@@ -460,9 +448,9 @@ export function calculateFormChangeUnitSkill(
     return [
       Object.assign(calculateActiveSkill(skillData.active[0][form], args.skillLv.active1Lv), { form }),
       Object.assign(calculateActiveSkill(skillData.active[1][form], args.skillLv.active2Lv), { form }),
-      Object.assign(calculatePassiveSkill(skillData.passive[0][form], args.skillLv.passive1Lv, isPassive1RankUp), { form }),
-      calculatePassiveSkill(skillData.passive[1], args.skillLv.passive2Lv, isPassive2RankUp),
-      calculatePassiveSkill(skillData.passive[2], args.skillLv.passive3Lv, isPassive3RankUp)
+      Object.assign(calculatePassiveSkill(skillData.passive[0][form], args.skillLv.passive1Lv), { form }),
+      calculatePassiveSkill(skillData.passive[1], args.skillLv.passive2Lv),
+      calculatePassiveSkill(skillData.passive[2], args.skillLv.passive3Lv)
     ];
   }
   case FormChangeUnits.Leona: {
@@ -470,9 +458,9 @@ export function calculateFormChangeUnitSkill(
     const form = args.form.unitForm;
     return [
       ...calculateActiveSkills(skillData.active, args.skillLv),
-      Object.assign(calculatePassiveSkill(skillData.passive[0][form], args.skillLv.passive1Lv, isPassive1RankUp), { form }),
-      Object.assign(calculatePassiveSkill(skillData.passive[1][form], args.skillLv.passive2Lv, isPassive2RankUp), { form }),
-      calculatePassiveSkill(skillData.passive[2], args.skillLv.passive3Lv, isPassive3RankUp)
+      Object.assign(calculatePassiveSkill(skillData.passive[0][form], args.skillLv.passive1Lv), { form }),
+      Object.assign(calculatePassiveSkill(skillData.passive[1][form], args.skillLv.passive2Lv), { form }),
+      calculatePassiveSkill(skillData.passive[2], args.skillLv.passive3Lv)
     ];
   }
   case FormChangeUnits.BloodyPanther: {
@@ -481,9 +469,9 @@ export function calculateFormChangeUnitSkill(
     return [
       Object.assign(calculateActiveSkill(skillData.active[0][form], args.skillLv.active1Lv), { form }),
       Object.assign(calculateActiveSkill(skillData.active[1][form], args.skillLv.active2Lv), { form }),
-      calculatePassiveSkill(skillData.passive[0], args.skillLv.passive1Lv, isPassive1RankUp),
-      calculatePassiveSkill(skillData.passive[1], args.skillLv.passive2Lv, isPassive2RankUp),
-      Object.assign(calculatePassiveSkill(skillData.passive[2][form], args.skillLv.passive3Lv, isPassive3RankUp), { form })
+      calculatePassiveSkill(skillData.passive[0], args.skillLv.passive1Lv),
+      calculatePassiveSkill(skillData.passive[1], args.skillLv.passive2Lv),
+      Object.assign(calculatePassiveSkill(skillData.passive[2][form], args.skillLv.passive3Lv), { form })
     ];
   }
   case FormChangeUnits.Emily: {
@@ -492,9 +480,9 @@ export function calculateFormChangeUnitSkill(
     return [
       calculateActiveSkill(skillData.active[0], args.skillLv.active1Lv),
       Object.assign(calculateActiveSkill(skillData.active[1][form], args.skillLv.active2Lv), { form }),
-      calculatePassiveSkill(skillData.passive[0], args.skillLv.passive1Lv, isPassive1RankUp),
-      calculatePassiveSkill(skillData.passive[1], args.skillLv.passive2Lv, isPassive2RankUp),
-      calculatePassiveSkill(skillData.passive[2], args.skillLv.passive3Lv, isPassive3RankUp)
+      calculatePassiveSkill(skillData.passive[0], args.skillLv.passive1Lv),
+      calculatePassiveSkill(skillData.passive[1], args.skillLv.passive2Lv),
+      calculatePassiveSkill(skillData.passive[2], args.skillLv.passive3Lv)
     ];
   }
   case FormChangeUnits.Phantom: {
@@ -503,8 +491,8 @@ export function calculateFormChangeUnitSkill(
     return [
       Object.assign(calculateActiveSkill(skillData.active[0][form], args.skillLv.active1Lv), { form }),
       Object.assign(calculateActiveSkill(skillData.active[1][form], args.skillLv.active2Lv), { form }),
-      Object.assign(calculatePassiveSkill(skillData.passive[0][form], args.skillLv.passive1Lv, isPassive1RankUp), { form }),
-      calculatePassiveSkill(skillData.passive[1], args.skillLv.passive2Lv, isPassive2RankUp),
+      Object.assign(calculatePassiveSkill(skillData.passive[0][form], args.skillLv.passive1Lv), { form }),
+      calculatePassiveSkill(skillData.passive[1], args.skillLv.passive2Lv),
       undefined
     ];
   }
@@ -514,9 +502,9 @@ export function calculateFormChangeUnitSkill(
     return [
       Object.assign(calculateActiveSkill(skillData.active[0][form], args.skillLv.active1Lv), { form }),
       Object.assign(calculateActiveSkill(skillData.active[1][form], args.skillLv.active2Lv), { form }),
-      calculatePassiveSkill(skillData.passive[0], args.skillLv.passive1Lv, isPassive1RankUp),
-      Object.assign(calculatePassiveSkill(skillData.passive[1][form], args.skillLv.passive2Lv, isPassive2RankUp), { form }),
-      calculatePassiveSkill(skillData.passive[2], args.skillLv.passive3Lv, isPassive3RankUp)
+      calculatePassiveSkill(skillData.passive[0], args.skillLv.passive1Lv),
+      Object.assign(calculatePassiveSkill(skillData.passive[1][form], args.skillLv.passive2Lv), { form }),
+      calculatePassiveSkill(skillData.passive[2], args.skillLv.passive3Lv)
     ];
   }
   case FormChangeUnits.Fortress: {
@@ -525,7 +513,7 @@ export function calculateFormChangeUnitSkill(
     return [
       Object.assign(calculateActiveSkill(skillData.active[0][form], args.skillLv.active1Lv), { form }),
       Object.assign(calculateActiveSkill(skillData.active[1][form], args.skillLv.active2Lv), { form }),
-      Object.assign(calculatePassiveSkill(skillData.passive[0][form], args.skillLv.passive1Lv, isPassive1RankUp), { form }),
+      Object.assign(calculatePassiveSkill(skillData.passive[0][form], args.skillLv.passive1Lv), { form }),
       undefined,
       undefined
     ];

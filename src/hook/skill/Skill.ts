@@ -83,11 +83,11 @@ export function useRankUpSkillBadge(skillType: SkillType): boolean {
 
   switch (skillType) {
   case 'passive1':
-    return skill?.passive1Skill?.rank_up ?? false;
+    return skill?.isPassive1RankUpSkill ?? false;
   case 'passive2':
-    return skill?.passive2Skill?.rank_up ?? false;
+    return skill?.isPassive2RankUpSkill ?? false;
   case 'passive3':
-    return skill?.passive3Skill?.rank_up ?? false;
+    return skill?.isPassive3RankUpSkill ?? false;
   case 'active1':
   case 'active2':
     return false;

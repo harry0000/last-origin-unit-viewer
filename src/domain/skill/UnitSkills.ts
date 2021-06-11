@@ -124,14 +124,12 @@ export type FormlessActiveSkill = Readonly<{
 
 export type FormlessPassiveSkill = Readonly<{
   area: SkillAreaType,
-  effects: ReadonlyArray<SkillEffect>,
-  rank_up: boolean
+  effects: ReadonlyArray<SkillEffect>
 }>
 
 export type FormlessPassiveSkillAsEquipmentEffect = Readonly<{
   area: SkillAreaType,
-  equipment_effects: ReadonlyArray<SkillEffect>,
-  rank_up: boolean
+  equipment_effects: ReadonlyArray<SkillEffect>
 }>
 
 type WithForm<S, F extends UnitForms> = S & { readonly form: F }
