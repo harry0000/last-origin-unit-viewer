@@ -11,7 +11,7 @@ import SVGIcon from '../icon/SVGIcon';
 
 import { selectedUnitSkillState } from '../../state/skill/unitSkillState';
 
-import { isFormChangeUnitSkill } from '../../domain/UnitSkill';
+import { isFormChangeUnitSkill } from '../../domain/skill/UnitSkill';
 
 const UnitFormSelector: React.FC = () => {
   const { t } = useTranslation();

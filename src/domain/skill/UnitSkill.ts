@@ -5,7 +5,7 @@ import {
   Passive2Skill,
   Passive3Skill
 } from './UnitSkills';
-import { UnitBasicInfo } from './UnitBasicInfo';
+import { UnitBasicInfo } from '../UnitBasicInfo';
 import UnitFormValue, {
   FormChangeUnitBasicInfo,
   FormChangeUnitNumbers,
@@ -14,7 +14,7 @@ import UnitFormValue, {
   FormPerUnit,
   isFormChangeUnitBasicInfo,
   isFormChangeUnitNumber
-} from './UnitFormValue';
+} from '../UnitFormValue';
 import UnitSkillLvValue, { SkillLv } from './UnitSkillLvValue';
 import { calculateFormChangeUnitSkill, calculateUnitSkill } from './UnitSkillCalculator';
 

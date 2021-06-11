@@ -1,6 +1,6 @@
 import { atomFamily, DefaultValue, selector } from 'recoil';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
-import { buildUnit, UnitSkill } from '../../domain/UnitSkill';
+import { buildUnit, UnitSkill } from '../../domain/skill/UnitSkill';
 import { unitSelectorStoreState } from '../unit/unitSelectorStoreState';
 
 export const unitSkillState = atomFamily<UnitSkill, UnitBasicInfo>({

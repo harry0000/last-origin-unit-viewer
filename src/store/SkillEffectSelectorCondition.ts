@@ -5,12 +5,12 @@ import {
   PassiveSkillDataAsEquipmentEffect,
   UnitSkillData,
   isPassiveSkillData
-} from '../domain/UnitSkillData';
+} from '../domain/skill/UnitSkillData';
 import { Effect } from '../domain/Effect';
 import { EffectActivationState } from '../domain/EffectActivationState';
 import { FormChangeUnits } from '../domain/UnitFormValue';
-import { SkillEffectData, SkillEffectDataValue } from '../domain/SkillEffectData';
-import { SkillEffectTag } from '../domain/SkillEffectTag';
+import { SkillEffectData, SkillEffectDataValue } from '../domain/skill/SkillEffectData';
+import { SkillEffectTag } from '../domain/skill/SkillEffectTag';
 import { UnitNumber } from '../domain/UnitBasicInfo';
 
 export const SkillEffectSelectorCondition = {

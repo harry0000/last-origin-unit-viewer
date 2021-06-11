@@ -1,4 +1,4 @@
-import { UnitSkillData } from '../domain/UnitSkillData';
+import { UnitSkillData } from '../domain/skill/UnitSkillData';
 
 export const unitSkillData: UnitSkillData = {
   2: {

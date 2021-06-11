@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 import { selectedUnitSkillState } from '../../state/skill/unitSkillState';
 
-import { SkillApCostValue, SkillRangeValue } from '../../domain/UnitSkillData';
-import { SkillLv } from '../../domain/UnitSkillLvValue';
+import { SkillApCostValue, SkillRangeValue } from '../../domain/skill/UnitSkillData';
+import { SkillLv } from '../../domain/skill/UnitSkillLvValue';
 import { SkillType } from '../../component/skill/UnitSkillList';
 import { UnitForms } from '../../domain/UnitFormValue';
 

@@ -13,8 +13,8 @@ import {
   ActivationTargetState,
   SkillEffectActivationCondition,
   SkillEffectActivationState, UnitTypeAndRole
-} from '../../domain/SkillEffectActivationCondition';
-import { SkillEffect } from '../../domain/UnitSkills';
+} from '../../domain/skill/SkillEffectActivationCondition';
+import { SkillEffect } from '../../domain/skill/UnitSkills';
 import { UnitAlias } from '../../domain/UnitAlias';
 import { UnitKind, UnitNumber, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
 

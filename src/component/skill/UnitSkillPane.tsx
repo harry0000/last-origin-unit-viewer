@@ -14,7 +14,7 @@ import NumberValueDropdown from '../common/NumberValueDropdown';
 import SkillEffectsView from './SkillEffectsView';
 import { SkillType } from './UnitSkillList';
 
-import { SkillLv } from '../../domain/UnitSkillLvValue';
+import { SkillLv } from '../../domain/skill/UnitSkillLvValue';
 
 import { selectedUnitBasicInfoState } from '../../state/unit/unitSelectorStoreState';
 import {

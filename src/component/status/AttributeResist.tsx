@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import StatusEffectsView from './StatusEffectsView';
 
-import { DamageAttribute } from '../../domain/UnitSkillData';
+import { DamageAttribute } from '../../domain/skill/UnitSkillData';
 import { MilliPercentageValue } from '../../domain/ValueUnit';
 
 import { selectedUnitStatusParameterState } from '../../state/status/unitStatusParameterState';

@@ -1,5 +1,5 @@
 import { UnitBasicData, UnitBasicInfo, UnitRank, UnitRole, UnitType } from '../domain/UnitBasicInfo';
-import { UnitSkillData } from '../domain/UnitSkillData';
+import { UnitSkillData } from '../domain/skill/UnitSkillData';
 import {
   SkillEffectSelectorCondition,
   matchSkillConditions

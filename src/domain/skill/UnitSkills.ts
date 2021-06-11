@@ -5,12 +5,12 @@ import {
 } from './UnitSkillData';
 import {
   Effect
-} from './Effect';
+} from '../Effect';
 import {
   IntegerValue,
   MilliPercentageValue,
   ValueUnit
-} from './ValueUnit';
+} from '../ValueUnit';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import { SkillEffectActivationRate } from './SkillEffectActivationRate';
 import { SkillEffectActivationCondition } from './SkillEffectActivationCondition';
@@ -27,7 +27,7 @@ import {
   PhantomForm,
   SirenForm,
   UnitForms
-} from './UnitFormValue';
+} from '../UnitFormValue';
 import { SkillEffectTimesValue } from './SkillEffectTimesValue';
 import {
   EquipmentEffectOnly,

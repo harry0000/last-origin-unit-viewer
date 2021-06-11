@@ -7,8 +7,8 @@ import SkillEffectConditionView from './SkillEffectConditionView';
 import SkillEffectDetailsView from './SkillEffectDetailsView';
 import { SkillType } from './UnitSkillList';
 
-import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
-import { SkillEffect } from '../../domain/UnitSkills';
+import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
+import { SkillEffect } from '../../domain/skill/UnitSkills';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 import { useSkillEffects } from '../../hook/skill/SkillEffects';
 

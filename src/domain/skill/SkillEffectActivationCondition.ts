@@ -1,11 +1,11 @@
-import { Effect } from './Effect';
-import { EffectActivationState } from './EffectActivationState';
-import { EffectTrigger } from './EffectTrigger';
-import { EquipmentId } from './EquipmentData';
+import { Effect } from '../Effect';
+import { EffectActivationState } from '../EffectActivationState';
+import { EffectTrigger } from '../EffectTrigger';
+import { EquipmentId } from '../EquipmentData';
 import { SkillEffectTag } from './SkillEffectTag';
-import { UnitAlias } from './UnitAlias';
-import { UnitForms } from './UnitFormValue';
-import { UnitKind, UnitNumber, UnitRole, UnitType } from './UnitBasicInfo';
+import { UnitAlias } from '../UnitAlias';
+import { UnitForms } from '../UnitFormValue';
+import { UnitKind, UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
 
 export type UnitTypeAndRole = {
   type: UnitType,

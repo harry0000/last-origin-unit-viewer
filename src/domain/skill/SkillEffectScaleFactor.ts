@@ -1,5 +1,5 @@
 import { SkillEffectTag } from './SkillEffectTag';
-import { UnitAlias } from './UnitAlias';
+import { UnitAlias } from '../UnitAlias';
 
 export type SkillEffectScaleFactor =
   {

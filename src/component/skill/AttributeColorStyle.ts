@@ -1,4 +1,4 @@
-import { DamageAttribute } from '../../domain/UnitSkillData';
+import { DamageAttribute } from '../../domain/skill/UnitSkillData';
 
 export const AttributeColorStyle: { [key in DamageAttribute]: string } = {
   [DamageAttribute.Fire]: '#c33',

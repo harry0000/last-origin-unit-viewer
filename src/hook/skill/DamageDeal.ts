@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 
-import { DamageDeal } from '../../domain/UnitSkills';
-import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
+import { DamageDeal } from '../../domain/skill/UnitSkills';
+import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
 import { SkillType } from '../../component/skill/UnitSkillList';
 
 import { selectedUnitSkillState } from '../../state/skill/unitSkillState';

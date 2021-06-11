@@ -21,13 +21,13 @@ import {
 } from './UnitSkills';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import { AroundSkillEffectDataValue, SkillEffectData, SkillEffectDataValue } from './SkillEffectData';
-import { UnitBasicData, UnitNumber, UnitRank, UnitRankComparator } from './UnitBasicInfo';
-import UnitFormValue, { FormChangeUnitNumbers, FormChangeUnits } from './UnitFormValue';
+import { UnitBasicData, UnitNumber, UnitRank, UnitRankComparator } from '../UnitBasicInfo';
+import UnitFormValue, { FormChangeUnitNumbers, FormChangeUnits } from '../UnitFormValue';
 import UnitSkillLvValue, { SkillLv } from './UnitSkillLvValue';
-import { unitSkillData } from '../data/unitSkillData';
-import { Effect } from './Effect';
-import { ValueUnit } from './ValueUnit';
-import { foldObjectNonNullableEntry, NonNullableEntry } from '../util/object';
+import { unitSkillData } from '../../data/unitSkillData';
+import { Effect } from '../Effect';
+import { ValueUnit } from '../ValueUnit';
+import { foldObjectNonNullableEntry, NonNullableEntry } from '../../util/object';
 import {
   IntegerValueEffectKey,
   MicroValueEffectKey,

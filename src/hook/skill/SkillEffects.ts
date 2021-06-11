@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 
-import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
-import { SkillEffect } from '../../domain/UnitSkills';
+import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
+import { SkillEffect } from '../../domain/skill/UnitSkills';
 import { SkillType } from '../../component/skill/UnitSkillList';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 

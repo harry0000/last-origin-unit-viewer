@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
+import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
 import { calcValue } from '../../domain/ValueUnit';
 
 import { AttributeColorStyle } from './AttributeColorStyle';
