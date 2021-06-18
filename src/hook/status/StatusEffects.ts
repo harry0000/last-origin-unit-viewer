@@ -15,12 +15,19 @@ import {
   selectedUnitGearEquipmentStatusEffectState,
   selectedUnitOsEquipmentStatusEffectState
 } from '../../state/equipment/unitEquipmentStatusEffectState';
+import {
+  selectedUnitCoreLinkBonusEffectsState,
+  selectedUnitFullLinkBonusEffectState
+} from '../../state/corelink/unitCoreLinkState';
+import { selectedUnitStatusParameterState } from '../../state/status/unitStatusParameterState';
 
 import { EffectedParameter, StatusEffectPopoverRowProps } from '../../component/status/StatusEffectsView';
 
 import { ChipEquipment, GearEquipment, OsEquipment } from '../../domain/status/UnitEquipment';
+import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';
 import { StatusEffect } from '../../domain/status/StatusEffect';
 import UnitEnhancementStatus from '../../domain/status/UnitEnhancementStatus';
+import { UnitStatusParameter } from '../../domain/status/UnitStatusParameter';
 import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../domain/ValueUnit';
 
 export function useStatusEffects(parameter: EffectedParameter): ReadonlyArray<StatusEffectPopoverRowProps> {
@@ -36,12 +43,18 @@ export function useStatusEffects(parameter: EffectedParameter): ReadonlyArray<St
   const osEffect    = useRecoilValue(selectedUnitOsEquipmentStatusEffectState);
   const gearEffect  = useRecoilValue(selectedUnitGearEquipmentStatusEffectState);
 
+  const unitParameter = useRecoilValue(selectedUnitStatusParameterState);
+  const coreLinkEffects = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
+  const fullLinkEffects = useRecoilValue(selectedUnitFullLinkBonusEffectState);
+
   return [
     ...enhancementEffects(parameter, status, t),
     ...equipmentEffects(parameter, chip1Effect, chip1?.chip1, 'chip1', t),
     ...equipmentEffects(parameter, chip2Effect, chip2?.chip2, 'chip2', t),
     ...equipmentEffects(parameter, osEffect,    os?.os,       'os',    t),
-    ...equipmentEffects(parameter, gearEffect,  gear?.gear,   'gear',  t)
+    ...equipmentEffects(parameter, gearEffect,  gear?.gear,   'gear',  t),
+    ...coreLinkBonusEffects(parameter, coreLinkEffects, unitParameter, t),
+    ...fullLinkBonusEffects(parameter, fullLinkEffects, unitParameter, t)
   ];
 }
 
@@ -207,6 +220,160 @@ function equipmentEffects(
       key: `equipment-${slot}`,
       effected: t('status.effected.equipment', { id: equipment.equipped.id, lv: equipment.enhanceLv }),
       value
+    }];
+  } else {
+    return [];
+  }
+}
+
+function coreLinkBonusEffects(
+  parameter: EffectedParameter,
+  bonus: CoreLinkBonus | undefined,
+  statusParameter: UnitStatusParameter | undefined,
+  t: TFunction
+): ReadonlyArray<StatusEffectPopoverRowProps> {
+  if (!bonus || !statusParameter) {
+    return [];
+  }
+
+  let props: { effected: string, value: number } | undefined;
+  switch (parameter) {
+  case 'hp':
+    if (bonus.hp_up.milliPercentage !== 0) {
+      props = {
+        effected: t('status.effected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.hp_up) }),
+        value: statusParameter.hpCoreLinkBonus.value
+      };
+    }
+    break;
+  case 'atk':
+    if (bonus.atk_up.milliPercentage !== 0) {
+      props = {
+        effected: t('status.effected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.atk_up) }),
+        value: calcMilliValue(statusParameter.atkCoreLinkBonus)
+      };
+    }
+    break;
+  case 'def':
+    if ('def_up' in bonus && bonus.def_up.milliPercentage !== 0) {
+      props = {
+        effected: t('status.effected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.def_up) }),
+        value: calcMilliValue(statusParameter.defCoreLinkBonus)
+      };
+    }
+    break;
+  case 'acc':
+    if ('acc_up' in bonus && bonus.acc_up.milliPercentage !== 0) {
+      props = {
+        effected: t('status.effected.core_link_bonus'),
+        value: calcMilliPercentageValue(bonus.acc_up)
+      };
+    }
+    break;
+  case 'eva':
+    if ('eva_up' in bonus && bonus.eva_up.milliPercentage !== 0) {
+      props = {
+        effected: t('status.effected.core_link_bonus'),
+        value: calcMilliPercentageValue(bonus.eva_up)
+      };
+    }
+    break;
+  case 'cri':
+    if ('cri_up' in bonus && bonus.cri_up.milliPercentage !== 0) {
+      props = {
+        effected: t('status.effected.core_link_bonus'),
+        value: calcMilliPercentageValue(bonus.cri_up)
+      };
+    }
+    break;
+  case 'spd':
+    if ('spd_up' in bonus && bonus.spd_up.microValue !== 0) {
+      props = {
+        effected: t('status.effected.full_link_bonus'),
+        value: calcMicroValue(bonus.spd_up)
+      };
+    }
+    break;
+  case 'fireResist':
+  case 'iceResist':
+  case 'electricResist':
+    break;
+  }
+
+  if (props) {
+    return [{
+      key: 'core_link_bonus',
+      ...props
+    }];
+  } else {
+    return [];
+  }
+}
+
+function fullLinkBonusEffects(
+  parameter: EffectedParameter,
+  bonus: FullLinkBonus | undefined,
+  statusParameter: UnitStatusParameter | undefined,
+  t: TFunction
+): ReadonlyArray<StatusEffectPopoverRowProps> {
+  if (!bonus || !statusParameter) {
+    return [];
+  }
+
+  let props: { effected: string, value: number } | undefined;
+  switch (parameter) {
+  case 'hp':
+    if ('hp_up' in bonus) {
+      props = {
+        effected: t('status.effected.full_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.hp_up) }),
+        value: statusParameter.hpFullLinkBonus.value
+      };
+    }
+    break;
+  case 'acc':
+    if ('acc_up' in bonus) {
+      props = {
+        effected: t('status.effected.full_link_bonus'),
+        value: calcMilliPercentageValue(bonus.acc_up)
+      };
+    }
+    break;
+  case 'eva':
+    if ('eva_up' in bonus) {
+      props = {
+        effected: t('status.effected.full_link_bonus'),
+        value: calcMilliPercentageValue(bonus.eva_up)
+      };
+    }
+    break;
+  case 'cri':
+    if ('cri_up' in bonus) {
+      props = {
+        effected: t('status.effected.full_link_bonus'),
+        value: calcMilliPercentageValue(bonus.cri_up)
+      };
+    }
+    break;
+  case 'spd':
+    if ('spd_up' in bonus) {
+      props = {
+        effected: t('status.effected.full_link_bonus'),
+        value: calcMicroValue(bonus.spd_up)
+      };
+    }
+    break;
+  case 'atk':
+  case 'def':
+  case 'fireResist':
+  case 'iceResist':
+  case 'electricResist':
+    break;
+  }
+
+  if (props) {
+    return [{
+      key: 'full_link_bonus',
+      ...props
     }];
   } else {
     return [];

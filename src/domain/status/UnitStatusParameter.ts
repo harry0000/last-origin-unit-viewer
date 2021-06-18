@@ -1,9 +1,12 @@
+import { CoreLinkBonus, FullLinkBonus } from '../UnitCoreLinkBonusData';
 import { Effect } from '../Effect';
 import {
   IntegerValue,
   MicroValue,
   MilliPercentageValue,
   MilliValue,
+  multiplyMilliValue,
+  multiplyValue,
   sumMicroValues,
   sumMilliPercentageValues,
   sumMilliValues,
@@ -12,9 +15,11 @@ import {
 } from '../ValueUnit';
 import {
   IntegerValueStatusEffectKey,
-  MicroValueStatusEffectKey, MilliPercentageStatusEffectKey,
+  MicroValueStatusEffectKey,
+  MilliPercentageStatusEffectKey,
   MilliValueStatusEffectKey,
-  StatusEffect, StatusEffectKey
+  StatusEffect,
+  StatusEffectKey
 } from './StatusEffect';
 import UnitBaseParameter from './UnitBaseParameter';
 import UnitEnhancementStatus from './UnitEnhancementStatus';
@@ -98,30 +103,47 @@ export class UnitStatusParameter {
   readonly iceResistEffectValue: MilliPercentageValue;
   readonly electricResistEffectValue: MilliPercentageValue;
 
+  readonly hpCoreLinkBonus: IntegerValue;
+  readonly hpFullLinkBonus: IntegerValue;
+  readonly atkCoreLinkBonus: MilliValue;
+  readonly defCoreLinkBonus: MilliValue;
+
   constructor(
     unitEnhancement: UnitEnhancementStatus,
     baseParameter: UnitBaseParameter,
     chip1: StatusEffect,
     chip2: StatusEffect,
     os: StatusEffect,
-    gear: StatusEffect
+    gear: StatusEffect,
+    coreLinkBonus: CoreLinkBonus | Record<string, never>,
+    fullLinkBonus: FullLinkBonus | undefined
   ) {
     const unitLv = unitEnhancement.lv;
     const enhancement = unitEnhancement.statusEffects;
     this.#baseParameter = baseParameter;
 
+    const _fullLinkBonus: FullLinkBonus | Record<string, never> = fullLinkBonus ?? {};
+
     this.accEffectValue = sumMilliPercentageValues(
-      ...pickValues(Effect.AccUp, Effect.AccDown)(enhancement, chip1, chip2, os, gear)
+      ...pickValues(Effect.AccUp, Effect.AccDown)(enhancement, chip1, chip2, os, gear),
+      ...('acc_up' in coreLinkBonus ? [coreLinkBonus.acc_up] : []),
+      ...('acc_up' in _fullLinkBonus ? [_fullLinkBonus.acc_up] : [])
     );
     this.evaEffectValue = sumMilliPercentageValues(
-      ...pickValues(Effect.EvaUp, Effect.EvaDown)(enhancement, chip1, chip2, os, gear)
+      ...pickValues(Effect.EvaUp, Effect.EvaDown)(enhancement, chip1, chip2, os, gear),
+      ...('eva_up' in coreLinkBonus ? [coreLinkBonus.eva_up] : []),
+      ...('eva_up' in _fullLinkBonus ? [_fullLinkBonus.eva_up] : [])
     );
     this.criEffectValue = sumMilliPercentageValues(
-      ...pickValues(Effect.CriUp, Effect.CriDown)(enhancement, chip1, chip2, os, gear)
+      ...pickValues(Effect.CriUp, Effect.CriDown)(enhancement, chip1, chip2, os, gear),
+      ...('cri_up' in coreLinkBonus ? [coreLinkBonus.cri_up] : []),
+      ...('cri_up' in _fullLinkBonus ? [_fullLinkBonus.cri_up] : [])
     );
 
     this.spdEffectValue = sumMicroValues(
-      ...pickValues(Effect.SpdUp, Effect.SpdDown)(chip1, chip2, os, gear)
+      ...pickValues(Effect.SpdUp, Effect.SpdDown)(chip1, chip2, os, gear),
+      ...('spd_up' in coreLinkBonus ? [coreLinkBonus.spd_up] : []),
+      ...('spd_up' in _fullLinkBonus ? [_fullLinkBonus.spd_up] : [])
     );
     this.fireResistEffectValue     = sumMilliPercentageValues(...pickValues(Effect.FireResistUp, Effect.FireResistDown)(chip1, chip2, os, gear));
     this.iceResistEffectValue      = sumMilliPercentageValues(...pickValues(Effect.IceResistUp, Effect.IceResistDown)(chip1, chip2, os, gear));
@@ -135,13 +157,19 @@ export class UnitStatusParameter {
     const atk = sumMilliValues(this.#baseParameter.atk(unitLv), atkAddition);
     const def = sumMilliValues(this.#baseParameter.def(unitLv), defAddition);
 
-    this.hpEffectValue = sumValues(hpAddition);
-    this.atkEffectValue = sumMilliValues(atkAddition);
-    this.defEffectValue = sumMilliValues(defAddition);
+    this.hpCoreLinkBonus = 'hp_up' in coreLinkBonus ? multiplyValue(hp, coreLinkBonus.hp_up) : { value: 0 };
+    this.hpFullLinkBonus = 'hp_up' in _fullLinkBonus ? multiplyValue(hp, _fullLinkBonus.hp_up) : { value: 0 };
 
-    this.hp = sumValues(hp);
-    this.atk = sumMilliValues(atk);
-    this.def = sumMilliValues(def);
+    this.atkCoreLinkBonus = 'atk_up' in coreLinkBonus ? multiplyMilliValue(atk, coreLinkBonus.atk_up) : { milliValue: 0 };
+    this.defCoreLinkBonus = 'def_up' in coreLinkBonus ? multiplyMilliValue(def, coreLinkBonus.def_up) : { milliValue: 0 };
+
+    this.hpEffectValue = sumValues(hpAddition, this.hpCoreLinkBonus, this.hpFullLinkBonus);
+    this.atkEffectValue = sumMilliValues(atkAddition, this.atkCoreLinkBonus);
+    this.defEffectValue = sumMilliValues(defAddition, this.defCoreLinkBonus);
+
+    this.hp = sumValues(hp, this.hpCoreLinkBonus, this.hpFullLinkBonus);
+    this.atk = sumMilliValues(atk, this.atkCoreLinkBonus);
+    this.def = sumMilliValues(def, this.defCoreLinkBonus);
 
     this.acc = sumMilliPercentageValues(this.#baseParameter.acc, this.accEffectValue);
     this.eva = sumMilliPercentageValues(this.#baseParameter.eva, this.evaEffectValue);

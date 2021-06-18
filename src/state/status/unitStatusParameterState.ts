@@ -2,6 +2,7 @@ import { selector, selectorFamily } from 'recoil';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 import { UnitStatusParameter } from '../../domain/status/UnitStatusParameter';
 
+import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/unitCoreLinkState';
 import { selectedUnitBasicInfoState } from '../unit/unitSelectorStoreState';
 import { unitBaseParameterState } from './unitBaseParameterState';
 import {
@@ -21,7 +22,9 @@ const unitStatusParameterState = selectorFamily<UnitStatusParameter, UnitBasicIn
       get(unitChip1EquipmentStatusEffectState(unit)),
       get(unitChip2EquipmentStatusEffectState(unit)),
       get(unitOsEquipmentStatusEffectState(unit)),
-      get(unitGearEquipmentStatusEffectState(unit))
+      get(unitGearEquipmentStatusEffectState(unit)),
+      get(coreLinkBonusEffectsState(unit)),
+      get(fullLinkBonusEffectState(unit))
     );
   }
 });

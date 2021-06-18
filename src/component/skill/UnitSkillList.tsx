@@ -20,7 +20,12 @@ import {
   PassiveSkillIcon
 } from '../icon/SkillIcons';
 
-import { selectedUnitSkillState } from '../../state/skill/unitSkillState';
+import {
+  selectedUnitActive2SkillState,
+  selectedUnitPassive1SkillState,
+  selectedUnitPassive2SkillState,
+  selectedUnitPassive3SkillState
+} from '../../state/skill/unitSkillState';
 import { unitSkillTabState } from '../../state/ui/unitSkillTabState';
 
 import './SkillNavTab.css';
@@ -34,12 +39,17 @@ export const SkillType = {
 } as const;
 export type SkillType = typeof SkillType[keyof typeof SkillType]
 
-const SkillNavItem: React.FC<{ eventKey: SkillType, disabled: boolean, children: ReactNode }> = ({ eventKey, disabled, children }) => {
+const SkillNavItem: React.FC<{
+  eventKey: SkillType,
+  active: boolean,
+  disabled: boolean,
+  children: ReactNode
+}> = ({ eventKey, active, disabled, children }) => {
   const className = eventKey.startsWith('active') ? 'active-skill' : 'passive-skill';
 
   return (
     <Nav.Item>
-      <Nav.Link className={className} eventKey={eventKey} disabled={disabled}>
+      <Nav.Link className={className} eventKey={eventKey} active={active} disabled={disabled}>
         <span
           css={{
             display: 'inline-block',
@@ -55,54 +65,56 @@ const SkillNavItem: React.FC<{ eventKey: SkillType, disabled: boolean, children:
 };
 
 const Active1SkillNavItem: React.FC = () => {
-  const skill = useRecoilValue(selectedUnitSkillState);
+  const activeTab = useRecoilValue(unitSkillTabState);
+  const skill = useRecoilValue(selectedUnitActive2SkillState);
 
   return (
-    <SkillNavItem eventKey="active1" disabled={!skill}>
+    <SkillNavItem eventKey="active1" active={activeTab === 'active1'} disabled={!skill}>
       {skill ? (<ActiveSkillIcon number={1} />) : (<DisableActiveSkillIcon />)}
     </SkillNavItem>
   );
 };
 
 const Active2SkillNavItem: React.FC = () => {
-  const skill = useRecoilValue(selectedUnitSkillState);
+  const activeTab = useRecoilValue(unitSkillTabState);
+  const skill = useRecoilValue(selectedUnitActive2SkillState);
 
   return (
-    <SkillNavItem eventKey="active2" disabled={!skill}>
+    <SkillNavItem eventKey="active2" active={activeTab === 'active2'} disabled={!skill}>
       {skill ? (<ActiveSkillIcon number={2} />) : (<DisableActiveSkillIcon />)}
     </SkillNavItem>
   );
 };
 
 const Passive1SkillNavItem: React.FC = () => {
-  const skill = useRecoilValue(selectedUnitSkillState);
-  const enable = skill && skill.passive1Skill;
+  const activeTab = useRecoilValue(unitSkillTabState);
+  const skill = useRecoilValue(selectedUnitPassive1SkillState);
 
   return (
-    <SkillNavItem eventKey="passive1" disabled={!enable}>
-      {enable ? (<PassiveSkillIcon number={1} />) : (<DisablePassiveSkillIcon />)}
+    <SkillNavItem eventKey="passive1" active={activeTab === 'passive1'} disabled={!skill}>
+      {skill ? (<PassiveSkillIcon number={1} />) : (<DisablePassiveSkillIcon />)}
     </SkillNavItem>
   );
 };
 
 const Passive2SkillNavItem: React.FC = () => {
-  const skill = useRecoilValue(selectedUnitSkillState);
-  const enable = skill && skill.passive2Skill;
+  const activeTab = useRecoilValue(unitSkillTabState);
+  const skill = useRecoilValue(selectedUnitPassive2SkillState);
 
   return (
-    <SkillNavItem eventKey="passive2" disabled={!enable}>
-      {enable ? (<PassiveSkillIcon number={2} />) : (<DisablePassiveSkillIcon />)}
+    <SkillNavItem eventKey="passive2" active={activeTab === 'passive2'} disabled={!skill}>
+      {skill ? (<PassiveSkillIcon number={2} />) : (<DisablePassiveSkillIcon />)}
     </SkillNavItem>
   );
 };
 
 const Passive3SkillNavItem: React.FC = () => {
-  const skill = useRecoilValue(selectedUnitSkillState);
-  const enable = skill && skill.passive3Skill;
+  const activeTab = useRecoilValue(unitSkillTabState);
+  const skill = useRecoilValue(selectedUnitPassive3SkillState);
 
   return (
-    <SkillNavItem eventKey="passive3" disabled={!enable}>
-      {enable ? (<PassiveSkillIcon number={3} />) : (<DisablePassiveSkillIcon />)}
+    <SkillNavItem eventKey="passive3" active={activeTab === 'passive3'} disabled={!skill}>
+      {skill ? (<PassiveSkillIcon number={3} />) : (<DisablePassiveSkillIcon />)}
     </SkillNavItem>
   );
 };

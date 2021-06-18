@@ -18,16 +18,7 @@ import { SkillEffectScaleFactor } from './SkillEffectScaleFactor';
 import { SkillEffectTag, SkillEffectTagStackValue } from './SkillEffectTag';
 import { SkillEffectTerm, SkillEffectTermRoundsValue } from './SkillEffectTerm';
 import { SkillEffective } from './SkillEffective';
-import {
-  AlexandraForm,
-  BloodyPantherForm,
-  EmilyForm,
-  FortressForm,
-  LeonaForm,
-  PhantomForm,
-  SirenForm,
-  UnitForms
-} from '../UnitFormValue';
+import { UnitForms } from '../UnitFormValue';
 import { SkillEffectTimesValue } from './SkillEffectTimesValue';
 import {
   EquipmentEffectOnly,
@@ -114,7 +105,7 @@ export type DamageDeal = {
   effective?: typeof SkillEffective.NextRound
 }
 
-export type FormlessActiveSkill = Readonly<{
+export type ActiveSkill = Readonly<{
   damage_deal?: DamageDeal,
   cost: SkillApCostValue,
   range: SkillRangeValue,
@@ -122,51 +113,19 @@ export type FormlessActiveSkill = Readonly<{
   effects: ReadonlyArray<SkillEffect>
 }>
 
-export type FormlessPassiveSkill = Readonly<{
+export type PassiveSkill = Readonly<{
   area: SkillAreaType,
   effects: ReadonlyArray<SkillEffect>
 }>
 
-export type FormlessPassiveSkillAsEquipmentEffect = Readonly<{
+export type PassiveSkillAsEquipmentEffect = Readonly<{
   area: SkillAreaType,
   equipment_effects: ReadonlyArray<SkillEffect>
 }>
 
-type WithForm<S, F extends UnitForms> = S & { readonly form: F }
-
-export type Active1Skill =
-  FormlessActiveSkill |
-  WithForm<FormlessActiveSkill, AlexandraForm> |
-  WithForm<FormlessActiveSkill, BloodyPantherForm> |
-  WithForm<FormlessActiveSkill, PhantomForm> |
-  WithForm<FormlessActiveSkill, SirenForm> |
-  WithForm<FormlessActiveSkill, FortressForm>
-
-export type Active2Skill =
-  FormlessActiveSkill |
-  WithForm<FormlessActiveSkill, AlexandraForm> |
-  WithForm<FormlessActiveSkill, BloodyPantherForm> |
-  WithForm<FormlessActiveSkill, EmilyForm> |
-  WithForm<FormlessActiveSkill, PhantomForm> |
-  WithForm<FormlessActiveSkill, SirenForm> |
-  WithForm<FormlessActiveSkill, FortressForm>
-
-export type FormlessPassive1Skill =
-  FormlessPassiveSkill |
-  FormlessPassiveSkillAsEquipmentEffect
-
 export type Passive1Skill =
-  FormlessPassive1Skill |
-  WithForm<FormlessPassiveSkill, AlexandraForm> |
-  WithForm<FormlessPassiveSkill, LeonaForm> |
-  WithForm<FormlessPassiveSkill, PhantomForm> |
-  WithForm<FormlessPassiveSkill, FortressForm>
+  PassiveSkill |
+  PassiveSkillAsEquipmentEffect
 
-export type Passive2Skill =
-  FormlessPassiveSkill |
-  WithForm<FormlessPassiveSkill, LeonaForm> |
-  WithForm<FormlessPassiveSkill, SirenForm>
-
-export type Passive3Skill =
-  FormlessPassiveSkill |
-  WithForm<FormlessPassiveSkill, BloodyPantherForm>
+export type Passive2Skill = PassiveSkill
+export type Passive3Skill = PassiveSkill

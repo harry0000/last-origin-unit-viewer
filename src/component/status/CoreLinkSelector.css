@@ -1,0 +1,49 @@
+.dropdown.slot.core-link .dropdown-menu.core-link.show {
+  background-color: #888;
+  padding: 2px;
+}
+
+.dropdown-menu.core-link.show .core-link-unit-list {
+  background-color: #0a101e;
+  border-radius: 3px;
+}
+
+a.dropdown-item.core-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 15px;
+}
+
+a.dropdown-item.core-link .label {
+  font-weight: bold;
+  margin-left: 15px;
+}
+
+a.dropdown-item.core-link img.unit {
+  height: 48px;
+  width: 48px;
+}
+
+a.dropdown-item.core-link .partial-fit-unit {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  width: 48px;
+}
+
+a.dropdown-item.core-link .partial-fit-unit .unit-type {
+  color: #ccc;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+a.dropdown-item.core-link:not(.active, :active):hover {
+  background-color: #ccc;
+}
+
+a.dropdown-item.core-link:is(.active, :active, :focus, :hover) .label,
+a.dropdown-item.core-link:is(.active, :active, :focus, :hover) .partial-fit-unit .unit-type {
+  color: #16181b;
+}

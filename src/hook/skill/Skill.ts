@@ -1,60 +1,75 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
-import { selectedUnitSkillState } from '../../state/skill/unitSkillState';
+import { selectedUnitBasicInfoState } from '../../state/unit/unitSelectorStoreState';
+import {
+  selectedUnitActive1SkillState,
+  selectedUnitActive2SkillState,
+  selectedUnitSkillState,
+  unitPassive1SkillState,
+  unitPassive2SkillState,
+  unitPassive3SkillState, unitSkillState
+} from '../../state/skill/unitSkillState';
 
 import { SkillApCostValue, SkillRangeValue } from '../../domain/skill/UnitSkillData';
 import { SkillLv } from '../../domain/skill/UnitSkillLvValue';
 import { SkillType } from '../../component/skill/UnitSkillList';
 import { UnitForms } from '../../domain/UnitFormValue';
+import { isFormChangeUnitSkill } from '../../domain/skill/UnitSkill';
 
 export function useSkillName(skillType: SkillType): string | undefined {
   const { t } = useTranslation();
-  const skill = useRecoilValue(selectedUnitSkillState);
-  if (!skill) {
+  const selected = useRecoilValue(selectedUnitBasicInfoState);
+  if (!selected) {
     return undefined;
   }
 
-  const unit = skill.unit.no;
+  const skill = useRecoilValue(unitSkillState(selected));
+  const unit = selected.no;
   switch (skillType) {
   case 'active1':
-    return 'form' in skill.active1Skill ?
-      t('skill:form_active', { unit, no: 1, form: skill.active1Skill.form }) :
+    return isFormChangeUnitSkill(skill) && skill.hasFormActive1Skill() ?
+      t('skill:form_active', { unit, no: 1, form: skill.unitForm() }) :
       t('skill:active', { unit, no: 1 });
   case 'active2':
-    return 'form' in skill.active2Skill ?
-      t('skill:form_active', { unit, no: 2, form: skill.active2Skill.form }) :
+    return isFormChangeUnitSkill(skill) && skill.hasFormActive2Skill() ?
+      t('skill:form_active', { unit, no: 2, form: skill.unitForm() }) :
       t('skill:active', { unit, no: 2 });
-  case 'passive1':
-    return skill.passive1Skill ?
-      'form' in skill.passive1Skill ?
-        t('skill:form_passive', { unit, no: 1, form: skill.passive1Skill.form }) :
+  case 'passive1': {
+    const ps = useRecoilValue(unitPassive1SkillState(selected));
+    return ps ?
+      isFormChangeUnitSkill(skill) && skill.hasFormPassive1Skill() ?
+        t('skill:form_passive', { unit, no: 1, form: skill.unitForm() }) :
         t('skill:passive', { unit, no: 1 }) :
       undefined;
-  case 'passive2':
-    return skill.passive2Skill ?
-      'form' in skill.passive2Skill ?
-        t('skill:form_passive', { unit, no: 2, form: skill.passive2Skill.form }) :
+  }
+  case 'passive2': {
+    const ps = useRecoilValue(unitPassive2SkillState(selected));
+    return ps ?
+      isFormChangeUnitSkill(skill) && skill.hasFormPassive2Skill() ?
+        t('skill:form_passive', { unit, no: 2, form: skill.unitForm() }) :
         t('skill:passive', { unit, no: 2 }) :
       undefined;
-  case 'passive3':
-    return skill.passive3Skill ?
-      'form' in skill.passive3Skill ?
-        t('skill:form_passive', { unit, no: 3, form: skill.passive3Skill.form }) :
+  }
+  case 'passive3': {
+    const ps = useRecoilValue(unitPassive3SkillState(selected));
+    return ps ?
+      isFormChangeUnitSkill(skill) && skill.hasFormPassive3Skill() ?
+        t('skill:form_passive', { unit, no: 3, form: skill.unitForm() }) :
         t('skill:passive', { unit, no: 3 }) :
       undefined;
+  }
   }
 }
 
 export function useSkillCost(skillType: SkillType): SkillApCostValue | string {
   const { t } = useTranslation('common');
-  const skill = useRecoilValue(selectedUnitSkillState);
 
   switch (skillType) {
   case 'active1':
-    return skill?.active1Skill?.cost ?? t('empty') as string;
+    return useRecoilValue(selectedUnitActive1SkillState)?.cost ?? t('empty') as string;
   case 'active2':
-    return skill?.active2Skill?.cost ?? t('empty') as string;
+    return useRecoilValue(selectedUnitActive2SkillState)?.cost ?? t('empty') as string;
   case 'passive1':
   case 'passive2':
   case 'passive3':
@@ -64,13 +79,12 @@ export function useSkillCost(skillType: SkillType): SkillApCostValue | string {
 
 export function useSkillRange(skillType: SkillType): SkillRangeValue | string {
   const { t } = useTranslation('common');
-  const skill = useRecoilValue(selectedUnitSkillState);
 
   switch (skillType) {
   case 'active1':
-    return skill?.active1Skill?.range ?? t('empty') as string;
+    return useRecoilValue(selectedUnitActive1SkillState)?.range ?? t('empty') as string;
   case 'active2':
-    return skill?.active2Skill?.range ?? t('empty') as string;
+    return useRecoilValue(selectedUnitActive2SkillState)?.range ?? t('empty') as string;
   case 'passive1':
   case 'passive2':
   case 'passive3':
@@ -102,15 +116,15 @@ export function useFormChangeSkillBadge(skillType: SkillType): UnitForms | undef
 
   switch (skillType) {
   case 'active1':
-    return 'form' in skill.active1Skill ? skill.active1Skill.form : undefined;
+    return isFormChangeUnitSkill(skill) && skill.hasFormActive1Skill() ? skill.unitForm() : undefined;
   case 'active2':
-    return 'form' in skill.active2Skill ? skill.active2Skill.form : undefined;
+    return isFormChangeUnitSkill(skill) && skill.hasFormActive2Skill() ? skill.unitForm() : undefined;
   case 'passive1':
-    return skill.passive1Skill && 'form' in skill.passive1Skill ? skill.passive1Skill.form : undefined;
+    return isFormChangeUnitSkill(skill) && skill.hasFormPassive1Skill() ? skill.unitForm() : undefined;
   case 'passive2':
-    return skill.passive2Skill && 'form' in skill.passive2Skill ? skill.passive2Skill.form : undefined;
+    return isFormChangeUnitSkill(skill) && skill.hasFormPassive2Skill() ? skill.unitForm() : undefined;
   case 'passive3':
-    return skill.passive3Skill && 'form' in skill.passive3Skill ? skill.passive3Skill.form : undefined;
+    return isFormChangeUnitSkill(skill) && skill.hasFormPassive3Skill() ? skill.unitForm() : undefined;
   }
 }
 

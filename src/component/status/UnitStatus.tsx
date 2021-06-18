@@ -5,8 +5,10 @@ import { Interpolation } from '@emotion/serialize';
 import React from 'react';
 
 import UnitBasicInfoView from './UnitBasicInfoView';
+import UnitCoreLinkView from './UnitCoreLinkView';
 import UnitEquipmentView from './UnitEquipmentView';
 import UnitFormSelector from './UnitFormSelector';
+import UnitFullLinkView from './UnitFullLinkView';
 import UnitStatusParameterView from './UnitStatusParameter';
 
 const UnitStatus: React.FC<{ className?: string, css?: Interpolation<Theme> }> = (props) => {
@@ -24,6 +26,8 @@ const UnitStatus: React.FC<{ className?: string, css?: Interpolation<Theme> }> =
     >
       <UnitBasicInfoView />
       <UnitStatusParameterView />
+      <UnitCoreLinkView />
+      <UnitFullLinkView />
       <UnitEquipmentView />
       <UnitFormSelector />
     </div>

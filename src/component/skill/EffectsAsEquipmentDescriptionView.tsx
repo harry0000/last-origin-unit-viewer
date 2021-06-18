@@ -8,13 +8,13 @@ import { useTranslation } from 'react-i18next';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { SkillType } from './UnitSkillList';
 
-import { selectedUnitSkillState } from '../../state/skill/unitSkillState';
+import { selectedUnitPassive1SkillState } from '../../state/skill/unitSkillState';
 
 import { ifTruthy } from '../../util/react';
 
 function useEffectsAsEquipmentDescription(skillType: SkillType): boolean {
   if (skillType === 'passive1') {
-    const ps1 = useRecoilValue(selectedUnitSkillState)?.passive1Skill;
+    const ps1 = useRecoilValue(selectedUnitPassive1SkillState);
     return !!ps1 && 'equipment_effects' in ps1;
   } else {
     return false;

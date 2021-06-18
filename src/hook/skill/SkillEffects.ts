@@ -5,25 +5,41 @@ import { SkillEffect } from '../../domain/skill/UnitSkills';
 import { SkillType } from '../../component/skill/UnitSkillList';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 
-import { selectedUnitSkillState } from '../../state/skill/unitSkillState';
+import { selectedUnitBasicInfoState } from '../../state/unit/unitSelectorStoreState';
+import {
+  unitActive1SkillState,
+  unitActive2SkillState,
+  unitPassive1SkillState,
+  unitPassive2SkillState,
+  unitPassive3SkillState
+} from '../../state/skill/unitSkillState';
 
 export function useSkillEffects(skillType: SkillType): [effects: ReadonlyArray<SkillEffect>, area: SkillAreaType, unitNumber: UnitNumber] | undefined {
-  const skill = useRecoilValue(selectedUnitSkillState);
-
+  const unit = useRecoilValue(selectedUnitBasicInfoState);
   switch (skillType) {
-  case 'active1':
-    return skill && [skill.active1Skill.effects, skill.active1Skill.area, skill.unit.no];
-  case 'active2':
-    return skill && [skill.active2Skill.effects, skill.active2Skill.area, skill.unit.no];
-  case 'passive1':
-    return skill && skill.passive1Skill && (
-      'effects' in skill.passive1Skill ?
-        [skill.passive1Skill.effects, skill.passive1Skill.area, skill.unit.no] :
-        [skill.passive1Skill.equipment_effects, skill.passive1Skill.area, skill.unit.no]
+  case 'active1': {
+    const skill = unit && useRecoilValue(unitActive1SkillState(unit));
+    return unit && skill && [skill.effects, skill.area, unit.no];
+  }
+  case 'active2': {
+    const skill = unit && useRecoilValue(unitActive2SkillState(unit));
+    return unit && skill && [skill.effects, skill.area, unit.no];
+  }
+  case 'passive1': {
+    const skill = unit && useRecoilValue(unitPassive1SkillState(unit));
+    return unit && skill && (
+      'effects' in skill ?
+        [skill.effects, skill.area, unit.no] :
+        [skill.equipment_effects, skill.area, unit.no]
     );
-  case 'passive2':
-    return skill && skill.passive2Skill && [skill.passive2Skill.effects, skill.passive2Skill.area, skill.unit.no];
-  case 'passive3':
-    return skill && skill.passive3Skill && [skill.passive3Skill.effects, skill.passive3Skill.area, skill.unit.no];
+  }
+  case 'passive2': {
+    const skill = unit && useRecoilValue(unitPassive2SkillState(unit));
+    return unit && skill && [skill.effects, skill.area, unit.no];
+  }
+  case 'passive3': {
+    const skill = unit && useRecoilValue(unitPassive3SkillState(unit));
+    return unit && skill && [skill.effects, skill.area, unit.no];
+  }
   }
 }

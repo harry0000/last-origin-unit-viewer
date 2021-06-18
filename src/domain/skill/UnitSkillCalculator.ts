@@ -4,38 +4,40 @@ import {
   PassiveSkillDataAsEquipmentEffect,
   SkillApCostData,
   SkillApCostValue,
-  SkillAreaOfEffectData,
-  UnitSkillData
+  SkillAreaOfEffectData
 } from './UnitSkillData';
+import { AroundSkillEffectDataValue, SkillEffectData, SkillEffectDataValue } from './SkillEffectData';
+import { Effect } from '../Effect';
 import {
-  Active1Skill,
-  Active2Skill,
-  FormlessActiveSkill,
-  FormlessPassiveSkillAsEquipmentEffect,
-  FormlessPassiveSkill,
-  FormlessPassive1Skill,
-  Passive1Skill,
-  Passive2Skill,
-  Passive3Skill,
+  ActiveSkill,
+  PassiveSkillAsEquipmentEffect,
+  PassiveSkill,
   SkillEffect,
   SkillEffectValue,
   AroundSkillEffectValue
 } from './UnitSkills';
-import { SkillAreaType } from './SkillAreaOfEffect';
-import { AroundSkillEffectDataValue, SkillEffectData, SkillEffectDataValue } from './SkillEffectData';
-import { UnitBasicData, UnitNumber } from '../UnitBasicInfo';
-import UnitFormValue, { FormChangeUnitNumbers, FormChangeUnits } from '../UnitFormValue';
-import UnitSkillLvValue, { SkillLv } from './UnitSkillLvValue';
-import { unitSkillData } from '../../data/unitSkillData';
-import { Effect } from '../Effect';
-import { ValueUnit } from '../ValueUnit';
-import { foldObjectNonNullableEntry, NonNullableEntry } from '../../util/object';
 import {
   IntegerValueEffectKey,
   MicroValueEffectKey,
   MilliPercentageEffectKey, NoValueEffectKey,
   RangeUpDownEffectKey
 } from './SkillEffect';
+import { SkillAreaType } from './SkillAreaOfEffect';
+import { SkillLv } from './UnitSkillLvValue';
+import { sumMilliPercentageValues, ValueUnit } from '../ValueUnit';
+
+import { foldObjectNonNullableEntry, NonNullableEntry } from '../../util/object';
+import { CoreLinkBonus, FullLinkBonus } from '../UnitCoreLinkBonusData';
+
+type SkillEffectLv = SkillLv | 11 | 12
+
+function calculateSkillEffectLv(skillLv: SkillLv, fullLinkBonus: FullLinkBonus | undefined): SkillEffectLv {
+  if (fullLinkBonus && 'buff_debuff_lv_up' in fullLinkBonus) {
+    return skillLv + fullLinkBonus.buff_debuff_lv_up.value as SkillEffectLv;
+  }
+
+  return skillLv;
+}
 
 type Value<T extends ValueUnit> =
   {
@@ -48,7 +50,7 @@ type PerLvValue<T extends ValueUnit> =
     readonly per_lv_up: { readonly [key in T]: number }
   }
 
-function calculateDataValue<T extends ValueUnit>(unit: T, value: PerLvValue<T> | Value<T>, lv: SkillLv): Value<T> {
+function calculateDataValue<T extends ValueUnit>(unit: T, value: PerLvValue<T> | Value<T>, lv: SkillLv | SkillEffectLv): Value<T> {
   if ('base' in value) {
     return { [unit]: value.base[unit] + value.per_lv_up[unit] * (lv - 1) } as { [key in T]: number };
   }
@@ -56,16 +58,26 @@ function calculateDataValue<T extends ValueUnit>(unit: T, value: PerLvValue<T> |
   return value;
 }
 
-function calculateDamageDeal(damageDeal: ActiveSkillData['damage_deal'], lv: SkillLv): FormlessActiveSkill['damage_deal'] {
-  if (!damageDeal) {
-    return undefined;
-  }
-
-  return {
-    ...calculateDataValue('milliPercentage', damageDeal, lv),
-    effective: damageDeal.effective,
-    attribute: damageDeal.attribute
-  };
+function calculateDamageDeal(
+  damageDeal: ActiveSkillData['damage_deal'],
+  lv: SkillLv,
+  coreLinkBonus: CoreLinkBonus,
+  fullLinkBonus: FullLinkBonus | undefined
+): ActiveSkill['damage_deal'] {
+  return (
+    damageDeal &&
+    {
+      ...(
+        sumMilliPercentageValues(
+          calculateDataValue('milliPercentage', damageDeal, lv),
+          ...('damage_multiplier' in coreLinkBonus ? [coreLinkBonus.damage_multiplier] : []),
+          ...(fullLinkBonus && 'damage_multiplier' in fullLinkBonus ? [fullLinkBonus.damage_multiplier] : [])
+        )
+      ),
+      effective: damageDeal.effective,
+      attribute: damageDeal.attribute
+    }
+  );
 }
 
 function calculateApCost(data: SkillApCostData['cost'], lv: SkillLv): SkillApCostValue {
@@ -191,37 +203,41 @@ function calculateRangeUpDownEffectValue(
 
 function calculateIntegerValueEffectValue(
   data: NonNullable<SkillEffectDataValue[IntegerValueEffectKey]>,
-  lv: SkillLv
+  lv: SkillLv,
+  fullLinkBonus: FullLinkBonus | undefined
 ): SkillEffectValue[IntegerValueEffectKey] {
   return {
     ...calculateAddition(data, lv),
-    ...calculateDataValue('value', data, lv)
+    ...calculateDataValue('value', data, calculateSkillEffectLv(lv, fullLinkBonus))
   };
 }
 
 function calculateMicroValueEffectValue(
   data: NonNullable<SkillEffectDataValue[MicroValueEffectKey]>,
-  lv: SkillLv
+  lv: SkillLv,
+  fullLinkBonus: FullLinkBonus | undefined
 ): NonNullable<SkillEffectValue[MicroValueEffectKey]> {
   return {
     ...calculateAddition(data, lv),
-    ...calculateDataValue('microValue', data, lv)
+    ...calculateDataValue('microValue', data, calculateSkillEffectLv(lv, fullLinkBonus))
   };
 }
 
 function calculateMilliPercentageEffectValue(
   data: NonNullable<SkillEffectDataValue[Exclude<MilliPercentageEffectKey, typeof Effect['DefDown' | 'EvaUp' | 'StatusResistUp']>]>,
-  lv: SkillLv
+  lv: SkillLv,
+  fullLinkBonus: FullLinkBonus | undefined
 ): NonNullable<SkillEffectValue[Exclude<MilliPercentageEffectKey, typeof Effect['DefDown' | 'EvaUp' | 'StatusResistUp']>]> {
   return {
     ...calculateAddition(data, lv),
-    ...calculateDataValue('milliPercentage', data, lv)
+    ...calculateDataValue('milliPercentage', data, calculateSkillEffectLv(lv, fullLinkBonus))
   };
 }
 
 function calculateEffectValue(
   entry: NonNullableEntry<Exclude<Effect, typeof Effect.HpUp>, SkillEffectDataValue>,
-  lv: SkillLv
+  lv: SkillLv,
+  fullLinkBonus: FullLinkBonus | undefined
 ): SkillEffectValue {
   switch (entry[0]) {
   case Effect.MinimizeDamage:
@@ -269,11 +285,11 @@ function calculateEffectValue(
   case Effect.FixedElectricDamageOverTime:
   case Effect.Barrier:
   case Effect.BattleContinuation:
-    return { [entry[0]]: calculateIntegerValueEffectValue(entry[1], lv) };
+    return { [entry[0]]: calculateIntegerValueEffectValue(entry[1], lv, fullLinkBonus) };
   case Effect.ApUp:
   case Effect.ApDown:
   case Effect.SetAp:
-    return { [entry[0]]: calculateMicroValueEffectValue(entry[1], lv) };
+    return { [entry[0]]: calculateMicroValueEffectValue(entry[1], lv, fullLinkBonus) };
   case Effect.EffectRemoval:
   case Effect.PreventsEffect: {
     const effect = 'effect' in entry[1] ? { effect: entry[1].effect } : { effects: entry[1].effects };
@@ -313,210 +329,82 @@ function calculateEffectValue(
   case Effect.EvaUp:
   case Effect.StatusResistUp:
     if ('length' in entry[1]) {
-      return { [entry[0]]: entry[1].map(v => calculateMilliPercentageEffectValue(v, lv)) };
+      return { [entry[0]]: entry[1].map(v => calculateMilliPercentageEffectValue(v, lv, fullLinkBonus)) };
     }
-    return { [entry[0]]: calculateMilliPercentageEffectValue(entry[1], lv) };
+    return { [entry[0]]: calculateMilliPercentageEffectValue(entry[1], lv, fullLinkBonus) };
   default: {
-    return { [entry[0]]: calculateMilliPercentageEffectValue(entry[1], lv) };
+    return { [entry[0]]: calculateMilliPercentageEffectValue(entry[1], lv, fullLinkBonus) };
   }
   }
 }
 
-function calculateEffectDataValue(data: SkillEffectDataValue | undefined, lv: SkillLv): SkillEffectValue | undefined {
-  if (!data) {
-    return undefined;
-  }
-
-  return foldObjectNonNullableEntry(data, entry => calculateEffectValue(entry, lv))({});
+function calculateEffectDataValue(data: SkillEffectDataValue | undefined, lv: SkillLv, fullLinkBonus: FullLinkBonus | undefined): SkillEffectValue | undefined {
+  return data && foldObjectNonNullableEntry(data, entry => calculateEffectValue(entry, lv, fullLinkBonus))({});
 }
 
-function calculateAroundEffectDataValue(data: AroundSkillEffectDataValue | undefined, lv: SkillLv): AroundSkillEffectValue | undefined {
-  if (!data || !data.fixed_damage) {
-    return undefined;
-  }
-
-  return {
-    fixed_damage: {
-      ...calculateDataValue('milliPercentage', data.fixed_damage, lv),
-      ...calculateAddition(data.fixed_damage, lv)
+function calculateAroundEffectDataValue(data: AroundSkillEffectDataValue | undefined, lv: SkillLv, fullLinkBonus: FullLinkBonus | undefined): AroundSkillEffectValue | undefined {
+  return (
+    data?.fixed_damage &&
+    {
+      fixed_damage: {
+        ...calculateDataValue('milliPercentage', data.fixed_damage, calculateSkillEffectLv(lv, fullLinkBonus)),
+        ...calculateAddition(data.fixed_damage, lv)
+      }
     }
-  };
+  );
 }
 
-function calculateEffect(data: SkillEffectData, lv: SkillLv): SkillEffect {
+function calculateEffect(data: SkillEffectData, lv: SkillLv, fullLinkBonus: FullLinkBonus | undefined): SkillEffect {
   return {
     conditions: data.conditions,
     effective: data.effective,
     scale_factor: data.scale_factor,
     details: {
-      self: calculateEffectDataValue(data.details.self, lv),
-      target: calculateEffectDataValue(data.details.target, lv),
-      around: calculateAroundEffectDataValue(data.details.around, lv)
+      self: calculateEffectDataValue(data.details.self, lv, fullLinkBonus),
+      target: calculateEffectDataValue(data.details.target, lv, fullLinkBonus),
+      around: calculateAroundEffectDataValue(data.details.around, lv, fullLinkBonus)
     }
   };
 }
 
-function calculateEffects(data: ReadonlyArray<SkillEffectData>, lv: SkillLv): ReadonlyArray<SkillEffect> {
-  return data.map(effect => calculateEffect(effect, lv));
+function calculateEffects(data: ReadonlyArray<SkillEffectData>, lv: SkillLv, fullLinkBonus: FullLinkBonus | undefined): ReadonlyArray<SkillEffect> {
+  return data.map(effect => calculateEffect(effect, lv, fullLinkBonus));
 }
 
-function calculateActiveSkill(data: ActiveSkillData, lv: SkillLv): FormlessActiveSkill {
+export function calculateActiveSkill(
+  data: ActiveSkillData,
+  lv: SkillLv,
+  coreLinkBonus: CoreLinkBonus,
+  fullLinkBonus: FullLinkBonus | undefined
+): ActiveSkill {
   return {
-    damage_deal: calculateDamageDeal(data.damage_deal, lv),
+    damage_deal: calculateDamageDeal(data.damage_deal, lv, coreLinkBonus, fullLinkBonus),
     cost: calculateApCost(data.cost, lv),
     range: data.range,
     area: calculateArea(data.area, lv),
-    effects: calculateEffects(data.effects, lv)
+    effects: calculateEffects(data.effects, lv, fullLinkBonus)
   };
 }
 
-function calculateActiveSkills(
-  active: UnitSkillData[Exclude<UnitNumber, FormChangeUnitNumbers>]['active'],
-  skillLvValue: UnitSkillLvValue
-): readonly [FormlessActiveSkill, FormlessActiveSkill] {
-  return [
-    calculateActiveSkill(active[0], skillLvValue.active1Lv),
-    calculateActiveSkill(active[1], skillLvValue.active2Lv),
-  ];
-}
-
-function calculatePassiveSkill(data: PassiveSkillData, lv: SkillLv | undefined): FormlessPassiveSkill | undefined
-function calculatePassiveSkill(data: PassiveSkillDataAsEquipmentEffect, lv: SkillLv | undefined): FormlessPassiveSkillAsEquipmentEffect | undefined
-function calculatePassiveSkill(data: PassiveSkillData | PassiveSkillDataAsEquipmentEffect, lv: SkillLv | undefined): FormlessPassiveSkill | FormlessPassiveSkillAsEquipmentEffect | undefined
-function calculatePassiveSkill(data: PassiveSkillData | PassiveSkillDataAsEquipmentEffect, lv: SkillLv | undefined): FormlessPassiveSkill | FormlessPassiveSkillAsEquipmentEffect | undefined {
-  if (!lv) {
+export function calculatePassiveSkill(data: PassiveSkillData | undefined, lv: SkillLv | undefined, fullLinkBonus: FullLinkBonus | undefined): PassiveSkill | undefined
+export function calculatePassiveSkill(data: PassiveSkillDataAsEquipmentEffect | undefined, lv: SkillLv | undefined, fullLinkBonus: FullLinkBonus | undefined): PassiveSkillAsEquipmentEffect | undefined
+export function calculatePassiveSkill(data: PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined, lv: SkillLv | undefined, fullLinkBonus: FullLinkBonus | undefined): PassiveSkill | PassiveSkillAsEquipmentEffect | undefined
+export function calculatePassiveSkill(data: PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined, lv: SkillLv | undefined, fullLinkBonus: FullLinkBonus | undefined): PassiveSkill | PassiveSkillAsEquipmentEffect | undefined {
+  if (!data || !lv) {
     return undefined;
-  } else if ('effects' in data) {
-    const effects = calculateEffects(data.effects, lv);
+  }
+
+  if ('effects' in data) {
+    const effects = calculateEffects(data.effects, lv, fullLinkBonus);
     return {
       area: calculateArea(data.area, lv),
       effects
     };
   } else {
-    const equipment_effects = calculateEffects(data.equipment_effects, lv);
+    const equipment_effects = calculateEffects(data.equipment_effects, lv, fullLinkBonus);
     return {
       area: calculateArea(data.area, lv),
       equipment_effects
     };
-  }
-}
-
-function calculatePassiveSkills(
-  passive: UnitSkillData[Exclude<UnitNumber, FormChangeUnitNumbers>]['passive'],
-  skillLvValue: UnitSkillLvValue
-): [FormlessPassiveSkill | FormlessPassiveSkillAsEquipmentEffect | undefined, FormlessPassiveSkill | undefined, FormlessPassiveSkill | undefined] {
-  const ps1 = passive.length > 0 ? passive[0] : undefined;
-  const ps2 = passive.length > 1 ? passive[1] : undefined;
-  const ps3 = passive.length > 2 ? passive[2] : undefined;
-
-  return [
-    ps1 ? calculatePassiveSkill(ps1, skillLvValue.passive1Lv) : undefined,
-    ps2 ? calculatePassiveSkill(ps2, skillLvValue.passive2Lv) : undefined,
-    ps3 ? calculatePassiveSkill(ps3, skillLvValue.passive3Lv) : undefined
-  ];
-}
-
-export function calculateUnitSkill<N extends Exclude<UnitNumber, FormChangeUnitNumbers>>(
-  unitNumber: N,
-  skillLv: UnitSkillLvValue
-): [FormlessActiveSkill, FormlessActiveSkill, FormlessPassive1Skill | undefined, FormlessPassiveSkill | undefined, FormlessPassiveSkill | undefined] {
-  const skillData = unitSkillData[unitNumber];
-
-  return [
-    ...calculateActiveSkills(skillData.active, skillLv),
-    ...calculatePassiveSkills(skillData.passive, skillLv)
-  ];
-}
-
-type Args = Readonly<
-  { unitNumber: typeof FormChangeUnits.Alexandra,     skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Alexandra>     } |
-  { unitNumber: typeof FormChangeUnits.Leona,         skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Leona>         } |
-  { unitNumber: typeof FormChangeUnits.BloodyPanther, skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.BloodyPanther> } |
-  { unitNumber: typeof FormChangeUnits.Emily,         skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Emily>         } |
-  { unitNumber: typeof FormChangeUnits.Phantom,       skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Phantom>       } |
-  { unitNumber: typeof FormChangeUnits.Siren,         skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Siren>         } |
-  { unitNumber: typeof FormChangeUnits.Fortress,      skillLv: UnitSkillLvValue, form: UnitFormValue<typeof FormChangeUnits.Fortress>      }
->
-
-export function calculateFormChangeUnitSkill(
-  args: Args
-): [Active1Skill, Active2Skill, Passive1Skill | undefined, Passive2Skill | undefined, Passive3Skill | undefined] {
-  switch (args.unitNumber) {
-  case FormChangeUnits.Alexandra: {
-    const skillData = unitSkillData[args.unitNumber];
-    const form = args.form.unitForm;
-    return [
-      Object.assign(calculateActiveSkill(skillData.active[0][form], args.skillLv.active1Lv), { form }),
-      Object.assign(calculateActiveSkill(skillData.active[1][form], args.skillLv.active2Lv), { form }),
-      Object.assign(calculatePassiveSkill(skillData.passive[0][form], args.skillLv.passive1Lv), { form }),
-      calculatePassiveSkill(skillData.passive[1], args.skillLv.passive2Lv),
-      calculatePassiveSkill(skillData.passive[2], args.skillLv.passive3Lv)
-    ];
-  }
-  case FormChangeUnits.Leona: {
-    const skillData = unitSkillData[args.unitNumber];
-    const form = args.form.unitForm;
-    return [
-      ...calculateActiveSkills(skillData.active, args.skillLv),
-      Object.assign(calculatePassiveSkill(skillData.passive[0][form], args.skillLv.passive1Lv), { form }),
-      Object.assign(calculatePassiveSkill(skillData.passive[1][form], args.skillLv.passive2Lv), { form }),
-      calculatePassiveSkill(skillData.passive[2], args.skillLv.passive3Lv)
-    ];
-  }
-  case FormChangeUnits.BloodyPanther: {
-    const skillData = unitSkillData[args.unitNumber];
-    const form = args.form.unitForm;
-    return [
-      Object.assign(calculateActiveSkill(skillData.active[0][form], args.skillLv.active1Lv), { form }),
-      Object.assign(calculateActiveSkill(skillData.active[1][form], args.skillLv.active2Lv), { form }),
-      calculatePassiveSkill(skillData.passive[0], args.skillLv.passive1Lv),
-      calculatePassiveSkill(skillData.passive[1], args.skillLv.passive2Lv),
-      Object.assign(calculatePassiveSkill(skillData.passive[2][form], args.skillLv.passive3Lv), { form })
-    ];
-  }
-  case FormChangeUnits.Emily: {
-    const skillData = unitSkillData[args.unitNumber];
-    const form = args.form.unitForm;
-    return [
-      calculateActiveSkill(skillData.active[0], args.skillLv.active1Lv),
-      Object.assign(calculateActiveSkill(skillData.active[1][form], args.skillLv.active2Lv), { form }),
-      calculatePassiveSkill(skillData.passive[0], args.skillLv.passive1Lv),
-      calculatePassiveSkill(skillData.passive[1], args.skillLv.passive2Lv),
-      calculatePassiveSkill(skillData.passive[2], args.skillLv.passive3Lv)
-    ];
-  }
-  case FormChangeUnits.Phantom: {
-    const skillData = unitSkillData[args.unitNumber];
-    const form = args.form.unitForm;
-    return [
-      Object.assign(calculateActiveSkill(skillData.active[0][form], args.skillLv.active1Lv), { form }),
-      Object.assign(calculateActiveSkill(skillData.active[1][form], args.skillLv.active2Lv), { form }),
-      Object.assign(calculatePassiveSkill(skillData.passive[0][form], args.skillLv.passive1Lv), { form }),
-      calculatePassiveSkill(skillData.passive[1], args.skillLv.passive2Lv),
-      undefined
-    ];
-  }
-  case FormChangeUnits.Siren: {
-    const skillData = unitSkillData[args.unitNumber];
-    const form = args.form.unitForm;
-    return [
-      Object.assign(calculateActiveSkill(skillData.active[0][form], args.skillLv.active1Lv), { form }),
-      Object.assign(calculateActiveSkill(skillData.active[1][form], args.skillLv.active2Lv), { form }),
-      calculatePassiveSkill(skillData.passive[0], args.skillLv.passive1Lv),
-      Object.assign(calculatePassiveSkill(skillData.passive[1][form], args.skillLv.passive2Lv), { form }),
-      calculatePassiveSkill(skillData.passive[2], args.skillLv.passive3Lv)
-    ];
-  }
-  case FormChangeUnits.Fortress: {
-    const skillData = unitSkillData[args.unitNumber];
-    const form = args.form.unitForm;
-    return [
-      Object.assign(calculateActiveSkill(skillData.active[0][form], args.skillLv.active1Lv), { form }),
-      Object.assign(calculateActiveSkill(skillData.active[1][form], args.skillLv.active2Lv), { form }),
-      Object.assign(calculatePassiveSkill(skillData.passive[0][form], args.skillLv.passive1Lv), { form }),
-      undefined,
-      undefined
-    ];
-  }
   }
 }

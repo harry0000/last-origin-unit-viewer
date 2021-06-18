@@ -20,7 +20,7 @@ const DamageDealView: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
     return null;
   }
 
-  const [, damage_deal, area] = props;
+  const [damage_deal, area] = props;
 
   return (
     <div css={{ color: '#ccc', marginTop: 10 }}>

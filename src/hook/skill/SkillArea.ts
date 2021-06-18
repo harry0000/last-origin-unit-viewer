@@ -3,19 +3,35 @@ import { useRecoilValue } from 'recoil';
 import { SkillType } from '../../component/skill/UnitSkillList';
 import { AreaOfEffectCell, AreaOfEffectCells } from '../../component/skill/AreaOfEffectCellType';
 
-import { selectedUnitSkillState } from '../../state/skill/unitSkillState';
+import {
+  selectedUnitActive1SkillState,
+  selectedUnitActive2SkillState,
+  selectedUnitPassive1SkillState,
+  selectedUnitPassive2SkillState,
+  selectedUnitPassive3SkillState
+} from '../../state/skill/unitSkillState';
 
 export function useSkillArea(skillType: SkillType): AreaOfEffectCell | undefined {
-  const skill = useRecoilValue(selectedUnitSkillState);
-  if (!skill) {
-    return undefined;
-  }
-
   switch (skillType) {
-  case 'active1': return AreaOfEffectCells[skill.active1Skill.area];
-  case 'active2': return AreaOfEffectCells[skill.active2Skill.area];
-  case 'passive1': return skill.passive1Skill && AreaOfEffectCells[skill.passive1Skill.area];
-  case 'passive2': return skill.passive2Skill && AreaOfEffectCells[skill.passive2Skill.area];
-  case 'passive3': return skill.passive3Skill && AreaOfEffectCells[skill.passive3Skill.area];
+  case 'active1': {
+    const skill = useRecoilValue(selectedUnitActive1SkillState);
+    return skill && AreaOfEffectCells[skill.area];
+  }
+  case 'active2': {
+    const skill = useRecoilValue(selectedUnitActive2SkillState);
+    return skill && AreaOfEffectCells[skill.area];
+  }
+  case 'passive1': {
+    const skill = useRecoilValue(selectedUnitPassive1SkillState);
+    return skill && AreaOfEffectCells[skill.area];
+  }
+  case 'passive2': {
+    const skill = useRecoilValue(selectedUnitPassive2SkillState);
+    return skill && AreaOfEffectCells[skill.area];
+  }
+  case 'passive3': {
+    const skill = useRecoilValue(selectedUnitPassive3SkillState);
+    return skill && AreaOfEffectCells[skill.area];
+  }
   }
 }
