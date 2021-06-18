@@ -33,10 +33,6 @@ export const selectedUnitStatusParameterState = selector<UnitStatusParameter | u
   key: 'selectedUnitStatusParameterState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    if (!selected) {
-      return undefined;
-    }
-
-    return get(unitStatusParameterState(selected));
+    return selected && get(unitStatusParameterState(selected));
   }
 });

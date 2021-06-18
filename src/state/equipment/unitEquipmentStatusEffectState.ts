@@ -47,11 +47,7 @@ export const selectedUnitChip1EquipmentStatusEffectState = selector<StatusEffect
   key: 'selectedUnitChip1EquipmentStatusEffectState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    if (!selected) {
-      return undefined;
-    }
-
-    return get(unitChip1EquipmentStatusEffectState(selected));
+    return selected && get(unitChip1EquipmentStatusEffectState(selected));
   }
 });
 
@@ -59,11 +55,7 @@ export const selectedUnitChip2EquipmentStatusEffectState = selector<StatusEffect
   key: 'selectedUnitChip2EquipmentStatusEffectState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    if (!selected) {
-      return undefined;
-    }
-
-    return get(unitChip2EquipmentStatusEffectState(selected));
+    return selected && get(unitChip2EquipmentStatusEffectState(selected));
   }
 });
 
@@ -71,11 +63,7 @@ export const selectedUnitOsEquipmentStatusEffectState = selector<StatusEffect | 
   key: 'selectedUnitOsEquipmentStatusEffectState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    if (!selected) {
-      return undefined;
-    }
-
-    return get(unitOsEquipmentStatusEffectState(selected));
+    return selected && get(unitOsEquipmentStatusEffectState(selected));
   }
 });
 
@@ -83,10 +71,6 @@ export const selectedUnitGearEquipmentStatusEffectState = selector<StatusEffect 
   key: 'selectedUnitGearEquipmentStatusEffectState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    if (!selected) {
-      return undefined;
-    }
-
-    return get(unitGearEquipmentStatusEffectState(selected));
+    return selected && get(unitGearEquipmentStatusEffectState(selected));
   }
 });

@@ -19,9 +19,8 @@ export const unitSkillState = atomFamily<UnitSkill, UnitBasicInfo>({
 export const selectedUnitSkillState = selector<UnitSkill | undefined>({
   key: 'selectedUnitSkillState',
   get: ({ get }) => {
-    const selector = get(unitSelectorStoreState);
-
-    return selector.selectedUnit && get(unitSkillState(selector.selectedUnit));
+    const selected = get(selectedUnitBasicInfoState);
+    return selected && get(unitSkillState(selected));
   },
   set: ({ set }, newValue) => {
     if (newValue && !(newValue instanceof DefaultValue)) {

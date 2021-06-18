@@ -34,7 +34,7 @@ export const selectedUnitChip1EquipmentState = selector<UnitChip1Equipment | und
   key: 'selectedUnitChip1EquipmentState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected ? get(unitChip1EquipmentState(selected)) : undefined;
+    return selected && get(unitChip1EquipmentState(selected));
   },
   set: ({ set }, newValue) => {
     if (newValue && !(newValue instanceof DefaultValue)) {
@@ -47,7 +47,7 @@ export const selectedUnitChip2EquipmentState = selector<UnitChip2Equipment | und
   key: 'selectedUnitChip2EquipmentState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected ? get(unitChip2EquipmentState(selected)) : undefined;
+    return selected && get(unitChip2EquipmentState(selected));
   },
   set: ({ set }, newValue) => {
     if (newValue && !(newValue instanceof DefaultValue)) {
@@ -60,7 +60,7 @@ export const selectedUnitOsEquipmentState = selector<UnitOsEquipment | undefined
   key: 'selectedUnitOsEquipmentState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected ? get(unitOsEquipmentState(selected)) : undefined;
+    return selected && get(unitOsEquipmentState(selected));
   },
   set: ({ set }, newValue) => {
     if (newValue && !(newValue instanceof DefaultValue)) {
@@ -73,7 +73,7 @@ export const selectedUnitGearEquipmentState = selector<UnitGearEquipment | undef
   key: 'selectedUnitGearEquipmentState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected ? get(unitGearEquipmentState(selected)) : undefined;
+    return selected && get(unitGearEquipmentState(selected));
   },
   set: ({ set }, newValue) => {
     if (newValue && !(newValue instanceof DefaultValue)) {
