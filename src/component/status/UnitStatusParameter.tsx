@@ -144,7 +144,7 @@ const UnitStatusParameter: React.FC = () => {
         <EvaParameterRow css={rowPaddingWithDivider} />
         <CriParameterRow css={rowPaddingWithDivider} />
         <SpdParameterRow css={rowPaddingWithDivider} />
-        <Row css={{ ...rowPaddingWithDivider, ...bottomDivider, justifyContent: 'space-evenly' }}>
+        <Row css={{ ...rowPaddingWithDivider, ...bottomDivider, justifyContent: 'space-around' }}>
           <Col xs="auto" css={{ padding: 0 }}><FireResist /></Col>
           <Col xs="auto" css={{ padding: 0 }}><IceResist /></Col>
           <Col xs="auto" css={{ padding: 0 }}><ElectricResist /></Col>
