@@ -3,21 +3,19 @@
 import { CSSObject, Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
 import React from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { Col, Image, Row } from 'react-bootstrap';
 import StatusEffectsView from './StatusEffectsView';
 import UnitStatusParameterButton from './UnitStatusParameterButton';
 
-import { formatMicroValue, formatMilliPercentage, formatMilliValue } from './UnitStatusParameterFormatter';
+import {
+  useStatusParameter,
+  useStatusParameterControl,
+  useStatusParameterEnhancedLv
+} from '../../hook/status/StatusParameter';
 
-import { selectedUnitStatusParameterState } from '../../state/status/unitStatusParameterState';
-import { selectedUnitEnhancementStatusState } from '../../state/status/unitEnhancementStatusState';
-
-import UnitEnhancementStatus from '../../domain/status/UnitEnhancementStatus';
-
-type EnhanceableParameterType = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri' | 'spd'
+export type EnhanceableParameterType = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri'
 
 const parameterCol: CSSObject = {
   fontSize: '1.2em',
@@ -29,7 +27,7 @@ const pointsCol: CSSObject = {
   textAlign: 'right'
 };
 
-const StatusIcon: React.FC<{ status: EnhanceableParameterType }> = ({ status }) => {
+const StatusIcon: React.FC<{ status: EnhanceableParameterType | 'spd' }> = ({ status }) => {
   return (
     <Image
       rounded
@@ -41,7 +39,7 @@ const StatusIcon: React.FC<{ status: EnhanceableParameterType }> = ({ status }) 
   );
 };
 
-const StatusParameterLabel: React.FC<{ parameter: EnhanceableParameterType }> = React.memo(({ parameter }) => {
+const StatusParameterNameLabel: React.FC<{ parameter: EnhanceableParameterType | 'spd' }> = React.memo(({ parameter }) => {
   const { t } = useTranslation();
 
   return (
@@ -52,27 +50,39 @@ const StatusParameterLabel: React.FC<{ parameter: EnhanceableParameterType }> = 
   );
 });
 
-const UnitStatusParameterRow: React.FC<{
-  css?: Interpolation<Theme>,
-  parameter: Exclude<EnhanceableParameterType, 'spd'>,
-  value?: string,
-  enhancedLv: number | undefined,
-  upDisabled: boolean,
-  downDisabled: boolean,
-  increment: (state: UnitEnhancementStatus | undefined) => UnitEnhancementStatus | undefined,
-  decrement: (state: UnitEnhancementStatus | undefined) => UnitEnhancementStatus | undefined
-}> = ({
-  parameter,
-  value,
-  enhancedLv,
-  upDisabled,
-  downDisabled,
-  increment,
-  decrement,
-  ...others
-}) => {
+const StatusParameterValueView: React.FC<{ parameter: EnhanceableParameterType | 'spd' }> = React.memo(({ parameter }) => {
+  const value = useStatusParameter(parameter);
+
+  return (<span>{value}</span>);
+});
+
+const StatusParameterEnhancementLvView: React.FC<{ parameter: EnhanceableParameterType }> = ({ parameter }) => {
   const { t } = useTranslation();
-  const setState = useSetRecoilState(selectedUnitEnhancementStatusState);
+  const enhancedLv = useStatusParameterEnhancedLv(parameter);
+
+  return (
+    <React.Fragment>
+      <span>{t('lv')}</span>
+      <span css={{ display: 'inline-block', width: '2em', textAlign: 'right' }}>{enhancedLv ?? 0}</span>
+    </React.Fragment>
+  );
+};
+
+const StatusParameterControlButtons: React.FC<{ parameter: EnhanceableParameterType }> = ({ parameter }) => {
+  const [upDisabled, downDisabled, increment, decrement] = useStatusParameterControl(parameter);
+
+  return (
+    <React.Fragment>
+      <UnitStatusParameterButton disabled={downDisabled} onClick={decrement}><span>-</span></UnitStatusParameterButton>
+      <UnitStatusParameterButton disabled={upDisabled} onClick={increment}><span>+</span></UnitStatusParameterButton>
+    </React.Fragment>
+  );
+};
+
+const EnhanceableStatusParameterRow: React.FC<{
+  css?: Interpolation<Theme>,
+  parameter: EnhanceableParameterType
+}> = ({ parameter, ...others }) => {
 
   return (
     <Row {...others} css={{ alignItems: 'center' }}>
@@ -81,14 +91,14 @@ const UnitStatusParameterRow: React.FC<{
         sm={{ span: 3, order: 1 }}
         css={{ padding: 0 }}
       >
-        <StatusParameterLabel parameter={parameter} />
+        <StatusParameterNameLabel parameter={parameter} />
       </Col>
       <Col
         xs={{ span: 4, order: 2 }}
         sm={{ span: 2, order: 2 }}
         css={{ ...parameterCol, paddingLeft: 0 }}
       >
-        <span>{value}</span>
+        <StatusParameterValueView parameter={parameter} />
       </Col>
       <Col
         xs={{ offset: 3, span: 5, order: 4 }}
@@ -108,8 +118,7 @@ const UnitStatusParameterRow: React.FC<{
         sm={{ span: 2, order: 4 }}
         css={{ ...pointsCol, paddingRight: 0 }}
       >
-        <span>{t('lv')}</span>
-        <span css={{ display: 'inline-block', width: '2em', textAlign: 'right' }}>{enhancedLv ?? 0}</span>
+        <StatusParameterEnhancementLvView parameter={parameter} />
       </Col>
       <Col
         xs={{ span: 'auto', order: 5 }}
@@ -129,8 +138,7 @@ const UnitStatusParameterRow: React.FC<{
             }
           }}
         >
-          <UnitStatusParameterButton disabled={downDisabled} onClick={() => setState(decrement)}><span>-</span></UnitStatusParameterButton>
-          <UnitStatusParameterButton disabled={upDisabled} onClick={() => setState(increment)}><span>+</span></UnitStatusParameterButton>
+          <StatusParameterControlButtons parameter={parameter} />
         </div>
       </Col>
     </Row>
@@ -138,8 +146,6 @@ const UnitStatusParameterRow: React.FC<{
 };
 
 export const SpdParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
-  const status = useRecoilValue(selectedUnitStatusParameterState);
-
   return (
     <Row {...props}>
       <Col
@@ -147,14 +153,14 @@ export const SpdParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props)
         sm={{ span: 3, order: 1 }}
         css={{ padding: 0 }}
       >
-        <StatusParameterLabel parameter="spd" />
+        <StatusParameterNameLabel parameter="spd" />
       </Col>
       <Col
         xs={{ span: 4, order: 2 }}
         sm={{ span: 2, order: 2 }}
         css={{ ...parameterCol, paddingLeft: 0 }}
       >
-        <span>{formatMicroValue(status?.spd)}</span>
+        <StatusParameterValueView parameter="spd" />
       </Col>
       <Col
         xs={{ offset: 3, span: 5, order: 4 }}
@@ -174,109 +180,25 @@ export const SpdParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props)
 };
 
 export const HpParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
-  const status = useRecoilValue(selectedUnitStatusParameterState);
-  const enhancement = useRecoilValue(selectedUnitEnhancementStatusState);
-
-  return (
-    <UnitStatusParameterRow
-      {...props}
-      parameter="hp"
-      value={`${status?.hp ?? '0'}`}
-      enhancedLv={enhancement?.hpLv}
-      upDisabled={!enhancement?.enableUpHpLv}
-      downDisabled={!enhancement?.enableDownHpLv}
-      increment={s => s?.upHpLv()}
-      decrement={s => s?.downHpLv()}
-    />
-  );
+  return (<EnhanceableStatusParameterRow {...props} parameter="hp" />);
 };
 
 export const AtkParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
-  const status = useRecoilValue(selectedUnitStatusParameterState);
-  const enhancement = useRecoilValue(selectedUnitEnhancementStatusState);
-
-  return (
-    <UnitStatusParameterRow
-      {...props}
-      parameter="atk"
-      value={formatMilliValue(status?.atk)}
-      enhancedLv={enhancement?.atkLv}
-      upDisabled={!enhancement?.enableUpAtkLv}
-      downDisabled={!enhancement?.enableDownAtkLv}
-      increment={s => s?.upAtkLv()}
-      decrement={s => s?.downAtkLv()}
-    />
-  );
+  return (<EnhanceableStatusParameterRow {...props} parameter="atk" />);
 };
 
 export const DefParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
-  const status = useRecoilValue(selectedUnitStatusParameterState);
-  const enhancement = useRecoilValue(selectedUnitEnhancementStatusState);
-
-  return (
-    <UnitStatusParameterRow
-      {...props}
-      parameter="def"
-      value={formatMilliValue(status?.def)}
-      enhancedLv={enhancement?.defLv}
-      upDisabled={!enhancement?.enableUpDefLv}
-      downDisabled={!enhancement?.enableDownDefLv}
-      increment={s => s?.upDefLv()}
-      decrement={s => s?.downDefLv()}
-    />
-  );
+  return (<EnhanceableStatusParameterRow {...props} parameter="def" />);
 };
 
 export const AccParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
-  const status = useRecoilValue(selectedUnitStatusParameterState);
-  const enhancement = useRecoilValue(selectedUnitEnhancementStatusState);
-
-  return (
-    <UnitStatusParameterRow
-      {...props}
-      parameter="acc"
-      value={formatMilliPercentage(status?.acc)}
-      enhancedLv={enhancement?.accLv}
-      upDisabled={!enhancement?.enableUpAccLv}
-      downDisabled={!enhancement?.enableDownAccLv}
-      increment={s => s?.upAccLv()}
-      decrement={s => s?.downAccLv()}
-    />
-  );
+  return (<EnhanceableStatusParameterRow {...props} parameter="acc" />);
 };
 
 export const EvaParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
-  const status = useRecoilValue(selectedUnitStatusParameterState);
-  const enhancement = useRecoilValue(selectedUnitEnhancementStatusState);
-
-  return (
-    <UnitStatusParameterRow
-      {...props}
-      parameter="eva"
-      value={formatMilliPercentage(status?.eva)}
-      enhancedLv={enhancement?.evaLv}
-      upDisabled={!enhancement?.enableUpEvaLv}
-      downDisabled={!enhancement?.enableDownEvaLv}
-      increment={s => s?.upEvaLv()}
-      decrement={s => s?.downEvaLv()}
-    />
-  );
+  return (<EnhanceableStatusParameterRow {...props} parameter="eva" />);
 };
 
 export const CriParameterRow: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
-  const status = useRecoilValue(selectedUnitStatusParameterState);
-  const enhancement = useRecoilValue(selectedUnitEnhancementStatusState);
-
-  return (
-    <UnitStatusParameterRow
-      {...props}
-      parameter="cri"
-      value={formatMilliPercentage(status?.cri)}
-      enhancedLv={enhancement?.criLv}
-      upDisabled={!enhancement?.enableUpCriLv}
-      downDisabled={!enhancement?.enableDownCriLv}
-      increment={s => s?.upCriLv()}
-      decrement={s => s?.downCriLv()}
-    />
-  );
+  return (<EnhanceableStatusParameterRow {...props} parameter="cri" />);
 };

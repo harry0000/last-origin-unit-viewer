@@ -6,6 +6,22 @@ export type MilliPercentageValue                    = { milliPercentage: number 
 export type ValueUnit = keyof IntegerValue | keyof MilliValue | keyof MicroValue | keyof MilliPercentageValue
 export type ValueTypes = IntegerValue | MilliValue | MicroValue | MilliPercentageValue
 
+function multiply(value: number, multiplier: MilliPercentageValue): number {
+  return value * multiplier.milliPercentage / 100_000;
+}
+
+export function multiplyValue(value: IntegerValue, multiplier: MilliPercentageValue): IntegerValue {
+  return { value: Math.round(multiply(value.value, multiplier)) };
+}
+
+export function multiplyMilliValue(value: MilliValue, multiplier: MilliPercentageValue): MilliValue {
+  return { milliValue: multiply(value.milliValue, multiplier) };
+}
+
+export function multiplyMicroValue(value: MicroValue, multiplier: MilliPercentageValue): MicroValue {
+  return { microValue: multiply(value.microValue, multiplier) };
+}
+
 export function sumValues(...values: IntegerValue[]): IntegerValue {
   return {
     value: values.reduce((acc, v) => acc + v.value, 0)

@@ -5,10 +5,12 @@ import React from 'react';
 import { Interpolation } from '@emotion/serialize';
 import { useTranslation } from 'react-i18next';
 
+import { AreaOfEffectCellType } from './AreaOfEffectCellType';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { SkillType } from './UnitSkillList';
+import { useSkillArea } from '../../hook/skill/SkillArea';
 
-import { AreaOfEffectCells, AreaOfEffectCellType } from './AreaOfEffectCellType';
-import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
+import { ifNonNullable } from '../../util/react';
 
 const cellColorStyle: { [key in AreaOfEffectCellType]: string } = {
   [AreaOfEffectCellType.Effective]: '#d0191d',
@@ -52,10 +54,7 @@ const AreaOfEffectCell: React.FC<{ selected: boolean, type: AreaOfEffectCellType
         css={{
           borderRadius: 2,
           position: 'absolute',
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
+          inset: 0,
           backgroundColor: selected ? '#16d4d4' : cellColorStyle[AreaOfEffectCellType.None]
         }}
       />
@@ -76,39 +75,43 @@ const AreaOfEffectCell: React.FC<{ selected: boolean, type: AreaOfEffectCellType
   );
 };
 
-const AreaOfEffectGrid: React.FC<{ css?: Interpolation<Theme>, area: SkillAreaType }> = (props) => {
+const AreaOfEffectGrid: React.FC<{ css?: Interpolation<Theme>, skillType: SkillType }> = ({ skillType, ...others }) => {
   const { t } = useTranslation();
-  const { area, ...others } = props;
-  const cellTypes = AreaOfEffectCells[area];
+  const cellType = useSkillArea(skillType);
 
   return (
-    <div {...others}>
-      <table
-        css={{
-          borderCollapse: 'collapse',
-          width: '100%',
-          transform: 'skewX(-9deg)'
-        }}>
-        <tbody>
-          <tr>
-            <AreaOfEffectCell selected={cellTypes.select === 7} type={cellTypes.area[0]} />
-            <AreaOfEffectCell selected={cellTypes.select === 8} type={cellTypes.area[1]} />
-            <AreaOfEffectCell selected={cellTypes.select === 9} type={cellTypes.area[2]} />
-          </tr>
-          <tr>
-            <AreaOfEffectCell selected={cellTypes.select === 4} type={cellTypes.area[3]} />
-            <AreaOfEffectCell selected={cellTypes.select === 5} type={cellTypes.area[4]} />
-            <AreaOfEffectCell selected={cellTypes.select === 6} type={cellTypes.area[5]} />
-          </tr>
-          <tr>
-            <AreaOfEffectCell selected={cellTypes.select === 1} type={cellTypes.area[6]} />
-            <AreaOfEffectCell selected={cellTypes.select === 2} type={cellTypes.area[7]} />
-            <AreaOfEffectCell selected={cellTypes.select === 3} type={cellTypes.area[8]} />
-          </tr>
-        </tbody>
-      </table>
-      {(<span css={{ color: '#16d4d4' }}>{!cellTypes.select ? t('skill.fixed_area') : '\u00A0'}</span>)}
-    </div>
+    ifNonNullable(
+      cellType,
+      cell => (
+        <div {...others}>
+          <table
+            css={{
+              borderCollapse: 'collapse',
+              width: '100%',
+              transform: 'skewX(-9deg)'
+            }}>
+            <tbody>
+              <tr>
+                <AreaOfEffectCell selected={cell.select === 7} type={cell.area[0]} />
+                <AreaOfEffectCell selected={cell.select === 8} type={cell.area[1]} />
+                <AreaOfEffectCell selected={cell.select === 9} type={cell.area[2]} />
+              </tr>
+              <tr>
+                <AreaOfEffectCell selected={cell.select === 4} type={cell.area[3]} />
+                <AreaOfEffectCell selected={cell.select === 5} type={cell.area[4]} />
+                <AreaOfEffectCell selected={cell.select === 6} type={cell.area[5]} />
+              </tr>
+              <tr>
+                <AreaOfEffectCell selected={cell.select === 1} type={cell.area[6]} />
+                <AreaOfEffectCell selected={cell.select === 2} type={cell.area[7]} />
+                <AreaOfEffectCell selected={cell.select === 3} type={cell.area[8]} />
+              </tr>
+            </tbody>
+          </table>
+          {(<span css={{ color: '#16d4d4' }}>{!cell.select ? t('skill.fixed_area') : '\u00A0'}</span>)}
+        </div>
+      )
+    )
   );
 };
 

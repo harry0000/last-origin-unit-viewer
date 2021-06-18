@@ -1,7 +1,7 @@
 import {
   Effect
-} from './Effect';
-import { IntegerValue, ValueUnit } from './ValueUnit';
+} from '../Effect';
+import { IntegerValue, ValueUnit } from '../ValueUnit';
 import { SkillEffectActivationCondition } from './SkillEffectActivationCondition';
 import { SkillEffectActivationRate } from './SkillEffectActivationRate';
 import { SkillEffectScaleFactor } from './SkillEffectScaleFactor';
@@ -9,7 +9,7 @@ import { SkillEffectTag, SkillEffectTagStackValue } from './SkillEffectTag';
 import { SkillEffectTerm, SkillEffectTermRoundsValue } from './SkillEffectTerm';
 import { SkillEffectTimesValue } from './SkillEffectTimesValue';
 import { SkillEffective } from './SkillEffective';
-import { UnitForms } from './UnitFormValue';
+import { UnitForms } from '../UnitFormValue';
 import {
   EquipmentEffectOnly,
   IntegerValueEffectKey,

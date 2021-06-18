@@ -1,4 +1,4 @@
-import { Effect } from './Effect';
+import { Effect } from '../Effect';
 
 export type EquipmentEffectOnly = typeof Effect['HpUp']
 export type NoValueEffectKey =

@@ -24,7 +24,7 @@
       "ice_active": "冷気属性攻撃",
       "electric_active": "電気属性攻撃",
       "row_column_protect": "行/列保護",
-      "target_protect":  "指定保護",
+      "target_protect": "指定保護",
       "attack_assist": "攻撃支援",
       "atk_cri_acc_buff": "ATK/CRI/命中バフ",
       "atk_cri_acc_debuff": "ATK/CRI/命中デバフ",
@@ -44,6 +44,17 @@
       "immovable_silenced_stunned": "移動不可/沈黙/行動不能",
       "wet_corrosion_overloaded": "浸水/腐食/過負荷",
       "remove_buff_debuff": "バフ/デバフ/状態異常解除"
+    },
+    "full_link_bonus": {
+      "sortie_cost": "出撃コスト -{{value}}%",
+      "damage_multiplier": "スキル威力 +{{value}}%",
+      "buff_debuff_lv_up": "バフ/デバフ効果Lv +{{value}}",
+      "hp_up": "$t(status.hp) +{{value}}%",
+      "acc_up": "$t(status.acc) +{{value}}%",
+      "eva_up": "$t(status.eva) +{{value}}%",
+      "cri_up": "$t(status.cri) +{{value}}%",
+      "spd_up": "$t(status.spd) +{{value}}",
+      "range_up": "射程 +{{value}}"
     }
   },
   "unit": {
@@ -85,14 +96,34 @@
     "electric_resist": "電気属性耐性",
     "effected": {
       "enhancement": "強化Lv. {{lv}}",
-      "core_link": "リンクボーナス (+ {{value}} %)",
-      "full_link": "フルリンクボーナス (+ {{value}} %)",
+      "core_link_bonus": "リンクボーナス",
+      "core_link_multiplier_bonus": "リンクボーナス (+ {{value}} %)",
+      "full_link_bonus": "フルリンクボーナス",
+      "full_link_multiplier_bonus": "フルリンクボーナス (+ {{value}} %)",
       "equipment": "$t(equipment:{{id}}) Lv. {{lv}}",
       "rank_up": "${common:unit.rank.{{rank}}}ランクアップボーナス"
     },
     "core_link": "コアリンク",
+    "core_link_slot1": "コアリンクスロット1",
+    "core_link_slot2": "コアリンクスロット2",
+    "core_link_slot3": "コアリンクスロット3",
+    "core_link_slot4": "コアリンクスロット4",
+    "core_link_slot5": "コアリンクスロット5",
+    "unlink": "コアリンク解除",
+    "full_link_bonus": "フルリンクボーナス",
     "equipment": "装備",
     "remove_equipment": "装備解除"
+  },
+  "core_link_bonus": {
+    "hp_up": "$t(status.hp)",
+    "atk_up": "$t(status.atk)",
+    "def_up": "$t(status.def)",
+    "acc_up": "$t(status.acc)",
+    "eva_up": "$t(status.eva)",
+    "cri_up": "$t(status.cri)",
+    "spd_up": "$t(status.spd)",
+    "exp_up": "取得経験値",
+    "damage_multiplier": "スキル威力"
   },
   "skill": {
     "ap": "AP",

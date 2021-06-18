@@ -1,6 +1,6 @@
-import { UnitBasicInfo } from './UnitBasicInfo';
-import { availableRanksPerUnit } from './UnitRankValue';
-import { Sequence } from '../util/type';
+import { UnitBasicInfo } from '../UnitBasicInfo';
+import { availableRanksPerUnit } from '../UnitRankValue';
+import { Sequence } from '../../util/type';
 
 export type SkillLv = Sequence<10>
 

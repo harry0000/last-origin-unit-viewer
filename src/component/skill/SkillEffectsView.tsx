@@ -5,10 +5,13 @@ import React from 'react';
 
 import SkillEffectConditionView from './SkillEffectConditionView';
 import SkillEffectDetailsView from './SkillEffectDetailsView';
+import { SkillType } from './UnitSkillList';
 
-import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
-import { SkillEffect } from '../../domain/UnitSkills';
+import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
+import { SkillEffect } from '../../domain/skill/UnitSkills';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
+import { useSkillEffects } from '../../hook/skill/SkillEffects';
+
 import { ifNonNullable } from '../../util/react';
 
 const SkillEffectView: React.FC<{ effect: SkillEffect, unitNumber: UnitNumber, area: SkillAreaType }> = ({ effect, unitNumber, area }) => {
@@ -32,11 +35,18 @@ const SkillEffectView: React.FC<{ effect: SkillEffect, unitNumber: UnitNumber, a
   );
 };
 
-const SkillEffectsView: React.FC<{ effects: ReadonlyArray<SkillEffect>, unitNumber: UnitNumber, area: SkillAreaType }> = ({ effects, unitNumber, area }) => {
+const SkillEffectsView: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
+  const values = useSkillEffects(skillType);
+
   return (
-    <div css={{ color: '#ccc', fontSize: '0.8em' }}>
-      {effects.map(effect => (<SkillEffectView key={JSON.stringify(effect)} effect={effect} unitNumber={unitNumber} area={area} />))}
-    </div>
+    ifNonNullable(
+      values,
+      ([effects, area, unitNumber]) => (
+        <div css={{ color: '#ccc', fontSize: '0.8em' }}>
+          {effects.map(effect => (<SkillEffectView key={JSON.stringify(effect)} effect={effect} unitNumber={unitNumber} area={area} />))}
+        </div>
+      )
+    )
   );
 };
 

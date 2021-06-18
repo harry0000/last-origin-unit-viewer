@@ -8,15 +8,15 @@ import {
   LeonaForm,
   PhantomForm,
   SirenForm
-} from './UnitFormValue';
-import { MilliPercentageValue } from './ValueUnit';
+} from '../UnitFormValue';
+import { MilliPercentageValue } from '../ValueUnit';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import {
   SkillEffects,
   SkillEffectsAsEquipmentEffect
 } from './SkillEffectData';
 import { SkillEffective } from './SkillEffective';
-import { UnitNumber } from './UnitBasicInfo';
+import { UnitNumber } from '../UnitBasicInfo';
 
 export const DamageAttribute = {
   Fire: 'fire',

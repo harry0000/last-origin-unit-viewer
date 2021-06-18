@@ -2,7 +2,11 @@ import { Sequence } from '../../util/type';
 import UnitParameterEnhancementLv from './UnitParameterEnhancementLv';
 
 export type UnitLvValue = Sequence<100>
-export type UnitLvMode = 'auto' | 'manual'
+export const UnitLvMode = {
+  Auto: 'auto',
+  Manual: 'manual'
+} as const;
+export type UnitLvMode = typeof UnitLvMode[keyof typeof UnitLvMode]
 
 class UnitLv {
 

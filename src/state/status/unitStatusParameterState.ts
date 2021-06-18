@@ -2,19 +2,29 @@ import { selector, selectorFamily } from 'recoil';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 import { UnitStatusParameter } from '../../domain/status/UnitStatusParameter';
 
+import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/unitCoreLinkState';
 import { selectedUnitBasicInfoState } from '../unit/unitSelectorStoreState';
 import { unitBaseParameterState } from './unitBaseParameterState';
+import {
+  unitChip1EquipmentStatusEffectState,
+  unitChip2EquipmentStatusEffectState,
+  unitGearEquipmentStatusEffectState,
+  unitOsEquipmentStatusEffectState
+} from '../equipment/unitEquipmentStatusEffectState';
 import { unitEnhancementStatusState } from './unitEnhancementStatusState';
-import { unitUnitStatusEffectSummaryState } from './unitStatusEffectState';
 
 const unitStatusParameterState = selectorFamily<UnitStatusParameter, UnitBasicInfo>({
   key: 'unitStatusParameterState',
   get: (unit) => ({ get }) => {
-
     return new UnitStatusParameter(
       get(unitEnhancementStatusState(unit)),
       get(unitBaseParameterState(unit)),
-      get(unitUnitStatusEffectSummaryState(unit))
+      get(unitChip1EquipmentStatusEffectState(unit)),
+      get(unitChip2EquipmentStatusEffectState(unit)),
+      get(unitOsEquipmentStatusEffectState(unit)),
+      get(unitGearEquipmentStatusEffectState(unit)),
+      get(coreLinkBonusEffectsState(unit)),
+      get(fullLinkBonusEffectState(unit))
     );
   }
 });
@@ -23,10 +33,6 @@ export const selectedUnitStatusParameterState = selector<UnitStatusParameter | u
   key: 'selectedUnitStatusParameterState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    if (!selected) {
-      return undefined;
-    }
-
-    return get(unitStatusParameterState(selected));
+    return selected && get(unitStatusParameterState(selected));
   }
 });

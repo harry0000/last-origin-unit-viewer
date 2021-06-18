@@ -8,7 +8,7 @@ import {
 } from '../../domain/status/UnitEquipment';
 
 import { selectedUnitBasicInfoState } from '../unit/unitSelectorStoreState';
-import { unitEnhancementStatusState } from '../status/unitEnhancementStatusState';
+import { unitLvState } from '../status/unitEnhancementStatusState';
 
 export const unitChip1EquipmentState = atomFamily<UnitChip1Equipment, UnitBasicInfo>({
   key: 'unitChip1EquipmentState',
@@ -34,7 +34,7 @@ export const selectedUnitChip1EquipmentState = selector<UnitChip1Equipment | und
   key: 'selectedUnitChip1EquipmentState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected ? get(unitChip1EquipmentState(selected)) : undefined;
+    return selected && get(unitChip1EquipmentState(selected));
   },
   set: ({ set }, newValue) => {
     if (newValue && !(newValue instanceof DefaultValue)) {
@@ -47,7 +47,7 @@ export const selectedUnitChip2EquipmentState = selector<UnitChip2Equipment | und
   key: 'selectedUnitChip2EquipmentState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected ? get(unitChip2EquipmentState(selected)) : undefined;
+    return selected && get(unitChip2EquipmentState(selected));
   },
   set: ({ set }, newValue) => {
     if (newValue && !(newValue instanceof DefaultValue)) {
@@ -60,7 +60,7 @@ export const selectedUnitOsEquipmentState = selector<UnitOsEquipment | undefined
   key: 'selectedUnitOsEquipmentState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected ? get(unitOsEquipmentState(selected)) : undefined;
+    return selected && get(unitOsEquipmentState(selected));
   },
   set: ({ set }, newValue) => {
     if (newValue && !(newValue instanceof DefaultValue)) {
@@ -73,7 +73,7 @@ export const selectedUnitGearEquipmentState = selector<UnitGearEquipment | undef
   key: 'selectedUnitGearEquipmentState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected ? get(unitGearEquipmentState(selected)) : undefined;
+    return selected && get(unitGearEquipmentState(selected));
   },
   set: ({ set }, newValue) => {
     if (newValue && !(newValue instanceof DefaultValue)) {
@@ -90,7 +90,7 @@ export const chip1SlotAvailableState = selector<boolean>({
       return false;
     }
 
-    const unitLv = get(unitEnhancementStatusState(chip1.unit)).lv;
+    const unitLv = get(unitLvState(chip1.unit));
     return chip1.isChip1Available(unitLv);
   }
 });
@@ -103,7 +103,7 @@ export const chip2SlotAvailableState = selector<boolean>({
       return false;
     }
 
-    const unitLv = get(unitEnhancementStatusState(chip2.unit)).lv;
+    const unitLv = get(unitLvState(chip2.unit));
     return chip2.isChip2Available(unitLv);
   }
 });
@@ -116,7 +116,7 @@ export const osSlotAvailableState = selector<boolean>({
       return false;
     }
 
-    const unitLv = get(unitEnhancementStatusState(os.unit)).lv;
+    const unitLv = get(unitLvState(os.unit));
     return os.isOsAvailable(unitLv);
   }
 });
@@ -129,7 +129,7 @@ export const gearSlotAvailableState = selector<boolean>({
       return false;
     }
 
-    const unitLv = get(unitEnhancementStatusState(gear.unit)).lv;
+    const unitLv = get(unitLvState(gear.unit));
     return gear.isGearAvailable(unitLv);
   }
 });

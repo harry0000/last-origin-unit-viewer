@@ -8,12 +8,15 @@ import { useTranslation } from 'react-i18next';
 import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import StatusEffectsView from './StatusEffectsView';
 
-import { DamageAttribute } from '../../domain/UnitSkillData';
+import { DamageAttribute } from '../../domain/skill/UnitSkillData';
+import { MilliPercentageValue } from '../../domain/ValueUnit';
+
 import { selectedUnitStatusParameterState } from '../../state/status/unitStatusParameterState';
+import { formatResistPercentage } from './UnitStatusParameterFormatter';
 
 const AttributeResist: React.FC<{
   attribute: DamageAttribute,
-  value?: number
+  value?: MilliPercentageValue
 }> = ({ attribute, value }) => {
   const { t } = useTranslation();
   const alt = t(`status.${attribute}_resist`);
@@ -42,8 +45,8 @@ const AttributeResist: React.FC<{
             src={`${process.env.PUBLIC_URL}/icon/attribute_${attribute}.webp`}
           />
         </OverlayTrigger>
-        <div css={{ display: 'inline-block', width: '3.5em', textAlign: 'right', fontWeight: 'bold' }}>
-          <span>{value ?? 0}</span>&nbsp;<span>%</span>
+        <div css={{ display: 'inline-block', width: '4.2em', textAlign: 'right', fontWeight: 'bold' }}>
+          <span>{formatResistPercentage(value)}</span>
         </div>
       </div>
       <StatusEffectsView css={{ color: '#888', fontSize: '0.9em', fontWeight: 'bold' }} parameter={parameter} />

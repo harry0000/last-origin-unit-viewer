@@ -45,7 +45,7 @@ const UnitStatusParameterButton: React.FC<{
   useLazyInterval(
     () => { onClick(); },
     750,
-    disabled !== true && isMouseDown ? 25 : undefined
+    disabled !== true && isMouseDown ? 20 : undefined
   );
 
   return (

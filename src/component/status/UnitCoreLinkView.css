@@ -1,0 +1,12 @@
+.slot-container .label .core-link {
+  color: #0cf;
+  font-size: 1rem;
+  font-weight: bold;
+  display: inline-block;
+  width: 3.5rem;
+  text-align: right;
+}
+
+.slot-container .label .core-link-details {
+  margin-left: 15px;
+}

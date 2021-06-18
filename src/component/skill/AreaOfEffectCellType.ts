@@ -1,4 +1,4 @@
-import { SkillAreaType } from '../../domain/SkillAreaOfEffect';
+import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
 import { Sequence } from '../../util/type';
 
 export const AreaOfEffectCellType = {
