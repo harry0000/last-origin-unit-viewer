@@ -136,7 +136,7 @@ const UnitSkillList: React.FC<{ className?: string, css?: Interpolation<Theme> }
           <Passive2SkillNavItem />
           <Passive3SkillNavItem />
         </Nav>
-        <Tab.Content>
+        <Tab.Content css={{ minHeight: 300 }}>
           <Active1SkillPane />
           <Active2SkillPane />
           <Passive1SkillPane />
