@@ -7,6 +7,7 @@ export const FormChangeUnits = {
   BloodyPanther: 61,
   Emily: 68,
   Phantom: 73,
+  InvincibleDragon: 85,
   Siren: 89,
   Fortress: 222
 } as const;
@@ -34,6 +35,10 @@ export const UnitForms = {
     default: NormalForm,
     changed: 'optical_camouflage'
   },
+  [FormChangeUnits.InvincibleDragon]: {
+    default: NormalForm,
+    changed: 'fleet_shelling_mode'
+  },
   [FormChangeUnits.Siren]: {
     default: 'interception',
     changed: 'bombarding'
@@ -50,13 +55,14 @@ export type FormChangeUnitNumbers = typeof FormChangeUnits[keyof typeof FormChan
 
 export type FormPerUnit<N extends FormChangeUnitNumbers> = typeof UnitForms[N][keyof typeof UnitForms[N]]
 
-export type AlexandraForm     = FormPerUnit<typeof FormChangeUnits.Alexandra>
-export type LeonaForm         = FormPerUnit<typeof FormChangeUnits.Leona>
-export type BloodyPantherForm = FormPerUnit<typeof FormChangeUnits.BloodyPanther>
-export type EmilyForm         = FormPerUnit<typeof FormChangeUnits.Emily>
-export type PhantomForm       = FormPerUnit<typeof FormChangeUnits.Phantom>
-export type SirenForm         = FormPerUnit<typeof FormChangeUnits.Siren>
-export type FortressForm      = FormPerUnit<typeof FormChangeUnits.Fortress>
+export type AlexandraForm        = FormPerUnit<typeof FormChangeUnits.Alexandra>
+export type LeonaForm            = FormPerUnit<typeof FormChangeUnits.Leona>
+export type BloodyPantherForm    = FormPerUnit<typeof FormChangeUnits.BloodyPanther>
+export type EmilyForm            = FormPerUnit<typeof FormChangeUnits.Emily>
+export type PhantomForm          = FormPerUnit<typeof FormChangeUnits.Phantom>
+export type InvincibleDragonForm = FormPerUnit<typeof FormChangeUnits.InvincibleDragon>
+export type SirenForm            = FormPerUnit<typeof FormChangeUnits.Siren>
+export type FortressForm         = FormPerUnit<typeof FormChangeUnits.Fortress>
 
 const formChangeUnitNumbers: ReadonlySet<number> = new Set(Object.values(FormChangeUnits));
 
@@ -68,13 +74,14 @@ export type FormLessUnitBasicInfo = typeof unitBasicData[Exclude<UnitNumber, For
 
 export type FormChangeUnitBasicInfo<N extends FormChangeUnitNumbers> =
   (
-    N extends typeof FormChangeUnits.Alexandra     ? typeof unitBasicData[typeof FormChangeUnits.Alexandra] :
-    N extends typeof FormChangeUnits.Leona         ? typeof unitBasicData[typeof FormChangeUnits.Leona] :
-    N extends typeof FormChangeUnits.BloodyPanther ? typeof unitBasicData[typeof FormChangeUnits.BloodyPanther] :
-    N extends typeof FormChangeUnits.Emily         ? typeof unitBasicData[typeof FormChangeUnits.Emily] :
-    N extends typeof FormChangeUnits.Phantom       ? typeof unitBasicData[typeof FormChangeUnits.Phantom] :
-    N extends typeof FormChangeUnits.Siren         ? typeof unitBasicData[typeof FormChangeUnits.Siren] :
-    N extends typeof FormChangeUnits.Fortress      ? typeof unitBasicData[typeof FormChangeUnits.Fortress] :
+    N extends typeof FormChangeUnits.Alexandra        ? typeof unitBasicData[typeof FormChangeUnits.Alexandra] :
+    N extends typeof FormChangeUnits.Leona            ? typeof unitBasicData[typeof FormChangeUnits.Leona] :
+    N extends typeof FormChangeUnits.BloodyPanther    ? typeof unitBasicData[typeof FormChangeUnits.BloodyPanther] :
+    N extends typeof FormChangeUnits.Emily            ? typeof unitBasicData[typeof FormChangeUnits.Emily] :
+    N extends typeof FormChangeUnits.Phantom          ? typeof unitBasicData[typeof FormChangeUnits.Phantom] :
+    N extends typeof FormChangeUnits.InvincibleDragon ? typeof unitBasicData[typeof FormChangeUnits.InvincibleDragon] :
+    N extends typeof FormChangeUnits.Siren            ? typeof unitBasicData[typeof FormChangeUnits.Siren] :
+    N extends typeof FormChangeUnits.Fortress         ? typeof unitBasicData[typeof FormChangeUnits.Fortress] :
       never
   ) &
   // HACK: for UnitFormValue.build()

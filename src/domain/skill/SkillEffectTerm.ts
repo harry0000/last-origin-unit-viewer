@@ -5,4 +5,4 @@ export const SkillEffectTerm = {
 } as const;
 export type SkillEffectTerm = typeof SkillEffectTerm[keyof typeof SkillEffectTerm]
 
-export type SkillEffectTermRoundsValue = 1 | 2 | 3 | 5 | 10 | 99 | 999
+export type SkillEffectTermRoundsValue = 1 | 2 | 3 | 4 | 5 | 10 | 99 | 999

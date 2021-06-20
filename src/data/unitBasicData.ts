@@ -454,6 +454,13 @@ export const unitBasicData = {
     type: 'heavy',
     role: 'supporter'
   },
+  85: {
+    no: 85,
+    kind: 'bioroid',
+    rank: 'ss',
+    type: 'light',
+    role: 'supporter'
+  },
   87: {
     no: 87,
     kind: 'bioroid',
@@ -474,6 +481,13 @@ export const unitBasicData = {
     rank: 'ss',
     type: 'heavy',
     role: 'attacker'
+  },
+  90: {
+    no: 90,
+    kind: 'bioroid',
+    rank: 's',
+    type: 'flying',
+    role: 'supporter'
   },
   91: {
     no: 91,
@@ -769,6 +783,13 @@ export const unitBasicData = {
     type: 'light',
     role: 'supporter'
   },
+  172: {
+    no: 172,
+    kind: 'bioroid',
+    rank: 'a',
+    type: 'heavy',
+    role: 'attacker'
+  },
   173: {
     no: 173,
     kind: 'bioroid',
@@ -900,6 +921,13 @@ export const unitBasicData = {
     kind: 'ags',
     rank: 'ss',
     type: 'heavy',
+    role: 'attacker'
+  },
+  225: {
+    no: 225,
+    kind: 'ags',
+    rank: 's',
+    type: 'light',
     role: 'attacker'
   }
 } as const;

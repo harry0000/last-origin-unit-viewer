@@ -135,6 +135,8 @@ function getAllActiveSkills(skill: UnitSkillData[UnitNumber]): ReadonlyArray<Act
     return [skill.active[0], ...Object.values(skill.active[1])];
   case FormChangeUnits.Phantom:
     return [...skill.active.flatMap(as => Object.values(as))];
+  case FormChangeUnits.InvincibleDragon:
+    return [...skill.active.flatMap(as => Object.values(as))];
   case FormChangeUnits.Siren:
     return [...skill.active.flatMap(as => Object.values(as))];
   case FormChangeUnits.Fortress:
@@ -171,6 +173,8 @@ function getAllPassiveSkills(skill: UnitSkillData[UnitNumber]): ReadonlyArray<Pa
       ...Object.values(skill.passive[0]),
       skill.passive[1]
     ];
+  case FormChangeUnits.InvincibleDragon:
+    return skill.passive;
   case FormChangeUnits.Siren:
     return [
       skill.passive[0],

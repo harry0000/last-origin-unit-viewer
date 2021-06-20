@@ -74,7 +74,7 @@ export type ActivationTargetState =
     [EffectActivationState.EffectedBy]?: UnitNumber | UnitAlias
   } &
   {
-    [EffectActivationState.Unit]?: UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAlias
+    [EffectActivationState.Unit]?: UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitNumber | UnitAlias
   }
 
 export type ActivationSquadState = {
