@@ -15,9 +15,9 @@ type Props<T extends number> = {
   onChange: (nextValue: T, event: React.SyntheticEvent<unknown>) => void
 }
 
-function NumberValueDropdown<T extends number>(props: Props<T>): ReturnType<React.FC<Props<T>>> {
-  const { id, items, value, onChange, ...others } = props;
-
+const NumberValueDropdown = <T extends number>(
+  { id, items, value, onChange, ...others }: Props<T>
+): ReturnType<React.FC<Props<T>>> => {
   const NumberValueToggle =
     React.forwardRef<HTMLAnchorElement, {
       onClick: MouseEventHandler<HTMLAnchorElement>,
@@ -64,6 +64,6 @@ function NumberValueDropdown<T extends number>(props: Props<T>): ReturnType<Reac
       </Dropdown>
     </div>
   );
-}
+};
 
 export default NumberValueDropdown;

@@ -80,11 +80,10 @@ function RemoveEquipmentItem<T extends EquipmentData>(props: {
   );
 }
 
-function EquipmentSelectorMenu<T extends EquipmentData>(
-  props: Omit<Props<T>, 'id' | 'onSelect' | 'available' | 'availableLv'>
-): ReturnType<React.FC<Omit<Props<T>, 'id' | 'onSelect' | 'available' | 'availableLv'>>> {
+const EquipmentSelectorMenu = <T extends EquipmentData>(
+  { value, type, items, ...others }: Omit<Props<T>, 'id' | 'onSelect' | 'available' | 'availableLv'>
+): ReturnType<React.FC<Omit<Props<T>, 'id' | 'onSelect' | 'available' | 'availableLv'>>> => {
   const { t } = useTranslation();
-  const { value, type, items, ...others } = props;
 
   return (
     <Dropdown.Menu {...others} className="equipment">
@@ -102,11 +101,11 @@ function EquipmentSelectorMenu<T extends EquipmentData>(
       </div>
     </Dropdown.Menu>
   );
-}
+};
 
-function EquipmentSelector<T extends EquipmentData>(props: Props<T>): ReturnType<React.FC<Props<T>>> {
-  const { id, value, type, items, onSelect, available, availableLv } = props;
-
+const EquipmentSelector = <T extends EquipmentData>(
+  { id, value, type, items, onSelect, available, availableLv }: Props<T>
+): ReturnType<React.FC<Props<T>>> => {
   const EquipmentToggle =
       React.forwardRef<HTMLAnchorElement, {
         onClick: MouseEventHandler<HTMLAnchorElement>,
@@ -159,6 +158,6 @@ function EquipmentSelector<T extends EquipmentData>(props: Props<T>): ReturnType
       <EquipmentSelectorMenu value={value} type={type} items={items} />
     </Dropdown>
   );
-}
+};
 
 export default EquipmentSelector;
