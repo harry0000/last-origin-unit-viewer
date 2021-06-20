@@ -92,6 +92,23 @@ export const equipmentData = {
       { atk_up: { milliValue: 120000 }, eva_down: { milliPercentage: 12000 } }
     ]
   },
+  enhanced_output_chip: {
+    type: 'chip',
+    id: 'enhanced_output_chip',
+    status_effects: [
+      { atk_up: { milliValue: 30000 }, spd_up: { microValue:  50000 } },
+      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
+      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
+      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
+      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
+      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
+      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
+      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
+      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
+      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
+      { atk_up: { milliValue: 90000 }, spd_up: { microValue: 100000 } }
+    ]
+  },
   critical_chip: {
     type: 'chip',
     id: 'critical_chip',
@@ -126,6 +143,23 @@ export const equipmentData = {
       { cri_up: { milliPercentage: 33600 }, def_down: { milliValue: 54000 } }
     ]
   },
+  enhanced_analysis_chip: {
+    type: 'chip',
+    id: 'enhanced_analysis_chip',
+    status_effects: [
+      { cri_up: { milliPercentage:  5000 }, acc_up: { milliPercentage: 10000 } },
+      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
+      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
+      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
+      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
+      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
+      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
+      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
+      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
+      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
+      { cri_up: { milliPercentage: 20000 }, acc_up: { milliPercentage: 35000 } }
+    ]
+  },
   defense_chip: {
     type: 'chip',
     id: 'defense_chip',
@@ -147,40 +181,6 @@ export const equipmentData = {
   //   type: 'chip',
   //   id: 'defense_chip_beta'
   // },
-  enhanced_analysis_chip: {
-    type: 'chip',
-    id: 'enhanced_analysis_chip',
-    status_effects: [
-      { cri_up: { milliPercentage:  5000 }, acc_up: { milliPercentage: 10000 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage: 20000 }, acc_up: { milliPercentage: 35000 } }
-    ]
-  },
-  enhanced_output_chip: {
-    type: 'chip',
-    id: 'enhanced_output_chip',
-    status_effects: [
-      { atk_up: { milliValue: 30000 }, spd_up: { microValue:  50000 } },
-      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
-      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
-      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
-      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
-      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
-      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
-      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
-      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
-      { atk_up: { milliValue:     0 }, spd_up: { microValue:      0 } },
-      { atk_up: { milliValue: 90000 }, spd_up: { microValue: 100000 } }
-    ]
-  },
   evasion_chip: {
     type: 'chip',
     id: 'evasion_chip',
@@ -202,23 +202,6 @@ export const equipmentData = {
   //   type: 'chip',
   //   id: 'evasion_chip_beta'
   // },
-  exp_chip: {
-    type: 'chip',
-    id: 'exp_chip',
-    equipment_effects: [
-      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 3800 }, max_stack: 3 } } }],
-      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 4000 }, max_stack: 3 } } }],
-      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 4200 }, max_stack: 3 } } }],
-      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 4400 }, max_stack: 3 } } }],
-      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 4800 }, max_stack: 3 } } }],
-      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 5200 }, max_stack: 3 } } }],
-      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 5600 }, max_stack: 3 } } }],
-      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 6200 }, max_stack: 3 } } }],
-      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 6800 }, max_stack: 3 } } }],
-      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 7400 }, max_stack: 3 } } }],
-      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 8000 }, max_stack: 3 } } }]
-    ]
-  },
   hp_chip: {
     type: 'chip',
     id: 'hp_chip',
@@ -334,6 +317,23 @@ export const equipmentData = {
       [{ details: { status_resist_up: { milliPercentage: { ss: 50000 } } } }, { condition: { trigger: 'start_round' }, details: { all_debuff_removal: { rate: { milliPercentage: { ss: 50000 } } } } }]
     ]
   },
+  exp_chip: {
+    type: 'chip',
+    id: 'exp_chip',
+    equipment_effects: [
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 3800 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 4000 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 4200 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 4400 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 4800 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 5200 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 5600 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 6200 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 6800 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 7400 }, max_stack: 3 } } }],
+      [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 8000 }, max_stack: 3 } } }]
+    ]
+  },
   atflir_reinforcement_chip: {
     type: 'chip',
     id: 'atflir_reinforcement_chip',
@@ -422,14 +422,6 @@ export const equipmentData = {
       [{ details: { anti_heavy_type: { milliPercentage: { ss: 35000 } } } }]
     ]
   },
-  // anti_heavy_light_os: {
-  //   type: 'os',
-  //   id: 'anti_heavy_light_os'
-  // },
-  // anti_flying_heavy_os: {
-  //   type: 'os',
-  //   id: 'anti_flying_heavy_os'
-  // },
   anti_light_os: {
     type: 'os',
     id: 'anti_light_os',
@@ -447,6 +439,14 @@ export const equipmentData = {
       [{ details: { anti_light_type: { milliPercentage: { ss: 35000 } } } }]
     ]
   },
+  // anti_heavy_light_os: {
+  //   type: 'os',
+  //   id: 'anti_heavy_light_os'
+  // },
+  // anti_flying_heavy_os: {
+  //   type: 'os',
+  //   id: 'anti_flying_heavy_os'
+  // },
   // anti_light_flying_os: {
   //   type: 'os',
   //   id: 'anti_light_flying_os'
@@ -503,44 +503,6 @@ export const equipmentData = {
       [{ details: { def_up: { milliPercentage: { ss: 27000 } }, damage_reduction: { milliPercentage: { ss: 13500 } } } }],
       [{ details: { def_up: { milliPercentage: { ss: 28000 } }, damage_reduction: { milliPercentage: { ss: 14000 } } } }],
       [{ details: { def_up: { milliPercentage: { ss: 30000 } }, damage_reduction: { milliPercentage: { ss: 15000 } } } }]
-    ]
-  },
-  enhanced_combat_os: {
-    type: 'os',
-    id: 'enhanced_combat_os',
-    effects: [
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:  4000 }, eva_up: { milliPercentage: 10000 }, spd_up: { milliPercentage:  500 }, damage_reduction: { milliPercentage:  5000 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 12000 }, eva_up: { milliPercentage: 30000 }, spd_up: { milliPercentage: 5000 }, damage_reduction: { milliPercentage: 10000 } } }]
-    ]
-  },
-  // enhanced_exp_os: {
-  //   type: 'os',
-  //   id: 'enhanced_exp_os'
-  // },
-  exp_os: {
-    type: 'os',
-    id: 'exp_os',
-    equipment_effects: [
-      [{ details: { exp_up: { milliPercentage: { ss: 14000 } } } }],
-      [{ details: { exp_up: { milliPercentage: { ss: 15000 } } } }],
-      [{ details: { exp_up: { milliPercentage: { ss: 16000 } } } }],
-      [{ details: { exp_up: { milliPercentage: { ss: 17000 } } } }],
-      [{ details: { exp_up: { milliPercentage: { ss: 18000 } } } }],
-      [{ details: { exp_up: { milliPercentage: { ss: 19000 } } } }],
-      [{ details: { exp_up: { milliPercentage: { ss: 20000 } } } }],
-      [{ details: { exp_up: { milliPercentage: { ss: 21000 } } } }],
-      [{ details: { exp_up: { milliPercentage: { ss: 22000 } } } }],
-      [{ details: { exp_up: { milliPercentage: { ss: 23000 } } } }],
-      [{ details: { exp_up: { milliPercentage: { ss: 25000 } } } }]
     ]
   },
   offense_os: {
@@ -624,6 +586,44 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 8000 } }, def_up: { milliPercentage: { ss: 20000 } }, acc_up: { milliPercentage: { ss: 25000 } }, eva_up: { milliPercentage: { ss: 25000 } } } }]
     ]
   },
+  enhanced_combat_os: {
+    type: 'os',
+    id: 'enhanced_combat_os',
+    effects: [
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:  4000 }, eva_up: { milliPercentage: 10000 }, spd_up: { milliPercentage:  500 }, damage_reduction: { milliPercentage:  5000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 12000 }, eva_up: { milliPercentage: 30000 }, spd_up: { milliPercentage: 5000 }, damage_reduction: { milliPercentage: 10000 } } }]
+    ]
+  },
+  exp_os: {
+    type: 'os',
+    id: 'exp_os',
+    equipment_effects: [
+      [{ details: { exp_up: { milliPercentage: { ss: 14000 } } } }],
+      [{ details: { exp_up: { milliPercentage: { ss: 15000 } } } }],
+      [{ details: { exp_up: { milliPercentage: { ss: 16000 } } } }],
+      [{ details: { exp_up: { milliPercentage: { ss: 17000 } } } }],
+      [{ details: { exp_up: { milliPercentage: { ss: 18000 } } } }],
+      [{ details: { exp_up: { milliPercentage: { ss: 19000 } } } }],
+      [{ details: { exp_up: { milliPercentage: { ss: 20000 } } } }],
+      [{ details: { exp_up: { milliPercentage: { ss: 21000 } } } }],
+      [{ details: { exp_up: { milliPercentage: { ss: 22000 } } } }],
+      [{ details: { exp_up: { milliPercentage: { ss: 23000 } } } }],
+      [{ details: { exp_up: { milliPercentage: { ss: 25000 } } } }]
+    ]
+  },
+  // enhanced_exp_os: {
+  //   type: 'os',
+  //   id: 'enhanced_exp_os'
+  // },
   // runaway_inducement_os: {
   //   type: 'os',
   //   id: 'runaway_inducement_os',
