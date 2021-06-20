@@ -27,8 +27,11 @@ export type SkillEffectTag =
   'electromagnatic_consonance' |
   'max_output_burst' |
   'deploy_great_shield' |
+  'readying_bombardment' |
   'arrogance' |
   'hubris' |
+  'hardpoint_mount_equipment' |
+  'hardpoint_mount_support' |
   'where_are_you_looking_at' |
   'viff_activate' |
   'overwhelming_cuteness' |

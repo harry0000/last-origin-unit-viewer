@@ -94,7 +94,7 @@ function stateValuesView(entry: StateValuesEntry, unitNumber: UnitNumber, t: TFu
 }
 
 function unitStateView(key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'], unit: UnitNumber | UnitAlias, selfUnitNumber: UnitNumber, t: TFunction): ReactNode
-function unitStateView(key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'], unit: UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAlias, selfUnitNumber: UnitNumber, t: TFunction): ReactNode
+function unitStateView(key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'], unit: UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitNumber | UnitAlias, selfUnitNumber: UnitNumber, t: TFunction): ReactNode
 function unitStateView(
   key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'],
   unit: UnitNumber | UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAlias,
@@ -125,11 +125,15 @@ function unitStateView(
           {t(`effect:condition.state.${key}`, { unit: t(`effect:unit.${unit}`) })}
         </span>
       );
-    case UnitAlias.Pest:
     case UnitAlias.ElectricActive:
-    case UnitAlias.MongooseTeam:
+    case UnitAlias.ArtilleryTypeActive:
+    case UnitAlias.Squad21:
     case UnitAlias.CompanionSeries:
+    case UnitAlias.SteelLine:
+    case UnitAlias.MongooseTeam:
+    case UnitAlias.Horizon:
     case UnitAlias.SpartanSeries:
+    case UnitAlias.Pest:
       return (
         <React.Fragment>
           <UnitAliasView unitAlias={unit} selfUnitNumber={selfUnitNumber} />

@@ -5,6 +5,7 @@ import {
   FormChangeUnitNumbers,
   FormChangeUnits,
   FortressForm,
+  InvincibleDragonForm,
   LeonaForm,
   PhantomForm,
   SirenForm
@@ -154,6 +155,21 @@ type PhantomSkillData = Readonly<{
     ]
 }>
 
+type InvincibleDragonSkillData = Readonly<{
+  no: typeof FormChangeUnits.InvincibleDragon,
+  active:
+    readonly [
+      { readonly [key in InvincibleDragonForm]: ActiveSkillData },
+      { readonly [key in InvincibleDragonForm]: ActiveSkillData }
+    ],
+  passive:
+    readonly [
+      PassiveSkillData,
+      PassiveSkillData,
+      PassiveSkillData
+    ]
+}>
+
 type SirenSkillData = Readonly<{
   no: typeof FormChangeUnits.Siren,
   active:
@@ -188,6 +204,7 @@ export type FormChangeUnitSkillData =
   BloodyPantherSkillData |
   EmilySkillData |
   PhantomSkillData |
+  InvincibleDragonSkillData |
   SirenSkillData |
   FortressSkillData
 
@@ -213,6 +230,7 @@ export type UnitSkillData = {
     N extends BloodyPantherSkillData['no'] ? BloodyPantherSkillData :
     N extends EmilySkillData['no'] ? EmilySkillData :
     N extends PhantomSkillData['no'] ? PhantomSkillData :
+    N extends InvincibleDragonSkillData['no'] ? InvincibleDragonSkillData :
     N extends SirenSkillData['no'] ? SirenSkillData :
     N extends FortressSkillData['no'] ? FortressSkillData :
       Exclude<UnitSkill, CirceSkillData | FormChangeUnitSkillData>
