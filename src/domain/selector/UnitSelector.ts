@@ -1,14 +1,14 @@
-import { UnitBasicData, UnitBasicInfo, UnitRank, UnitRole, UnitType } from '../domain/UnitBasicInfo';
-import { UnitSkillData } from '../domain/skill/UnitSkillData';
+import { UnitBasicData, UnitBasicInfo, UnitRank, UnitRole, UnitType } from '../UnitBasicInfo';
+import { UnitSkillData } from '../skill/UnitSkillData';
 import {
   SkillEffectSelectorCondition,
   matchSkillConditions
 } from './SkillEffectSelectorCondition';
 
-class UnitSelectorStore {
+class UnitSelector {
 
-  static initialState(): UnitSelectorStore {
-    return new UnitSelectorStore(
+  static initialState(): UnitSelector {
+    return new UnitSelector(
       new Set<UnitRank>(['ss', 's', 'a', 'b']),
       new Set<UnitType>(['light', 'heavy', 'flying']),
       new Set<UnitRole>(['attacker', 'defender', 'supporter']),
@@ -43,7 +43,7 @@ class UnitSelectorStore {
     roles?: ReadonlySet<UnitRole>,
     skillEffects?: ReadonlySet<SkillEffectSelectorCondition>,
     selectedUnit?: UnitBasicInfo
-  }): UnitSelectorStore {
+  }): UnitSelector {
     const newValues = {
       ranks: values.ranks ?? this.#ranks,
       types: values.types ?? this.#types,
@@ -52,7 +52,7 @@ class UnitSelectorStore {
       selectedUnit: values.selectedUnit
     };
 
-    return new UnitSelectorStore(
+    return new UnitSelector(
       newValues.ranks,
       newValues.types,
       newValues.roles,
@@ -71,35 +71,35 @@ class UnitSelectorStore {
     }
   }
 
-  toggleRank(rank: UnitRank): UnitSelectorStore {
+  toggleRank(rank: UnitRank): UnitSelector {
     return this.updateStore({
       ranks: this.toggleSelector(this.#ranks, rank),
       selectedUnit: undefined
     });
   }
 
-  toggleType(type: UnitType): UnitSelectorStore {
+  toggleType(type: UnitType): UnitSelector {
     return this.updateStore({
       types: this.toggleSelector(this.#types, type),
       selectedUnit: undefined
     });
   }
 
-  toggleRole(role: UnitRole): UnitSelectorStore {
+  toggleRole(role: UnitRole): UnitSelector {
     return this.updateStore({
       roles: this.toggleSelector(this.#roles, role),
       selectedUnit: undefined
     });
   }
 
-  toggleSkillEffect(effect: SkillEffectSelectorCondition): UnitSelectorStore {
+  toggleSkillEffect(effect: SkillEffectSelectorCondition): UnitSelector {
     return this.updateStore({
       skillEffects: this.toggleSelector(this.#skillEffects, effect),
       selectedUnit: undefined
     });
   }
 
-  selectUnit(unit: UnitBasicInfo): UnitSelectorStore {
+  selectUnit(unit: UnitBasicInfo): UnitSelector {
     if (unit.no !== this.selectedUnit?.no) {
       return this.updateStore({ selectedUnit: unit });
     }
@@ -136,4 +136,4 @@ class UnitSelectorStore {
   }
 }
 
-export default UnitSelectorStore;
+export default UnitSelector;

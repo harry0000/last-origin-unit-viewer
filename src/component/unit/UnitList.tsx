@@ -5,7 +5,7 @@ import { Interpolation } from '@emotion/serialize';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { filteredUnitsState } from '../../state/unit/filteredUnitsState';
+import { filteredUnitsState } from '../../state/selector/unitSelectorState';
 
 import UnitCard from './UnitCard';
 

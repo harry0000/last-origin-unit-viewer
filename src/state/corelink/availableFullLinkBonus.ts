@@ -1,7 +1,7 @@
 import { selector } from 'recoil';
 import { UnitCoreLinkBonusData } from '../../domain/UnitCoreLinkBonusData';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
-import { selectedUnitBasicInfoState } from '../unit/unitSelectorStoreState';
+import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
 import { unitCoreLinkBonusData } from '../../data/unitCoreLinkBonusData';
 
 export const availableFullLinkBonus = selector<UnitCoreLinkBonusData[UnitNumber]['full_link_bonus'] | []>({

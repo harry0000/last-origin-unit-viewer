@@ -3,7 +3,7 @@ import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 import { UnitStatusParameter } from '../../domain/status/UnitStatusParameter';
 
 import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/unitCoreLinkState';
-import { selectedUnitBasicInfoState } from '../unit/unitSelectorStoreState';
+import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
 import { unitBaseParameterState } from './unitBaseParameterState';
 import {
   unitChip1EquipmentStatusEffectState,

@@ -7,7 +7,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import type { UnitBasicInfo, UnitRank, UnitRole } from '../../domain/UnitBasicInfo';
-import { unitSelectedState, unitSelectorStoreState } from '../../state/unit/unitSelectorStoreState';
+import { unitSelectedState, selectedUnitBasicInfoState } from '../../state/selector/unitSelectorState';
 
 const selectedUnitBoxShadow: CSSObject = {
   '&::before': {
@@ -51,8 +51,8 @@ const Badge: React.FC<{ rank: UnitRank, role: UnitRole }> = React.memo(({ rank, 
 const UnitCard: React.FC<{ unit: UnitBasicInfo }> = React.memo(({ unit }) => {
   const { t } = useTranslation();
 
-  const selected = useRecoilValue(unitSelectedState(unit));
-  const setStore = useSetRecoilState(unitSelectorStoreState);
+  const selected = useRecoilValue(unitSelectedState(unit.no));
+  const setUnit = useSetRecoilState(selectedUnitBasicInfoState);
   const unitName = t('unit:display', { number: unit.no });
 
   return (
@@ -67,7 +67,7 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = React.memo(({ unit }) => {
           userSelect: 'none',
           ...(selected ? selectedUnitBoxShadow : {})
         }}
-        onClick={() => setStore(s => s.selectUnit(unit))}
+        onClick={() => setUnit(unit)}
       >
         <Image
           rounded

@@ -16,7 +16,7 @@ import { SkillType } from './UnitSkillList';
 
 import { SkillLv } from '../../domain/skill/UnitSkillLvValue';
 
-import { selectedUnitBasicInfoState } from '../../state/unit/unitSelectorStoreState';
+import { selectedUnitBasicInfoState } from '../../state/selector/unitSelectorState';
 import {
   useFormChangeSkillBadge,
   useRankUpSkillBadge,

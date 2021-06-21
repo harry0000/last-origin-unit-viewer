@@ -7,7 +7,7 @@ import {
   UnitOsEquipment
 } from '../../domain/status/UnitEquipment';
 
-import { selectedUnitBasicInfoState } from '../unit/unitSelectorStoreState';
+import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
 import { unitLvState } from '../status/unitEnhancementStatusState';
 
 export const unitChip1EquipmentState = atomFamily<UnitChip1Equipment, UnitBasicInfo>({

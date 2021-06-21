@@ -2,7 +2,7 @@ import { atomFamily, DefaultValue, selector, selectorFamily } from 'recoil';
 import UnitCoreLink from '../../domain/UnitCoreLink';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
-import { selectedUnitBasicInfoState } from '../unit/unitSelectorStoreState';
+import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
 import { unitLvState } from '../status/unitEnhancementStatusState';
 
 import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';

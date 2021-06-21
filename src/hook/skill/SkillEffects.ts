@@ -5,7 +5,7 @@ import { SkillEffect } from '../../domain/skill/UnitSkills';
 import { SkillType } from '../../component/skill/UnitSkillList';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 
-import { selectedUnitBasicInfoState } from '../../state/unit/unitSelectorStoreState';
+import { selectedUnitBasicInfoState } from '../../state/selector/unitSelectorState';
 import {
   unitActive1SkillState,
   unitActive2SkillState,
