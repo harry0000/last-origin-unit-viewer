@@ -8,7 +8,7 @@ type StateParams = {
   parameters?: UnitParameterEnhancementLv
 }
 
-class UnitEnhancementStatus {
+class UnitLvStatus {
 
   readonly unit: UnitBasicInfo;
   readonly #lv: UnitLv;
@@ -41,7 +41,7 @@ class UnitEnhancementStatus {
     return this.remainPoints > 0;
   }
 
-  #updateState({ lv, parameters }: StateParams): UnitEnhancementStatus {
+  #updateState({ lv, parameters }: StateParams): UnitLvStatus {
     if (
       lv && lv === this.#lv ||
       parameters && parameters === this.#enhancements
@@ -49,7 +49,7 @@ class UnitEnhancementStatus {
       return this;
     }
 
-    return new UnitEnhancementStatus(
+    return new UnitLvStatus(
       this.unit,
       lv ?? this.#lv,
       parameters ?? this.#enhancements
@@ -60,7 +60,7 @@ class UnitEnhancementStatus {
     return this.#lv.value;
   }
 
-  setUnitLv(lvValue: UnitLvValue): UnitEnhancementStatus {
+  setUnitLv(lvValue: UnitLvValue): UnitLvStatus {
     return this.#updateState({ lv: this.#lv.setLv(lvValue) });
   }
 
@@ -68,7 +68,7 @@ class UnitEnhancementStatus {
     return this.#lv.mode;
   }
 
-  toggleLvMode(): UnitEnhancementStatus {
+  toggleLvMode(): UnitLvStatus {
     return this.#updateState({ lv: this.#lv.toggleMode() });
   }
 
@@ -76,7 +76,7 @@ class UnitEnhancementStatus {
     return this.#enhancements.points;
   }
 
-  resetParameterPoints(): UnitEnhancementStatus {
+  resetParameterPoints(): UnitLvStatus {
     return this.#updateState({ parameters: this.#enhancements.resetPoints() });
   }
 
@@ -109,84 +109,84 @@ class UnitEnhancementStatus {
   get enableUpCriLv(): boolean { return this.#hasRemainPoints && this.#enhancements.enableUpCriLv; }
   get enableDownCriLv(): boolean { return this.#enhancements.enableDownCriLv; }
 
-  upHpLv(): UnitEnhancementStatus {
+  upHpLv(): UnitLvStatus {
     if (this.enableUpHpLv) {
       return this.#updateState({ parameters: this.#enhancements.upHpLv() });
     }
     return this;
   }
 
-  downHpLv(): UnitEnhancementStatus {
+  downHpLv(): UnitLvStatus {
     if (this.enableDownHpLv) {
       return this.#updateState({ parameters: this.#enhancements.downHpLv() });
     }
     return this;
   }
 
-  upAtkLv(): UnitEnhancementStatus {
+  upAtkLv(): UnitLvStatus {
     if (this.enableUpAtkLv) {
       return this.#updateState({ parameters: this.#enhancements.upAtkLv() });
     }
     return this;
   }
 
-  downAtkLv(): UnitEnhancementStatus {
+  downAtkLv(): UnitLvStatus {
     if (this.enableDownAtkLv) {
       return this.#updateState({ parameters: this.#enhancements.downAtkLv() });
     }
     return this;
   }
 
-  upDefLv(): UnitEnhancementStatus {
+  upDefLv(): UnitLvStatus {
     if (this.enableUpDefLv) {
       return this.#updateState({ parameters: this.#enhancements.upDefLv() });
     }
     return this;
   }
 
-  downDefLv(): UnitEnhancementStatus {
+  downDefLv(): UnitLvStatus {
     if (this.enableDownDefLv) {
       return this.#updateState({ parameters: this.#enhancements.downDefLv() });
     }
     return this;
   }
 
-  upAccLv(): UnitEnhancementStatus {
+  upAccLv(): UnitLvStatus {
     if (this.enableUpAccLv) {
       return this.#updateState({ parameters: this.#enhancements.upAccLv() });
     }
     return this;
   }
 
-  downAccLv(): UnitEnhancementStatus {
+  downAccLv(): UnitLvStatus {
     if (this.enableDownAccLv) {
       return this.#updateState({ parameters: this.#enhancements.downAccLv() });
     }
     return this;
   }
 
-  upEvaLv(): UnitEnhancementStatus {
+  upEvaLv(): UnitLvStatus {
     if (this.enableUpEvaLv) {
       return this.#updateState({ parameters: this.#enhancements.upEvaLv() });
     }
     return this;
   }
 
-  downEvaLv(): UnitEnhancementStatus {
+  downEvaLv(): UnitLvStatus {
     if (this.enableDownEvaLv) {
       return this.#updateState({ parameters: this.#enhancements.downEvaLv() });
     }
     return this;
   }
 
-  upCriLv(): UnitEnhancementStatus {
+  upCriLv(): UnitLvStatus {
     if (this.enableUpCriLv) {
       return this.#updateState({ parameters: this.#enhancements.upCriLv() });
     }
     return this;
   }
 
-  downCriLv(): UnitEnhancementStatus {
+  downCriLv(): UnitLvStatus {
     if (this.enableDownCriLv) {
       return this.#updateState({ parameters: this.#enhancements.downCriLv() });
     }
@@ -194,4 +194,4 @@ class UnitEnhancementStatus {
   }
 }
 
-export default UnitEnhancementStatus;
+export default UnitLvStatus;

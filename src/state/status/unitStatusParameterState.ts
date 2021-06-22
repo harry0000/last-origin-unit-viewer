@@ -11,13 +11,13 @@ import {
   unitGearEquipmentStatusEffectState,
   unitOsEquipmentStatusEffectState
 } from '../equipment/unitEquipmentStatusEffectState';
-import { unitEnhancementStatusState } from './unitEnhancementStatusState';
+import { unitLvStatusState } from './unitLvStatusState';
 
 const unitStatusParameterState = selectorFamily<UnitStatusParameter, UnitBasicInfo>({
   key: 'unitStatusParameterState',
   get: (unit) => ({ get }) => {
     return new UnitStatusParameter(
-      get(unitEnhancementStatusState(unit)),
+      get(unitLvStatusState(unit)),
       get(unitBaseParameterState(unit)),
       get(unitChip1EquipmentStatusEffectState(unit)),
       get(unitChip2EquipmentStatusEffectState(unit)),

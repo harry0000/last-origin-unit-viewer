@@ -3,7 +3,7 @@ import UnitCoreLink from '../../domain/UnitCoreLink';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
 import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
-import { unitLvState } from '../status/unitEnhancementStatusState';
+import { unitLvState } from '../status/unitLvStatusState';
 
 import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';
 

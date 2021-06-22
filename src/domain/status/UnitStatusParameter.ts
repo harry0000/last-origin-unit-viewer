@@ -22,7 +22,7 @@ import {
   StatusEffectKey
 } from './StatusEffect';
 import UnitBaseParameter from './UnitBaseParameter';
-import UnitEnhancementStatus from './UnitEnhancementStatus';
+import UnitLvStatus from './UnitLvStatus';
 
 function reverseSign(value: ValueTypes): ValueTypes {
   if ('milliValue' in value) {
@@ -109,7 +109,7 @@ export class UnitStatusParameter {
   readonly defCoreLinkBonus: MilliValue;
 
   constructor(
-    unitEnhancement: UnitEnhancementStatus,
+    unitEnhancement: UnitLvStatus,
     baseParameter: UnitBaseParameter,
     chip1: StatusEffect,
     chip2: StatusEffect,

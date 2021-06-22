@@ -1,13 +1,13 @@
 import { atomFamily, DefaultValue, selector } from 'recoil';
 
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
-import UnitEnhancementStatus from '../../domain/status/UnitEnhancementStatus';
+import UnitLvStatus from '../../domain/status/UnitLvStatus';
 import { UnitLvValue } from '../../domain/status/UnitLv';
 import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
 
-export const unitEnhancementStatusState = atomFamily<UnitEnhancementStatus, UnitBasicInfo>({
-  key: 'unitEnhancementStatusState',
-  default: (unit) => new UnitEnhancementStatus(unit)
+export const unitLvStatusState = atomFamily<UnitLvStatus, UnitBasicInfo>({
+  key: 'unitLvStatusState',
+  default: (unit) => new UnitLvStatus(unit)
 });
 
 export const unitLvState = atomFamily<UnitLvValue, UnitBasicInfo>({
@@ -15,15 +15,15 @@ export const unitLvState = atomFamily<UnitLvValue, UnitBasicInfo>({
   default: 1
 });
 
-export const selectedUnitEnhancementStatusState = selector<UnitEnhancementStatus | undefined>({
-  key: 'selectedUnitEnhancementStatusState',
+export const selectedUnitLvStatusState = selector<UnitLvStatus | undefined>({
+  key: 'selectedUnitLvStatusState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitEnhancementStatusState(selected));
+    return selected && get(unitLvStatusState(selected));
   },
   set: ({ set }, newValue) => {
     if (newValue && !(newValue instanceof DefaultValue)) {
-      set(unitEnhancementStatusState(newValue.unit), newValue);
+      set(unitLvStatusState(newValue.unit), newValue);
       set(unitLvState(newValue.unit), newValue.lv);
     }
   }

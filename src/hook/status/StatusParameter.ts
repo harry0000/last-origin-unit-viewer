@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { selectedUnitEnhancementStatusState } from '../../state/status/unitEnhancementStatusState';
+import { selectedUnitLvStatusState } from '../../state/status/unitLvStatusState';
 import { selectedUnitStatusParameterState } from '../../state/status/unitStatusParameterState';
 
 import { EnhanceableParameterType } from '../../component/status/UnitStatusParameterRow';
@@ -23,7 +23,7 @@ export function useStatusParameter(parameter: EnhanceableParameterType | 'spd'):
 }
 
 export function useStatusParameterEnhancedLv(parameter: EnhanceableParameterType): number | undefined {
-  const enhancement = useRecoilValue(selectedUnitEnhancementStatusState);
+  const enhancement = useRecoilValue(selectedUnitLvStatusState);
   switch (parameter) {
   case 'hp':  return enhancement?.hpLv;
   case 'atk': return enhancement?.atkLv;
@@ -37,7 +37,7 @@ export function useStatusParameterEnhancedLv(parameter: EnhanceableParameterType
 export function useStatusParameterControl(
   parameter: EnhanceableParameterType
 ): [upDisabled: boolean, downDisabled: boolean, increment: () => void, decrement: () => void] {
-  const [status, setter] = useRecoilState(selectedUnitEnhancementStatusState);
+  const [status, setter] = useRecoilState(selectedUnitLvStatusState);
 
   switch (parameter) {
   case 'hp': return [!status?.enableUpHpLv, !status?.enableDownHpLv, () => setter(s => s?.upHpLv()), () => setter(s => s?.downHpLv())];

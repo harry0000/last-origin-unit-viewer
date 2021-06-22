@@ -8,7 +8,7 @@ import {
   unitGearEquipmentState,
   unitOsEquipmentState
 } from './unitEquipmentState';
-import { unitLvState } from '../status/unitEnhancementStatusState';
+import { unitLvState } from '../status/unitLvStatusState';
 import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
 
 export const unitChip1EquipmentStatusEffectState = selectorFamily<StatusEffect, UnitBasicInfo>({

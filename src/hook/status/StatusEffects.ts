@@ -2,7 +2,7 @@ import { TFunction } from 'i18next';
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
-import { selectedUnitEnhancementStatusState } from '../../state/status/unitEnhancementStatusState';
+import { selectedUnitLvStatusState } from '../../state/status/unitLvStatusState';
 import {
   selectedUnitChip1EquipmentState,
   selectedUnitChip2EquipmentState,
@@ -26,13 +26,13 @@ import { EffectedParameter, StatusEffectPopoverRowProps } from '../../component/
 import { ChipEquipment, GearEquipment, OsEquipment } from '../../domain/status/UnitEquipment';
 import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';
 import { StatusEffect } from '../../domain/status/StatusEffect';
-import UnitEnhancementStatus from '../../domain/status/UnitEnhancementStatus';
+import UnitLvStatus from '../../domain/status/UnitLvStatus';
 import { UnitStatusParameter } from '../../domain/status/UnitStatusParameter';
 import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../domain/ValueUnit';
 
 export function useStatusEffects(parameter: EffectedParameter): ReadonlyArray<StatusEffectPopoverRowProps> {
   const { t } = useTranslation();
-  const status = useRecoilValue(selectedUnitEnhancementStatusState);
+  const status = useRecoilValue(selectedUnitLvStatusState);
   const chip1  = useRecoilValue(selectedUnitChip1EquipmentState);
   const chip2  = useRecoilValue(selectedUnitChip2EquipmentState);
   const os     = useRecoilValue(selectedUnitOsEquipmentState);
@@ -60,7 +60,7 @@ export function useStatusEffects(parameter: EffectedParameter): ReadonlyArray<St
 
 function enhancementEffects(
   parameter: EffectedParameter,
-  status: UnitEnhancementStatus | undefined,
+  status: UnitLvStatus | undefined,
   t: TFunction
 ): ReadonlyArray<StatusEffectPopoverRowProps> {
   if (!status) {
