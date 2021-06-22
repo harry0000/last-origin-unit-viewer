@@ -37,7 +37,7 @@ class UnitSelector {
     this.selectedUnit = selectedUnit;
   }
 
-  private updateStore(values: {
+  #updateStore(values: {
     ranks?: ReadonlySet<UnitRank>,
     types?: ReadonlySet<UnitType>,
     roles?: ReadonlySet<UnitRole>,
@@ -61,7 +61,7 @@ class UnitSelector {
     );
   }
 
-  private toggleSelector<T>(values: ReadonlySet<T>, value: T): ReadonlySet<T> {
+  #toggleSelector<T>(values: ReadonlySet<T>, value: T): ReadonlySet<T> {
     const newValues = new Set(values);
     if (values.has(value)) {
       newValues.delete(value);
@@ -72,36 +72,36 @@ class UnitSelector {
   }
 
   toggleRank(rank: UnitRank): UnitSelector {
-    return this.updateStore({
-      ranks: this.toggleSelector(this.#ranks, rank),
+    return this.#updateStore({
+      ranks: this.#toggleSelector(this.#ranks, rank),
       selectedUnit: undefined
     });
   }
 
   toggleType(type: UnitType): UnitSelector {
-    return this.updateStore({
-      types: this.toggleSelector(this.#types, type),
+    return this.#updateStore({
+      types: this.#toggleSelector(this.#types, type),
       selectedUnit: undefined
     });
   }
 
   toggleRole(role: UnitRole): UnitSelector {
-    return this.updateStore({
-      roles: this.toggleSelector(this.#roles, role),
+    return this.#updateStore({
+      roles: this.#toggleSelector(this.#roles, role),
       selectedUnit: undefined
     });
   }
 
   toggleSkillEffect(effect: SkillEffectSelectorCondition): UnitSelector {
-    return this.updateStore({
-      skillEffects: this.toggleSelector(this.#skillEffects, effect),
+    return this.#updateStore({
+      skillEffects: this.#toggleSelector(this.#skillEffects, effect),
       selectedUnit: undefined
     });
   }
 
   selectUnit(unit: UnitBasicInfo): UnitSelector {
     if (unit.no !== this.selectedUnit?.no) {
-      return this.updateStore({ selectedUnit: unit });
+      return this.#updateStore({ selectedUnit: unit });
     }
     return this;
   }
@@ -127,11 +127,11 @@ class UnitSelector {
     skills: UnitSkillData
   ): ReadonlyArray<UnitBasicInfo> {
     return Object.values(units).filter(unit =>
-      this.matchUnit(unit) && matchSkillConditions(skills[unit.no], this.#skillEffects)
+      this.#matchUnit(unit) && matchSkillConditions(skills[unit.no], this.#skillEffects)
     );
   }
 
-  private matchUnit(unit: UnitBasicInfo): boolean {
+  #matchUnit(unit: UnitBasicInfo): boolean {
     return this.#ranks.has(unit.rank) && this.#types.has(unit.type) && this.#roles.has(unit.role);
   }
 }

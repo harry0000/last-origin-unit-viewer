@@ -142,7 +142,7 @@ class UnitCoreLink {
     return { rank: UnitRank.A, type: this.unit.type, role: this.unit.role, rate: 45 };
   }
 
-  private validateCoreLinkUnit(coreLinkUnit: CoreLinkUnit): boolean {
+  #validateCoreLinkUnit(coreLinkUnit: CoreLinkUnit): boolean {
     if ('unit' in coreLinkUnit) {
       return coreLinkUnit.unit === this.unit.no;
     }
@@ -151,35 +151,35 @@ class UnitCoreLink {
   }
 
   linkSlot1(coreLinkUnit: CoreLinkUnit): UnitCoreLink {
-    if (this.validateCoreLinkUnit(coreLinkUnit) && coreLinkUnit !== this.slot1) {
+    if (this.#validateCoreLinkUnit(coreLinkUnit) && coreLinkUnit !== this.slot1) {
       return new UnitCoreLink(this.unit, coreLinkUnit, this.slot2, this.slot3, this.slot4, this.slot5, this.fullLinkBonus);
     }
     return this;
   }
 
   linkSlot2(coreLinkUnit: CoreLinkUnit): UnitCoreLink {
-    if (this.validateCoreLinkUnit(coreLinkUnit) && coreLinkUnit !== this.slot2) {
+    if (this.#validateCoreLinkUnit(coreLinkUnit) && coreLinkUnit !== this.slot2) {
       return new UnitCoreLink(this.unit, this.slot1, coreLinkUnit, this.slot3, this.slot4, this.slot5, this.fullLinkBonus);
     }
     return this;
   }
 
   linkSlot3(coreLinkUnit: CoreLinkUnit): UnitCoreLink {
-    if (this.validateCoreLinkUnit(coreLinkUnit) && coreLinkUnit !== this.slot3) {
+    if (this.#validateCoreLinkUnit(coreLinkUnit) && coreLinkUnit !== this.slot3) {
       return new UnitCoreLink(this.unit, this.slot1, this.slot2, coreLinkUnit, this.slot4, this.slot5, this.fullLinkBonus);
     }
     return this;
   }
 
   linkSlot4(coreLinkUnit: CoreLinkUnit): UnitCoreLink {
-    if (this.validateCoreLinkUnit(coreLinkUnit) && coreLinkUnit !== this.slot4) {
+    if (this.#validateCoreLinkUnit(coreLinkUnit) && coreLinkUnit !== this.slot4) {
       return new UnitCoreLink(this.unit, this.slot1, this.slot2, this.slot3, coreLinkUnit, this.slot5, this.fullLinkBonus);
     }
     return this;
   }
 
   linkSlot5(coreLinkUnit: CoreLinkUnit): UnitCoreLink {
-    if (this.validateCoreLinkUnit(coreLinkUnit) && coreLinkUnit !== this.slot5) {
+    if (this.#validateCoreLinkUnit(coreLinkUnit) && coreLinkUnit !== this.slot5) {
       return new UnitCoreLink(this.unit, this.slot1, this.slot2, this.slot3, this.slot4, coreLinkUnit, this.fullLinkBonus);
     }
     return this;
