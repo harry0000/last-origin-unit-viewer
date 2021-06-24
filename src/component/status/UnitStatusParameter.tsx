@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { CSSObject, jsx } from '@emotion/react';
 import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -21,9 +21,15 @@ import NumberValueDropdown from '../common/NumberValueDropdown';
 import SVGIcon from '../icon/SVGIcon';
 import UnitLvModeToggleButton from './UnitLvModeToggleButton';
 
-import { UnitLvValue } from '../../domain/status/UnitLv';
+import { UnitLvMode, UnitLvValue } from '../../domain/status/UnitLv';
 
-import { selectedUnitLvStatusState } from '../../state/status/unitLvStatusState';
+import {
+  resetUnitPoints,
+  selectedUnitLvModeState,
+  selectedUnitLvState,
+  selectedUnitRemainPointsState,
+  selectedUnitUsedPointsCanResetState
+} from '../../state/status/unitLvStatusState';
 
 const unitLvStyle: CSSObject = {
   fontSize: '1.4em',
@@ -64,8 +70,41 @@ const rowPaddingWithDivider = {
 
 const unitLvItems = [...Array(100)].map((v, i) => 100 - i) as ReadonlyArray<UnitLvValue>;
 
-const ResetPointsButton: React.FC<{ disabled: boolean, onClick: () => void }> = ({ disabled, onClick }) => {
+function useUnitLv(): [lvMode: UnitLvMode | undefined, lv: 0 | UnitLvValue, setLv: (lv: UnitLvValue) => void] {
+  const [lv, setLv] = useRecoilState(selectedUnitLvState);
+  const lvMode = useRecoilValue(selectedUnitLvModeState);
+
+  return [lvMode, lv ?? 0, setLv];
+}
+
+const UnitLvView: React.FC = () => {
+  const [lvMode, lv, setLv] = useUnitLv();
+
+  return (
+    lvMode === UnitLvMode.Manual ?
+      (<NumberValueDropdown
+        css={{ display: 'inline-block' }}
+        id="unit-lv-dropdown"
+        items={unitLvItems}
+        value={lv ? lv : 1}
+        onChange={(lv) => { setLv(lv); }}
+      />) :
+      (<span>{lv}</span>)
+  );
+};
+
+const RemainPointsView: React.FC = () => {
+  const remainPoints = useRecoilValue(selectedUnitRemainPointsState) ?? 0;
+
+  return (<React.Fragment>{remainPoints}</React.Fragment>);
+};
+
+const ResetPointsButton: React.FC = () => {
   const { t } = useTranslation();
+
+  const disabled = !useRecoilValue(selectedUnitUsedPointsCanResetState);
+  const reset = useSetRecoilState(resetUnitPoints);
+
   const [show, setShow] = useState(false);
 
   useEffect(() => { setShow(false); }, [disabled]);
@@ -82,7 +121,7 @@ const ResetPointsButton: React.FC<{ disabled: boolean, onClick: () => void }> = 
         aria-label="Reset points"
         css={{ lineHeight: '1.2' }}
         disabled={disabled}
-        onClick={onClick}
+        onClick={() => reset()}
       >
         <SVGIcon
           css={{
@@ -99,35 +138,23 @@ const ResetPointsButton: React.FC<{ disabled: boolean, onClick: () => void }> = 
 
 const LvContainer: React.FC = () => {
   const { t } = useTranslation();
-  const [status, setStatus] = useRecoilState(selectedUnitLvStatusState);
 
   return (
     <React.Fragment>
       <div css={{ display: 'flex' }}>
         <div css={unitLvStyle}>
           <span css={{ marginRight: 5 }}>{t('lv')}</span>
-          {status?.lvMode === 'manual' ?
-            (<NumberValueDropdown
-              css={{ display: 'inline-block' }}
-              id="unit-lv-dropdown"
-              items={unitLvItems}
-              value={status.lv}
-              onChange={(lv) => { setStatus(s => s?.setUnitLv(lv)); }}
-            />) :
-            (<span>{status?.lv ?? 0}</span>)}
+          <UnitLvView />
         </div>
         <div css={remainPointsStyle}>
-          <div css={{ display: 'inline-block', width: '50%', textAlign: 'right' }}>{status ? status.remainPoints : 0}</div>
+          <div css={{ display: 'inline-block', width: '50%', textAlign: 'right' }}><RemainPointsView /></div>
           <div css={{ display: 'inline-block', width: '50%', textAlign: 'left', fontSize: '0.8em' }}>&nbsp;{t('status.remain_points')}</div>
         </div>
         <div css={resetPointsStyle}>
-          <ResetPointsButton
-            disabled={!status || status.usedPoints === 0}
-            onClick={() => { setStatus(s => s?.resetParameterPoints()); }}
-          />
+          <ResetPointsButton />
         </div>
       </div>
-      <UnitLvModeToggleButton disabled={!status} lvMode={status?.lvMode} onChange={() => { setStatus(s => s?.toggleLvMode()); }} />
+      <UnitLvModeToggleButton />
     </React.Fragment>
   );
 };

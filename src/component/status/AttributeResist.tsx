@@ -11,7 +11,12 @@ import StatusEffectsView from './StatusEffectsView';
 import { DamageAttribute } from '../../domain/skill/UnitSkillData';
 import { MilliPercentageValue } from '../../domain/ValueUnit';
 
-import { selectedUnitStatusParameterState } from '../../state/status/unitStatusParameterState';
+import {
+  selectedUnitElectricResistStatusParameterState,
+  selectedUnitFireResistStatusParameterState,
+  selectedUnitIceResistStatusParameterState
+} from '../../state/status/selectedUnitStatusParameterState';
+
 import { formatResistPercentage } from './UnitStatusParameterFormatter';
 
 const AttributeResist: React.FC<{
@@ -55,19 +60,19 @@ const AttributeResist: React.FC<{
 };
 
 export const FireResist: React.FC = () => {
-  const status = useRecoilValue(selectedUnitStatusParameterState);
+  const value = useRecoilValue(selectedUnitFireResistStatusParameterState)?.resist;
 
-  return (<AttributeResist attribute={DamageAttribute.Fire} value={status?.fireResist} />);
+  return (<AttributeResist attribute={DamageAttribute.Fire} value={value} />);
 };
 
 export const IceResist: React.FC = () => {
-  const status = useRecoilValue(selectedUnitStatusParameterState);
+  const value = useRecoilValue(selectedUnitIceResistStatusParameterState)?.resist;
 
-  return (<AttributeResist attribute={DamageAttribute.Ice} value={status?.iceResist} />);
+  return (<AttributeResist attribute={DamageAttribute.Ice} value={value} />);
 };
 
 export const ElectricResist: React.FC = () => {
-  const status = useRecoilValue(selectedUnitStatusParameterState);
+  const value = useRecoilValue(selectedUnitElectricResistStatusParameterState)?.resist;
 
-  return (<AttributeResist attribute={DamageAttribute.Electric} value={status?.electricResist} />);
+  return (<AttributeResist attribute={DamageAttribute.Electric} value={value} />);
 };

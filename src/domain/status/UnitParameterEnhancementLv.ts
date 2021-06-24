@@ -1,16 +1,57 @@
-import { IntegerValue, MilliPercentageValue, MilliValue } from '../ValueUnit';
-import { EnhancementStatusEffect } from './StatusEffect';
+import {
+  AccEnhancementStatusEffect,
+  AtkEnhancementStatusEffect,
+  CriEnhancementStatusEffect,
+  DefEnhancementStatusEffect,
+  EvaEnhancementStatusEffect,
+  HpEnhancementStatusEffect
+} from './StatusEffect';
 
-type ParameterLv = {
-  hpLv?: number,
-  atkLv?: number,
-  defLv?: number,
-  accLv?: number,
-  evaLv?: number,
-  criLv?: number
+type UpdateParams = {
+  hpLv: number,
+  hpStatusEffect: HpEnhancementStatusEffect
+} | {
+  atkLv: number,
+  atkStatusEffect: AtkEnhancementStatusEffect
+} | {
+  defLv: number,
+  defStatusEffect: DefEnhancementStatusEffect
+} | {
+  accLv: number,
+  accStatusEffect: AccEnhancementStatusEffect
+} | {
+  evaLv: number,
+  evaStatusEffect: EvaEnhancementStatusEffect
+} | {
+  criLv: number,
+  criStatusEffect: CriEnhancementStatusEffect
 }
 
 const MaxEnhancementLv = 300;
+
+function hpEnhancementEffect(lv: number): HpEnhancementStatusEffect {
+  return lv ? { hp_up: { value: lv * 8 } } : {};
+}
+
+function atkEnhancementEffect(lv: number): AtkEnhancementStatusEffect {
+  return lv ? { atk_up: { milliValue: lv * 1500 } } : {};
+}
+
+function defEnhancementEffect(lv: number): DefEnhancementStatusEffect {
+  return lv ? { def_up: { milliValue: lv * 1250 } } : {};
+}
+
+function accEnhancementEffect(lv: number): AccEnhancementStatusEffect {
+  return lv ? { acc_up: { milliPercentage: lv * 1500 } } : {};
+}
+
+function evaEnhancementEffect(lv: number): EvaEnhancementStatusEffect {
+  return lv ? { eva_up: { milliPercentage: lv * 400 } } : {};
+}
+
+function criEnhancementEffect(lv: number): CriEnhancementStatusEffect {
+  return lv ? { cri_up: { milliPercentage: lv * 400 } } : {};
+}
 
 class UnitParameterEnhancementLv {
 
@@ -21,13 +62,26 @@ class UnitParameterEnhancementLv {
   readonly evaLv: number;
   readonly criLv: number;
 
+  readonly hpStatusEffect: HpEnhancementStatusEffect;
+  readonly atkStatusEffect: AtkEnhancementStatusEffect;
+  readonly defStatusEffect: DefEnhancementStatusEffect;
+  readonly accStatusEffect: AccEnhancementStatusEffect;
+  readonly evaStatusEffect: EvaEnhancementStatusEffect;
+  readonly criStatusEffect: CriEnhancementStatusEffect;
+
   constructor(
     hpLv?: number,
     atkLv?: number,
     defLv?: number,
     accLv?: number,
     evaLv?: number,
-    criLv?: number
+    criLv?: number,
+    hpStatusEffect?: HpEnhancementStatusEffect,
+    atkStatusEffect?: AtkEnhancementStatusEffect,
+    defStatusEffect?: DefEnhancementStatusEffect,
+    accStatusEffect?: AccEnhancementStatusEffect,
+    evaStatusEffect?: EvaEnhancementStatusEffect,
+    criStatusEffect?: CriEnhancementStatusEffect
   ) {
     this.hpLv = hpLv ?? 0;
     this.atkLv = atkLv ?? 0;
@@ -35,16 +89,29 @@ class UnitParameterEnhancementLv {
     this.accLv = accLv ?? 0;
     this.evaLv = evaLv ?? 0;
     this.criLv = criLv ?? 0;
+
+    this.hpStatusEffect = hpStatusEffect ?? {};
+    this.atkStatusEffect = atkStatusEffect ?? {};
+    this.defStatusEffect = defStatusEffect ?? {};
+    this.accStatusEffect = accStatusEffect ?? {};
+    this.evaStatusEffect = evaStatusEffect ?? {};
+    this.criStatusEffect = criStatusEffect ?? {};
   }
 
-  updateParameterLv({ hpLv, atkLv, defLv, accLv, evaLv, criLv }: ParameterLv): UnitParameterEnhancementLv {
+  updateParameterLv(params: UpdateParams): UnitParameterEnhancementLv {
     return new UnitParameterEnhancementLv(
-      hpLv ?? this.hpLv,
-      atkLv ?? this.atkLv,
-      defLv ?? this.defLv,
-      accLv ?? this.accLv,
-      evaLv ?? this.evaLv,
-      criLv ?? this.criLv
+      'hpLv' in params ? params.hpLv : this.hpLv,
+      'atkLv' in params ? params.atkLv : this.atkLv,
+      'defLv' in params ? params.defLv : this.defLv,
+      'accLv' in params ? params.accLv : this.accLv,
+      'evaLv' in params ? params.evaLv : this.evaLv,
+      'criLv' in params ? params.criLv : this.criLv,
+      'hpStatusEffect' in params ? params.hpStatusEffect : this.hpStatusEffect,
+      'atkStatusEffect' in params ? params.atkStatusEffect : this.atkStatusEffect,
+      'defStatusEffect' in params ? params.defStatusEffect : this.defStatusEffect,
+      'accStatusEffect' in params ? params.accStatusEffect : this.accStatusEffect,
+      'evaStatusEffect' in params ? params.evaStatusEffect : this.evaStatusEffect,
+      'criStatusEffect' in params ? params.criStatusEffect : this.criStatusEffect
     );
   }
 
@@ -53,29 +120,7 @@ class UnitParameterEnhancementLv {
   }
 
   resetPoints(): UnitParameterEnhancementLv {
-    return this.updateParameterLv({
-      hpLv: 0,
-      atkLv: 0,
-      defLv: 0,
-      accLv: 0,
-      evaLv: 0,
-      criLv: 0
-    });
-  }
-
-  get statusEffects(): EnhancementStatusEffect {
-    const hp  = this.hpLv > 0  ? { hp_up: this.hpEnhancedValue } : {};
-    const atk = this.atkLv > 0 ? { atk_up: this.atkEnhancedValue } : {};
-    const def = this.defLv > 0 ? { def_up: this.defEnhancedValue } : {};
-    const acc = this.accLv > 0 ? { acc_up: this.accEnhancedValue } : {};
-    const eva = this.evaLv > 0 ? { eva_up: this.evaEnhancedValue } : {};
-    const cri = this.criLv > 0 ? { cri_up: this.criEnhancedValue } : {};
-
-    return Object.assign({}, hp, atk, def, acc, eva, cri);
-  }
-
-  get hpEnhancedValue(): IntegerValue {
-    return { value: this.hpLv * 8 };
+    return new UnitParameterEnhancementLv();
   }
 
   get enableUpHpLv(): boolean {
@@ -88,20 +133,18 @@ class UnitParameterEnhancementLv {
 
   upHpLv(): UnitParameterEnhancementLv {
     if (this.enableUpHpLv) {
-      return this.updateParameterLv({ hpLv: this.hpLv + 1 });
+      const hpLv = this.hpLv + 1;
+      return this.updateParameterLv({ hpLv, hpStatusEffect: hpEnhancementEffect(hpLv) });
     }
     return this;
   }
 
   downHpLv(): UnitParameterEnhancementLv {
     if (this.enableDownHpLv) {
-      return this.updateParameterLv({ hpLv: this.hpLv - 1 });
+      const hpLv = this.hpLv - 1;
+      return this.updateParameterLv({ hpLv, hpStatusEffect: hpEnhancementEffect(hpLv) });
     }
     return this;
-  }
-
-  get atkEnhancedValue(): MilliValue {
-    return { milliValue: this.atkLv * 1500 };
   }
 
   get enableUpAtkLv(): boolean {
@@ -114,20 +157,18 @@ class UnitParameterEnhancementLv {
 
   upAtkLv(): UnitParameterEnhancementLv {
     if (this.enableUpAtkLv) {
-      return this.updateParameterLv({ atkLv: this.atkLv + 1 });
+      const atkLv = this.atkLv + 1;
+      return this.updateParameterLv({ atkLv, atkStatusEffect: atkEnhancementEffect(atkLv) });
     }
     return this;
   }
 
   downAtkLv(): UnitParameterEnhancementLv {
     if (this.enableDownAtkLv) {
-      return this.updateParameterLv({ atkLv: this.atkLv - 1 });
+      const atkLv = this.atkLv - 1;
+      return this.updateParameterLv({ atkLv, atkStatusEffect: atkEnhancementEffect(atkLv) });
     }
     return this;
-  }
-
-  get defEnhancedValue(): MilliValue {
-    return { milliValue: this.defLv * 1250 };
   }
 
   get enableUpDefLv(): boolean {
@@ -140,20 +181,18 @@ class UnitParameterEnhancementLv {
 
   upDefLv(): UnitParameterEnhancementLv {
     if (this.enableUpDefLv) {
-      return this.updateParameterLv({ defLv: this.defLv + 1 });
+      const defLv = this.defLv + 1;
+      return this.updateParameterLv({ defLv, defStatusEffect: defEnhancementEffect(defLv) });
     }
     return this;
   }
 
   downDefLv(): UnitParameterEnhancementLv {
     if (this.enableDownDefLv) {
-      return this.updateParameterLv({ defLv: this.defLv - 1 });
+      const defLv = this.defLv - 1;
+      return this.updateParameterLv({ defLv, defStatusEffect: defEnhancementEffect(defLv) });
     }
     return this;
-  }
-
-  get accEnhancedValue(): MilliPercentageValue {
-    return { milliPercentage: this.accLv * 1500 };
   }
 
   get enableUpAccLv(): boolean {
@@ -166,20 +205,18 @@ class UnitParameterEnhancementLv {
 
   upAccLv(): UnitParameterEnhancementLv {
     if (this.enableUpAccLv) {
-      return this.updateParameterLv({ accLv: this.accLv + 1 });
+      const accLv = this.accLv + 1;
+      return this.updateParameterLv({ accLv, accStatusEffect: accEnhancementEffect(accLv) });
     }
     return this;
   }
 
   downAccLv(): UnitParameterEnhancementLv {
     if (this.enableDownAccLv) {
-      return this.updateParameterLv({ accLv: this.accLv - 1 });
+      const accLv = this.accLv - 1;
+      return this.updateParameterLv({ accLv, accStatusEffect: accEnhancementEffect(accLv) });
     }
     return this;
-  }
-
-  get evaEnhancedValue(): MilliPercentageValue {
-    return { milliPercentage: this.evaLv * 400 };
   }
 
   get enableUpEvaLv(): boolean {
@@ -192,20 +229,18 @@ class UnitParameterEnhancementLv {
 
   upEvaLv(): UnitParameterEnhancementLv {
     if (this.enableUpEvaLv) {
-      return this.updateParameterLv({ evaLv: this.evaLv + 1 });
+      const evaLv = this.evaLv + 1;
+      return this.updateParameterLv({ evaLv, evaStatusEffect: evaEnhancementEffect(evaLv) });
     }
     return this;
   }
 
   downEvaLv(): UnitParameterEnhancementLv {
     if (this.enableDownEvaLv) {
-      return this.updateParameterLv({ evaLv: this.evaLv - 1 });
+      const evaLv = this.evaLv - 1;
+      return this.updateParameterLv({ evaLv, evaStatusEffect: evaEnhancementEffect(evaLv) });
     }
     return this;
-  }
-
-  get criEnhancedValue(): MilliPercentageValue {
-    return { milliPercentage: this.criLv * 400 };
   }
 
   get enableUpCriLv(): boolean {
@@ -218,14 +253,16 @@ class UnitParameterEnhancementLv {
 
   upCriLv(): UnitParameterEnhancementLv {
     if (this.enableUpCriLv) {
-      return this.updateParameterLv({ criLv: this.criLv + 1 });
+      const criLv = this.criLv + 1;
+      return this.updateParameterLv({ criLv, criStatusEffect: criEnhancementEffect(criLv) });
     }
     return this;
   }
 
   downCriLv(): UnitParameterEnhancementLv {
     if (this.enableDownCriLv) {
-      return this.updateParameterLv({ criLv: this.criLv - 1 });
+      const criLv = this.criLv - 1;
+      return this.updateParameterLv({ criLv, criStatusEffect: criEnhancementEffect(criLv) });
     }
     return this;
   }

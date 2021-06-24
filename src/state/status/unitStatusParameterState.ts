@@ -1,24 +1,53 @@
-import { selector, selectorFamily } from 'recoil';
+import { selectorFamily } from 'recoil';
+
+import {
+  UnitAccStatusParameter,
+  UnitAtkStatusParameter,
+  UnitCriStatusParameter,
+  UnitDefStatusParameter,
+  UnitElectricResistStatusParameter,
+  UnitEvaStatusParameter,
+  UnitFireResistStatusParameter,
+  UnitHpStatusParameter,
+  UnitIceResistStatusParameter,
+  UnitSpdStatusParameter
+} from '../../domain/status/UnitStatusParameter';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
-import { UnitStatusParameter } from '../../domain/status/UnitStatusParameter';
 
 import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/unitCoreLinkState';
-import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
-import { unitBaseParameterState } from './unitBaseParameterState';
+import {
+  unitAccEnhancementStatusEffectState,
+  unitAtkEnhancementStatusEffectState,
+  unitCriEnhancementStatusEffectState,
+  unitDefEnhancementStatusEffectState,
+  unitEvaEnhancementStatusEffectState,
+  unitHpEnhancementStatusEffectState
+} from './unitLvStatusState';
+import {
+  unitBaseAccState,
+  unitBaseAtkState,
+  unitBaseCriState,
+  unitBaseDefState,
+  unitBaseElectricResistState,
+  unitBaseEvaState,
+  unitBaseFireResistState,
+  unitBaseHpState,
+  unitBaseIceResistState,
+  unitBaseSpdState
+} from './unitBaseParameterState';
 import {
   unitChip1EquipmentStatusEffectState,
   unitChip2EquipmentStatusEffectState,
   unitGearEquipmentStatusEffectState,
   unitOsEquipmentStatusEffectState
 } from '../equipment/unitEquipmentStatusEffectState';
-import { unitLvStatusState } from './unitLvStatusState';
 
-const unitStatusParameterState = selectorFamily<UnitStatusParameter, UnitBasicInfo>({
-  key: 'unitStatusParameterState',
+export const unitHpStatusParameterState = selectorFamily<UnitHpStatusParameter, UnitBasicInfo>({
+  key: 'unitHpStatusParameterState',
   get: (unit) => ({ get }) => {
-    return new UnitStatusParameter(
-      get(unitLvStatusState(unit)),
-      get(unitBaseParameterState(unit)),
+    return new UnitHpStatusParameter(
+      get(unitBaseHpState(unit.no)),
+      get(unitHpEnhancementStatusEffectState(unit.no)),
       get(unitChip1EquipmentStatusEffectState(unit)),
       get(unitChip2EquipmentStatusEffectState(unit)),
       get(unitOsEquipmentStatusEffectState(unit)),
@@ -29,10 +58,134 @@ const unitStatusParameterState = selectorFamily<UnitStatusParameter, UnitBasicIn
   }
 });
 
-export const selectedUnitStatusParameterState = selector<UnitStatusParameter | undefined>({
-  key: 'selectedUnitStatusParameterState',
-  get: ({ get }) => {
-    const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitStatusParameterState(selected));
+export const unitAtkStatusParameterState = selectorFamily<UnitAtkStatusParameter, UnitBasicInfo>({
+  key: 'unitAtkStatusParameterState',
+  get: (unit) => ({ get }) => {
+    return new UnitAtkStatusParameter(
+      get(unitBaseAtkState(unit.no)),
+      get(unitAtkEnhancementStatusEffectState(unit.no)),
+      get(unitChip1EquipmentStatusEffectState(unit)),
+      get(unitChip2EquipmentStatusEffectState(unit)),
+      get(unitOsEquipmentStatusEffectState(unit)),
+      get(unitGearEquipmentStatusEffectState(unit)),
+      get(coreLinkBonusEffectsState(unit))
+    );
+  }
+});
+
+export const unitDefStatusParameterState = selectorFamily<UnitDefStatusParameter, UnitBasicInfo>({
+  key: 'unitDefStatusParameterState',
+  get: (unit) => ({ get }) => {
+    return new UnitDefStatusParameter(
+      get(unitBaseDefState(unit.no)),
+      get(unitDefEnhancementStatusEffectState(unit.no)),
+      get(unitChip1EquipmentStatusEffectState(unit)),
+      get(unitChip2EquipmentStatusEffectState(unit)),
+      get(unitOsEquipmentStatusEffectState(unit)),
+      get(unitGearEquipmentStatusEffectState(unit)),
+      get(coreLinkBonusEffectsState(unit))
+    );
+  }
+});
+
+export const unitAccStatusParameterState = selectorFamily<UnitAccStatusParameter, UnitBasicInfo>({
+  key: 'unitAccStatusParameterState',
+  get: (unit) => ({ get }) => {
+    return new UnitAccStatusParameter(
+      get(unitBaseAccState(unit.no)),
+      get(unitAccEnhancementStatusEffectState(unit.no)),
+      get(unitChip1EquipmentStatusEffectState(unit)),
+      get(unitChip2EquipmentStatusEffectState(unit)),
+      get(unitOsEquipmentStatusEffectState(unit)),
+      get(unitGearEquipmentStatusEffectState(unit)),
+      get(coreLinkBonusEffectsState(unit)),
+      get(fullLinkBonusEffectState(unit))
+    );
+  }
+});
+
+export const unitEvaStatusParameterState = selectorFamily<UnitEvaStatusParameter, UnitBasicInfo>({
+  key: 'unitEvaStatusParameterState',
+  get: (unit) => ({ get }) => {
+    return new UnitEvaStatusParameter(
+      get(unitBaseEvaState(unit.no)),
+      get(unitEvaEnhancementStatusEffectState(unit.no)),
+      get(unitChip1EquipmentStatusEffectState(unit)),
+      get(unitChip2EquipmentStatusEffectState(unit)),
+      get(unitOsEquipmentStatusEffectState(unit)),
+      get(unitGearEquipmentStatusEffectState(unit)),
+      get(coreLinkBonusEffectsState(unit)),
+      get(fullLinkBonusEffectState(unit))
+    );
+  }
+});
+
+export const unitCriStatusParameterState = selectorFamily<UnitCriStatusParameter, UnitBasicInfo>({
+  key: 'unitCriStatusParameterState',
+  get: (unit) => ({ get }) => {
+    return new UnitCriStatusParameter(
+      get(unitBaseCriState(unit.no)),
+      get(unitCriEnhancementStatusEffectState(unit.no)),
+      get(unitChip1EquipmentStatusEffectState(unit)),
+      get(unitChip2EquipmentStatusEffectState(unit)),
+      get(unitOsEquipmentStatusEffectState(unit)),
+      get(unitGearEquipmentStatusEffectState(unit)),
+      get(coreLinkBonusEffectsState(unit)),
+      get(fullLinkBonusEffectState(unit))
+    );
+  }
+});
+
+export const unitSpdStatusParameterState = selectorFamily<UnitSpdStatusParameter, UnitBasicInfo>({
+  key: 'unitSpdStatusParameterState',
+  get: (unit) => ({ get }) => {
+    return new UnitSpdStatusParameter(
+      get(unitBaseSpdState(unit.no)),
+      get(unitChip1EquipmentStatusEffectState(unit)),
+      get(unitChip2EquipmentStatusEffectState(unit)),
+      get(unitOsEquipmentStatusEffectState(unit)),
+      get(unitGearEquipmentStatusEffectState(unit)),
+      get(coreLinkBonusEffectsState(unit)),
+      get(fullLinkBonusEffectState(unit))
+    );
+  }
+});
+
+export const unitFireResistStatusParameterState = selectorFamily<UnitFireResistStatusParameter, UnitBasicInfo>({
+  key: 'unitFireResistStatusParameterState',
+  get: (unit) => ({ get }) => {
+    return new UnitFireResistStatusParameter(
+      get(unitBaseFireResistState(unit.no)),
+      get(unitChip1EquipmentStatusEffectState(unit)),
+      get(unitChip2EquipmentStatusEffectState(unit)),
+      get(unitOsEquipmentStatusEffectState(unit)),
+      get(unitGearEquipmentStatusEffectState(unit))
+    );
+  }
+});
+
+export const unitIceResistStatusParameterState = selectorFamily<UnitIceResistStatusParameter, UnitBasicInfo>({
+  key: 'unitIceResistStatusParameterState',
+  get: (unit) => ({ get }) => {
+    return new UnitIceResistStatusParameter(
+      get(unitBaseIceResistState(unit.no)),
+      get(unitChip1EquipmentStatusEffectState(unit)),
+      get(unitChip2EquipmentStatusEffectState(unit)),
+      get(unitOsEquipmentStatusEffectState(unit)),
+      get(unitGearEquipmentStatusEffectState(unit))
+    );
+  }
+});
+
+export const unitElectricResistStatusParameterState = selectorFamily<UnitElectricResistStatusParameter, UnitBasicInfo>({
+  key: 'unitElectricResistStatusParameterState',
+  get: (unit) => ({ get }) => {
+    return new UnitElectricResistStatusParameter(
+      get(unitBaseElectricResistState(unit.no)),
+      get(unitChip1EquipmentStatusEffectState(unit)),
+      get(unitChip2EquipmentStatusEffectState(unit)),
+      get(unitOsEquipmentStatusEffectState(unit)),
+      get(unitGearEquipmentStatusEffectState(unit))
+    );
   }
 });

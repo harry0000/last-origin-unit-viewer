@@ -1,7 +1,14 @@
-import { UnitBasicInfo } from '../UnitBasicInfo';
+import { UnitNumber } from '../UnitBasicInfo';
 import UnitLv, { UnitLvMode, UnitLvValue } from './UnitLv';
 import UnitParameterEnhancementLv from './UnitParameterEnhancementLv';
-import { EnhancementStatusEffect } from './StatusEffect';
+import {
+  AccEnhancementStatusEffect,
+  AtkEnhancementStatusEffect,
+  CriEnhancementStatusEffect,
+  DefEnhancementStatusEffect,
+  EvaEnhancementStatusEffect,
+  HpEnhancementStatusEffect
+} from './StatusEffect';
 
 type StateParams = {
   lv?: UnitLv,
@@ -10,14 +17,14 @@ type StateParams = {
 
 class UnitLvStatus {
 
-  readonly unit: UnitBasicInfo;
+  readonly unit: UnitNumber;
   readonly #lv: UnitLv;
   readonly #enhancements: UnitParameterEnhancementLv;
 
   readonly remainPoints: number;
 
   constructor(
-    unit: UnitBasicInfo,
+    unit: UnitNumber,
     lv?: UnitLv,
     enhancements?: UnitParameterEnhancementLv
   ) {
@@ -80,9 +87,12 @@ class UnitLvStatus {
     return this.#updateState({ parameters: this.#enhancements.resetPoints() });
   }
 
-  get statusEffects(): EnhancementStatusEffect {
-    return this.#enhancements.statusEffects;
-  }
+  get hpStatusEffect(): HpEnhancementStatusEffect { return this.#enhancements.hpStatusEffect; }
+  get atkStatusEffect(): AtkEnhancementStatusEffect { return this.#enhancements.atkStatusEffect; }
+  get defStatusEffect(): DefEnhancementStatusEffect { return this.#enhancements.defStatusEffect; }
+  get accStatusEffect(): AccEnhancementStatusEffect { return this.#enhancements.accStatusEffect; }
+  get evaStatusEffect(): EvaEnhancementStatusEffect { return this.#enhancements.evaStatusEffect; }
+  get criStatusEffect(): CriEnhancementStatusEffect { return this.#enhancements.criStatusEffect; }
 
   get hpLv(): number { return this.#enhancements.hpLv; }
   get atkLv(): number { return this.#enhancements.atkLv; }

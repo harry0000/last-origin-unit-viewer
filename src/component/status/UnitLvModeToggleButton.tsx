@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
@@ -9,12 +10,13 @@ import RoundedToggleButton from '../common/RoundedToggleButton';
 
 import { UnitLvMode } from '../../domain/status/UnitLv';
 
-const UnitLvModeToggleButton: React.FC<{
-  lvMode?: UnitLvMode,
-  disabled: boolean,
-  onChange: () => void
-}> = ({ lvMode, disabled, onChange }) => {
+import { toggleUnitLvMode, selectedUnitLvModeState } from '../../state/status/unitLvStatusState';
+
+const UnitLvModeToggleButton: React.FC = () => {
   const { t } = useTranslation();
+
+  const lvMode = useRecoilValue(selectedUnitLvModeState);
+  const toggle = useSetRecoilState(toggleUnitLvMode);
 
   return (
     <OverlayTrigger
@@ -27,9 +29,9 @@ const UnitLvModeToggleButton: React.FC<{
             lineHeight: '0.7'
           }
         }}
-        disabled={disabled}
-        selected={lvMode === 'auto'}
-        onChange={onChange}
+        disabled={!lvMode}
+        selected={lvMode === UnitLvMode.Auto}
+        onChange={() => toggle()}
       >
         {t('status.lv_mode.label')}
       </RoundedToggleButton>

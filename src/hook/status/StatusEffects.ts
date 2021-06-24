@@ -2,7 +2,6 @@ import { TFunction } from 'i18next';
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
-import { selectedUnitLvStatusState } from '../../state/status/unitLvStatusState';
 import {
   selectedUnitChip1EquipmentState,
   selectedUnitChip2EquipmentState,
@@ -19,20 +18,30 @@ import {
   selectedUnitCoreLinkBonusEffectsState,
   selectedUnitFullLinkBonusEffectState
 } from '../../state/corelink/unitCoreLinkState';
-import { selectedUnitStatusParameterState } from '../../state/status/unitStatusParameterState';
+import {
+  selectedUnitAccEnhancementStatusEffectState,
+  selectedUnitAtkEnhancementStatusEffectState,
+  selectedUnitCriEnhancementStatusEffectState,
+  selectedUnitDefEnhancementStatusEffectState,
+  selectedUnitEvaEnhancementStatusEffectState,
+  selectedUnitHpEnhancementStatusEffectState,
+  selectedUnitStatusEnhancementLvState
+} from '../../state/status/unitLvStatusState';
+import {
+  selectedUnitAtkStatusParameterState,
+  selectedUnitDefStatusParameterState,
+  selectedUnitHpStatusParameterState
+} from '../../state/status/selectedUnitStatusParameterState';
 
 import { EffectedParameter, StatusEffectPopoverRowProps } from '../../component/status/StatusEffectsView';
 
 import { ChipEquipment, GearEquipment, OsEquipment } from '../../domain/status/UnitEquipment';
-import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';
 import { StatusEffect } from '../../domain/status/StatusEffect';
-import UnitLvStatus from '../../domain/status/UnitLvStatus';
-import { UnitStatusParameter } from '../../domain/status/UnitStatusParameter';
 import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../domain/ValueUnit';
 
 export function useStatusEffects(parameter: EffectedParameter): ReadonlyArray<StatusEffectPopoverRowProps> {
   const { t } = useTranslation();
-  const status = useRecoilValue(selectedUnitLvStatusState);
+
   const chip1  = useRecoilValue(selectedUnitChip1EquipmentState);
   const chip2  = useRecoilValue(selectedUnitChip2EquipmentState);
   const os     = useRecoilValue(selectedUnitOsEquipmentState);
@@ -43,93 +52,92 @@ export function useStatusEffects(parameter: EffectedParameter): ReadonlyArray<St
   const osEffect    = useRecoilValue(selectedUnitOsEquipmentStatusEffectState);
   const gearEffect  = useRecoilValue(selectedUnitGearEquipmentStatusEffectState);
 
-  const unitParameter = useRecoilValue(selectedUnitStatusParameterState);
-  const coreLinkEffects = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
-  const fullLinkEffects = useRecoilValue(selectedUnitFullLinkBonusEffectState);
-
   return [
-    ...enhancementEffects(parameter, status, t),
+    ...enhancementEffects(parameter, t),
     ...equipmentEffects(parameter, chip1Effect, chip1?.chip1, 'chip1', t),
     ...equipmentEffects(parameter, chip2Effect, chip2?.chip2, 'chip2', t),
     ...equipmentEffects(parameter, osEffect,    os?.os,       'os',    t),
     ...equipmentEffects(parameter, gearEffect,  gear?.gear,   'gear',  t),
-    ...coreLinkBonusEffects(parameter, coreLinkEffects, unitParameter, t),
-    ...fullLinkBonusEffects(parameter, fullLinkEffects, unitParameter, t)
+    ...coreLinkBonusEffects(parameter, t),
+    ...fullLinkBonusEffects(parameter, t)
   ];
 }
 
 function enhancementEffects(
   parameter: EffectedParameter,
-  status: UnitLvStatus | undefined,
   t: TFunction
 ): ReadonlyArray<StatusEffectPopoverRowProps> {
-  if (!status) {
-    return [];
-  }
-
-  let props: { effected: string, value: number } | undefined;
   switch (parameter) {
-  case 'hp':
-    if (status.statusEffects.hp_up) {
-      props = {
-        effected: t('status.effected.enhancement', { lv: status.hpLv }),
-        value: status.statusEffects.hp_up.value
-      };
-    }
-    break;
-  case 'atk':
-    if (status.statusEffects.atk_up) {
-      props = {
-        effected: t('status.effected.enhancement', { lv: status.atkLv }),
-        value: calcMilliValue(status.statusEffects.atk_up)
-      };
-    }
-    break;
-  case 'def':
-    if (status.statusEffects.def_up) {
-      props = {
-        effected: t('status.effected.enhancement', { lv: status.defLv }),
-        value: calcMilliValue(status.statusEffects.def_up)
-      };
-    }
-    break;
-  case 'acc':
-    if (status.statusEffects.acc_up) {
-      props = {
-        effected: t('status.effected.enhancement', { lv: status.accLv }),
-        value: calcMilliPercentageValue(status.statusEffects.acc_up)
-      };
-    }
-    break;
-  case 'eva':
-    if (status.statusEffects.eva_up) {
-      props = {
-        effected: t('status.effected.enhancement', { lv: status.evaLv }),
-        value: calcMilliPercentageValue(status.statusEffects.eva_up)
-      };
-    }
-    break;
-  case 'cri':
-    if (status.statusEffects.cri_up) {
-      props = {
-        effected: t('status.effected.enhancement', { lv: status.criLv }),
-        value: calcMilliPercentageValue(status.statusEffects.cri_up)
-      };
-    }
-    break;
+  case 'hp': {
+    const lv = useRecoilValue(selectedUnitStatusEnhancementLvState(parameter));
+    const value = useRecoilValue(selectedUnitHpEnhancementStatusEffectState)?.hp_up?.value;
+    return lv && value ?
+      [{
+        key: 'enhancement',
+        effected: t('status.effected.enhancement', { lv }),
+        value
+      }] :
+      [];
+  }
+  case 'atk': {
+    const lv = useRecoilValue(selectedUnitStatusEnhancementLvState(parameter));
+    const value = useRecoilValue(selectedUnitAtkEnhancementStatusEffectState)?.atk_up;
+    return lv && value ?
+      [{
+        key: 'enhancement',
+        effected: t('status.effected.enhancement', { lv }),
+        value: calcMilliValue(value)
+      }] :
+      [];
+  }
+  case 'def': {
+    const lv = useRecoilValue(selectedUnitStatusEnhancementLvState(parameter));
+    const value = useRecoilValue(selectedUnitDefEnhancementStatusEffectState)?.def_up;
+    return lv && value ?
+      [{
+        key: 'enhancement',
+        effected: t('status.effected.enhancement', { lv }),
+        value: calcMilliValue(value)
+      }] :
+      [];
+  }
+  case 'acc': {
+    const lv = useRecoilValue(selectedUnitStatusEnhancementLvState(parameter));
+    const value = useRecoilValue(selectedUnitAccEnhancementStatusEffectState)?.acc_up;
+    return lv && value ?
+      [{
+        key: 'enhancement',
+        effected: t('status.effected.enhancement', { lv }),
+        value: calcMilliPercentageValue(value)
+      }] :
+      [];
+  }
+  case 'eva': {
+    const lv = useRecoilValue(selectedUnitStatusEnhancementLvState(parameter));
+    const value = useRecoilValue(selectedUnitEvaEnhancementStatusEffectState)?.eva_up;
+    return lv && value ?
+      [{
+        key: 'enhancement',
+        effected: t('status.effected.enhancement', { lv }),
+        value: calcMilliPercentageValue(value)
+      }] :
+      [];
+  }
+  case 'cri': {
+    const lv = useRecoilValue(selectedUnitStatusEnhancementLvState(parameter));
+    const value = useRecoilValue(selectedUnitCriEnhancementStatusEffectState)?.cri_up;
+    return lv && value ?
+      [{
+        key: 'enhancement',
+        effected: t('status.effected.enhancement', { lv }),
+        value: calcMilliPercentageValue(value)
+      }] :
+      [];
+  }
   case 'spd':
   case 'fireResist':
   case 'iceResist':
   case 'electricResist':
-    break;
-  }
-
-  if (props) {
-    return [{
-      key: 'enhancement',
-      ...props
-    }];
-  } else {
     return [];
   }
 }
@@ -228,154 +236,150 @@ function equipmentEffects(
 
 function coreLinkBonusEffects(
   parameter: EffectedParameter,
-  bonus: CoreLinkBonus | undefined,
-  statusParameter: UnitStatusParameter | undefined,
   t: TFunction
 ): ReadonlyArray<StatusEffectPopoverRowProps> {
-  if (!bonus || !statusParameter) {
-    return [];
-  }
-
-  let props: { effected: string, value: number } | undefined;
   switch (parameter) {
-  case 'hp':
-    if (bonus.hp_up.milliPercentage !== 0) {
-      props = {
+  case 'hp': {
+    const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
+    const value = useRecoilValue(selectedUnitHpStatusParameterState)?.hpCoreLinkBonus.value;
+    return bonus && value ?
+      [{
+        key: 'core_link_bonus',
         effected: t('status.effected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.hp_up) }),
-        value: statusParameter.hpCoreLinkBonus.value
-      };
-    }
-    break;
-  case 'atk':
-    if (bonus.atk_up.milliPercentage !== 0) {
-      props = {
+        value
+      }] :
+      [];
+  }
+  case 'atk': {
+    const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
+    const value = useRecoilValue(selectedUnitAtkStatusParameterState)?.atkCoreLinkBonus;
+    return bonus && value?.milliValue ?
+      [{
+        key: 'core_link_bonus',
         effected: t('status.effected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.atk_up) }),
-        value: calcMilliValue(statusParameter.atkCoreLinkBonus)
-      };
-    }
-    break;
-  case 'def':
-    if ('def_up' in bonus && bonus.def_up.milliPercentage !== 0) {
-      props = {
+        value: calcMilliValue(value)
+      }] :
+      [];
+  }
+  case 'def': {
+    const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
+    const value = useRecoilValue(selectedUnitDefStatusParameterState)?.defCoreLinkBonus;
+    return bonus && 'def_up' in bonus && value?.milliValue ?
+      [{
+        key: 'core_link_bonus',
         effected: t('status.effected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.def_up) }),
-        value: calcMilliValue(statusParameter.defCoreLinkBonus)
-      };
-    }
-    break;
-  case 'acc':
-    if ('acc_up' in bonus && bonus.acc_up.milliPercentage !== 0) {
-      props = {
+        value: calcMilliValue(value)
+      }] :
+      [];
+  }
+  case 'acc': {
+    const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
+    return bonus && 'acc_up' in bonus && bonus.acc_up.milliPercentage ?
+      [{
+        key: 'core_link_bonus',
         effected: t('status.effected.core_link_bonus'),
         value: calcMilliPercentageValue(bonus.acc_up)
-      };
-    }
-    break;
-  case 'eva':
-    if ('eva_up' in bonus && bonus.eva_up.milliPercentage !== 0) {
-      props = {
+      }] :
+      [];
+  }
+  case 'eva': {
+    const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
+    return bonus && 'eva_up' in bonus && bonus.eva_up.milliPercentage ?
+      [{
+        key: 'core_link_bonus',
         effected: t('status.effected.core_link_bonus'),
         value: calcMilliPercentageValue(bonus.eva_up)
-      };
-    }
-    break;
-  case 'cri':
-    if ('cri_up' in bonus && bonus.cri_up.milliPercentage !== 0) {
-      props = {
+      }] :
+      [];
+  }
+  case 'cri': {
+    const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
+    return bonus && 'cri_up' in bonus && bonus.cri_up.milliPercentage ?
+      [{
+        key: 'core_link_bonus',
         effected: t('status.effected.core_link_bonus'),
         value: calcMilliPercentageValue(bonus.cri_up)
-      };
-    }
-    break;
-  case 'spd':
-    if ('spd_up' in bonus && bonus.spd_up.microValue !== 0) {
-      props = {
+      }] :
+      [];
+  }
+  case 'spd': {
+    const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
+    return bonus && 'spd_up' in bonus && bonus.spd_up.microValue ?
+      [{
+        key: 'core_link_bonus',
         effected: t('status.effected.full_link_bonus'),
         value: calcMicroValue(bonus.spd_up)
-      };
-    }
-    break;
+      }] :
+      [];
+  }
   case 'fireResist':
   case 'iceResist':
   case 'electricResist':
-    break;
-  }
-
-  if (props) {
-    return [{
-      key: 'core_link_bonus',
-      ...props
-    }];
-  } else {
     return [];
   }
 }
 
 function fullLinkBonusEffects(
   parameter: EffectedParameter,
-  bonus: FullLinkBonus | undefined,
-  statusParameter: UnitStatusParameter | undefined,
   t: TFunction
 ): ReadonlyArray<StatusEffectPopoverRowProps> {
-  if (!bonus || !statusParameter) {
-    return [];
-  }
-
-  let props: { effected: string, value: number } | undefined;
   switch (parameter) {
-  case 'hp':
-    if ('hp_up' in bonus) {
-      props = {
+  case 'hp': {
+    const bonus = useRecoilValue(selectedUnitFullLinkBonusEffectState);
+    const value = useRecoilValue(selectedUnitHpStatusParameterState)?.hpFullLinkBonus?.value ?? 0;
+    return bonus && 'hp_up' in bonus ?
+      [{
+        key: 'full_link_bonus',
         effected: t('status.effected.full_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.hp_up) }),
-        value: statusParameter.hpFullLinkBonus.value
-      };
-    }
-    break;
-  case 'acc':
-    if ('acc_up' in bonus) {
-      props = {
+        value
+      }] :
+      [];
+  }
+  case 'acc': {
+    const bonus = useRecoilValue(selectedUnitFullLinkBonusEffectState);
+    return bonus && 'acc_up' in bonus ?
+      [{
+        key: 'full_link_bonus',
         effected: t('status.effected.full_link_bonus'),
         value: calcMilliPercentageValue(bonus.acc_up)
-      };
-    }
-    break;
-  case 'eva':
-    if ('eva_up' in bonus) {
-      props = {
+      }] :
+      [];
+  }
+  case 'eva': {
+    const bonus = useRecoilValue(selectedUnitFullLinkBonusEffectState);
+    return bonus && 'eva_up' in bonus ?
+      [{
+        key: 'full_link_bonus',
         effected: t('status.effected.full_link_bonus'),
         value: calcMilliPercentageValue(bonus.eva_up)
-      };
-    }
-    break;
-  case 'cri':
-    if ('cri_up' in bonus) {
-      props = {
+      }] :
+      [];
+  }
+  case 'cri': {
+    const bonus = useRecoilValue(selectedUnitFullLinkBonusEffectState);
+    return bonus && 'cri_up' in bonus ?
+      [{
+        key: 'full_link_bonus',
         effected: t('status.effected.full_link_bonus'),
         value: calcMilliPercentageValue(bonus.cri_up)
-      };
-    }
-    break;
-  case 'spd':
-    if ('spd_up' in bonus) {
-      props = {
+      }] :
+      [];
+  }
+  case 'spd': {
+    const bonus = useRecoilValue(selectedUnitFullLinkBonusEffectState);
+    return bonus && 'spd_up' in bonus ?
+      [{
+        key: 'full_link_bonus',
         effected: t('status.effected.full_link_bonus'),
         value: calcMicroValue(bonus.spd_up)
-      };
-    }
-    break;
+      }] :
+      [];
+  }
   case 'atk':
   case 'def':
   case 'fireResist':
   case 'iceResist':
   case 'electricResist':
-    break;
-  }
-
-  if (props) {
-    return [{
-      key: 'full_link_bonus',
-      ...props
-    }];
-  } else {
     return [];
   }
 }

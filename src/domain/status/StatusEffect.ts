@@ -26,13 +26,12 @@ export type StatusEffectKey =
   MicroValueStatusEffectKey |
   MilliPercentageStatusEffectKey
 
-export type EnhancementStatusEffect = {
-  [key in typeof Effect.HpUp]?: IntegerValue
-} & {
-  [key in typeof Effect['AtkUp' | 'DefUp']]?: MilliValue
-} & {
-  [key in typeof Effect['AccUp' | 'EvaUp' | 'CriUp']]?: MilliPercentageValue
-}
+export type HpEnhancementStatusEffect = { [key in typeof Effect.HpUp]?: IntegerValue }
+export type AtkEnhancementStatusEffect = { [key in typeof Effect.AtkUp]?: MilliValue }
+export type DefEnhancementStatusEffect = { [key in typeof Effect.DefUp]?: MilliValue }
+export type AccEnhancementStatusEffect = { [key in typeof Effect.AccUp]?: MilliPercentageValue }
+export type EvaEnhancementStatusEffect = { [key in typeof Effect.EvaUp]?: MilliPercentageValue }
+export type CriEnhancementStatusEffect = { [key in typeof Effect.CriUp]?: MilliPercentageValue }
 
 export type StatusEffect = {
   [K in StatusEffectKey]?:
