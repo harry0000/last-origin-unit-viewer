@@ -2,8 +2,8 @@ import { atomFamily, DefaultValue, selector, selectorFamily } from 'recoil';
 import UnitCoreLink from '../../domain/UnitCoreLink';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
-import { selectedUnitBasicInfoState } from '../unit/unitSelectorStoreState';
-import { unitLvState } from '../status/unitEnhancementStatusState';
+import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
+import { unitLvState } from '../status/unitLvStatusState';
 
 import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';
 
@@ -35,7 +35,7 @@ export const linkRateState = selectorFamily<number, CoreLinkSlot | 'summary'>({
       return 0;
     }
 
-    const unitLv = get(unitLvState(coreLink.unit));
+    const unitLv = get(unitLvState(coreLink.unit.no));
     switch (type) {
     case 'slot1': return coreLink.slot1LinkRate(unitLv);
     case 'slot2': return coreLink.slot2LinkRate(unitLv);
@@ -55,7 +55,7 @@ export const coreLinkSlotAvailable = selectorFamily<boolean, CoreLinkSlot>({
       return false;
     }
 
-    const unitLv = get(unitLvState(coreLink.unit));
+    const unitLv = get(unitLvState(coreLink.unit.no));
     switch (slot) {
     case 'slot1': return coreLink.isSlot1Available(unitLv);
     case 'slot2': return coreLink.isSlot2Available(unitLv);
@@ -70,7 +70,7 @@ export const coreLinkBonusEffectsState = selectorFamily<CoreLinkBonus, UnitBasic
   key: 'coreLinkBonusEffectsState',
   get: (unit) => ({ get }) => {
     const coreLink = get(unitCoreLinkState(unit));
-    const unitLv = get(unitLvState(unit));
+    const unitLv = get(unitLvState(unit.no));
     return coreLink.bonusEffects(unitLv);
   }
 });
@@ -91,7 +91,7 @@ export const fullLinkBonusAvailableState = selector<boolean>({
       return false;
     }
 
-    const unitLv = get(unitLvState(coreLink.unit));
+    const unitLv = get(unitLvState(coreLink.unit.no));
     return coreLink.isFullLinkBonusAvailable(unitLv);
   }
 });
@@ -100,7 +100,7 @@ export const fullLinkBonusEffectState = selectorFamily<FullLinkBonus | undefined
   key: 'fullLinkBonusEffectState',
   get: (unit) => ({ get }) => {
     const coreLink = get(unitCoreLinkState(unit));
-    const unitLv = get(unitLvState(coreLink.unit));
+    const unitLv = get(unitLvState(coreLink.unit.no));
     return coreLink.fullLinkBonusEffect(unitLv);
   }
 });

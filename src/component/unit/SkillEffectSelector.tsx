@@ -2,15 +2,14 @@
 /** @jsx jsx */
 import { CSSObject, jsx } from '@emotion/react';
 import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
-import { Accordion } from 'react-bootstrap';
 
+import { Accordion } from 'react-bootstrap';
 import SkillEffectBadge from './SkillEffectBadge';
 import SkillEffectSelectorButton from './SkillEffectSelectorButton';
 
-import { unitSelectorStoreState } from '../../state/unit/unitSelectorStoreState';
-import { SkillEffectSelectorCondition } from '../../store/SkillEffectSelectorCondition';
+import { SkillEffectSelectorCondition } from '../../domain/selector/SkillEffectSelectorCondition';
+
 import { ifTruthy } from '../../util/react';
 
 const collapseBackground: CSSObject = {
@@ -34,10 +33,8 @@ const expandBackground: CSSObject = {
 };
 
 const SkillEffectSelector: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(true);
-
   const { t } = useTranslation();
-  const [store, setStore] = useRecoilState(unitSelectorStoreState);
+  const [collapsed, setCollapsed] = useState(true);
 
   return (
     <Accordion onSelect={() => setCollapsed(prev => !prev)}>
@@ -65,9 +62,9 @@ const SkillEffectSelector: React.FC = () => {
           {ifTruthy(
             collapsed,
             (<React.Fragment>
-              {Object.values(SkillEffectSelectorCondition).map(effect =>
-                ifTruthy(store.isSkillEffectSelected(effect), (<SkillEffectBadge key={effect} effect={effect} />))
-              )}
+              {Object.values(SkillEffectSelectorCondition).map(effect => (
+                <SkillEffectBadge key={effect} effect={effect} />
+              ))}
             </React.Fragment>)
           )}
         </div>
@@ -80,11 +77,8 @@ const SkillEffectSelector: React.FC = () => {
                 margin: '2px'
               }}
               key={effect}
-              selected={store.isSkillEffectSelected(effect)}
-              onChange={() => setStore(store.toggleSkillEffect(effect))}
-            >
-              <span>{t(`form.skill.${effect}`)}</span>
-            </SkillEffectSelectorButton>
+              effect={effect}
+            />
           ))}
         </div>
       </Accordion.Collapse>

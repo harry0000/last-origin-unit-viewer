@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Image } from 'react-bootstrap';
 
-import { selectedUnitBasicInfoState } from '../../state/unit/unitSelectorStoreState';
+import { selectedUnitBasicInfoState } from '../../state/selector/unitSelectorState';
 
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 

@@ -12,7 +12,7 @@ import { Search } from '../icon/FluentIcons';
 import SVGIcon from '../icon/SVGIcon';
 
 import { linkRateState, selectedUnitCoreLinkBonusEffectsState } from '../../state/corelink/unitCoreLinkState';
-import { selectedUnitBasicInfoState } from '../../state/unit/unitSelectorStoreState';
+import { selectedUnitBasicInfoState } from '../../state/selector/unitSelectorState';
 
 import { CoreLinkBonus } from '../../domain/UnitCoreLinkBonusData';
 

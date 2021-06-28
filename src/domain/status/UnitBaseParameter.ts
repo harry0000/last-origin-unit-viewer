@@ -1,6 +1,6 @@
 import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue } from '../ValueUnit';
 import { UnitLvValue } from './UnitLv';
-import { UnitBasicInfo } from '../UnitBasicInfo';
+import { UnitNumber } from '../UnitBasicInfo';
 
 import { unitStatusData } from '../../data/unitStatusData';
 import { ParameterPerLevel } from './UnitStatusData';
@@ -38,8 +38,8 @@ class UnitBaseParameter {
   readonly iceResist: MilliPercentageValue;
   readonly electricResist: MilliPercentageValue;
 
-  constructor(unit: UnitBasicInfo) {
-    const data = unitStatusData[unit.no];
+  constructor(unit: UnitNumber) {
+    const data = unitStatusData[unit];
     this.#hp = data.hp;
     this.#atk = data.atk;
     this.#def = data.def;

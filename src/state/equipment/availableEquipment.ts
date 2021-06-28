@@ -9,7 +9,7 @@ import {
 } from '../../domain/EquipmentData';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
-import { selectedUnitBasicInfoState } from '../unit/unitSelectorStoreState';
+import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
 
 import { equipmentData } from '../../data/equipmentData';
 

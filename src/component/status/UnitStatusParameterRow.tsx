@@ -63,18 +63,18 @@ const StatusParameterEnhancementLvView: React.FC<{ parameter: EnhanceableParamet
   return (
     <React.Fragment>
       <span>{t('lv')}</span>
-      <span css={{ display: 'inline-block', width: '2em', textAlign: 'right' }}>{enhancedLv ?? 0}</span>
+      <span css={{ display: 'inline-block', width: '2em', textAlign: 'right' }}>{enhancedLv}</span>
     </React.Fragment>
   );
 };
 
 const StatusParameterControlButtons: React.FC<{ parameter: EnhanceableParameterType }> = ({ parameter }) => {
-  const [upDisabled, downDisabled, increment, decrement] = useStatusParameterControl(parameter);
+  const [incrementDisabled, decrementDisabled, increment, decrement] = useStatusParameterControl(parameter);
 
   return (
     <React.Fragment>
-      <UnitStatusParameterButton disabled={downDisabled} onClick={decrement}><span>-</span></UnitStatusParameterButton>
-      <UnitStatusParameterButton disabled={upDisabled} onClick={increment}><span>+</span></UnitStatusParameterButton>
+      <UnitStatusParameterButton disabled={decrementDisabled} onClick={decrement}><span>-</span></UnitStatusParameterButton>
+      <UnitStatusParameterButton disabled={incrementDisabled} onClick={increment}><span>+</span></UnitStatusParameterButton>
     </React.Fragment>
   );
 };

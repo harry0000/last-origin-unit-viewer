@@ -1,6 +1,6 @@
 {
   "name": "last-origin-unit-viewer",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "private": true,
   "license": "UNLICENSED",
   "author": "harry0000 <https://github.com/harry0000>",
@@ -52,9 +52,9 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",
     "@types/jest": "^26.0.23",
-    "@typescript-eslint/eslint-plugin": "^4.27.0",
-    "@typescript-eslint/parser": "^4.27.0",
-    "eslint": "^7.28.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "eslint": "^7.29.0",
     "eslint-plugin-react": "^7.24.0"
   }
 }

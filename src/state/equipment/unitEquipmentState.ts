@@ -7,8 +7,8 @@ import {
   UnitOsEquipment
 } from '../../domain/status/UnitEquipment';
 
-import { selectedUnitBasicInfoState } from '../unit/unitSelectorStoreState';
-import { unitLvState } from '../status/unitEnhancementStatusState';
+import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
+import { unitLvState } from '../status/unitLvStatusState';
 
 export const unitChip1EquipmentState = atomFamily<UnitChip1Equipment, UnitBasicInfo>({
   key: 'unitChip1EquipmentState',
@@ -90,7 +90,7 @@ export const chip1SlotAvailableState = selector<boolean>({
       return false;
     }
 
-    const unitLv = get(unitLvState(chip1.unit));
+    const unitLv = get(unitLvState(chip1.unit.no));
     return chip1.isChip1Available(unitLv);
   }
 });
@@ -103,7 +103,7 @@ export const chip2SlotAvailableState = selector<boolean>({
       return false;
     }
 
-    const unitLv = get(unitLvState(chip2.unit));
+    const unitLv = get(unitLvState(chip2.unit.no));
     return chip2.isChip2Available(unitLv);
   }
 });
@@ -116,7 +116,7 @@ export const osSlotAvailableState = selector<boolean>({
       return false;
     }
 
-    const unitLv = get(unitLvState(os.unit));
+    const unitLv = get(unitLvState(os.unit.no));
     return os.isOsAvailable(unitLv);
   }
 });
@@ -129,7 +129,7 @@ export const gearSlotAvailableState = selector<boolean>({
       return false;
     }
 
-    const unitLv = get(unitLvState(gear.unit));
+    const unitLv = get(unitLvState(gear.unit.no));
     return gear.isGearAvailable(unitLv);
   }
 });

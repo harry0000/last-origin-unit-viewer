@@ -5,13 +5,13 @@ import {
   PassiveSkillDataAsEquipmentEffect,
   UnitSkillData,
   isPassiveSkillData
-} from '../domain/skill/UnitSkillData';
-import { Effect } from '../domain/Effect';
-import { EffectActivationState } from '../domain/EffectActivationState';
-import { FormChangeUnits } from '../domain/UnitFormValue';
-import { SkillEffectData, SkillEffectDataValue } from '../domain/skill/SkillEffectData';
-import { SkillEffectTag } from '../domain/skill/SkillEffectTag';
-import { UnitNumber } from '../domain/UnitBasicInfo';
+} from '../skill/UnitSkillData';
+import { Effect } from '../Effect';
+import { EffectActivationState } from '../EffectActivationState';
+import { FormChangeUnits } from '../UnitFormValue';
+import { SkillEffectData, SkillEffectDataValue } from '../skill/SkillEffectData';
+import { SkillEffectTag } from '../skill/SkillEffectTag';
+import { UnitNumber } from '../UnitBasicInfo';
 
 export const SkillEffectSelectorCondition = {
   FireActive: 'fire_active',

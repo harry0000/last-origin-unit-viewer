@@ -1,14 +1,14 @@
-import { UnitBasicData, UnitBasicInfo, UnitRank, UnitRole, UnitType } from '../domain/UnitBasicInfo';
-import { UnitSkillData } from '../domain/skill/UnitSkillData';
+import { UnitBasicData, UnitBasicInfo, UnitRank, UnitRole, UnitType } from '../UnitBasicInfo';
+import { UnitSkillData } from '../skill/UnitSkillData';
 import {
   SkillEffectSelectorCondition,
   matchSkillConditions
 } from './SkillEffectSelectorCondition';
 
-class UnitSelectorStore {
+class UnitSelector {
 
-  static initialState(): UnitSelectorStore {
-    return new UnitSelectorStore(
+  static initialState(): UnitSelector {
+    return new UnitSelector(
       new Set<UnitRank>(['ss', 's', 'a', 'b']),
       new Set<UnitType>(['light', 'heavy', 'flying']),
       new Set<UnitRole>(['attacker', 'defender', 'supporter']),
@@ -37,13 +37,13 @@ class UnitSelectorStore {
     this.selectedUnit = selectedUnit;
   }
 
-  private updateStore(values: {
+  #updateStore(values: {
     ranks?: ReadonlySet<UnitRank>,
     types?: ReadonlySet<UnitType>,
     roles?: ReadonlySet<UnitRole>,
     skillEffects?: ReadonlySet<SkillEffectSelectorCondition>,
     selectedUnit?: UnitBasicInfo
-  }): UnitSelectorStore {
+  }): UnitSelector {
     const newValues = {
       ranks: values.ranks ?? this.#ranks,
       types: values.types ?? this.#types,
@@ -52,7 +52,7 @@ class UnitSelectorStore {
       selectedUnit: values.selectedUnit
     };
 
-    return new UnitSelectorStore(
+    return new UnitSelector(
       newValues.ranks,
       newValues.types,
       newValues.roles,
@@ -61,7 +61,7 @@ class UnitSelectorStore {
     );
   }
 
-  private toggleSelector<T>(values: ReadonlySet<T>, value: T): ReadonlySet<T> {
+  #toggleSelector<T>(values: ReadonlySet<T>, value: T): ReadonlySet<T> {
     const newValues = new Set(values);
     if (values.has(value)) {
       newValues.delete(value);
@@ -71,37 +71,37 @@ class UnitSelectorStore {
     }
   }
 
-  toggleRank(rank: UnitRank): UnitSelectorStore {
-    return this.updateStore({
-      ranks: this.toggleSelector(this.#ranks, rank),
+  toggleRank(rank: UnitRank): UnitSelector {
+    return this.#updateStore({
+      ranks: this.#toggleSelector(this.#ranks, rank),
       selectedUnit: undefined
     });
   }
 
-  toggleType(type: UnitType): UnitSelectorStore {
-    return this.updateStore({
-      types: this.toggleSelector(this.#types, type),
+  toggleType(type: UnitType): UnitSelector {
+    return this.#updateStore({
+      types: this.#toggleSelector(this.#types, type),
       selectedUnit: undefined
     });
   }
 
-  toggleRole(role: UnitRole): UnitSelectorStore {
-    return this.updateStore({
-      roles: this.toggleSelector(this.#roles, role),
+  toggleRole(role: UnitRole): UnitSelector {
+    return this.#updateStore({
+      roles: this.#toggleSelector(this.#roles, role),
       selectedUnit: undefined
     });
   }
 
-  toggleSkillEffect(effect: SkillEffectSelectorCondition): UnitSelectorStore {
-    return this.updateStore({
-      skillEffects: this.toggleSelector(this.#skillEffects, effect),
+  toggleSkillEffect(effect: SkillEffectSelectorCondition): UnitSelector {
+    return this.#updateStore({
+      skillEffects: this.#toggleSelector(this.#skillEffects, effect),
       selectedUnit: undefined
     });
   }
 
-  selectUnit(unit: UnitBasicInfo): UnitSelectorStore {
+  selectUnit(unit: UnitBasicInfo): UnitSelector {
     if (unit.no !== this.selectedUnit?.no) {
-      return this.updateStore({ selectedUnit: unit });
+      return this.#updateStore({ selectedUnit: unit });
     }
     return this;
   }
@@ -127,13 +127,13 @@ class UnitSelectorStore {
     skills: UnitSkillData
   ): ReadonlyArray<UnitBasicInfo> {
     return Object.values(units).filter(unit =>
-      this.matchUnit(unit) && matchSkillConditions(skills[unit.no], this.#skillEffects)
+      this.#matchUnit(unit) && matchSkillConditions(skills[unit.no], this.#skillEffects)
     );
   }
 
-  private matchUnit(unit: UnitBasicInfo): boolean {
+  #matchUnit(unit: UnitBasicInfo): boolean {
     return this.#ranks.has(unit.rank) && this.#types.has(unit.type) && this.#roles.has(unit.role);
   }
 }
 
-export default UnitSelectorStore;
+export default UnitSelector;

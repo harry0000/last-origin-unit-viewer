@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
-import { selectedUnitBasicInfoState } from '../../state/unit/unitSelectorStoreState';
+import { selectedUnitBasicInfoState } from '../../state/selector/unitSelectorState';
 import {
   selectedUnitActive1SkillState,
   selectedUnitActive2SkillState,

@@ -9,7 +9,7 @@ import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 import { UnitSkill, buildUnit } from '../../domain/skill/UnitSkill';
 
 import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/unitCoreLinkState';
-import { selectedUnitBasicInfoState } from '../unit/unitSelectorStoreState';
+import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
 
 export const unitSkillState = atomFamily<UnitSkill, UnitBasicInfo>({
   key: 'unitSkillState',

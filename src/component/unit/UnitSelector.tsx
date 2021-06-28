@@ -2,51 +2,57 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
-
-import { unitSelectorStoreState } from '../../state/unit/unitSelectorStoreState';
 
 import SelectorButton from './SelectorButton';
 import SkillEffectSelector from './SkillEffectSelector';
 
-const RankSelectorRow: React.FC = () => {
+import { UnitRank, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
+import { toggleUnitSelector, unitConditionSelectorState } from '../../state/selector/unitSelectorState';
+
+const UnitRankSelectorButton: React.FC<{ rank: UnitRank }> = ({ rank }) => {
   const { t } = useTranslation();
-  const [store, setStore] = useRecoilState(unitSelectorStoreState);
+  const selected = useRecoilValue(unitConditionSelectorState(rank));
+  const toggle = useSetRecoilState(toggleUnitSelector(rank));
 
   return (
-    <div>
-      <SelectorButton selected={store.isRankSelected('ss')} onChange={() => setStore(s => s.toggleRank('ss'))}>{t('form.unit.rank.ss')}</SelectorButton>
-      <SelectorButton selected={store.isRankSelected('s')}  onChange={() => setStore(s => s.toggleRank('s'))}>{t('form.unit.rank.s')}</SelectorButton>
-      <SelectorButton selected={store.isRankSelected('a')}  onChange={() => setStore(s => s.toggleRank('a'))}>{t('form.unit.rank.a')}</SelectorButton>
-      <SelectorButton selected={store.isRankSelected('b')}  onChange={() => setStore(s => s.toggleRank('b'))}>{t('form.unit.rank.b')}</SelectorButton>
-    </div>
+    <SelectorButton
+      selected={selected}
+      onChange={() => toggle()}
+    >
+      {t(`form.unit.rank.${rank}`)}
+    </SelectorButton>
   );
 };
 
-const TypeSelectorRow: React.FC = () => {
+const UnitTypeSelectorButton: React.FC<{ type: UnitType }> = ({ type }) => {
   const { t } = useTranslation();
-  const [store, setStore] = useRecoilState(unitSelectorStoreState);
+  const selected = useRecoilValue(unitConditionSelectorState(type));
+  const toggle = useSetRecoilState(toggleUnitSelector(type));
 
   return (
-    <div>
-      <SelectorButton selected={store.isTypeSelected('light')}  onChange={() => setStore(s => s.toggleType('light'))}>{t('form.unit.type.light')}</SelectorButton>
-      <SelectorButton selected={store.isTypeSelected('heavy')}  onChange={() => setStore(s => s.toggleType('heavy'))}>{t('form.unit.type.heavy')}</SelectorButton>
-      <SelectorButton selected={store.isTypeSelected('flying')} onChange={() => setStore(s => s.toggleType('flying'))}>{t('form.unit.type.flying')}</SelectorButton>
-    </div>
+    <SelectorButton
+      selected={selected}
+      onChange={() => toggle()}
+    >
+      {t(`form.unit.type.${type}`)}
+    </SelectorButton>
   );
 };
 
-const RoleSelectorRow: React.FC = () => {
+const UnitRoleSelectorButton: React.FC<{ role: UnitRole }> = ({ role }) => {
   const { t } = useTranslation();
-  const [store, setStore] = useRecoilState(unitSelectorStoreState);
+  const selected = useRecoilValue(unitConditionSelectorState(role));
+  const toggle = useSetRecoilState(toggleUnitSelector(role));
 
   return (
-    <div>
-      <SelectorButton selected={store.isRoleSelected('attacker')}  onChange={() => setStore(s => s.toggleRole('attacker'))}>{t('form.unit.role.attacker')}</SelectorButton>
-      <SelectorButton selected={store.isRoleSelected('defender')}  onChange={() => setStore(s => s.toggleRole('defender'))}>{t('form.unit.role.defender')}</SelectorButton>
-      <SelectorButton selected={store.isRoleSelected('supporter')} onChange={() => setStore(s => s.toggleRole('supporter'))}>{t('form.unit.role.supporter')}</SelectorButton>
-    </div>
+    <SelectorButton
+      selected={selected}
+      onChange={() => toggle()}
+    >
+      {t(`form.unit.role.${role}`)}
+    </SelectorButton>
   );
 };
 
@@ -60,9 +66,22 @@ const UnitSelector: React.FC<{ className?: string }> = (props) => {
         gridTemplateRows: 'repeat(3, auto)'
       }}
     >
-      <RankSelectorRow />
-      <TypeSelectorRow />
-      <RoleSelectorRow />
+      <div>
+        <UnitRankSelectorButton rank={UnitRank.SS} />
+        <UnitRankSelectorButton rank={UnitRank.S} />
+        <UnitRankSelectorButton rank={UnitRank.A} />
+        <UnitRankSelectorButton rank={UnitRank.B} />
+      </div>
+      <div>
+        <UnitTypeSelectorButton type={UnitType.Light} />
+        <UnitTypeSelectorButton type={UnitType.Flying} />
+        <UnitTypeSelectorButton type={UnitType.Heavy} />
+      </div>
+      <div>
+        <UnitRoleSelectorButton role={UnitRole.Attacker} />
+        <UnitRoleSelectorButton role={UnitRole.Defender} />
+        <UnitRoleSelectorButton role={UnitRole.Supporter} />
+      </div>
       <SkillEffectSelector />
     </div>
   );
