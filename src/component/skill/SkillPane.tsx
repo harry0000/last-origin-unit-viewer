@@ -198,8 +198,4 @@ const SkillPane: React.FC<{ eventKey: SkillType }> = ({ eventKey }) => {
   );
 };
 
-export const Active1SkillPane: React.FC = () => (<SkillPane eventKey="active1" />);
-export const Active2SkillPane: React.FC = () => (<SkillPane eventKey="active2" />);
-export const Passive1SkillPane: React.FC = () => (<SkillPane eventKey="passive1" />);
-export const Passive2SkillPane: React.FC = () => (<SkillPane eventKey="passive2" />);
-export const Passive3SkillPane: React.FC = () => (<SkillPane eventKey="passive3" />);
+export default SkillPane;

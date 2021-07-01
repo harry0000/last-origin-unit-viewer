@@ -2,17 +2,10 @@
 /** @jsx jsx */
 import { Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
-import React, { ReactNode } from 'react';
+import React, { Fragment, ReactNode, Suspense } from 'react';
 import { Nav, Tab } from 'react-bootstrap';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import {
-  Active1SkillPane,
-  Active2SkillPane,
-  Passive1SkillPane,
-  Passive2SkillPane,
-  Passive3SkillPane
-} from './UnitSkillPane';
 import {
   ActiveSkillIcon,
   DisableActiveSkillIcon,
@@ -119,6 +112,8 @@ const Passive3SkillNavItem: React.FC = () => {
   );
 };
 
+const SkillPane = React.lazy(() => import('./SkillPane'));
+
 const UnitSkillList: React.FC<{ className?: string, css?: Interpolation<Theme> }> = (props) => {
   const [activeTab, setActiveTab] = useRecoilState(unitSkillTabState);
 
@@ -137,11 +132,11 @@ const UnitSkillList: React.FC<{ className?: string, css?: Interpolation<Theme> }
           <Passive3SkillNavItem />
         </Nav>
         <Tab.Content css={{ minHeight: 300 }}>
-          <Active1SkillPane />
-          <Active2SkillPane />
-          <Passive1SkillPane />
-          <Passive2SkillPane />
-          <Passive3SkillPane />
+          <Suspense fallback={Fragment}><SkillPane eventKey="active1" /></Suspense>
+          <Suspense fallback={Fragment}><SkillPane eventKey="active2" /></Suspense>
+          <Suspense fallback={Fragment}><SkillPane eventKey="passive1" /></Suspense>
+          <Suspense fallback={Fragment}><SkillPane eventKey="passive2" /></Suspense>
+          <Suspense fallback={Fragment}><SkillPane eventKey="passive3" /></Suspense>
         </Tab.Content>
       </Tab.Container>
     </div>
