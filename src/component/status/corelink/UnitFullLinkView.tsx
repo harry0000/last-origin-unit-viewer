@@ -2,18 +2,19 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { MouseEventHandler, ReactNode } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { Dropdown } from 'react-bootstrap';
 
-import { availableFullLinkBonus } from '../../state/corelink/availableFullLinkBonus';
-import { fullLinkBonusAvailableState, selectedUnitCoreLinkState } from '../../state/corelink/unitCoreLinkState';
+import { FullLinkBonus } from '../../../domain/UnitCoreLinkBonusData';
+import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
+import { calcMicroValue, calcMilliPercentageValue } from '../../../domain/ValueUnit';
 
-import { FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';
-import { calcMicroValue, calcMilliPercentageValue } from '../../domain/ValueUnit';
+import { selectedUnitBasicInfoState } from '../../../state/selector/unitSelectorState';
+import { useAvailableFullLinkBonus, useFullLinkBonus } from '../../../state/corelink/unitCoreLinkState';
 
-import { ifTruthy } from '../../util/react';
+import { ifTruthy } from '../../../util/react';
 
 import './FullLinkBonusDropdown.css';
 
@@ -62,68 +63,69 @@ const FullLinkBonusItem: React.FC<{
   );
 };
 
-const FullLinkBonusDropdown: React.FC = () => {
-  const items = useRecoilValue(availableFullLinkBonus);
-  const [coreLink, setCoreLink] = useRecoilState(selectedUnitCoreLinkState);
-  const available = useRecoilValue(fullLinkBonusAvailableState);
+const FullLinkBonusToggle = React.forwardRef<
+  HTMLAnchorElement,
+  {
+    id: string,
+    onClick: MouseEventHandler<HTMLAnchorElement>,
+    available: boolean,
+    children: ReactNode
+  }
+>(({ id, onClick, available, children }, ref) => (
+  <a
+    href=""
+    ref={ref}
+    id={id}
+    onClick={(e) => {
+      e.preventDefault();
+      onClick(e);
+    }}
+  >
+    {children}
+    <span className="toggle" />
+    {ifTruthy(!available, (<span className="unavailable" />))}
+  </a>
+));
 
-  const FullLinkBonusToggle =
-    React.forwardRef<HTMLAnchorElement, {
-      id: string,
-      onClick: MouseEventHandler<HTMLAnchorElement>,
-      available: boolean,
-      children: ReactNode
-    }>((
-      { id, onClick, available, children },
-      ref
-    ) => (
-      <a
-        href=""
-        ref={ref}
-        id={id}
-        onClick={(e) => {
-          e.preventDefault();
-          onClick(e);
-        }}
-      >
-        {children}
-        <span className="toggle" />
-        {ifTruthy(!available, (<span className="unavailable" />))}
-      </a>
-    ));
+const FullLinkBonusDropdown: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
+  const items = useAvailableFullLinkBonus(unit);
+  const [selectedBonus, selectBonus, available] = useFullLinkBonus(unit);
+
+  return (
+    <Dropdown
+      className="full-link-bonus"
+      onSelect={eventKey => {
+        selectBonus(eventKey ? items[+eventKey] : undefined);
+      }}
+    >
+      <Dropdown.Toggle as={FullLinkBonusToggle} id="full-link-bonus-dropdown" available={available}>
+        <FullLinkBonusLabel bonus={selectedBonus} />
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        <UnselectBonusItem active={!selectedBonus} />
+        {items.map((bonus, i) => (
+          <FullLinkBonusItem
+            key={JSON.stringify(bonus)}
+            bonus={bonus}
+            eventKey={i}
+            active={bonus === selectedBonus}
+          />
+        ))}
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
+
+const FullLinkBonusSelector: React.FC = () => {
+  const selected = useRecoilValue(selectedUnitBasicInfoState);
 
   return (
     <div className="selector full-link-bonus">
-      <Dropdown
-        className="full-link-bonus"
-        onSelect={eventKey => {
-          const selectedBonus = eventKey ? items[+eventKey] : undefined;
-          setCoreLink(s => selectedBonus ? s?.selectFullLinkBonus(selectedBonus) : s?.unselectFullLinkBonus());
-        }}
-      >
-        {
-          items.length > 0 ? (
-            <React.Fragment>
-              <Dropdown.Toggle as={FullLinkBonusToggle} id="full-link-bonus-dropdown" available={available}>
-                <FullLinkBonusLabel bonus={coreLink?.fullLinkBonus} />
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <UnselectBonusItem active={!coreLink?.fullLinkBonus} />
-                {items.map((bonus, i) => (
-                  <FullLinkBonusItem
-                    key={JSON.stringify(bonus)}
-                    bonus={bonus}
-                    eventKey={i}
-                    active={bonus === coreLink?.fullLinkBonus}
-                  />
-                ))}
-              </Dropdown.Menu>
-            </React.Fragment>
-          ) : (
-            <span>&nbsp;</span>
-          )
-        }
-      </Dropdown>
+      {
+        selected ?
+          (<FullLinkBonusDropdown unit={selected} />) :
+          (<Dropdown className="full-link-bonus"><span>&nbsp;</span></Dropdown>)
+      }
     </div>
   );
 };
@@ -137,7 +139,7 @@ const UnitFullLinkView: React.FC = () => {
         <span>{t('status.full_link_bonus')}</span>
       </div>
       <div>
-        <FullLinkBonusDropdown />
+        <FullLinkBonusSelector />
       </div>
     </div>
   );

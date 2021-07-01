@@ -1,8 +1,5 @@
 import { atomFamily, selector, selectorFamily } from 'recoil';
 
-import { UnitLvMode, UnitLvValue } from '../../domain/status/UnitLv';
-import UnitLvStatus from '../../domain/status/UnitLvStatus';
-import { UnitNumber } from '../../domain/UnitBasicInfo';
 import {
   AccEnhancementStatusEffect,
   AtkEnhancementStatusEffect,
@@ -11,7 +8,18 @@ import {
   EvaEnhancementStatusEffect,
   HpEnhancementStatusEffect
 } from '../../domain/status/StatusEffect';
+import { UnitLvMode, UnitLvValue } from '../../domain/status/UnitLv';
+import UnitLvStatus from '../../domain/status/UnitLvStatus';
+import { UnitNumber } from '../../domain/UnitBasicInfo';
+
 import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
+import {
+  updateChip1EquipmentDependency,
+  updateChip2EquipmentDependency,
+  updateGearEquipmentDependency,
+  updateOsEquipmentDependency
+} from '../equipment/unitEquipmentState';
+import { updateCoreLinkDependency } from '../corelink/unitCoreLinkState';
 
 type Status = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri'
 type StatusKey = `${Capitalize<Status>}`
@@ -215,54 +223,6 @@ export const unitCriEnhancementStatusEffectState = selectorFamily<CriEnhancement
   get: (unit) => ({ get }) => get(unitLvStateAtoms.cri.statusEffect(unit))
 });
 
-export const selectedUnitHpEnhancementStatusEffectState = selector<HpEnhancementStatusEffect | undefined>({
-  key: 'selectedUnitHpEnhancementStatusEffectState',
-  get: ({ get }) => {
-    const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitLvStateAtoms.hp.statusEffect(selected.no));
-  }
-});
-
-export const selectedUnitAtkEnhancementStatusEffectState = selector<AtkEnhancementStatusEffect | undefined>({
-  key: 'selectedUnitAtkEnhancementStatusEffectState',
-  get: ({ get }) => {
-    const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitLvStateAtoms.atk.statusEffect(selected.no));
-  }
-});
-
-export const selectedUnitDefEnhancementStatusEffectState = selector<DefEnhancementStatusEffect | undefined>({
-  key: 'selectedUnitDefEnhancementStatusEffectState',
-  get: ({ get }) => {
-    const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitLvStateAtoms.def.statusEffect(selected.no));
-  }
-});
-
-export const selectedUnitAccEnhancementStatusEffectState = selector<AccEnhancementStatusEffect | undefined>({
-  key: 'selectedUnitAccEnhancementStatusEffectState',
-  get: ({ get }) => {
-    const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitLvStateAtoms.acc.statusEffect(selected.no));
-  }
-});
-
-export const selectedUnitEvaEnhancementStatusEffectState = selector<EvaEnhancementStatusEffect | undefined>({
-  key: 'selectedUnitEvaEnhancementStatusEffectState',
-  get: ({ get }) => {
-    const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitLvStateAtoms.eva.statusEffect(selected.no));
-  }
-});
-
-export const selectedUnitCriEnhancementStatusEffectState = selector<CriEnhancementStatusEffect | undefined>({
-  key: 'selectedUnitCriEnhancementStatusEffectState',
-  get: ({ get }) => {
-    const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitLvStateAtoms.cri.statusEffect(selected.no));
-  }
-});
-
 export const toggleUnitLvMode = selector<void>({
   key: 'toggleUnitLvMode',
   get: () => { return; },
@@ -321,6 +281,18 @@ export const decrementUnitStatusLv = selectorFamily<void, Status>({
   }
 });
 
+const updateUnitLvDependency = selectorFamily<UnitLvValue, UnitNumber>({
+  key: 'updateUnitLvDependency',
+  get: () => () => { throw new Error(); },
+  set: (unit) => ({ set }, lv) => {
+    set(updateChip1EquipmentDependency(unit), lv);
+    set(updateChip2EquipmentDependency(unit), lv);
+    set(updateOsEquipmentDependency(unit), lv);
+    set(updateGearEquipmentDependency(unit), lv);
+    set(updateCoreLinkDependency(unit), lv);
+  }
+});
+
 const _unitLvStatusState = atomFamily<UnitLvStatus, UnitNumber>({
   key: '_unitLvStatusState',
   default: (unit) => new UnitLvStatus(unit)
@@ -365,6 +337,8 @@ const unitLvStatusState = selectorFamily<UnitLvStatus, UnitNumber>({
       set(unitLvStateAtoms.cri.statusEffect(unit), newValue.criStatusEffect);
 
       set(_unitLvStatusState(unit), newValue);
+
+      set(updateUnitLvDependency(unit), newValue.lv);
     }
   }
 });

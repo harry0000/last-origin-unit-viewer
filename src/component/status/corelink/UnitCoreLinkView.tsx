@@ -2,32 +2,25 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { ReactNode } from 'react';
-import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import CoreLinkSelector from './CoreLinkSelector';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
-import PopoverListContent from '../common/PopoverListContent';
-import { Search } from '../icon/FluentIcons';
-import SVGIcon from '../icon/SVGIcon';
+import PopoverListContent from '../../common/PopoverListContent';
+import { Search } from '../../icon/FluentIcons';
+import SVGIcon from '../../icon/SVGIcon';
+import { effectValueColor } from '../../common/effectValueColor';
 
-import { linkRateState, selectedUnitCoreLinkBonusEffectsState } from '../../state/corelink/unitCoreLinkState';
-import { selectedUnitBasicInfoState } from '../../state/selector/unitSelectorState';
+import { CoreLinkBonus } from '../../../domain/UnitCoreLinkBonusData';
+import { calcMicroValue, calcMilliPercentageValue } from '../../../domain/ValueUnit';
 
-import { CoreLinkBonus } from '../../domain/UnitCoreLinkBonusData';
+import { useCoreLinkEffect, useCoreLinkRate } from '../../../state/corelink/unitCoreLinkState';
 
-import { ifTruthy } from '../../util/react';
-
+import '../UnitStatusSlot.css';
 import './UnitCoreLinkView.css';
-import './UnitStatusSlot.css';
-import { calcMicroValue, calcMilliPercentageValue } from '../../domain/ValueUnit';
-import { effectValueColor } from '../common/effectValueColor';
-
-export type CoreLinkSlot = 'slot1' | 'slot2' | 'slot3' | 'slot4' | 'slot5'
 
 const CoreLinkRate: React.FC = () => {
-  const rate = useRecoilValue(linkRateState('summary'));
-
+  const rate = useCoreLinkRate();
   return (<span className="core-link">{rate}&nbsp;%</span>);
 };
 
@@ -68,7 +61,7 @@ const CoreLinkEffectsPopoverView: React.FC<{
 };
 
 const CoreLinkEffectDetailView: React.FC = () => {
-  const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
+  const bonus = useCoreLinkEffect();
   const child = (<SVGIcon css={{ height: 20, width: 20, cursor: 'help' }}><Search /></SVGIcon>);
 
   return (
@@ -84,8 +77,6 @@ const CoreLinkEffectDetailView: React.FC = () => {
 
 const UnitCoreLinkView: React.FC = () => {
   const { t } = useTranslation();
-  const unit = useRecoilValue(selectedUnitBasicInfoState);
-
   return (
     <div className="slot-container">
       <div className="label">
@@ -94,11 +85,11 @@ const UnitCoreLinkView: React.FC = () => {
         <CoreLinkEffectDetailView />
       </div>
       <div className="slot-row">
-        <div className="slot-cell">{ifTruthy(!!unit, (<CoreLinkSelector slot="slot1" />))}</div>
-        <div className="slot-cell">{ifTruthy(!!unit, (<CoreLinkSelector slot="slot2" />))}</div>
-        <div className="slot-cell">{ifTruthy(!!unit, (<CoreLinkSelector slot="slot3" />))}</div>
-        <div className="slot-cell">{ifTruthy(!!unit, (<CoreLinkSelector slot="slot4" />))}</div>
-        <div className="slot-cell">{ifTruthy(!!unit, (<CoreLinkSelector slot="slot5" />))}</div>
+        <div className="slot-cell"><CoreLinkSelector slot="slot1" /></div>
+        <div className="slot-cell"><CoreLinkSelector slot="slot2" /></div>
+        <div className="slot-cell"><CoreLinkSelector slot="slot3" /></div>
+        <div className="slot-cell"><CoreLinkSelector slot="slot4" /></div>
+        <div className="slot-cell"><CoreLinkSelector slot="slot5" /></div>
       </div>
     </div>
   );

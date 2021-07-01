@@ -2,75 +2,72 @@ import { TFunction } from 'i18next';
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
+import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../../state/corelink/unitCoreLinkState';
 import {
-  selectedUnitChip1EquipmentState,
-  selectedUnitChip2EquipmentState,
-  selectedUnitGearEquipmentState,
-  selectedUnitOsEquipmentState
-} from '../../state/equipment/unitEquipmentState';
-import {
-  selectedUnitChip1EquipmentStatusEffectState,
-  selectedUnitChip2EquipmentStatusEffectState,
-  selectedUnitGearEquipmentStatusEffectState,
-  selectedUnitOsEquipmentStatusEffectState
-} from '../../state/equipment/unitEquipmentStatusEffectState';
-import {
-  selectedUnitCoreLinkBonusEffectsState,
-  selectedUnitFullLinkBonusEffectState
-} from '../../state/corelink/unitCoreLinkState';
-import {
-  selectedUnitAccEnhancementStatusEffectState,
-  selectedUnitAtkEnhancementStatusEffectState,
-  selectedUnitCriEnhancementStatusEffectState,
-  selectedUnitDefEnhancementStatusEffectState,
-  selectedUnitEvaEnhancementStatusEffectState,
-  selectedUnitHpEnhancementStatusEffectState,
-  selectedUnitStatusEnhancementLvState
+  unitAccEnhancementStatusEffectState,
+  unitAtkEnhancementStatusEffectState,
+  unitCriEnhancementStatusEffectState,
+  unitDefEnhancementStatusEffectState,
+  unitEvaEnhancementStatusEffectState,
+  unitHpEnhancementStatusEffectState,
+  unitStatusEnhancementLvState
 } from '../../state/status/unitLvStatusState';
 import {
-  selectedUnitAtkStatusParameterState,
-  selectedUnitDefStatusParameterState,
-  selectedUnitHpStatusParameterState
-} from '../../state/status/selectedUnitStatusParameterState';
+  unitAtkStatusParameterState,
+  unitDefStatusParameterState,
+  unitHpStatusParameterState
+} from '../../state/status/unitStatusParameterState';
+import {
+  unitChip1EquipmentState,
+  unitChip1EquipmentStatusEffectsState,
+  unitChip2EquipmentState,
+  unitChip2EquipmentStatusEffectsState,
+  unitGearEquipmentState,
+  unitGearEquipmentStatusEffectsState,
+  unitOsEquipmentState,
+  unitOsEquipmentStatusEffectsState
+} from '../../state/equipment/unitEquipmentState';
 
 import { EffectedParameter, StatusEffectPopoverRowProps } from '../../component/status/StatusEffectsView';
 
 import { ChipEquipment, GearEquipment, OsEquipment } from '../../domain/status/UnitEquipment';
 import { StatusEffect } from '../../domain/status/StatusEffect';
+import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../domain/ValueUnit';
 
-export function useStatusEffects(parameter: EffectedParameter): ReadonlyArray<StatusEffectPopoverRowProps> {
+export function useStatusEffects(unit: UnitBasicInfo, parameter: EffectedParameter): ReadonlyArray<StatusEffectPopoverRowProps> {
   const { t } = useTranslation();
 
-  const chip1  = useRecoilValue(selectedUnitChip1EquipmentState);
-  const chip2  = useRecoilValue(selectedUnitChip2EquipmentState);
-  const os     = useRecoilValue(selectedUnitOsEquipmentState);
-  const gear   = useRecoilValue(selectedUnitGearEquipmentState);
+  const chip1  = useRecoilValue(unitChip1EquipmentState(unit.no));
+  const chip2  = useRecoilValue(unitChip2EquipmentState(unit.no));
+  const os     = useRecoilValue(unitOsEquipmentState(unit.no));
+  const gear   = useRecoilValue(unitGearEquipmentState(unit.no));
 
-  const chip1Effect = useRecoilValue(selectedUnitChip1EquipmentStatusEffectState);
-  const chip2Effect = useRecoilValue(selectedUnitChip2EquipmentStatusEffectState);
-  const osEffect    = useRecoilValue(selectedUnitOsEquipmentStatusEffectState);
-  const gearEffect  = useRecoilValue(selectedUnitGearEquipmentStatusEffectState);
+  const chip1Effect = useRecoilValue(unitChip1EquipmentStatusEffectsState(unit));
+  const chip2Effect = useRecoilValue(unitChip2EquipmentStatusEffectsState(unit));
+  const osEffect    = useRecoilValue(unitOsEquipmentStatusEffectsState(unit));
+  const gearEffect  = useRecoilValue(unitGearEquipmentStatusEffectsState(unit));
 
   return [
-    ...enhancementEffects(parameter, t),
+    ...enhancementEffects(unit, parameter, t),
     ...equipmentEffects(parameter, chip1Effect, chip1?.chip1, 'chip1', t),
     ...equipmentEffects(parameter, chip2Effect, chip2?.chip2, 'chip2', t),
     ...equipmentEffects(parameter, osEffect,    os?.os,       'os',    t),
     ...equipmentEffects(parameter, gearEffect,  gear?.gear,   'gear',  t),
-    ...coreLinkBonusEffects(parameter, t),
-    ...fullLinkBonusEffects(parameter, t)
+    ...coreLinkBonusEffects(unit, parameter, t),
+    ...fullLinkBonusEffects(unit, parameter, t)
   ];
 }
 
 function enhancementEffects(
+  unit: UnitBasicInfo,
   parameter: EffectedParameter,
   t: TFunction
 ): ReadonlyArray<StatusEffectPopoverRowProps> {
   switch (parameter) {
   case 'hp': {
-    const lv = useRecoilValue(selectedUnitStatusEnhancementLvState(parameter));
-    const value = useRecoilValue(selectedUnitHpEnhancementStatusEffectState)?.hp_up?.value;
+    const lv = useRecoilValue(unitStatusEnhancementLvState([unit.no, parameter]));
+    const value = useRecoilValue(unitHpEnhancementStatusEffectState(unit.no))?.hp_up?.value;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -80,8 +77,8 @@ function enhancementEffects(
       [];
   }
   case 'atk': {
-    const lv = useRecoilValue(selectedUnitStatusEnhancementLvState(parameter));
-    const value = useRecoilValue(selectedUnitAtkEnhancementStatusEffectState)?.atk_up;
+    const lv = useRecoilValue(unitStatusEnhancementLvState([unit.no, parameter]));
+    const value = useRecoilValue(unitAtkEnhancementStatusEffectState(unit.no))?.atk_up;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -91,8 +88,8 @@ function enhancementEffects(
       [];
   }
   case 'def': {
-    const lv = useRecoilValue(selectedUnitStatusEnhancementLvState(parameter));
-    const value = useRecoilValue(selectedUnitDefEnhancementStatusEffectState)?.def_up;
+    const lv = useRecoilValue(unitStatusEnhancementLvState([unit.no, parameter]));
+    const value = useRecoilValue(unitDefEnhancementStatusEffectState(unit.no))?.def_up;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -102,8 +99,8 @@ function enhancementEffects(
       [];
   }
   case 'acc': {
-    const lv = useRecoilValue(selectedUnitStatusEnhancementLvState(parameter));
-    const value = useRecoilValue(selectedUnitAccEnhancementStatusEffectState)?.acc_up;
+    const lv = useRecoilValue(unitStatusEnhancementLvState([unit.no, parameter]));
+    const value = useRecoilValue(unitAccEnhancementStatusEffectState(unit.no))?.acc_up;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -113,8 +110,8 @@ function enhancementEffects(
       [];
   }
   case 'eva': {
-    const lv = useRecoilValue(selectedUnitStatusEnhancementLvState(parameter));
-    const value = useRecoilValue(selectedUnitEvaEnhancementStatusEffectState)?.eva_up;
+    const lv = useRecoilValue(unitStatusEnhancementLvState([unit.no, parameter]));
+    const value = useRecoilValue(unitEvaEnhancementStatusEffectState(unit.no))?.eva_up;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -124,8 +121,8 @@ function enhancementEffects(
       [];
   }
   case 'cri': {
-    const lv = useRecoilValue(selectedUnitStatusEnhancementLvState(parameter));
-    const value = useRecoilValue(selectedUnitCriEnhancementStatusEffectState)?.cri_up;
+    const lv = useRecoilValue(unitStatusEnhancementLvState([unit.no, parameter]));
+    const value = useRecoilValue(unitCriEnhancementStatusEffectState(unit.no))?.cri_up;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -235,13 +232,14 @@ function equipmentEffects(
 }
 
 function coreLinkBonusEffects(
+  unit: UnitBasicInfo,
   parameter: EffectedParameter,
   t: TFunction
 ): ReadonlyArray<StatusEffectPopoverRowProps> {
   switch (parameter) {
   case 'hp': {
-    const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
-    const value = useRecoilValue(selectedUnitHpStatusParameterState)?.hpCoreLinkBonus.value;
+    const bonus = useRecoilValue(coreLinkBonusEffectsState(unit.no));
+    const value = useRecoilValue(unitHpStatusParameterState(unit))?.hpCoreLinkBonus.value;
     return bonus && value ?
       [{
         key: 'core_link_bonus',
@@ -251,8 +249,8 @@ function coreLinkBonusEffects(
       [];
   }
   case 'atk': {
-    const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
-    const value = useRecoilValue(selectedUnitAtkStatusParameterState)?.atkCoreLinkBonus;
+    const bonus = useRecoilValue(coreLinkBonusEffectsState(unit.no));
+    const value = useRecoilValue(unitAtkStatusParameterState(unit))?.atkCoreLinkBonus;
     return bonus && value?.milliValue ?
       [{
         key: 'core_link_bonus',
@@ -262,8 +260,8 @@ function coreLinkBonusEffects(
       [];
   }
   case 'def': {
-    const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
-    const value = useRecoilValue(selectedUnitDefStatusParameterState)?.defCoreLinkBonus;
+    const bonus = useRecoilValue(coreLinkBonusEffectsState(unit.no));
+    const value = useRecoilValue(unitDefStatusParameterState(unit))?.defCoreLinkBonus;
     return bonus && 'def_up' in bonus && value?.milliValue ?
       [{
         key: 'core_link_bonus',
@@ -273,7 +271,7 @@ function coreLinkBonusEffects(
       [];
   }
   case 'acc': {
-    const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
+    const bonus = useRecoilValue(coreLinkBonusEffectsState(unit.no));
     return bonus && 'acc_up' in bonus && bonus.acc_up.milliPercentage ?
       [{
         key: 'core_link_bonus',
@@ -283,7 +281,7 @@ function coreLinkBonusEffects(
       [];
   }
   case 'eva': {
-    const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
+    const bonus = useRecoilValue(coreLinkBonusEffectsState(unit.no));
     return bonus && 'eva_up' in bonus && bonus.eva_up.milliPercentage ?
       [{
         key: 'core_link_bonus',
@@ -293,7 +291,7 @@ function coreLinkBonusEffects(
       [];
   }
   case 'cri': {
-    const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
+    const bonus = useRecoilValue(coreLinkBonusEffectsState(unit.no));
     return bonus && 'cri_up' in bonus && bonus.cri_up.milliPercentage ?
       [{
         key: 'core_link_bonus',
@@ -303,7 +301,7 @@ function coreLinkBonusEffects(
       [];
   }
   case 'spd': {
-    const bonus = useRecoilValue(selectedUnitCoreLinkBonusEffectsState);
+    const bonus = useRecoilValue(coreLinkBonusEffectsState(unit.no));
     return bonus && 'spd_up' in bonus && bonus.spd_up.microValue ?
       [{
         key: 'core_link_bonus',
@@ -320,13 +318,14 @@ function coreLinkBonusEffects(
 }
 
 function fullLinkBonusEffects(
+  unit: UnitBasicInfo,
   parameter: EffectedParameter,
   t: TFunction
 ): ReadonlyArray<StatusEffectPopoverRowProps> {
   switch (parameter) {
   case 'hp': {
-    const bonus = useRecoilValue(selectedUnitFullLinkBonusEffectState);
-    const value = useRecoilValue(selectedUnitHpStatusParameterState)?.hpFullLinkBonus?.value ?? 0;
+    const bonus = useRecoilValue(fullLinkBonusEffectState(unit.no));
+    const value = useRecoilValue(unitHpStatusParameterState(unit))?.hpFullLinkBonus?.value ?? 0;
     return bonus && 'hp_up' in bonus ?
       [{
         key: 'full_link_bonus',
@@ -336,7 +335,7 @@ function fullLinkBonusEffects(
       [];
   }
   case 'acc': {
-    const bonus = useRecoilValue(selectedUnitFullLinkBonusEffectState);
+    const bonus = useRecoilValue(fullLinkBonusEffectState(unit.no));
     return bonus && 'acc_up' in bonus ?
       [{
         key: 'full_link_bonus',
@@ -346,7 +345,7 @@ function fullLinkBonusEffects(
       [];
   }
   case 'eva': {
-    const bonus = useRecoilValue(selectedUnitFullLinkBonusEffectState);
+    const bonus = useRecoilValue(fullLinkBonusEffectState(unit.no));
     return bonus && 'eva_up' in bonus ?
       [{
         key: 'full_link_bonus',
@@ -356,7 +355,7 @@ function fullLinkBonusEffects(
       [];
   }
   case 'cri': {
-    const bonus = useRecoilValue(selectedUnitFullLinkBonusEffectState);
+    const bonus = useRecoilValue(fullLinkBonusEffectState(unit.no));
     return bonus && 'cri_up' in bonus ?
       [{
         key: 'full_link_bonus',
@@ -366,7 +365,7 @@ function fullLinkBonusEffects(
       [];
   }
   case 'spd': {
-    const bonus = useRecoilValue(selectedUnitFullLinkBonusEffectState);
+    const bonus = useRecoilValue(fullLinkBonusEffectState(unit.no));
     return bonus && 'spd_up' in bonus ?
       [{
         key: 'full_link_bonus',

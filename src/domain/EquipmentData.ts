@@ -1,6 +1,6 @@
 import { equipmentData } from '../data/equipmentData';
 import { Sequence } from '../util/type';
-import { UnitBasicInfo, UnitNumber, UnitRole, UnitType } from './UnitBasicInfo';
+import { UnitNumber, UnitRole, UnitType } from './UnitBasicInfo';
 import {
   IntegerValueEffectKey,
   MicroValueEffectKey,
@@ -14,6 +14,7 @@ import {
   MilliEquipmentValue,
   MilliPercentageEquipmentValue
 } from './EquipmentEffectValue';
+import { unitBasicData } from '../data/unitBasicData';
 
 export const EquipmentType = {
   Chip: 'chip',
@@ -67,19 +68,20 @@ export type ChipId = EquipmentTypeFilter<typeof EquipmentType.Chip>['id']
 export type OsId   = EquipmentTypeFilter<typeof EquipmentType.Os>['id']
 export type GearId = EquipmentTypeFilter<typeof EquipmentType.Gear>['id']
 
-export function matchExclusive(unit: UnitBasicInfo, equipment: EquipmentData): boolean {
+export function matchExclusive(unit: UnitNumber, equipment: EquipmentData): boolean {
   if (!('exclusive' in equipment)) {
     return true;
   }
 
   const exclusive = equipment.exclusive;
   if ('unit' in exclusive) {
-    return unit.no === exclusive.unit;
+    return unit === exclusive.unit;
   } else if ('type' in exclusive && 'role' in exclusive) {
-    return unit.type === exclusive.type && unit.role === exclusive.role;
+    const { type, role } = unitBasicData[unit];
+    return type === exclusive.type && role === exclusive.role;
   } else if ('type' in exclusive) {
-    return unit.type === exclusive.type;
+    return unitBasicData[unit].type === exclusive.type;
   } else {
-    return unit.role === exclusive.role;
+    return unitBasicData[unit].role === exclusive.role;
   }
 }

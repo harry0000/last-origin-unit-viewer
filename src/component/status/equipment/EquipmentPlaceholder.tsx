@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Image } from 'react-bootstrap';
 
-import { EquipmentType } from '../../domain/EquipmentData';
+import { EquipmentType } from '../../../domain/EquipmentData';
 
 const EquipmentPlaceholder: React.FC<{ type: EquipmentType }> = React.memo(({ type }) => {
   const { t } = useTranslation();

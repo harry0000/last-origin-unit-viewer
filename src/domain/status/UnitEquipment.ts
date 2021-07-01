@@ -8,8 +8,8 @@ import {
 } from '../EquipmentData';
 import { Effect } from '../Effect';
 import { StatusEffect } from './StatusEffect';
-import { UnitBasicInfo, UnitNumber } from '../UnitBasicInfo';
 import { UnitLvValue } from './UnitLv';
+import { UnitNumber } from '../UnitBasicInfo';
 import { toIntegerValue, toMicroValue, toMilliPercentageValue, toMilliValue } from '../EquipmentEffectValue';
 
 import { unitEquipmentSlot } from '../../data/unitEquipmentSlot';
@@ -70,11 +70,11 @@ function extractStatusEffect(data: StatusEffectData): StatusEffect {
 
 export class UnitChip1Equipment {
 
-  readonly unit: UnitBasicInfo;
+  readonly unit: UnitNumber;
   readonly chip1: ChipEquipment | undefined;
 
   constructor(
-    unit: UnitBasicInfo,
+    unit: UnitNumber,
     chip1?: ChipEquipment
   ) {
     this.unit = unit;
@@ -100,7 +100,7 @@ export class UnitChip1Equipment {
   }
 
   get chip1AvailableLv(): EquipmentSlotAvailableLv {
-    return unitEquipmentSlot[this.unit.no].chip1;
+    return unitEquipmentSlot[this.unit].chip1;
   }
 
   isChip1Available(lv: UnitLvValue): boolean {
@@ -121,11 +121,11 @@ export class UnitChip1Equipment {
 
 export class UnitChip2Equipment {
 
-  readonly unit: UnitBasicInfo;
+  readonly unit: UnitNumber;
   readonly chip2: ChipEquipment | undefined;
 
   constructor(
-    unit: UnitBasicInfo,
+    unit: UnitNumber,
     chip2?: ChipEquipment
   ) {
     this.unit = unit;
@@ -151,7 +151,7 @@ export class UnitChip2Equipment {
   }
 
   get chip2AvailableLv(): EquipmentSlotAvailableLv {
-    return unitEquipmentSlot[this.unit.no].chip2;
+    return unitEquipmentSlot[this.unit].chip2;
   }
 
   isChip2Available(lv: UnitLvValue): boolean {
@@ -172,11 +172,11 @@ export class UnitChip2Equipment {
 
 export class UnitOsEquipment {
 
-  readonly unit: UnitBasicInfo;
+  readonly unit: UnitNumber;
   readonly os: OsEquipment | undefined;
 
   constructor(
-    unit: UnitBasicInfo,
+    unit: UnitNumber,
     os?: OsEquipment
   ) {
     this.unit = unit;
@@ -202,7 +202,7 @@ export class UnitOsEquipment {
   }
 
   get osAvailableLv(): EquipmentSlotAvailableLv {
-    return unitEquipmentSlot[this.unit.no].os;
+    return unitEquipmentSlot[this.unit].os;
   }
 
   isOsAvailable(lv: UnitLvValue): boolean {
@@ -223,11 +223,11 @@ export class UnitOsEquipment {
 
 export class UnitGearEquipment {
 
-  readonly unit: UnitBasicInfo;
+  readonly unit: UnitNumber;
   readonly gear: GearEquipment | undefined;
 
   constructor(
-    unit: UnitBasicInfo,
+    unit: UnitNumber,
     gear?: GearEquipment
   ) {
     this.unit = unit;
@@ -253,7 +253,7 @@ export class UnitGearEquipment {
   }
 
   get gearAvailableLv(): EquipmentSlotAvailableLv {
-    return unitEquipmentSlot[this.unit.no].gear;
+    return unitEquipmentSlot[this.unit].gear;
   }
 
   isGearAvailable(lv: UnitLvValue): boolean {

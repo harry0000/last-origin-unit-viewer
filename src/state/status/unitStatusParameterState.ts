@@ -36,11 +36,11 @@ import {
   unitBaseSpdState
 } from './unitBaseParameterState';
 import {
-  unitChip1EquipmentStatusEffectState,
-  unitChip2EquipmentStatusEffectState,
-  unitGearEquipmentStatusEffectState,
-  unitOsEquipmentStatusEffectState
-} from '../equipment/unitEquipmentStatusEffectState';
+  unitChip1EquipmentStatusEffectsState,
+  unitChip2EquipmentStatusEffectsState,
+  unitGearEquipmentStatusEffectsState,
+  unitOsEquipmentStatusEffectsState
+} from '../equipment/unitEquipmentState';
 
 export const unitHpStatusParameterState = selectorFamily<UnitHpStatusParameter, UnitBasicInfo>({
   key: 'unitHpStatusParameterState',
@@ -48,12 +48,12 @@ export const unitHpStatusParameterState = selectorFamily<UnitHpStatusParameter, 
     return new UnitHpStatusParameter(
       get(unitBaseHpState(unit.no)),
       get(unitHpEnhancementStatusEffectState(unit.no)),
-      get(unitChip1EquipmentStatusEffectState(unit)),
-      get(unitChip2EquipmentStatusEffectState(unit)),
-      get(unitOsEquipmentStatusEffectState(unit)),
-      get(unitGearEquipmentStatusEffectState(unit)),
-      get(coreLinkBonusEffectsState(unit)),
-      get(fullLinkBonusEffectState(unit))
+      get(unitChip1EquipmentStatusEffectsState(unit)),
+      get(unitChip2EquipmentStatusEffectsState(unit)),
+      get(unitOsEquipmentStatusEffectsState(unit)),
+      get(unitGearEquipmentStatusEffectsState(unit)),
+      get(coreLinkBonusEffectsState(unit.no)),
+      get(fullLinkBonusEffectState(unit.no))
     );
   }
 });
@@ -64,11 +64,11 @@ export const unitAtkStatusParameterState = selectorFamily<UnitAtkStatusParameter
     return new UnitAtkStatusParameter(
       get(unitBaseAtkState(unit.no)),
       get(unitAtkEnhancementStatusEffectState(unit.no)),
-      get(unitChip1EquipmentStatusEffectState(unit)),
-      get(unitChip2EquipmentStatusEffectState(unit)),
-      get(unitOsEquipmentStatusEffectState(unit)),
-      get(unitGearEquipmentStatusEffectState(unit)),
-      get(coreLinkBonusEffectsState(unit))
+      get(unitChip1EquipmentStatusEffectsState(unit)),
+      get(unitChip2EquipmentStatusEffectsState(unit)),
+      get(unitOsEquipmentStatusEffectsState(unit)),
+      get(unitGearEquipmentStatusEffectsState(unit)),
+      get(coreLinkBonusEffectsState(unit.no))
     );
   }
 });
@@ -79,11 +79,11 @@ export const unitDefStatusParameterState = selectorFamily<UnitDefStatusParameter
     return new UnitDefStatusParameter(
       get(unitBaseDefState(unit.no)),
       get(unitDefEnhancementStatusEffectState(unit.no)),
-      get(unitChip1EquipmentStatusEffectState(unit)),
-      get(unitChip2EquipmentStatusEffectState(unit)),
-      get(unitOsEquipmentStatusEffectState(unit)),
-      get(unitGearEquipmentStatusEffectState(unit)),
-      get(coreLinkBonusEffectsState(unit))
+      get(unitChip1EquipmentStatusEffectsState(unit)),
+      get(unitChip2EquipmentStatusEffectsState(unit)),
+      get(unitOsEquipmentStatusEffectsState(unit)),
+      get(unitGearEquipmentStatusEffectsState(unit)),
+      get(coreLinkBonusEffectsState(unit.no))
     );
   }
 });
@@ -94,12 +94,12 @@ export const unitAccStatusParameterState = selectorFamily<UnitAccStatusParameter
     return new UnitAccStatusParameter(
       get(unitBaseAccState(unit.no)),
       get(unitAccEnhancementStatusEffectState(unit.no)),
-      get(unitChip1EquipmentStatusEffectState(unit)),
-      get(unitChip2EquipmentStatusEffectState(unit)),
-      get(unitOsEquipmentStatusEffectState(unit)),
-      get(unitGearEquipmentStatusEffectState(unit)),
-      get(coreLinkBonusEffectsState(unit)),
-      get(fullLinkBonusEffectState(unit))
+      get(unitChip1EquipmentStatusEffectsState(unit)),
+      get(unitChip2EquipmentStatusEffectsState(unit)),
+      get(unitOsEquipmentStatusEffectsState(unit)),
+      get(unitGearEquipmentStatusEffectsState(unit)),
+      get(coreLinkBonusEffectsState(unit.no)),
+      get(fullLinkBonusEffectState(unit.no))
     );
   }
 });
@@ -110,12 +110,12 @@ export const unitEvaStatusParameterState = selectorFamily<UnitEvaStatusParameter
     return new UnitEvaStatusParameter(
       get(unitBaseEvaState(unit.no)),
       get(unitEvaEnhancementStatusEffectState(unit.no)),
-      get(unitChip1EquipmentStatusEffectState(unit)),
-      get(unitChip2EquipmentStatusEffectState(unit)),
-      get(unitOsEquipmentStatusEffectState(unit)),
-      get(unitGearEquipmentStatusEffectState(unit)),
-      get(coreLinkBonusEffectsState(unit)),
-      get(fullLinkBonusEffectState(unit))
+      get(unitChip1EquipmentStatusEffectsState(unit)),
+      get(unitChip2EquipmentStatusEffectsState(unit)),
+      get(unitOsEquipmentStatusEffectsState(unit)),
+      get(unitGearEquipmentStatusEffectsState(unit)),
+      get(coreLinkBonusEffectsState(unit.no)),
+      get(fullLinkBonusEffectState(unit.no))
     );
   }
 });
@@ -126,12 +126,12 @@ export const unitCriStatusParameterState = selectorFamily<UnitCriStatusParameter
     return new UnitCriStatusParameter(
       get(unitBaseCriState(unit.no)),
       get(unitCriEnhancementStatusEffectState(unit.no)),
-      get(unitChip1EquipmentStatusEffectState(unit)),
-      get(unitChip2EquipmentStatusEffectState(unit)),
-      get(unitOsEquipmentStatusEffectState(unit)),
-      get(unitGearEquipmentStatusEffectState(unit)),
-      get(coreLinkBonusEffectsState(unit)),
-      get(fullLinkBonusEffectState(unit))
+      get(unitChip1EquipmentStatusEffectsState(unit)),
+      get(unitChip2EquipmentStatusEffectsState(unit)),
+      get(unitOsEquipmentStatusEffectsState(unit)),
+      get(unitGearEquipmentStatusEffectsState(unit)),
+      get(coreLinkBonusEffectsState(unit.no)),
+      get(fullLinkBonusEffectState(unit.no))
     );
   }
 });
@@ -141,12 +141,12 @@ export const unitSpdStatusParameterState = selectorFamily<UnitSpdStatusParameter
   get: (unit) => ({ get }) => {
     return new UnitSpdStatusParameter(
       get(unitBaseSpdState(unit.no)),
-      get(unitChip1EquipmentStatusEffectState(unit)),
-      get(unitChip2EquipmentStatusEffectState(unit)),
-      get(unitOsEquipmentStatusEffectState(unit)),
-      get(unitGearEquipmentStatusEffectState(unit)),
-      get(coreLinkBonusEffectsState(unit)),
-      get(fullLinkBonusEffectState(unit))
+      get(unitChip1EquipmentStatusEffectsState(unit)),
+      get(unitChip2EquipmentStatusEffectsState(unit)),
+      get(unitOsEquipmentStatusEffectsState(unit)),
+      get(unitGearEquipmentStatusEffectsState(unit)),
+      get(coreLinkBonusEffectsState(unit.no)),
+      get(fullLinkBonusEffectState(unit.no))
     );
   }
 });
@@ -156,10 +156,10 @@ export const unitFireResistStatusParameterState = selectorFamily<UnitFireResistS
   get: (unit) => ({ get }) => {
     return new UnitFireResistStatusParameter(
       get(unitBaseFireResistState(unit.no)),
-      get(unitChip1EquipmentStatusEffectState(unit)),
-      get(unitChip2EquipmentStatusEffectState(unit)),
-      get(unitOsEquipmentStatusEffectState(unit)),
-      get(unitGearEquipmentStatusEffectState(unit))
+      get(unitChip1EquipmentStatusEffectsState(unit)),
+      get(unitChip2EquipmentStatusEffectsState(unit)),
+      get(unitOsEquipmentStatusEffectsState(unit)),
+      get(unitGearEquipmentStatusEffectsState(unit))
     );
   }
 });
@@ -169,10 +169,10 @@ export const unitIceResistStatusParameterState = selectorFamily<UnitIceResistSta
   get: (unit) => ({ get }) => {
     return new UnitIceResistStatusParameter(
       get(unitBaseIceResistState(unit.no)),
-      get(unitChip1EquipmentStatusEffectState(unit)),
-      get(unitChip2EquipmentStatusEffectState(unit)),
-      get(unitOsEquipmentStatusEffectState(unit)),
-      get(unitGearEquipmentStatusEffectState(unit))
+      get(unitChip1EquipmentStatusEffectsState(unit)),
+      get(unitChip2EquipmentStatusEffectsState(unit)),
+      get(unitOsEquipmentStatusEffectsState(unit)),
+      get(unitGearEquipmentStatusEffectsState(unit))
     );
   }
 });
@@ -182,10 +182,10 @@ export const unitElectricResistStatusParameterState = selectorFamily<UnitElectri
   get: (unit) => ({ get }) => {
     return new UnitElectricResistStatusParameter(
       get(unitBaseElectricResistState(unit.no)),
-      get(unitChip1EquipmentStatusEffectState(unit)),
-      get(unitChip2EquipmentStatusEffectState(unit)),
-      get(unitOsEquipmentStatusEffectState(unit)),
-      get(unitGearEquipmentStatusEffectState(unit))
+      get(unitChip1EquipmentStatusEffectsState(unit)),
+      get(unitChip2EquipmentStatusEffectsState(unit)),
+      get(unitOsEquipmentStatusEffectsState(unit)),
+      get(unitGearEquipmentStatusEffectsState(unit))
     );
   }
 });
