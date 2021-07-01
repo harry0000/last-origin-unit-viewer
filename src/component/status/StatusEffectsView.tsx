@@ -16,6 +16,9 @@ import {
 
 import { useStatusEffects } from '../../hook/status/StatusEffects';
 import { useStatusEffectsSummary } from '../../hook/status/StatusEffectsSummary';
+import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
+import { useRecoilValue } from 'recoil';
+import { selectedUnitBasicInfoState } from '../../state/selector/unitSelectorState';
 
 export type EffectedParameter = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri' | 'spd' | 'fireResist' | 'iceResist' | 'electricResist'
 
@@ -101,11 +104,27 @@ const StatusEffectsPopoverView: React.FC<{
   );
 };
 
+const UnitStatusEffectsView: React.FC<{
+  unit: UnitBasicInfo,
+  parameter: EffectedParameter
+}> = ({ unit, parameter }) => {
+  const effects = useStatusEffects(unit, parameter);
+
+  return effects.length > 0 ?
+    (<StatusEffectsPopoverView parameter={parameter} effects={effects}>
+      <StatusEffectSummaryView
+        css={{ textDecoration: 'underline' }}
+        parameter={parameter}
+      />
+    </StatusEffectsPopoverView>) :
+    (<StatusEffectSummaryView parameter={parameter} />);
+};
+
 const StatusEffectsView: React.FC<{
   css?: Interpolation<Theme>,
   parameter: EffectedParameter
 }> = ({ parameter, ...others }) => {
-  const effects = useStatusEffects(parameter);
+  const selected = useRecoilValue(selectedUnitBasicInfoState);
 
   return (
     <div
@@ -118,14 +137,9 @@ const StatusEffectsView: React.FC<{
       <div css={{ marginRight: 'auto' }}>(&nbsp;</div>
       <div css={{ marginLeft: 'auto' }}>
         {
-          effects.length > 0 ?
-            (<StatusEffectsPopoverView parameter={parameter} effects={effects}>
-              <StatusEffectSummaryView
-                css={{ textDecoration: 'underline' }}
-                parameter={parameter}
-              />
-            </StatusEffectsPopoverView>) :
-            (<StatusEffectSummaryView parameter={parameter} />)
+          selected ?
+            (<UnitStatusEffectsView unit={selected} parameter={parameter} />) :
+            (<StatusEffectValueView parameter={parameter} value={0} />)
         }
       </div>
       <div>&nbsp;)</div>

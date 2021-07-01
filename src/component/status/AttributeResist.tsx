@@ -40,7 +40,7 @@ const AttributeResist: React.FC<{
     <div css={{ display: 'flex', flexDirection: 'column' }}>
       <div>
         <OverlayTrigger
-          placement="auto"
+          placement="top"
           overlay={<Tooltip id='tooltip-attribute-resist'>{alt}</Tooltip>}
         >
           <Image

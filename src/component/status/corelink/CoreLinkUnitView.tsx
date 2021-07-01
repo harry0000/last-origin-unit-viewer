@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 
 import { Image } from 'react-bootstrap';
 
-import { CoreLinkUnit } from '../../domain/UnitCoreLink';
-import { UnitNumber, UnitRank, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
+import { CoreLinkUnit } from '../../../domain/UnitCoreLink';
+import { UnitNumber, UnitRank, UnitRole, UnitType } from '../../../domain/UnitBasicInfo';
 
 const FitUnitView: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
   const { t } = useTranslation();

@@ -1,114 +1,180 @@
-import { atomFamily, DefaultValue, selector, selectorFamily } from 'recoil';
-import UnitCoreLink from '../../domain/UnitCoreLink';
-import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
+import {
+  atomFamily,
+  DefaultValue,
+  GetRecoilValue,
+  selector,
+  selectorFamily,
+  SetRecoilState,
+  useRecoilState,
+  useRecoilValue
+} from 'recoil';
+import deepEqual from 'fast-deep-equal';
+
+import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';
+import UnitCoreLink, { CoreLinkSlotAvailableLv, CoreLinkUnit } from '../../domain/UnitCoreLink';
+import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 
 import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
 import { unitLvState } from '../status/unitLvStatusState';
+import { unitCoreLinkBonusData } from '../../data/unitCoreLinkBonusData';
+import { UnitLvValue } from '../../domain/status/UnitLv';
 
-import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';
+export type CoreLinkSlot = 'slot1' | 'slot2' | 'slot3' | 'slot4' | 'slot5'
+type CoreLinkSlotKey = `${Capitalize<CoreLinkSlot>}`
 
-type CoreLinkSlot = 'slot1' | 'slot2' | 'slot3' | 'slot4' | 'slot5'
+function createSlotAvailableAtom(slotKey: CoreLinkSlotKey) {
+  return atomFamily<boolean, UnitNumber>({
+    key: `_unitCoreLink${slotKey}AvailableAtom`,
+    default: false
+  });
+}
 
-export const unitCoreLinkState = atomFamily<UnitCoreLink, UnitBasicInfo>({
-  key: 'unitCoreLinkState',
+const atoms = {
+  linkRate: atomFamily<number, UnitNumber>({
+    key: '_unitCoreLinkRateAtom',
+    default: 0
+  }),
+  slotAvailable: {
+    slot1: createSlotAvailableAtom('Slot1'),
+    slot2: createSlotAvailableAtom('Slot2'),
+    slot3: createSlotAvailableAtom('Slot3'),
+    slot4: createSlotAvailableAtom('Slot4'),
+    slot5: createSlotAvailableAtom('Slot5')
+  },
+  linkBonus: atomFamily<CoreLinkBonus, UnitNumber>({
+    key: '_unitCoreLinkBonusAtom',
+    default: (unit) => UnitCoreLink.emptyBonus(unit)
+  }),
+  fullLinkAvailable: atomFamily<boolean, UnitNumber>({
+    key: '_unitFullLinkBonusAvailableAtom',
+    default: false
+  }),
+  fullLinkBonus: atomFamily<FullLinkBonus | undefined, UnitNumber>({
+    key: '_unitFullLinkBonusAtom',
+    default: undefined
+  })
+};
+
+const _unitCoreLinkAtom = atomFamily<UnitCoreLink, UnitNumber>({
+  key: '_unitCoreLinkAtom',
   default: (unit) => new UnitCoreLink(unit)
 });
 
-export const selectedUnitCoreLinkState = selector<UnitCoreLink | undefined>({
-  key: 'selectedUnitCoreLinkState',
-  get: ({ get }) => {
-    const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitCoreLinkState(selected));
-  },
-  set: ({ set }, newValue) => {
-    if (newValue && !(newValue instanceof DefaultValue)) {
-      set(unitCoreLinkState(newValue.unit), newValue);
+function updateInnerAtoms(get: GetRecoilValue, set: SetRecoilState): (unit: UnitNumber, coreLink: UnitCoreLink, lv: UnitLvValue) => void {
+  return function (unit, coreLink, lv) {
+    const linkBonus = coreLink.bonusEffects(lv);
+    if (!deepEqual(get(atoms.linkBonus(unit)), linkBonus)) {
+      set(atoms.linkBonus(unit), linkBonus);
+    }
+    set(atoms.slotAvailable.slot1(unit), coreLink.isSlot1Available(lv));
+    set(atoms.slotAvailable.slot2(unit), coreLink.isSlot2Available(lv));
+    set(atoms.slotAvailable.slot3(unit), coreLink.isSlot3Available(lv));
+    set(atoms.slotAvailable.slot4(unit), coreLink.isSlot4Available(lv));
+    set(atoms.slotAvailable.slot5(unit), coreLink.isSlot5Available(lv));
+    set(atoms.linkRate(unit), coreLink.linkRate(lv));
+
+    set(atoms.fullLinkBonus(unit), coreLink.fullLinkBonusEffect(lv));
+    set(atoms.fullLinkAvailable(unit), coreLink.isFullLinkBonusAvailable(lv));
+  };
+}
+
+export const updateCoreLinkDependency = selectorFamily<UnitLvValue, UnitNumber>({
+  key: 'updateCoreLinkDependency',
+  get: () => () => { throw new Error(); },
+  set: (unit) => ({ get, set }, lv) => {
+    if (!(lv instanceof DefaultValue)) {
+      const coreLink = get(_unitCoreLinkAtom(unit));
+      updateInnerAtoms(get, set)(unit, coreLink, lv);
     }
   }
 });
 
-export const linkRateState = selectorFamily<number, CoreLinkSlot | 'summary'>({
-  key: 'linkRateState',
-  get: (type) => ({ get }) => {
-    const coreLink = get(selectedUnitCoreLinkState);
-    if (!coreLink) {
-      return 0;
-    }
-
-    const unitLv = get(unitLvState(coreLink.unit.no));
-    switch (type) {
-    case 'slot1': return coreLink.slot1LinkRate(unitLv);
-    case 'slot2': return coreLink.slot2LinkRate(unitLv);
-    case 'slot3': return coreLink.slot3LinkRate(unitLv);
-    case 'slot4': return coreLink.slot4LinkRate(unitLv);
-    case 'slot5': return coreLink.slot5LinkRate(unitLv);
-    case 'summary': return coreLink.linkRate(unitLv);
+const unitCoreLinkState = selectorFamily<UnitCoreLink, UnitNumber>({
+  key: 'unitCoreLinkState',
+  get: (unit) => ({ get }) => get(_unitCoreLinkAtom(unit)),
+  set: (unit) => ({ get, set }, newValue) => {
+    if (newValue instanceof UnitCoreLink) {
+      set(_unitCoreLinkAtom(unit), newValue);
+      updateInnerAtoms(get, set)(unit, newValue, get(unitLvState(unit)));
     }
   }
 });
 
-export const coreLinkSlotAvailable = selectorFamily<boolean, CoreLinkSlot>({
-  key: 'coreLinkSlotAvailable',
-  get: (slot) => ({ get }) => {
-    const coreLink = get(selectedUnitCoreLinkState);
-    if (!coreLink) {
-      return false;
-    }
-
-    const unitLv = get(unitLvState(coreLink.unit.no));
-    switch (slot) {
-    case 'slot1': return coreLink.isSlot1Available(unitLv);
-    case 'slot2': return coreLink.isSlot2Available(unitLv);
-    case 'slot3': return coreLink.isSlot3Available(unitLv);
-    case 'slot4': return coreLink.isSlot4Available(unitLv);
-    case 'slot5': return coreLink.isSlot5Available(unitLv);
-    }
-  }
-});
-
-export const coreLinkBonusEffectsState = selectorFamily<CoreLinkBonus, UnitBasicInfo>({
+export const coreLinkBonusEffectsState = selectorFamily<CoreLinkBonus, UnitNumber>({
   key: 'coreLinkBonusEffectsState',
-  get: (unit) => ({ get }) => {
-    const coreLink = get(unitCoreLinkState(unit));
-    const unitLv = get(unitLvState(unit.no));
-    return coreLink.bonusEffects(unitLv);
-  }
+  get: (unit) => ({ get }) => get(atoms.linkBonus(unit))
 });
 
-export const selectedUnitCoreLinkBonusEffectsState = selector<CoreLinkBonus | undefined>({
-  key: 'selectedUnitCoreLinkBonusEffectsState',
-  get: ({ get }) => {
-    const selected = get(selectedUnitBasicInfoState);
-    return selected && get(coreLinkBonusEffectsState(selected));
-  }
-});
-
-export const fullLinkBonusAvailableState = selector<boolean>({
-  key: 'fullLinkBonusAvailableState',
-  get: ({ get }) => {
-    const coreLink = get(selectedUnitCoreLinkState);
-    if (!coreLink) {
-      return false;
-    }
-
-    const unitLv = get(unitLvState(coreLink.unit.no));
-    return coreLink.isFullLinkBonusAvailable(unitLv);
-  }
-});
-
-export const fullLinkBonusEffectState = selectorFamily<FullLinkBonus | undefined, UnitBasicInfo>({
+export const fullLinkBonusEffectState = selectorFamily<FullLinkBonus | undefined, UnitNumber>({
   key: 'fullLinkBonusEffectState',
-  get: (unit) => ({ get }) => {
-    const coreLink = get(unitCoreLinkState(unit));
-    const unitLv = get(unitLvState(coreLink.unit.no));
-    return coreLink.fullLinkBonusEffect(unitLv);
+  get: (unit) => ({ get }) => get(atoms.fullLinkBonus(unit))
+});
+
+const selectedUnitCoreLinkRateState = selector<number | undefined>({
+  key: 'selectedUnitCoreLinkRateState',
+  get: ({ get }) => {
+    const selected = get(selectedUnitBasicInfoState);
+    return selected && atoms.linkRate(selected.no);
   }
 });
 
-export const selectedUnitFullLinkBonusEffectState = selector<FullLinkBonus | undefined>({
-  key: 'selectedUnitFullLinkBonusEffectState',
+const selectedUnitCoreLinkBonusState = selector<CoreLinkBonus | undefined>({
+  key: 'selectedUnitCoreLinkBonusState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected && get(fullLinkBonusEffectState(selected));
+    return selected && atoms.linkBonus(selected.no);
   }
 });
+
+export function useCoreLinkRate(): number {
+  return useRecoilValue(selectedUnitCoreLinkRateState) ?? 0;
+}
+
+export function useAvailableCoreLinkUnit(unit: UnitBasicInfo): readonly [CoreLinkUnit, CoreLinkUnit, CoreLinkUnit, CoreLinkUnit] | [] {
+  const coreLink = useRecoilValue(unitCoreLinkState(unit.no));
+  return coreLink ? [coreLink.fitUnit, coreLink.rankSSFitUnit, coreLink.rankSFitUnit, coreLink.rankAFitUnit] : [];
+}
+
+export function useUnitCoreLink(unit: UnitBasicInfo, slot: CoreLinkSlot): [
+  linkedUnit: CoreLinkUnit | undefined,
+  linkSlot: (unit: CoreLinkUnit | undefined) => void,
+  available: boolean,
+  availableLv: CoreLinkSlotAvailableLv
+] {
+  const [coreLink, setCoreLink] = useRecoilState(unitCoreLinkState(unit.no));
+
+  switch (slot) {
+  case 'slot1':
+    return [coreLink.slot1, (coreLinkUnit) => { setCoreLink(s => coreLinkUnit ? s.linkSlot1(coreLinkUnit) : s.unlinkSlot1()); }, useRecoilValue(atoms.slotAvailable.slot1(unit.no)), UnitCoreLink.slot1AvailableLv];
+  case 'slot2':
+    return [coreLink.slot2, (coreLinkUnit) => { setCoreLink(s => coreLinkUnit ? s.linkSlot2(coreLinkUnit) : s.unlinkSlot2()); }, useRecoilValue(atoms.slotAvailable.slot2(unit.no)), UnitCoreLink.slot2AvailableLv];
+  case 'slot3':
+    return [coreLink.slot3, (coreLinkUnit) => { setCoreLink(s => coreLinkUnit ? s.linkSlot3(coreLinkUnit) : s.unlinkSlot3()); }, useRecoilValue(atoms.slotAvailable.slot3(unit.no)), UnitCoreLink.slot3AvailableLv];
+  case 'slot4':
+    return [coreLink.slot4, (coreLinkUnit) => { setCoreLink(s => coreLinkUnit ? s.linkSlot4(coreLinkUnit) : s.unlinkSlot4()); }, useRecoilValue(atoms.slotAvailable.slot4(unit.no)), UnitCoreLink.slot4AvailableLv];
+  case 'slot5':
+    return [coreLink.slot5, (coreLinkUnit) => { setCoreLink(s => coreLinkUnit ? s.linkSlot5(coreLinkUnit) : s.unlinkSlot5()); }, useRecoilValue(atoms.slotAvailable.slot5(unit.no)), UnitCoreLink.slot5AvailableLv];
+  }
+}
+
+export function useCoreLinkEffect(): CoreLinkBonus | undefined {
+  return useRecoilValue(selectedUnitCoreLinkBonusState);
+}
+
+export function useAvailableFullLinkBonus(unit: UnitBasicInfo): ReadonlyArray<FullLinkBonus> {
+  return unitCoreLinkBonusData[unit.no].full_link_bonus;
+}
+
+export function useFullLinkBonus(unit: UnitBasicInfo): [
+  selectedBonus: FullLinkBonus | undefined,
+  selectBonus: (bonus: FullLinkBonus | undefined) => void,
+  available: boolean
+] {
+  const [coreLink, setCoreLink] = useRecoilState(unitCoreLinkState(unit.no));
+
+  return [
+    coreLink.fullLinkBonus,
+    (bonus) => setCoreLink(s => bonus ? s.selectFullLinkBonus(bonus) : s.unselectFullLinkBonus()),
+    useRecoilValue(atoms.fullLinkAvailable(unit.no))
+  ];
+}

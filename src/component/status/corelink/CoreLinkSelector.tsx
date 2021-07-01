@@ -2,19 +2,21 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { MouseEventHandler, ReactNode } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { Dropdown, Image } from 'react-bootstrap';
 import CoreLinkPlaceholder from './CoreLinkPlaceholder';
-import { CoreLinkSlot } from './UnitCoreLinkView';
-import SlotUnavailableOverlay from './SlotUnavailableOverlay';
+import SlotUnavailableOverlay from '../SlotUnavailableOverlay';
 
 import CoreLinkUnitView from './CoreLinkUnitView';
-import UnitCoreLink, { CoreLinkSlotAvailableLv, CoreLinkUnit } from '../../domain/UnitCoreLink';
+import { CoreLinkUnit } from '../../../domain/UnitCoreLink';
+import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 
-import { coreLinkSlotAvailable, selectedUnitCoreLinkState } from '../../state/corelink/unitCoreLinkState';
-import { availableCoreLinkUnit } from '../../state/corelink/availableCoreLinkUnit';
+import { CoreLinkSlot, useAvailableCoreLinkUnit, useUnitCoreLink } from '../../../state/corelink/unitCoreLinkState';
+import { selectedUnitBasicInfoState } from '../../../state/selector/unitSelectorState';
+
+import { ifNonNullable } from '../../../util/react';
 
 import './CoreLinkSelector.css';
 
@@ -101,68 +103,30 @@ const CoreLinkSelectorMenu: React.FC<{
   );
 };
 
-function useCoreLinkValue(slot: CoreLinkSlot): [
-  linkedUnit: CoreLinkUnit | undefined,
-  linkSlot: (unit: CoreLinkUnit | undefined) => void,
-  available: boolean,
-  availableLv: CoreLinkSlotAvailableLv
-] {
-  const [coreLink, setCoreLink] = useRecoilState(selectedUnitCoreLinkState);
-  const available = useRecoilValue(coreLinkSlotAvailable(slot));
-  const linkSlot = (() => {
-    switch (slot) {
-    case 'slot1':
-      return (unit: CoreLinkUnit | undefined) => { setCoreLink(s => unit ? s?.linkSlot1(unit) : s?.unlinkSlot1()); };
-    case 'slot2':
-      return (unit: CoreLinkUnit | undefined) => { setCoreLink(s => unit ? s?.linkSlot2(unit) : s?.unlinkSlot2()); };
-    case 'slot3':
-      return (unit: CoreLinkUnit | undefined) => { setCoreLink(s => unit ? s?.linkSlot3(unit) : s?.unlinkSlot3()); };
-    case 'slot4':
-      return (unit: CoreLinkUnit | undefined) => { setCoreLink(s => unit ? s?.linkSlot4(unit) : s?.unlinkSlot4()); };
-    case 'slot5':
-      return (unit: CoreLinkUnit | undefined) => { setCoreLink(s => unit ? s?.linkSlot5(unit) : s?.unlinkSlot5()); };
-    }
-  })();
-
-  switch (slot) {
-  case 'slot1':
-    return [coreLink?.slot1, linkSlot, available, UnitCoreLink.slot1AvailableLv];
-  case 'slot2':
-    return [coreLink?.slot2, linkSlot, available, UnitCoreLink.slot2AvailableLv];
-  case 'slot3':
-    return [coreLink?.slot3, linkSlot, available, UnitCoreLink.slot3AvailableLv];
-  case 'slot4':
-    return [coreLink?.slot4, linkSlot, available, UnitCoreLink.slot4AvailableLv];
-  case 'slot5':
-    return [coreLink?.slot5, linkSlot, available, UnitCoreLink.slot5AvailableLv];
+const CoreLinkToggle = React.forwardRef<
+  HTMLAnchorElement,
+  {
+    onClick: MouseEventHandler<HTMLAnchorElement>,
+    id: string,
+    children: ReactNode
   }
-}
+>(({ onClick, id, children }, ref) => (
+  <a
+    href=""
+    ref={ref}
+    id={id}
+    onClick={(e) => {
+      e.preventDefault();
+      onClick(e);
+    }}
+  >
+    {children}
+  </a>
+));
 
-const CoreLinkSelector: React.FC<{ slot: CoreLinkSlot }> = ({ slot }) => {
-  const items = useRecoilValue(availableCoreLinkUnit);
-  const [linkedUnit, linkSlot, available, availableLv] = useCoreLinkValue(slot);
-
-  const CoreLinkToggle =
-      React.forwardRef<HTMLAnchorElement, {
-        onClick: MouseEventHandler<HTMLAnchorElement>,
-        id: string,
-        children: ReactNode
-      }>((
-        { onClick, id, children },
-        ref
-      ) => (
-        <a
-          href=""
-          ref={ref}
-          id={id}
-          onClick={(e) => {
-            e.preventDefault();
-            onClick(e);
-          }}
-        >
-          {children}
-        </a>
-      ));
+const CoreLinkDropdown: React.FC<{ unit: UnitBasicInfo, slot: CoreLinkSlot }> = ({ unit, slot }) => {
+  const items = useAvailableCoreLinkUnit(unit);
+  const [linkedUnit, linkSlot, available, availableLv] = useUnitCoreLink(unit, slot);
 
   return (
     <Dropdown
@@ -182,6 +146,15 @@ const CoreLinkSelector: React.FC<{ slot: CoreLinkSlot }> = ({ slot }) => {
       </Dropdown.Toggle>
       <CoreLinkSelectorMenu value={linkedUnit} items={items} />
     </Dropdown>
+  );
+};
+
+const CoreLinkSelector: React.FC<{ slot: CoreLinkSlot }> = ({ slot }) => {
+  const selected = useRecoilValue(selectedUnitBasicInfoState);
+
+  return ifNonNullable(
+    selected,
+    unit => (<CoreLinkDropdown unit={unit} slot={slot} />)
   );
 };
 

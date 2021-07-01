@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Image } from 'react-bootstrap';
-import { CoreLinkSlot } from './UnitCoreLinkView';
+import { CoreLinkSlot } from '../../../state/corelink/unitCoreLinkState';
 
 const EquipmentPlaceholder: React.FC<{ slot: CoreLinkSlot }> = React.memo(({ slot }) => {
   const { t } = useTranslation();

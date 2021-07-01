@@ -6,10 +6,11 @@ import {
 } from './UnitCoreLinkBonusData';
 import { Effect } from './Effect';
 import { MicroValue, MilliPercentageValue } from './ValueUnit';
-import { UnitBasicInfo, UnitNumber, UnitRank, UnitRole, UnitType } from './UnitBasicInfo';
 import { UnitLvValue } from './status/UnitLv';
+import { UnitNumber, UnitRank, UnitRole, UnitType } from './UnitBasicInfo';
 
 import { unitCoreLinkBonusData } from '../data/unitCoreLinkBonusData';
+import { unitBasicData } from '../data/unitBasicData';
 
 export type CoreLinkSlotAvailableLv = 10 | 30 | 50 | 70 | 90
 
@@ -95,8 +96,9 @@ class UnitCoreLink {
   static get slot3AvailableLv(): CoreLinkSlotAvailableLv { return 50; }
   static get slot4AvailableLv(): CoreLinkSlotAvailableLv { return 70; }
   static get slot5AvailableLv(): CoreLinkSlotAvailableLv { return 90; }
+  static emptyBonus(unit: UnitNumber): CoreLinkBonus { return calcBonus(0, unit); }
 
-  readonly unit: UnitBasicInfo;
+  readonly unit: UnitNumber;
 
   readonly slot1: CoreLinkUnit | undefined;
   readonly slot2: CoreLinkUnit | undefined;
@@ -107,7 +109,7 @@ class UnitCoreLink {
   readonly fullLinkBonus: FullLinkBonus | undefined
 
   constructor(
-    unit: UnitBasicInfo,
+    unit: UnitNumber,
     slot1?: CoreLinkUnit,
     slot2?: CoreLinkUnit,
     slot3?: CoreLinkUnit,
@@ -127,27 +129,31 @@ class UnitCoreLink {
   }
 
   get fitUnit(): CoreLinkUnit {
-    return { unit: this.unit.no, rate: 100 };
+    return { unit: this.unit, rate: 100 };
   }
 
   get rankSSFitUnit(): CoreLinkUnit & { rank: typeof UnitRank.SS } {
-    return { rank: UnitRank.SS, type: this.unit.type, role: this.unit.role, rate: 75 };
+    const { type, role } = unitBasicData[this.unit];
+    return { rank: UnitRank.SS, type, role, rate: 75 };
   }
 
   get rankSFitUnit(): CoreLinkUnit & { rank: typeof UnitRank.S } {
-    return { rank: UnitRank.S, type: this.unit.type, role: this.unit.role, rate: 60 };
+    const { type, role } = unitBasicData[this.unit];
+    return { rank: UnitRank.S, type, role, rate: 60 };
   }
 
   get rankAFitUnit(): CoreLinkUnit & { rank: typeof UnitRank.A } {
-    return { rank: UnitRank.A, type: this.unit.type, role: this.unit.role, rate: 45 };
+    const { type, role } = unitBasicData[this.unit];
+    return { rank: UnitRank.A, type, role, rate: 45 };
   }
 
   #validateCoreLinkUnit(coreLinkUnit: CoreLinkUnit): boolean {
     if ('unit' in coreLinkUnit) {
-      return coreLinkUnit.unit === this.unit.no;
+      return coreLinkUnit.unit === this.unit;
     }
 
-    return coreLinkUnit.type === this.unit.type && coreLinkUnit.role === this.unit.role;
+    const { type, role } = unitBasicData[this.unit];
+    return coreLinkUnit.type === type && coreLinkUnit.role === role;
   }
 
   linkSlot1(coreLinkUnit: CoreLinkUnit): UnitCoreLink {
@@ -204,7 +210,7 @@ class UnitCoreLink {
   selectFullLinkBonus(bonus: FullLinkBonus): UnitCoreLink {
     return (
       this.fullLinkBonus !== bonus &&
-      unitCoreLinkBonusData[this.unit.no].full_link_bonus.indexOf(bonus) >= 0
+      unitCoreLinkBonusData[this.unit].full_link_bonus.indexOf(bonus) >= 0
     ) ?
       new UnitCoreLink(this.unit, this.slot1, this.slot2, this.slot3, this.slot4, this.slot5, bonus) :
       this;
@@ -240,7 +246,7 @@ class UnitCoreLink {
 
   bonusEffects(lv: UnitLvValue): CoreLinkBonus {
     const rate = this.linkRate(lv);
-    return calcBonus(rate, this.unit.no);
+    return calcBonus(rate, this.unit);
   }
 
   isFullLinkBonusAvailable(lv: UnitLvValue): boolean {

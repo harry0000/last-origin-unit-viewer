@@ -33,8 +33,8 @@ export const unitActive1SkillState = selectorFamily<ActiveSkill, UnitBasicInfo>(
   key: 'unitActive1SkillState',
   get: (unit) => ({ get }) => {
     const skill = get(unitSkillState(unit));
-    const coreLinkBonus = get(coreLinkBonusEffectsState(unit));
-    const fullLinkBonus = get(fullLinkBonusEffectState(unit));
+    const coreLinkBonus = get(coreLinkBonusEffectsState(unit.no));
+    const fullLinkBonus = get(fullLinkBonusEffectState(unit.no));
     return skill.active1Skill(coreLinkBonus, fullLinkBonus);
   }
 });
@@ -43,8 +43,8 @@ export const unitActive2SkillState = selectorFamily<ActiveSkill, UnitBasicInfo>(
   key: 'unitActive2SkillState',
   get: (unit) => ({ get }) => {
     const skill = get(unitSkillState(unit));
-    const coreLinkBonus = get(coreLinkBonusEffectsState(unit));
-    const fullLinkBonus = get(fullLinkBonusEffectState(unit));
+    const coreLinkBonus = get(coreLinkBonusEffectsState(unit.no));
+    const fullLinkBonus = get(fullLinkBonusEffectState(unit.no));
     return skill.active2Skill(coreLinkBonus, fullLinkBonus);
   }
 });
@@ -53,7 +53,7 @@ export const unitPassive1SkillState = selectorFamily<Passive1Skill | undefined, 
   key: 'unitPassive1SkillState',
   get: (unit) => ({ get }) => {
     const skill = get(unitSkillState(unit));
-    const bonus = get(fullLinkBonusEffectState(unit));
+    const bonus = get(fullLinkBonusEffectState(unit.no));
     return skill.passive1Skill(bonus);
   }
 });
@@ -62,7 +62,7 @@ export const unitPassive2SkillState = selectorFamily<Passive2Skill | undefined, 
   key: 'unitPassive2SkillState',
   get: (unit) => ({ get }) => {
     const skill = get(unitSkillState(unit));
-    const bonus = get(fullLinkBonusEffectState(unit));
+    const bonus = get(fullLinkBonusEffectState(unit.no));
     return skill.passive2Skill(bonus);
   }
 });
@@ -71,7 +71,7 @@ export const unitPassive3SkillState = selectorFamily<Passive3Skill | undefined, 
   key: 'unitPassive3SkillState',
   get: (unit) => ({ get }) => {
     const skill = get(unitSkillState(unit));
-    const bonus = get(fullLinkBonusEffectState(unit));
+    const bonus = get(fullLinkBonusEffectState(unit.no));
     return skill.passive3Skill(bonus);
   }
 });
