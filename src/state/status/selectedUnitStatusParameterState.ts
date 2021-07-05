@@ -31,7 +31,7 @@ export const selectedUnitHpStatusParameterState = selector<UnitHpStatusParameter
   key: 'selectedUnitHpStatusParameterState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitHpStatusParameterState(selected));
+    return selected && get(unitHpStatusParameterState(selected.no));
   }
 });
 
@@ -39,7 +39,7 @@ export const selectedUnitAtkStatusParameterState = selector<UnitAtkStatusParamet
   key: 'selectedUnitAtkStatusParameterState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitAtkStatusParameterState(selected));
+    return selected && get(unitAtkStatusParameterState(selected.no));
   }
 });
 
@@ -47,7 +47,7 @@ export const selectedUnitDefStatusParameterState = selector<UnitDefStatusParamet
   key: 'selectedUnitDefStatusParameterState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitDefStatusParameterState(selected));
+    return selected && get(unitDefStatusParameterState(selected.no));
   }
 });
 
@@ -55,7 +55,7 @@ export const selectedUnitAccStatusParameterState = selector<UnitAccStatusParamet
   key: 'selectedUnitAccStatusParameterState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitAccStatusParameterState(selected));
+    return selected && get(unitAccStatusParameterState(selected.no));
   }
 });
 
@@ -63,7 +63,7 @@ export const selectedUnitEvaStatusParameterState = selector<UnitEvaStatusParamet
   key: 'selectedUnitEvaStatusParameterState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitEvaStatusParameterState(selected));
+    return selected && get(unitEvaStatusParameterState(selected.no));
   }
 });
 
@@ -71,7 +71,7 @@ export const selectedUnitCriStatusParameterState = selector<UnitCriStatusParamet
   key: 'selectedUnitCriStatusParameterState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitCriStatusParameterState(selected));
+    return selected && get(unitCriStatusParameterState(selected.no));
   }
 });
 
@@ -79,7 +79,7 @@ export const selectedUnitSpdStatusParameterState = selector<UnitSpdStatusParamet
   key: 'selectedUnitSpdStatusParameterState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitSpdStatusParameterState(selected));
+    return selected && get(unitSpdStatusParameterState(selected.no));
   }
 });
 
@@ -87,7 +87,7 @@ export const selectedUnitFireResistStatusParameterState = selector<UnitFireResis
   key: 'selectedUnitFireResistStatusParameterState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitFireResistStatusParameterState(selected));
+    return selected && get(unitFireResistStatusParameterState(selected.no));
   }
 });
 
@@ -95,7 +95,7 @@ export const selectedUnitIceResistStatusParameterState = selector<UnitIceResistS
   key: 'selectedUnitIceResistStatusParameterState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitIceResistStatusParameterState(selected));
+    return selected && get(unitIceResistStatusParameterState(selected.no));
   }
 });
 
@@ -103,6 +103,6 @@ export const selectedUnitElectricResistStatusParameterState = selector<UnitElect
   key: 'selectedUnitElectricResistStatusParameterState',
   get: ({ get }) => {
     const selected = get(selectedUnitBasicInfoState);
-    return selected && get(unitElectricResistStatusParameterState(selected));
+    return selected && get(unitElectricResistStatusParameterState(selected.no));
   }
 });
