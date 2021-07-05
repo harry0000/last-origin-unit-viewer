@@ -198,24 +198,24 @@ export const unitGearEquipmentState = selectorFamily<UnitGearEquipment, UnitNumb
   }
 });
 
-export const unitChip1EquipmentStatusEffectsState = selectorFamily<StatusEffect, UnitBasicInfo>({
+export const unitChip1EquipmentStatusEffectsState = selectorFamily<StatusEffect, UnitNumber>({
   key: 'unitChip1EquipmentStatusEffectsState',
-  get: (unit) => ({ get }) => get(atoms.statusEffects.chip1(unit.no))
+  get: (unit) => ({ get }) => get(atoms.statusEffects.chip1(unit))
 });
 
-export const unitChip2EquipmentStatusEffectsState = selectorFamily<StatusEffect, UnitBasicInfo>({
+export const unitChip2EquipmentStatusEffectsState = selectorFamily<StatusEffect, UnitNumber>({
   key: 'unitChip2EquipmentStatusEffectsState',
-  get: (unit) => ({ get }) => get(atoms.statusEffects.chip2(unit.no))
+  get: (unit) => ({ get }) => get(atoms.statusEffects.chip2(unit))
 });
 
-export const unitOsEquipmentStatusEffectsState = selectorFamily<StatusEffect, UnitBasicInfo>({
+export const unitOsEquipmentStatusEffectsState = selectorFamily<StatusEffect, UnitNumber>({
   key: 'unitOsEquipmentStatusEffectsState',
-  get: (unit) => ({ get }) => get(atoms.statusEffects.os(unit.no))
+  get: (unit) => ({ get }) => get(atoms.statusEffects.os(unit))
 });
 
-export const unitGearEquipmentStatusEffectsState = selectorFamily<StatusEffect, UnitBasicInfo>({
+export const unitGearEquipmentStatusEffectsState = selectorFamily<StatusEffect, UnitNumber>({
   key: 'unitGearEquipmentStatusEffectsState',
-  get: (unit) => ({ get }) => get(atoms.statusEffects.gear(unit.no))
+  get: (unit) => ({ get }) => get(atoms.statusEffects.gear(unit))
 });
 
 export function useUnitEquipment(unit: UnitBasicInfo, slot: 'chip1' | 'chip2'): [

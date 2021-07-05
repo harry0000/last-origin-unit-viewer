@@ -12,7 +12,7 @@ import {
   UnitIceResistStatusParameter,
   UnitSpdStatusParameter
 } from '../../domain/status/UnitStatusParameter';
-import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
+import { UnitNumber } from '../../domain/UnitBasicInfo';
 
 import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/unitCoreLinkState';
 import {
@@ -42,120 +42,120 @@ import {
   unitOsEquipmentStatusEffectsState
 } from '../equipment/unitEquipmentState';
 
-export const unitHpStatusParameterState = selectorFamily<UnitHpStatusParameter, UnitBasicInfo>({
+export const unitHpStatusParameterState = selectorFamily<UnitHpStatusParameter, UnitNumber>({
   key: 'unitHpStatusParameterState',
   get: (unit) => ({ get }) => {
     return new UnitHpStatusParameter(
-      get(unitBaseHpState(unit.no)),
-      get(unitHpEnhancementStatusEffectState(unit.no)),
+      get(unitBaseHpState(unit)),
+      get(unitHpEnhancementStatusEffectState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
-      get(coreLinkBonusEffectsState(unit.no)),
-      get(fullLinkBonusEffectState(unit.no))
+      get(coreLinkBonusEffectsState(unit)),
+      get(fullLinkBonusEffectState(unit))
     );
   }
 });
 
-export const unitAtkStatusParameterState = selectorFamily<UnitAtkStatusParameter, UnitBasicInfo>({
+export const unitAtkStatusParameterState = selectorFamily<UnitAtkStatusParameter, UnitNumber>({
   key: 'unitAtkStatusParameterState',
   get: (unit) => ({ get }) => {
     return new UnitAtkStatusParameter(
-      get(unitBaseAtkState(unit.no)),
-      get(unitAtkEnhancementStatusEffectState(unit.no)),
+      get(unitBaseAtkState(unit)),
+      get(unitAtkEnhancementStatusEffectState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
-      get(coreLinkBonusEffectsState(unit.no))
+      get(coreLinkBonusEffectsState(unit))
     );
   }
 });
 
-export const unitDefStatusParameterState = selectorFamily<UnitDefStatusParameter, UnitBasicInfo>({
+export const unitDefStatusParameterState = selectorFamily<UnitDefStatusParameter, UnitNumber>({
   key: 'unitDefStatusParameterState',
   get: (unit) => ({ get }) => {
     return new UnitDefStatusParameter(
-      get(unitBaseDefState(unit.no)),
-      get(unitDefEnhancementStatusEffectState(unit.no)),
+      get(unitBaseDefState(unit)),
+      get(unitDefEnhancementStatusEffectState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
-      get(coreLinkBonusEffectsState(unit.no))
+      get(coreLinkBonusEffectsState(unit))
     );
   }
 });
 
-export const unitAccStatusParameterState = selectorFamily<UnitAccStatusParameter, UnitBasicInfo>({
+export const unitAccStatusParameterState = selectorFamily<UnitAccStatusParameter, UnitNumber>({
   key: 'unitAccStatusParameterState',
   get: (unit) => ({ get }) => {
     return new UnitAccStatusParameter(
-      get(unitBaseAccState(unit.no)),
-      get(unitAccEnhancementStatusEffectState(unit.no)),
+      get(unitBaseAccState(unit)),
+      get(unitAccEnhancementStatusEffectState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
-      get(coreLinkBonusEffectsState(unit.no)),
-      get(fullLinkBonusEffectState(unit.no))
+      get(coreLinkBonusEffectsState(unit)),
+      get(fullLinkBonusEffectState(unit))
     );
   }
 });
 
-export const unitEvaStatusParameterState = selectorFamily<UnitEvaStatusParameter, UnitBasicInfo>({
+export const unitEvaStatusParameterState = selectorFamily<UnitEvaStatusParameter, UnitNumber>({
   key: 'unitEvaStatusParameterState',
   get: (unit) => ({ get }) => {
     return new UnitEvaStatusParameter(
-      get(unitBaseEvaState(unit.no)),
-      get(unitEvaEnhancementStatusEffectState(unit.no)),
+      get(unitBaseEvaState(unit)),
+      get(unitEvaEnhancementStatusEffectState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
-      get(coreLinkBonusEffectsState(unit.no)),
-      get(fullLinkBonusEffectState(unit.no))
+      get(coreLinkBonusEffectsState(unit)),
+      get(fullLinkBonusEffectState(unit))
     );
   }
 });
 
-export const unitCriStatusParameterState = selectorFamily<UnitCriStatusParameter, UnitBasicInfo>({
+export const unitCriStatusParameterState = selectorFamily<UnitCriStatusParameter, UnitNumber>({
   key: 'unitCriStatusParameterState',
   get: (unit) => ({ get }) => {
     return new UnitCriStatusParameter(
-      get(unitBaseCriState(unit.no)),
-      get(unitCriEnhancementStatusEffectState(unit.no)),
+      get(unitBaseCriState(unit)),
+      get(unitCriEnhancementStatusEffectState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
-      get(coreLinkBonusEffectsState(unit.no)),
-      get(fullLinkBonusEffectState(unit.no))
+      get(coreLinkBonusEffectsState(unit)),
+      get(fullLinkBonusEffectState(unit))
     );
   }
 });
 
-export const unitSpdStatusParameterState = selectorFamily<UnitSpdStatusParameter, UnitBasicInfo>({
+export const unitSpdStatusParameterState = selectorFamily<UnitSpdStatusParameter, UnitNumber>({
   key: 'unitSpdStatusParameterState',
   get: (unit) => ({ get }) => {
     return new UnitSpdStatusParameter(
-      get(unitBaseSpdState(unit.no)),
+      get(unitBaseSpdState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
-      get(coreLinkBonusEffectsState(unit.no)),
-      get(fullLinkBonusEffectState(unit.no))
+      get(coreLinkBonusEffectsState(unit)),
+      get(fullLinkBonusEffectState(unit))
     );
   }
 });
 
-export const unitFireResistStatusParameterState = selectorFamily<UnitFireResistStatusParameter, UnitBasicInfo>({
+export const unitFireResistStatusParameterState = selectorFamily<UnitFireResistStatusParameter, UnitNumber>({
   key: 'unitFireResistStatusParameterState',
   get: (unit) => ({ get }) => {
     return new UnitFireResistStatusParameter(
-      get(unitBaseFireResistState(unit.no)),
+      get(unitBaseFireResistState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
@@ -164,11 +164,11 @@ export const unitFireResistStatusParameterState = selectorFamily<UnitFireResistS
   }
 });
 
-export const unitIceResistStatusParameterState = selectorFamily<UnitIceResistStatusParameter, UnitBasicInfo>({
+export const unitIceResistStatusParameterState = selectorFamily<UnitIceResistStatusParameter, UnitNumber>({
   key: 'unitIceResistStatusParameterState',
   get: (unit) => ({ get }) => {
     return new UnitIceResistStatusParameter(
-      get(unitBaseIceResistState(unit.no)),
+      get(unitBaseIceResistState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
@@ -177,11 +177,11 @@ export const unitIceResistStatusParameterState = selectorFamily<UnitIceResistSta
   }
 });
 
-export const unitElectricResistStatusParameterState = selectorFamily<UnitElectricResistStatusParameter, UnitBasicInfo>({
+export const unitElectricResistStatusParameterState = selectorFamily<UnitElectricResistStatusParameter, UnitNumber>({
   key: 'unitElectricResistStatusParameterState',
   get: (unit) => ({ get }) => {
     return new UnitElectricResistStatusParameter(
-      get(unitBaseElectricResistState(unit.no)),
+      get(unitBaseElectricResistState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
