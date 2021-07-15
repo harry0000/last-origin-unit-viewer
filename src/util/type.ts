@@ -38,3 +38,6 @@ type IndexSequenceImpl<T extends unknown[]> = {
 }
 type IndexSequence<N extends number> = IndexSequenceImpl<MakeTuple<unknown, N>>[number];
 export type Sequence<N extends number> = Exclude<N | IndexSequence<N>, 0>
+
+export type IndexOf<T extends readonly unknown[]> = Exclude<Partial<T>['length'], T['length']>
+export type Keyof<T> = T extends Record<string | number | symbol, unknown> ? keyof T : never

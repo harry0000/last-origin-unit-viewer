@@ -27,7 +27,20 @@ type UpdateParams = {
   criStatusEffect: CriEnhancementStatusEffect
 }
 
+const MinEnhancementLv = 0;
 const MaxEnhancementLv = 300;
+
+function validLv(lv: number): boolean {
+  return MinEnhancementLv <= lv && lv <= MaxEnhancementLv;
+}
+
+function canUpLv(lv: number): boolean {
+  return lv < MaxEnhancementLv;
+}
+
+function canDownLv(lv: number): boolean {
+  return lv > MinEnhancementLv;
+}
 
 function hpEnhancementEffect(lv: number): HpEnhancementStatusEffect {
   return lv ? { hp_up: { value: lv * 8 } } : {};
@@ -98,7 +111,7 @@ class UnitParameterEnhancementLv {
     this.criStatusEffect = criStatusEffect ?? {};
   }
 
-  updateParameterLv(params: UpdateParams): UnitParameterEnhancementLv {
+  #updateParameterLv(params: UpdateParams): UnitParameterEnhancementLv {
     return new UnitParameterEnhancementLv(
       'hpLv' in params ? params.hpLv : this.hpLv,
       'atkLv' in params ? params.atkLv : this.atkLv,
@@ -123,18 +136,13 @@ class UnitParameterEnhancementLv {
     return new UnitParameterEnhancementLv();
   }
 
-  get enableUpHpLv(): boolean {
-    return this.hpLv < MaxEnhancementLv;
-  }
-
-  get enableDownHpLv(): boolean {
-    return this.hpLv > 0;
-  }
+  get enableUpHpLv(): boolean { return canUpLv(this.hpLv); }
+  get enableDownHpLv(): boolean { return canDownLv(this.hpLv); }
 
   upHpLv(): UnitParameterEnhancementLv {
     if (this.enableUpHpLv) {
       const hpLv = this.hpLv + 1;
-      return this.updateParameterLv({ hpLv, hpStatusEffect: hpEnhancementEffect(hpLv) });
+      return this.#updateParameterLv({ hpLv, hpStatusEffect: hpEnhancementEffect(hpLv) });
     }
     return this;
   }
@@ -142,23 +150,24 @@ class UnitParameterEnhancementLv {
   downHpLv(): UnitParameterEnhancementLv {
     if (this.enableDownHpLv) {
       const hpLv = this.hpLv - 1;
-      return this.updateParameterLv({ hpLv, hpStatusEffect: hpEnhancementEffect(hpLv) });
+      return this.#updateParameterLv({ hpLv, hpStatusEffect: hpEnhancementEffect(hpLv) });
     }
     return this;
   }
 
-  get enableUpAtkLv(): boolean {
-    return this.atkLv < MaxEnhancementLv;
+  setHpLv(hpLv: number): UnitParameterEnhancementLv {
+    return validLv(hpLv) ?
+      this.#updateParameterLv({ hpLv, hpStatusEffect: hpEnhancementEffect(hpLv) }) :
+      this;
   }
 
-  get enableDownAtkLv(): boolean {
-    return this.atkLv > 0;
-  }
+  get enableUpAtkLv(): boolean { return canUpLv(this.atkLv); }
+  get enableDownAtkLv(): boolean { return canDownLv(this.atkLv); }
 
   upAtkLv(): UnitParameterEnhancementLv {
     if (this.enableUpAtkLv) {
       const atkLv = this.atkLv + 1;
-      return this.updateParameterLv({ atkLv, atkStatusEffect: atkEnhancementEffect(atkLv) });
+      return this.#updateParameterLv({ atkLv, atkStatusEffect: atkEnhancementEffect(atkLv) });
     }
     return this;
   }
@@ -166,23 +175,24 @@ class UnitParameterEnhancementLv {
   downAtkLv(): UnitParameterEnhancementLv {
     if (this.enableDownAtkLv) {
       const atkLv = this.atkLv - 1;
-      return this.updateParameterLv({ atkLv, atkStatusEffect: atkEnhancementEffect(atkLv) });
+      return this.#updateParameterLv({ atkLv, atkStatusEffect: atkEnhancementEffect(atkLv) });
     }
     return this;
   }
 
-  get enableUpDefLv(): boolean {
-    return this.defLv < MaxEnhancementLv;
+  setAtkLv(atkLv: number): UnitParameterEnhancementLv {
+    return validLv(atkLv) ?
+      this.#updateParameterLv({ atkLv, atkStatusEffect: atkEnhancementEffect(atkLv) }) :
+      this;
   }
 
-  get enableDownDefLv(): boolean {
-    return this.defLv > 0;
-  }
+  get enableUpDefLv(): boolean { return canUpLv(this.defLv); }
+  get enableDownDefLv(): boolean { return canDownLv(this.defLv); }
 
   upDefLv(): UnitParameterEnhancementLv {
     if (this.enableUpDefLv) {
       const defLv = this.defLv + 1;
-      return this.updateParameterLv({ defLv, defStatusEffect: defEnhancementEffect(defLv) });
+      return this.#updateParameterLv({ defLv, defStatusEffect: defEnhancementEffect(defLv) });
     }
     return this;
   }
@@ -190,23 +200,24 @@ class UnitParameterEnhancementLv {
   downDefLv(): UnitParameterEnhancementLv {
     if (this.enableDownDefLv) {
       const defLv = this.defLv - 1;
-      return this.updateParameterLv({ defLv, defStatusEffect: defEnhancementEffect(defLv) });
+      return this.#updateParameterLv({ defLv, defStatusEffect: defEnhancementEffect(defLv) });
     }
     return this;
   }
 
-  get enableUpAccLv(): boolean {
-    return this.accLv < MaxEnhancementLv;
+  setDefLv(defLv: number): UnitParameterEnhancementLv {
+    return validLv(defLv) ?
+      this.#updateParameterLv({ defLv, defStatusEffect: defEnhancementEffect(defLv) }) :
+      this;
   }
 
-  get enableDownAccLv(): boolean {
-    return this.accLv > 0;
-  }
+  get enableUpAccLv(): boolean { return canUpLv(this.accLv); }
+  get enableDownAccLv(): boolean { return canDownLv(this.accLv); }
 
   upAccLv(): UnitParameterEnhancementLv {
     if (this.enableUpAccLv) {
       const accLv = this.accLv + 1;
-      return this.updateParameterLv({ accLv, accStatusEffect: accEnhancementEffect(accLv) });
+      return this.#updateParameterLv({ accLv, accStatusEffect: accEnhancementEffect(accLv) });
     }
     return this;
   }
@@ -214,23 +225,24 @@ class UnitParameterEnhancementLv {
   downAccLv(): UnitParameterEnhancementLv {
     if (this.enableDownAccLv) {
       const accLv = this.accLv - 1;
-      return this.updateParameterLv({ accLv, accStatusEffect: accEnhancementEffect(accLv) });
+      return this.#updateParameterLv({ accLv, accStatusEffect: accEnhancementEffect(accLv) });
     }
     return this;
   }
 
-  get enableUpEvaLv(): boolean {
-    return this.evaLv < MaxEnhancementLv;
+  setAccLv(accLv: number): UnitParameterEnhancementLv {
+    return validLv(accLv) ?
+      this.#updateParameterLv({ accLv, accStatusEffect: accEnhancementEffect(accLv) }) :
+      this;
   }
 
-  get enableDownEvaLv(): boolean {
-    return this.evaLv > 0;
-  }
+  get enableUpEvaLv(): boolean { return canUpLv(this.evaLv); }
+  get enableDownEvaLv(): boolean { return canDownLv(this.evaLv); }
 
   upEvaLv(): UnitParameterEnhancementLv {
     if (this.enableUpEvaLv) {
       const evaLv = this.evaLv + 1;
-      return this.updateParameterLv({ evaLv, evaStatusEffect: evaEnhancementEffect(evaLv) });
+      return this.#updateParameterLv({ evaLv, evaStatusEffect: evaEnhancementEffect(evaLv) });
     }
     return this;
   }
@@ -238,23 +250,24 @@ class UnitParameterEnhancementLv {
   downEvaLv(): UnitParameterEnhancementLv {
     if (this.enableDownEvaLv) {
       const evaLv = this.evaLv - 1;
-      return this.updateParameterLv({ evaLv, evaStatusEffect: evaEnhancementEffect(evaLv) });
+      return this.#updateParameterLv({ evaLv, evaStatusEffect: evaEnhancementEffect(evaLv) });
     }
     return this;
   }
 
-  get enableUpCriLv(): boolean {
-    return this.criLv < MaxEnhancementLv;
+  setEvaLv(evaLv: number): UnitParameterEnhancementLv {
+    return validLv(evaLv) ?
+      this.#updateParameterLv({ evaLv, evaStatusEffect: evaEnhancementEffect(evaLv) }) :
+      this;
   }
 
-  get enableDownCriLv(): boolean {
-    return this.criLv > 0;
-  }
+  get enableUpCriLv(): boolean { return canUpLv(this.criLv); }
+  get enableDownCriLv(): boolean { return canDownLv(this.criLv); }
 
   upCriLv(): UnitParameterEnhancementLv {
     if (this.enableUpCriLv) {
       const criLv = this.criLv + 1;
-      return this.updateParameterLv({ criLv, criStatusEffect: criEnhancementEffect(criLv) });
+      return this.#updateParameterLv({ criLv, criStatusEffect: criEnhancementEffect(criLv) });
     }
     return this;
   }
@@ -262,9 +275,15 @@ class UnitParameterEnhancementLv {
   downCriLv(): UnitParameterEnhancementLv {
     if (this.enableDownCriLv) {
       const criLv = this.criLv - 1;
-      return this.updateParameterLv({ criLv, criStatusEffect: criEnhancementEffect(criLv) });
+      return this.#updateParameterLv({ criLv, criStatusEffect: criEnhancementEffect(criLv) });
     }
     return this;
+  }
+
+  setCriLv(criLv: number): UnitParameterEnhancementLv {
+    return validLv(criLv) ?
+      this.#updateParameterLv({ criLv, criStatusEffect: criEnhancementEffect(criLv) }) :
+      this;
   }
 }
 

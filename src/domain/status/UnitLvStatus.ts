@@ -79,6 +79,10 @@ class UnitLvStatus {
     return this.#updateState({ lv: this.#lv.toggleMode() });
   }
 
+  setManualLvMode(): UnitLvStatus {
+    return this.#updateState({ lv: this.#lv.setManualLvMode() });
+  }
+
   get usedPoints(): number {
     return this.#enhancements.points;
   }
@@ -119,88 +123,117 @@ class UnitLvStatus {
   get enableUpCriLv(): boolean { return this.#hasRemainPoints && this.#enhancements.enableUpCriLv; }
   get enableDownCriLv(): boolean { return this.#enhancements.enableDownCriLv; }
 
+  #canSetEnhanceLv(prev: number, next: number): boolean {
+    const diff = prev - next;
+    return  diff <= this.remainPoints;
+  }
+
+  setHpLv(hpLv: number): UnitLvStatus {
+    return this.#canSetEnhanceLv(this.hpLv, hpLv) ?
+      this.#updateState({ parameters: this.#enhancements.setHpLv(hpLv) }) :
+      this;
+  }
+
   upHpLv(): UnitLvStatus {
-    if (this.enableUpHpLv) {
-      return this.#updateState({ parameters: this.#enhancements.upHpLv() });
-    }
-    return this;
+    return this.enableUpHpLv ?
+      this.#updateState({ parameters: this.#enhancements.upHpLv() }) :
+      this;
   }
 
   downHpLv(): UnitLvStatus {
-    if (this.enableDownHpLv) {
-      return this.#updateState({ parameters: this.#enhancements.downHpLv() });
-    }
-    return this;
+    return this.enableDownHpLv ?
+      this.#updateState({ parameters: this.#enhancements.downHpLv() }) :
+      this;
+  }
+
+  setAtkLv(atkLv: number): UnitLvStatus {
+    return this.#canSetEnhanceLv(this.atkLv, atkLv) ?
+      this.#updateState({ parameters: this.#enhancements.setAtkLv(atkLv) }) :
+      this;
   }
 
   upAtkLv(): UnitLvStatus {
-    if (this.enableUpAtkLv) {
-      return this.#updateState({ parameters: this.#enhancements.upAtkLv() });
-    }
-    return this;
+    return this.enableUpAtkLv ?
+      this.#updateState({ parameters: this.#enhancements.upAtkLv() }) :
+      this;
   }
 
   downAtkLv(): UnitLvStatus {
-    if (this.enableDownAtkLv) {
-      return this.#updateState({ parameters: this.#enhancements.downAtkLv() });
-    }
-    return this;
+    return this.enableDownAtkLv ?
+      this.#updateState({ parameters: this.#enhancements.downAtkLv() }) :
+      this;
+  }
+
+  setDefLv(defLv: number): UnitLvStatus {
+    return this.#canSetEnhanceLv(this.defLv, defLv) ?
+      this.#updateState({ parameters: this.#enhancements.setDefLv(defLv) }) :
+      this;
   }
 
   upDefLv(): UnitLvStatus {
-    if (this.enableUpDefLv) {
-      return this.#updateState({ parameters: this.#enhancements.upDefLv() });
-    }
-    return this;
+    return this.enableUpDefLv ?
+      this.#updateState({ parameters: this.#enhancements.upDefLv() }) :
+      this;
   }
 
   downDefLv(): UnitLvStatus {
-    if (this.enableDownDefLv) {
-      return this.#updateState({ parameters: this.#enhancements.downDefLv() });
-    }
-    return this;
+    return this.enableDownDefLv ?
+      this.#updateState({ parameters: this.#enhancements.downDefLv() }) :
+      this;
+  }
+
+  setAccLv(accLv: number): UnitLvStatus {
+    return this.#canSetEnhanceLv(this.accLv, accLv) ?
+      this.#updateState({ parameters: this.#enhancements.setAccLv(accLv) }) :
+      this;
   }
 
   upAccLv(): UnitLvStatus {
-    if (this.enableUpAccLv) {
-      return this.#updateState({ parameters: this.#enhancements.upAccLv() });
-    }
-    return this;
+    return this.enableUpAccLv ?
+      this.#updateState({ parameters: this.#enhancements.upAccLv() }) :
+      this;
   }
 
   downAccLv(): UnitLvStatus {
-    if (this.enableDownAccLv) {
-      return this.#updateState({ parameters: this.#enhancements.downAccLv() });
-    }
-    return this;
+    return this.enableDownAccLv ?
+      this.#updateState({ parameters: this.#enhancements.downAccLv() }) :
+      this;
+  }
+
+  setEvaLv(evaLv: number): UnitLvStatus {
+    return this.#canSetEnhanceLv(this.evaLv, evaLv) ?
+      this.#updateState({ parameters: this.#enhancements.setEvaLv(evaLv) }) :
+      this;
   }
 
   upEvaLv(): UnitLvStatus {
-    if (this.enableUpEvaLv) {
-      return this.#updateState({ parameters: this.#enhancements.upEvaLv() });
-    }
-    return this;
+    return this.enableUpEvaLv ?
+      this.#updateState({ parameters: this.#enhancements.upEvaLv() }) :
+      this;
   }
 
   downEvaLv(): UnitLvStatus {
-    if (this.enableDownEvaLv) {
-      return this.#updateState({ parameters: this.#enhancements.downEvaLv() });
-    }
-    return this;
+    return this.enableDownEvaLv ?
+      this.#updateState({ parameters: this.#enhancements.downEvaLv() }) :
+      this;
+  }
+
+  setCriLv(criLv: number): UnitLvStatus {
+    return this.#canSetEnhanceLv(this.criLv, criLv) ?
+      this.#updateState({ parameters: this.#enhancements.setCriLv(criLv) }) :
+      this;
   }
 
   upCriLv(): UnitLvStatus {
-    if (this.enableUpCriLv) {
-      return this.#updateState({ parameters: this.#enhancements.upCriLv() });
-    }
-    return this;
+    return this.enableUpCriLv ?
+      this.#updateState({ parameters: this.#enhancements.upCriLv() }) :
+      this;
   }
 
   downCriLv(): UnitLvStatus {
-    if (this.enableDownCriLv) {
-      return this.#updateState({ parameters: this.#enhancements.downCriLv() });
-    }
-    return this;
+    return this.enableDownCriLv ?
+      this.#updateState({ parameters: this.#enhancements.downCriLv() }) :
+      this;
   }
 }
 

@@ -2,6 +2,8 @@ import { Effect } from './Effect';
 import { IntegerValue, MicroValue, MilliPercentageValue } from './ValueUnit';
 import { UnitNumber } from './UnitBasicInfo';
 
+import { IndexOf, Keyof } from '../util/type';
+
 export type CommonCoreLinkBonus = Readonly<{
   [Effect.HpUp]: { [key in keyof MilliPercentageValue]: 20_000 },
   [Effect.AtkUp]: { [key in keyof MilliPercentageValue]: 20_000 },
@@ -79,3 +81,5 @@ export type UnitCoreLinkBonusData = Readonly<{
 }>
 
 export type FullLinkBonus = UnitCoreLinkBonusData[UnitNumber]['full_link_bonus'][number]
+export type FullLinkBonusIndex = IndexOf<UnitCoreLinkBonusData[UnitNumber]['full_link_bonus']>
+export type FullLinkBonusKey = Keyof<FullLinkBonus>

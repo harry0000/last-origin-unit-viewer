@@ -41,6 +41,10 @@ class UnitLv {
     );
   }
 
+  setManualLvMode(): UnitLv {
+    return this.mode === 'auto' ? this.toggleMode() : this;
+  }
+
   get points(): number {
     return (this.mode === 'auto' ? 100 : this.value) * 3;
   }
