@@ -15,10 +15,10 @@ import {
   SpdParameterRow
 } from './UnitStatusParameterRow';
 import { ArrowReset } from '../icon/FluentIcons';
-import { Button, Col, Container, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
+import { Col, Container, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
 import { ElectricResist, FireResist, IceResist } from './AttributeResist';
 import NumberValueDropdown from '../common/NumberValueDropdown';
-import SVGIcon from '../icon/SVGIcon';
+import SVGButton from '../common/SVGButton';
 import UnitLvModeToggleButton from './UnitLvModeToggleButton';
 
 import { UnitLvMode, UnitLvValue } from '../../domain/status/UnitLv';
@@ -116,22 +116,13 @@ const ResetPointsButton: React.FC = () => {
       onToggle={nextShow => setShow(nextShow)}
       overlay={<Tooltip id='tooltip-reset-status-parameter-points'>{t('status.reset_points')}</Tooltip>}
     >
-      <Button
-        variant="danger"
+      <SVGButton
         aria-label="Reset points"
-        css={{ lineHeight: '1.2' }}
+        variant="danger"
+        svg={<ArrowReset />}
         disabled={disabled}
         onClick={() => reset()}
-      >
-        <SVGIcon
-          css={{
-            height: 20,
-            width: 20
-          }}
-        >
-          <ArrowReset />
-        </SVGIcon>
-      </Button>
+      />
     </OverlayTrigger>
   );
 };

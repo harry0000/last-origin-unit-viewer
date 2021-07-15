@@ -2,9 +2,11 @@ import {
   Chip,
   EquipmentEnhancementLevel,
   EquipmentRank,
+  EquipmentType,
   Gear,
   matchExclusive,
-  Os, StatusEffectData
+  Os,
+  StatusEffectData
 } from '../EquipmentData';
 import { Effect } from '../Effect';
 import { StatusEffect } from './StatusEffect';
@@ -18,14 +20,14 @@ import { foldObjectNonNullableEntry } from '../../util/object';
 
 export type EquipmentSlotAvailableLv = typeof unitEquipmentSlot[UnitNumber][keyof typeof unitEquipmentSlot[UnitNumber]]
 
-type EquipmentAttribute = {
+type EquipmentAttribute = Readonly<{
   rank: EquipmentRank,
   enhanceLv: EquipmentEnhancementLevel
-}
+}>
 
-export type ChipEquipment = { equipped: Chip } & EquipmentAttribute
-export type OsEquipment   = { equipped: Os } & EquipmentAttribute
-export type GearEquipment = { equipped: Gear } & EquipmentAttribute
+export type ChipEquipment = Readonly<{ equipped: Chip }> & EquipmentAttribute
+export type OsEquipment   = Readonly<{ equipped: Os }> & EquipmentAttribute
+export type GearEquipment = Readonly<{ equipped: Gear }> & EquipmentAttribute
 
 const emptyEffect: StatusEffect = {};
 
@@ -84,6 +86,7 @@ export class UnitChip1Equipment {
   equipChip1(chip: Chip): UnitChip1Equipment {
     if (
       chip !== this.chip1?.equipped &&
+      chip.type === EquipmentType.Chip &&
       matchExclusive(this.unit, chip)
     ) {
       const newChip = { equipped: chip, ...defaultAttribute };
@@ -135,6 +138,7 @@ export class UnitChip2Equipment {
   equipChip2(chip: Chip): UnitChip2Equipment {
     if (
       chip !== this.chip2?.equipped &&
+      chip.type === EquipmentType.Chip &&
       matchExclusive(this.unit, chip)
     ) {
       const newChip = { equipped: chip, ...defaultAttribute };
@@ -186,6 +190,7 @@ export class UnitOsEquipment {
   equipOs(os: Os): UnitOsEquipment {
     if (
       os !== this.os?.equipped &&
+      os.type === EquipmentType.Os &&
       matchExclusive(this.unit, os)
     ) {
       const newOs = { equipped: os, ...defaultAttribute };
@@ -237,6 +242,7 @@ export class UnitGearEquipment {
   equipGear(gear: Gear): UnitGearEquipment {
     if (
       gear !== this.gear?.equipped &&
+      gear.type === EquipmentType.Gear &&
       matchExclusive(this.unit, gear)
     ) {
       const newGear = { equipped: gear, ...defaultAttribute };

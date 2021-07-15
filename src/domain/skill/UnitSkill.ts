@@ -21,8 +21,9 @@ import {
   calculatePassiveSkill
 } from './UnitSkillCalculator';
 import { unitSkillData } from '../../data/unitSkillData';
+import { ActiveSkillData, PassiveSkillData, PassiveSkillDataAsEquipmentEffect } from './UnitSkillData';
 
-export function buildUnit(unit: UnitBasicInfo): UnitSkill {
+export function buildUnitSkill(unit: UnitBasicInfo): UnitSkill {
   if (isFormChangeUnitBasicInfo(unit)) {
     switch (unit.no) {
     case FormChangeUnits.Alexandra:
@@ -66,12 +67,35 @@ abstract class UnitSkill {
 
   protected abstract updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill
 
-  abstract active1Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill
-  abstract active2Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill
+  protected abstract get active1SkillData(): ActiveSkillData
+  protected abstract get active2SkillData(): ActiveSkillData
 
-  abstract passive1Skill(fullLinkBonus: FullLinkBonus | undefined): Passive1Skill | undefined
-  abstract passive2Skill(fullLinkBonus: FullLinkBonus | undefined): Passive2Skill | undefined
-  abstract passive3Skill(fullLinkBonus: FullLinkBonus | undefined): Passive3Skill | undefined
+  protected abstract get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined
+  protected abstract get passive2SkillData(): PassiveSkillData | undefined
+  protected abstract get passive3SkillData(): PassiveSkillData | undefined
+
+  active1Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
+    return calculateActiveSkill(this.active1SkillData, this.skillLv.active1Lv, coreLinkBonus, fullLinkBonus);
+  }
+
+  active2Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
+    return calculateActiveSkill(this.active2SkillData, this.skillLv.active2Lv, coreLinkBonus, fullLinkBonus);
+  }
+
+  passive1Skill(fullLinkBonus: FullLinkBonus | undefined): Passive1Skill | undefined {
+    const ps = this.passive1SkillData;
+    return ps && calculatePassiveSkill(ps, this.skillLv.passive1Lv, fullLinkBonus);
+  }
+
+  passive2Skill(fullLinkBonus: FullLinkBonus | undefined): Passive2Skill | undefined {
+    const ps = this.passive2SkillData;
+    return ps && calculatePassiveSkill(ps, this.skillLv.passive2Lv, fullLinkBonus);
+  }
+
+  passive3Skill(fullLinkBonus: FullLinkBonus | undefined): Passive3Skill | undefined {
+    const ps = this.passive3SkillData;
+    return ps && calculatePassiveSkill(ps, this.skillLv.passive3Lv, fullLinkBonus);
+  }
 
   get isPassive1RankUpSkill(): boolean { return UnitRankComparator.a.greaterThan(this.unit.rank); }
   get isPassive2RankUpSkill(): boolean { return UnitRankComparator.s.greaterThan(this.unit.rank); }
@@ -86,15 +110,21 @@ abstract class UnitSkill {
   }
 
   changePassive1SkillLv(lv: SkillLv): UnitSkill {
-    return this.updateSkillLvValue(this.skillLv.setPassive1Lv(lv));
+    return this.passive1SkillData ?
+      this.updateSkillLvValue(this.skillLv.setPassive1Lv(lv)) :
+      this;
   }
 
   changePassive2SkillLv(lv: SkillLv): UnitSkill {
-    return this.updateSkillLvValue(this.skillLv.setPassive2Lv(lv));
+    return this.passive2SkillData ?
+      this.updateSkillLvValue(this.skillLv.setPassive2Lv(lv)) :
+      this;
   }
 
   changePassive3SkillLv(lv: SkillLv): UnitSkill {
-    return this.updateSkillLvValue(this.skillLv.setPassive3Lv(lv));
+    return this.passive3SkillData ?
+      this.updateSkillLvValue(this.skillLv.setPassive3Lv(lv)) :
+      this;
   }
 }
 
@@ -115,33 +145,19 @@ class FormLessUnitSkill extends UnitSkill {
     return new FormLessUnitSkill(this.#unit, lv);
   }
 
-  active1Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.#unit.no].active[0], this.skillLv.active1Lv, coreLinkBonus, fullLinkBonus);
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.#unit.no].active[0]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.#unit.no].active[1]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.#unit.no].passive[0];
   }
 
-  active2Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.#unit.no].active[1], this.skillLv.active2Lv, coreLinkBonus, fullLinkBonus);
+  protected get passive2SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.#unit.no].passive[1];
   }
 
-  passive1Skill(fullLinkBonus: FullLinkBonus | undefined): Passive1Skill | undefined {
-    const ps = unitSkillData[this.#unit.no].passive;
-    return ps.length > 0 ?
-      calculatePassiveSkill(ps[0], this.skillLv.passive1Lv, fullLinkBonus) :
-      undefined;
-  }
-
-  passive2Skill(fullLinkBonus: FullLinkBonus | undefined): Passive2Skill | undefined {
-    const ps = unitSkillData[this.#unit.no].passive;
-    return ps.length > 1 ?
-      calculatePassiveSkill(ps[1], this.skillLv.passive2Lv, fullLinkBonus) :
-      undefined;
-  }
-
-  passive3Skill(fullLinkBonus: FullLinkBonus | undefined): Passive3Skill | undefined {
-    const ps = unitSkillData[this.#unit.no].passive;
-    return ps.length > 2 ?
-      calculatePassiveSkill(ps[2], this.skillLv.passive3Lv, fullLinkBonus) :
-      undefined;
+  protected get passive3SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.#unit.no].passive[2];
   }
 }
 
@@ -226,24 +242,19 @@ class AlexandraUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Alex
     return new AlexandraUnitSkill(this.formChangeUnit, this.skillLv, form);
   }
 
-  active1Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[0][this.unitForm()], this.skillLv.active1Lv, coreLinkBonus, fullLinkBonus);
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0][this.unitForm()]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0][this.unitForm()];
   }
 
-  active2Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[1][this.unitForm()], this.skillLv.active2Lv, coreLinkBonus, fullLinkBonus);
+  protected get passive2SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.unitNumber].passive[1];
   }
 
-  passive1Skill(fullLinkBonus: FullLinkBonus | undefined): Passive1Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[0][this.unitForm()], this.skillLv.passive1Lv, fullLinkBonus);
-  }
-
-  passive2Skill(fullLinkBonus: FullLinkBonus | undefined): Passive2Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[1], this.skillLv.passive2Lv, fullLinkBonus);
-  }
-
-  passive3Skill(fullLinkBonus: FullLinkBonus | undefined): Passive3Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[2], this.skillLv.passive3Lv, fullLinkBonus);
+  protected get passive3SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.unitNumber].passive[2];
   }
 }
 
@@ -265,24 +276,19 @@ class LeonaUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Leona> {
     return new LeonaUnitSkill(this.formChangeUnit, this.skillLv, form);
   }
 
-  active1Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[0], this.skillLv.active1Lv, coreLinkBonus, fullLinkBonus);
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0][this.unitForm()];
   }
 
-  active2Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[1], this.skillLv.active2Lv, coreLinkBonus, fullLinkBonus);
+  protected get passive2SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.unitNumber].passive[1][this.unitForm()];
   }
 
-  passive1Skill(fullLinkBonus: FullLinkBonus | undefined): Passive1Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[0][this.unitForm()], this.skillLv.passive1Lv, fullLinkBonus);
-  }
-
-  passive2Skill(fullLinkBonus: FullLinkBonus | undefined): Passive2Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[1][this.unitForm()], this.skillLv.passive2Lv, fullLinkBonus);
-  }
-
-  passive3Skill(fullLinkBonus: FullLinkBonus | undefined): Passive3Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[2], this.skillLv.passive3Lv, fullLinkBonus);
+  protected get passive3SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.unitNumber].passive[2];
   }
 }
 
@@ -304,24 +310,19 @@ class BloodyPantherUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.
     return new BloodyPantherUnitSkill(this.formChangeUnit, this.skillLv, form);
   }
 
-  active1Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[0][this.unitForm()], this.skillLv.active1Lv, coreLinkBonus, fullLinkBonus);
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0][this.unitForm()]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0];
   }
 
-  active2Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[1][this.unitForm()], this.skillLv.active2Lv, coreLinkBonus, fullLinkBonus);
+  protected get passive2SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.unitNumber].passive[1];
   }
 
-  passive1Skill(fullLinkBonus: FullLinkBonus | undefined): Passive1Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[0], this.skillLv.passive1Lv, fullLinkBonus);
-  }
-
-  passive2Skill(fullLinkBonus: FullLinkBonus | undefined): Passive2Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[1], this.skillLv.passive2Lv, fullLinkBonus);
-  }
-
-  passive3Skill(fullLinkBonus: FullLinkBonus | undefined): Passive3Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[2][this.unitForm()], this.skillLv.passive3Lv, fullLinkBonus);
+  protected get passive3SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.unitNumber].passive[2][this.unitForm()];
   }
 }
 
@@ -343,24 +344,19 @@ class EmilyUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Emily> {
     return new EmilyUnitSkill(this.formChangeUnit, this.skillLv, form);
   }
 
-  active1Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[0], this.skillLv.active1Lv, coreLinkBonus, fullLinkBonus);
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0];
   }
 
-  active2Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[1][this.unitForm()], this.skillLv.active2Lv, coreLinkBonus, fullLinkBonus);
+  protected get passive2SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.unitNumber].passive[1];
   }
 
-  passive1Skill(fullLinkBonus: FullLinkBonus | undefined): Passive1Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[0], this.skillLv.passive1Lv, fullLinkBonus);
-  }
-
-  passive2Skill(fullLinkBonus: FullLinkBonus | undefined): Passive2Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[1], this.skillLv.passive2Lv, fullLinkBonus);
-  }
-
-  passive3Skill(fullLinkBonus: FullLinkBonus | undefined): Passive3Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[2], this.skillLv.passive3Lv, fullLinkBonus);
+  protected get passive3SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.unitNumber].passive[2];
   }
 }
 
@@ -382,24 +378,18 @@ class PhantomUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Phanto
     return new PhantomUnitSkill(this.formChangeUnit, this.skillLv, form);
   }
 
-  active1Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[0][this.unitForm()], this.skillLv.active1Lv, coreLinkBonus, fullLinkBonus);
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0][this.unitForm()]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0][this.unitForm()];
   }
 
-  active2Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[1][this.unitForm()], this.skillLv.active2Lv, coreLinkBonus, fullLinkBonus);
+  protected get passive2SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.unitNumber].passive[1];
   }
 
-  passive1Skill(fullLinkBonus: FullLinkBonus | undefined): Passive1Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[0][this.unitForm()], this.skillLv.passive1Lv, fullLinkBonus);
-  }
-
-  passive2Skill(fullLinkBonus: FullLinkBonus | undefined): Passive2Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[1], this.skillLv.passive2Lv, fullLinkBonus);
-  }
-
-  // eslint-disable-next-line
-  passive3Skill(fullLinkBonus: FullLinkBonus | undefined): Passive3Skill | undefined {
+  protected get passive3SkillData(): PassiveSkillData | undefined {
     return undefined;
   }
 }
@@ -422,24 +412,19 @@ class InvincibleDragonUnitSkill extends FormChangeUnitSkill<typeof FormChangeUni
     return new InvincibleDragonUnitSkill(this.formChangeUnit, this.skillLv, form);
   }
 
-  active1Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[0][this.unitForm()], this.skillLv.active1Lv, coreLinkBonus, fullLinkBonus);
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0][this.unitForm()]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0];
   }
 
-  active2Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[1][this.unitForm()], this.skillLv.active2Lv, coreLinkBonus, fullLinkBonus);
+  protected get passive2SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.unitNumber].passive[1];
   }
 
-  passive1Skill(fullLinkBonus: FullLinkBonus | undefined): Passive1Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[0], this.skillLv.passive1Lv, fullLinkBonus);
-  }
-
-  passive2Skill(fullLinkBonus: FullLinkBonus | undefined): Passive2Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[1], this.skillLv.passive2Lv, fullLinkBonus);
-  }
-
-  passive3Skill(fullLinkBonus: FullLinkBonus | undefined): Passive3Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[2], this.skillLv.passive3Lv, fullLinkBonus);
+  protected get passive3SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.unitNumber].passive[2];
   }
 }
 
@@ -461,24 +446,19 @@ class SirenUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Siren> {
     return new SirenUnitSkill(this.formChangeUnit, this.skillLv, form);
   }
 
-  active1Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[0][this.unitForm()], this.skillLv.active1Lv, coreLinkBonus, fullLinkBonus);
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0][this.unitForm()]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0];
   }
 
-  active2Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[1][this.unitForm()], this.skillLv.active2Lv, coreLinkBonus, fullLinkBonus);
+  protected get passive2SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.unitNumber].passive[1][this.unitForm()];
   }
 
-  passive1Skill(fullLinkBonus: FullLinkBonus | undefined): Passive1Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[0], this.skillLv.passive1Lv, fullLinkBonus);
-  }
-
-  passive2Skill(fullLinkBonus: FullLinkBonus | undefined): Passive2Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[1][this.unitForm()], this.skillLv.passive2Lv, fullLinkBonus);
-  }
-
-  passive3Skill(fullLinkBonus: FullLinkBonus | undefined): Passive3Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[2], this.skillLv.passive3Lv, fullLinkBonus);
+  protected get passive3SkillData(): PassiveSkillData | undefined {
+    return unitSkillData[this.unitNumber].passive[2];
   }
 }
 
@@ -500,25 +480,18 @@ class FortressUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Fortr
     return new FortressUnitSkill(this.formChangeUnit, this.skillLv, form);
   }
 
-  active1Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[0][this.unitForm()], this.skillLv.active1Lv, coreLinkBonus, fullLinkBonus);
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0][this.unitForm()]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0][this.unitForm()];
   }
 
-  active2Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(unitSkillData[this.unitNumber].active[1][this.unitForm()], this.skillLv.active2Lv, coreLinkBonus, fullLinkBonus);
-  }
-
-  passive1Skill(fullLinkBonus: FullLinkBonus | undefined): Passive1Skill | undefined {
-    return calculatePassiveSkill(unitSkillData[this.unitNumber].passive[0][this.unitForm()], this.skillLv.passive1Lv, fullLinkBonus);
-  }
-
-  // eslint-disable-next-line
-  passive2Skill(fullLinkBonus: FullLinkBonus | undefined): Passive2Skill | undefined {
+  protected get passive2SkillData(): PassiveSkillData | undefined {
     return undefined;
   }
 
-  // eslint-disable-next-line
-  passive3Skill(_: FullLinkBonus | undefined): Passive3Skill | undefined {
+  protected get passive3SkillData(): PassiveSkillData | undefined {
     return undefined;
   }
 }

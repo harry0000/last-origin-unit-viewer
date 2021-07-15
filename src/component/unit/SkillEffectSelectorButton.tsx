@@ -3,7 +3,6 @@
 import { Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
 import React from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { CheckboxChecked, CheckboxUnchecked } from '../icon/FluentIcons';
@@ -12,15 +11,14 @@ import SVGIcon from '../icon/SVGIcon';
 
 import { SkillEffectSelectorCondition } from '../../domain/selector/SkillEffectSelectorCondition';
 
-import { skillEffectSelectorState, toggleSkillEffectSelector } from '../../state/selector/unitSelectorState';
+import { useSkillEffectSelector } from '../../state/selector/unitSelectorState';
 
 const SkillEffectSelectorButton: React.FC<{
   css?: Interpolation<Theme>,
   effect: SkillEffectSelectorCondition
 }> = ({ effect, ...others }) => {
   const { t } = useTranslation();
-  const selected = useRecoilValue(skillEffectSelectorState(effect));
-  const toggle = useSetRecoilState(toggleSkillEffectSelector(effect));
+  const [selected, toggle] = useSkillEffectSelector(effect);
 
   return (
     <RoundedToggleButton

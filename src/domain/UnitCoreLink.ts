@@ -2,7 +2,8 @@ import {
   CommonCoreLinkBonus,
   CoreLinkBonus,
   DamageMultiplierBonus,
-  FullLinkBonus
+  FullLinkBonus,
+  FullLinkBonusIndex
 } from './UnitCoreLinkBonusData';
 import { Effect } from './Effect';
 import { MicroValue, MilliPercentageValue } from './ValueUnit';
@@ -14,25 +15,25 @@ import { unitBasicData } from '../data/unitBasicData';
 
 export type CoreLinkSlotAvailableLv = 10 | 30 | 50 | 70 | 90
 
-export type CoreLinkUnit = {
+export type CoreLinkUnit = Readonly<{
   unit: UnitNumber,
   rate: 100
-} | {
+}> | Readonly<{
   rank: typeof UnitRank.SS,
   type: UnitType,
   role: UnitRole,
   rate: 75
-} | {
+}> | Readonly<{
   rank: typeof UnitRank.S,
   type: UnitType,
   role: UnitRole,
   rate: 60
-} | {
+}> | Readonly<{
   rank: typeof UnitRank.A,
   type: UnitType,
   role: UnitRole,
   rate: 45
-}
+}>
 
 const MaxLinkRate = 500;
 
@@ -207,10 +208,18 @@ class UnitCoreLink {
     return this.slot5 ? new UnitCoreLink(this.unit, this.slot1, this.slot2, this.slot3, this.slot4, undefined, this.fullLinkBonus) : this;
   }
 
+  #fullLinkBonusIndex(bonus: FullLinkBonus): FullLinkBonusIndex | -1 {
+    return unitCoreLinkBonusData[this.unit].full_link_bonus.indexOf(bonus) as FullLinkBonusIndex | -1;
+  }
+
+  get selectedFullLinkBonusIndex(): FullLinkBonusIndex | -1 {
+    return this.fullLinkBonus ? this.#fullLinkBonusIndex(this.fullLinkBonus) : -1;
+  }
+
   selectFullLinkBonus(bonus: FullLinkBonus): UnitCoreLink {
     return (
       this.fullLinkBonus !== bonus &&
-      unitCoreLinkBonusData[this.unit].full_link_bonus.indexOf(bonus) >= 0
+      this.#fullLinkBonusIndex(bonus) !== -1
     ) ?
       new UnitCoreLink(this.unit, this.slot1, this.slot2, this.slot3, this.slot4, this.slot5, bonus) :
       this;

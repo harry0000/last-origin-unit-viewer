@@ -1,0 +1,30 @@
+.unit-list {
+  height: 335px;
+  padding: 10px 5px 5px;
+  overflow-y: scroll;
+  scrollbar-color: #ffcc00 #514E55;
+  scrollbar-width: thin;
+}
+
+.unit-list::-webkit-scrollbar {
+  width: 10px;
+}
+.unit-list::-webkit-scrollbar-track {
+  background: #514E55;
+  border: none;
+  border-radius: 10px;
+  box-shadow: inset 0 0 2px #888;
+}
+.unit-list::-webkit-scrollbar-thumb {
+  background: #ffcc00;
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.unit-list .unit-grid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, 100px);
+  grid-template-rows: repeat(auto-fill, 100px);
+  justify-content: space-evenly;
+}

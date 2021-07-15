@@ -1,0 +1,23 @@
+.btn.svg-btn {
+  padding: 4px;
+  height: 32px;
+  width: 32px;
+}
+
+.btn.svg-btn svg {
+  vertical-align: baseline;
+}
+
+.btn.svg-btn.fluid {
+  padding: 0;
+  position: relative;
+}
+
+.btn.svg-btn.fluid svg {
+  position: absolute;
+  inset: -1px;
+}
+
+.btn.svg-btn.fluid:hover {
+  opacity: 0.8;
+}

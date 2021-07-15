@@ -11,20 +11,20 @@ import {
 } from '../../state/status/selectedUnitStatusParameterState';
 import {
   decrementUnitStatusLv,
+  EnhanceableStatus,
   incrementUnitStatusLv,
   selectedUnitStatusCanDecrementState,
   selectedUnitStatusCanIncrementState,
   selectedUnitStatusEnhancementLvState
 } from '../../state/status/unitLvStatusState';
 
-import { EnhanceableParameterType } from '../../component/status/UnitStatusParameterRow';
 import {
   formatMicroValue,
   formatMilliPercentage,
   formatMilliValue
 } from '../../component/status/UnitStatusParameterFormatter';
 
-export function useStatusParameter(parameter: EnhanceableParameterType | 'spd'): string {
+export function useStatusParameter(parameter: EnhanceableStatus | 'spd'): string {
   switch (parameter) {
   case 'hp':  return `${useRecoilValue(selectedUnitHpStatusParameterState)?.hp.value ?? '0'}`;
   case 'atk': return formatMilliValue(useRecoilValue(selectedUnitAtkStatusParameterState)?.atk);
@@ -36,12 +36,12 @@ export function useStatusParameter(parameter: EnhanceableParameterType | 'spd'):
   }
 }
 
-export function useStatusParameterEnhancedLv(parameter: EnhanceableParameterType): number {
+export function useStatusParameterEnhancedLv(parameter: EnhanceableStatus): number {
   return useRecoilValue(selectedUnitStatusEnhancementLvState(parameter)) ?? 0;
 }
 
 export function useStatusParameterControl(
-  parameter: EnhanceableParameterType
+  parameter: EnhanceableStatus
 ): [incrementDisabled: boolean, decrementDisabled: boolean, increment: () => void, decrement: () => void] {
   const incrementDisabled = !useRecoilValue(selectedUnitStatusCanIncrementState(parameter));
   const decrementDisabled = !useRecoilValue(selectedUnitStatusCanDecrementState(parameter));

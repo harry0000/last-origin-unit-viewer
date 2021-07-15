@@ -9,13 +9,12 @@ import { Col, Image, Row } from 'react-bootstrap';
 import StatusEffectsView from './StatusEffectsView';
 import UnitStatusParameterButton from './UnitStatusParameterButton';
 
+import { EnhanceableStatus } from '../../state/status/unitLvStatusState';
 import {
   useStatusParameter,
   useStatusParameterControl,
   useStatusParameterEnhancedLv
 } from '../../hook/status/StatusParameter';
-
-export type EnhanceableParameterType = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri'
 
 const parameterCol: CSSObject = {
   fontSize: '1.2em',
@@ -27,7 +26,7 @@ const pointsCol: CSSObject = {
   textAlign: 'right'
 };
 
-const StatusIcon: React.FC<{ status: EnhanceableParameterType | 'spd' }> = ({ status }) => {
+const StatusIcon: React.FC<{ status: EnhanceableStatus | 'spd' }> = ({ status }) => {
   return (
     <Image
       rounded
@@ -39,7 +38,7 @@ const StatusIcon: React.FC<{ status: EnhanceableParameterType | 'spd' }> = ({ st
   );
 };
 
-const StatusParameterNameLabel: React.FC<{ parameter: EnhanceableParameterType | 'spd' }> = React.memo(({ parameter }) => {
+const StatusParameterNameLabel: React.FC<{ parameter: EnhanceableStatus | 'spd' }> = React.memo(({ parameter }) => {
   const { t } = useTranslation();
 
   return (
@@ -50,13 +49,13 @@ const StatusParameterNameLabel: React.FC<{ parameter: EnhanceableParameterType |
   );
 });
 
-const StatusParameterValueView: React.FC<{ parameter: EnhanceableParameterType | 'spd' }> = React.memo(({ parameter }) => {
+const StatusParameterValueView: React.FC<{ parameter: EnhanceableStatus | 'spd' }> = React.memo(({ parameter }) => {
   const value = useStatusParameter(parameter);
 
   return (<span>{value}</span>);
 });
 
-const StatusParameterEnhancementLvView: React.FC<{ parameter: EnhanceableParameterType }> = ({ parameter }) => {
+const StatusParameterEnhancementLvView: React.FC<{ parameter: EnhanceableStatus }> = ({ parameter }) => {
   const { t } = useTranslation();
   const enhancedLv = useStatusParameterEnhancedLv(parameter);
 
@@ -68,7 +67,7 @@ const StatusParameterEnhancementLvView: React.FC<{ parameter: EnhanceableParamet
   );
 };
 
-const StatusParameterControlButtons: React.FC<{ parameter: EnhanceableParameterType }> = ({ parameter }) => {
+const StatusParameterControlButtons: React.FC<{ parameter: EnhanceableStatus }> = ({ parameter }) => {
   const [incrementDisabled, decrementDisabled, increment, decrement] = useStatusParameterControl(parameter);
 
   return (
@@ -81,7 +80,7 @@ const StatusParameterControlButtons: React.FC<{ parameter: EnhanceableParameterT
 
 const EnhanceableStatusParameterRow: React.FC<{
   css?: Interpolation<Theme>,
-  parameter: EnhanceableParameterType
+  parameter: EnhanceableStatus
 }> = ({ parameter, ...others }) => {
 
   return (

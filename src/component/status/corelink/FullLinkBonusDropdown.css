@@ -1,5 +1,9 @@
 .selector.full-link-bonus {
-  height: 34px
+  height: 34px;
+}
+
+.selector.full-link-bonus .placeholder {
+  height: 30px;
 }
 
 @media (max-width: 480px) {

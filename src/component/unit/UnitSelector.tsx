@@ -2,19 +2,17 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import SelectorButton from './SelectorButton';
 import SkillEffectSelector from './SkillEffectSelector';
 
 import { UnitRank, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
-import { toggleUnitSelector, unitConditionSelectorState } from '../../state/selector/unitSelectorState';
+import { useUnitRankSelector, useUnitRoleSelector, useUnitTypeSelector } from '../../state/selector/unitSelectorState';
 
 const UnitRankSelectorButton: React.FC<{ rank: UnitRank }> = ({ rank }) => {
   const { t } = useTranslation();
-  const selected = useRecoilValue(unitConditionSelectorState(rank));
-  const toggle = useSetRecoilState(toggleUnitSelector(rank));
+  const [selected, toggle] = useUnitRankSelector(rank);
 
   return (
     <SelectorButton
@@ -28,8 +26,7 @@ const UnitRankSelectorButton: React.FC<{ rank: UnitRank }> = ({ rank }) => {
 
 const UnitTypeSelectorButton: React.FC<{ type: UnitType }> = ({ type }) => {
   const { t } = useTranslation();
-  const selected = useRecoilValue(unitConditionSelectorState(type));
-  const toggle = useSetRecoilState(toggleUnitSelector(type));
+  const [selected, toggle] = useUnitTypeSelector(type);
 
   return (
     <SelectorButton
@@ -43,8 +40,7 @@ const UnitTypeSelectorButton: React.FC<{ type: UnitType }> = ({ type }) => {
 
 const UnitRoleSelectorButton: React.FC<{ role: UnitRole }> = ({ role }) => {
   const { t } = useTranslation();
-  const selected = useRecoilValue(unitConditionSelectorState(role));
-  const toggle = useSetRecoilState(toggleUnitSelector(role));
+  const [selected, toggle] = useUnitRoleSelector(role);
 
   return (
     <SelectorButton

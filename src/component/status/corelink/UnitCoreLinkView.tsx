@@ -1,10 +1,9 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { ReactNode } from 'react';
+import React, { Fragment, ReactNode, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import CoreLinkSelector from './CoreLinkSelector';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import PopoverListContent from '../../common/PopoverListContent';
 import { Search } from '../../icon/FluentIcons';
@@ -75,6 +74,8 @@ const CoreLinkEffectDetailView: React.FC = () => {
   );
 };
 
+const CoreLinkSelector = React.lazy(() => import('./CoreLinkSelector'));
+
 const UnitCoreLinkView: React.FC = () => {
   const { t } = useTranslation();
   return (
@@ -85,11 +86,11 @@ const UnitCoreLinkView: React.FC = () => {
         <CoreLinkEffectDetailView />
       </div>
       <div className="slot-row">
-        <div className="slot-cell"><CoreLinkSelector slot="slot1" /></div>
-        <div className="slot-cell"><CoreLinkSelector slot="slot2" /></div>
-        <div className="slot-cell"><CoreLinkSelector slot="slot3" /></div>
-        <div className="slot-cell"><CoreLinkSelector slot="slot4" /></div>
-        <div className="slot-cell"><CoreLinkSelector slot="slot5" /></div>
+        <div className="slot-cell"><Suspense fallback={Fragment}><CoreLinkSelector slot="slot1" /></Suspense></div>
+        <div className="slot-cell"><Suspense fallback={Fragment}><CoreLinkSelector slot="slot2" /></Suspense></div>
+        <div className="slot-cell"><Suspense fallback={Fragment}><CoreLinkSelector slot="slot3" /></Suspense></div>
+        <div className="slot-cell"><Suspense fallback={Fragment}><CoreLinkSelector slot="slot4" /></Suspense></div>
+        <div className="slot-cell"><Suspense fallback={Fragment}><CoreLinkSelector slot="slot5" /></Suspense></div>
       </div>
     </div>
   );

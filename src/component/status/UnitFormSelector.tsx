@@ -6,8 +6,8 @@ import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { ArrowSync } from '../icon/FluentIcons';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import SVGIcon from '../icon/SVGIcon';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import SVGButton from '../common/SVGButton';
 
 import { selectedUnitSkillState } from '../../state/skill/unitSkillState';
 
@@ -23,17 +23,14 @@ const UnitFormSelector: React.FC = () => {
         placement='top'
         overlay={<Tooltip id='tooltip-form-change'>{t('form_change')}</Tooltip>}
       >
-        <Button
+        <SVGButton
+          aria-label="Change unit form"
           variant="secondary"
-          css={{ lineHeight: '1.2', marginRight: 10 }}
+          svg={<ArrowSync />}
           onClick={() => { setUnit(unit => unit && isFormChangeUnitSkill(unit) ? unit.changeForm(): unit); }}
-        >
-          <SVGIcon css={{ height: 20, width: 20 }}>
-            <ArrowSync />
-          </SVGIcon>
-        </Button>
+        />
       </OverlayTrigger>
-      <span css={{ color: '#eee' }}>
+      <span css={{ color: '#eee', marginLeft: 10 }}>
         {t(`effect:form.${unit.unitForm()}`)}
       </span>
     </div>) :

@@ -76,6 +76,12 @@
     }
   },
   "lv": "Lv.",
+  "squad": {
+    "share_squad": "分隊編成を共有",
+    "share_squad_modal_title": "分隊編成URL",
+    "copy_url_to_clipboard": "分隊編成URLをコピー",
+    "share_url_to_twitter": "分隊編成URLをTwitterで共有"
+  },
   "status": {
     "lv_mode": {
       "label": "Auto",
@@ -138,5 +144,27 @@
     "rank_up": "ランクアップスキル"
   },
   "form_change": "モードチェンジ",
-  "empty": "―"
+  "empty": "―",
+  "notification": {
+    "copied_squad_url": {
+      "title": "分隊編成",
+      "body": "クリップボードに編成URLをコピーしました。"
+    },
+    "restore_squad_units": {
+      "title": "分隊編成",
+      "body": "URLから編成を復元しました。"
+    },
+    "squad_is_empty": {
+      "title": "分隊編成",
+      "body": "分隊にキャラクターを配置してください。"
+    },
+    "error_while_generating_squad_url": {
+      "title": "分隊編成",
+      "body": "編成URLの生成中にエラーが発生しました。"
+    },
+    "error_while_restoring_squad_url": {
+      "title": "分隊編成",
+      "body": "編成URLから復元中にエラーが発生しました。"
+    }
+  }
 }
