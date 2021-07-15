@@ -1,3 +1,7 @@
+export function isRecord(arg: unknown): arg is Record<string, unknown> {
+  return !!arg && Object.prototype.toString.call(arg) === '[object Object]';
+}
+
 export function mapObjectValue<K extends string | number | symbol, V, R>(object: Record<K, V>, f: (value: V) => R): Record<K, R>
 export function mapObjectValue<K extends string | number | symbol, V, R>(object: Partial<Record<K, V>>, f: (value: V) => R): Partial<Record<K, R>>
 export function mapObjectValue<K extends string | number | symbol, V, R>(object: Record<K, V>, f: (value: V) => R): Record<K, R> {

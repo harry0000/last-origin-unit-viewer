@@ -2,11 +2,13 @@ import {
   atomFamily,
   DefaultValue,
   GetRecoilValue,
+  RecoilValueReadOnly,
   selector,
   selectorFamily,
   SetRecoilState,
   useRecoilState,
-  useRecoilValue
+  useRecoilValue,
+  useSetRecoilState
 } from 'recoil';
 import deepEqual from 'fast-deep-equal';
 
@@ -60,24 +62,6 @@ const _unitCoreLinkAtom = atomFamily<UnitCoreLink, UnitNumber>({
   default: (unit) => new UnitCoreLink(unit)
 });
 
-function updateInnerAtoms(get: GetRecoilValue, set: SetRecoilState): (unit: UnitNumber, coreLink: UnitCoreLink, lv: UnitLvValue) => void {
-  return function (unit, coreLink, lv) {
-    const linkBonus = coreLink.bonusEffects(lv);
-    if (!deepEqual(get(atoms.linkBonus(unit)), linkBonus)) {
-      set(atoms.linkBonus(unit), linkBonus);
-    }
-    set(atoms.slotAvailable.slot1(unit), coreLink.isSlot1Available(lv));
-    set(atoms.slotAvailable.slot2(unit), coreLink.isSlot2Available(lv));
-    set(atoms.slotAvailable.slot3(unit), coreLink.isSlot3Available(lv));
-    set(atoms.slotAvailable.slot4(unit), coreLink.isSlot4Available(lv));
-    set(atoms.slotAvailable.slot5(unit), coreLink.isSlot5Available(lv));
-    set(atoms.linkRate(unit), coreLink.linkRate(lv));
-
-    set(atoms.fullLinkBonus(unit), coreLink.fullLinkBonusEffect(lv));
-    set(atoms.fullLinkAvailable(unit), coreLink.isFullLinkBonusAvailable(lv));
-  };
-}
-
 export const updateCoreLinkDependency = selectorFamily<UnitLvValue, UnitNumber>({
   key: 'updateCoreLinkDependency',
   get: () => () => { throw new Error(); },
@@ -96,6 +80,34 @@ const unitCoreLinkState = selectorFamily<UnitCoreLink, UnitNumber>({
     if (newValue instanceof UnitCoreLink) {
       set(_unitCoreLinkAtom(unit), newValue);
       updateInnerAtoms(get, set)(unit, newValue, get(unitLvState(unit)));
+    }
+  }
+});
+
+function updateInnerAtoms(get: GetRecoilValue, set: SetRecoilState): (unit: UnitNumber, coreLink: UnitCoreLink, lv: UnitLvValue) => void {
+  return function (unit, coreLink, lv) {
+    const linkBonus = coreLink.bonusEffects(lv);
+    if (!deepEqual(get(atoms.linkBonus(unit)), linkBonus)) {
+      set(atoms.linkBonus(unit), linkBonus);
+    }
+    set(atoms.slotAvailable.slot1(unit), coreLink.isSlot1Available(lv));
+    set(atoms.slotAvailable.slot2(unit), coreLink.isSlot2Available(lv));
+    set(atoms.slotAvailable.slot3(unit), coreLink.isSlot3Available(lv));
+    set(atoms.slotAvailable.slot4(unit), coreLink.isSlot4Available(lv));
+    set(atoms.slotAvailable.slot5(unit), coreLink.isSlot5Available(lv));
+    set(atoms.linkRate(unit), coreLink.linkRate(lv));
+
+    set(atoms.fullLinkBonus(unit), coreLink.fullLinkBonusEffect(lv));
+    set(atoms.fullLinkAvailable(unit), coreLink.isFullLinkBonusAvailable(lv));
+  };
+}
+
+const unitCoreLinkRestore = selector<ReadonlyArray<UnitCoreLink>>({
+  key: 'unitCoreLinkRestore',
+  get: () => [],
+  set: ({ set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      newValue.forEach(v => set(unitCoreLinkState(v.unit), v));
     }
   }
 });
@@ -177,4 +189,12 @@ export function useFullLinkBonus(unit: UnitBasicInfo): [
     (bonus) => setCoreLink(s => bonus ? s.selectFullLinkBonus(bonus) : s.unselectFullLinkBonus()),
     useRecoilValue(atoms.fullLinkAvailable(unit.no))
   ];
+}
+
+export function useUnitCoreLinkResolver(): (param: UnitNumber) => RecoilValueReadOnly<UnitCoreLink> {
+  return unitCoreLinkState;
+}
+
+export function useUnitCoreLinkRestore(): (param: ReadonlyArray<UnitCoreLink>) => void {
+  return useSetRecoilState(unitCoreLinkRestore);
 }

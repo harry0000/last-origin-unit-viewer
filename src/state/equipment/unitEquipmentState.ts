@@ -2,10 +2,13 @@ import {
   atomFamily,
   DefaultValue,
   GetRecoilValue,
+  RecoilValueReadOnly,
+  selector,
   selectorFamily,
   SetRecoilState,
   useRecoilState,
-  useRecoilValue
+  useRecoilValue,
+  useSetRecoilState
 } from 'recoil';
 import deepEqual from 'fast-deep-equal';
 
@@ -154,7 +157,7 @@ export const updateGearEquipmentDependency = selectorFamily<UnitLvValue, UnitNum
   }
 });
 
-export const unitChip1EquipmentState = selectorFamily<UnitChip1Equipment, UnitNumber>({
+const unitChip1EquipmentState = selectorFamily<UnitChip1Equipment, UnitNumber>({
   key: 'unitChip1EquipmentState',
   get: (unit) => ({ get }) => get(_unitChip1EquipmentAtom(unit)),
   set: (unit) => ({ get, set }, newValue) => {
@@ -165,7 +168,7 @@ export const unitChip1EquipmentState = selectorFamily<UnitChip1Equipment, UnitNu
   }
 });
 
-export const unitChip2EquipmentState = selectorFamily<UnitChip2Equipment, UnitNumber>({
+const unitChip2EquipmentState = selectorFamily<UnitChip2Equipment, UnitNumber>({
   key: 'unitChip2EquipmentState',
   get: (unit) => ({ get }) => get(_unitChip2EquipmentAtom(unit)),
   set: (unit) => ({ get, set }, newValue) => {
@@ -176,7 +179,7 @@ export const unitChip2EquipmentState = selectorFamily<UnitChip2Equipment, UnitNu
   }
 });
 
-export const unitOsEquipmentState = selectorFamily<UnitOsEquipment, UnitNumber>({
+const unitOsEquipmentState = selectorFamily<UnitOsEquipment, UnitNumber>({
   key: 'unitOsEquipmentState',
   get: (unit) => ({ get }) => get(_unitOsEquipmentAtom(unit)),
   set: (unit) => ({ get, set }, newValue) => {
@@ -187,13 +190,53 @@ export const unitOsEquipmentState = selectorFamily<UnitOsEquipment, UnitNumber>(
   }
 });
 
-export const unitGearEquipmentState = selectorFamily<UnitGearEquipment, UnitNumber>({
+const unitGearEquipmentState = selectorFamily<UnitGearEquipment, UnitNumber>({
   key: 'unitGearEquipmentState',
   get: (unit) => ({ get }) => get(_unitGearEquipmentAtom(unit)),
   set: (unit) => ({ get, set }, newValue) => {
     if (newValue instanceof UnitGearEquipment) {
       set(_unitGearEquipmentAtom(unit), newValue);
       updateGearInnerAtoms(get, set, unit, newValue, get(unitLvState(unit)));
+    }
+  }
+});
+
+const unitChip1EquipmentRestore = selector<ReadonlyArray<UnitChip1Equipment>>({
+  key: 'unitChip1EquipmentRestore',
+  get: () => [],
+  set: ({ set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      newValue.forEach(v => set(unitChip1EquipmentState(v.unit), v));
+    }
+  }
+});
+
+const unitChip2EquipmentRestore = selector<ReadonlyArray<UnitChip2Equipment>>({
+  key: 'unitChip2EquipmentRestore',
+  get: () => [],
+  set: ({ set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      newValue.forEach(v => set(unitChip2EquipmentState(v.unit), v));
+    }
+  }
+});
+
+const unitOsEquipmentRestore = selector<ReadonlyArray<UnitOsEquipment>>({
+  key: 'unitOsEquipmentRestore',
+  get: () => [],
+  set: ({ set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      newValue.forEach(v => set(unitOsEquipmentState(v.unit), v));
+    }
+  }
+});
+
+const unitGearEquipmentRestore = selector<ReadonlyArray<UnitGearEquipment>>({
+  key: 'unitGearEquipmentRestore',
+  get: () => [],
+  set: ({ set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      newValue.forEach(v => set(unitGearEquipmentState(v.unit), v));
     }
   }
 });
@@ -271,4 +314,64 @@ export function useEquipmentAvailable(unit: UnitBasicInfo, slot: EquipmentSlot):
   case 'os':    return [useRecoilValue(atoms.slotAvailable.os(unit.no)),    useRecoilValue(unitOsEquipmentState(unit.no)).osAvailableLv];
   case 'gear':  return [useRecoilValue(atoms.slotAvailable.gear(unit.no)),  useRecoilValue(unitGearEquipmentState(unit.no)).gearAvailableLv];
   }
+}
+
+export function useChip1EquipmentEffect(unit: UnitBasicInfo): [chip1: ChipEquipment | undefined, chip1Effect: StatusEffect] {
+  return [
+    useRecoilValue(unitChip1EquipmentState(unit.no)).chip1,
+    useRecoilValue(unitChip1EquipmentStatusEffectsState(unit.no))
+  ];
+}
+
+export function useChip2EquipmentEffect(unit: UnitBasicInfo): [chip2: ChipEquipment | undefined, chip2Effect: StatusEffect] {
+  return [
+    useRecoilValue(unitChip2EquipmentState(unit.no)).chip2,
+    useRecoilValue(unitChip2EquipmentStatusEffectsState(unit.no))
+  ];
+}
+
+export function useOsEquipmentEffect(unit: UnitBasicInfo): [os: OsEquipment | undefined, osEffect: StatusEffect] {
+  return [
+    useRecoilValue(unitOsEquipmentState(unit.no)).os,
+    useRecoilValue(unitOsEquipmentStatusEffectsState(unit.no))
+  ];
+}
+
+export function useGearEquipmentEffect(unit: UnitBasicInfo): [gear: GearEquipment | undefined, gearEffect: StatusEffect] {
+  return [
+    useRecoilValue(unitGearEquipmentState(unit.no)).gear,
+    useRecoilValue(unitGearEquipmentStatusEffectsState(unit.no))
+  ];
+}
+
+export function useUnitChip1EquipmentResolver(): (param: UnitNumber) => RecoilValueReadOnly<UnitChip1Equipment> {
+  return unitChip1EquipmentState;
+}
+
+export function useUnitChip2EquipmentResolver(): (param: UnitNumber) => RecoilValueReadOnly<UnitChip2Equipment> {
+  return unitChip2EquipmentState;
+}
+
+export function useUnitOsEquipmentResolver(): (param: UnitNumber) => RecoilValueReadOnly<UnitOsEquipment> {
+  return unitOsEquipmentState;
+}
+
+export function useUnitGearEquipmentResolver(): (param: UnitNumber) => RecoilValueReadOnly<UnitGearEquipment> {
+  return unitGearEquipmentState;
+}
+
+export function useUnitChip1EquipmentRestore(): (param: ReadonlyArray<UnitChip1Equipment>) => void {
+  return useSetRecoilState(unitChip1EquipmentRestore);
+}
+
+export function useUnitChip2EquipmentRestore(): (param: ReadonlyArray<UnitChip2Equipment>) => void {
+  return useSetRecoilState(unitChip2EquipmentRestore);
+}
+
+export function useUnitOsEquipmentRestore(): (param: ReadonlyArray<UnitOsEquipment>) => void {
+  return useSetRecoilState(unitOsEquipmentRestore);
+}
+
+export function useUnitGearEquipmentRestore(): (param: ReadonlyArray<UnitGearEquipment>) => void {
+  return useSetRecoilState(unitGearEquipmentRestore);
 }

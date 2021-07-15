@@ -18,14 +18,10 @@ import {
   unitHpStatusParameterState
 } from '../../state/status/unitStatusParameterState';
 import {
-  unitChip1EquipmentState,
-  unitChip1EquipmentStatusEffectsState,
-  unitChip2EquipmentState,
-  unitChip2EquipmentStatusEffectsState,
-  unitGearEquipmentState,
-  unitGearEquipmentStatusEffectsState,
-  unitOsEquipmentState,
-  unitOsEquipmentStatusEffectsState
+  useChip1EquipmentEffect,
+  useChip2EquipmentEffect,
+  useGearEquipmentEffect,
+  useOsEquipmentEffect
 } from '../../state/equipment/unitEquipmentState';
 
 import { EffectedParameter, StatusEffectPopoverRowProps } from '../../component/status/StatusEffectsView';
@@ -38,23 +34,17 @@ import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../
 export function useStatusEffects(unit: UnitBasicInfo, parameter: EffectedParameter): ReadonlyArray<StatusEffectPopoverRowProps> {
   const unitNumber = unit.no;
   const { t } = useTranslation();
-
-  const chip1  = useRecoilValue(unitChip1EquipmentState(unitNumber));
-  const chip2  = useRecoilValue(unitChip2EquipmentState(unitNumber));
-  const os     = useRecoilValue(unitOsEquipmentState(unitNumber));
-  const gear   = useRecoilValue(unitGearEquipmentState(unitNumber));
-
-  const chip1Effect = useRecoilValue(unitChip1EquipmentStatusEffectsState(unitNumber));
-  const chip2Effect = useRecoilValue(unitChip2EquipmentStatusEffectsState(unitNumber));
-  const osEffect    = useRecoilValue(unitOsEquipmentStatusEffectsState(unitNumber));
-  const gearEffect  = useRecoilValue(unitGearEquipmentStatusEffectsState(unitNumber));
+  const [chip1, chip1Effect] = useChip1EquipmentEffect(unit);
+  const [chip2, chip2Effect] = useChip2EquipmentEffect(unit);
+  const [os,    osEffect]    = useOsEquipmentEffect(unit);
+  const [gear,  gearEffect]  = useGearEquipmentEffect(unit);
 
   return [
     ...enhancementEffects(unitNumber, parameter, t),
-    ...equipmentEffects(parameter, chip1Effect, chip1?.chip1, 'chip1', t),
-    ...equipmentEffects(parameter, chip2Effect, chip2?.chip2, 'chip2', t),
-    ...equipmentEffects(parameter, osEffect,    os?.os,       'os',    t),
-    ...equipmentEffects(parameter, gearEffect,  gear?.gear,   'gear',  t),
+    ...equipmentEffects(parameter, chip1Effect, chip1, 'chip1', t),
+    ...equipmentEffects(parameter, chip2Effect, chip2, 'chip2', t),
+    ...equipmentEffects(parameter, osEffect,    os,    'os',    t),
+    ...equipmentEffects(parameter, gearEffect,  gear,  'gear',  t),
     ...coreLinkBonusEffects(unitNumber, parameter, t),
     ...fullLinkBonusEffects(unitNumber, parameter, t)
   ];

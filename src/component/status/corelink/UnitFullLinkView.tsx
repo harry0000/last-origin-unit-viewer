@@ -22,7 +22,7 @@ const FullLinkBonusSelector: React.FC = () => {
     <div className="selector full-link-bonus">
       {
         selected ?
-          (<Suspense fallback={DropdownPlaceholder}><FullLinkBonusDropdown unit={selected} /></Suspense>) :
+          (<Suspense fallback={<DropdownPlaceholder />}><FullLinkBonusDropdown unit={selected} /></Suspense>) :
           (<DropdownPlaceholder />)
       }
     </div>

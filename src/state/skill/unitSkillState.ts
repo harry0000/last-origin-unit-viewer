@@ -1,4 +1,4 @@
-import { atomFamily, DefaultValue, selector, selectorFamily } from 'recoil';
+import { atomFamily, DefaultValue, RecoilValueReadOnly, selector, selectorFamily, useSetRecoilState } from 'recoil';
 import {
   ActiveSkill,
   Passive1Skill,
@@ -6,14 +6,24 @@ import {
   Passive3Skill
 } from '../../domain/skill/UnitSkills';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
-import { UnitSkill, buildUnit } from '../../domain/skill/UnitSkill';
+import { UnitSkill, buildUnitSkill } from '../../domain/skill/UnitSkill';
 
 import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/unitCoreLinkState';
 import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
 
 export const unitSkillState = atomFamily<UnitSkill, UnitBasicInfo>({
   key: 'unitSkillState',
-  default: (unit) => buildUnit(unit)
+  default: (unit) => buildUnitSkill(unit)
+});
+
+const unitSkillRestore = selector<ReadonlyArray<UnitSkill>>({
+  key: 'unitSkillRestore',
+  get: () => [],
+  set: ({ set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      newValue.forEach(v => set(unitSkillState(v.unit), v));
+    }
+  }
 });
 
 export const selectedUnitSkillState = selector<UnitSkill | undefined>({
@@ -115,3 +125,11 @@ export const selectedUnitPassive3SkillState = selector<Passive3Skill | undefined
     return selected && get(unitPassive3SkillState(selected));
   }
 });
+
+export function useUnitSkillResolver(): (param: UnitBasicInfo) => RecoilValueReadOnly<UnitSkill> {
+  return unitSkillState;
+}
+
+export function useUnitSkillRestore(): (param: ReadonlyArray<UnitSkill>) => void {
+  return useSetRecoilState(unitSkillRestore);
+}

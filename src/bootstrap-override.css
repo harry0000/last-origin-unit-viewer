@@ -1,10 +1,10 @@
 .tooltip-inner {
-  background-color: #888 !important;
+  background-color: #444 !important;
   color: #fff !important;
 }
 
 .popover {
-  background-color: #888 !important;
+  background-color: #444 !important;
 }
 
 .popover .popover-body {
@@ -12,33 +12,33 @@
 }
 
 .popover .arrow::before {
-  color: #888 !important;
+  color: #444 !important;
 }
 
 .bs-tooltip-top .arrow::before,
 .bs-tooltip-auto[x-placement^="top"] .arrow::before,
 .bs-popover-top .arrow::after,
 .bs-popover-auto[x-placement^="top"] .arrow::after {
-  border-top-color: #888 !important;
+  border-top-color: #444 !important;
 }
 
 .bs-tooltip-right>.arrow::before,
 .bs-tooltip-auto[x-placement^="right"]>.arrow::before,
 .bs-popover-right>.arrow::after,
 .bs-popover-auto[x-placement^="right"]>.arrow::after {
-  border-right-color: #888 !important;
+  border-right-color: #444 !important;
 }
 
 .bs-tooltip-bottom>.arrow::before,
 .bs-tooltip-auto[x-placement^="bottom"]>.arrow::before,
 .bs-popover-bottom>.arrow::after,
 .bs-popover-auto[x-placement^="bottom"]>.arrow::after {
-  border-bottom-color: #888 !important;
+  border-bottom-color: #444 !important;
 }
 
 .bs-tooltip-left>.arrow::before,
 .bs-tooltip-auto[x-placement^="left"]>.arrow::before,
 .bs-popover-left>.arrow::after,
 .bs-popover-auto[x-placement^="left"]>.arrow::after {
-  border-left-color: #888 !important;
+  border-left-color: #444 !important;
 }

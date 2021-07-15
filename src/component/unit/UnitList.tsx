@@ -2,16 +2,15 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 
-import { filteredUnitsState } from '../../state/selector/unitSelectorState';
+import { useFilteredUnitList } from '../../state/selector/unitSelectorState';
 
 import UnitCard from './UnitCard';
 
 import './UnitList.css';
 
 const UnitList: React.FC<{ className?: string }> = ({ className }) => {
-  const units = useRecoilValue(filteredUnitsState);
+  const units = useFilteredUnitList();
 
   return (
     <div

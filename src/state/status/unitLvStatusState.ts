@@ -1,4 +1,4 @@
-import { atomFamily, selector, selectorFamily } from 'recoil';
+import { atomFamily, DefaultValue, RecoilValueReadOnly, selector, selectorFamily, useSetRecoilState } from 'recoil';
 
 import {
   AccEnhancementStatusEffect,
@@ -23,6 +23,8 @@ import { updateCoreLinkDependency } from '../corelink/unitCoreLinkState';
 
 type Status = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri'
 type StatusKey = `${Capitalize<Status>}`
+
+export type EnhanceableStatus = Status
 
 type StatusEffect<T extends StatusKey> =
   T extends 'Hp' ? HpEnhancementStatusEffect :
@@ -342,3 +344,21 @@ const unitLvStatusState = selectorFamily<UnitLvStatus, UnitNumber>({
     }
   }
 });
+
+const unitLvStatusRestore = selector<ReadonlyArray<UnitLvStatus>>({
+  key: 'unitLvStatusRestore',
+  get: () => [],
+  set: ({ set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      newValue.forEach(v => set(unitLvStatusState(v.unit), v));
+    }
+  }
+});
+
+export function useUnitLvStatusResolver(): (param: UnitNumber) => RecoilValueReadOnly<UnitLvStatus> {
+  return unitLvStatusState;
+}
+
+export function useUnitLvStatusRestore(): (param: ReadonlyArray<UnitLvStatus>) => void {
+  return useSetRecoilState(unitLvStatusRestore);
+}
