@@ -24,6 +24,7 @@ const SquadShareButton: React.FC = () => {
         overlay={<Tooltip id='tooltip-share-squad'>{t('squad.share_squad')}</Tooltip>}
       >
         <SVGButton
+          aria-label="Share squad"
           variant="secondary"
           svg={<ShareAndroid />}
           onClick={() => openModal()}
