@@ -14,11 +14,11 @@ import {
   formatResistPercentage
 } from './UnitStatusParameterFormatter';
 
-import { useStatusEffects } from '../../hook/status/StatusEffects';
-import { useStatusEffectsSummary } from '../../hook/status/StatusEffectsSummary';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
-import { useRecoilValue } from 'recoil';
-import { selectedUnitBasicInfoState } from '../../state/selector/unitSelectorState';
+
+import { useSelectedUnit } from '../../state/selector/unitSelectorState';
+import { useStatusEffects } from '../../hook/status/StatusEffects';
+import { useStatusEffectsSummary } from '../../state/status/unitStatusParameterState';
 
 export type EffectedParameter = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri' | 'spd' | 'fireResist' | 'iceResist' | 'electricResist'
 
@@ -57,9 +57,10 @@ const StatusEffectValueView: React.FC<{
 
 const StatusEffectSummaryView: React.FC<{
   css?: Interpolation<Theme>,
-  parameter: EffectedParameter
-}> = ({ parameter, ...others }) => {
-  const summary = useStatusEffectsSummary(parameter);
+  parameter: EffectedParameter,
+  unit: UnitBasicInfo
+}> = ({ parameter, unit, ...others }) => {
+  const summary = useStatusEffectsSummary(parameter, unit);
 
   return (
     <StatusEffectValueView {...others}  parameter={parameter} value={summary} />
@@ -115,16 +116,17 @@ const UnitStatusEffectsView: React.FC<{
       <StatusEffectSummaryView
         css={{ textDecoration: 'underline' }}
         parameter={parameter}
+        unit={unit}
       />
     </StatusEffectsPopoverView>) :
-    (<StatusEffectSummaryView parameter={parameter} />);
+    (<StatusEffectSummaryView parameter={parameter} unit={unit} />);
 };
 
 const StatusEffectsView: React.FC<{
   css?: Interpolation<Theme>,
   parameter: EffectedParameter
 }> = ({ parameter, ...others }) => {
-  const selected = useRecoilValue(selectedUnitBasicInfoState);
+  const selected = useSelectedUnit();
 
   return (
     <div

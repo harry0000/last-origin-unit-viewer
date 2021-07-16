@@ -11,16 +11,27 @@ import SVGIcon from '../../icon/SVGIcon';
 import { effectValueColor } from '../../common/effectValueColor';
 
 import { CoreLinkBonus } from '../../../domain/UnitCoreLinkBonusData';
+import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 import { calcMicroValue, calcMilliPercentageValue } from '../../../domain/ValueUnit';
 
 import { useCoreLinkEffect, useCoreLinkRate } from '../../../state/corelink/unitCoreLinkState';
+import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
 
 import '../UnitStatusSlot.css';
 import './UnitCoreLinkView.css';
 
 const CoreLinkRate: React.FC = () => {
-  const rate = useCoreLinkRate();
-  return (<span className="core-link">{rate}&nbsp;%</span>);
+  const selected = useSelectedUnit();
+  const View = ({ rate }: { rate: number }) => (<span className="core-link">{rate}&nbsp;%</span>);
+
+  const CoreLinkRateView: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
+    const rate = useCoreLinkRate(unit);
+    return (<View rate={rate} />);
+  };
+
+  return selected ?
+    (<CoreLinkRateView unit={selected} />) :
+    (<View rate={0} />);
 };
 
 const CoreLinkEffectsPopoverView: React.FC<{
@@ -60,16 +71,17 @@ const CoreLinkEffectsPopoverView: React.FC<{
 };
 
 const CoreLinkEffectDetailView: React.FC = () => {
-  const bonus = useCoreLinkEffect();
+  const selected = useSelectedUnit();
   const child = (<SVGIcon css={{ height: 20, width: 20, cursor: 'help' }}><Search /></SVGIcon>);
+
+  const DetailView: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
+    const bonus = useCoreLinkEffect(unit);
+    return (<CoreLinkEffectsPopoverView bonus={bonus}>{child}</CoreLinkEffectsPopoverView>);
+  };
 
   return (
     <span className="core-link-details">
-      {
-        bonus ?
-          (<CoreLinkEffectsPopoverView bonus={bonus}>{child}</CoreLinkEffectsPopoverView>) :
-          (child)
-      }
+      {selected ? (<DetailView unit={selected} />) : (child)}
     </span>
   );
 };

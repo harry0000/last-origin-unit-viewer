@@ -97,6 +97,10 @@ abstract class UnitSkill {
     return ps && calculatePassiveSkill(ps, this.skillLv.passive3Lv, fullLinkBonus);
   }
 
+  get hasPassive1Skill(): boolean { return !!this.passive1SkillData; }
+  get hasPassive2Skill(): boolean { return !!this.passive2SkillData; }
+  get hasPassive3Skill(): boolean { return !!this.passive3SkillData; }
+
   get isPassive1RankUpSkill(): boolean { return UnitRankComparator.a.greaterThan(this.unit.rank); }
   get isPassive2RankUpSkill(): boolean { return UnitRankComparator.s.greaterThan(this.unit.rank); }
   get isPassive3RankUpSkill(): boolean { return UnitRankComparator.ss.greaterThan(this.unit.rank); }
@@ -110,19 +114,19 @@ abstract class UnitSkill {
   }
 
   changePassive1SkillLv(lv: SkillLv): UnitSkill {
-    return this.passive1SkillData ?
+    return this.hasPassive1Skill ?
       this.updateSkillLvValue(this.skillLv.setPassive1Lv(lv)) :
       this;
   }
 
   changePassive2SkillLv(lv: SkillLv): UnitSkill {
-    return this.passive2SkillData ?
+    return this.hasPassive2Skill ?
       this.updateSkillLvValue(this.skillLv.setPassive2Lv(lv)) :
       this;
   }
 
   changePassive3SkillLv(lv: SkillLv): UnitSkill {
-    return this.passive3SkillData ?
+    return this.hasPassive3Skill ?
       this.updateSkillLvValue(this.skillLv.setPassive3Lv(lv)) :
       this;
   }

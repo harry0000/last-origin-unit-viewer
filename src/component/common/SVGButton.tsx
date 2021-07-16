@@ -10,11 +10,11 @@ import PropTypes from 'prop-types';
 import './SVGButton.css';
 
 const SVGButton: React.FC<{
+  svg: PropTypes.ReactElementLike,
   variant?: Variant,
   fluidSvg?: boolean,
   disabled?: boolean,
-  svg: PropTypes.ReactElementLike,
-  onClick: React.MouseEventHandler<HTMLElement>
+  onClick?: React.MouseEventHandler<HTMLElement>
 }> = ({ variant, fluidSvg, disabled, svg, onClick, ...others }) => {
   return (
     <Button

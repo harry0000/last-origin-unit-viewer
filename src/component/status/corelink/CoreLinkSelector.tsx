@@ -2,7 +2,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { MouseEventHandler, ReactNode } from 'react';
-import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { Dropdown, Image } from 'react-bootstrap';
@@ -14,7 +13,7 @@ import { CoreLinkUnit } from '../../../domain/UnitCoreLink';
 import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 
 import { CoreLinkSlot, useAvailableCoreLinkUnit, useUnitCoreLink } from '../../../state/corelink/unitCoreLinkState';
-import { selectedUnitBasicInfoState } from '../../../state/selector/unitSelectorState';
+import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
 
 import { ifNonNullable } from '../../../util/react';
 
@@ -153,7 +152,7 @@ const CoreLinkDropdown: React.FC<{ unit: UnitBasicInfo, slot: CoreLinkSlot }> = 
 };
 
 const CoreLinkSelector: React.FC<{ slot: CoreLinkSlot }> = ({ slot }) => {
-  const selected = useRecoilValue(selectedUnitBasicInfoState);
+  const selected = useSelectedUnit();
 
   return ifNonNullable(
     selected,

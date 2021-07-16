@@ -2,28 +2,19 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { SkillType } from './UnitSkillList';
 
-import { selectedUnitPassive1SkillState } from '../../state/skill/unitSkillState';
+import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
+
+import { SkillType, useEffectsAsEquipmentDescription } from '../../state/skill/unitSkillState';
 
 import { ifTruthy } from '../../util/react';
 
-function useEffectsAsEquipmentDescription(skillType: SkillType): boolean {
-  if (skillType === 'passive1') {
-    const ps1 = useRecoilValue(selectedUnitPassive1SkillState);
-    return !!ps1 && 'equipment_effects' in ps1;
-  } else {
-    return false;
-  }
-}
-
-const EffectsAsEquipmentDescriptionView: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
+const EffectsAsEquipmentDescriptionView: React.FC<{ skillType: SkillType, unit: UnitBasicInfo }> = ({ skillType, unit }) => {
   const { t } = useTranslation();
-  const show = useEffectsAsEquipmentDescription(skillType);
+  const show = useEffectsAsEquipmentDescription(skillType, unit);
 
   return (
     ifTruthy(

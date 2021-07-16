@@ -9,12 +9,16 @@ import { Col, Image, Row } from 'react-bootstrap';
 import StatusEffectsView from './StatusEffectsView';
 import UnitStatusParameterButton from './UnitStatusParameterButton';
 
-import { EnhanceableStatus } from '../../state/status/unitLvStatusState';
+import { UnitNumber } from '../../domain/UnitBasicInfo';
+
 import {
-  useStatusParameter,
-  useStatusParameterControl,
-  useStatusParameterEnhancedLv
-} from '../../hook/status/StatusParameter';
+  EnhanceableStatus,
+  useStatusParameterDecrement,
+  useStatusParameterEnhancedLv,
+  useStatusParameterIncrement
+} from '../../state/status/unitLvStatusState';
+import { useSelectedUnit } from '../../state/selector/unitSelectorState';
+import { useStatusParameter } from '../../state/status/unitStatusParameterState';
 
 const parameterCol: CSSObject = {
   fontSize: '1.2em',
@@ -51,38 +55,63 @@ const StatusParameterNameLabel: React.FC<{ parameter: EnhanceableStatus | 'spd' 
 });
 
 const StatusParameterValueView: React.FC<{ parameter: EnhanceableStatus | 'spd' }> = React.memo(({ parameter }) => {
-  const value = useStatusParameter(parameter);
+  const selected = useSelectedUnit();
+  const View: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
+    const value = useStatusParameter(parameter, unit);
+    return (<span>{value}</span>);
+  };
+  const EmptyView: React.FC = () => {
+    const value = useStatusParameter(parameter);
+    return (<span>{value}</span>);
+  };
 
-  return (<span>{value}</span>);
+  return selected ?
+    (<View unit={selected.no} />) :
+    (<EmptyView />);
 });
 
 const StatusParameterEnhancementLvView: React.FC<{ parameter: EnhanceableStatus }> = ({ parameter }) => {
-  const { t } = useTranslation();
-  const enhancedLv = useStatusParameterEnhancedLv(parameter);
+  const selected = useSelectedUnit();
 
-  return (
-    <React.Fragment>
-      <span>{t('lv')}</span>
-      <span css={{ display: 'inline-block', width: '2em', textAlign: 'right' }}>{enhancedLv}</span>
-    </React.Fragment>
-  );
+  const View: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
+    const enhancedLv = useStatusParameterEnhancedLv(parameter, unit);
+    return (<React.Fragment>{enhancedLv}</React.Fragment>);
+  };
+
+  return selected ?
+    (<View unit={selected.no} />) :
+    (<React.Fragment>0</React.Fragment>);
 };
 
-const StatusParameterControlButtons: React.FC<{ parameter: EnhanceableStatus }> = ({ parameter }) => {
-  const [incrementDisabled, decrementDisabled, increment, decrement] = useStatusParameterControl(parameter);
+const StatusParameterDecrementButton: React.FC<{ parameter: EnhanceableStatus }> = ({ parameter }) => {
+  const selected = useSelectedUnit();
+  const DecrementButton: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
+    const [decrementDisabled, decrement] = useStatusParameterDecrement(parameter, unit);
+    return (<UnitStatusParameterButton disabled={decrementDisabled} onClick={decrement}><span>-</span></UnitStatusParameterButton>);
+  };
 
-  return (
-    <React.Fragment>
-      <UnitStatusParameterButton disabled={decrementDisabled} onClick={decrement}><span>-</span></UnitStatusParameterButton>
-      <UnitStatusParameterButton disabled={incrementDisabled} onClick={increment}><span>+</span></UnitStatusParameterButton>
-    </React.Fragment>
-  );
+  return selected ?
+    (<DecrementButton unit={selected.no} />) :
+    (<UnitStatusParameterButton disabled={true} onClick={() => { return; }}><span>-</span></UnitStatusParameterButton>);
+};
+
+const StatusParameterIncrementButton: React.FC<{ parameter: EnhanceableStatus }> = ({ parameter }) => {
+  const selected = useSelectedUnit();
+  const IncrementButton: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
+    const [incrementDisabled, increment] = useStatusParameterIncrement(parameter, unit);
+    return (<UnitStatusParameterButton disabled={incrementDisabled} onClick={increment}><span>+</span></UnitStatusParameterButton>);
+  };
+
+  return selected ?
+    (<IncrementButton unit={selected.no} />) :
+    (<UnitStatusParameterButton disabled={true} onClick={() => { return; }}><span>+</span></UnitStatusParameterButton>);
 };
 
 const EnhanceableStatusParameterRow: React.FC<{
   css?: Interpolation<Theme>,
   parameter: EnhanceableStatus
 }> = ({ parameter, ...others }) => {
+  const { t } = useTranslation();
 
   return (
     <Row {...others} css={{ alignItems: 'center' }}>
@@ -118,7 +147,10 @@ const EnhanceableStatusParameterRow: React.FC<{
         sm={{ span: 2, order: 4 }}
         css={{ ...pointsCol, paddingRight: 0 }}
       >
-        <StatusParameterEnhancementLvView parameter={parameter} />
+        <span>{t('lv')}</span>
+        <span css={{ display: 'inline-block', width: '2em', textAlign: 'right' }}>
+          <StatusParameterEnhancementLvView parameter={parameter} />
+        </span>
       </Col>
       <Col
         xs={{ span: 'auto', order: 5 }}
@@ -138,7 +170,8 @@ const EnhanceableStatusParameterRow: React.FC<{
             }
           }}
         >
-          <StatusParameterControlButtons parameter={parameter} />
+          <StatusParameterDecrementButton parameter={parameter} />
+          <StatusParameterIncrementButton parameter={parameter} />
         </div>
       </Col>
     </Row>

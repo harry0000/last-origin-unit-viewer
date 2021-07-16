@@ -15,11 +15,10 @@ import deepEqual from 'fast-deep-equal';
 import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';
 import UnitCoreLink, { CoreLinkSlotAvailableLv, CoreLinkUnit } from '../../domain/UnitCoreLink';
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
+import { UnitLvValue } from '../../domain/status/UnitLv';
 
-import { selectedUnitBasicInfoState } from '../selector/unitSelectorState';
 import { unitLvState } from '../status/unitLvStatusState';
 import { unitCoreLinkBonusData } from '../../data/unitCoreLinkBonusData';
-import { UnitLvValue } from '../../domain/status/UnitLv';
 
 export type CoreLinkSlot = 'slot1' | 'slot2' | 'slot3' | 'slot4' | 'slot5'
 type CoreLinkSlotKey = `${Capitalize<CoreLinkSlot>}`
@@ -122,24 +121,8 @@ export const fullLinkBonusEffectState = selectorFamily<FullLinkBonus | undefined
   get: (unit) => ({ get }) => get(atoms.fullLinkBonus(unit))
 });
 
-const selectedUnitCoreLinkRateState = selector<number | undefined>({
-  key: 'selectedUnitCoreLinkRateState',
-  get: ({ get }) => {
-    const selected = get(selectedUnitBasicInfoState);
-    return selected && atoms.linkRate(selected.no);
-  }
-});
-
-const selectedUnitCoreLinkBonusState = selector<CoreLinkBonus | undefined>({
-  key: 'selectedUnitCoreLinkBonusState',
-  get: ({ get }) => {
-    const selected = get(selectedUnitBasicInfoState);
-    return selected && atoms.linkBonus(selected.no);
-  }
-});
-
-export function useCoreLinkRate(): number {
-  return useRecoilValue(selectedUnitCoreLinkRateState) ?? 0;
+export function useCoreLinkRate(unit: UnitBasicInfo): number {
+  return useRecoilValue(atoms.linkRate(unit.no));
 }
 
 export function useAvailableCoreLinkUnit(unit: UnitBasicInfo): readonly [CoreLinkUnit, CoreLinkUnit, CoreLinkUnit, CoreLinkUnit] | [] {
@@ -169,8 +152,8 @@ export function useUnitCoreLink(unit: UnitBasicInfo, slot: CoreLinkSlot): [
   }
 }
 
-export function useCoreLinkEffect(): CoreLinkBonus | undefined {
-  return useRecoilValue(selectedUnitCoreLinkBonusState);
+export function useCoreLinkEffect(unit: UnitBasicInfo): CoreLinkBonus {
+  return useRecoilValue(atoms.linkBonus(unit.no));
 }
 
 export function useAvailableFullLinkBonus(unit: UnitBasicInfo): ReadonlyArray<FullLinkBonus> {

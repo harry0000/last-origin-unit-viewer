@@ -5,17 +5,18 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
+import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 import { calcValue } from '../../domain/ValueUnit';
 
 import { AttributeColorStyle } from './AttributeColorStyle';
-import { SkillType } from './UnitSkillList';
-import { useDamageDeal } from '../../hook/skill/DamageDeal';
+
+import { SkillType, useDamageDeal } from '../../state/skill/unitSkillState';
 
 import { ifNonNullable } from '../../util/react';
 
-const DamageDealView: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
+const DamageDealView: React.FC<{ skillType: SkillType, unit: UnitBasicInfo }> = ({ skillType, unit }) => {
   const { t } = useTranslation();
-  const props = useDamageDeal(skillType);
+  const props = useDamageDeal(skillType, unit);
   if (!props[0]) {
     return null;
   }

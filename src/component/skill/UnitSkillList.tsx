@@ -2,9 +2,8 @@
 /** @jsx jsx */
 import { Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
-import React, { Fragment, ReactNode, Suspense } from 'react';
-import { Nav, Tab } from 'react-bootstrap';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import React, { ReactNode } from 'react';
+import { useRecoilState } from 'recoil';
 
 import {
   ActiveSkillIcon,
@@ -12,25 +11,19 @@ import {
   DisablePassiveSkillIcon,
   PassiveSkillIcon
 } from '../icon/SkillIcons';
+import { Nav, Tab } from 'react-bootstrap';
 
 import {
-  selectedUnitActive2SkillState,
-  selectedUnitPassive1SkillState,
-  selectedUnitPassive2SkillState,
-  selectedUnitPassive3SkillState
+  SkillType,
+  useActive1SkillNav,
+  useActive2SkillNav,
+  usePassive1SkillNav,
+  usePassive2SkillNav,
+  usePassive3SkillNav
 } from '../../state/skill/unitSkillState';
 import { unitSkillTabState } from '../../state/ui/unitSkillTabState';
 
 import './SkillNavTab.css';
-
-export const SkillType = {
-  Active1: 'active1',
-  Active2: 'active2',
-  Passive1: 'passive1',
-  Passive2: 'passive2',
-  Passive3: 'passive3'
-} as const;
-export type SkillType = typeof SkillType[keyof typeof SkillType]
 
 const SkillNavItem: React.FC<{
   eventKey: SkillType,
@@ -58,60 +51,55 @@ const SkillNavItem: React.FC<{
 };
 
 const Active1SkillNavItem: React.FC = () => {
-  const activeTab = useRecoilValue(unitSkillTabState);
-  const skill = useRecoilValue(selectedUnitActive2SkillState);
+  const [eventKey, active, enable] = useActive1SkillNav();
 
   return (
-    <SkillNavItem eventKey="active1" active={activeTab === 'active1'} disabled={!skill}>
-      {skill ? (<ActiveSkillIcon number={1} />) : (<DisableActiveSkillIcon />)}
+    <SkillNavItem eventKey={eventKey} active={active} disabled={!enable}>
+      {enable ? (<ActiveSkillIcon number={1} />) : (<DisableActiveSkillIcon />)}
       <span className="sr-only">Active skill 1</span>
     </SkillNavItem>
   );
 };
 
 const Active2SkillNavItem: React.FC = () => {
-  const activeTab = useRecoilValue(unitSkillTabState);
-  const skill = useRecoilValue(selectedUnitActive2SkillState);
+  const [eventKey, active, enable] = useActive2SkillNav();
 
   return (
-    <SkillNavItem eventKey="active2" active={activeTab === 'active2'} disabled={!skill}>
-      {skill ? (<ActiveSkillIcon number={2} />) : (<DisableActiveSkillIcon />)}
+    <SkillNavItem eventKey={eventKey} active={active} disabled={!enable}>
+      {enable ? (<ActiveSkillIcon number={2} />) : (<DisableActiveSkillIcon />)}
       <span className="sr-only">Active skill 2</span>
     </SkillNavItem>
   );
 };
 
 const Passive1SkillNavItem: React.FC = () => {
-  const activeTab = useRecoilValue(unitSkillTabState);
-  const skill = useRecoilValue(selectedUnitPassive1SkillState);
+  const [eventKey, active, enable] = usePassive1SkillNav();
 
   return (
-    <SkillNavItem eventKey="passive1" active={activeTab === 'passive1'} disabled={!skill}>
-      {skill ? (<PassiveSkillIcon number={1} />) : (<DisablePassiveSkillIcon />)}
+    <SkillNavItem eventKey={eventKey} active={active} disabled={!enable}>
+      {enable ? (<PassiveSkillIcon number={1} />) : (<DisablePassiveSkillIcon />)}
       <span className="sr-only">Passive skill 1</span>
     </SkillNavItem>
   );
 };
 
 const Passive2SkillNavItem: React.FC = () => {
-  const activeTab = useRecoilValue(unitSkillTabState);
-  const skill = useRecoilValue(selectedUnitPassive2SkillState);
+  const [eventKey, active, enable] = usePassive2SkillNav();
 
   return (
-    <SkillNavItem eventKey="passive2" active={activeTab === 'passive2'} disabled={!skill}>
-      {skill ? (<PassiveSkillIcon number={2} />) : (<DisablePassiveSkillIcon />)}
+    <SkillNavItem eventKey={eventKey} active={active} disabled={!enable}>
+      {enable ? (<PassiveSkillIcon number={2} />) : (<DisablePassiveSkillIcon />)}
       <span className="sr-only">Passive skill 2</span>
     </SkillNavItem>
   );
 };
 
 const Passive3SkillNavItem: React.FC = () => {
-  const activeTab = useRecoilValue(unitSkillTabState);
-  const skill = useRecoilValue(selectedUnitPassive3SkillState);
+  const [eventKey, active, enable] = usePassive3SkillNav();
 
   return (
-    <SkillNavItem eventKey="passive3" active={activeTab === 'passive3'} disabled={!skill}>
-      {skill ? (<PassiveSkillIcon number={3} />) : (<DisablePassiveSkillIcon />)}
+    <SkillNavItem eventKey={eventKey} active={active} disabled={!enable}>
+      {enable ? (<PassiveSkillIcon number={3} />) : (<DisablePassiveSkillIcon />)}
       <span className="sr-only">Passive skill 3</span>
     </SkillNavItem>
   );
@@ -137,11 +125,11 @@ const UnitSkillList: React.FC<{ className?: string, css?: Interpolation<Theme> }
           <Passive3SkillNavItem />
         </Nav>
         <Tab.Content css={{ minHeight: 300 }}>
-          <Suspense fallback={Fragment}><SkillPane eventKey="active1" /></Suspense>
-          <Suspense fallback={Fragment}><SkillPane eventKey="active2" /></Suspense>
-          <Suspense fallback={Fragment}><SkillPane eventKey="passive1" /></Suspense>
-          <Suspense fallback={Fragment}><SkillPane eventKey="passive2" /></Suspense>
-          <Suspense fallback={Fragment}><SkillPane eventKey="passive3" /></Suspense>
+          <React.Suspense fallback={React.Fragment}><SkillPane eventKey="active1" /></React.Suspense>
+          <React.Suspense fallback={React.Fragment}><SkillPane eventKey="active2" /></React.Suspense>
+          <React.Suspense fallback={React.Fragment}><SkillPane eventKey="passive1" /></React.Suspense>
+          <React.Suspense fallback={React.Fragment}><SkillPane eventKey="passive2" /></React.Suspense>
+          <React.Suspense fallback={React.Fragment}><SkillPane eventKey="passive3" /></React.Suspense>
         </Tab.Content>
       </Tab.Container>
     </div>

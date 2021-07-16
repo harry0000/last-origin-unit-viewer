@@ -1,4 +1,4 @@
-import { atom, atomFamily, DefaultValue, selector, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, atomFamily, selector, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { SkillEffectSelectorCondition } from '../../domain/selector/SkillEffectSelectorCondition';
@@ -63,21 +63,6 @@ const unitSelectorState = selector<UnitSelector>({
   }
 });
 
-export const selectedUnitBasicInfoState = selector<UnitBasicInfo | undefined>({
-  key: 'selectedUnitBasicInfoState',
-  get: ({ get }) => get(_selectedUnitBasicInfoState),
-  set: ({ set }, newValue) => {
-    if (newValue && !(newValue instanceof DefaultValue)) {
-      set(unitSelectorState, s => s.selectUnit(newValue));
-    }
-  }
-});
-
-export function useFilteredUnitList(): ReadonlyArray<UnitBasicInfo> {
-  const unitSelector = useRecoilValue(unitSelectorState);
-  return unitSelector.selectUnits(unitBasicData, unitSkillData);
-}
-
 export function useUnitRankSelector(rank: UnitRank): [selected: boolean, toggle: () => void] {
   const setter = useSetRecoilState(unitSelectorState);
   return [
@@ -112,6 +97,15 @@ export function useSkillEffectSelector(effect: SkillEffectSelectorCondition): [s
     useRecoilValue(selectorAtoms.skillEffect(effect)),
     () => setter(s => s.toggleSkillEffect(effect))
   ];
+}
+
+export function useFilteredUnitList(): ReadonlyArray<UnitBasicInfo> {
+  const unitSelector = useRecoilValue(unitSelectorState);
+  return unitSelector.selectUnits(unitBasicData, unitSkillData);
+}
+
+export function useSelectedUnit(): UnitBasicInfo | undefined {
+  return useRecoilValue(_selectedUnitBasicInfoState);
 }
 
 export function useUnit(unit: UnitBasicInfo): [
