@@ -37,6 +37,7 @@ const CoreLinkUnitItem: React.FC<{
       {'unit' in unit ?
         (<Image
           className="unit"
+          draggable="false"
           height={48}
           width={48}
           alt={t(`unit:name.${unit.unit}`)}
@@ -45,6 +46,7 @@ const CoreLinkUnitItem: React.FC<{
         (<span className="partial-fit-unit">
           <Image
             className="basic-info-icon"
+            draggable="false"
             height={32}
             width={32}
             alt={`${t(`unit.rank.${unit.rank}`)} ${t(`unit.type.${unit.type}`)} ${t(`unit.role.${unit.role}`)}`}
@@ -70,6 +72,7 @@ const UnlinkItem: React.FC<{ active: boolean }> = ({  active }) => {
     >
       <Image
         className="unit"
+        draggable="false"
         height={48}
         width={48}
         alt={label}

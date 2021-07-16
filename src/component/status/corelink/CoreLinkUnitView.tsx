@@ -17,6 +17,7 @@ const FitUnitView: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
       <Image
         fluid
         rounded
+        draggable="false"
         sizes="(max-width: 480px) 47px, (min-width: 480px) 62px"
         alt={t(`unit:name.${unit}`)}
         src={`${process.env.PUBLIC_URL}/unit_icon/${unit}.webp`}
@@ -47,6 +48,7 @@ const PartialFitUnitView: React.FC<{
         }}
       >
         <Image
+          draggable="false"
           sizes="(max-width: 480px) 24px, (min-width: 480px) 30px"
           css={{
             '@media (max-width: 480px)': { height: 24, width: 24 },

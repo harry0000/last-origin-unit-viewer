@@ -18,6 +18,7 @@ const UnitBasicInfoIcon: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
 
   return (
     <Image
+      draggable="false"
       css={{
         display: 'block',
         margin: '0 auto'

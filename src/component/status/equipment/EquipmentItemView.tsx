@@ -21,11 +21,13 @@ const EquipmentItemView: React.FC<{
       <Image
         fluid
         rounded
+        draggable="false"
         sizes="(max-width: 480px) 47px, (min-width: 480px) 62px"
         alt={t(`equipment:${equipmentId}`)}
         src={`${process.env.PUBLIC_URL}/equip_icon/${equipmentType}_${equipmentId}_${equipmentRank}.webp`}
       />
       <Image
+        draggable="false"
         css={{ position: 'absolute', top: -10, left: -5 }}
         height={28}
         width={28}

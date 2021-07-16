@@ -30,6 +30,7 @@ const StatusIcon: React.FC<{ status: EnhanceableStatus | 'spd' }> = ({ status })
   return (
     <Image
       rounded
+      draggable="false"
       height={24}
       width={24}
       alt={status}

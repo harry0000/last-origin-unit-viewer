@@ -24,6 +24,7 @@ const EquipmentPlaceholder: React.FC<{ type: EquipmentType }> = React.memo(({ ty
     >
       <Image
         rounded
+        draggable="false"
         height={32}
         width={32}
         alt={t(`equipment:type.${type}`)}

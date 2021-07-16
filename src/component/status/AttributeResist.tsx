@@ -44,6 +44,7 @@ const AttributeResist: React.FC<{
           overlay={<Tooltip id='tooltip-attribute-resist'>{alt}</Tooltip>}
         >
           <Image
+            draggable="false"
             height={24}
             width={24}
             alt={alt}

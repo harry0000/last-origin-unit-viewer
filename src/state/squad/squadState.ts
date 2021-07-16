@@ -94,6 +94,10 @@ export function useUnitDragPreview():
   }
 
   const { display, itemType, item, style } = props;
+  if (itemType !== ItemType.UnitCard && itemType !== ItemType.SquadUnit) {
+    return { display: false };
+  }
+
   style.top = -20;
   style.left = -20;
   style.opacity = 0.9;

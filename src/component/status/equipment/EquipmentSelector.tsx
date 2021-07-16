@@ -62,6 +62,7 @@ const EquipmentItem: React.FC<{
       active={active}
     >
       <Image
+        draggable="false"
         height={48}
         width={48}
         alt={label}
