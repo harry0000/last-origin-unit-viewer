@@ -3,11 +3,10 @@
   padding: 10px 5px 5px;
   overflow-y: scroll;
   scrollbar-color: #ffcc00 #514E55;
-  scrollbar-width: thin;
 }
 
 .unit-list::-webkit-scrollbar {
-  width: 10px;
+  width: 15px;
 }
 .unit-list::-webkit-scrollbar-track {
   background: #514E55;
