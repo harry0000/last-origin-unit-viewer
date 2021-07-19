@@ -148,15 +148,15 @@ export const equipmentData = {
     id: 'enhanced_analysis_chip',
     status_effects: [
       { cri_up: { milliPercentage:  5000 }, acc_up: { milliPercentage: 10000 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
-      { cri_up: { milliPercentage:     0 }, acc_up: { milliPercentage:     0 } },
+      { cri_up: { milliPercentage:  5250 }, acc_up: { milliPercentage: 10500 } },
+      { cri_up: { milliPercentage:  5500 }, acc_up: { milliPercentage: 11000 } },
+      { cri_up: { milliPercentage:  6000 }, acc_up: { milliPercentage: 12000 } },
+      { cri_up: { milliPercentage:  6750 }, acc_up: { milliPercentage: 13500 } },
+      { cri_up: { milliPercentage:  7750 }, acc_up: { milliPercentage: 15500 } },
+      { cri_up: { milliPercentage:  8500 }, acc_up: { milliPercentage: 17000 } },
+      { cri_up: { milliPercentage: 10000 }, acc_up: { milliPercentage: 20000 } },
+      { cri_up: { milliPercentage: 12000 }, acc_up: { milliPercentage: 24000 } },
+      { cri_up: { milliPercentage: 15000 }, acc_up: { milliPercentage: 28000 } },
       { cri_up: { milliPercentage: 20000 }, acc_up: { milliPercentage: 35000 } }
     ]
   },
@@ -1038,28 +1038,28 @@ export const equipmentData = {
     id: 'high_power_generator',
     status_effects: [
       { atk_up: { milliValue: 25000 } },
-      { atk_up: { milliValue:     0 } },
-      { atk_up: { milliValue:     0 } },
-      { atk_up: { milliValue:     0 } },
-      { atk_up: { milliValue:     0 } },
-      { atk_up: { milliValue:     0 } },
-      { atk_up: { milliValue:     0 } },
-      { atk_up: { milliValue:     0 } },
-      { atk_up: { milliValue:     0 } },
-      { atk_up: { milliValue:     0 } },
+      { atk_up: { milliValue: 30000 } },
+      { atk_up: { milliValue: 35000 } },
+      { atk_up: { milliValue: 40000 } },
+      { atk_up: { milliValue: 45000 } },
+      { atk_up: { milliValue: 50000 } },
+      { atk_up: { milliValue: 55000 } },
+      { atk_up: { milliValue: 60000 } },
+      { atk_up: { milliValue: 65000 } },
+      { atk_up: { milliValue: 70000 } },
       { atk_up: { milliValue: 75000 } }
     ],
     equipment_effects: [
       [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  440000 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:       0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:       0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:       0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:       0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:       0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:       0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:       0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:       0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:       0 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  480000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  520000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  560000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  600000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  640000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  680000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  720000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  800000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  900000 } } }],
       [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 1000000 } } }]
     ]
   },
@@ -1144,10 +1144,23 @@ export const equipmentData = {
   //     role: 'attacker'
   //   }
   // },
-  // precise_observation_gear: {
-  //   type: 'gear',
-  //   id: 'precise_observation_gear'
-  // },
+  precise_observation_gear: {
+    type: 'gear',
+    id: 'precise_observation_gear',
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { range_up: { value: 2 }, effect_removal: { effect: 'range_down', rate: { milliPercentage: { ss:  50000 } } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up: { value: 2 }, effect_removal: { effect: 'range_down', rate: { milliPercentage: { ss:  55000 } } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up: { value: 2 }, effect_removal: { effect: 'range_down', rate: { milliPercentage: { ss:  60000 } } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up: { value: 2 }, effect_removal: { effect: 'range_down', rate: { milliPercentage: { ss:  65000 } } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up: { value: 2 }, effect_removal: { effect: 'range_down', rate: { milliPercentage: { ss:  70000 } } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up: { value: 2 }, effect_removal: { effect: 'range_down', rate: { milliPercentage: { ss:  75000 } } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up: { value: 2 }, effect_removal: { effect: 'range_down', rate: { milliPercentage: { ss:  80000 } } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up: { value: 2 }, effect_removal: { effect: 'range_down', rate: { milliPercentage: { ss:  85000 } } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up: { value: 2 }, effect_removal: { effect: 'range_down', rate: { milliPercentage: { ss:  90000 } } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up: { value: 2 }, effect_removal: { effect: 'range_down', rate: { milliPercentage: { ss:  95000 } } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up: { value: 2 }, effect_removal: { effect: 'range_down', rate: { milliPercentage: { ss: 100000 } } } } }]
+    ]
+  },
   recon_drone: {
     type: 'gear',
     id: 'recon_drone',
