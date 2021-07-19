@@ -7,8 +7,9 @@ import { useTranslation } from 'react-i18next';
 
 import { AreaOfEffectCellType } from './AreaOfEffectCellType';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { SkillType } from './UnitSkillList';
-import { useSkillArea } from '../../hook/skill/SkillArea';
+
+import { SkillType, useSkillArea } from '../../state/skill/unitSkillState';
+import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
 import { ifNonNullable } from '../../util/react';
 
@@ -75,9 +76,13 @@ const AreaOfEffectCell: React.FC<{ selected: boolean, type: AreaOfEffectCellType
   );
 };
 
-const AreaOfEffectGrid: React.FC<{ css?: Interpolation<Theme>, skillType: SkillType }> = ({ skillType, ...others }) => {
+const AreaOfEffectGrid: React.FC<{
+  css?: Interpolation<Theme>,
+  skillType: SkillType,
+  unit: UnitBasicInfo
+}> = ({ skillType, unit, ...others }) => {
   const { t } = useTranslation();
-  const cellType = useSkillArea(skillType);
+  const cellType = useSkillArea(skillType, unit);
 
   return (
     ifNonNullable(

@@ -2,22 +2,22 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import StatusEffectsView from './StatusEffectsView';
+import { formatResistPercentage } from './UnitStatusParameterFormatter';
 
 import { DamageAttribute } from '../../domain/skill/UnitSkillData';
 import { MilliPercentageValue } from '../../domain/ValueUnit';
+import { UnitNumber } from '../../domain/UnitBasicInfo';
 
+import { useSelectedUnit } from '../../state/selector/unitSelectorState';
 import {
-  selectedUnitElectricResistStatusParameterState,
-  selectedUnitFireResistStatusParameterState,
-  selectedUnitIceResistStatusParameterState
-} from '../../state/status/selectedUnitStatusParameterState';
-
-import { formatResistPercentage } from './UnitStatusParameterFormatter';
+  useUnitElectricResistParameter,
+  useUnitFireResistParameter,
+  useUnitIceResistParameter
+} from '../../state/status/unitStatusParameterState';
 
 const AttributeResist: React.FC<{
   attribute: DamageAttribute,
@@ -44,6 +44,7 @@ const AttributeResist: React.FC<{
           overlay={<Tooltip id='tooltip-attribute-resist'>{alt}</Tooltip>}
         >
           <Image
+            draggable="false"
             height={24}
             width={24}
             alt={alt}
@@ -60,19 +61,49 @@ const AttributeResist: React.FC<{
 };
 
 export const FireResist: React.FC = () => {
-  const value = useRecoilValue(selectedUnitFireResistStatusParameterState)?.resist;
+  const selected = useSelectedUnit();
+  const View = ({ value }: { value?: MilliPercentageValue }) => (
+    <AttributeResist attribute={DamageAttribute.Fire} value={value} />
+  );
 
-  return (<AttributeResist attribute={DamageAttribute.Fire} value={value} />);
+  const UnitFireResistView: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
+    const value = useUnitFireResistParameter(unit);
+    return (<View value={value} />);
+  };
+
+  return selected ?
+    (<UnitFireResistView unit={selected.no} />) :
+    (<View />);
 };
 
 export const IceResist: React.FC = () => {
-  const value = useRecoilValue(selectedUnitIceResistStatusParameterState)?.resist;
+  const selected = useSelectedUnit();
+  const View = ({ value }: { value?: MilliPercentageValue }) => (
+    <AttributeResist attribute={DamageAttribute.Ice} value={value} />
+  );
 
-  return (<AttributeResist attribute={DamageAttribute.Ice} value={value} />);
+  const UnitIceResistView: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
+    const value = useUnitIceResistParameter(unit);
+    return (<View value={value} />);
+  };
+
+  return selected ?
+    (<UnitIceResistView unit={selected.no} />) :
+    (<View />);
 };
 
 export const ElectricResist: React.FC = () => {
-  const value = useRecoilValue(selectedUnitElectricResistStatusParameterState)?.resist;
+  const selected = useSelectedUnit();
+  const View = ({ value }: { value?: MilliPercentageValue }) => (
+    <AttributeResist attribute={DamageAttribute.Electric} value={value} />
+  );
 
-  return (<AttributeResist attribute={DamageAttribute.Electric} value={value} />);
+  const UnitElectricResistView: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
+    const value = useUnitElectricResistParameter(unit);
+    return (<View value={value} />);
+  };
+
+  return selected ?
+    (<UnitElectricResistView unit={selected.no} />) :
+    (<View />);
 };

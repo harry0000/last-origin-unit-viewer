@@ -4,11 +4,18 @@ import { ConnectDragSource, ConnectDropTarget } from 'react-dnd/dist/types/types
 import { useDrag, useDrop } from 'react-dnd';
 import { usePreview } from 'react-dnd-preview';
 import { getEmptyImage } from 'react-dnd-html5-backend';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { Squad, TenKeyPosition } from '../../domain/squad/Squad';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
+
 import { SquadJsonStructure } from '../../service/SquadJsonStructure';
-import { useUnitLvStatusResolver, useUnitLvStatusRestore } from '../status/unitLvStatusState';
+import { convertToJsonObject } from '../../service/SquadJsonConverter';
+import { generateShareUrl, generateTwitterShareUrl, squadUrlParamName } from '../../service/ShareUrlGenerator';
+import { restore, UrlSafeBase64String } from '../../service/UrlParamConverter';
+import { restoreFromJsonObject } from '../../service/SquadJsonRestore';
+
+import { useUnitAffectionStateResolver, useUnitAffectionStateRestore } from '../status/unitAffectionBonus';
 import {
   useUnitChip1EquipmentResolver,
   useUnitChip1EquipmentRestore,
@@ -20,13 +27,11 @@ import {
   useUnitOsEquipmentRestore
 } from '../equipment/unitEquipmentState';
 import { useUnitCoreLinkResolver, useUnitCoreLinkRestore } from '../corelink/unitCoreLinkState';
+import { useUnitDamagedStateResolver, useUnitDamagedStateRestore } from '../status/unitDamagedState';
+import { useUnitLvStatusResolver, useUnitLvStatusRestore } from '../status/unitLvStatusState';
 import { useUnitSkillResolver, useUnitSkillRestore } from '../skill/unitSkillState';
-import { convertToJsonObject } from '../../service/SquadJsonConverter';
+
 import { useNotificationResister } from '../ui/notificationState';
-import { generateShareUrl, generateTwitterShareUrl, squadUrlParamName } from '../../service/ShareUrlGenerator';
-import { useHistory, useLocation } from 'react-router-dom';
-import { restore, UrlSafeBase64String } from '../../service/UrlParamConverter';
-import { restoreFromJsonObject } from '../../service/SquadJsonRestore';
 
 export const ItemType = {
   UnitCard: 'unit_card',
@@ -62,14 +67,11 @@ export function useUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
   return dragRef;
 }
 
-export function useSquadUnitDrag(unit: UnitBasicInfo): [isDragging: boolean, dragRef: ConnectDragSource] {
-  const [props, dragRef, previewRef] = useDrag(
+export function useSquadUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
+  const [, dragRef, previewRef] = useDrag(
     () => ({
       type: ItemType.SquadUnit,
-      item: unit,
-      collect: monitor => ({
-        isDragging: monitor.isDragging()
-      })
+      item: unit
     }),
     [unit]
   );
@@ -80,7 +82,7 @@ export function useSquadUnitDrag(unit: UnitBasicInfo): [isDragging: boolean, dra
     previewRef(getEmptyImage(), { captureDraggingState: true });
   }, []);
 
-  return [props.isDragging, dragRef];
+  return dragRef;
 }
 
 export function useUnitDragPreview():
@@ -94,6 +96,10 @@ export function useUnitDragPreview():
   }
 
   const { display, itemType, item, style } = props;
+  if (itemType !== ItemType.UnitCard && itemType !== ItemType.SquadUnit) {
+    return { display: false };
+  }
+
   style.top = -20;
   style.left = -20;
   style.opacity = 0.9;
@@ -164,6 +170,8 @@ function useSquadJson(): () => SquadJsonStructure | undefined {
   const gearEquipmentResolver  = useUnitGearEquipmentResolver();
   const coreLinkResolver = useUnitCoreLinkResolver();
   const skillResolver = useUnitSkillResolver();
+  const affectionResolver = useUnitAffectionStateResolver();
+  const damagedResolver = useUnitDamagedStateResolver();
 
   return useRecoilCallback(({ snapshot }) => () => {
     const squad = snapshot.getLoadable(squadAtom).getValue();
@@ -175,7 +183,9 @@ function useSquadJson(): () => SquadJsonStructure | undefined {
       (unit) => snapshot.getLoadable(osEquipmentResolver(unit)).getValue(),
       (unit) => snapshot.getLoadable(gearEquipmentResolver(unit)).getValue(),
       (unit) => snapshot.getLoadable(coreLinkResolver(unit)).getValue(),
-      (unit) => snapshot.getLoadable(skillResolver(unit)).getValue()
+      (unit) => snapshot.getLoadable(skillResolver(unit)).getValue(),
+      (unit) => snapshot.getLoadable(affectionResolver(unit)).getValue(),
+      (unit) => snapshot.getLoadable(damagedResolver(unit)).getValue()
     );
   });
 }
@@ -269,6 +279,8 @@ export function useSquadRestoreFromUrl(): boolean {
   const gearRestore = useUnitGearEquipmentRestore();
   const coreLinkRestore = useUnitCoreLinkRestore();
   const skillRestore = useUnitSkillRestore();
+  const affectionRestore = useUnitAffectionStateRestore();
+  const damagedRestore = useUnitDamagedStateRestore();
 
   const history = useHistory();
   const squadParam = new URLSearchParams(useLocation().search).get(squadUrlParamName);
@@ -289,6 +301,8 @@ export function useSquadRestoreFromUrl(): boolean {
           gearRestore(restored.gearEquipment);
           coreLinkRestore(restored.coreLink);
           skillRestore(restored.skill);
+          affectionRestore(restored.affection);
+          damagedRestore(restored.damaged);
 
           notify('restore_squad_units');
         }

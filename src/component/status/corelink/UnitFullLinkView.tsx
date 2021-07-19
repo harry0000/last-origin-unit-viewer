@@ -2,12 +2,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { Suspense } from 'react';
-import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { Dropdown } from 'react-bootstrap';
 
-import { selectedUnitBasicInfoState } from '../../../state/selector/unitSelectorState';
+import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
 
 import './FullLinkBonusDropdown.css';
 
@@ -16,7 +15,7 @@ const FullLinkBonusDropdown = React.lazy(() => import('./FullLinkBonusDropdown')
 const DropdownPlaceholder: React.FC = () => (<Dropdown className="full-link-bonus"><div className="placeholder" /></Dropdown>);
 
 const FullLinkBonusSelector: React.FC = () => {
-  const selected = useRecoilValue(selectedUnitBasicInfoState);
+  const selected = useSelectedUnit();
 
   return (
     <div className="selector full-link-bonus">

@@ -10,7 +10,7 @@ import {
   unitDefEnhancementStatusEffectState,
   unitEvaEnhancementStatusEffectState,
   unitHpEnhancementStatusEffectState,
-  unitStatusEnhancementLvState
+  useStatusParameterEnhancedLv
 } from '../../state/status/unitLvStatusState';
 import {
   unitAtkStatusParameterState,
@@ -57,8 +57,8 @@ function enhancementEffects(
 ): ReadonlyArray<StatusEffectPopoverRowProps> {
   switch (parameter) {
   case 'hp': {
-    const lv = useRecoilValue(unitStatusEnhancementLvState([unit, parameter]));
-    const value = useRecoilValue(unitHpEnhancementStatusEffectState(unit))?.hp_up?.value;
+    const lv = useStatusParameterEnhancedLv(parameter, unit);
+    const value = useRecoilValue(unitHpEnhancementStatusEffectState(unit)).hp_up?.value;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -68,8 +68,8 @@ function enhancementEffects(
       [];
   }
   case 'atk': {
-    const lv = useRecoilValue(unitStatusEnhancementLvState([unit, parameter]));
-    const value = useRecoilValue(unitAtkEnhancementStatusEffectState(unit))?.atk_up;
+    const lv = useStatusParameterEnhancedLv(parameter, unit);
+    const value = useRecoilValue(unitAtkEnhancementStatusEffectState(unit)).atk_up;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -79,8 +79,8 @@ function enhancementEffects(
       [];
   }
   case 'def': {
-    const lv = useRecoilValue(unitStatusEnhancementLvState([unit, parameter]));
-    const value = useRecoilValue(unitDefEnhancementStatusEffectState(unit))?.def_up;
+    const lv = useStatusParameterEnhancedLv(parameter, unit);
+    const value = useRecoilValue(unitDefEnhancementStatusEffectState(unit)).def_up;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -90,8 +90,8 @@ function enhancementEffects(
       [];
   }
   case 'acc': {
-    const lv = useRecoilValue(unitStatusEnhancementLvState([unit, parameter]));
-    const value = useRecoilValue(unitAccEnhancementStatusEffectState(unit))?.acc_up;
+    const lv = useStatusParameterEnhancedLv(parameter, unit);
+    const value = useRecoilValue(unitAccEnhancementStatusEffectState(unit)).acc_up;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -101,8 +101,8 @@ function enhancementEffects(
       [];
   }
   case 'eva': {
-    const lv = useRecoilValue(unitStatusEnhancementLvState([unit, parameter]));
-    const value = useRecoilValue(unitEvaEnhancementStatusEffectState(unit))?.eva_up;
+    const lv = useStatusParameterEnhancedLv(parameter, unit);
+    const value = useRecoilValue(unitEvaEnhancementStatusEffectState(unit)).eva_up;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -112,8 +112,8 @@ function enhancementEffects(
       [];
   }
   case 'cri': {
-    const lv = useRecoilValue(unitStatusEnhancementLvState([unit, parameter]));
-    const value = useRecoilValue(unitCriEnhancementStatusEffectState(unit))?.cri_up;
+    const lv = useStatusParameterEnhancedLv(parameter, unit);
+    const value = useRecoilValue(unitCriEnhancementStatusEffectState(unit)).cri_up;
     return lv && value ?
       [{
         key: 'enhancement',

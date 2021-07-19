@@ -2,7 +2,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { MouseEventHandler, ReactNode } from 'react';
-import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { Dropdown, Image } from 'react-bootstrap';
@@ -15,8 +14,8 @@ import { ChipEquipment, GearEquipment, OsEquipment } from '../../../domain/statu
 import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 
 import { EquipmentSlot, useEquipmentAvailable, useUnitEquipment } from '../../../state/equipment/unitEquipmentState';
-import { selectedUnitBasicInfoState } from '../../../state/selector/unitSelectorState';
 import { useAvailableEquipment } from '../../../state/equipment/availableEquipment';
+import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
 
 import { ifNonNullable } from '../../../util/react';
 
@@ -62,6 +61,7 @@ const EquipmentItem: React.FC<{
       active={active}
     >
       <Image
+        draggable="false"
         height={48}
         width={48}
         alt={label}
@@ -235,7 +235,7 @@ const GearEquipmentDropdown: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
 };
 
 const EquipmentSelector: React.FC<{ slot: EquipmentSlot }> = ({ slot }) => {
-  const selected = useRecoilValue(selectedUnitBasicInfoState);
+  const selected = useSelectedUnit();
 
   return ifNonNullable(
     selected,

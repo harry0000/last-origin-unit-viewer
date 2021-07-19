@@ -28,15 +28,26 @@ import { sumMilliPercentageValues, ValueUnit } from '../ValueUnit';
 
 import { foldObjectNonNullableEntry, NonNullableEntry } from '../../util/object';
 import { CoreLinkBonus, FullLinkBonus } from '../UnitCoreLinkBonusData';
+import { AffectionBonus } from '../UnitAffection';
 
-type SkillEffectLv = SkillLv | 11 | 12
+type SkillEffectLv = SkillLv | 11 | 12 | 13
 
-function calculateSkillEffectLv(skillLv: SkillLv, fullLinkBonus: FullLinkBonus | undefined): SkillEffectLv {
+function calculateSkillEffectLv(
+  skillLv: SkillLv,
+  fullLinkBonus: FullLinkBonus | undefined,
+  affectionBonus: AffectionBonus | undefined
+): SkillEffectLv {
+  let effectLv: SkillEffectLv = skillLv;
+
   if (fullLinkBonus && 'buff_debuff_lv_up' in fullLinkBonus) {
-    return skillLv + fullLinkBonus.buff_debuff_lv_up.value as SkillEffectLv;
+    effectLv = effectLv + fullLinkBonus.buff_debuff_lv_up.value as SkillEffectLv;
   }
 
-  return skillLv;
+  if (affectionBonus) {
+    effectLv = effectLv + affectionBonus.buff_debuff_lv_up.value as SkillEffectLv;
+  }
+
+  return effectLv;
 }
 
 type Value<T extends ValueUnit> =
@@ -204,40 +215,40 @@ function calculateRangeUpDownEffectValue(
 function calculateIntegerValueEffectValue(
   data: NonNullable<SkillEffectDataValue[IntegerValueEffectKey]>,
   lv: SkillLv,
-  fullLinkBonus: FullLinkBonus | undefined
+  effectLv: SkillEffectLv
 ): SkillEffectValue[IntegerValueEffectKey] {
   return {
     ...calculateAddition(data, lv),
-    ...calculateDataValue('value', data, calculateSkillEffectLv(lv, fullLinkBonus))
+    ...calculateDataValue('value', data, effectLv)
   };
 }
 
 function calculateMicroValueEffectValue(
   data: NonNullable<SkillEffectDataValue[MicroValueEffectKey]>,
   lv: SkillLv,
-  fullLinkBonus: FullLinkBonus | undefined
+  effectLv: SkillEffectLv
 ): NonNullable<SkillEffectValue[MicroValueEffectKey]> {
   return {
     ...calculateAddition(data, lv),
-    ...calculateDataValue('microValue', data, calculateSkillEffectLv(lv, fullLinkBonus))
+    ...calculateDataValue('microValue', data, effectLv)
   };
 }
 
 function calculateMilliPercentageEffectValue(
   data: NonNullable<SkillEffectDataValue[Exclude<MilliPercentageEffectKey, typeof Effect['DefDown' | 'EvaUp' | 'StatusResistUp']>]>,
   lv: SkillLv,
-  fullLinkBonus: FullLinkBonus | undefined
+  effectLv: SkillEffectLv
 ): NonNullable<SkillEffectValue[Exclude<MilliPercentageEffectKey, typeof Effect['DefDown' | 'EvaUp' | 'StatusResistUp']>]> {
   return {
     ...calculateAddition(data, lv),
-    ...calculateDataValue('milliPercentage', data, calculateSkillEffectLv(lv, fullLinkBonus))
+    ...calculateDataValue('milliPercentage', data, effectLv)
   };
 }
 
 function calculateEffectValue(
   entry: NonNullableEntry<Exclude<Effect, typeof Effect.HpUp>, SkillEffectDataValue>,
   lv: SkillLv,
-  fullLinkBonus: FullLinkBonus | undefined
+  effectLv: SkillEffectLv
 ): SkillEffectValue {
   switch (entry[0]) {
   case Effect.MinimizeDamage:
@@ -285,11 +296,11 @@ function calculateEffectValue(
   case Effect.FixedElectricDamageOverTime:
   case Effect.Barrier:
   case Effect.BattleContinuation:
-    return { [entry[0]]: calculateIntegerValueEffectValue(entry[1], lv, fullLinkBonus) };
+    return { [entry[0]]: calculateIntegerValueEffectValue(entry[1], lv, effectLv) };
   case Effect.ApUp:
   case Effect.ApDown:
   case Effect.SetAp:
-    return { [entry[0]]: calculateMicroValueEffectValue(entry[1], lv, fullLinkBonus) };
+    return { [entry[0]]: calculateMicroValueEffectValue(entry[1], lv, effectLv) };
   case Effect.EffectRemoval:
   case Effect.PreventsEffect: {
     const effect = 'effect' in entry[1] ? { effect: entry[1].effect } : { effects: entry[1].effects };
@@ -329,79 +340,101 @@ function calculateEffectValue(
   case Effect.EvaUp:
   case Effect.StatusResistUp:
     if ('length' in entry[1]) {
-      return { [entry[0]]: entry[1].map(v => calculateMilliPercentageEffectValue(v, lv, fullLinkBonus)) };
+      return { [entry[0]]: entry[1].map(v => calculateMilliPercentageEffectValue(v, lv, effectLv)) };
     }
-    return { [entry[0]]: calculateMilliPercentageEffectValue(entry[1], lv, fullLinkBonus) };
+    return { [entry[0]]: calculateMilliPercentageEffectValue(entry[1], lv, effectLv) };
   default: {
-    return { [entry[0]]: calculateMilliPercentageEffectValue(entry[1], lv, fullLinkBonus) };
+    return { [entry[0]]: calculateMilliPercentageEffectValue(entry[1], lv, effectLv) };
   }
   }
 }
 
-function calculateEffectDataValue(data: SkillEffectDataValue | undefined, lv: SkillLv, fullLinkBonus: FullLinkBonus | undefined): SkillEffectValue | undefined {
-  return data && foldObjectNonNullableEntry(data, entry => calculateEffectValue(entry, lv, fullLinkBonus))({});
+function calculateEffectDataValue(
+  data: SkillEffectDataValue | undefined,
+  lv: SkillLv,
+  effectLv: SkillEffectLv
+): SkillEffectValue | undefined {
+  return data && foldObjectNonNullableEntry(data, entry =>
+    calculateEffectValue(entry, lv, effectLv)
+  )({});
 }
 
-function calculateAroundEffectDataValue(data: AroundSkillEffectDataValue | undefined, lv: SkillLv, fullLinkBonus: FullLinkBonus | undefined): AroundSkillEffectValue | undefined {
+function calculateAroundEffectDataValue(
+  data: AroundSkillEffectDataValue | undefined,
+  lv: SkillLv,
+  effectLv: SkillEffectLv
+): AroundSkillEffectValue | undefined {
   return (
     data?.fixed_damage &&
     {
       fixed_damage: {
-        ...calculateDataValue('milliPercentage', data.fixed_damage, calculateSkillEffectLv(lv, fullLinkBonus)),
+        ...calculateDataValue('milliPercentage', data.fixed_damage, effectLv),
         ...calculateAddition(data.fixed_damage, lv)
       }
     }
   );
 }
 
-function calculateEffect(data: SkillEffectData, lv: SkillLv, fullLinkBonus: FullLinkBonus | undefined): SkillEffect {
+function calculateEffect(
+  data: SkillEffectData,
+  lv: SkillLv,
+  effectLv: SkillEffectLv
+): SkillEffect {
   return {
     conditions: data.conditions,
     effective: data.effective,
     scale_factor: data.scale_factor,
     details: {
-      self: calculateEffectDataValue(data.details.self, lv, fullLinkBonus),
-      target: calculateEffectDataValue(data.details.target, lv, fullLinkBonus),
-      around: calculateAroundEffectDataValue(data.details.around, lv, fullLinkBonus)
+      self: calculateEffectDataValue(data.details.self, lv, effectLv),
+      target: calculateEffectDataValue(data.details.target, lv, effectLv),
+      around: calculateAroundEffectDataValue(data.details.around, lv, effectLv)
     }
   };
 }
 
-function calculateEffects(data: ReadonlyArray<SkillEffectData>, lv: SkillLv, fullLinkBonus: FullLinkBonus | undefined): ReadonlyArray<SkillEffect> {
-  return data.map(effect => calculateEffect(effect, lv, fullLinkBonus));
+function calculateEffects(
+  data: ReadonlyArray<SkillEffectData>,
+  lv: SkillLv,
+  effectLv: SkillEffectLv
+): ReadonlyArray<SkillEffect> {
+  return data.map(effect => calculateEffect(effect, lv, effectLv));
 }
 
 export function calculateActiveSkill(
   data: ActiveSkillData,
   lv: SkillLv,
   coreLinkBonus: CoreLinkBonus,
-  fullLinkBonus: FullLinkBonus | undefined
+  fullLinkBonus: FullLinkBonus | undefined,
+  affectionBonus: AffectionBonus | undefined
 ): ActiveSkill {
+  const effectLv = calculateSkillEffectLv(lv, fullLinkBonus, affectionBonus);
+
   return {
     damage_deal: calculateDamageDeal(data.damage_deal, lv, coreLinkBonus, fullLinkBonus),
     cost: calculateApCost(data.cost, lv),
     range: data.range,
     area: calculateArea(data.area, lv),
-    effects: calculateEffects(data.effects, lv, fullLinkBonus)
+    effects: calculateEffects(data.effects, lv, effectLv)
   };
 }
 
-export function calculatePassiveSkill(data: PassiveSkillData | undefined, lv: SkillLv | undefined, fullLinkBonus: FullLinkBonus | undefined): PassiveSkill | undefined
-export function calculatePassiveSkill(data: PassiveSkillDataAsEquipmentEffect | undefined, lv: SkillLv | undefined, fullLinkBonus: FullLinkBonus | undefined): PassiveSkillAsEquipmentEffect | undefined
-export function calculatePassiveSkill(data: PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined, lv: SkillLv | undefined, fullLinkBonus: FullLinkBonus | undefined): PassiveSkill | PassiveSkillAsEquipmentEffect | undefined
-export function calculatePassiveSkill(data: PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined, lv: SkillLv | undefined, fullLinkBonus: FullLinkBonus | undefined): PassiveSkill | PassiveSkillAsEquipmentEffect | undefined {
+export function calculatePassiveSkill(data: PassiveSkillData | undefined, lv: SkillLv | undefined, fullLinkBonus: FullLinkBonus | undefined, affectionBonus: AffectionBonus | undefined): PassiveSkill | undefined
+export function calculatePassiveSkill(data: PassiveSkillDataAsEquipmentEffect | undefined, lv: SkillLv | undefined, fullLinkBonus: FullLinkBonus | undefined, affectionBonus: AffectionBonus | undefined): PassiveSkillAsEquipmentEffect | undefined
+export function calculatePassiveSkill(data: PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined, lv: SkillLv | undefined, fullLinkBonus: FullLinkBonus | undefined, affectionBonus: AffectionBonus | undefined): PassiveSkill | PassiveSkillAsEquipmentEffect | undefined
+export function calculatePassiveSkill(data: PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined, lv: SkillLv | undefined, fullLinkBonus: FullLinkBonus | undefined, affectionBonus: AffectionBonus | undefined): PassiveSkill | PassiveSkillAsEquipmentEffect | undefined {
   if (!data || !lv) {
     return undefined;
   }
 
+  const effectLv = calculateSkillEffectLv(lv, fullLinkBonus, affectionBonus);
   if ('effects' in data) {
-    const effects = calculateEffects(data.effects, lv, fullLinkBonus);
+    const effects = calculateEffects(data.effects, lv, effectLv);
     return {
       area: calculateArea(data.area, lv),
       effects
     };
   } else {
-    const equipment_effects = calculateEffects(data.equipment_effects, lv, fullLinkBonus);
+    const equipment_effects = calculateEffects(data.equipment_effects, lv, effectLv);
     return {
       area: calculateArea(data.area, lv),
       equipment_effects

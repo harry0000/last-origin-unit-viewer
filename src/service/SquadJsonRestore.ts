@@ -10,15 +10,17 @@ import {
 } from './SquadJsonStructure';
 
 import { Squad } from '../domain/squad/Squad';
-import { UnitBasicInfo, UnitNumber } from '../domain/UnitBasicInfo';
+import { BioroidUnitNumber, UnitBasicInfo, UnitKind, UnitNumber } from '../domain/UnitBasicInfo';
+import UnitAffection from '../domain/UnitAffection';
 import { UnitChip1Equipment, UnitChip2Equipment, UnitGearEquipment, UnitOsEquipment } from '../domain/status/UnitEquipment';
 import UnitCoreLink, { CoreLinkUnit } from '../domain/UnitCoreLink';
+import UnitDamagedState from '../domain/UnitDamagedState';
 import UnitLvStatus from '../domain/status/UnitLvStatus';
 import { buildUnitSkill, UnitSkill } from '../domain/skill/UnitSkill';
 
 import { unitBasicData } from '../data/unitBasicData';
-import { equipmentData } from '../data/equipmentData';
 import { unitCoreLinkBonusData } from '../data/unitCoreLinkBonusData';
+import { equipmentData } from '../data/equipmentData';
 
 type RestoredSquad = {
   squad: Squad,
@@ -28,7 +30,34 @@ type RestoredSquad = {
   osEquipment: ReadonlyArray<UnitOsEquipment>,
   gearEquipment: ReadonlyArray<UnitGearEquipment>,
   coreLink: ReadonlyArray<UnitCoreLink>,
-  skill: ReadonlyArray<UnitSkill>
+  skill: ReadonlyArray<UnitSkill>,
+  affection: ReadonlyArray<UnitAffection>,
+  damaged: ReadonlyArray<UnitDamagedState>
+}
+
+function restoreAffection(unit: BioroidUnitNumber, affection: 0 | 1): UnitAffection | undefined {
+  const unitAffection =
+    affection === 1 ?
+      new UnitAffection(unit).enableAffectionBonus() :
+      new UnitAffection(unit);
+
+  return (unitAffection.isAffectionBonusEnabled ? 1 : 0) === affection ?
+    unitAffection :
+    undefined;
+}
+
+function restoreDamaged(unit: UnitNumber, damaged: 0 | 1 | undefined): UnitDamagedState | undefined {
+  if (damaged === undefined) {
+    return new UnitDamagedState(unit);
+  }
+
+  const state = damaged === 1 ?
+    new UnitDamagedState(unit).changeToDamagedState() :
+    new UnitDamagedState(unit);
+
+  return (state.isDamaged ? 1 : 0) === damaged ?
+    state :
+    undefined;
 }
 
 function restoreUnitLvStatus(unit: UnitNumber, [lv, hp, atk, def, acc, eva, cri]: UnitEnhancementJsonStructure): UnitLvStatus | undefined {
@@ -178,12 +207,27 @@ function restoreSkill(unit: UnitBasicInfo, [as1, as2, ps1, ps2, ps3]: UnitSkillJ
   );
 }
 
+function validateSquad(squad: Squad, units: ReadonlyArray<UnitBasicInfo>): boolean {
+  const unitSet: ReadonlySet<UnitBasicInfo> = new Set(units);
+  const unitsInSquad: ReadonlySet<UnitBasicInfo> =
+    new Set(positions.flatMap(pos => {
+      const u = squad.unit(pos);
+      return u ?? [];
+    }));
+
+  return (
+    units.length === unitSet.size &&
+    [...unitSet.values()].every(u => unitsInSquad.has(u))
+  );
+}
+
 export function restoreFromJsonObject(json: unknown): RestoredSquad | undefined {
   if (!isSquadJsonStructure(json)) {
     return undefined;
   }
 
   let squad = new Squad();
+  const units: Array<UnitBasicInfo> = [];
   const lvStatus: Array<UnitLvStatus> = [];
   const chip1Equipment: Array<UnitChip1Equipment> = [];
   const chip2Equipment: Array<UnitChip2Equipment> = [];
@@ -191,6 +235,8 @@ export function restoreFromJsonObject(json: unknown): RestoredSquad | undefined 
   const gearEquipment: Array<UnitGearEquipment> = [];
   const coreLink: Array<UnitCoreLink> = [];
   const skill: Array<UnitSkill> = [];
+  const affection: Array<UnitAffection> = [];
+  const damaged: Array<UnitDamagedState> = [];
 
   const squadUnits = json[0];
   for (let i = 0; i < positions.length; i++) {
@@ -199,12 +245,24 @@ export function restoreFromJsonObject(json: unknown): RestoredSquad | undefined 
       continue;
     }
 
-    // FIXME: check rank up & vow
-    const [unitNo, rank] = unitJson[0];
+    // FIXME: check rank up
+    const [unitNo, rank, vow, dmg] = unitJson[0];
     const unit = unitBasicData[unitNo];
     if (!unit || unit.rank !== rank) {
       return undefined;
     }
+
+    let unitAffection = undefined;
+    if (unit.kind === UnitKind.Bioroid) {
+      unitAffection = restoreAffection(unit.no, vow);
+      if (!unitAffection) {
+        return undefined;
+      }
+    } else if (vow !== 0) {
+      return undefined;
+    }
+
+    const unitDamaged = restoreDamaged(unitNo, dmg);
 
     const lv = restoreUnitLvStatus(unitNo, unitJson[1]);
     const chip1 = restoreChip1(unitNo, unitJson[2][0]);
@@ -213,11 +271,12 @@ export function restoreFromJsonObject(json: unknown): RestoredSquad | undefined 
     const gear = restoreGear(unitNo, unitJson[2][3]);
     const unitCoreLink = restoreCoreLink(unitNo, unitJson[3]);
     const unitSkill = restoreSkill(unit, unitJson[4]);
-    if (!lv || !chip1 || !chip2 || !os || !gear || !unitCoreLink || !unitSkill) {
+    if (!lv || !chip1 || !chip2 || !os || !gear || !unitCoreLink || !unitSkill || !unitDamaged) {
       return undefined;
     }
 
     squad = squad.assignUnit(unit, positions[i]);
+    units.push(unit);
     lvStatus.push(lv);
     chip1Equipment.push(chip1);
     chip2Equipment.push(chip2);
@@ -225,7 +284,11 @@ export function restoreFromJsonObject(json: unknown): RestoredSquad | undefined 
     gearEquipment.push(gear);
     coreLink.push(unitCoreLink);
     skill.push(unitSkill);
+    unitAffection && affection.push(unitAffection);
+    damaged.push(unitDamaged);
   }
 
-  return { squad, lvStatus, chip1Equipment, chip2Equipment, osEquipment, gearEquipment, coreLink, skill };
+  return validateSquad(squad, units) ?
+    { squad, lvStatus, chip1Equipment, chip2Equipment, osEquipment, gearEquipment, coreLink, skill, affection, damaged } :
+    undefined;
 }

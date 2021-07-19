@@ -6,7 +6,7 @@ import { TenKeyPosition } from '../domain/squad/Squad';
 import { UnitLvValue } from '../domain/status/UnitLv';
 import { UnitNumber, UnitRank } from '../domain/UnitBasicInfo';
 
-export type UnitInfoJsonStructure = readonly [no: UnitNumber, rank: UnitRank, vow: 0 | 1]
+export type UnitInfoJsonStructure = readonly [no: UnitNumber, rank: UnitRank, vow: 0 | 1, damaged?: 0 | 1]
 
 export type UnitEnhancementJsonStructure = readonly [
   lv: UnitLvValue,
@@ -93,7 +93,10 @@ function isUnitStructure(arg: unknown): arg is UnitJsonStructure {
 }
 
 function isUnitInfoStructure(arg: unknown): arg is UnitInfoJsonStructure {
-  return Array.isArray(arg) && arg.length === 3 && typeof arg[0] === 'number' && typeof arg[1] === 'string' && typeof arg[2] === 'number';
+  return Array.isArray(arg) && (
+    arg.length === 3 && typeof arg[0] === 'number' && typeof arg[1] === 'string' && typeof arg[2] === 'number' ||
+    arg.length === 4 && typeof arg[0] === 'number' && typeof arg[1] === 'string' && typeof arg[2] === 'number' && typeof arg[3] === 'number'
+  );
 }
 
 function isUnitEnhancementStructure(arg: unknown): arg is UnitEnhancementJsonStructure {

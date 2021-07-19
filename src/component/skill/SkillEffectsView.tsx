@@ -5,12 +5,12 @@ import React from 'react';
 
 import SkillEffectConditionView from './SkillEffectConditionView';
 import SkillEffectDetailsView from './SkillEffectDetailsView';
-import { SkillType } from './UnitSkillList';
 
 import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
 import { SkillEffect } from '../../domain/skill/UnitSkills';
-import { UnitNumber } from '../../domain/UnitBasicInfo';
-import { useSkillEffects } from '../../hook/skill/SkillEffects';
+import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
+
+import { SkillType, useSkillEffects } from '../../state/skill/unitSkillState';
 
 import { ifNonNullable } from '../../util/react';
 
@@ -35,8 +35,8 @@ const SkillEffectView: React.FC<{ effect: SkillEffect, unitNumber: UnitNumber, a
   );
 };
 
-const SkillEffectsView: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
-  const values = useSkillEffects(skillType);
+const SkillEffectsView: React.FC<{ skillType: SkillType, unit: UnitBasicInfo }> = ({ skillType, unit }) => {
+  const values = useSkillEffects(skillType, unit);
 
   return (
     ifNonNullable(

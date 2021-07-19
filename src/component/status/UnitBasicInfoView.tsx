@@ -2,37 +2,35 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { Image } from 'react-bootstrap';
-
-import { selectedUnitBasicInfoState } from '../../state/selector/unitSelectorState';
-
-import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
+import { UnitRank, UnitRole } from '../../domain/UnitBasicInfo';
+import { useSelectedUnit } from '../../state/selector/unitSelectorState';
 
 import { ifNonNullable } from '../../util/react';
 
-const UnitBasicInfoIcon: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
-  const [height, width] = unit.rank === 'ss' ? [75, 87] : [65, 65];
+const UnitBasicInfoIcon: React.FC<{ rank: UnitRank, role: UnitRole }> = ({ rank, role }) => {
+  const [height, width] = rank === 'ss' ? [75, 87] : [65, 65];
 
   return (
     <Image
+      draggable="false"
       css={{
         display: 'block',
         margin: '0 auto'
       }}
       height={height}
       width={width}
-      alt={`${unit.rank} ${unit.role}`}
-      src={`${process.env.PUBLIC_URL}/icon/${unit.rank}_${unit.role}.webp`}
+      alt={`${rank} ${role}`}
+      src={`${process.env.PUBLIC_URL}/icon/${rank}_${role}.webp`}
     />
   );
 };
 
 const UnitBasicInfoView: React.FC = () => {
   const { t } = useTranslation();
-  const unit = useRecoilValue(selectedUnitBasicInfoState);
+  const unit = useSelectedUnit();
   const name = unit ? t(`unit:name.${unit.no}`) : '';
   const type = unit ? t(`common:unit.type.${unit.type}`) : '';
   const role = unit ? t(`common:unit.role.${unit.role}`) : '';
@@ -50,7 +48,7 @@ const UnitBasicInfoView: React.FC = () => {
           flexBasis: 90
         }}
       >
-        {ifNonNullable(unit, v => (<UnitBasicInfoIcon unit={v} />))}
+        {ifNonNullable(unit, v => (<UnitBasicInfoIcon rank={v.rank} role={v.role} />))}
       </div>
       <div
         css={{

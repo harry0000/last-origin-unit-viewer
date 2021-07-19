@@ -2,7 +2,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { MouseEventHandler, ReactNode } from 'react';
-import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { Dropdown, Image } from 'react-bootstrap';
@@ -14,7 +13,7 @@ import { CoreLinkUnit } from '../../../domain/UnitCoreLink';
 import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 
 import { CoreLinkSlot, useAvailableCoreLinkUnit, useUnitCoreLink } from '../../../state/corelink/unitCoreLinkState';
-import { selectedUnitBasicInfoState } from '../../../state/selector/unitSelectorState';
+import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
 
 import { ifNonNullable } from '../../../util/react';
 
@@ -37,6 +36,7 @@ const CoreLinkUnitItem: React.FC<{
       {'unit' in unit ?
         (<Image
           className="unit"
+          draggable="false"
           height={48}
           width={48}
           alt={t(`unit:name.${unit.unit}`)}
@@ -45,6 +45,7 @@ const CoreLinkUnitItem: React.FC<{
         (<span className="partial-fit-unit">
           <Image
             className="basic-info-icon"
+            draggable="false"
             height={32}
             width={32}
             alt={`${t(`unit.rank.${unit.rank}`)} ${t(`unit.type.${unit.type}`)} ${t(`unit.role.${unit.role}`)}`}
@@ -70,6 +71,7 @@ const UnlinkItem: React.FC<{ active: boolean }> = ({  active }) => {
     >
       <Image
         className="unit"
+        draggable="false"
         height={48}
         width={48}
         alt={label}
@@ -150,7 +152,7 @@ const CoreLinkDropdown: React.FC<{ unit: UnitBasicInfo, slot: CoreLinkSlot }> = 
 };
 
 const CoreLinkSelector: React.FC<{ slot: CoreLinkSlot }> = ({ slot }) => {
-  const selected = useRecoilValue(selectedUnitBasicInfoState);
+  const selected = useSelectedUnit();
 
   return ifNonNullable(
     selected,

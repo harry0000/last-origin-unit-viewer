@@ -1,0 +1,39 @@
+.circle-image-check {
+  display: inline-block;
+}
+
+label.circle-image-check-label {
+  position: relative;
+  border-radius: 9999px;
+  margin: 0;
+}
+
+.circle-image-check-label:not(.disabled):hover {
+  cursor: pointer;
+}
+
+.circle-image-check-label:not(.disabled):hover,
+.circle-image-check-label.focus {
+  box-shadow: rgba(255, 204, 0, 0.5) 0 0 0 2px;
+}
+
+.circle-image-check-label:not(.active)::after {
+  content: " ";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle farthest-side,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.7) 95%
+  );
+}
+
+.circle-image-check-label.active {
+  background: radial-gradient(
+    circle farthest-side,
+    rgba(255, 204, 0, 0.8),
+    rgba(255, 204, 0, 0.8) 15%,
+    rgba(255, 204, 0, 0) 95%
+  );
+}

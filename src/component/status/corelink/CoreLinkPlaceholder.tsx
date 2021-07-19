@@ -23,6 +23,7 @@ const EquipmentPlaceholder: React.FC<{ slot: CoreLinkSlot }> = React.memo(({ slo
     >
       <Image
         rounded
+        draggable="false"
         height={32}
         width={32}
         alt={t(`status.core_link_${slot}`)}

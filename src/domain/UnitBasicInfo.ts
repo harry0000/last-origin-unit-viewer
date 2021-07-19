@@ -59,7 +59,13 @@ export const UnitRole = {
 } as const;
 export type UnitRole = typeof UnitRole[keyof typeof UnitRole]
 
-export type UnitNumber = keyof typeof unitBasicData
-export type UnitBasicInfo = typeof unitBasicData[UnitNumber]
 
+export type UnitNumber = keyof typeof unitBasicData
+
+export type UnitBasicInfo = typeof unitBasicData[UnitNumber]
 export type UnitBasicData = typeof unitBasicData & { readonly [key in UnitNumber]: UnitBasicInfo }
+
+type UnitKindFilter<T extends UnitKind, U = UnitBasicInfo> = U extends { kind: T } ? U : never
+
+export type BioroidUnitNumber = UnitKindFilter<typeof UnitKind.Bioroid>['no']
+export type AgsUnitNumber     = UnitKindFilter<typeof UnitKind.AGS>['no']

@@ -22,6 +22,7 @@ import {
 } from './UnitSkillCalculator';
 import { unitSkillData } from '../../data/unitSkillData';
 import { ActiveSkillData, PassiveSkillData, PassiveSkillDataAsEquipmentEffect } from './UnitSkillData';
+import { AffectionBonus } from '../UnitAffection';
 
 export function buildUnitSkill(unit: UnitBasicInfo): UnitSkill {
   if (isFormChangeUnitBasicInfo(unit)) {
@@ -74,28 +75,61 @@ abstract class UnitSkill {
   protected abstract get passive2SkillData(): PassiveSkillData | undefined
   protected abstract get passive3SkillData(): PassiveSkillData | undefined
 
-  active1Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(this.active1SkillData, this.skillLv.active1Lv, coreLinkBonus, fullLinkBonus);
+  active1Skill(
+    coreLinkBonus: CoreLinkBonus,
+    fullLinkBonus: FullLinkBonus | undefined,
+    affectionBonus: AffectionBonus | undefined
+  ): ActiveSkill {
+    return calculateActiveSkill(
+      this.active1SkillData,
+      this.skillLv.active1Lv,
+      coreLinkBonus,
+      fullLinkBonus,
+      affectionBonus
+    );
   }
 
-  active2Skill(coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined): ActiveSkill {
-    return calculateActiveSkill(this.active2SkillData, this.skillLv.active2Lv, coreLinkBonus, fullLinkBonus);
+  active2Skill(
+    coreLinkBonus: CoreLinkBonus,
+    fullLinkBonus: FullLinkBonus | undefined,
+    affectionBonus: AffectionBonus | undefined
+  ): ActiveSkill {
+    return calculateActiveSkill(
+      this.active2SkillData,
+      this.skillLv.active2Lv,
+      coreLinkBonus,
+      fullLinkBonus,
+      affectionBonus
+    );
   }
 
-  passive1Skill(fullLinkBonus: FullLinkBonus | undefined): Passive1Skill | undefined {
+  passive1Skill(
+    fullLinkBonus: FullLinkBonus | undefined,
+    affectionBonus: AffectionBonus | undefined
+  ): Passive1Skill | undefined {
     const ps = this.passive1SkillData;
-    return ps && calculatePassiveSkill(ps, this.skillLv.passive1Lv, fullLinkBonus);
+    return ps && calculatePassiveSkill(ps, this.skillLv.passive1Lv, fullLinkBonus, affectionBonus);
   }
 
-  passive2Skill(fullLinkBonus: FullLinkBonus | undefined): Passive2Skill | undefined {
+  passive2Skill(
+    fullLinkBonus: FullLinkBonus | undefined,
+    affectionBonus: AffectionBonus | undefined
+  ): Passive2Skill | undefined {
     const ps = this.passive2SkillData;
-    return ps && calculatePassiveSkill(ps, this.skillLv.passive2Lv, fullLinkBonus);
+    return ps && calculatePassiveSkill(ps, this.skillLv.passive2Lv, fullLinkBonus, affectionBonus);
   }
 
-  passive3Skill(fullLinkBonus: FullLinkBonus | undefined): Passive3Skill | undefined {
+  passive3Skill(
+    fullLinkBonus: FullLinkBonus | undefined,
+    affectionBonus: AffectionBonus | undefined
+  ): Passive3Skill | undefined {
     const ps = this.passive3SkillData;
-    return ps && calculatePassiveSkill(ps, this.skillLv.passive3Lv, fullLinkBonus);
+    return ps && calculatePassiveSkill(ps, this.skillLv.passive3Lv, fullLinkBonus, affectionBonus);
   }
+
+  get hasPassive1Skill(): boolean { return !!this.passive1SkillData; }
+  get hasPassive2Skill(): boolean { return !!this.passive2SkillData; }
+  get hasPassive3Skill(): boolean { return !!this.passive3SkillData; }
 
   get isPassive1RankUpSkill(): boolean { return UnitRankComparator.a.greaterThan(this.unit.rank); }
   get isPassive2RankUpSkill(): boolean { return UnitRankComparator.s.greaterThan(this.unit.rank); }
@@ -110,19 +144,19 @@ abstract class UnitSkill {
   }
 
   changePassive1SkillLv(lv: SkillLv): UnitSkill {
-    return this.passive1SkillData ?
+    return this.hasPassive1Skill ?
       this.updateSkillLvValue(this.skillLv.setPassive1Lv(lv)) :
       this;
   }
 
   changePassive2SkillLv(lv: SkillLv): UnitSkill {
-    return this.passive2SkillData ?
+    return this.hasPassive2Skill ?
       this.updateSkillLvValue(this.skillLv.setPassive2Lv(lv)) :
       this;
   }
 
   changePassive3SkillLv(lv: SkillLv): UnitSkill {
-    return this.passive3SkillData ?
+    return this.hasPassive3Skill ?
       this.updateSkillLvValue(this.skillLv.setPassive3Lv(lv)) :
       this;
   }

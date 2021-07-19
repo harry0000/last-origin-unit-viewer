@@ -10,6 +10,7 @@ import {
 } from './SquadJsonStructure';
 
 import { Squad } from '../domain/squad/Squad';
+import UnitAffection from '../domain/UnitAffection';
 import { UnitBasicInfo, UnitNumber } from '../domain/UnitBasicInfo';
 import {
   UnitChip1Equipment,
@@ -18,6 +19,7 @@ import {
   UnitOsEquipment
 } from '../domain/status/UnitEquipment';
 import UnitCoreLink from '../domain/UnitCoreLink';
+import UnitDamagedState from '../domain/UnitDamagedState';
 import UnitLvStatus from '../domain/status/UnitLvStatus';
 import { UnitLvValue } from '../domain/status/UnitLv';
 import { UnitSkill } from '../domain/skill/UnitSkill';
@@ -30,11 +32,17 @@ function convertUnit(
   os: UnitOsEquipment,
   gear: UnitGearEquipment,
   coreLink: UnitCoreLink,
-  skill: UnitSkill
+  skill: UnitSkill,
+  affection: UnitAffection | undefined,
+  damaged: UnitDamagedState
 ): SquadJsonStructure[0][number] {
   // FIXME: implement rank up
-  // FIXME: implement vow
-  const info: UnitInfoJsonStructure = [unit.no, unit.rank, 0];
+  const info: UnitInfoJsonStructure = [
+    unit.no,
+    unit.rank,
+    affection?.isAffectionBonusEnabled ? 1 : 0,
+    damaged.isDamaged ? 1 : 0
+  ];
   const enhancement = convertUnitEnhancement(unitLvStatus);
 
   return [
@@ -102,7 +110,9 @@ export function convertToJsonObject(
   os: (unit: UnitNumber) => UnitOsEquipment,
   gear: (unit: UnitNumber) => UnitGearEquipment,
   coreLink: (unit: UnitNumber) => UnitCoreLink,
-  skill: (unit: UnitBasicInfo) => UnitSkill
+  skill: (unit: UnitBasicInfo) => UnitSkill,
+  affection: (unit: UnitBasicInfo) => UnitAffection | undefined,
+  damaged: (unit: UnitNumber) => UnitDamagedState
 ): SquadJsonStructure | undefined {
   if (squad.unitCount === 0) {
     return undefined;
@@ -123,7 +133,9 @@ export function convertToJsonObject(
           os(unit.no),
           gear(unit.no),
           coreLink(unit.no),
-          skill(unit)
+          skill(unit),
+          affection(unit),
+          damaged(unit.no)
         ) :
         []
     );

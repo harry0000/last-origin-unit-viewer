@@ -3,28 +3,28 @@
 import { CSSObject, Theme, jsx } from '@emotion/react';
 import React, { ReactNode } from 'react';
 import { Interpolation } from '@emotion/serialize';
-import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
-import { Badge, Col, Container, Row, Tab } from 'react-bootstrap';
 import AreaOfEffectGrid from './AreaOfEffectGrid';
+import { Badge, Col, Container, Row, Tab } from 'react-bootstrap';
 import DamageDealView from './DamageDealView';
 import EffectsAsEquipmentDescriptionView from './EffectsAsEquipmentDescriptionView';
 import NumberValueDropdown from '../common/NumberValueDropdown';
 import SkillEffectsView from './SkillEffectsView';
-import { SkillType } from './UnitSkillList';
 
 import { SkillLv } from '../../domain/skill/UnitSkillLvValue';
+import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
-import { selectedUnitBasicInfoState } from '../../state/selector/unitSelectorState';
 import {
+  SkillType,
   useFormChangeSkillBadge,
   useRankUpSkillBadge,
   useSkillCost,
   useSkillLvState,
   useSkillName,
   useSkillRange
-} from '../../hook/skill/Skill';
+} from '../../state/skill/unitSkillState';
+import { useSelectedUnit } from '../../state/selector/unitSelectorState';
 
 import { ifNonNullable, ifTruthy } from '../../util/react';
 
@@ -57,8 +57,8 @@ const NestedContainer: React.FC<{ css?: Interpolation<Theme>, children: ReactNod
   </Container>
 );
 
-const SkillNameView: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
-  const name = useSkillName(skillType);
+const SkillNameView: React.FC<{ skillType: SkillType, unit: UnitBasicInfo }> = ({ skillType, unit }) => {
+  const name = useSkillName(skillType, unit);
 
   return (
     <div
@@ -74,21 +74,21 @@ const SkillNameView: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
   );
 };
 
-const SkillCostView: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
-  const cost = useSkillCost(skillType);
+const SkillCostView: React.FC<{ skillType: SkillType, unit: UnitBasicInfo }> = ({ skillType, unit }) => {
+  const cost = useSkillCost(skillType, unit);
 
   return (<span css={{ ...skillValueFontSizeStyle, color: '#0af' }}>{cost}</span>);
 };
 
-const SkillRangeView: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
-  const range = useSkillRange(skillType);
+const SkillRangeView: React.FC<{ skillType: SkillType, unit: UnitBasicInfo }> = ({ skillType, unit }) => {
+  const range = useSkillRange(skillType, unit);
 
   return (<span css={{ ...skillValueFontSizeStyle, color: '#cc0' }}>{range}</span>);
 };
 
-const RankUpSkillBadge: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
+const RankUpSkillBadge: React.FC<{ skillType: SkillType, unit: UnitBasicInfo }> = ({ skillType, unit }) => {
   const { t } = useTranslation();
-  const isRankUpSkill = useRankUpSkillBadge(skillType);
+  const isRankUpSkill = useRankUpSkillBadge(skillType, unit);
 
   return (
     ifTruthy(
@@ -98,9 +98,9 @@ const RankUpSkillBadge: React.FC<{ skillType: SkillType }> = ({ skillType }) => 
   );
 };
 
-const FormChangeSkillBadge: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
+const FormChangeSkillBadge: React.FC<{ skillType: SkillType, unit: UnitBasicInfo }> = ({ skillType, unit }) => {
   const { t } = useTranslation();
-  const form = useFormChangeSkillBadge(skillType);
+  const form = useFormChangeSkillBadge(skillType, unit);
 
   return (
     ifNonNullable(
@@ -112,9 +112,9 @@ const FormChangeSkillBadge: React.FC<{ skillType: SkillType }> = ({ skillType })
 
 const skillLvItems = [...Array(10)].map((v, i) => 10 - i) as ReadonlyArray<SkillLv>;
 
-const SkillLvDropdown: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
+const SkillLvDropdown: React.FC<{ skillType: SkillType, unit: UnitBasicInfo }> = ({ skillType, unit }) => {
   const { t } = useTranslation();
-  const [skillLv, setSkillLv] = useSkillLvState(skillType);
+  const [skillLv, setSkillLv] = useSkillLvState(skillType, unit);
 
   return (
     <div css={{
@@ -135,30 +135,30 @@ const SkillLvDropdown: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
 
 const SkillPane: React.FC<{ eventKey: SkillType }> = ({ eventKey }) => {
   const { t } = useTranslation();
-  const selectedUnit = useRecoilValue(selectedUnitBasicInfoState);
+  const selectedUnit = useSelectedUnit();
 
   return (
     <Tab.Pane eventKey={eventKey}>
-      {ifTruthy(
-        !!selectedUnit,
-        (
+      {ifNonNullable(
+        selectedUnit,
+        unit => (
           <Container
             fluid
             css={{ paddingTop: 5 }}
           >
             <Row css={{ fontSize: '1.4em', color: '#eee' }}>
               <Col xs={8} sm={9}>
-                <SkillNameView skillType={eventKey} />
+                <SkillNameView skillType={eventKey} unit={unit} />
               </Col>
               <Col xs={4} sm={3}>
-                <SkillLvDropdown skillType={eventKey} />
+                <SkillLvDropdown skillType={eventKey} unit={unit} />
               </Col>
             </Row>
             <Row>
               <Col xs={{ order: 'last', span: 12 }} sm={{ order: 'first', span: 9 }}>
-                <DamageDealView skillType={eventKey} />
-                <EffectsAsEquipmentDescriptionView skillType={eventKey} />
-                <SkillEffectsView skillType={eventKey} />
+                <DamageDealView skillType={eventKey} unit={unit} />
+                <EffectsAsEquipmentDescriptionView skillType={eventKey} unit={unit} />
+                <SkillEffectsView skillType={eventKey} unit={unit} />
               </Col>
               <Col xs={{ order: 'first', span: 12 }} sm={{ order: 'last', span: 3 }}>
                 <NestedContainer css={{ userSelect: 'none' }}>
@@ -168,15 +168,15 @@ const SkillPane: React.FC<{ eventKey: SkillType }> = ({ eventKey }) => {
                         <Row css={{ '& > div': { marginTop: 5 } }}>
                           <Col xs={{ order: 1, span: 12 }} sm={{ order: 2, span: 12 }}>
                             <span css={skillLabelStyle}>{t('skill.ap')}</span>
-                            <SkillCostView skillType={eventKey} />
+                            <SkillCostView skillType={eventKey} unit={unit} />
                           </Col>
                           <Col xs={{ order: 2, span: 12 }} sm={{ order: 3, span: 12 }}>
                             <span css={skillLabelStyle}>{t('skill.range')}</span>
-                            <SkillRangeView skillType={eventKey} />
+                            <SkillRangeView skillType={eventKey} unit={unit} />
                           </Col>
                           <Col xs={{ order: 3, span: 12 }} sm={{ order: 1, span: 12 }}>
-                            <RankUpSkillBadge skillType={eventKey} />
-                            <FormChangeSkillBadge skillType={eventKey} />
+                            <RankUpSkillBadge skillType={eventKey} unit={unit} />
+                            <FormChangeSkillBadge skillType={eventKey} unit={unit} />
                           </Col>
                         </Row>
                       </NestedContainer>
@@ -185,7 +185,7 @@ const SkillPane: React.FC<{ eventKey: SkillType }> = ({ eventKey }) => {
                       <div>
                         <span css={{ color: '#ccc' }}>{t('skill.area')}</span>
                       </div>
-                      <AreaOfEffectGrid css={{ width: 100 }} skillType={eventKey} />
+                      <AreaOfEffectGrid css={{ width: 100 }} skillType={eventKey} unit={unit} />
                     </Col>
                   </Row>
                 </NestedContainer>

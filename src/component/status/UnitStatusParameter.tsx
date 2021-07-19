@@ -2,7 +2,6 @@
 /** @jsx jsx */
 import { CSSObject, jsx } from '@emotion/react';
 import React, { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -22,14 +21,10 @@ import SVGButton from '../common/SVGButton';
 import UnitLvModeToggleButton from './UnitLvModeToggleButton';
 
 import { UnitLvMode, UnitLvValue } from '../../domain/status/UnitLv';
+import { UnitNumber } from '../../domain/UnitBasicInfo';
 
-import {
-  resetUnitPoints,
-  selectedUnitLvModeState,
-  selectedUnitLvState,
-  selectedUnitRemainPointsState,
-  selectedUnitUsedPointsCanResetState
-} from '../../state/status/unitLvStatusState';
+import { useRemainPoints, useUnitLv, useUsedPointReset } from '../../state/status/unitLvStatusState';
+import { useSelectedUnit } from '../../state/selector/unitSelectorState';
 
 const unitLvStyle: CSSObject = {
   fontSize: '1.4em',
@@ -70,60 +65,83 @@ const rowPaddingWithDivider = {
 
 const unitLvItems = [...Array(100)].map((v, i) => 100 - i) as ReadonlyArray<UnitLvValue>;
 
-function useUnitLv(): [lvMode: UnitLvMode | undefined, lv: 0 | UnitLvValue, setLv: (lv: UnitLvValue) => void] {
-  const [lv, setLv] = useRecoilState(selectedUnitLvState);
-  const lvMode = useRecoilValue(selectedUnitLvModeState);
-
-  return [lvMode, lv ?? 0, setLv];
-}
-
 const UnitLvView: React.FC = () => {
-  const [lvMode, lv, setLv] = useUnitLv();
+  const selected = useSelectedUnit();
 
-  return (
-    lvMode === UnitLvMode.Manual ?
-      (<NumberValueDropdown
-        css={{ display: 'inline-block' }}
-        id="unit-lv-dropdown"
-        items={unitLvItems}
-        value={lv ? lv : 1}
-        onChange={(lv) => { setLv(lv); }}
-      />) :
-      (<span>{lv}</span>)
+  const View: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
+    const [lvMode, lv, setLv] = useUnitLv(unit);
+    return (
+      lvMode === UnitLvMode.Manual ?
+        (<NumberValueDropdown
+          css={{ display: 'inline-block' }}
+          id="unit-lv-dropdown"
+          items={unitLvItems}
+          value={lv ? lv : 1}
+          onChange={(lv) => { setLv(lv); }}
+        />) :
+        (<span>{lv}</span>)
+    );
+  };
+
+  return selected ? (
+    <View unit={selected.no} />
+  ) : (
+    <span>0</span>
   );
 };
 
 const RemainPointsView: React.FC = () => {
-  const remainPoints = useRecoilValue(selectedUnitRemainPointsState) ?? 0;
+  const selected = useSelectedUnit();
 
-  return (<React.Fragment>{remainPoints}</React.Fragment>);
+  const View: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
+    const remainPoints = useRemainPoints(unit);
+    return (<React.Fragment>{remainPoints}</React.Fragment>);
+  };
+
+  return selected ? (
+    <View unit={selected.no} />
+  ) : (
+    <React.Fragment>0</React.Fragment>
+  );
 };
 
 const ResetPointsButton: React.FC = () => {
   const { t } = useTranslation();
+  const selected = useSelectedUnit();
 
-  const disabled = !useRecoilValue(selectedUnitUsedPointsCanResetState);
-  const reset = useSetRecoilState(resetUnitPoints);
+  const Button: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
+    const [disabled, reset] = useUsedPointReset(unit);
 
-  const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false);
+    useEffect(() => { setShow(false); }, [disabled]);
 
-  useEffect(() => { setShow(false); }, [disabled]);
+    return (
+      <OverlayTrigger
+        placement="auto"
+        show={show}
+        onToggle={nextShow => setShow(nextShow)}
+        overlay={<Tooltip id='tooltip-reset-status-parameter-points'>{t('status.reset_points')}</Tooltip>}
+      >
+        <SVGButton
+          aria-label="Reset points"
+          variant="danger"
+          svg={<ArrowReset />}
+          disabled={disabled}
+          onClick={reset}
+        />
+      </OverlayTrigger>
+    );
+  };
 
-  return (
-    <OverlayTrigger
-      placement="auto"
-      show={show}
-      onToggle={nextShow => setShow(nextShow)}
-      overlay={<Tooltip id='tooltip-reset-status-parameter-points'>{t('status.reset_points')}</Tooltip>}
-    >
-      <SVGButton
-        aria-label="Reset points"
-        variant="danger"
-        svg={<ArrowReset />}
-        disabled={disabled}
-        onClick={() => reset()}
-      />
-    </OverlayTrigger>
+  return selected ? (
+    <Button unit={selected.no} />
+  ) : (
+    <SVGButton
+      aria-label="Reset points"
+      variant="danger"
+      svg={<ArrowReset />}
+      disabled={true}
+    />
   );
 };
 
