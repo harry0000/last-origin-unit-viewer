@@ -28,6 +28,7 @@ import { AreaOfEffectCell, AreaOfEffectCells } from '../../component/skill/AreaO
 import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/unitCoreLinkState';
 import { unitSkillTabState } from '../ui/unitSkillTabState';
 import { useSelectedUnit } from '../selector/unitSelectorState';
+import { affectionBonusEffectState } from '../status/unitAffectionBonus';
 
 export const SkillType = {
   Active1: 'active1',
@@ -67,9 +68,10 @@ const unitActive1SkillState = selectorFamily<ActiveSkill, UnitBasicInfo>({
   key: 'unitActive1SkillState',
   get: (unit) => ({ get }) => {
     const skill = get(unitSkillState(unit));
-    const coreLinkBonus = get(coreLinkBonusEffectsState(unit.no));
-    const fullLinkBonus = get(fullLinkBonusEffectState(unit.no));
-    return skill.active1Skill(coreLinkBonus, fullLinkBonus);
+    const coreLinkBonus  = get(coreLinkBonusEffectsState(unit.no));
+    const fullLinkBonus  = get(fullLinkBonusEffectState(unit.no));
+    const affectionBonus = get(affectionBonusEffectState(unit));
+    return skill.active1Skill(coreLinkBonus, fullLinkBonus, affectionBonus);
   }
 });
 
@@ -77,9 +79,10 @@ const unitActive2SkillState = selectorFamily<ActiveSkill, UnitBasicInfo>({
   key: 'unitActive2SkillState',
   get: (unit) => ({ get }) => {
     const skill = get(unitSkillState(unit));
-    const coreLinkBonus = get(coreLinkBonusEffectsState(unit.no));
-    const fullLinkBonus = get(fullLinkBonusEffectState(unit.no));
-    return skill.active2Skill(coreLinkBonus, fullLinkBonus);
+    const coreLinkBonus  = get(coreLinkBonusEffectsState(unit.no));
+    const fullLinkBonus  = get(fullLinkBonusEffectState(unit.no));
+    const affectionBonus = get(affectionBonusEffectState(unit));
+    return skill.active2Skill(coreLinkBonus, fullLinkBonus, affectionBonus);
   }
 });
 
@@ -87,8 +90,9 @@ const unitPassive1SkillState = selectorFamily<Passive1Skill | undefined, UnitBas
   key: 'unitPassive1SkillState',
   get: (unit) => ({ get }) => {
     const skill = get(unitSkillState(unit));
-    const bonus = get(fullLinkBonusEffectState(unit.no));
-    return skill.passive1Skill(bonus);
+    const fullLinkBonus  = get(fullLinkBonusEffectState(unit.no));
+    const affectionBonus = get(affectionBonusEffectState(unit));
+    return skill.passive1Skill(fullLinkBonus, affectionBonus);
   }
 });
 
@@ -96,8 +100,9 @@ const unitPassive2SkillState = selectorFamily<Passive2Skill | undefined, UnitBas
   key: 'unitPassive2SkillState',
   get: (unit) => ({ get }) => {
     const skill = get(unitSkillState(unit));
-    const bonus = get(fullLinkBonusEffectState(unit.no));
-    return skill.passive2Skill(bonus);
+    const fullLinkBonus  = get(fullLinkBonusEffectState(unit.no));
+    const affectionBonus = get(affectionBonusEffectState(unit));
+    return skill.passive2Skill(fullLinkBonus, affectionBonus);
   }
 });
 
@@ -105,8 +110,9 @@ const unitPassive3SkillState = selectorFamily<Passive3Skill | undefined, UnitBas
   key: 'unitPassive3SkillState',
   get: (unit) => ({ get }) => {
     const skill = get(unitSkillState(unit));
-    const bonus = get(fullLinkBonusEffectState(unit.no));
-    return skill.passive3Skill(bonus);
+    const fullLinkBonus  = get(fullLinkBonusEffectState(unit.no));
+    const affectionBonus = get(affectionBonusEffectState(unit));
+    return skill.passive3Skill(fullLinkBonus, affectionBonus);
   }
 });
 

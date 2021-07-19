@@ -131,6 +131,10 @@
     "exp_up": "取得経験値",
     "damage_multiplier": "スキル威力"
   },
+  "affection": {
+    "bonus": "最大好感度ボーナス",
+    "effect": "$t(form.full_link_bonus.buff_debuff_lv_up, { \"value\": 1 })"
+  },
   "skill": {
     "ap": "AP",
     "range": "射程",
@@ -143,6 +147,7 @@
     },
     "rank_up": "ランクアップスキル"
   },
+  "damaged_state": "中破状態",
   "form_change": "モードチェンジ",
   "empty": "―",
   "notification": {

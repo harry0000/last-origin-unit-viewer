@@ -4,6 +4,8 @@ import { Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
 import React from 'react';
 
+import AffectionBonusSelector from './AffectionBonusSelector';
+import DamagedStateSelector from './DamagedStateSelector';
 import UnitBasicInfoView from './UnitBasicInfoView';
 import UnitCoreLinkView from './corelink/UnitCoreLinkView';
 import UnitEquipmentView from './equipment/UnitEquipmentView';
@@ -18,7 +20,7 @@ const UnitStatus: React.FC<{ className?: string, css?: Interpolation<Theme> }> =
       css={{
         userSelect: 'none',
         overflowY: 'hidden',
-        padding: '0 10px',
+        padding: '0 10px 10px',
         '& > *:not(:first-of-type)': {
           marginTop: 15
         }
@@ -26,10 +28,14 @@ const UnitStatus: React.FC<{ className?: string, css?: Interpolation<Theme> }> =
     >
       <UnitBasicInfoView />
       <UnitStatusParameterView />
+      <UnitEquipmentView />
       <UnitCoreLinkView />
       <UnitFullLinkView />
-      <UnitEquipmentView />
-      <UnitFormSelector />
+      <div css={{ '& > *:not(:first-of-type)': { marginTop: 10 } }}>
+        <AffectionBonusSelector />
+        <DamagedStateSelector />
+        <UnitFormSelector />
+      </div>
     </div>
   );
 };

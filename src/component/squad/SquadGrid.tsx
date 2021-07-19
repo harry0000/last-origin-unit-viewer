@@ -2,20 +2,25 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Image } from 'react-bootstrap';
 
 import { TenKeyPosition } from '../../domain/squad/Squad';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
-import { useUnit } from '../../state/selector/unitSelectorState';
 import { useIgnoreSquadUnitDrop, useSquad, useSquadUnitDrag } from '../../state/squad/squadState';
+import { useUnit } from '../../state/selector/unitSelectorState';
+import { useUnitDamagedState } from '../../state/status/unitDamagedState';
+import { ifTruthy } from '../../util/react';
 
 export const UnitTile: React.FC<{
   unit: UnitBasicInfo,
   isHoveringUnit: boolean
 }> = ({ unit, isHoveringUnit }) => {
-  const [isDragging, dragRef] = useSquadUnitDrag(unit);
+  const { t } = useTranslation();
+  const dragRef = useSquadUnitDrag(unit);
+  const [damaged] = useUnitDamagedState(unit);
   const [unitName, selected, selectUnit] = useUnit(unit);
 
   const borderColor = isHoveringUnit ?
@@ -30,7 +35,6 @@ export const UnitTile: React.FC<{
         position: 'relative',
         borderRadius: 8,
         border: `3px solid ${borderColor}`,
-        cursor: isDragging ? 'grabbing' : 'pointer',
         userSelect: 'none'
       }}
       onClick={() => selectUnit(unit)}
@@ -44,6 +48,21 @@ export const UnitTile: React.FC<{
         alt={unitName}
         src={`${process.env.PUBLIC_URL}/unit_icon/${unit.no}.webp`}
       />
+      {ifTruthy(
+        damaged,
+        (<Image
+          css={{
+            position: 'absolute',
+            right: 0,
+            bottom: 0
+          }}
+          draggable="false"
+          height={32}
+          width={32}
+          alt={t('damaged_state')}
+          src={`${process.env.PUBLIC_URL}/icon/need_repair.webp`}
+        />)
+      )}
     </div>
   );
 };
