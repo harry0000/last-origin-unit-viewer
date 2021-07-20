@@ -1850,13 +1850,39 @@ export const equipmentData = {
       [{ details: { anti_flying_type: { milliPercentage: 25000 }, defense_penetration: { milliPercentage: 33000 }, range_up: { value: 1 } } }]
     ]
   },
-  // f_c_s: {
-  //   type: 'gear',
-  //   id: 'f_c_s',
-  //   exclusive: {
-  //     unit: 202
-  //   }
-  // },
+  f_c_s: {
+    type: 'gear',
+    id: 'f_c_s',
+    exclusive: {
+      unit: 202
+    },
+    status_effects: [
+      { atk_up: { milliValue:  60000 }, cri_up: { milliPercentage: 10000 }, acc_up: { milliPercentage: 10000 } },
+      { atk_up: { milliValue:  66000 }, cri_up: { milliPercentage: 11000 }, acc_up: { milliPercentage: 11000 } },
+      { atk_up: { milliValue:  72000 }, cri_up: { milliPercentage: 12000 }, acc_up: { milliPercentage: 12000 } },
+      { atk_up: { milliValue:  78000 }, cri_up: { milliPercentage: 13000 }, acc_up: { milliPercentage: 13000 } },
+      { atk_up: { milliValue:  84000 }, cri_up: { milliPercentage: 14000 }, acc_up: { milliPercentage: 14000 } },
+      { atk_up: { milliValue:  90000 }, cri_up: { milliPercentage: 15000 }, acc_up: { milliPercentage: 15000 } },
+      { atk_up: { milliValue:  96000 }, cri_up: { milliPercentage: 16000 }, acc_up: { milliPercentage: 16000 } },
+      { atk_up: { milliValue: 102000 }, cri_up: { milliPercentage: 17000 }, acc_up: { milliPercentage: 17000 } },
+      { atk_up: { milliValue: 108000 }, cri_up: { milliPercentage: 18000 }, acc_up: { milliPercentage: 18000 } },
+      { atk_up: { milliValue: 114000 }, cri_up: { milliPercentage: 19000 }, acc_up: { milliPercentage: 19000 } },
+      { atk_up: { milliValue: 120000 }, cri_up: { milliPercentage: 20000 }, acc_up: { milliPercentage: 20000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 200000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 230000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 260000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 290000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 320000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 350000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 380000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 410000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 440000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 470000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 500000 } } }]
+    ]
+  },
   // l_r_c_bullet: {
   //   type: 'gear',
   //   id: 'l_r_c_bullet',
@@ -1963,13 +1989,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 65000 }, effect_removal: { effect: 'atk_down' } } }]
     ]
   },
-  // rangers_combat_equipment_set: {
-  //   type: 'gear',
-  //   id: 'rangers_combat_equipment_set',
-  //   exclusive: {
-  //     unit: 135
-  //   },
-  // },
+  rangers_combat_equipment_set: {
+    type: 'gear',
+    id: 'rangers_combat_equipment_set',
+    exclusive: {
+      unit: 135
+    },
+    status_effects: [
+      { atk_up: { milliValue:  75000 }, cri_up: { milliPercentage: 10000 }, acc_up: { milliPercentage: 10000 } },
+      { atk_up: { milliValue:  82500 }, cri_up: { milliPercentage: 11000 }, acc_up: { milliPercentage: 11000 } },
+      { atk_up: { milliValue:  90000 }, cri_up: { milliPercentage: 12000 }, acc_up: { milliPercentage: 12000 } },
+      { atk_up: { milliValue:  97500 }, cri_up: { milliPercentage: 13000 }, acc_up: { milliPercentage: 13000 } },
+      { atk_up: { milliValue: 105000 }, cri_up: { milliPercentage: 14000 }, acc_up: { milliPercentage: 14000 } },
+      { atk_up: { milliValue: 112500 }, cri_up: { milliPercentage: 15000 }, acc_up: { milliPercentage: 15000 } },
+      { atk_up: { milliValue: 120000 }, cri_up: { milliPercentage: 16000 }, acc_up: { milliPercentage: 16000 } },
+      { atk_up: { milliValue: 127500 }, cri_up: { milliPercentage: 17000 }, acc_up: { milliPercentage: 17000 } },
+      { atk_up: { milliValue: 135000 }, cri_up: { milliPercentage: 18000 }, acc_up: { milliPercentage: 18000 } },
+      { atk_up: { milliValue: 142500 }, cri_up: { milliPercentage: 19000 }, acc_up: { milliPercentage: 19000 } },
+      { atk_up: { milliValue: 150000 }, cri_up: { milliPercentage: 20000 }, acc_up: { milliPercentage: 20000 } }
+    ],
+    equipment_effects: [
+      [{ details: { defense_penetration: { milliPercentage: 10000 }, range_up: { value: 1 } } }],
+      [{ details: { defense_penetration: { milliPercentage: 11000 }, range_up: { value: 1 } } }],
+      [{ details: { defense_penetration: { milliPercentage: 12000 }, range_up: { value: 1 } } }],
+      [{ details: { defense_penetration: { milliPercentage: 13000 }, range_up: { value: 1 } } }],
+      [{ details: { defense_penetration: { milliPercentage: 14000 }, range_up: { value: 1 } } }],
+      [{ details: { defense_penetration: { milliPercentage: 15000 }, range_up: { value: 1 } } }],
+      [{ details: { defense_penetration: { milliPercentage: 16000 }, range_up: { value: 1 } } }],
+      [{ details: { defense_penetration: { milliPercentage: 17000 }, range_up: { value: 1 } } }],
+      [{ details: { defense_penetration: { milliPercentage: 18000 }, range_up: { value: 1 } } }],
+      [{ details: { defense_penetration: { milliPercentage: 19000 }, range_up: { value: 1 } } }],
+      [{ details: { defense_penetration: { milliPercentage: 20000 }, range_up: { value: 1 } } }]
+    ]
+  },
   sk_14_p_c_c: {
     type: 'gear',
     id: 'sk_14_p_c_c',
@@ -2069,20 +2121,72 @@ export const equipmentData = {
       [{ details: { defense_penetration: { milliPercentage: 75000 } } }]
     ]
   },
-  // special_combatants_spike_necklace: {
-  //   type: 'gear',
-  //   id: 'special_combatants_spike_necklace',
-  //   exclusive: {
-  //     unit: 138
-  //   }
-  // },
-  // special_frame_for_rough_terrain: {
-  //   type: 'gear',
-  //   id: 'special_frame_for_rough_terrain',
-  //   exclusive: {
-  //     unit: 133
-  //   }
-  // },
+  special_combatants_spike_necklace: {
+    type: 'gear',
+    id: 'special_combatants_spike_necklace',
+    exclusive: {
+      unit: 138
+    },
+    status_effects: [
+      { atk_up: { milliValue:  95000 }, cri_up: { milliPercentage:  5000 } },
+      { atk_up: { milliValue: 104500 }, cri_up: { milliPercentage:  5500 } },
+      { atk_up: { milliValue: 114000 }, cri_up: { milliPercentage:  6000 } },
+      { atk_up: { milliValue: 123500 }, cri_up: { milliPercentage:  6500 } },
+      { atk_up: { milliValue: 133000 }, cri_up: { milliPercentage:  7000 } },
+      { atk_up: { milliValue: 142500 }, cri_up: { milliPercentage:  7500 } },
+      { atk_up: { milliValue: 152000 }, cri_up: { milliPercentage:  8000 } },
+      { atk_up: { milliValue: 161500 }, cri_up: { milliPercentage:  8500 } },
+      { atk_up: { milliValue: 171000 }, cri_up: { milliPercentage:  9000 } },
+      { atk_up: { milliValue: 180500 }, cri_up: { milliPercentage:  9500 } },
+      { atk_up: { milliValue: 190000 }, cri_up: { milliPercentage: 10000 } }
+    ],
+    equipment_effects: [
+      [{ details: { anti_light_type: { milliPercentage:  5000 }, defense_penetration: { milliPercentage: 10000 }, range_up: { value: 1 } } }, { condition: { trigger: 'enemy_killed' }, details: { fixed_damage: { milliPercentage: 5000 } } }],
+      [{ details: { anti_light_type: { milliPercentage:  6000 }, defense_penetration: { milliPercentage: 11000 }, range_up: { value: 1 } } }, { condition: { trigger: 'enemy_killed' }, details: { fixed_damage: { milliPercentage: 5000 } } }],
+      [{ details: { anti_light_type: { milliPercentage:  7000 }, defense_penetration: { milliPercentage: 12000 }, range_up: { value: 1 } } }, { condition: { trigger: 'enemy_killed' }, details: { fixed_damage: { milliPercentage: 5000 } } }],
+      [{ details: { anti_light_type: { milliPercentage:  8000 }, defense_penetration: { milliPercentage: 13000 }, range_up: { value: 1 } } }, { condition: { trigger: 'enemy_killed' }, details: { fixed_damage: { milliPercentage: 5000 } } }],
+      [{ details: { anti_light_type: { milliPercentage:  9000 }, defense_penetration: { milliPercentage: 14000 }, range_up: { value: 1 } } }, { condition: { trigger: 'enemy_killed' }, details: { fixed_damage: { milliPercentage: 5000 } } }],
+      [{ details: { anti_light_type: { milliPercentage: 10000 }, defense_penetration: { milliPercentage: 15000 }, range_up: { value: 1 } } }, { condition: { trigger: 'enemy_killed' }, details: { fixed_damage: { milliPercentage: 5000 } } }],
+      [{ details: { anti_light_type: { milliPercentage: 11000 }, defense_penetration: { milliPercentage: 16000 }, range_up: { value: 1 } } }, { condition: { trigger: 'enemy_killed' }, details: { fixed_damage: { milliPercentage: 5000 } } }],
+      [{ details: { anti_light_type: { milliPercentage: 12000 }, defense_penetration: { milliPercentage: 17000 }, range_up: { value: 1 } } }, { condition: { trigger: 'enemy_killed' }, details: { fixed_damage: { milliPercentage: 5000 } } }],
+      [{ details: { anti_light_type: { milliPercentage: 13000 }, defense_penetration: { milliPercentage: 18000 }, range_up: { value: 1 } } }, { condition: { trigger: 'enemy_killed' }, details: { fixed_damage: { milliPercentage: 5000 } } }],
+      [{ details: { anti_light_type: { milliPercentage: 14000 }, defense_penetration: { milliPercentage: 19000 }, range_up: { value: 1 } } }, { condition: { trigger: 'enemy_killed' }, details: { fixed_damage: { milliPercentage: 5000 } } }],
+      [{ details: { anti_light_type: { milliPercentage: 15000 }, defense_penetration: { milliPercentage: 20000 }, range_up: { value: 1 } } }, { condition: { trigger: 'enemy_killed' }, details: { fixed_damage: { milliPercentage: 5000 } } }]
+    ]
+  },
+  special_frame_for_rough_terrain: {
+    type: 'gear',
+    id: 'special_frame_for_rough_terrain',
+    exclusive: {
+      unit: 133
+    },
+    status_effects: [
+      { hp_up: { value: 250 }, def_up: { milliValue:  95000 } },
+      { hp_up: { value: 275 }, def_up: { milliValue: 104500 } },
+      { hp_up: { value: 300 }, def_up: { milliValue: 114000 } },
+      { hp_up: { value: 325 }, def_up: { milliValue: 123500 } },
+      { hp_up: { value: 350 }, def_up: { milliValue: 133000 } },
+      { hp_up: { value: 375 }, def_up: { milliValue: 142500 } },
+      { hp_up: { value: 400 }, def_up: { milliValue: 152000 } },
+      { hp_up: { value: 425 }, def_up: { milliValue: 161500 } },
+      { hp_up: { value: 450 }, def_up: { milliValue: 171000 } },
+      { hp_up: { value: 475 }, def_up: { milliValue: 180500 } },
+      { hp_up: { value: 500 }, def_up: { milliValue: 190000 } }
+    ],
+    equipment_effects: [
+      [{ details: { damage_reduction: { milliPercentage:  5000 }, fire_resist_up: { milliPercentage: 15000 }, ice_resist_up: { milliPercentage: 15000 }, electric_resist_up: { milliPercentage: 15000 }, column_protect: {} } }],
+      [{ details: { damage_reduction: { milliPercentage:  6000 }, fire_resist_up: { milliPercentage: 17000 }, ice_resist_up: { milliPercentage: 17000 }, electric_resist_up: { milliPercentage: 17000 }, column_protect: {} } }],
+      [{ details: { damage_reduction: { milliPercentage:  7000 }, fire_resist_up: { milliPercentage: 19000 }, ice_resist_up: { milliPercentage: 19000 }, electric_resist_up: { milliPercentage: 19000 }, column_protect: {} } }],
+      [{ details: { damage_reduction: { milliPercentage:  8000 }, fire_resist_up: { milliPercentage: 21000 }, ice_resist_up: { milliPercentage: 21000 }, electric_resist_up: { milliPercentage: 21000 }, column_protect: {} } }],
+      [{ details: { damage_reduction: { milliPercentage:  9000 }, fire_resist_up: { milliPercentage: 23000 }, ice_resist_up: { milliPercentage: 23000 }, electric_resist_up: { milliPercentage: 23000 }, column_protect: {} } }],
+      [{ details: { damage_reduction: { milliPercentage: 10000 }, fire_resist_up: { milliPercentage: 25000 }, ice_resist_up: { milliPercentage: 25000 }, electric_resist_up: { milliPercentage: 25000 }, column_protect: {} } }],
+      [{ details: { damage_reduction: { milliPercentage: 11000 }, fire_resist_up: { milliPercentage: 27000 }, ice_resist_up: { milliPercentage: 27000 }, electric_resist_up: { milliPercentage: 27000 }, column_protect: {} } }],
+      [{ details: { damage_reduction: { milliPercentage: 12000 }, fire_resist_up: { milliPercentage: 29000 }, ice_resist_up: { milliPercentage: 29000 }, electric_resist_up: { milliPercentage: 29000 }, column_protect: {} } }],
+      [{ details: { damage_reduction: { milliPercentage: 13000 }, fire_resist_up: { milliPercentage: 31000 }, ice_resist_up: { milliPercentage: 31000 }, electric_resist_up: { milliPercentage: 31000 }, column_protect: {} } }],
+      [{ details: { damage_reduction: { milliPercentage: 14000 }, fire_resist_up: { milliPercentage: 33000 }, ice_resist_up: { milliPercentage: 33000 }, electric_resist_up: { milliPercentage: 33000 }, column_protect: {} } }],
+      [{ details: { damage_reduction: { milliPercentage: 15000 }, fire_resist_up: { milliPercentage: 35000 }, ice_resist_up: { milliPercentage: 35000 }, electric_resist_up: { milliPercentage: 35000 }, column_protect: {} } }]
+    ]
+  },
   super_alloy_plate_armor: {
     type: 'gear',
     id: 'super_alloy_plate_armor',
