@@ -151,7 +151,8 @@
     },
     "target": {
       "self": "自分が",
-      "target": "対象が"
+      "target": "対象が",
+      "squad": "分隊内に"
     }
   },
   "scale_factor" : {
