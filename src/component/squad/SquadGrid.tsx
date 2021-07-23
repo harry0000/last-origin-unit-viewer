@@ -81,6 +81,7 @@ const EmptyTile: React.FC<{
   return (
     <div
       css={{
+        position: 'relative',
         width: 86,
         height: 86,
         borderRadius: 8,
@@ -89,8 +90,8 @@ const EmptyTile: React.FC<{
         '&:before, &:after': {
           content: '" "',
           position: 'absolute',
-          top: 36,
-          left: 22,
+          top: 33,
+          left: 19,
           height: 14,
           width: 42,
           backgroundColor: `rgb(${rgb})`
@@ -102,8 +103,8 @@ const EmptyTile: React.FC<{
       <div
         css={{
           position: 'absolute',
-          top: 0,
-          left: 10,
+          top: -5,
+          left: 5,
           color: '#000',
           fontSize: '1.3em',
           fontWeight: 'bold',
