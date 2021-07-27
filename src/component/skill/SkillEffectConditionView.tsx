@@ -198,7 +198,7 @@ const StateView: React.FC<{
     <React.Fragment>
       {statePerTarget.map(({ key, node }, i) => (
         <React.Fragment key={key}>
-          <span>{t(`effect:condition.target.${key}`, '')}</span>
+          <span>{t(`effect:condition.target.${key}`)}</span>
           {node}
           {ifTruthy(
             isNeedSeparator(statePerTarget, i),

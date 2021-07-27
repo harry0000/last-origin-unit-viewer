@@ -19,6 +19,7 @@ export const SkillAreaType = {
   LineWithBackward: 'line_with_backward',
   Cross: 'cross',
   CrossWithFrontLine: 'cross_with_front_line',
+  Diagonal: 'diagonal',
   All: 'all',
   RowGreatlyAttenuate: 'row_greatly_attenuate',
   RowSlightlyAttenuate: 'row_slightly_attenuate',
