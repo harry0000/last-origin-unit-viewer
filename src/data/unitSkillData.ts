@@ -8499,7 +8499,8 @@ export const unitSkillData: UnitSkillData = {
     active: [{
       damage_deal: {
         base: { milliPercentage: 130500 },
-        per_lv_up: { milliPercentage: 11500 }
+        per_lv_up: { milliPercentage: 11500 },
+        attribute: 'ice'
       },
       range: 4,
       cost: 5,
@@ -8521,7 +8522,8 @@ export const unitSkillData: UnitSkillData = {
     }, {
       damage_deal: {
         base: { milliPercentage: 98500 },
-        per_lv_up: { milliPercentage: 8500 }
+        per_lv_up: { milliPercentage: 8500 },
+        attribute: 'ice'
       },
       range: 5,
       cost: 8,
