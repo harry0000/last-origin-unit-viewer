@@ -591,15 +591,15 @@ export const equipmentData = {
     id: 'enhanced_combat_os',
     effects: [
       [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:  4000 }, eva_up: { milliPercentage: 10000 }, spd_up: { milliPercentage:  500 }, damage_reduction: { milliPercentage:  5000 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:     0 }, eva_up: { milliPercentage:     0 }, spd_up: { milliPercentage:    0 }, damage_reduction: { milliPercentage:     0 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:  4800 }, eva_up: { milliPercentage: 12000 }, spd_up: { milliPercentage:  750 }, damage_reduction: { milliPercentage:  5500 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:  5600 }, eva_up: { milliPercentage: 14000 }, spd_up: { milliPercentage: 1000 }, damage_reduction: { milliPercentage:  6000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:  6400 }, eva_up: { milliPercentage: 16000 }, spd_up: { milliPercentage: 1500 }, damage_reduction: { milliPercentage:  6500 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:  7200 }, eva_up: { milliPercentage: 18000 }, spd_up: { milliPercentage: 2000 }, damage_reduction: { milliPercentage:  7000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:  8000 }, eva_up: { milliPercentage: 20000 }, spd_up: { milliPercentage: 2500 }, damage_reduction: { milliPercentage:  7500 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:  8800 }, eva_up: { milliPercentage: 22000 }, spd_up: { milliPercentage: 3000 }, damage_reduction: { milliPercentage:  8000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage:  9600 }, eva_up: { milliPercentage: 24000 }, spd_up: { milliPercentage: 3500 }, damage_reduction: { milliPercentage:  8500 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 10400 }, eva_up: { milliPercentage: 26000 }, spd_up: { milliPercentage: 4000 }, damage_reduction: { milliPercentage:  9000 } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 11200 }, eva_up: { milliPercentage: 28000 }, spd_up: { milliPercentage: 4500 }, damage_reduction: { milliPercentage:  9500 } } }],
       [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 12000 }, eva_up: { milliPercentage: 30000 }, spd_up: { milliPercentage: 5000 }, damage_reduction: { milliPercentage: 10000 } } }]
     ]
   },
@@ -624,13 +624,39 @@ export const equipmentData = {
   //   type: 'os',
   //   id: 'enhanced_exp_os'
   // },
-  // runaway_inducement_os: {
-  //   type: 'os',
-  //   id: 'runaway_inducement_os',
-  //   exclusive: {
-  //     unit: 224
-  //   }
-  // },
+  runaway_inducement_os: {
+    type: 'os',
+    id: 'runaway_inducement_os',
+    exclusive: {
+      unit: 224
+    },
+    status_effects: [
+      { atk_up: { milliValue:  75000 }, acc_up: { milliPercentage: 25000 } },
+      { atk_up: { milliValue:  82500 }, acc_up: { milliPercentage: 27500 } },
+      { atk_up: { milliValue:  90000 }, acc_up: { milliPercentage: 30000 } },
+      { atk_up: { milliValue:  97500 }, acc_up: { milliPercentage: 32500 } },
+      { atk_up: { milliValue: 105000 }, acc_up: { milliPercentage: 35000 } },
+      { atk_up: { milliValue: 112500 }, acc_up: { milliPercentage: 37500 } },
+      { atk_up: { milliValue: 120000 }, acc_up: { milliPercentage: 40000 } },
+      { atk_up: { milliValue: 127500 }, acc_up: { milliPercentage: 42500 } },
+      { atk_up: { milliValue: 135000 }, acc_up: { milliPercentage: 45000 } },
+      { atk_up: { milliValue: 142500 }, acc_up: { milliPercentage: 47500 } },
+      { atk_up: { milliValue: 150000 }, acc_up: { milliPercentage: 50000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: 2000, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: 2300, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: 2600, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: 2900, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: 3200, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: 3500, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: 3800, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: 4100, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: 4400, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: 4700, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'enemy_killed' }, details: { atk_up: { milliPercentage: 5000, term: { for_rounds: 2 } } } }]
+    ]
+  },
   watchers_eye_type_d_os: {
     type: 'os',
     id: 'watchers_eye_type_d_os',
