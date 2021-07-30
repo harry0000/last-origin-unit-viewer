@@ -1744,30 +1744,30 @@ export const equipmentData = {
       unit: 84
     },
     status_effects: [
-      { hp_up: { value: 200 }, def_up: { milliValue:  50000 }, spd_up: { microValue: 120000 } },
-      { hp_up: { value: 240 }, def_up: { milliValue:  52500 }, spd_up: { microValue: 132000 } },
-      { hp_up: { value: 280 }, def_up: { milliValue:  55000 }, spd_up: { microValue: 144000 } },
-      { hp_up: { value: 320 }, def_up: { milliValue:  60000 }, spd_up: { microValue: 156000 } },
-      { hp_up: { value: 360 }, def_up: { milliValue:  67500 }, spd_up: { microValue: 168000 } },
-      { hp_up: { value: 400 }, def_up: { milliValue:  77500 }, spd_up: { microValue: 180000 } },
-      { hp_up: { value: 440 }, def_up: { milliValue:  85000 }, spd_up: { microValue: 192000 } },
-      { hp_up: { value: 480 }, def_up: { milliValue: 100000 }, spd_up: { microValue: 204000 } },
-      { hp_up: { value: 520 }, def_up: { milliValue: 120000 }, spd_up: { microValue: 216000 } },
-      { hp_up: { value: 560 }, def_up: { milliValue: 145000 }, spd_up: { microValue: 228000 } },
-      { hp_up: { value: 600 }, def_up: { milliValue: 175000 }, spd_up: { microValue: 240000 } }
+      { hp_up: { value: 400 }, def_up: { milliValue:  50000 }, spd_up: { microValue: 120000 } },
+      { hp_up: { value: 440 }, def_up: { milliValue:  52500 }, spd_up: { microValue: 132000 } },
+      { hp_up: { value: 480 }, def_up: { milliValue:  55000 }, spd_up: { microValue: 144000 } },
+      { hp_up: { value: 520 }, def_up: { milliValue:  60000 }, spd_up: { microValue: 156000 } },
+      { hp_up: { value: 560 }, def_up: { milliValue:  67500 }, spd_up: { microValue: 168000 } },
+      { hp_up: { value: 600 }, def_up: { milliValue:  77500 }, spd_up: { microValue: 180000 } },
+      { hp_up: { value: 640 }, def_up: { milliValue:  85000 }, spd_up: { microValue: 192000 } },
+      { hp_up: { value: 680 }, def_up: { milliValue: 100000 }, spd_up: { microValue: 204000 } },
+      { hp_up: { value: 720 }, def_up: { milliValue: 120000 }, spd_up: { microValue: 216000 } },
+      { hp_up: { value: 760 }, def_up: { milliValue: 145000 }, spd_up: { microValue: 228000 } },
+      { hp_up: { value: 800 }, def_up: { milliValue: 175000 }, spd_up: { microValue: 240000 } }
     ],
     equipment_effects: [
-      [{ details: { fire_resist_up: { milliPercentage: 15000 }, ice_resist_up: { milliPercentage: 15000 }, electric_resist_up: { milliPercentage: 15000 }, damage_reduction: { milliPercentage: 15000 } } }],
-      [{ details: { fire_resist_up: { milliPercentage: 15000 }, ice_resist_up: { milliPercentage: 15000 }, electric_resist_up: { milliPercentage: 15000 }, damage_reduction: { milliPercentage: 15000 } } }],
-      [{ details: { fire_resist_up: { milliPercentage: 17000 }, ice_resist_up: { milliPercentage: 17000 }, electric_resist_up: { milliPercentage: 17000 }, damage_reduction: { milliPercentage: 17000 } } }],
-      [{ details: { fire_resist_up: { milliPercentage: 19000 }, ice_resist_up: { milliPercentage: 19000 }, electric_resist_up: { milliPercentage: 19000 }, damage_reduction: { milliPercentage: 19000 } } }],
-      [{ details: { fire_resist_up: { milliPercentage: 21000 }, ice_resist_up: { milliPercentage: 21000 }, electric_resist_up: { milliPercentage: 21000 }, damage_reduction: { milliPercentage: 21000 } } }],
-      [{ details: { fire_resist_up: { milliPercentage: 23000 }, ice_resist_up: { milliPercentage: 23000 }, electric_resist_up: { milliPercentage: 23000 }, damage_reduction: { milliPercentage: 23000 } } }],
-      [{ details: { fire_resist_up: { milliPercentage: 25000 }, ice_resist_up: { milliPercentage: 25000 }, electric_resist_up: { milliPercentage: 25000 }, damage_reduction: { milliPercentage: 25000 } } }],
-      [{ details: { fire_resist_up: { milliPercentage: 27000 }, ice_resist_up: { milliPercentage: 27000 }, electric_resist_up: { milliPercentage: 27000 }, damage_reduction: { milliPercentage: 27000 } } }],
-      [{ details: { fire_resist_up: { milliPercentage: 29000 }, ice_resist_up: { milliPercentage: 29000 }, electric_resist_up: { milliPercentage: 29000 }, damage_reduction: { milliPercentage: 29000 } } }],
-      [{ details: { fire_resist_up: { milliPercentage: 31000 }, ice_resist_up: { milliPercentage: 31000 }, electric_resist_up: { milliPercentage: 31000 }, damage_reduction: { milliPercentage: 31000 } } }],
-      [{ details: { fire_resist_up: { milliPercentage: 35000 }, ice_resist_up: { milliPercentage: 35000 }, electric_resist_up: { milliPercentage: 35000 }, damage_reduction: { milliPercentage: 35000 } } }]
+      [{ details: { fire_resist_up: { milliPercentage: 15000 }, ice_resist_up: { milliPercentage: 15000 }, electric_resist_up: { milliPercentage: 15000 }, damage_reduction: { milliPercentage: 25000 }, row_protect: {} } }],
+      [{ details: { fire_resist_up: { milliPercentage: 17000 }, ice_resist_up: { milliPercentage: 17000 }, electric_resist_up: { milliPercentage: 17000 }, damage_reduction: { milliPercentage: 27000 }, row_protect: {} } }],
+      [{ details: { fire_resist_up: { milliPercentage: 19000 }, ice_resist_up: { milliPercentage: 19000 }, electric_resist_up: { milliPercentage: 19000 }, damage_reduction: { milliPercentage: 29000 }, row_protect: {} } }],
+      [{ details: { fire_resist_up: { milliPercentage: 21000 }, ice_resist_up: { milliPercentage: 21000 }, electric_resist_up: { milliPercentage: 21000 }, damage_reduction: { milliPercentage: 31000 }, row_protect: {} } }],
+      [{ details: { fire_resist_up: { milliPercentage: 23000 }, ice_resist_up: { milliPercentage: 23000 }, electric_resist_up: { milliPercentage: 23000 }, damage_reduction: { milliPercentage: 33000 }, row_protect: {} } }],
+      [{ details: { fire_resist_up: { milliPercentage: 25000 }, ice_resist_up: { milliPercentage: 25000 }, electric_resist_up: { milliPercentage: 25000 }, damage_reduction: { milliPercentage: 35000 }, row_protect: {} } }],
+      [{ details: { fire_resist_up: { milliPercentage: 27000 }, ice_resist_up: { milliPercentage: 27000 }, electric_resist_up: { milliPercentage: 27000 }, damage_reduction: { milliPercentage: 37000 }, row_protect: {} } }],
+      [{ details: { fire_resist_up: { milliPercentage: 29000 }, ice_resist_up: { milliPercentage: 29000 }, electric_resist_up: { milliPercentage: 29000 }, damage_reduction: { milliPercentage: 39000 }, row_protect: {} } }],
+      [{ details: { fire_resist_up: { milliPercentage: 31000 }, ice_resist_up: { milliPercentage: 31000 }, electric_resist_up: { milliPercentage: 31000 }, damage_reduction: { milliPercentage: 41000 }, row_protect: {} } }],
+      [{ details: { fire_resist_up: { milliPercentage: 33000 }, ice_resist_up: { milliPercentage: 33000 }, electric_resist_up: { milliPercentage: 33000 }, damage_reduction: { milliPercentage: 43000 }, row_protect: {} } }],
+      [{ details: { fire_resist_up: { milliPercentage: 35000 }, ice_resist_up: { milliPercentage: 35000 }, electric_resist_up: { milliPercentage: 35000 }, damage_reduction: { milliPercentage: 45000 }, row_protect: {} } }]
     ]
   },
   chop_maker_ii: {
