@@ -89,7 +89,6 @@ const SquadShareModal: React.FC = () => {
             type="text"
             readOnly
             placeholder="Loading..."
-            defaultValue={undefined}
             value={shareUrl}
           />
           <ShareUrlCopyButton

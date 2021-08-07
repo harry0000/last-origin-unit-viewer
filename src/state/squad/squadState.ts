@@ -209,7 +209,7 @@ export function useSquadShareModal(): [modalShow: boolean, hideModal: () => void
   const getSquadJson = useSquadJson();
   const [modalShow, setModalShow] = useRecoilState(squadShareModalShowAtom);
 
-  const [shareUrl, setShareUrl] = useState<string | undefined>(undefined);
+  const [shareUrl, setShareUrl] = useState<string>('');
 
   useEffect(() => {
     if (modalShow) {
@@ -221,12 +221,12 @@ export function useSquadShareModal(): [modalShow: boolean, hideModal: () => void
           })
           .catch(e => {
             console.error(e);
-            setShareUrl(undefined);
+            setShareUrl('');
             notify('error_while_generating_squad_url');
           });
       }
     } else {
-      setShareUrl(undefined);
+      setShareUrl('');
     }
   }, [modalShow]);
 
