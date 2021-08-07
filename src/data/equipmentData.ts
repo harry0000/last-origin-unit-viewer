@@ -2253,30 +2253,30 @@ export const equipmentData = {
       unit: 122
     },
     status_effects: [
-      { spd_up: { microValue: 120000 } },
-      { spd_up: { microValue: 132000 } },
-      { spd_up: { microValue: 144000 } },
-      { spd_up: { microValue: 156000 } },
-      { spd_up: { microValue: 168000 } },
-      { spd_up: { microValue: 180000 } },
-      { spd_up: { microValue: 192000 } },
-      { spd_up: { microValue: 204000 } },
-      { spd_up: { microValue: 216000 } },
-      { spd_up: { microValue: 228000 } },
-      { spd_up: { microValue: 240000 } }
+      { atk_up: { milliValue: 30000 }, spd_up: { microValue: 120000 } },
+      { atk_up: { milliValue: 36000 }, spd_up: { microValue: 132000 } },
+      { atk_up: { milliValue: 42000 }, spd_up: { microValue: 144000 } },
+      { atk_up: { milliValue: 48000 }, spd_up: { microValue: 156000 } },
+      { atk_up: { milliValue: 54000 }, spd_up: { microValue: 168000 } },
+      { atk_up: { milliValue: 60000 }, spd_up: { microValue: 180000 } },
+      { atk_up: { milliValue: 66000 }, spd_up: { microValue: 192000 } },
+      { atk_up: { milliValue: 72000 }, spd_up: { microValue: 204000 } },
+      { atk_up: { milliValue: 78000 }, spd_up: { microValue: 216000 } },
+      { atk_up: { milliValue: 84000 }, spd_up: { microValue: 228000 } },
+      { atk_up: { milliValue: 90000 }, spd_up: { microValue: 240000 } }
     ],
     equipment_effects: [
-      [{ details: { damage_reduction: { milliPercentage: 15000 }, range_up: { value: 1 } } }],
-      [{ details: { damage_reduction: { milliPercentage: 15000 }, range_up: { value: 1 } } }],
-      [{ details: { damage_reduction: { milliPercentage: 16500 }, range_up: { value: 1 } } }],
-      [{ details: { damage_reduction: { milliPercentage: 18000 }, range_up: { value: 1 } } }],
-      [{ details: { damage_reduction: { milliPercentage: 19500 }, range_up: { value: 1 } } }],
-      [{ details: { damage_reduction: { milliPercentage: 21000 }, range_up: { value: 1 } } }],
-      [{ details: { damage_reduction: { milliPercentage: 22500 }, range_up: { value: 1 } } }],
-      [{ details: { damage_reduction: { milliPercentage: 24000 }, range_up: { value: 1 } } }],
-      [{ details: { damage_reduction: { milliPercentage: 25500 }, range_up: { value: 1 } } }],
-      [{ details: { damage_reduction: { milliPercentage: 27000 }, range_up: { value: 1 } } }],
-      [{ details: { damage_reduction: { milliPercentage: 30000 }, range_up: { value: 1 } } }]
+      [{ details: { anti_heavy_type: { milliPercentage: 15000 }, range_up: { value: 1 } } }],
+      [{ details: { anti_heavy_type: { milliPercentage: 16000 }, range_up: { value: 1 } } }],
+      [{ details: { anti_heavy_type: { milliPercentage: 17000 }, range_up: { value: 1 } } }],
+      [{ details: { anti_heavy_type: { milliPercentage: 18000 }, range_up: { value: 1 } } }],
+      [{ details: { anti_heavy_type: { milliPercentage: 19000 }, range_up: { value: 1 } } }],
+      [{ details: { anti_heavy_type: { milliPercentage: 20000 }, range_up: { value: 1 } } }],
+      [{ details: { anti_heavy_type: { milliPercentage: 21000 }, range_up: { value: 1 } } }],
+      [{ details: { anti_heavy_type: { milliPercentage: 22000 }, range_up: { value: 1 } } }],
+      [{ details: { anti_heavy_type: { milliPercentage: 23000 }, range_up: { value: 1 } } }],
+      [{ details: { anti_heavy_type: { milliPercentage: 24000 }, range_up: { value: 1 } } }],
+      [{ details: { anti_heavy_type: { milliPercentage: 25000 }, range_up: { value: 1 } } }]
     ]
   }
 } as const;
