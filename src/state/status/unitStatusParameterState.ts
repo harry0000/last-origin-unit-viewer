@@ -22,7 +22,8 @@ import {
   unitCriEnhancementStatusEffectState,
   unitDefEnhancementStatusEffectState,
   unitEvaEnhancementStatusEffectState,
-  unitHpEnhancementStatusEffectState
+  unitHpEnhancementStatusEffectState,
+  unitRankUpBonusEffectState
 } from './unitLvStatusState';
 import {
   unitBaseAccState,
@@ -62,7 +63,8 @@ export const unitHpStatusParameterState = selectorFamily<UnitHpStatusParameter, 
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
       get(coreLinkBonusEffectsState(unit)),
-      get(fullLinkBonusEffectState(unit))
+      get(fullLinkBonusEffectState(unit)),
+      get(unitRankUpBonusEffectState(unit))
     );
   }
 });
@@ -77,7 +79,8 @@ export const unitAtkStatusParameterState = selectorFamily<UnitAtkStatusParameter
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
-      get(coreLinkBonusEffectsState(unit))
+      get(coreLinkBonusEffectsState(unit)),
+      get(unitRankUpBonusEffectState(unit))
     );
   }
 });
@@ -92,7 +95,8 @@ export const unitDefStatusParameterState = selectorFamily<UnitDefStatusParameter
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
-      get(coreLinkBonusEffectsState(unit))
+      get(coreLinkBonusEffectsState(unit)),
+      get(unitRankUpBonusEffectState(unit))
     );
   }
 });
@@ -108,7 +112,8 @@ const unitAccStatusParameterState = selectorFamily<UnitAccStatusParameter, UnitN
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
       get(coreLinkBonusEffectsState(unit)),
-      get(fullLinkBonusEffectState(unit))
+      get(fullLinkBonusEffectState(unit)),
+      get(unitRankUpBonusEffectState(unit))
     );
   }
 });
@@ -124,7 +129,8 @@ const unitEvaStatusParameterState = selectorFamily<UnitEvaStatusParameter, UnitN
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
       get(coreLinkBonusEffectsState(unit)),
-      get(fullLinkBonusEffectState(unit))
+      get(fullLinkBonusEffectState(unit)),
+      get(unitRankUpBonusEffectState(unit))
     );
   }
 });
@@ -140,7 +146,8 @@ const unitCriStatusParameterState = selectorFamily<UnitCriStatusParameter, UnitN
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
       get(coreLinkBonusEffectsState(unit)),
-      get(fullLinkBonusEffectState(unit))
+      get(fullLinkBonusEffectState(unit)),
+      get(unitRankUpBonusEffectState(unit))
     );
   }
 });
@@ -155,7 +162,8 @@ const unitSpdStatusParameterState = selectorFamily<UnitSpdStatusParameter, UnitN
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
       get(coreLinkBonusEffectsState(unit)),
-      get(fullLinkBonusEffectState(unit))
+      get(fullLinkBonusEffectState(unit)),
+      get(unitRankUpBonusEffectState(unit))
     );
   }
 });

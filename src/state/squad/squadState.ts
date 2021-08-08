@@ -29,6 +29,7 @@ import {
 import { useUnitCoreLinkResolver, useUnitCoreLinkRestore } from '../corelink/unitCoreLinkState';
 import { useUnitDamagedStateResolver, useUnitDamagedStateRestore } from '../status/unitDamagedState';
 import { useUnitLvStatusResolver, useUnitLvStatusRestore } from '../status/unitLvStatusState';
+import { useUnitSelector } from '../selector/unitSelectorState';
 import { useUnitSkillResolver, useUnitSkillRestore } from '../skill/unitSkillState';
 
 import { useNotificationResister } from '../ui/notificationState';
@@ -268,6 +269,7 @@ export function useSquadShareToTwitter(url?: string): () => void {
 }
 
 export function useSquadRestoreFromUrl(): boolean {
+  const selectUnit = useUnitSelector();
   const [restoring, setRestoring] = useState(false);
 
   const notify = useNotificationResister();
@@ -303,6 +305,8 @@ export function useSquadRestoreFromUrl(): boolean {
           skillRestore(restored.skill);
           affectionRestore(restored.affection);
           damagedRestore(restored.damaged);
+
+          selectUnit(restored.squad.units[0]?.unit);
 
           notify('restore_squad_units');
         }

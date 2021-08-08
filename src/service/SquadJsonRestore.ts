@@ -10,7 +10,7 @@ import {
 } from './SquadJsonStructure';
 
 import { Squad } from '../domain/squad/Squad';
-import { BioroidUnitNumber, UnitBasicInfo, UnitKind, UnitNumber } from '../domain/UnitBasicInfo';
+import { BioroidUnitNumber, UnitBasicInfo, UnitKind, UnitNumber, UnitRank } from '../domain/UnitBasicInfo';
 import UnitAffection from '../domain/UnitAffection';
 import { UnitChip1Equipment, UnitChip2Equipment, UnitGearEquipment, UnitOsEquipment } from '../domain/status/UnitEquipment';
 import UnitCoreLink, { CoreLinkUnit } from '../domain/UnitCoreLink';
@@ -60,11 +60,16 @@ function restoreDamaged(unit: UnitNumber, damaged: 0 | 1 | undefined): UnitDamag
     undefined;
 }
 
-function restoreUnitLvStatus(unit: UnitNumber, [lv, hp, atk, def, acc, eva, cri]: UnitEnhancementJsonStructure): UnitLvStatus | undefined {
+function restoreUnitLvStatus(
+  unit: UnitNumber,
+  rank: UnitRank,
+  [lv, hp, atk, def, acc, eva, cri]: UnitEnhancementJsonStructure
+): UnitLvStatus | undefined {
   const unitLv =
     new UnitLvStatus(unit)
       .setManualLvMode()
       .setUnitLv(lv)
+      .changeRank(rank)
       .setHpLv(hp)
       .setAtkLv(atk)
       .setDefLv(def)
@@ -74,6 +79,7 @@ function restoreUnitLvStatus(unit: UnitNumber, [lv, hp, atk, def, acc, eva, cri]
 
   return (
     unitLv.lv === lv &&
+    unitLv.rank === rank &&
     unitLv.hpLv === hp &&
     unitLv.atkLv === atk &&
     unitLv.defLv === def &&
@@ -245,10 +251,9 @@ export function restoreFromJsonObject(json: unknown): RestoredSquad | undefined 
       continue;
     }
 
-    // FIXME: check rank up
     const [unitNo, rank, vow, dmg] = unitJson[0];
     const unit = unitBasicData[unitNo];
-    if (!unit || unit.rank !== rank) {
+    if (!unit) {
       return undefined;
     }
 
@@ -264,7 +269,7 @@ export function restoreFromJsonObject(json: unknown): RestoredSquad | undefined 
 
     const unitDamaged = restoreDamaged(unitNo, dmg);
 
-    const lv = restoreUnitLvStatus(unitNo, unitJson[1]);
+    const lv = restoreUnitLvStatus(unitNo, rank, unitJson[1]);
     const chip1 = restoreChip1(unitNo, unitJson[2][0]);
     const chip2 = restoreChip2(unitNo, unitJson[2][1]);
     const os = restoreOs(unitNo, unitJson[2][2]);

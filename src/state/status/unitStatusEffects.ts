@@ -2,44 +2,47 @@ import { TFunction } from 'i18next';
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
-import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../../state/corelink/unitCoreLinkState';
+import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/unitCoreLinkState';
 import {
   unitAccEnhancementStatusEffectState,
   unitAtkEnhancementStatusEffectState,
   unitCriEnhancementStatusEffectState,
   unitDefEnhancementStatusEffectState,
   unitEvaEnhancementStatusEffectState,
-  unitHpEnhancementStatusEffectState,
+  unitHpEnhancementStatusEffectState, useRankUpBonusEffect,
   useStatusParameterEnhancedLv
-} from '../../state/status/unitLvStatusState';
+} from './unitLvStatusState';
 import {
   unitAtkStatusParameterState,
   unitDefStatusParameterState,
   unitHpStatusParameterState
-} from '../../state/status/unitStatusParameterState';
+} from './unitStatusParameterState';
 import {
   useChip1EquipmentEffect,
   useChip2EquipmentEffect,
   useGearEquipmentEffect,
   useOsEquipmentEffect
-} from '../../state/equipment/unitEquipmentState';
+} from '../equipment/unitEquipmentState';
 
 import { EffectedParameter, StatusEffectPopoverRowProps } from '../../component/status/StatusEffectsView';
 
 import { ChipEquipment, GearEquipment, OsEquipment } from '../../domain/status/UnitEquipment';
 import { StatusEffect } from '../../domain/status/StatusEffect';
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
+import { UnitRankUpBonus } from '../../domain/status/UnitRankUpBonusData';
 import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../domain/ValueUnit';
 
 export function useStatusEffects(unit: UnitBasicInfo, parameter: EffectedParameter): ReadonlyArray<StatusEffectPopoverRowProps> {
   const unitNumber = unit.no;
   const { t } = useTranslation();
+  const rankUpEffect         = useRankUpBonusEffect(unitNumber);
   const [chip1, chip1Effect] = useChip1EquipmentEffect(unit);
   const [chip2, chip2Effect] = useChip2EquipmentEffect(unit);
   const [os,    osEffect]    = useOsEquipmentEffect(unit);
   const [gear,  gearEffect]  = useGearEquipmentEffect(unit);
 
   return [
+    ...rankUpBonusEffects(parameter, rankUpEffect, t),
     ...enhancementEffects(unitNumber, parameter, t),
     ...equipmentEffects(parameter, chip1Effect, chip1, 'chip1', t),
     ...equipmentEffects(parameter, chip2Effect, chip2, 'chip2', t),
@@ -48,6 +51,99 @@ export function useStatusEffects(unit: UnitBasicInfo, parameter: EffectedParamet
     ...coreLinkBonusEffects(unitNumber, parameter, t),
     ...fullLinkBonusEffects(unitNumber, parameter, t)
   ];
+}
+
+function rankUpBonusEffects(
+  parameter: EffectedParameter,
+  bonuses: UnitRankUpBonus | undefined,
+  t: TFunction
+): ReadonlyArray<StatusEffectPopoverRowProps> {
+  if (!bonuses) {
+    return [];
+  }
+
+  switch (parameter) {
+  case 'hp':
+    return Object
+      .entries(bonuses)
+      .map(([rank, bonus]) => ({
+        key: `rank_up_${rank}`,
+        effected: t('status.effected.rank_up', { rank }),
+        value: bonus.hp_up.value
+      }));
+  case 'atk':
+    return Object
+      .entries(bonuses)
+      .map(([rank, bonus]) => ({
+        key: `rank_up_${rank}`,
+        effected: t('status.effected.rank_up', { rank }),
+        value: calcMilliValue(bonus.atk_up)
+      }));
+  case 'def':
+    return Object
+      .entries(bonuses)
+      .flatMap(([rank, bonus]) =>
+        bonus.def_up ?
+          {
+            key: `rank_up_${rank}`,
+            effected: t('status.effected.rank_up', { rank }),
+            value: calcMilliValue(bonus.def_up)
+          } :
+          []
+      );
+  case 'acc':
+    return Object
+      .entries(bonuses)
+      .flatMap(([rank, bonus]) =>
+        bonus.acc_up ?
+          {
+            key: `rank_up_${rank}`,
+            effected: t('status.effected.rank_up', { rank }),
+            value: calcMilliPercentageValue(bonus.acc_up)
+          } :
+          []
+      );
+  case 'eva':
+    return Object
+      .entries(bonuses)
+      .flatMap(([rank, bonus]) =>
+        bonus.eva_up ?
+          {
+            key: `rank_up_${rank}`,
+            effected: t('status.effected.rank_up', { rank }),
+            value: calcMilliPercentageValue(bonus.eva_up)
+          } :
+          []
+      );
+  case 'cri':
+    return Object
+      .entries(bonuses)
+      .flatMap(([rank, bonus]) =>
+        bonus.cri_up ?
+          {
+            key: `rank_up_${rank}`,
+            effected: t('status.effected.rank_up', { rank }),
+            value: calcMilliPercentageValue(bonus.cri_up)
+          } :
+          []
+      );
+  case 'spd':
+    return Object
+      .entries(bonuses)
+      .flatMap(([rank, bonus]) =>
+        bonus.spd_up ?
+          {
+            key: `rank_up_${rank}`,
+            effected: t('status.effected.rank_up', { rank }),
+            value: calcMicroValue(bonus.spd_up)
+          } :
+          []
+      );
+  case 'fireResist':
+  case 'iceResist':
+  case 'electricResist':
+    return [];
+  }
 }
 
 function enhancementEffects(

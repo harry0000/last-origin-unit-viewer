@@ -1,4 +1,4 @@
-import { UnitNumber } from '../UnitBasicInfo';
+import { UnitNumber, UnitRank } from '../UnitBasicInfo';
 import UnitLv, { UnitLvMode, UnitLvValue } from './UnitLv';
 import UnitParameterEnhancementLv from './UnitParameterEnhancementLv';
 import {
@@ -9,10 +9,13 @@ import {
   EvaEnhancementStatusEffect,
   HpEnhancementStatusEffect
 } from './StatusEffect';
+import UnitRankState, { getUnitDefaultRank } from './UnitRankState';
+import { UnitRankUpBonus, isRankUpUnitNumber } from './UnitRankUpBonusData';
 
 type StateParams = {
   lv?: UnitLv,
-  parameters?: UnitParameterEnhancementLv
+  parameters?: UnitParameterEnhancementLv,
+  rank?: UnitRankState
 }
 
 class UnitLvStatus {
@@ -20,20 +23,24 @@ class UnitLvStatus {
   readonly unit: UnitNumber;
   readonly #lv: UnitLv;
   readonly #enhancements: UnitParameterEnhancementLv;
+  readonly #rank?: UnitRankState;
 
   readonly remainPoints: number;
 
   constructor(
     unit: UnitNumber,
     lv?: UnitLv,
-    enhancements?: UnitParameterEnhancementLv
+    enhancements?: UnitParameterEnhancementLv,
+    rank?: UnitRankState
   ) {
     this.unit = unit;
 
     const l = lv ?? new UnitLv();
     const e = enhancements ?? new UnitParameterEnhancementLv();
+    const r = rank ?? (isRankUpUnitNumber(unit) ? UnitRankState.create(unit) : undefined);
 
     this.#lv = l.adjustLv(e);
+    this.#rank = r?.adjustRank(this.#lv.value);
 
     if (this.#lv.points < e.points) {
       this.#enhancements = e.resetPoints();
@@ -48,10 +55,11 @@ class UnitLvStatus {
     return this.remainPoints > 0;
   }
 
-  #updateState({ lv, parameters }: StateParams): UnitLvStatus {
+  #updateState({ lv, parameters, rank }: StateParams): UnitLvStatus {
     if (
       lv && lv === this.#lv ||
-      parameters && parameters === this.#enhancements
+      parameters && parameters === this.#enhancements ||
+      rank && rank === this.#rank
     ) {
       return this;
     }
@@ -59,7 +67,8 @@ class UnitLvStatus {
     return new UnitLvStatus(
       this.unit,
       lv ?? this.#lv,
-      parameters ?? this.#enhancements
+      parameters ?? this.#enhancements,
+      rank ?? this.#rank
     );
   }
 
@@ -81,6 +90,24 @@ class UnitLvStatus {
 
   setManualLvMode(): UnitLvStatus {
     return this.#updateState({ lv: this.#lv.setManualLvMode() });
+  }
+
+  get rank(): UnitRank {
+    return this.#rank?.rank ?? getUnitDefaultRank(this.unit);
+  }
+
+  get rankUpBonus(): UnitRankUpBonus | undefined {
+    return this.#rank?.rankUpBonus;
+  }
+
+  isRankEnabled(rank: UnitRank): boolean {
+    return this.#rank?.isRankEnabled(rank, this.lv) ?? getUnitDefaultRank(this.unit) === rank;
+  }
+
+  changeRank(rank: UnitRank): UnitLvStatus {
+    return this.#rank ?
+      this.#updateState({ rank: this.#rank.changeUnitRank(rank, this.lv) }) :
+      this;
   }
 
   get usedPoints(): number {

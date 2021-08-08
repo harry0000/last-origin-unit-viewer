@@ -8,6 +8,8 @@ import UnitSelector from '../../domain/selector/UnitSelector';
 import { unitBasicData } from '../../data/unitBasicData';
 import { unitSkillData } from '../../data/unitSkillData';
 import { unitSkillTabState } from '../ui/unitSkillTabState';
+import { useUnitCurrentRank, useUnitRank } from '../status/unitLvStatusState';
+import { buildUnitTileIconSrcUrl } from '../../service/UnitIconSrcUrlBuilder';
 
 const selectorAtoms = {
   unit: atomFamily<boolean, UnitRank | UnitType | UnitRole>({
@@ -120,4 +122,30 @@ export function useUnit(unit: UnitBasicInfo): [
     useRecoilValue(_unitSelectedState(unit.no)),
     (unit) => setter(s => s.selectUnit(unit))
   ];
+}
+
+export function useSquadUnit(unit: UnitBasicInfo): [
+  unitName: string,
+  unitCurrentRank: UnitRank,
+  unitImageSrc: string,
+  selected: boolean,
+  selectUnit: (unit: UnitBasicInfo) => void
+] {
+  const { t } = useTranslation();
+  const rank = useUnitCurrentRank(unit.no);
+  const setter = useSetRecoilState(unitSelectorState);
+
+  return [
+    t('unit:display', { number: unit.no }),
+    rank,
+    buildUnitTileIconSrcUrl(unit.no, rank),
+    useRecoilValue(_unitSelectedState(unit.no)),
+    (unit) => setter(s => s.selectUnit(unit))
+  ];
+}
+
+export function useUnitSelector(): (unit: UnitBasicInfo) => void {
+  const setter = useSetRecoilState(unitSelectorState);
+
+  return (unit) => setter(s => s.selectUnit(unit));
 }

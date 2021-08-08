@@ -2,22 +2,20 @@ import {
   AlexandraForm,
   BloodyPantherForm,
   EmilyForm,
-  FormChangeUnitNumbers,
   FormChangeUnits,
   FortressForm,
   InvincibleDragonForm,
   LeonaForm,
   PhantomForm,
+  RampartForm,
   SirenForm
 } from '../UnitFormValue';
+import { AvailableMaxUnitRank } from '../status/UnitRankUpBonusData';
 import { MilliPercentageValue } from '../ValueUnit';
 import { SkillAreaType } from './SkillAreaOfEffect';
-import {
-  SkillEffects,
-  SkillEffectsAsEquipmentEffect
-} from './SkillEffectData';
+import { SkillEffects, SkillEffectsAsEquipmentEffect } from './SkillEffectData';
 import { SkillEffective } from './SkillEffective';
-import { UnitNumber } from '../UnitBasicInfo';
+import { UnitNumber, UnitRank } from '../UnitBasicInfo';
 
 export const DamageAttribute = {
   Fire: 'fire',
@@ -43,6 +41,10 @@ export type SkillApCostValue = 2 | 4 | 5 | 6 | 7 | 8 | 9 | 10
 export type SkillApCostData = Readonly<{
   cost:
     SkillApCostValue |
+    {
+      readonly 1: SkillApCostValue,
+      readonly 2: SkillApCostValue
+    } |
     {
       readonly 1: SkillApCostValue,
       readonly 2: SkillApCostValue,
@@ -75,6 +77,18 @@ export type PassiveSkillDataAsEquipmentEffect = Readonly<SkillEffectsAsEquipment
 export function isPassiveSkillData(arg: PassiveSkillData | PassiveSkillDataAsEquipmentEffect): arg is PassiveSkillData {
   return !!(arg as PassiveSkillData).effects;
 }
+
+type BRankPassiveSkill  = readonly []
+type ARankPassiveSkill  = readonly [PassiveSkillData]
+type SRankPassiveSkill  = readonly [PassiveSkillData, PassiveSkillData]
+type SSRankPassiveSkill = readonly [PassiveSkillData, PassiveSkillData, PassiveSkillData]
+
+type UnitPassiveSkillData<R extends UnitRank> =
+  R extends typeof UnitRank.SS ? SSRankPassiveSkill :
+  R extends typeof UnitRank.S  ? SRankPassiveSkill :
+  R extends typeof UnitRank.A  ? ARankPassiveSkill :
+  R extends typeof UnitRank.B  ? BRankPassiveSkill :
+    never
 
 type CirceSkillData = Readonly<{
   no: 136
@@ -133,12 +147,7 @@ type EmilySkillData = Readonly<{
       ActiveSkillData,
       { readonly [key in EmilyForm]: ActiveSkillData }
     ],
-  passive:
-    readonly [
-      PassiveSkillData,
-      PassiveSkillData,
-      PassiveSkillData
-    ]
+  passive: SSRankPassiveSkill
 }>
 
 type PhantomSkillData = Readonly<{
@@ -151,7 +160,8 @@ type PhantomSkillData = Readonly<{
   passive:
     readonly [
       { readonly [key in PhantomForm]: PassiveSkillData },
-      PassiveSkillData
+      { readonly [key in PhantomForm]: PassiveSkillData },
+      { readonly [key in PhantomForm]: PassiveSkillData }
     ]
 }>
 
@@ -162,12 +172,7 @@ type InvincibleDragonSkillData = Readonly<{
       { readonly [key in InvincibleDragonForm]: ActiveSkillData },
       { readonly [key in InvincibleDragonForm]: ActiveSkillData }
     ],
-  passive:
-    readonly [
-      PassiveSkillData,
-      PassiveSkillData,
-      PassiveSkillData
-    ]
+  passive: SSRankPassiveSkill
 }>
 
 type SirenSkillData = Readonly<{
@@ -185,6 +190,16 @@ type SirenSkillData = Readonly<{
     ]
 }>
 
+type RampartSkillData = Readonly<{
+  no: typeof FormChangeUnits.Rampart,
+  active:
+    readonly [
+      { readonly [key in RampartForm]: ActiveSkillData },
+      ActiveSkillData
+    ],
+  passive: SSRankPassiveSkill
+}>
+
 type FortressSkillData = Readonly<{
   no: typeof FormChangeUnits.Fortress,
   active:
@@ -198,40 +213,23 @@ type FortressSkillData = Readonly<{
     ]
 }>
 
-export type FormChangeUnitSkillData =
-  AlexandraSkillData |
-  LeonaSkillData |
-  BloodyPantherSkillData |
-  EmilySkillData |
-  PhantomSkillData |
-  InvincibleDragonSkillData |
-  SirenSkillData |
-  FortressSkillData
-
-type UnitSkill =
+type UnitSkill<N extends UnitNumber> =
+  N extends CirceSkillData['no'] ? CirceSkillData :
+  N extends AlexandraSkillData['no'] ? AlexandraSkillData :
+  N extends LeonaSkillData['no'] ? LeonaSkillData :
+  N extends BloodyPantherSkillData['no'] ? BloodyPantherSkillData :
+  N extends EmilySkillData['no'] ? EmilySkillData :
+  N extends PhantomSkillData['no'] ? PhantomSkillData :
+  N extends InvincibleDragonSkillData['no'] ? InvincibleDragonSkillData :
+  N extends SirenSkillData['no'] ? SirenSkillData :
+  N extends RampartSkillData['no'] ? RampartSkillData :
+  N extends FortressSkillData['no'] ? FortressSkillData :
   Readonly<{
-    no: Exclude<UnitNumber, CirceSkillData['no'] | FormChangeUnitNumbers>,
+    no: N,
     active:
       readonly [ActiveSkillData, ActiveSkillData],
     passive:
-      readonly [] |
-      readonly [PassiveSkillData] |
-      readonly [PassiveSkillData, PassiveSkillData] |
-      readonly [PassiveSkillData, PassiveSkillData, PassiveSkillData]
-  }> |
-  CirceSkillData |
-  FormChangeUnitSkillData
+      UnitPassiveSkillData<AvailableMaxUnitRank<N>>
+  }>
 
-export type UnitSkillData = {
-  readonly [N in UnitNumber]:
-    N extends CirceSkillData['no'] ? CirceSkillData :
-    N extends AlexandraSkillData['no'] ? AlexandraSkillData :
-    N extends LeonaSkillData['no'] ? LeonaSkillData :
-    N extends BloodyPantherSkillData['no'] ? BloodyPantherSkillData :
-    N extends EmilySkillData['no'] ? EmilySkillData :
-    N extends PhantomSkillData['no'] ? PhantomSkillData :
-    N extends InvincibleDragonSkillData['no'] ? InvincibleDragonSkillData :
-    N extends SirenSkillData['no'] ? SirenSkillData :
-    N extends FortressSkillData['no'] ? FortressSkillData :
-      Exclude<UnitSkill, CirceSkillData | FormChangeUnitSkillData>
-}
+export type UnitSkillData = { readonly [N in UnitNumber]: UnitSkill<N> }

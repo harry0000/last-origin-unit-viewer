@@ -12,15 +12,15 @@ import {
   ActivationSquadState,
   ActivationTargetState,
   SkillEffectActivationCondition,
-  SkillEffectActivationState, UnitTypeAndRole
+  SkillEffectActivationState, UnitAliasAndRole, UnitAliasAndType, UnitTypeAndRole
 } from '../../domain/skill/SkillEffectActivationCondition';
+import { EffectActivationState } from '../../domain/EffectActivationState';
 import { SkillEffect } from '../../domain/skill/UnitSkills';
-import { UnitAlias } from '../../domain/UnitAlias';
+import { isUnitAlias, UnitAlias } from '../../domain/UnitAlias';
 import { UnitKind, UnitNumber, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
 
 import { NonNullableEntry } from '../../util/object';
 import { ifNonNullable, ifTruthy } from '../../util/react';
-import { EffectActivationState } from '../../domain/EffectActivationState';
 
 type SkillEffectActivationStateValues =
   ReadonlyArray<ActivationSelfState> |
@@ -80,7 +80,6 @@ function stateValuesView(entry: StateValuesEntry, unitNumber: UnitNumber, t: TFu
     return (
       <span>{t(`effect:condition.state.${entry[0]}`, { equipment: t(`equipment:${entry[1]}`) })}</span>
     );
-  case 'hp_rate_less_than_self':
   case 'protected':
   case 'in_front_line':
   case 'in_mid_line':
@@ -93,14 +92,14 @@ function stateValuesView(entry: StateValuesEntry, unitNumber: UnitNumber, t: TFu
   }
 }
 
-function unitStateView(key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'], unit: UnitNumber | UnitAlias, selfUnitNumber: UnitNumber, t: TFunction): ReactNode
-function unitStateView(key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'], unit: UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitNumber | UnitAlias, selfUnitNumber: UnitNumber, t: TFunction): ReactNode
+function unitStateView(key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'], unit: UnitNumber | UnitAlias, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'], unit: UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitNumber | UnitAlias, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
   key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'],
-  unit: UnitNumber | UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAlias,
+  unit: UnitNumber | UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitAlias,
   selfUnitNumber: UnitNumber,
   t: TFunction
-): ReactNode {
+): Exclude<ReactNode, undefined> {
   if (typeof unit === 'number') {
     return (
       <span>
@@ -130,10 +129,15 @@ function unitStateView(
     case UnitAlias.Squad21:
     case UnitAlias.CompanionSeries:
     case UnitAlias.SteelLine:
+    case UnitAlias.SistersOfValhalla:
+    case UnitAlias.AngerOfHorde:
+    case UnitAlias.AACannonier:
+    case UnitAlias.ArmoredMaiden:
     case UnitAlias.MongooseTeam:
     case UnitAlias.Horizon:
+    case UnitAlias.TomosFriends:
+    case UnitAlias.CityGuard:
     case UnitAlias.SpartanSeries:
-    case UnitAlias.Pest:
       return (
         <React.Fragment>
           <UnitAliasView unitAlias={unit} selfUnitNumber={selfUnitNumber} />
@@ -146,9 +150,19 @@ function unitStateView(
     }
     }
   } else {
-    const { type, role } = unit;
-    const typeAndRole = `${t(`effect:unit.${type}`)}${t(`effect:unit.${role}`)}`;
-    return (<span>{t(`effect:condition.state.${key}`, { unit: typeAndRole })}</span>);
+    if ('alias' in unit) {
+      const target = 'type' in unit ? t(`effect:unit.${unit.type}`) : t(`effect:unit.${unit.role}`);
+      return (
+        <React.Fragment>
+          <UnitAliasView unitAlias={unit.alias} selfUnitNumber={selfUnitNumber} />
+          <span>{t('effect:of_preposition')}{t(`effect:condition.state.${key}`, { unit: target })}</span>
+        </React.Fragment>
+      );
+    } else {
+      const { type, role } = unit;
+      const typeAndRole = `${t(`effect:unit.${type}`)}${t(`effect:unit.${role}`)}`;
+      return (<span>{t(`effect:condition.state.${key}`, { unit: typeAndRole })}</span>);
+    }
   }
 }
 
@@ -266,18 +280,15 @@ const SkillEffectConditionView: React.FC<
             if ('per_stack' in v) {
               return (<span>{t('effect:scale_factor.per_stack', { tag: v.per_stack.tag })}</span>);
             } else {
-              switch (v.num_of_units) {
-              case UnitAlias.ElectricActive: {
+              if (isUnitAlias(v.num_of_units)) {
                 return (
                   <React.Fragment>
-                    <UnitAliasView unitAlias={UnitAlias.ElectricActive} selfUnitNumber={unitNumber} />
+                    <UnitAliasView unitAlias={v.num_of_units} selfUnitNumber={unitNumber} />
                     <span>{t('effect:scale_factor.num_of_allies')}</span>
                   </React.Fragment>
                 );
-              }
-              default: {
+              } else {
                 return (<span>{t(`effect:unit.${v.num_of_units}`)}{t('effect:scale_factor.num_of_allies')}</span>);
-              }
               }
             }
           }

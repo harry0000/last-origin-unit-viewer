@@ -27,6 +27,7 @@ import {
   sumValues,
   ValueTypes
 } from '../ValueUnit';
+import { UnitRankUpBonus } from './UnitRankUpBonusData';
 
 function reverseSign(value: ValueTypes): ValueTypes {
   if ('milliValue' in value) {
@@ -92,11 +93,13 @@ export class UnitHpStatusParameter {
     os: StatusEffect,
     gear: StatusEffect,
     coreLinkBonus: CoreLinkBonus | Record<string, never>,
-    fullLinkBonus: FullLinkBonus | undefined
+    fullLinkBonus: FullLinkBonus | undefined,
+    rankUpBonus: UnitRankUpBonus | undefined
   ) {
     const _fullLinkBonus: FullLinkBonus | Record<string, never> = fullLinkBonus ?? {};
+    const _rankUpBonus: UnitRankUpBonus | Record<string, never> = rankUpBonus ?? {};
 
-    const hpAddition  = sumValues(...pickValues(Effect.HpUp)(hpEnhancement, chip1, chip2, os, gear));
+    const hpAddition  = sumValues(...pickValues(Effect.HpUp)(...Object.values(_rankUpBonus), hpEnhancement, chip1, chip2, os, gear));
     const hp = sumValues(baseHp, hpAddition);
 
     this.hpCoreLinkBonus = 'hp_up' in coreLinkBonus ? multiplyValue(hp, coreLinkBonus.hp_up) : { value: 0 };
@@ -121,9 +124,12 @@ export class UnitAtkStatusParameter {
     chip2: StatusEffect,
     os: StatusEffect,
     gear: StatusEffect,
-    coreLinkBonus: CoreLinkBonus | Record<string, never>
+    coreLinkBonus: CoreLinkBonus | Record<string, never>,
+    rankUpBonus: UnitRankUpBonus | undefined
   ) {
-    const atkAddition = sumMilliValues(...pickValues(Effect.AtkUp, Effect.AtkDown)(atkEnhancement, chip1, chip2, os, gear));
+    const _rankUpBonus: UnitRankUpBonus | Record<string, never> = rankUpBonus ?? {};
+
+    const atkAddition = sumMilliValues(...pickValues(Effect.AtkUp, Effect.AtkDown)(...Object.values(_rankUpBonus), atkEnhancement, chip1, chip2, os, gear));
     const atk = sumMilliValues(baseAtk, atkAddition);
 
     this.atkCoreLinkBonus = 'atk_up' in coreLinkBonus ? multiplyMilliValue(atk, coreLinkBonus.atk_up) : { milliValue: 0 };
@@ -146,9 +152,12 @@ export class UnitDefStatusParameter {
     chip2: StatusEffect,
     os: StatusEffect,
     gear: StatusEffect,
-    coreLinkBonus: CoreLinkBonus | Record<string, never>
+    coreLinkBonus: CoreLinkBonus | Record<string, never>,
+    rankUpBonus: UnitRankUpBonus | undefined
   ) {
-    const defAddition = sumMilliValues(...pickValues(Effect.DefUp, Effect.DefDown)(defEnhancement, chip1, chip2, os, gear));
+    const _rankUpBonus: UnitRankUpBonus | Record<string, never> = rankUpBonus ?? {};
+
+    const defAddition = sumMilliValues(...pickValues(Effect.DefUp, Effect.DefDown)(...Object.values(_rankUpBonus), defEnhancement, chip1, chip2, os, gear));
     const def = sumMilliValues(baseDef, defAddition);
 
     this.defCoreLinkBonus = 'def_up' in coreLinkBonus ? multiplyMilliValue(def, coreLinkBonus.def_up) : { milliValue: 0 };
@@ -171,12 +180,14 @@ export class UnitAccStatusParameter {
     os: StatusEffect,
     gear: StatusEffect,
     coreLinkBonus: CoreLinkBonus | Record<string, never>,
-    fullLinkBonus: FullLinkBonus | undefined
+    fullLinkBonus: FullLinkBonus | undefined,
+    rankUpBonus: UnitRankUpBonus | undefined
   ) {
     const _fullLinkBonus: FullLinkBonus | Record<string, never> = fullLinkBonus ?? {};
+    const _rankUpBonus: UnitRankUpBonus | Record<string, never> = rankUpBonus ?? {};
 
     this.accEffectValue = sumMilliPercentageValues(
-      ...pickValues(Effect.AccUp, Effect.AccDown)(accEnhancement, chip1, chip2, os, gear),
+      ...pickValues(Effect.AccUp, Effect.AccDown)(...Object.values(_rankUpBonus), accEnhancement, chip1, chip2, os, gear),
       ...('acc_up' in coreLinkBonus ? [coreLinkBonus.acc_up] : []),
       ...('acc_up' in _fullLinkBonus ? [_fullLinkBonus.acc_up] : [])
     );
@@ -198,12 +209,14 @@ export class UnitEvaStatusParameter {
     os: StatusEffect,
     gear: StatusEffect,
     coreLinkBonus: CoreLinkBonus | Record<string, never>,
-    fullLinkBonus: FullLinkBonus | undefined
+    fullLinkBonus: FullLinkBonus | undefined,
+    rankUpBonus: UnitRankUpBonus | undefined
   ) {
     const _fullLinkBonus: FullLinkBonus | Record<string, never> = fullLinkBonus ?? {};
+    const _rankUpBonus: UnitRankUpBonus | Record<string, never> = rankUpBonus ?? {};
 
     this.evaEffectValue = sumMilliPercentageValues(
-      ...pickValues(Effect.EvaUp, Effect.EvaDown)(evaEnhancement, chip1, chip2, os, gear),
+      ...pickValues(Effect.EvaUp, Effect.EvaDown)(...Object.values(_rankUpBonus), evaEnhancement, chip1, chip2, os, gear),
       ...('eva_up' in coreLinkBonus ? [coreLinkBonus.eva_up] : []),
       ...('eva_up' in _fullLinkBonus ? [_fullLinkBonus.eva_up] : [])
     );
@@ -224,12 +237,14 @@ export class UnitCriStatusParameter {
     os: StatusEffect,
     gear: StatusEffect,
     coreLinkBonus: CoreLinkBonus | Record<string, never>,
-    fullLinkBonus: FullLinkBonus | undefined
+    fullLinkBonus: FullLinkBonus | undefined,
+    rankUpBonus: UnitRankUpBonus | undefined
   ) {
     const _fullLinkBonus: FullLinkBonus | Record<string, never> = fullLinkBonus ?? {};
+    const _rankUpBonus: UnitRankUpBonus | Record<string, never> = rankUpBonus ?? {};
 
     this.criEffectValue = sumMilliPercentageValues(
-      ...pickValues(Effect.CriUp, Effect.CriDown)(criEnhancement, chip1, chip2, os, gear),
+      ...pickValues(Effect.CriUp, Effect.CriDown)(...Object.values(_rankUpBonus), criEnhancement, chip1, chip2, os, gear),
       ...('cri_up' in coreLinkBonus ? [coreLinkBonus.cri_up] : []),
       ...('cri_up' in _fullLinkBonus ? [_fullLinkBonus.cri_up] : [])
     );
@@ -249,12 +264,14 @@ export class UnitSpdStatusParameter {
     os: StatusEffect,
     gear: StatusEffect,
     coreLinkBonus: CoreLinkBonus | Record<string, never>,
-    fullLinkBonus: FullLinkBonus | undefined
+    fullLinkBonus: FullLinkBonus | undefined,
+    rankUpBonus: UnitRankUpBonus | undefined
   ) {
     const _fullLinkBonus: FullLinkBonus | Record<string, never> = fullLinkBonus ?? {};
+    const _rankUpBonus: UnitRankUpBonus | Record<string, never> = rankUpBonus ?? {};
 
     this.spdEffectValue = sumMicroValues(
-      ...pickValues(Effect.SpdUp, Effect.SpdDown)(chip1, chip2, os, gear),
+      ...pickValues(Effect.SpdUp, Effect.SpdDown)(...Object.values(_rankUpBonus), chip1, chip2, os, gear),
       ...('spd_up' in coreLinkBonus ? [coreLinkBonus.spd_up] : []),
       ...('spd_up' in _fullLinkBonus ? [_fullLinkBonus.spd_up] : [])
     );

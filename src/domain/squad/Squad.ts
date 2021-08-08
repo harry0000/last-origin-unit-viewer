@@ -20,19 +20,8 @@ const EmptySquadUnits: SquadUnits = [
 const MaxUnitsInSquad = 5;
 type UnitCountsInSquad = 0 | Sequence<typeof MaxUnitsInSquad>
 
-function positionToIndex(position: TenKeyPosition): IndexInSquad {
-  switch (position) {
-  case 7: return 0;
-  case 8: return 1;
-  case 9: return 2;
-  case 4: return 3;
-  case 5: return 4;
-  case 6: return 5;
-  case 1: return 6;
-  case 2: return 7;
-  case 3: return 8;
-  }
-}
+const positions = [7, 8, 9, 4, 5, 6, 1, 2, 3] as const;
+const positionToIndex = Object.fromEntries(positions.map((p, i) => [p, i])) as { [key in TenKeyPosition]: IndexInSquad };
 
 export class Squad {
 
@@ -40,6 +29,10 @@ export class Squad {
 
   constructor(units?: SquadUnits) {
     this.#units = units ?? EmptySquadUnits;
+  }
+
+  get units(): ReadonlyArray<{ position: TenKeyPosition, unit: UnitBasicInfo }> {
+    return this.#units.flatMap((unit, i) => unit ? { unit, position: positions[i] } : []);
   }
 
   get unitCount(): UnitCountsInSquad {
@@ -75,11 +68,11 @@ export class Squad {
   }
 
   unit(position: TenKeyPosition): UnitBasicInfo | undefined {
-    return this.#units[positionToIndex(position)];
+    return this.#units[positionToIndex[position]];
   }
 
   canAssignUnit(unit: UnitBasicInfo, position: TenKeyPosition): boolean {
-    return this.#findUnit(unit) !== -1 || this.#canAssignUnit(unit, positionToIndex(position));
+    return this.#findUnit(unit) !== -1 || this.#canAssignUnit(unit, positionToIndex[position]);
   }
 
   #canAssignUnit(unit: UnitBasicInfo | undefined, index: IndexInSquad): boolean {
@@ -87,7 +80,7 @@ export class Squad {
   }
 
   assignUnit(unit: UnitBasicInfo, position: TenKeyPosition): Squad {
-    const targetIndex = positionToIndex(position);
+    const targetIndex = positionToIndex[position];
     const unitIndex = this.#findUnit(unit);
     const currentUnit = this.#units[targetIndex];
 

@@ -5,6 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Image } from 'react-bootstrap';
+import UnitRankIcon from '../../common/UnitRankIcon';
 
 import { CoreLinkUnit } from '../../../domain/UnitCoreLink';
 import { UnitNumber, UnitRank, UnitRole, UnitType } from '../../../domain/UnitBasicInfo';
@@ -47,15 +48,14 @@ const PartialFitUnitView: React.FC<{
           '@media (min-width: 480px)': { height: 62, width: 62 }
         }}
       >
-        <Image
-          draggable="false"
+        <UnitRankIcon
           sizes="(max-width: 480px) 24px, (min-width: 480px) 30px"
           css={{
             '@media (max-width: 480px)': { height: 24, width: 24 },
             '@media (min-width: 480px)': { height: 30, width: 30 }
           }}
-          alt={`${t(`unit.rank.${rank}`)} ${t(`unit.role.${role}`)}`}
-          src={`${process.env.PUBLIC_URL}/icon/${rank}_${role}.webp`}
+          rank={rank}
+          role={role}
         />
         <span
           css={{

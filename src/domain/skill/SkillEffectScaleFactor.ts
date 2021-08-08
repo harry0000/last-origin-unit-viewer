@@ -1,6 +1,6 @@
 import { SkillEffectTag } from './SkillEffectTag';
 import { UnitAlias } from '../UnitAlias';
-import { UnitKind } from '../UnitBasicInfo';
+import { UnitKind, UnitType } from '../UnitBasicInfo';
 
 export type SkillEffectScaleFactor =
   {
@@ -9,5 +9,9 @@ export type SkillEffectScaleFactor =
     }
   } |
   {
-    num_of_units: 'ally' | UnitKind | typeof UnitAlias.ElectricActive
+    num_of_units:
+      'ally' |
+      UnitKind |
+      typeof UnitType.Light |
+      typeof UnitAlias['ElectricActive' | 'SteelLine' | 'AngerOfHorde' | 'MongooseTeam' | 'TomosFriends' | 'CityGuard']
   }

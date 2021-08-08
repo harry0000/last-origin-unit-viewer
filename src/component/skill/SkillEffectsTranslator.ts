@@ -4,6 +4,7 @@ import { NonNullableEntry } from '../../util/object';
 import { AroundSkillEffectValue, SkillEffectValue } from '../../domain/skill/UnitSkills';
 import { Effect } from '../../domain/Effect';
 import { calcValue, MilliPercentageValue } from '../../domain/ValueUnit';
+import { isFormChangeUnitNumber, UnitForms } from '../../domain/UnitFormValue';
 
 export type SkillEffectDetailsEntry =
   NonNullableEntry<keyof SkillEffectValue, SkillEffectValue> |
@@ -100,6 +101,17 @@ export function translateSkillEffectDetails(
       detail: t(`effect:effect.description.${entry[0]}`, { times: entry[1].times }),
       term
     };
+  case Effect.CooperativeAttack: {
+    const { unit, active } = entry[1];
+    return {
+      tag: getTag(entry[1], t),
+      detail:
+        isFormChangeUnitNumber(unit) ?
+          t('effect:effect.description.cooperative_attack_form_active', { unit, no: active, form: UnitForms[unit].default }) :
+          t('effect:effect.description.cooperative_attack', { unit, no: active }),
+      term
+    };
+  }
   case Effect.Push:
   case Effect.Pull:
   case Effect.RangeUp:

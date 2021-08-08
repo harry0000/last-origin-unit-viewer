@@ -50,6 +50,7 @@ export type MilliPercentageEffectKey =
     IntegerValueEffectKey |
     MicroValueEffectKey |
     typeof Effect[
+      'CooperativeAttack' |
       'EffectRemoval' |
       'PreventsEffect' |
       'ActivationRatePercentageUp' |

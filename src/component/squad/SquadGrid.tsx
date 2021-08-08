@@ -7,12 +7,13 @@ import { useTranslation } from 'react-i18next';
 import { Image } from 'react-bootstrap';
 
 import { TenKeyPosition } from '../../domain/squad/Squad';
-import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
+import { UnitBasicInfo, UnitRank } from '../../domain/UnitBasicInfo';
 
 import { useIgnoreSquadUnitDrop, useSquad, useSquadUnitDrag } from '../../state/squad/squadState';
-import { useUnit } from '../../state/selector/unitSelectorState';
+import { useSquadUnit } from '../../state/selector/unitSelectorState';
 import { useUnitDamagedState } from '../../state/status/unitDamagedState';
 import { ifTruthy } from '../../util/react';
+import UnitRankIcon from '../common/UnitRankIcon';
 
 export const UnitTile: React.FC<{
   unit: UnitBasicInfo,
@@ -21,7 +22,7 @@ export const UnitTile: React.FC<{
   const { t } = useTranslation();
   const dragRef = useSquadUnitDrag(unit);
   const [damaged] = useUnitDamagedState(unit);
-  const [unitName, selected, selectUnit] = useUnit(unit);
+  const [unitName, rank, iconSrc, selected, selectUnit] = useSquadUnit(unit);
 
   const borderColor = isHoveringUnit ?
     'rgba(255, 255, 136, 0.9)' :
@@ -46,7 +47,18 @@ export const UnitTile: React.FC<{
         height={80}
         width={80}
         alt={unitName}
-        src={`${process.env.PUBLIC_URL}/unit_icon/${unit.no}.webp`}
+        src={iconSrc}
+      />
+      <UnitRankIcon
+        css={{
+          position: 'absolute',
+          top: -4,
+          left: -4
+        }}
+        height={32}
+        width={rank === UnitRank.SS ? 40 : 32}
+        rank={rank}
+        role={unit.role}
       />
       {ifTruthy(
         damaged,

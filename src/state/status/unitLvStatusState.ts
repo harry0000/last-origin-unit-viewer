@@ -18,7 +18,7 @@ import {
 } from '../../domain/status/StatusEffect';
 import { UnitLvMode, UnitLvValue } from '../../domain/status/UnitLv';
 import UnitLvStatus from '../../domain/status/UnitLvStatus';
-import { UnitNumber } from '../../domain/UnitBasicInfo';
+import { UnitNumber, UnitRank } from '../../domain/UnitBasicInfo';
 
 import {
   updateChip1EquipmentDependency,
@@ -27,6 +27,13 @@ import {
   updateOsEquipmentDependency
 } from '../equipment/unitEquipmentState';
 import { updateCoreLinkDependency } from '../corelink/unitCoreLinkState';
+import UnitRankState, { availableUnitRanks, getUnitDefaultRank, RankUpAvailableLv } from '../../domain/status/UnitRankState';
+import {
+  isRankUpUnitNumber,
+  RankUpUnitNumber,
+  UnitRankUpBonus
+} from '../../domain/status/UnitRankUpBonusData';
+import deepEqual from 'fast-deep-equal';
 
 type Status = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri'
 type StatusKey = `${Capitalize<Status>}`
@@ -41,6 +48,8 @@ type StatusEffect<T extends StatusKey> =
   T extends 'Eva' ? EvaEnhancementStatusEffect :
   T extends 'Cri' ? CriEnhancementStatusEffect :
     never
+
+type UnitRankUpEnabled = Record<Exclude<UnitRank, typeof UnitRank.B>, boolean>
 
 function createUnitStatusLvState<T extends StatusKey>(statusKey: T) {
   return {
@@ -85,7 +94,27 @@ const unitLvStateAtoms = {
   def: createUnitStatusLvState('Def'),
   acc: createUnitStatusLvState('Acc'),
   eva: createUnitStatusLvState('Eva'),
-  cri: createUnitStatusLvState('Cri')
+  cri: createUnitStatusLvState('Cri'),
+  rank: atomFamily<UnitRank, RankUpUnitNumber>({
+    key: '_unitRankState',
+    default: (unit) => getUnitDefaultRank(unit)
+  }),
+  rankEnabled: atomFamily<UnitRankUpEnabled, RankUpUnitNumber>({
+    key: '_unitRankEnabledState',
+    default: (unit) => {
+      const defaultValue = { [UnitRank.A]: false, [UnitRank.S]: false, [UnitRank.SS]: false };
+      const defaultRank = getUnitDefaultRank(unit);
+      if (defaultRank !== UnitRank.B) {
+        defaultValue[defaultRank] = true;
+      }
+
+      return defaultValue;
+    }
+  }),
+  rankUpBonus: atomFamily<UnitRankUpBonus | undefined, RankUpUnitNumber>({
+    key: '_unitRankUpBonusState',
+    default: undefined
+  })
 };
 
 export const unitLvState = selectorFamily<UnitLvValue, UnitNumber>({
@@ -123,6 +152,16 @@ export const unitCriEnhancementStatusEffectState = selectorFamily<CriEnhancement
   get: (unit) => ({ get }) => get(unitLvStateAtoms.cri.statusEffect(unit))
 });
 
+export const unitRankUpBonusEffectState = selectorFamily<UnitRankUpBonus | undefined, UnitNumber>({
+  key: 'unitRankUpBonusEffectState',
+  get: (unit) => ({ get }) => isRankUpUnitNumber(unit) ? get(unitLvStateAtoms.rankUpBonus(unit)) : undefined
+});
+
+const unitCurrentRankState = selectorFamily<UnitRank, UnitNumber>({
+  key: 'unitCurrentRankState',
+  get: (unit) => ({ get }) => isRankUpUnitNumber(unit) ? get(unitLvStateAtoms.rank(unit)) : getUnitDefaultRank(unit)
+});
+
 const updateUnitLvDependency = selectorFamily<UnitLvValue, UnitNumber>({
   key: 'updateUnitLvDependency',
   get: () => () => { throw new Error(); },
@@ -143,7 +182,7 @@ const _unitLvStatusState = atomFamily<UnitLvStatus, UnitNumber>({
 const unitLvStatusState = selectorFamily<UnitLvStatus, UnitNumber>({
   key: 'unitLvStatusState',
   get: (unit) => ({ get }) => get(_unitLvStatusState(unit)),
-  set: (unit) => ({ set }, newValue) => {
+  set: (unit) => ({ get, set }, newValue) => {
     if (newValue instanceof UnitLvStatus) {
       set(unitLvStateAtoms.lv(unit), newValue.lv);
       set(unitLvStateAtoms.lvMode(unit), newValue.lvMode);
@@ -177,6 +216,26 @@ const unitLvStatusState = selectorFamily<UnitLvStatus, UnitNumber>({
       set(unitLvStateAtoms.acc.statusEffect(unit), newValue.accStatusEffect);
       set(unitLvStateAtoms.eva.statusEffect(unit), newValue.evaStatusEffect);
       set(unitLvStateAtoms.cri.statusEffect(unit), newValue.criStatusEffect);
+
+      if (isRankUpUnitNumber(unit)) {
+        set(unitLvStateAtoms.rank(unit), newValue.rank);
+
+        const prevEnabled = get(unitLvStateAtoms.rankEnabled(unit));
+        const nextEnabled: UnitRankUpEnabled = {
+          [UnitRank.A]: newValue.isRankEnabled(UnitRank.A),
+          [UnitRank.S]: newValue.isRankEnabled(UnitRank.S),
+          [UnitRank.SS]: newValue.isRankEnabled(UnitRank.SS)
+        };
+        if (!deepEqual(prevEnabled, nextEnabled)) {
+          set(unitLvStateAtoms.rankEnabled(unit), nextEnabled);
+        }
+
+        const prevBonus = get(unitLvStateAtoms.rankUpBonus(unit));
+        const nextBonus = newValue.rankUpBonus;
+        if (!deepEqual(prevBonus, nextBonus)) {
+          set(unitLvStateAtoms.rankUpBonus(unit), nextBonus);
+        }
+      }
 
       set(_unitLvStatusState(unit), newValue);
 
@@ -246,6 +305,40 @@ export function useStatusParameterDecrement(parameter: EnhanceableStatus, unit: 
   case 'eva': return [!useRecoilValue(unitLvStateAtoms.eva.canDecrement(unit)), () => { setter(s => s.downEvaLv()); }];
   case 'cri': return [!useRecoilValue(unitLvStateAtoms.cri.canDecrement(unit)), () => { setter(s => s.downCriLv()); }];
   }
+}
+
+export function useUnitRank(unit: RankUpUnitNumber): [
+  currentRank: UnitRank,
+  setRank: (rank: UnitRank) => void,
+  rankItems: ReadonlyArray<{ rank: UnitRank, availableLv?: RankUpAvailableLv, disabled: boolean }>
+] {
+  const currentRank = useRecoilValue(unitLvStateAtoms.rank(unit));
+  const rankEnabled = useRecoilValue(unitLvStateAtoms.rankEnabled(unit));
+  const setter = useSetRecoilState(unitLvStatusState(unit));
+
+  const rankItems = availableUnitRanks(unit).map(rank => {
+    const availableLv = rank !== UnitRank.B ? UnitRankState.rankUpAvailableLv(rank) : undefined;
+    const disabled    = rank !== UnitRank.B ? !rankEnabled[rank] : false;
+    return {
+      rank,
+      availableLv,
+      disabled
+    };
+  });
+
+  return [
+    currentRank,
+    rank => { setter(s => s.changeRank(rank)); },
+    rankItems
+  ];
+}
+
+export function useUnitCurrentRank(unit: UnitNumber): UnitRank {
+  return useRecoilValue(unitCurrentRankState(unit));
+}
+
+export function useRankUpBonusEffect(unit: UnitNumber): UnitRankUpBonus | undefined {
+  return useRecoilValue(unitRankUpBonusEffectState(unit));
 }
 
 const unitLvStatusRestore = selector<ReadonlyArray<UnitLvStatus>>({
