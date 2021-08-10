@@ -152,6 +152,11 @@
       "revive": "戦闘続行発動時",
       "moved": "移動時"
     },
+    "round": {
+      "at": "{{round}}ラウンド目の",
+      "from": "{{round}}ラウンド目以降、",
+      "until": "{{round}}ラウンド目まで、"
+    },
     "state": {
       "hp_greater_or_equal": "HP{{value}}%以上である",
       "hp_less_or_equal": "HP{{value}}%以下である",

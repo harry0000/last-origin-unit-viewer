@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 
@@ -225,12 +225,27 @@ const StateView: React.FC<{
   );
 };
 
+const buildSkillEffectTriggerView = (condition: SkillEffectActivationCondition, t: TFunction): ReactElement | null => {
+  if (!('trigger' in condition)) {
+    return null;
+  }
+
+  return condition.trigger === 'start_round' ?
+    (
+      <span>
+        {condition.round ? t('effect:condition.round.until', { round: condition.round.until }) : ''}
+        {t('effect:condition.trigger.start_round')}
+      </span>
+    ) :
+    (<span>{t(`effect:condition.trigger.${condition.trigger}`)}</span>);
+};
+
 const SkillEffectConditionRow: React.FC<{
   condition: SkillEffectActivationCondition,
   unitNumber: UnitNumber
 }> = ({ condition, unitNumber }) => {
   const { t } = useTranslation();
-  const trigger = 'trigger' in condition ? (<span>{t(`effect:condition.trigger.${condition.trigger}`)}</span>) : null;
+  const trigger = buildSkillEffectTriggerView(condition, t);
   const state = 'state' in condition ? (<StateView state={condition.state} unitNumber={unitNumber} />) : null;
 
   return (

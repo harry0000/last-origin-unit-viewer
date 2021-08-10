@@ -20,7 +20,7 @@ export type UnitAlias = typeof UnitAlias[keyof typeof UnitAlias]
 
 export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> } = {
   // TODO: Add 179: Sadius
-  [UnitAlias.ElectricActive]: new Set([6, 11, 75, 84, 113, 115, 132, 201, 221]),
+  [UnitAlias.ElectricActive]: new Set([6, 11, 75, 84, 113, 115, 132, 174, 201, 221]),
   [UnitAlias.ArtilleryTypeActive]: new Set([22, 51, 202]),
   [UnitAlias.Squad21]: new Set([2, 3, 85, 92, 118, 121]),
   [UnitAlias.CompanionSeries]: new Set([16, 17, 18, 19, 183]),

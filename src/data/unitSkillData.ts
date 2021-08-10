@@ -9662,6 +9662,76 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  174: {
+    no: 174,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 168000 },
+        per_lv_up: { milliPercentage: 14500 },
+        attribute: 'electric'
+      },
+      range: 2,
+      cost: 5,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'attack' }],
+        details: { self: { anti_heavy_type: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        details: { self: { additional_electric_damage: { base: { milliPercentage: 16500 }, per_lv_up: { milliPercentage: 1500 } } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 143000 },
+        per_lv_up: { milliPercentage: 13000 },
+        attribute: 'electric'
+      },
+      range: 5,
+      cost: 7,
+      area: 'row_toward_front',
+      effects: [{
+        details: {
+          self: { ignore_protect: {} },
+          target: {
+            ap_down: { base: { microValue: 165000 }, per_lv_up: { microValue: 15000 }, term: 'immediate' },
+            eva_down: { base: { milliPercentage: 11500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            electric_resist_down: { base: { milliPercentage: 22000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ state: { target: [{ effected: 'fire_resist_down' }, { effected: 'ice_resist_down' }] } }],
+        details: { target: { additional_electric_damage: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 } } } }
+      }]
+    }],
+    passive: [{
+      area: 'single_and_back',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          target: {
+            eva_up: { base: { milliPercentage: 11500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 4 } }
+          }
+        }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { electric_resist_up: { base: { milliPercentage: 22000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'kill' }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } },
+            ap_up: { base: { microValue: 600000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' }
+          }
+        }
+      }]
+    }]
+  },
   175: {
     no: 175,
     active: [{
@@ -10790,6 +10860,157 @@ export const unitSkillData: UnitSkillData = {
             cri_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 } }
           }
         }
+      }]
+    }]
+  },
+  226: {
+    no: 226,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 126500 },
+        per_lv_up: { milliPercentage: 11500 }
+      },
+      range: 3,
+      cost: 6,
+      area: 'row_toward_front',
+      effects: [{
+        details: {
+          target: {
+            damage_taken_increased: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
+            spd_down: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
+            immovable: { term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 180500 },
+        per_lv_up: { milliPercentage: 16000 }
+      },
+      range: 5,
+      cost: 9,
+      area: 'cross',
+      effects: [{
+        details: {
+          target: {
+            ap_down: { base: { microValue: 600000 }, per_lv_up: { microValue: 100000 } },
+            silenced: { rate: 'rarely' }
+          }
+        }
+      }, {
+        conditions: [{ state: { target: [{ effected: 'immovable' }] } }],
+        details: { target: { activation_rate_percentage_up: { effect: 'silenced', milliPercentage: 100000 } } }
+      }, {
+        conditions: [{ state: { target: [{ unit: 'light' }] } }],
+        details: {
+          target: {
+            atk_down: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
+            acc_down: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ state: { target: [{ unit: 'flying' }] } }],
+        details: {
+          target: {
+            eva_down: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
+            spd_down: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ state: { target: [{ unit: 'heavy' }] } }],
+        details: {
+          target: {
+            atk_down: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
+            def_down: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'all_adjacent',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'light' }] } }],
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'flying' }] } }],
+        details: {
+          target: {
+            eva_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'heavy' }] } }],
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            def_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'ags' }] } }],
+        details: { target: { defense_penetration: { base: { milliPercentage: 13000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', round: { until: 4 } }],
+        details: {
+          self: {
+            barrier: { value: 250, term: { for_rounds: 1 } },
+            def_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { until: 3 } }],
+        details: {
+          self: {
+            barrier: { value: 250, term: { for_rounds: 1 } },
+            def_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { until: 2 } }],
+        details: {
+          self: {
+            barrier: { value: 250, term: { for_rounds: 1 } },
+            def_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { until: 1 } }],
+        details: {
+          self: {
+            barrier: { value: 250, term: { for_rounds: 1 } },
+            def_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { target: [{ effected: 'atk_down' }] } }],
+        details: { target: { atk_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ effected: 'def_down' }] } }],
+        details: { target: { def_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ effected: 'acc_down' }] } }],
+        details: { target: { acc_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ effected: 'cri_down' }] } }],
+        details: { target: { cri_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ effected: 'eva_down' }] } }],
+        details: { target: { eva_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ effected: 'spd_down' }] } }],
+        details: { target: { spd_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
       }]
     }]
   }
