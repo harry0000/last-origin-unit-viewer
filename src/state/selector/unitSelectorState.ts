@@ -8,7 +8,7 @@ import UnitSelector from '../../domain/selector/UnitSelector';
 import { unitBasicData } from '../../data/unitBasicData';
 import { unitSkillData } from '../../data/unitSkillData';
 import { unitSkillTabState } from '../ui/unitSkillTabState';
-import { useUnitCurrentRank, useUnitRank } from '../status/unitLvStatusState';
+import { useUnitCurrentRank } from '../status/unitLvStatusState';
 import { buildUnitTileIconSrcUrl } from '../../service/UnitIconSrcUrlBuilder';
 
 const selectorAtoms = {
