@@ -4,6 +4,7 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 
 import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import UnitRankIcon from '../common/UnitRankIcon';
 
 import type { UnitBasicInfo, UnitRole } from '../../domain/UnitBasicInfo';
 import { UnitRank } from '../../domain/UnitBasicInfo';
@@ -18,13 +19,12 @@ const Badge: React.FC<{ rank: UnitRank, role: UnitRole }> = React.memo(({ rank, 
   const [height, width] = isRankSS ? [45, 52] : [40, 40];
 
   return (
-    <Image
+    <UnitRankIcon
       className={isRankSS ? 'unit-badge ss' : 'unit-badge'}
-      draggable="false"
       height={height}
       width={width}
-      alt={`${rank} ${role}`}
-      src={`${process.env.PUBLIC_URL}/icon/${rank}_${role}.webp`}
+      rank={rank}
+      role={role}
     />
   );
 });

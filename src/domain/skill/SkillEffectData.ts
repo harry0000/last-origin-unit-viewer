@@ -10,11 +10,14 @@ import { SkillEffectTerm, SkillEffectTermRoundsValue } from './SkillEffectTerm';
 import { SkillEffectTimesValue } from './SkillEffectTimesValue';
 import { SkillEffective } from './SkillEffective';
 import { UnitForms } from '../UnitFormValue';
+import { UnitNumber } from '../UnitBasicInfo';
 import {
   EquipmentEffectOnly,
   IntegerValueEffectKey,
   MicroValueEffectKey,
-  MilliPercentageEffectKey, NoValueEffectKey, PushPullEffectKey,
+  MilliPercentageEffectKey,
+  NoValueEffectKey,
+  PushPullEffectKey,
   RangeUpDownEffectKey
 } from './SkillEffect';
 
@@ -61,6 +64,8 @@ export type SkillEffectDataValue = Readonly<{
   [E in Exclude<Effect, EquipmentEffectOnly>]?:
     E extends NoValueEffectKey ?
       SkillEffectAddition :
+    E extends typeof Effect.CooperativeAttack ?
+      { unit: UnitNumber, active: 1 | 2 } & SkillEffectAddition :
     E extends PushPullEffectKey ?
       IntegerValue<1 | 2> & SkillEffectAddition :
     E extends RangeUpDownEffectKey ?
@@ -81,7 +86,7 @@ export type SkillEffectDataValue = Readonly<{
     E extends typeof Effect.PreventsEffect ?
       { effect: Effect } & SkillEffectAddition :
     E extends typeof Effect.ActivationRatePercentageUp ?
-      { effect: Effect } & EffectValue<'milliPercentage'> & SkillEffectAddition :
+      { effect: Effect } & ValueWithAddition<'milliPercentage'> :
     E extends typeof Effect['TagStack' | 'TagRelease'] ?
       { tag: SkillEffectTag } & Omit<SkillEffectAddition, 'tag'> :
     E extends typeof Effect.TagUnstack ?

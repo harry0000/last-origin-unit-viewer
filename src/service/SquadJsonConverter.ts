@@ -36,10 +36,9 @@ function convertUnit(
   affection: UnitAffection | undefined,
   damaged: UnitDamagedState
 ): SquadJsonStructure[0][number] {
-  // FIXME: implement rank up
   const info: UnitInfoJsonStructure = [
     unit.no,
-    unit.rank,
+    unitLvStatus.rank,
     affection?.isAffectionBonusEnabled ? 1 : 0,
     damaged.isDamaged ? 1 : 0
   ];

@@ -797,6 +797,13 @@ export const unitBasicData = {
     type: 'heavy',
     role: 'defender'
   },
+  174: {
+    no: 174,
+    kind: 'bioroid',
+    rank: 's',
+    type: 'flying',
+    role: 'attacker'
+  },
   175: {
     no: 175,
     kind: 'bioroid',
@@ -943,5 +950,12 @@ export const unitBasicData = {
     rank: 's',
     type: 'light',
     role: 'attacker'
+  },
+  226: {
+    no: 226,
+    kind: 'ags',
+    rank: 'ss',
+    type: 'heavy',
+    role: 'supporter'
   }
 } as const;

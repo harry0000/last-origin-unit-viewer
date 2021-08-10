@@ -1,7 +1,11 @@
 .btn.btn-toggle {
   font-weight: bold;
   font-size: 0.9em;
+  border: 2px solid transparent;
   border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 5px;
   width: 100%;
 }
 
@@ -10,11 +14,7 @@
   border-radius: 5px;
 }
 
-.btn-toggle {
-  border: 2px solid transparent;
-}
-
-.btn-toggle:not(.disabled):hover {
+.btn.btn-toggle:not(.disabled):hover {
   border: 2px solid #00fff0;
   border-radius: 5px;
 }
@@ -32,8 +32,4 @@
 .btn-toggle:not(:disabled):not(.disabled) {
   color: #e0e0e0;
   background-color: #514E55;
-}
-
-label.btn-toggle {
-  padding: 3px 5px;
 }

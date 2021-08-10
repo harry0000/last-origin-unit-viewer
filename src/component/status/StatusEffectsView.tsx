@@ -17,7 +17,7 @@ import {
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
 import { useSelectedUnit } from '../../state/selector/unitSelectorState';
-import { useStatusEffects } from '../../hook/status/StatusEffects';
+import { useStatusEffects } from '../../state/status/unitStatusEffects';
 import { useStatusEffectsSummary } from '../../state/status/unitStatusParameterState';
 
 export type EffectedParameter = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri' | 'spd' | 'fireResist' | 'iceResist' | 'electricResist'

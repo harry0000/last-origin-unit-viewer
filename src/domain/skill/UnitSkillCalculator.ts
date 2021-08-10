@@ -107,10 +107,10 @@ function calculateApCost(data: SkillApCostData['cost'], lv: SkillLv): SkillApCos
   } else {
     if (lv === 1) {
       return data[1];
-    } else if (lv < 10) {
-      return data[2];
-    } else {
+    } else if (lv === 10 && '10' in data) {
       return data[10];
+    } else {
+      return data[2];
     }
   }
 }
@@ -279,6 +279,14 @@ function calculateEffectValue(
   case Effect.TagRelease:
     // HACK: tag property of 'TagStack' and 'TagRelease' is calculated as addition.
     return { [entry[0]]: calculateAddition(entry[1], lv) };
+  case Effect.CooperativeAttack:
+    return {
+      [entry[0]]: {
+        ...calculateAddition(entry[1], lv),
+        unit: entry[1].unit,
+        active: entry[1].active
+      }
+    };
   case Effect.Push:
   case Effect.Pull:
     return {
@@ -316,7 +324,7 @@ function calculateEffectValue(
       [entry[0]]: {
         ...calculateAddition(entry[1], lv),
         effect: entry[1].effect,
-        milliPercentage: entry[1].milliPercentage
+        ...calculateDataValue('milliPercentage', entry[1], effectLv)
       }
     };
   case Effect.FormChange:

@@ -29,6 +29,7 @@ import {
 import { useUnitCoreLinkResolver, useUnitCoreLinkRestore } from '../corelink/unitCoreLinkState';
 import { useUnitDamagedStateResolver, useUnitDamagedStateRestore } from '../status/unitDamagedState';
 import { useUnitLvStatusResolver, useUnitLvStatusRestore } from '../status/unitLvStatusState';
+import { useUnitSelector } from '../selector/unitSelectorState';
 import { useUnitSkillResolver, useUnitSkillRestore } from '../skill/unitSkillState';
 
 import { useNotificationResister } from '../ui/notificationState';
@@ -209,7 +210,7 @@ export function useSquadShareModal(): [modalShow: boolean, hideModal: () => void
   const getSquadJson = useSquadJson();
   const [modalShow, setModalShow] = useRecoilState(squadShareModalShowAtom);
 
-  const [shareUrl, setShareUrl] = useState<string | undefined>(undefined);
+  const [shareUrl, setShareUrl] = useState<string>('');
 
   useEffect(() => {
     if (modalShow) {
@@ -221,12 +222,12 @@ export function useSquadShareModal(): [modalShow: boolean, hideModal: () => void
           })
           .catch(e => {
             console.error(e);
-            setShareUrl(undefined);
+            setShareUrl('');
             notify('error_while_generating_squad_url');
           });
       }
     } else {
-      setShareUrl(undefined);
+      setShareUrl('');
     }
   }, [modalShow]);
 
@@ -268,6 +269,7 @@ export function useSquadShareToTwitter(url?: string): () => void {
 }
 
 export function useSquadRestoreFromUrl(): boolean {
+  const selectUnit = useUnitSelector();
   const [restoring, setRestoring] = useState(false);
 
   const notify = useNotificationResister();
@@ -303,6 +305,8 @@ export function useSquadRestoreFromUrl(): boolean {
           skillRestore(restored.skill);
           affectionRestore(restored.affection);
           damagedRestore(restored.damaged);
+
+          selectUnit(restored.squad.units[0]?.unit);
 
           notify('restore_squad_units');
         }

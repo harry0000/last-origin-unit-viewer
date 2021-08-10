@@ -175,8 +175,8 @@ const SkillPane: React.FC<{ eventKey: SkillType }> = ({ eventKey }) => {
                             <SkillRangeView skillType={eventKey} unit={unit} />
                           </Col>
                           <Col xs={{ order: 3, span: 12 }} sm={{ order: 1, span: 12 }}>
-                            <RankUpSkillBadge skillType={eventKey} unit={unit} />
                             <FormChangeSkillBadge skillType={eventKey} unit={unit} />
+                            <RankUpSkillBadge skillType={eventKey} unit={unit} />
                           </Col>
                         </Row>
                       </NestedContainer>

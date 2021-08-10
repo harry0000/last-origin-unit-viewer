@@ -1,22 +1,11 @@
-import { UnitBasicInfo } from '../UnitBasicInfo';
-import { availableRanksPerUnit } from '../UnitRankValue';
+import { UnitBasicInfo, UnitRank, UnitRankComparator } from '../UnitBasicInfo';
+import { getUnitMaxRank } from '../status/UnitRankState';
 import { Sequence } from '../../util/type';
 
 export type SkillLv = Sequence<10>
 
 function validLv(lv: number): boolean {
   return 0 < lv && lv <= 10;
-}
-
-function checkAvailablePassive(unit: UnitBasicInfo): number {
-  return availableRanksPerUnit[unit.no].reduce((acc, v) => {
-    switch (v) {
-    case 'ss': return 3;
-    case 's': return Math.max(2, acc);
-    case 'a': return Math.max(1, acc);
-    case 'b': return Math.max(0, acc);
-    }
-  }, 0);
 }
 
 class UnitSkillLvValue {
@@ -42,10 +31,10 @@ class UnitSkillLvValue {
     this.active1Lv = active1Lv ?? 10;
     this.active2Lv = active2Lv ?? 10;
 
-    const availablePassives = checkAvailablePassive(unit);
-    this.passive1Lv = availablePassives >= 1 ? passive1Lv ?? 10 : undefined;
-    this.passive2Lv = availablePassives >= 2 ? passive2Lv ?? 10 : undefined;
-    this.passive3Lv = availablePassives >= 3 ? passive3Lv ?? 10 : undefined;
+    const maxRank = getUnitMaxRank(unit.no);
+    this.passive1Lv = UnitRankComparator[maxRank].greaterThan(UnitRank.B) ? passive1Lv ?? 10 : undefined;
+    this.passive2Lv = UnitRankComparator[maxRank].greaterThan(UnitRank.A) ? passive2Lv ?? 10 : undefined;
+    this.passive3Lv = UnitRankComparator[maxRank].greaterThan(UnitRank.S) ? passive3Lv ?? 10 : undefined;
   }
 
   setActive1Lv(lv: SkillLv): UnitSkillLvValue {

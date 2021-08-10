@@ -12,6 +12,16 @@ export type UnitTypeAndRole = {
   role: UnitRole
 }
 
+export type UnitAliasAndType = {
+  alias: UnitAlias,
+  type: UnitType
+}
+
+export type UnitAliasAndRole = {
+  alias: UnitAlias,
+  role: UnitRole
+}
+
 type HPRateEffectActivationStateKey =
   typeof EffectActivationState['HpGreaterOrEqual' | 'HpLessOrEqual' | 'HpGreaterThan' | 'HpLessThan']
 
@@ -20,7 +30,6 @@ type NoValueEffectActivationStateKey =
     EffectActivationState,
     HPRateEffectActivationStateKey |
     typeof EffectActivationState[
-      'HpRateLessThanSelf' |
       'Effected' |
       'Tagged' |
       'StackGe' |
@@ -68,13 +77,11 @@ export type ActivationSelfState =
 export type ActivationTargetState =
   ActivationState &
   {
-    [EffectActivationState.HpRateLessThanSelf]?: Record<string, never>
-  } &
-  {
     [EffectActivationState.EffectedBy]?: UnitNumber | UnitAlias
   } &
   {
-    [EffectActivationState.Unit]?: UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitNumber | UnitAlias
+    [EffectActivationState.Unit]?:
+      UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitNumber | UnitAlias
   }
 
 export type ActivationSquadState = {
@@ -90,10 +97,14 @@ export type SkillEffectActivationState =
     target: ReadonlyArray<ActivationTargetState>
   }
 
+export type SkillEffectActivationTrigger = {
+  trigger: typeof EffectTrigger.StartRound,
+  round?: { until: 1 | 2 | 3 | 4 }
+} | {
+  trigger: Exclude<EffectTrigger, typeof EffectTrigger.StartRound>
+}
+
 export type SkillEffectActivationCondition =
-  { trigger: EffectTrigger } |
+  SkillEffectActivationTrigger |
   { state: SkillEffectActivationState } |
-  {
-    trigger: EffectTrigger,
-    state: SkillEffectActivationState
-  }
+  SkillEffectActivationTrigger & { state: SkillEffectActivationState }

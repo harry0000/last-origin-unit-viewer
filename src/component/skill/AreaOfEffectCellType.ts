@@ -82,6 +82,14 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
     select: 6,
     area: ['none', 'none', 'none', 'effective', 'effective', 'effective', 'none', 'none', 'none']
   },
+  [SkillAreaType.SelfAndRowAdjacent]: {
+    select: 5,
+    area: ['none', 'none', 'none', 'effective', 'effective', 'effective', 'none', 'none', 'none']
+  },
+  [SkillAreaType.LineWithFront]: {
+    select: 5,
+    area: ['none', 'effective', 'none', 'none', 'effective', 'effective', 'none', 'effective', 'none']
+  },
   [SkillAreaType.LineWithFrontLine]: {
     select: 5,
     area: ['none', 'effective', 'effective', 'none', 'effective', 'effective', 'none', 'effective', 'effective']
@@ -93,6 +101,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
   [SkillAreaType.LineWithBackward]: {
     select: 6,
     area: ['none', 'none', 'effective', 'effective', 'effective', 'effective', 'none', 'none', 'effective']
+  },
+  [SkillAreaType.SelfAndLeftDirection]: {
+    select: 2,
+    area: ['none', 'effective', 'none', 'none', 'effective', 'none', 'none', 'effective', 'none']
   },
   [SkillAreaType.Cross]: {
     select: 5,

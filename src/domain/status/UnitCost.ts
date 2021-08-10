@@ -62,8 +62,6 @@ const UnitCostMap = {
   }
 } as const;
 
-type CoreLinkCount = 1 | 2 | 3 | 4 | 5
-
 type SSRankInitialCostValue = keyof typeof UnitCostMap[typeof UnitRank.SS]
 type SRankInitialCostValue  = keyof typeof UnitCostMap[typeof UnitRank.S]
 type ARankInitialCostValue  = keyof typeof UnitCostMap[typeof UnitRank.A]
@@ -138,13 +136,14 @@ const InitialUnitCost = {
   ags: {
     ss: {
       light: {
-        // attacker:  { part: 32, nutrient: 0, power: 27 },
-        supporter: { part: 32, nutrient: 0, power: 16 }
+        attacker:  { part: 32, nutrient: 0, power: 27 },
+        defender:  { part: 43, nutrient: 0, power: 16 },
+        supporter: { part: 32, nutrient: 0, power: 16 },
       },
       heavy: {
-        attacker:  { part: 43, nutrient: 0, power: 38 }
-      //   supporter: { part: 43, nutrient: 0, power: 27 },
-      //   defender:  { part: 54, nutrient: 0, power: 27 }
+        attacker:  { part: 43, nutrient: 0, power: 38 },
+        // defender:  { part: 54, nutrient: 0, power: 27 },
+        supporter: { part: 43, nutrient: 0, power: 27 }
       },
       flying: {
         attacker:  { part: 27, nutrient: 0, power: 43 },
@@ -154,17 +153,18 @@ const InitialUnitCost = {
     s: {
       light: {
         attacker:  { part: 26, nutrient: 0, power: 22 },
-        // defender:  { part: 35, nutrient: 0, power: 13 },
-        // supporter: { part: 26, nutrient: 0, power: 13 }
+        defender:  { part: 35, nutrient: 0, power: 13 },
+        supporter: { part: 26, nutrient: 0, power: 13 }
       },
       heavy: {
-        // attacker:  { part: 35, nutrient: 0, power: 31 },
-        defender:  { part: 44, nutrient: 0, power: 22 }
+        attacker:  { part: 35, nutrient: 0, power: 31 },
+        defender:  { part: 44, nutrient: 0, power: 22 },
+        supporter: { part: 35, nutrient: 0, power: 22 }
       }
     },
     a: {
       light: {
-        // attacker:  { part: 20, nutrient: 0, power: 16 },
+        attacker:  { part: 20, nutrient: 0, power: 16 },
         defender:  { part: 26, nutrient: 0, power: 10 },
         supporter: { part: 20, nutrient: 0, power: 10 }
       },

@@ -27,6 +27,7 @@ import {
   MilliPercentageEffectKey, NoValueEffectKey, PushPullEffectKey,
   RangeUpDownEffectKey
 } from './SkillEffect';
+import { UnitNumber } from '../UnitBasicInfo';
 
 type SkillEffectAddition = Readonly<{
   tag?: SkillEffectTag,
@@ -48,6 +49,8 @@ export type SkillEffectValue = Readonly<{
   [E in Exclude<Effect, EquipmentEffectOnly>]?:
     E extends NoValueEffectKey ?
       SkillEffectAddition :
+    E extends typeof Effect.CooperativeAttack ?
+      { unit: UnitNumber, active: 1 | 2 } & SkillEffectAddition :
     E extends PushPullEffectKey | RangeUpDownEffectKey ?
       IntegerValue<1 | 2> & SkillEffectAddition :
     E extends IntegerValueEffectKey ?
