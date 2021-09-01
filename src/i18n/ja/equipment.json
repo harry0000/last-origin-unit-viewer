@@ -17,7 +17,7 @@
     "gear": "補助装備"
   },
   "accuracy_chip": "演算強化回路",
-  "accuracy_chip_beta": "",
+  "accuracy_chip_beta": "演算強化回路ベータ",
   "action_chip": "回路最適化",
   "action_chip_beta": "",
   "assault_chip": "出力増幅回路",
@@ -26,7 +26,7 @@
   "critical_chip": "分析回路",
   "critical_chip_beta": "分析回路ベータ",
   "defense_chip": "耐衝撃回路",
-  "defense_chip_beta": "",
+  "defense_chip_beta": "耐衝撃回路ベータ",
   "enhanced_analysis_chip": "改良型分析回路",
   "enhanced_output_chip": "改良型出力強化回路",
   "evasion_chip": "反応強化回路",

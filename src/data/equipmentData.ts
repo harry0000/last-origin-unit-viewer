@@ -16,10 +16,23 @@ export const equipmentData = {
       { acc_up: { milliPercentage: { ss: 70000 } } }
     ]
   },
-  // accuracy_chip_beta: {
-  //   type: 'chip',
-  //   id: 'accuracy_chip_beta'
-  // },
+  accuracy_chip_beta: {
+    type: 'chip',
+    id: 'accuracy_chip_beta',
+    status_effects: [
+      { acc_up: { milliPercentage: 42000 }, def_down: { milliValue: 27000 } },
+      { acc_up: { milliPercentage: 46200 }, def_down: { milliValue: 29700 } },
+      { acc_up: { milliPercentage: 50400 }, def_down: { milliValue: 32400 } },
+      { acc_up: { milliPercentage: 54600 }, def_down: { milliValue: 35100 } },
+      { acc_up: { milliPercentage: 58800 }, def_down: { milliValue: 37800 } },
+      { acc_up: { milliPercentage: 63000 }, def_down: { milliValue: 40500 } },
+      { acc_up: { milliPercentage: 67200 }, def_down: { milliValue: 43200 } },
+      { acc_up: { milliPercentage: 71400 }, def_down: { milliValue: 45900 } },
+      { acc_up: { milliPercentage: 75600 }, def_down: { milliValue: 48600 } },
+      { acc_up: { milliPercentage: 79800 }, def_down: { milliValue: 51300 } },
+      { acc_up: { milliPercentage: 84000 }, def_down: { milliValue: 54000 } }
+    ]
+  },
   action_chip: {
     type: 'chip',
     id: 'action_chip',
@@ -177,10 +190,23 @@ export const equipmentData = {
       { def_up: { milliValue: { ss: 108000 } } }
     ]
   },
-  // defense_chip_beta: {
-  //   type: 'chip',
-  //   id: 'defense_chip_beta'
-  // },
+  defense_chip_beta: {
+    type: 'chip',
+    id: 'defense_chip_beta',
+    status_effects: [
+      { def_up: { milliValue:  65000 }, atk_down: { milliValue: 25000 } },
+      { def_up: { milliValue:  71500 }, atk_down: { milliValue: 27500 } },
+      { def_up: { milliValue:  78000 }, atk_down: { milliValue: 30000 } },
+      { def_up: { milliValue:  84500 }, atk_down: { milliValue: 32500 } },
+      { def_up: { milliValue:  91000 }, atk_down: { milliValue: 35000 } },
+      { def_up: { milliValue:  97500 }, atk_down: { milliValue: 37500 } },
+      { def_up: { milliValue: 104000 }, atk_down: { milliValue: 40000 } },
+      { def_up: { milliValue: 110500 }, atk_down: { milliValue: 42500 } },
+      { def_up: { milliValue: 117000 }, atk_down: { milliValue: 45000 } },
+      { def_up: { milliValue: 123500 }, atk_down: { milliValue: 47500 } },
+      { def_up: { milliValue: 130000 }, atk_down: { milliValue: 50000 } }
+    ]
+  },
   evasion_chip: {
     type: 'chip',
     id: 'evasion_chip',
