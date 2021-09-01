@@ -8,7 +8,7 @@ import SVGIcon from '../icon/SVGIcon';
 import { LockClosed } from '../icon/FluentIcons';
 
 import { CoreLinkSlotAvailableLv } from '../../domain/UnitCoreLink';
-import { EquipmentSlotAvailableLv } from '../../domain/status/UnitEquipment';
+import { EquipmentSlotAvailableLv } from '../../domain/equipment/UnitEquipment';
 
 import { ifTruthy } from '../../util/react';
 

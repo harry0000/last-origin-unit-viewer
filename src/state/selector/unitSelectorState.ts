@@ -5,11 +5,12 @@ import { SkillEffectSelectorCondition } from '../../domain/selector/SkillEffectS
 import { UnitBasicInfo, UnitNumber, UnitRank, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
 import UnitSelector from '../../domain/selector/UnitSelector';
 
+import { buildUnitTileIconSrcUrl } from '../../service/UnitIconSrcUrlBuilder';
 import { unitBasicData } from '../../data/unitBasicData';
 import { unitSkillData } from '../../data/unitSkillData';
-import { unitSkillTabState } from '../ui/unitSkillTabState';
+import { updateEquipmentEnhanceLvSelector } from '../equipment/unitEquipmentState';
+import { updateSkillTab } from '../ui/unitSkillTabState';
 import { useUnitCurrentRank } from '../status/unitLvStatusState';
-import { buildUnitTileIconSrcUrl } from '../../service/UnitIconSrcUrlBuilder';
 
 const selectorAtoms = {
   unit: atomFamily<boolean, UnitRank | UnitType | UnitRole>({
@@ -37,6 +38,15 @@ const _unitSelectorState = atom({
   default: UnitSelector.initialState()
 });
 
+const updateSelectedUnitDependency = selector<UnitBasicInfo | undefined>({
+  key: 'updateSelectedUnitDependency',
+  get: () => { throw new Error(); },
+  set: ({ set }, unit) => {
+    set(updateSkillTab, unit);
+    set(updateEquipmentEnhanceLvSelector, unit);
+  }
+});
+
 const unitSelectorState = selector<UnitSelector>({
   key: 'unitSelectorState',
   get: ({ get }) => {
@@ -51,7 +61,8 @@ const unitSelectorState = selector<UnitSelector>({
         if (next) { set(_unitSelectedState(next.no), true); }
       }
       set(_selectedUnitBasicInfoState, newValue.selectedUnit);
-      set(unitSkillTabState, newValue.selectedUnit ? 'active1' : undefined);
+
+      set(updateSelectedUnitDependency, newValue.selectedUnit);
 
       Object.values(UnitRank).forEach(rank => set(selectorAtoms.unit(rank), newValue.isRankSelected(rank)));
       Object.values(UnitType).forEach(type => set(selectorAtoms.unit(type), newValue.isTypeSelected(type)));

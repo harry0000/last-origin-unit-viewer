@@ -3,7 +3,6 @@
 import { Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
 import React, { ReactNode } from 'react';
-import { useRecoilState } from 'recoil';
 
 import {
   ActiveSkillIcon,
@@ -21,7 +20,7 @@ import {
   usePassive2SkillNav,
   usePassive3SkillNav
 } from '../../state/skill/unitSkillState';
-import { unitSkillTabState } from '../../state/ui/unitSkillTabState';
+import { useSkillTab } from '../../state/ui/unitSkillTabState';
 
 import './SkillNavTab.css';
 
@@ -108,7 +107,7 @@ const Passive3SkillNavItem: React.FC = () => {
 const SkillPane = React.lazy(() => import('./SkillPane'));
 
 const UnitSkillList: React.FC<{ className?: string, css?: Interpolation<Theme> }> = (props) => {
-  const [activeTab, setActiveTab] = useRecoilState(unitSkillTabState);
+  const [activeTab, setActiveTab] = useSkillTab();
 
   return (
     <div {...props}>

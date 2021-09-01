@@ -219,8 +219,12 @@
       "cri_down": "クリティカル率 -{{value}}%",
       "spd_up": "行動力 +{{value}}",
       "spd_down": "行動力 -{{value}}",
-      "ap_up": "AP +{{value}}",
-      "ap_down": "AP -{{value}}"
+      "fire_resist_up": "火炎属性耐性 +{{value}}%",
+      "fire_resist_down": "火炎属性耐性 -{{value}}%",
+      "ice_resist_up": "冷気属性耐性 +{{value}}%",
+      "ice_resist_down": "冷気属性耐性 -{{value}}%",
+      "electric_resist_up": "電撃属性耐性 +{{value}}%",
+      "electric_resist_down": "電撃属性耐性 -{{value}}%"
     }
   },
   "damage_deal": {
@@ -378,7 +382,7 @@
       "pull": "{{value}}マス前方に引き寄せる",
       "push": "{{value}}マス後ろに突き飛ばす",
 
-      "reconnaissance": "偵察効果を付与 (次に遭遇する敵の情報を獲得)",
+      "reconnaissance": "偵察効果を付与",
       "marked": "標的に指定",
       "provoked": "挑発を付与",
       "immovable": "移動不可を付与",

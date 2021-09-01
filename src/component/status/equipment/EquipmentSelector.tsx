@@ -4,16 +4,26 @@ import { jsx } from '@emotion/react';
 import React, { MouseEventHandler, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Dropdown, Image } from 'react-bootstrap';
+import { Badge, Dropdown, Image } from 'react-bootstrap';
 import EquipmentItemView from './EquipmentItemView';
 import EquipmentPlaceholder from './EquipmentPlaceholder';
+import RoundedToggleButton from '../../common/RoundedToggleButton';
 import SlotUnavailableOverlay from '../SlotUnavailableOverlay';
 
-import { Chip, EquipmentId, EquipmentType, Gear, Os } from '../../../domain/EquipmentData';
-import { ChipEquipment, GearEquipment, OsEquipment } from '../../../domain/status/UnitEquipment';
-import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
+import { Chip, EquipmentEnhancementLevel, EquipmentId, EquipmentType, Gear, Os } from '../../../domain/equipment/EquipmentData';
+import { ChipEquipment, GearEquipment, OsEquipment } from '../../../domain/equipment/UnitEquipment';
+import { UnitBasicInfo, UnitNumber } from '../../../domain/UnitBasicInfo';
 
-import { EquipmentSlot, useEquipmentAvailable, useUnitEquipment } from '../../../state/equipment/unitEquipmentState';
+import {
+  EquipmentSlot,
+  useEquipmentAvailable,
+  useEquipmentEffects,
+  useEquipmentEffectsAsSkill,
+  useEquipmentEnhanceLvSelector,
+  useEquipmentStatusEffects,
+  useUnitEquipment
+} from '../../../state/equipment/unitEquipmentState';
+import { TranslatedEquipmentEffect } from '../../../state/equipment/EquipmentEffectsTranslator';
 import { useAvailableEquipment } from '../../../state/equipment/availableEquipment';
 import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
 
@@ -47,12 +57,96 @@ type Props<S extends EquipmentSlot> = {
   onSelect: (equipment: SlotEquipment<S> | undefined) => void
 }
 
+const EquipmentEnhancementLvSelector: React.FC<{ slot: EquipmentSlot, unit: UnitNumber }> = ({ slot, unit }) => {
+  const SelectorButton = ({ enhanceLv }: { enhanceLv: EquipmentEnhancementLevel }) => {
+    const [selected, select] = useEquipmentEnhanceLvSelector(slot, unit, enhanceLv);
+
+    return (<RoundedToggleButton selected={selected} onChange={select}>+&nbsp;{enhanceLv}</RoundedToggleButton>);
+  };
+
+  return (
+    <div className="equipment-enhancement">
+      {([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const).map(n => (
+        <SelectorButton key={n} enhanceLv={n} />
+      ))}
+    </div>
+  );
+};
+
+const EquipmentStatusEffects: React.FC<{ slot: EquipmentSlot, equipment: EquipmentId }> = ({ slot, equipment }) => {
+  const { t } = useTranslation();
+  const effects = useEquipmentStatusEffects(slot, equipment);
+
+  return (
+    <div className="status-effects">
+      <div><Badge pill variant="light">{t('status.equipment_status_effect')}</Badge></div>
+      <div className="details">{effects}</div>
+    </div>
+  );
+};
+
+const EffectDetailList: React.FC<{ effects: ReadonlyArray<TranslatedEquipmentEffect> }> = ({ effects }) => {
+  return (
+    <React.Fragment>
+      {effects.map(e => {
+        const { condition, details } = e;
+        return (
+          <div key={JSON.stringify(e)}>
+            {ifNonNullable(condition, cond => (<div className="condition">{cond}</div>))}
+            {details.map(({ detail, term }) => {
+              return (
+                <div key={detail} className="detail">
+                  <div>{detail}</div>
+                  {ifNonNullable(term, v => (
+                    <div className="term"><span>{v}</span></div>
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
+    </React.Fragment>
+  );
+};
+
+const EquipmentEffects: React.FC<{ slot: EquipmentSlot, equipment: EquipmentId }> = ({ slot, equipment }) => {
+  const { t } = useTranslation();
+  const effects = useEquipmentEffects(slot, equipment);
+
+  return ifNonNullable(
+    effects,
+    e => (
+      <div className="effects">
+        <div><Badge pill variant="light">{t('status.equipment_effect')}</Badge></div>
+        <EffectDetailList effects={e} />
+      </div>
+    )
+  );
+};
+
+const EquipmentEffectsAsSkill: React.FC<{ slot: EquipmentSlot, equipment: EquipmentId }> = ({ slot, equipment }) => {
+  const { t } = useTranslation();
+  const effects = useEquipmentEffectsAsSkill(slot, equipment);
+
+  return ifNonNullable(
+    effects,
+    e => (
+      <div className="effects">
+        <div><Badge pill variant="light">{t('status.equipment_effect_as_skill')}</Badge></div>
+        <EffectDetailList effects={e} />
+      </div>
+    )
+  );
+};
+
 const EquipmentItem: React.FC<{
-  eventKey?: EquipmentId,
+  slot: EquipmentSlot,
+  eventKey: EquipmentId,
   active: boolean,
   label: string,
   src: string
-}> = ({ eventKey, active, label, src, ...others }) => {
+}> = ({ slot, eventKey, active, label, src, ...others }) => {
   return (
     <Dropdown.Item
       {...others}
@@ -60,14 +154,21 @@ const EquipmentItem: React.FC<{
       eventKey={eventKey}
       active={active}
     >
-      <Image
-        draggable="false"
-        height={48}
-        width={48}
-        alt={label}
-        src={src}
-      />
-      <span className="label">{label}</span>
+      <div className="icon">
+        <Image
+          draggable="false"
+          height={48}
+          width={48}
+          alt={label}
+          src={src}
+        />
+        <span className="label">{label}</span>
+      </div>
+      <div className="details">
+        <EquipmentStatusEffects slot={slot} equipment={eventKey} />
+        <EquipmentEffects slot={slot} equipment={eventKey} />
+        <EquipmentEffectsAsSkill slot={slot} equipment={eventKey} />
+      </div>
     </Dropdown.Item>
   );
 };
@@ -77,31 +178,44 @@ const RemoveEquipmentItem: React.FC<{
   type: SlotEquipmentType<EquipmentSlot>
 }> = ({ active, type, ...others }) => {
   const { t } = useTranslation();
+  const label = t('status.remove_equipment');
 
   return (
-    <EquipmentItem
+    <Dropdown.Item
       {...others}
+      className="equipment remove"
       active={active}
-      label={t('status.remove_equipment')}
-      src={`${process.env.PUBLIC_URL}/icon/placeholder_${type}.webp`}
-    />
+    >
+      <div className="icon">
+        <Image
+          draggable="false"
+          height={48}
+          width={48}
+          alt={label}
+          src={`${process.env.PUBLIC_URL}/icon/placeholder_${type}.webp`}
+        />
+      </div>
+      <div className="details">{label}</div>
+    </Dropdown.Item>
   );
 };
 
 const EquipmentSelectorMenu = <T extends EquipmentSlot>(
-  { type, value, items, ...others }: Pick<Props<T>, 'type' | 'value' | 'items'>
-): ReturnType<React.FC<Pick<Props<T>, 'type' | 'value' | 'items'>>> => {
+  { unit, slot, type, value, items, ...others }: Omit<Props<T>, 'id' | 'onSelect'>
+): ReturnType<React.FC<Omit<Props<T>, 'id' | 'onSelect'>>> => {
   const { t } = useTranslation();
 
   return (
     <Dropdown.Menu {...others} className="equipment">
-      <div className="equipment-menu-grid">
-        <RemoveEquipmentItem type={type} active={!value?.equipped.id} />
+      <EquipmentEnhancementLvSelector slot={slot} unit={unit.no} />
+      <div className="equipment-list">
+        <RemoveEquipmentItem type={type} active={!value?.id} />
         {items.map(item => (
           <EquipmentItem
             key={item.id}
+            slot={slot}
             eventKey={item.id}
-            active={item.id === value?.equipped.id}
+            active={item.id === value?.id}
             label={t(`equipment:${item.id}`)}
             src={`${process.env.PUBLIC_URL}/equip_icon/${item.type}_${item.id}_ss.webp`}
           />
@@ -156,7 +270,7 @@ const EquipmentDropdown = <T extends EquipmentSlot>(
         <span className="equipment-toggle-view">
           {value ?
             (<EquipmentItemView
-              equipmentId={value.equipped.id}
+              equipmentId={value.id}
               equipmentType={type}
               equipmentRank={value.rank}
               enhancementLv={value.enhanceLv}
@@ -165,7 +279,7 @@ const EquipmentDropdown = <T extends EquipmentSlot>(
           <EquipmentSlotUnavailableOverlay unit={unit} slot={slot} />
         </span>
       </Dropdown.Toggle>
-      <EquipmentSelectorMenu type={type} value={value} items={items} />
+      <EquipmentSelectorMenu unit={unit} slot={slot} type={type} value={value} items={items} />
     </Dropdown>
   );
 };

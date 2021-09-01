@@ -3,7 +3,8 @@ import {
   DefaultValue,
   RecoilValueReadOnly,
   selector,
-  selectorFamily, useRecoilState,
+  selectorFamily,
+  useRecoilState,
   useRecoilValue,
   useSetRecoilState
 } from 'recoil';
@@ -14,7 +15,8 @@ import {
   DamageDeal,
   Passive1Skill,
   Passive2Skill,
-  Passive3Skill, SkillEffect
+  Passive3Skill,
+  SkillEffect
 } from '../../domain/skill/UnitSkills';
 import { FormChangeUnitNumbers, UnitForms } from '../../domain/UnitFormValue';
 import { SkillApCostValue, SkillRangeValue } from '../../domain/skill/UnitSkillData';
@@ -25,10 +27,10 @@ import { UnitSkill, buildUnitSkill, isFormChangeUnitSkill, FormChangeUnitSkill }
 
 import { AreaOfEffectCell, AreaOfEffectCells } from '../../component/skill/AreaOfEffectCellType';
 
-import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/unitCoreLinkState';
-import { unitSkillTabState } from '../ui/unitSkillTabState';
-import { useSelectedUnit } from '../selector/unitSelectorState';
 import { affectionBonusEffectState } from '../status/unitAffectionBonus';
+import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/unitCoreLinkState';
+import { useActiveSkillTab } from '../ui/unitSkillTabState';
+import { useSelectedUnit } from '../selector/unitSelectorState';
 
 export const SkillType = {
   Active1: 'active1',
@@ -126,21 +128,21 @@ export function useUnitForm(): [unitSkill: FormChangeUnitSkill<FormChangeUnitNum
 }
 
 export function useActive1SkillNav(): [eventKey: typeof SkillType.Active1, active: boolean, enable: boolean] {
-  const activeTab = useRecoilValue(unitSkillTabState);
+  const activeTab = useActiveSkillTab();
   const selected = useSelectedUnit();
 
   return [SkillType.Active1, activeTab === SkillType.Active1, !!selected];
 }
 
 export function useActive2SkillNav(): [eventKey: typeof SkillType.Active2, active: boolean, enable: boolean] {
-  const activeTab = useRecoilValue(unitSkillTabState);
+  const activeTab = useActiveSkillTab();
   const selected = useSelectedUnit();
 
   return [SkillType.Active2, activeTab === SkillType.Active2, !!selected];
 }
 
 export function usePassive1SkillNav(): [eventKey: typeof SkillType.Passive1, active: boolean, enable: boolean] {
-  const activeTab = useRecoilValue(unitSkillTabState);
+  const activeTab = useActiveSkillTab();
   const selected = useSelectedUnit();
   const skill = useRecoilValue(selectedUnitSkillState(selected));
 
@@ -148,7 +150,7 @@ export function usePassive1SkillNav(): [eventKey: typeof SkillType.Passive1, act
 }
 
 export function usePassive2SkillNav(): [eventKey: typeof SkillType.Passive2, active: boolean, enable: boolean] {
-  const activeTab = useRecoilValue(unitSkillTabState);
+  const activeTab = useActiveSkillTab();
   const selected = useSelectedUnit();
   const skill = useRecoilValue(selectedUnitSkillState(selected));
 
@@ -156,7 +158,7 @@ export function usePassive2SkillNav(): [eventKey: typeof SkillType.Passive2, act
 }
 
 export function usePassive3SkillNav(): [eventKey: typeof SkillType.Passive3, active: boolean, enable: boolean] {
-  const activeTab = useRecoilValue(unitSkillTabState);
+  const activeTab = useActiveSkillTab();
   const selected = useSelectedUnit();
   const skill = useRecoilValue(selectedUnitSkillState(selected));
 

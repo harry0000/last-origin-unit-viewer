@@ -1,7 +1,7 @@
 import { Effect } from '../Effect';
 import { EffectActivationState } from '../EffectActivationState';
 import { EffectTrigger } from '../EffectTrigger';
-import { EquipmentId } from '../EquipmentData';
+import { EquipmentId } from '../equipment/EquipmentData';
 import { SkillEffectTag } from './SkillEffectTag';
 import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';

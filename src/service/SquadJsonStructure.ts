@@ -1,4 +1,4 @@
-import { Chip, EquipmentEnhancementLevel, EquipmentRank, Gear, Os } from '../domain/EquipmentData';
+import { Chip, EquipmentEnhancementLevel, EquipmentRank, Gear, Os } from '../domain/equipment/EquipmentData';
 import { CoreLinkUnit } from '../domain/UnitCoreLink';
 import { FullLinkBonusIndex } from '../domain/UnitCoreLinkBonusData';
 import { SkillLv } from '../domain/skill/UnitSkillLvValue';

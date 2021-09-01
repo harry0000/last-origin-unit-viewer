@@ -1,5 +1,5 @@
 import { EquipmentRank } from './EquipmentData';
-import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue } from './ValueUnit';
+import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue } from '../ValueUnit';
 
 export type EquipmentValue = number | { [EquipmentRank.SS]: number }
 

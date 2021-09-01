@@ -1,22 +1,21 @@
 import {
   Chip,
+  ChipId,
   EquipmentEnhancementLevel,
   EquipmentRank,
   EquipmentType,
   Gear,
+  GearId,
   matchExclusive,
   Os,
-  StatusEffectData
-} from '../EquipmentData';
-import { Effect } from '../Effect';
-import { StatusEffect } from './StatusEffect';
-import { UnitLvValue } from './UnitLv';
+  OsId
+} from './EquipmentData';
+import { emptyStatusEffect, StatusEffect } from '../status/StatusEffect';
+import { UnitLvValue } from '../status/UnitLv';
 import { UnitNumber } from '../UnitBasicInfo';
-import { toIntegerValue, toMicroValue, toMilliPercentageValue, toMilliValue } from '../EquipmentEffectValue';
+import { calculateStatusEffect } from './EquipmentEffectCalculator';
 
 import { unitEquipmentSlot } from '../../data/unitEquipmentSlot';
-
-import { foldObjectNonNullableEntry } from '../../util/object';
 
 export type EquipmentSlotAvailableLv = typeof unitEquipmentSlot[UnitNumber][keyof typeof unitEquipmentSlot[UnitNumber]]
 
@@ -25,50 +24,13 @@ type EquipmentAttribute = Readonly<{
   enhanceLv: EquipmentEnhancementLevel
 }>
 
-export type ChipEquipment = Readonly<{ equipped: Chip }> & EquipmentAttribute
-export type OsEquipment   = Readonly<{ equipped: Os }> & EquipmentAttribute
-export type GearEquipment = Readonly<{ equipped: Gear }> & EquipmentAttribute
+export type ChipEquipment = Readonly<{ id: ChipId }> & EquipmentAttribute
+export type OsEquipment   = Readonly<{ id: OsId }> & EquipmentAttribute
+export type GearEquipment = Readonly<{ id: GearId }> & EquipmentAttribute
 
-const emptyEffect: StatusEffect = {};
-
-const defaultAttribute = {
-  rank: EquipmentRank.SS,
-  enhanceLv: 10
+const defaultEquipmentRank = {
+  rank: EquipmentRank.SS
 } as const;
-
-function extractStatusEffect(data: StatusEffectData): StatusEffect {
-  return foldObjectNonNullableEntry(data, entry => {
-    switch (entry[0]) {
-    case Effect.HpUp:
-      return { [Effect.HpUp]: toIntegerValue(entry[1]) };
-    case Effect.AtkUp:
-    case Effect.AtkDown:
-    case Effect.DefUp:
-    case Effect.DefDown:
-      return { [entry[0]]: toMilliValue(entry[1]) };
-    case Effect.AccUp:
-    case Effect.AccDown:
-    case Effect.EvaUp:
-    case Effect.EvaDown:
-    case Effect.CriUp:
-    case Effect.CriDown:
-    case Effect.FireResistUp:
-    case Effect.FireResistDown:
-    case Effect.IceResistUp:
-    case Effect.IceResistDown:
-    case Effect.ElectricResistUp:
-    case Effect.ElectricResistDown:
-      return { [entry[0]]: toMilliPercentageValue(entry[1]) };
-    case Effect.SpdUp:
-    case Effect.SpdDown:
-      return { [entry[0]]: toMicroValue(entry[1]) };
-    default: {
-      const _exhaustiveCheck: never = entry;
-      return _exhaustiveCheck;
-    }
-    }
-  })({});
-}
 
 export class UnitChip1Equipment {
 
@@ -83,13 +45,16 @@ export class UnitChip1Equipment {
     this.chip1 = chip1;
   }
 
-  equipChip1(chip: Chip): UnitChip1Equipment {
+  equipChip1(chip: Chip, enhanceLv: EquipmentEnhancementLevel): UnitChip1Equipment {
     if (
-      chip !== this.chip1?.equipped &&
+      (
+        chip.id !== this.chip1?.id ||
+        enhanceLv !== this.chip1?.enhanceLv
+      ) &&
       chip.type === EquipmentType.Chip &&
       matchExclusive(this.unit, chip)
     ) {
-      const newChip = { equipped: chip, ...defaultAttribute };
+      const newChip = { ...defaultEquipmentRank, id: chip.id, enhanceLv };
       return new UnitChip1Equipment(this.unit, newChip);
     }
     return this;
@@ -102,6 +67,12 @@ export class UnitChip1Equipment {
     return this;
   }
 
+  changeEnhancementLv(lv: EquipmentEnhancementLevel): UnitChip1Equipment {
+    return this.chip1 && this.chip1.enhanceLv !== lv ?
+      new UnitChip1Equipment(this.unit, { ...this.chip1, enhanceLv: lv }) :
+      this;
+  }
+
   get chip1AvailableLv(): EquipmentSlotAvailableLv {
     return unitEquipmentSlot[this.unit].chip1;
   }
@@ -111,14 +82,9 @@ export class UnitChip1Equipment {
   }
 
   chip1StatusEffects(lv: UnitLvValue): StatusEffect {
-    if (
-      this.isChip1Available(lv) &&
-      this.chip1 && 'status_effects' in this.chip1.equipped
-    ) {
-      return extractStatusEffect(this.chip1.equipped.status_effects[this.chip1.enhanceLv]);
-    } else {
-      return emptyEffect;
-    }
+    return this.isChip1Available(lv) && this.chip1 ?
+      calculateStatusEffect(this.chip1.id, this.chip1.enhanceLv) :
+      emptyStatusEffect;
   }
 }
 
@@ -135,13 +101,16 @@ export class UnitChip2Equipment {
     this.chip2 = chip2;
   }
 
-  equipChip2(chip: Chip): UnitChip2Equipment {
+  equipChip2(chip: Chip, enhanceLv: EquipmentEnhancementLevel): UnitChip2Equipment {
     if (
-      chip !== this.chip2?.equipped &&
+      (
+        chip.id !== this.chip2?.id ||
+        enhanceLv !== this.chip2?.enhanceLv
+      ) &&
       chip.type === EquipmentType.Chip &&
       matchExclusive(this.unit, chip)
     ) {
-      const newChip = { equipped: chip, ...defaultAttribute };
+      const newChip = { ...defaultEquipmentRank, id: chip.id, enhanceLv };
       return new UnitChip2Equipment(this.unit, newChip);
     }
     return this;
@@ -154,6 +123,12 @@ export class UnitChip2Equipment {
     return this;
   }
 
+  changeEnhancementLv(lv: EquipmentEnhancementLevel): UnitChip2Equipment {
+    return this.chip2 && this.chip2.enhanceLv !== lv ?
+      new UnitChip2Equipment(this.unit, { ...this.chip2, enhanceLv: lv }) :
+      this;
+  }
+
   get chip2AvailableLv(): EquipmentSlotAvailableLv {
     return unitEquipmentSlot[this.unit].chip2;
   }
@@ -163,14 +138,9 @@ export class UnitChip2Equipment {
   }
 
   chip2StatusEffects(lv: UnitLvValue): StatusEffect {
-    if (
-      this.isChip2Available(lv) &&
-      this.chip2 && 'status_effects' in this.chip2.equipped
-    ) {
-      return extractStatusEffect(this.chip2.equipped.status_effects[this.chip2.enhanceLv]);
-    } else {
-      return emptyEffect;
-    }
+    return this.isChip2Available(lv) && this.chip2 ?
+      calculateStatusEffect(this.chip2.id, this.chip2.enhanceLv) :
+      emptyStatusEffect;
   }
 }
 
@@ -187,13 +157,16 @@ export class UnitOsEquipment {
     this.os = os;
   }
 
-  equipOs(os: Os): UnitOsEquipment {
+  equipOs(os: Os, enhanceLv: EquipmentEnhancementLevel): UnitOsEquipment {
     if (
-      os !== this.os?.equipped &&
+      (
+        os.id !== this.os?.id ||
+        enhanceLv !== this.os?.enhanceLv
+      ) &&
       os.type === EquipmentType.Os &&
       matchExclusive(this.unit, os)
     ) {
-      const newOs = { equipped: os, ...defaultAttribute };
+      const newOs = { ...defaultEquipmentRank, id: os.id, enhanceLv };
       return new UnitOsEquipment(this.unit, newOs);
     }
     return this;
@@ -206,6 +179,12 @@ export class UnitOsEquipment {
     return this;
   }
 
+  changeEnhancementLv(lv: EquipmentEnhancementLevel): UnitOsEquipment {
+    return this.os && this.os.enhanceLv !== lv ?
+      new UnitOsEquipment(this.unit, { ...this.os, enhanceLv: lv }) :
+      this;
+  }
+
   get osAvailableLv(): EquipmentSlotAvailableLv {
     return unitEquipmentSlot[this.unit].os;
   }
@@ -215,14 +194,9 @@ export class UnitOsEquipment {
   }
 
   osStatusEffects(lv: UnitLvValue): StatusEffect {
-    if (
-      this.isOsAvailable(lv) &&
-      this.os && 'status_effects' in this.os.equipped
-    ) {
-      return extractStatusEffect(this.os.equipped.status_effects[this.os.enhanceLv]);
-    } else {
-      return emptyEffect;
-    }
+    return this.isOsAvailable(lv) && this.os ?
+      calculateStatusEffect(this.os.id, this.os.enhanceLv) :
+      emptyStatusEffect;
   }
 }
 
@@ -239,13 +213,16 @@ export class UnitGearEquipment {
     this.gear = gear;
   }
 
-  equipGear(gear: Gear): UnitGearEquipment {
+  equipGear(gear: Gear, enhanceLv: EquipmentEnhancementLevel): UnitGearEquipment {
     if (
-      gear !== this.gear?.equipped &&
+      (
+        gear.id !== this.gear?.id ||
+        enhanceLv !== this.gear?.enhanceLv
+      ) &&
       gear.type === EquipmentType.Gear &&
       matchExclusive(this.unit, gear)
     ) {
-      const newGear = { equipped: gear, ...defaultAttribute };
+      const newGear = { ...defaultEquipmentRank, id: gear.id, enhanceLv };
       return new UnitGearEquipment(this.unit, newGear);
     }
     return this;
@@ -258,6 +235,12 @@ export class UnitGearEquipment {
     return this;
   }
 
+  changeEnhancementLv(lv: EquipmentEnhancementLevel): UnitGearEquipment {
+    return this.gear && this.gear.enhanceLv !== lv ?
+      new UnitGearEquipment(this.unit, { ...this.gear, enhanceLv: lv }) :
+      this;
+  }
+
   get gearAvailableLv(): EquipmentSlotAvailableLv {
     return unitEquipmentSlot[this.unit].gear;
   }
@@ -267,13 +250,8 @@ export class UnitGearEquipment {
   }
 
   gearStatusEffects(lv: UnitLvValue): StatusEffect {
-    if (
-      this.isGearAvailable(lv) &&
-      this.gear && 'status_effects' in this.gear.equipped
-    ) {
-      return extractStatusEffect(this.gear.equipped.status_effects[this.gear.enhanceLv]);
-    } else {
-      return emptyEffect;
-    }
+    return this.isGearAvailable(lv) && this.gear ?
+      calculateStatusEffect(this.gear.id, this.gear.enhanceLv) :
+      emptyStatusEffect;
   }
 }
