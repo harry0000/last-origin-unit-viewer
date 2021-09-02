@@ -131,6 +131,7 @@ function unitStateView(
     case UnitAlias.SteelLine:
     case UnitAlias.SistersOfValhalla:
     case UnitAlias.AngerOfHorde:
+    case UnitAlias.DoomBringer:
     case UnitAlias.AACannonier:
     case UnitAlias.ArmoredMaiden:
     case UnitAlias.MongooseTeam:
@@ -140,7 +141,7 @@ function unitStateView(
     case UnitAlias.SpartanSeries:
       return (
         <React.Fragment>
-          <UnitAliasView unitAlias={unit} selfUnitNumber={selfUnitNumber} />
+          <UnitAliasView unitAlias={unit} exceptUnit={key === EffectActivationState.InSquad ? selfUnitNumber : undefined} />
           <span>{t(`effect:condition.state.${key}`, { unit: '' })}</span>
         </React.Fragment>
       );
@@ -154,7 +155,7 @@ function unitStateView(
       const target = 'type' in unit ? t(`effect:unit.${unit.type}`) : t(`effect:unit.${unit.role}`);
       return (
         <React.Fragment>
-          <UnitAliasView unitAlias={unit.alias} selfUnitNumber={selfUnitNumber} />
+          <UnitAliasView unitAlias={unit.alias} exceptUnit={key === EffectActivationState.InSquad ? selfUnitNumber : undefined} />
           <span>{t('effect:of_preposition')}{t(`effect:condition.state.${key}`, { unit: target })}</span>
         </React.Fragment>
       );
@@ -233,7 +234,13 @@ const buildSkillEffectTriggerView = (condition: SkillEffectActivationCondition, 
   return condition.trigger === 'start_round' ?
     (
       <span>
-        {condition.round ? t('effect:condition.round.until', { round: condition.round.until }) : ''}
+        {ifNonNullable(condition.round, round =>
+          'at' in round ?
+            t('effect:condition.round.at', { round: round.at }) :
+            'from' in round ?
+              t('effect:condition.round.from', { round: round.from }) :
+              t('effect:condition.round.until', { round: round.until })
+        )}
         {t('effect:condition.trigger.start_round')}
       </span>
     ) :
@@ -298,7 +305,7 @@ const SkillEffectConditionView: React.FC<
               if (isUnitAlias(v.num_of_units)) {
                 return (
                   <React.Fragment>
-                    <UnitAliasView unitAlias={v.num_of_units} selfUnitNumber={unitNumber} />
+                    <UnitAliasView unitAlias={v.num_of_units} exceptUnit={unitNumber} />
                     <span>{t('effect:scale_factor.num_of_allies')}</span>
                   </React.Fragment>
                 );

@@ -22,6 +22,7 @@ export const SkillAreaType = {
   SelfAndLeftDirection: 'self_and_left_direction',
   Cross: 'cross',
   CrossWithFrontLine: 'cross_with_front_line',
+  FrontOfCross: 'front_of_cross',
   Diagonal: 'diagonal',
   All: 'all',
   RowGreatlyAttenuate: 'row_greatly_attenuate',

@@ -9,16 +9,17 @@ import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { UnitAlias, unitNumbersForAlias } from '../../domain/UnitAlias';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 
+// TODO: Move to excepting logic from view.
 const UnitAliasView: React.FC<{
   unitAlias: UnitAlias,
-  selfUnitNumber: UnitNumber
-}> = ({ unitAlias, selfUnitNumber }) => {
+  exceptUnit?: UnitNumber
+}> = ({ unitAlias, exceptUnit }) => {
   const { t } = useTranslation();
   const popover = (
     <Popover id="popover-unit-alias" css={{ opacity: '0.9' }}>
       <Popover.Content>
         {[...unitNumbersForAlias[unitAlias]]
-          .filter(n => n !== selfUnitNumber)
+          .filter(n => n !== exceptUnit)
           .map(n => (<div key={n} css={{ textAlign: 'left' }}>{t('unit:display', { number: n })}</div>))}
       </Popover.Content>
     </Popover>

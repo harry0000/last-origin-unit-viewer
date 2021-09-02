@@ -23,7 +23,9 @@ export type SkillEffectTag =
   'bullet_curtain_usual' |
   'charging_in_sir' |
   'attack_command' |
+  'attack_command_defence' |
   'defense_command' |
+  'defense_command_attack' |
   'camouflage' |
   'awakening' |
   'fire_support' |

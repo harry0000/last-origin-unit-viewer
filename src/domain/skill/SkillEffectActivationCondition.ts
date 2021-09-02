@@ -99,7 +99,7 @@ export type SkillEffectActivationState =
 
 export type SkillEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
-  round?: { until: 1 | 2 | 3 | 4 }
+  round?: { at: 1 | 2 } | { from: 3 } | { until: 1 | 2 | 3 | 4 }
 } | {
   trigger: Exclude<EffectTrigger, typeof EffectTrigger.StartRound>
 }
