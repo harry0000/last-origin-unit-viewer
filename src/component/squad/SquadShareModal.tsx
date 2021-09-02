@@ -79,7 +79,10 @@ const SquadShareModal: React.FC = () => {
       <Modal.Body>
         <div
           css={{
-            display: 'flex'
+            display: 'flex',
+            '& > button': {
+              flexShrink: 0
+            }
           }}
         >
           <Form.Control
@@ -100,7 +103,10 @@ const SquadShareModal: React.FC = () => {
           css={{
             display: 'flex',
             justifyContent: 'flex-end',
-            marginTop: 15
+            marginTop: 15,
+            '& > button': {
+              flexShrink: 0
+            }
           }}
         >
           <TwitterShareButton
