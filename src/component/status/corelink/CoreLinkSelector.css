@@ -58,5 +58,5 @@ a.dropdown-item.core-link:not(.active, :active):is(:hover, :focus) {
 
 a.dropdown-item.core-link:is(.active, :active) .label,
 a.dropdown-item.core-link:is(.active, :active) .partial-fit-unit .unit-type {
-  color: #16181b;
+  color: #fff;
 }

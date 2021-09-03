@@ -72,8 +72,9 @@
   white-space: break-spaces;
 }
 
-.dropdown-item.equipment:is(.active, :active) *:is(.icon > .label, .details) {
-  color: #16181b;
+.dropdown-item.equipment:is(.active, :active) > .icon > .label,
+.dropdown-item.equipment:is(.active, :active) > .details {
+  color: #fff;
 }
 
 .dropdown-item.equipment.remove > .details {
