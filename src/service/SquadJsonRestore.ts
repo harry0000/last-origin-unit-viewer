@@ -12,7 +12,7 @@ import {
 import { Squad } from '../domain/squad/Squad';
 import { BioroidUnitNumber, UnitBasicInfo, UnitKind, UnitNumber, UnitRank } from '../domain/UnitBasicInfo';
 import UnitAffection from '../domain/UnitAffection';
-import { UnitChip1Equipment, UnitChip2Equipment, UnitGearEquipment, UnitOsEquipment } from '../domain/status/UnitEquipment';
+import { UnitChip1Equipment, UnitChip2Equipment, UnitGearEquipment, UnitOsEquipment } from '../domain/equipment/UnitEquipment';
 import UnitCoreLink, { CoreLinkUnit } from '../domain/UnitCoreLink';
 import UnitDamagedState from '../domain/UnitDamagedState';
 import UnitLvStatus from '../domain/status/UnitLvStatus';
@@ -97,10 +97,10 @@ function restoreChip1(unit: UnitNumber, json: ChipEquipmentJsonStructure | []): 
   }
 
   const [id, rank, lv] = json;
-  const chip1 = new UnitChip1Equipment(unit).equipChip1(equipmentData[id]);
+  const chip1 = new UnitChip1Equipment(unit).equipChip1(equipmentData[id], lv);
 
   return (
-    chip1.chip1?.equipped.id === id &&
+    chip1.chip1?.id === id &&
     chip1.chip1?.rank === rank &&
     chip1.chip1?.enhanceLv === lv ?
       chip1 :
@@ -114,10 +114,10 @@ function restoreChip2(unit: UnitNumber, json: ChipEquipmentJsonStructure | []): 
   }
 
   const [id, rank, lv] = json;
-  const chip2 = new UnitChip2Equipment(unit).equipChip2(equipmentData[id]);
+  const chip2 = new UnitChip2Equipment(unit).equipChip2(equipmentData[id], lv);
 
   return (
-    chip2.chip2?.equipped.id === id &&
+    chip2.chip2?.id === id &&
     chip2.chip2?.rank === rank &&
     chip2.chip2?.enhanceLv === lv ?
       chip2 :
@@ -131,10 +131,10 @@ function restoreOs(unit: UnitNumber, json: OsEquipmentJsonStructure | []): UnitO
   }
 
   const [id, rank, lv] = json;
-  const os = new UnitOsEquipment(unit).equipOs(equipmentData[id]);
+  const os = new UnitOsEquipment(unit).equipOs(equipmentData[id], lv);
 
   return (
-    os.os?.equipped.id === id &&
+    os.os?.id === id &&
     os.os?.rank === rank &&
     os.os?.enhanceLv === lv ?
       os :
@@ -148,10 +148,10 @@ function restoreGear(unit: UnitNumber, json: GearEquipmentJsonStructure | []): U
   }
 
   const [id, rank, lv] = json;
-  const gear = new UnitGearEquipment(unit).equipGear(equipmentData[id]);
+  const gear = new UnitGearEquipment(unit).equipGear(equipmentData[id], lv);
 
   return (
-    gear.gear?.equipped.id === id &&
+    gear.gear?.id === id &&
     gear.gear?.rank === rank &&
     gear.gear?.enhanceLv === lv ?
       gear :

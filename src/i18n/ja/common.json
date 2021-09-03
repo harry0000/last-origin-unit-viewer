@@ -118,7 +118,11 @@
     "unlink": "コアリンク解除",
     "full_link_bonus": "フルリンクボーナス",
     "equipment": "装備",
-    "remove_equipment": "装備解除"
+    "remove_equipment": "装備解除",
+    "equipment_status_effect": "ステータス効果",
+    "none_equipment_status_effect": "—",
+    "equipment_effect": "戦闘中の装備効果",
+    "equipment_effect_as_skill": "スキルとして扱われる装備効果"
   },
   "core_link_bonus": {
     "hp_up": "$t(status.hp)",

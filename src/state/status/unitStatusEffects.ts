@@ -26,7 +26,7 @@ import {
 
 import { EffectedParameter, StatusEffectPopoverRowProps } from '../../component/status/StatusEffectsView';
 
-import { ChipEquipment, GearEquipment, OsEquipment } from '../../domain/status/UnitEquipment';
+import { ChipEquipment, GearEquipment, OsEquipment } from '../../domain/equipment/UnitEquipment';
 import { StatusEffect } from '../../domain/status/StatusEffect';
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 import { UnitRankUpBonus } from '../../domain/status/UnitRankUpBonusData';
@@ -310,7 +310,7 @@ function equipmentEffects(
   if (value) {
     return [{
       key: `equipment-${slot}`,
-      effected: t('status.effected.equipment', { id: equipment.equipped.id, lv: equipment.enhanceLv }),
+      effected: t('status.effected.equipment', { id: equipment.id, lv: equipment.enhanceLv }),
       value
     }];
   } else {

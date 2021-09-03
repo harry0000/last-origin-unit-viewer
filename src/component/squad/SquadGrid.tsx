@@ -55,7 +55,7 @@ export const UnitTile: React.FC<{
           top: -4,
           left: -4
         }}
-        height={32}
+        height={rank === UnitRank.SS ? 36 : 32}
         width={rank === UnitRank.SS ? 40 : 32}
         rank={rank}
         role={unit.role}

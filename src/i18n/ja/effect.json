@@ -25,6 +25,7 @@
     "sisters_of_valhalla": "シスターズオブヴァルハラ",
     "mongoose_team": "マングースチーム",
     "anger_of_horde": "アンガーオブホード",
+    "doom_bringer": "ドゥームブリンガー",
     "aa_cannonier": "AAキャノニア",
     "armored_maiden": "アーマードメイデン",
     "horizon": "ホライゾン",
@@ -71,7 +72,9 @@
     "bullet_curtain_usual":  "弾幕射撃(残弾普通)",
     "charging_in_sir": "突撃であります！",
     "attack_command": "攻撃指揮",
+    "attack_command_defence": "攻撃指揮(防御)",
     "defense_command": "防御指揮",
+    "defense_command_attack": "防御指揮(攻撃)",
     "camouflage": "偽装",
     "awakening": "自覚",
     "fire_support": "火力支援",
@@ -219,8 +222,12 @@
       "cri_down": "クリティカル率 -{{value}}%",
       "spd_up": "行動力 +{{value}}",
       "spd_down": "行動力 -{{value}}",
-      "ap_up": "AP +{{value}}",
-      "ap_down": "AP -{{value}}"
+      "fire_resist_up": "火炎属性耐性 +{{value}}%",
+      "fire_resist_down": "火炎属性耐性 -{{value}}%",
+      "ice_resist_up": "冷気属性耐性 +{{value}}%",
+      "ice_resist_down": "冷気属性耐性 -{{value}}%",
+      "electric_resist_up": "電撃属性耐性 +{{value}}%",
+      "electric_resist_down": "電撃属性耐性 -{{value}}%"
     }
   },
   "damage_deal": {
@@ -247,9 +254,9 @@
       "fixed_fire_damage_over_time": "火炎持続固定ダメージ",
       "fixed_ice_damage_over_time": "冷気持続固定ダメージ",
       "fixed_electric_damage_over_time": "電気持続固定ダメージ",
-      "anti_light_type": "対軽装タイプ与ダメージアップ",
-      "anti_heavy_type": "対重装タイプ与ダメージアップ",
-      "anti_flying_type": "対機動タイプ与ダメージアップ",
+      "anti_light_type": "対軽装型与ダメージアップ",
+      "anti_heavy_type": "対重装型与ダメージアップ",
+      "anti_flying_type": "対機動型与ダメージアップ",
       "atk_up": "攻撃力アップ",
       "atk_down": "攻撃力ダウン",
       "def_up": "防御力アップ",
@@ -315,9 +322,9 @@
       "fixed_ice_damage_over_time": "{{value}}の冷気持続固定ダメージ",
       "fixed_electric_damage_over_time": "{{value}}の電気持続固定ダメージ",
 
-      "anti_light_type": "対軽装タイプ与ダメージ +{{value}}%",
-      "anti_heavy_type": "対重装タイプ与ダメージ +{{value}}%",
-      "anti_flying_type": "対機動タイプ与ダメージ +{{value}}%",
+      "anti_light_type": "対軽装型与ダメージ {{value, signed_number}}%",
+      "anti_heavy_type": "対重装型与ダメージ {{value, signed_number}}%",
+      "anti_flying_type": "対機動型与ダメージ {{value, signed_number}}%",
 
       "atk_up": "攻撃力 +{{value}}%",
       "atk_down": "攻撃力 -{{value}}%",
@@ -378,7 +385,7 @@
       "pull": "{{value}}マス前方に引き寄せる",
       "push": "{{value}}マス後ろに突き飛ばす",
 
-      "reconnaissance": "偵察効果を付与 (次に遭遇する敵の情報を獲得)",
+      "reconnaissance": "偵察効果を付与",
       "marked": "標的に指定",
       "provoked": "挑発を付与",
       "immovable": "移動不可を付与",

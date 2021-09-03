@@ -7,7 +7,7 @@ import {
   Gear,
   matchExclusive,
   Os
-} from '../../domain/EquipmentData';
+} from '../../domain/equipment/EquipmentData';
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 
 import { equipmentData } from '../../data/equipmentData';

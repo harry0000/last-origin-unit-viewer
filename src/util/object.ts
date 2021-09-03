@@ -8,8 +8,16 @@ export function mapObjectValue<K extends string | number | symbol, V, R>(object:
   return Object.fromEntries(Object.entries<V>(object).map(([key, value]) => [key, f(value)])) as Record<K, R>;
 }
 
-// export type Entry<K extends string | number | symbol, T> = K extends keyof T ? readonly [`${string & K}`, T[K]] : never
+export type Entry<K extends string | number | symbol, T> = K extends keyof T ? readonly [`${string & K}`, T[K]] : never
 export type NonNullableEntry<K extends string | number | symbol, T> = K extends keyof T ? readonly [`${string & K}`, NonNullable<T[K]>] : never
+
+export function typedEntries<T, K extends keyof T = keyof T>(object: T): ReadonlyArray<Entry<K, T>> {
+  return Object.entries(object) as unknown as ReadonlyArray<Entry<K, T>>;
+}
+
+export function typedNonNullableEntries<T, K extends keyof T = keyof T>(object: T): ReadonlyArray<NonNullableEntry<K, T>> {
+  return Object.entries(object) as unknown as ReadonlyArray<NonNullableEntry<K, T>>;
+}
 
 export function foldObjectNonNullableEntry<T, R, K extends keyof T = keyof T>(
   object: T,

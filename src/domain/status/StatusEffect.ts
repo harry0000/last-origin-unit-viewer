@@ -41,3 +41,5 @@ export type StatusEffect = {
     K extends MilliPercentageStatusEffectKey ? MilliPercentageValue :
       never
 }
+
+export const emptyStatusEffect: StatusEffect = {};

@@ -1,7 +1,7 @@
 import { Effect } from '../Effect';
 import { EffectActivationState } from '../EffectActivationState';
 import { EffectTrigger } from '../EffectTrigger';
-import { EquipmentId } from '../EquipmentData';
+import { EquipmentId } from '../equipment/EquipmentData';
 import { SkillEffectTag } from './SkillEffectTag';
 import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
@@ -99,7 +99,7 @@ export type SkillEffectActivationState =
 
 export type SkillEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
-  round?: { until: 1 | 2 | 3 | 4 }
+  round?: { at: 1 | 2 } | { from: 3 } | { until: 1 | 2 | 3 | 4 }
 } | {
   trigger: Exclude<EffectTrigger, typeof EffectTrigger.StartRound>
 }

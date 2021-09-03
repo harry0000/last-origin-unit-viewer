@@ -11,8 +11,16 @@ import {
   useSetRecoilState
 } from 'recoil';
 import deepEqual from 'fast-deep-equal';
+import { useTranslation } from 'react-i18next';
 
-import { Chip, EquipmentType, Gear, Os } from '../../domain/EquipmentData';
+import {
+  Chip,
+  EquipmentEnhancementLevel,
+  EquipmentId,
+  EquipmentType,
+  Gear,
+  Os
+} from '../../domain/equipment/EquipmentData';
 import {
   ChipEquipment,
   EquipmentSlotAvailableLv,
@@ -22,15 +30,119 @@ import {
   UnitChip2Equipment,
   UnitGearEquipment,
   UnitOsEquipment
-} from '../../domain/status/UnitEquipment';
+} from '../../domain/equipment/UnitEquipment';
 import { StatusEffect } from '../../domain/status/StatusEffect';
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 import { UnitLvValue } from '../../domain/status/UnitLv';
+import {
+  calculateEffect,
+  calculateEffectAsSkill,
+  calculateStatusEffect
+} from '../../domain/equipment/EquipmentEffectCalculator';
 
+import { TranslatedEquipmentEffect, translateEquipmentEffect } from './EquipmentEffectsTranslator';
+import { translateEquipmentStatusEffects } from './EquipmentStatusEffectsTlanslator';
 import { unitLvState } from '../status/unitLvStatusState';
 
 export type EquipmentSlot = 'chip1' | 'chip2' | 'os' | 'gear'
 type EquipmentSlotKey = `${Capitalize<EquipmentSlot>}`
+
+const enhanceLvs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;
+
+const selectedEnhanceLvState = atomFamily<EquipmentEnhancementLevel, EquipmentSlot>({
+  key: 'selectedEnhanceLvState',
+  default: 10
+});
+
+const chip1EnhanceLvSelectorState = atomFamily<boolean, EquipmentEnhancementLevel>({
+  key: 'chip1EnhanceLvSelectorState',
+  default: (lv) => lv === 10
+});
+
+const chip2EnhanceLvSelectorState = atomFamily<boolean, EquipmentEnhancementLevel>({
+  key: 'chip2EnhanceLvSelectorState',
+  default: (lv) => lv === 10
+});
+
+const osEnhanceLvSelectorState = atomFamily<boolean, EquipmentEnhancementLevel>({
+  key: 'osEnhanceLvSelectorState',
+  default: (lv) => lv === 10
+});
+
+const gearEnhanceLvSelectorState = atomFamily<boolean, EquipmentEnhancementLevel>({
+  key: 'gearEnhanceLvSelectorState',
+  default: (lv) => lv === 10
+});
+
+const updateChip1EnhanceLvSelector = selectorFamily<void, EquipmentEnhancementLevel>({
+  key: 'updateChip1EnhanceLvSelector',
+  get: () => () => { throw new Error(); },
+  set: (enhanceLv) => ({ set }) => {
+    set(selectedEnhanceLvState('chip1'), enhanceLv);
+    enhanceLvs.forEach(lv => {
+      set(chip1EnhanceLvSelectorState(lv), enhanceLv === lv);
+    });
+  }
+});
+
+const updateChip2EnhanceLvSelector = selectorFamily<void, EquipmentEnhancementLevel>({
+  key: 'updateChip2EnhanceLvSelector',
+  get: () => () => { throw new Error(); },
+  set: (enhanceLv) => ({ set }) => {
+    set(selectedEnhanceLvState('chip2'), enhanceLv);
+    enhanceLvs.forEach(lv => {
+      set(chip2EnhanceLvSelectorState(lv), enhanceLv === lv);
+    });
+  }
+});
+
+const updateOsEnhanceLvSelector = selectorFamily<void, EquipmentEnhancementLevel>({
+  key: 'updateOsEnhanceLvSelector',
+  get: () => () => { throw new Error(); },
+  set: (enhanceLv) => ({ set }) => {
+    set(selectedEnhanceLvState('os'), enhanceLv);
+    enhanceLvs.forEach(lv => {
+      set(osEnhanceLvSelectorState(lv), enhanceLv === lv);
+    });
+  }
+});
+
+const updateGearEnhanceLvSelector = selectorFamily<void, EquipmentEnhancementLevel>({
+  key: 'updateGearEnhanceLvSelector',
+  get: () => () => { throw new Error(); },
+  set: (enhanceLv) => ({ set }) => {
+    set(selectedEnhanceLvState('gear'), enhanceLv);
+    enhanceLvs.forEach(lv => {
+      set(gearEnhanceLvSelectorState(lv), enhanceLv === lv);
+    });
+
+  }
+});
+
+export const updateEquipmentEnhanceLvSelector = selector<UnitBasicInfo | undefined>({
+  key: 'updateEquipmentEnhanceLvSelector',
+  get: () => { throw new Error(); },
+  set: ({ get, set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      const chip1Lv = (newValue && get(_unitChip1EquipmentAtom(newValue.no)).chip1?.enhanceLv) ?? 10;
+      const chip2Lv = (newValue && get(_unitChip2EquipmentAtom(newValue.no)).chip2?.enhanceLv) ?? 10;
+      const osLv    = (newValue && get(_unitOsEquipmentAtom(newValue.no)).os?.enhanceLv) ?? 10;
+      const gearLv  = (newValue && get(_unitGearEquipmentAtom(newValue.no)).gear?.enhanceLv) ?? 10;
+
+      set(selectedEnhanceLvState('chip1'), chip1Lv);
+      set(selectedEnhanceLvState('chip2'), chip2Lv);
+      set(selectedEnhanceLvState('os'), osLv);
+      set(selectedEnhanceLvState('gear'), gearLv);
+
+      enhanceLvs.forEach(lv => {
+        set(chip1EnhanceLvSelectorState(lv), lv === chip1Lv);
+        set(chip2EnhanceLvSelectorState(lv), lv === chip2Lv);
+        set(osEnhanceLvSelectorState(lv), lv === osLv);
+        set(gearEnhanceLvSelectorState(lv), lv === gearLv);
+      });
+    }
+  }
+});
 
 function createSlotAvailableAtom(slotKey: EquipmentSlotKey) {
   return atomFamily<boolean, UnitNumber>({
@@ -261,6 +373,78 @@ export const unitGearEquipmentStatusEffectsState = selectorFamily<StatusEffect, 
   get: (unit) => ({ get }) => get(atoms.statusEffects.gear(unit))
 });
 
+export function useEquipmentEnhanceLvSelector(slot: EquipmentSlot, unit: UnitNumber, lv: EquipmentEnhancementLevel): [selected: boolean, selectEnhanceLv: () => void] {
+  switch (slot) {
+  case 'chip1': {
+    const updateSelector = useSetRecoilState(updateChip1EnhanceLvSelector(lv));
+    const updateChip1 = useSetRecoilState(unitChip1EquipmentState(unit));
+    const selectEnhanceLv = () => {
+      updateSelector();
+      updateChip1(currVal => currVal.changeEnhancementLv(lv));
+    };
+    return [useRecoilValue(chip1EnhanceLvSelectorState(lv)), selectEnhanceLv];
+  }
+  case 'chip2': {
+    const updateSelector = useSetRecoilState(updateChip2EnhanceLvSelector(lv));
+    const updateChip2 = useSetRecoilState(unitChip2EquipmentState(unit));
+    const selectEnhanceLv = () => {
+      updateSelector();
+      updateChip2(currVal => currVal.changeEnhancementLv(lv));
+    };
+    return [useRecoilValue(chip2EnhanceLvSelectorState(lv)), selectEnhanceLv];
+  }
+  case 'os': {
+    const updateSelector = useSetRecoilState(updateOsEnhanceLvSelector(lv));
+    const updateOs = useSetRecoilState(unitOsEquipmentState(unit));
+    const selectEnhanceLv = () => {
+      updateSelector();
+      updateOs(currVal => currVal.changeEnhancementLv(lv));
+    };
+    return [useRecoilValue(osEnhanceLvSelectorState(lv)), selectEnhanceLv];
+  }
+  case 'gear': {
+    const updateSelector = useSetRecoilState(updateGearEnhanceLvSelector(lv));
+    const updateGear = useSetRecoilState(unitGearEquipmentState(unit));
+    const selectEnhanceLv = () => {
+      updateSelector();
+      updateGear(currVal => currVal.changeEnhancementLv(lv));
+    };
+    return [useRecoilValue(gearEnhanceLvSelectorState(lv)), selectEnhanceLv];
+  }
+  }
+}
+
+export function useEquipmentStatusEffects(slot: EquipmentSlot, equipmentId: EquipmentId): string {
+  const { t } = useTranslation();
+  const lv = useRecoilValue(selectedEnhanceLvState(slot));
+  const effects = calculateStatusEffect(equipmentId, lv);
+  const details = translateEquipmentStatusEffects(effects, t);
+
+  return details !== '' ? details : t('status.none_equipment_status_effect');
+}
+
+export function useEquipmentEffects(
+  slot: EquipmentSlot,
+  equipmentId: EquipmentId
+): ReadonlyArray<TranslatedEquipmentEffect> | undefined {
+  const { t } = useTranslation();
+  const lv = useRecoilValue(selectedEnhanceLvState(slot));
+  const effects = calculateEffect(equipmentId, lv);
+
+  return effects && translateEquipmentEffect(effects, t);
+}
+
+export function useEquipmentEffectsAsSkill(
+  slot: EquipmentSlot,
+  equipmentId: EquipmentId
+): ReadonlyArray<TranslatedEquipmentEffect> | undefined {
+  const { t } = useTranslation();
+  const lv = useRecoilValue(selectedEnhanceLvState(slot));
+  const effects = calculateEffectAsSkill(equipmentId, lv);
+
+  return effects && translateEquipmentEffect(effects, t);
+}
+
 export function useUnitEquipment(unit: UnitBasicInfo, slot: 'chip1' | 'chip2'): [
   type: typeof EquipmentType.Chip,
   equipment: ChipEquipment | undefined,
@@ -286,20 +470,24 @@ export function useUnitEquipment(unit: UnitBasicInfo, slot: EquipmentSlot): [
 ] {
   switch (slot) {
   case 'chip1': {
+    const enhanceLv = useRecoilValue(selectedEnhanceLvState('chip1'));
     const [unitChip1, setUnitChip1] = useRecoilState(unitChip1EquipmentState(unit.no));
-    return [EquipmentType.Chip, unitChip1.chip1, (e: Chip | undefined) => { setUnitChip1(s => e ? s.equipChip1(e) : s.removeChip1()); }];
+    return [EquipmentType.Chip, unitChip1.chip1, (e: Chip | undefined) => { setUnitChip1(s => e ? s.equipChip1(e, enhanceLv) : s.removeChip1()); }];
   }
   case 'chip2': {
+    const enhanceLv = useRecoilValue(selectedEnhanceLvState('chip2'));
     const [unitChip2, setUnitChip2] = useRecoilState(unitChip2EquipmentState(unit.no));
-    return [EquipmentType.Chip, unitChip2.chip2, (e: Chip | undefined) => { setUnitChip2(s => e ? s.equipChip2(e) : s.removeChip2()); }];
+    return [EquipmentType.Chip, unitChip2.chip2, (e: Chip | undefined) => { setUnitChip2(s => e ? s.equipChip2(e, enhanceLv) : s.removeChip2()); }];
   }
   case 'os': {
+    const enhanceLv = useRecoilValue(selectedEnhanceLvState('os'));
     const [unitOs, setUnitOs] = useRecoilState(unitOsEquipmentState(unit.no));
-    return [EquipmentType.Os, unitOs.os, (e: Os | undefined) => { setUnitOs(s => e ? s.equipOs(e) : s.removeOs()); }];
+    return [EquipmentType.Os, unitOs.os, (e: Os | undefined) => { setUnitOs(s => e ? s.equipOs(e, enhanceLv) : s.removeOs()); }];
   }
   case 'gear': {
+    const enhanceLv = useRecoilValue(selectedEnhanceLvState('gear'));
     const [unitGear, setUnitGear] = useRecoilState(unitGearEquipmentState(unit.no));
-    return [EquipmentType.Gear, unitGear.gear, (e: Gear | undefined) => { setUnitGear(s => e ? s.equipGear(e) : s.removeGear()); }];
+    return [EquipmentType.Gear, unitGear.gear, (e: Gear | undefined) => { setUnitGear(s => e ? s.equipGear(e, enhanceLv) : s.removeGear()); }];
   }
   }
 }

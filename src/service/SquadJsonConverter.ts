@@ -17,7 +17,7 @@ import {
   UnitChip2Equipment,
   UnitGearEquipment,
   UnitOsEquipment
-} from '../domain/status/UnitEquipment';
+} from '../domain/equipment/UnitEquipment';
 import UnitCoreLink from '../domain/UnitCoreLink';
 import UnitDamagedState from '../domain/UnitDamagedState';
 import UnitLvStatus from '../domain/status/UnitLvStatus';
@@ -73,10 +73,10 @@ function convertEquipment(
   gear: UnitGearEquipment
 ): UnitEquipmentJsonStructure {
   return [
-    chip1.isChip1Available(lv) && chip1.chip1 ? [chip1.chip1.equipped.id, chip1.chip1.rank, chip1.chip1.enhanceLv] : [],
-    chip2.isChip2Available(lv) && chip2.chip2 ? [chip2.chip2.equipped.id, chip2.chip2.rank, chip2.chip2.enhanceLv] : [],
-    os.isOsAvailable(lv)       && os.os       ? [os.os.equipped.id, os.os.rank, os.os.enhanceLv] : [],
-    gear.isGearAvailable(lv)   && gear.gear   ? [gear.gear.equipped.id, gear.gear.rank, gear.gear.enhanceLv] : []
+    chip1.isChip1Available(lv) && chip1.chip1 ? [chip1.chip1.id, chip1.chip1.rank, chip1.chip1.enhanceLv] : [],
+    chip2.isChip2Available(lv) && chip2.chip2 ? [chip2.chip2.id, chip2.chip2.rank, chip2.chip2.enhanceLv] : [],
+    os.isOsAvailable(lv)       && os.os       ? [os.os.id, os.os.rank, os.os.enhanceLv] : [],
+    gear.isGearAvailable(lv)   && gear.gear   ? [gear.gear.id, gear.gear.rank, gear.gear.enhanceLv] : []
   ];
 }
 

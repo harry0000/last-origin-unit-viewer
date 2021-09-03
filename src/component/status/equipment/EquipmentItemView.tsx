@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Image } from 'react-bootstrap';
 
-import { EquipmentEnhancementLevel, EquipmentId, EquipmentRank, EquipmentType } from '../../../domain/EquipmentData';
+import { EquipmentEnhancementLevel, EquipmentId, EquipmentRank, EquipmentType } from '../../../domain/equipment/EquipmentData';
 
 const EquipmentItemView: React.FC<{
   equipmentId: EquipmentId,

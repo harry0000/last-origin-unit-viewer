@@ -1,11 +1,19 @@
 .dropdown.slot.core-link .dropdown-menu.core-link.show {
-  background-color: #444;
-  padding: 2px;
+  background-color: #fff;
+  padding: 1px;
 }
 
 .dropdown-menu.core-link.show .core-link-unit-list {
-  background-color: #0a101e;
+  background-color: rgba(10, 16, 30, 0.9);
   border-radius: 3px;
+}
+
+.core-link-unit-list > a.dropdown-item.core-link:first-of-type {
+  border-radius: 3px 3px 0 0;
+}
+
+.core-link-unit-list > a.dropdown-item.core-link:last-of-type {
+  border-radius: 0 0 3px 3px;
 }
 
 a.dropdown-item.core-link {
@@ -15,6 +23,7 @@ a.dropdown-item.core-link {
 }
 
 a.dropdown-item.core-link .label {
+  color: #ccc;
   font-weight: bold;
   margin-left: 15px;
 }
@@ -39,11 +48,15 @@ a.dropdown-item.core-link .partial-fit-unit .unit-type {
   font-weight: bold;
 }
 
-a.dropdown-item.core-link:not(.active, :active):hover {
-  background-color: #ccc;
+a.dropdown-item.core-link:not(.active, :active) {
+  background-color: rgb(10, 16, 30);
 }
 
-a.dropdown-item.core-link:is(.active, :active, :focus, :hover) .label,
-a.dropdown-item.core-link:is(.active, :active, :focus, :hover) .partial-fit-unit .unit-type {
+a.dropdown-item.core-link:not(.active, :active):is(:hover, :focus) {
+  background-color: unset;
+}
+
+a.dropdown-item.core-link:is(.active, :active) .label,
+a.dropdown-item.core-link:is(.active, :active) .partial-fit-unit .unit-type {
   color: #16181b;
 }

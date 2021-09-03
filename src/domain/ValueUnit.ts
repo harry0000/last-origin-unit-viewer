@@ -1,7 +1,7 @@
-export type IntegerValue<T extends number = number> = { value: T }
-export type MilliValue                              = { milliValue: number }
-export type MicroValue                              = { microValue: number }
-export type MilliPercentageValue                    = { milliPercentage: number }
+export type IntegerValue<T extends number = number> = Readonly<{ value: T }>
+export type MilliValue                              = Readonly<{ milliValue: number }>
+export type MicroValue                              = Readonly<{ microValue: number }>
+export type MilliPercentageValue                    = Readonly<{ milliPercentage: number }>
 
 export type ValueUnit = keyof IntegerValue | keyof MilliValue | keyof MicroValue | keyof MilliPercentageValue
 export type ValueTypes = IntegerValue | MilliValue | MicroValue | MilliPercentageValue
