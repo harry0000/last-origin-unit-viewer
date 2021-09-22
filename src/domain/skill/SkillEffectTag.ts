@@ -46,6 +46,7 @@ export type SkillEffectTag =
   'hardpoint_mount_equipment' |
   'hardpoint_mount_support' |
   'where_are_you_looking_at' |
+  'stealth_camouflage' |
   'viff_activate' |
   'overwhelming_cuteness' |
   'observation_data_reception' |
