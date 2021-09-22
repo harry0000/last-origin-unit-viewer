@@ -9,6 +9,7 @@
   },
   "unit": {
     "ally": "味方",
+    "enemy": "敵",
     "bioroid": "バイオロイド",
     "ags": "AGS",
     "attacker": "攻撃機",
@@ -95,6 +96,7 @@
     "hardpoint_mount_equipment": "ハードポイント<武装>",
     "hardpoint_mount_support": "ハードポイント<補助>",
     "where_are_you_looking_at": "どこ見てるの?",
+    "stealth_camouflage": "ステルス偽装",
     "viff_activate": "VIFF機動",
     "overwhelming_cuteness": "圧倒的な可愛さ？",
     "observation_data_reception": "観測データ受信",
@@ -187,7 +189,9 @@
   },
   "scale_factor" : {
     "per_stack": "<$t(effect:tag.{{tag}})> 1つにつき",
-    "num_of_allies": "の人数に応じて"
+    "num_of_allies": "の人数に応じて",
+    "proportion": "の数に比例して",
+    "inverse_proportion": "の数に反比例して"
   },
   "term": {
     "immediate": "即時",

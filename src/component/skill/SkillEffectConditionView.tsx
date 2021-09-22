@@ -301,6 +301,8 @@ const SkillEffectConditionView: React.FC<
           v => {
             if ('per_stack' in v) {
               return (<span>{t('effect:scale_factor.per_stack', { tag: v.per_stack.tag })}</span>);
+            } else if ('num_of_enemies' in v) {
+              return (<span>{t('effect:unit.enemy')}{t(`effect:scale_factor.${v.num_of_enemies}`)}</span>);
             } else {
               if (isUnitAlias(v.num_of_units)) {
                 return (
