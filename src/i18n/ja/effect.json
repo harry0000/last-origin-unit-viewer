@@ -9,6 +9,7 @@
   },
   "unit": {
     "ally": "味方",
+    "enemy": "敵",
     "bioroid": "バイオロイド",
     "ags": "AGS",
     "attacker": "攻撃機",
@@ -187,7 +188,9 @@
   },
   "scale_factor" : {
     "per_stack": "<$t(effect:tag.{{tag}})> 1つにつき",
-    "num_of_allies": "の人数に応じて"
+    "num_of_allies": "の人数に応じて",
+    "proportion": "の数に比例して",
+    "inverse_proportion": "の数に反比例して"
   },
   "term": {
     "immediate": "即時",

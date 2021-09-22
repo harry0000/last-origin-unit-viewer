@@ -35,7 +35,7 @@ export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> 
   [UnitAlias.Horizon]: new Set([85, 87, 88, 89, 90]),
   [UnitAlias.TomosFriends]: new Set([25, 43, 81, 125]),
   // TODO: Add 179: Sadius
-  [UnitAlias.CityGuard]: new Set([111, 112, 113, 114, 115]),
+  [UnitAlias.CityGuard]: new Set([111, 112, 113, 114, 115, 184]),
   [UnitAlias.SpartanSeries]: new Set([215, 216, 217])
 } as const;
 
