@@ -75,6 +75,9 @@ export type SkillEffectTag =
   'psychic_barrier' |
   'overexcitement' |
   'controlling_excitement' |
+  'devotion' |
+  'fury' |
+  'light_of_sky' |
   'tactical_data_link' |
   'passive_radar' |
   'command_induction' |

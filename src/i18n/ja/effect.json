@@ -32,6 +32,7 @@
     "horizon": "ホライゾン",
     "tomos_friends": "トモの友達",
     "city_guard": "シティーガード",
+    "magical_girl": "魔法少女",
     "spartan_series": "スパルタンシリーズ"
   },
   "form": {
@@ -124,6 +125,9 @@
     "psychic_barrier": "念動力場",
     "overexcitement": "過興奮状態",
     "controlling_excitement": "興奮調節",
+    "devotion": "献身",
+    "fury": "憤怒",
+    "light_of_sky": "天空の光",
     "tactical_data_link": "戦術データリンク",
     "passive_radar": "パッシブレーダー",
     "command_induction": "指令誘導",
@@ -152,6 +156,7 @@
       "be_hit_fire_active": "火炎属性攻撃を被撃時",
       "be_hit_ice_active": "冷気属性攻撃を被撃時",
       "be_hit_electric_active": "電気属性攻撃を被撃時",
+      "take_damage": "ダメージを受けた時",
       "evade": "回避時",
       "critical": "クリティカル時",
       "revive": "戦闘続行発動時",
@@ -170,15 +175,18 @@
       "protected": "保護対象である",
       "effected": "$t(effect:effect.name.{{effect}})状態である",
       "tagged": "<$t(effect:tag.{{tag}})>状態である",
+      "not_tagged": "<$t(effect:tag.{{tag}})>状態でない",
       "tag_stack_ge": "<$t(effect:tag.{{tag}})> {{value}}以上である",
       "tag_effect_stack_ge": "<$t(effect:tag.{{tag}})>($t(effect:effect.name.{{effect}})) {{value}}以上である",
       "form": "<$t(effect:form.{{form}})>である",
       "equipped": "$t(effect:quote){{equipment}}$t(effect:unquote)を装備している",
+      "not_equipped": "{{equipments}}を装備していない",
       "in_front_line": "前列にいる",
       "in_mid_line": "中列にいる",
       "in_back_line": "後列にいる",
       "in_squad": "{{unit}}がいる",
       "unit": "{{unit}}である",
+      "num_of_units": "$t(effect:unit.{{unit}})が{{greater_or_equal}}体以上いる",
       "effected_by": "{{unit}}のスキル効果を受けている"
     },
     "target": {
@@ -442,5 +450,7 @@
 
   "or_conjunction": "または",
   "as_preposition": "の",
-  "of_preposition": "の"
+  "of_preposition": "の",
+
+  "negative_form": "ではない"
 }

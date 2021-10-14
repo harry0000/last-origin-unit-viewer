@@ -150,6 +150,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
     select: 5,
     area: ['none', 'high', 'none', 'none', 'effective', 'none', 'none', 'high', 'none']
   },
+  [SkillAreaType.FanShapeGreatlyAttenuate]: {
+    select: 4,
+    area: ['none', 'middle', 'weak', 'effective', 'middle', 'weak', 'none', 'middle', 'weak']
+  },
   [SkillAreaType.FanShapeStrongExplosion]: {
     select: 5,
     area: ['none', 'none', 'high', 'none', 'effective', 'high', 'none', 'none', 'high']
@@ -185,6 +189,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
   [SkillAreaType.Left]: {
     select: 5,
     area: ['none', 'effective', 'none', 'none', 'none', 'none', 'none', 'none', 'none']
+  },
+  [SkillAreaType.Right]: {
+    select: 5,
+    area: ['none', 'none', 'none', 'none', 'none', 'none', 'none', 'effective', 'none']
   },
   [SkillAreaType.Forward]: {
     select: 4,
@@ -241,6 +249,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
   [SkillAreaType.CatsHand]: {
     select: 6,
     area: ['none', 'effective', 'none', 'effective', 'none', 'none', 'none', 'effective', 'none']
+  },
+  [SkillAreaType.UnderWatcher]: {
+    select: 6,
+    area: ['effective', 'effective', 'effective', 'effective', 'effective', 'none', 'effective', 'effective', 'effective']
   },
   [SkillAreaType.AllAdjacentWithoutFront]: {
     select: 5,

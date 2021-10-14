@@ -10,6 +10,11 @@ export type CommonCoreLinkBonus = Readonly<{
   [Effect.ExpUp]: { [key in keyof MilliPercentageValue]: 4_000 }
 }>
 
+type GoltarionSpecificCoreLinkBonus = Readonly<{
+  [Effect.CriUp]: { [key in keyof MilliPercentageValue]: 2_000 },
+  [Effect.AccUp]: { [key in keyof MilliPercentageValue]: 7_000 }
+}>
+
 export type SpecificCoreLinkBonus =
   Readonly<{ damage_multiplier: { [key in keyof MilliPercentageValue]: 2_000 } }> |
   Readonly<{ [Effect.HpUp]: { [key in keyof MilliPercentageValue]: 5_000 } }> |
@@ -17,19 +22,29 @@ export type SpecificCoreLinkBonus =
   Readonly<{ [Effect.CriUp]: { [key in keyof MilliPercentageValue]: 2_000 } }> |
   Readonly<{ [Effect.DefUp]: { [key in keyof MilliPercentageValue]: 3_000 } }> |
   Readonly<{ [Effect.EvaUp]: { [key in keyof MilliPercentageValue]: 2_000 } }> |
-  Readonly<{ [Effect.SpdUp]: { [key in keyof MicroValue]: 20_000 } }>
+  Readonly<{ [Effect.SpdUp]: { [key in keyof MicroValue]: 20_000 } }> |
+  GoltarionSpecificCoreLinkBonus
 
-export type CoreLinkBonus = Readonly<{
-  [key in keyof CommonCoreLinkBonus]: MilliPercentageValue
-}> & (
-  Readonly<{ damage_multiplier: MilliPercentageValue }> |
-  Readonly<{ [Effect.HpUp]: MilliPercentageValue }> |
-  Readonly<{ [Effect.AccUp]: MilliPercentageValue }> |
-  Readonly<{ [Effect.CriUp]: MilliPercentageValue }> |
-  Readonly<{ [Effect.DefUp]: MilliPercentageValue }> |
-  Readonly<{ [Effect.EvaUp]: MilliPercentageValue }> |
-  Readonly<{ [Effect.SpdUp]: MicroValue }>
-)
+type GoltarionCoreLinkBonus =
+  Readonly<{
+    [key in keyof Omit<CommonCoreLinkBonus, typeof Effect.HpUp>]: MilliPercentageValue
+  }> &
+  Readonly<{
+    [Effect.CriUp]: MilliPercentageValue,
+    [Effect.AccUp]: MilliPercentageValue
+  }>
+
+export type CoreLinkBonus =
+  Readonly<{ [key in keyof CommonCoreLinkBonus]: MilliPercentageValue }> & (
+    Readonly<{ damage_multiplier: MilliPercentageValue }> |
+    Readonly<{ [Effect.HpUp]: MilliPercentageValue }> |
+    Readonly<{ [Effect.AccUp]: MilliPercentageValue }> |
+    Readonly<{ [Effect.CriUp]: MilliPercentageValue }> |
+    Readonly<{ [Effect.DefUp]: MilliPercentageValue }> |
+    Readonly<{ [Effect.EvaUp]: MilliPercentageValue }> |
+    Readonly<{ [Effect.SpdUp]: MicroValue }>
+  ) |
+  GoltarionCoreLinkBonus
 
 export type SortieCostBonus = Readonly<{
   sortie_cost: { [key in keyof MilliPercentageValue]: 20_000 | 25_000 }
@@ -72,9 +87,9 @@ export type UnitCoreLinkBonusData = Readonly<{
     specific_link_bonus: SpecificCoreLinkBonus,
     full_link_bonus: readonly [
       SortieCostBonus,
-      DamageMultiplierBonus,
+      DamageMultiplierBonus | AccUpBonus,
       HpUpBonus | AccUpBonus | CriUpBonus | Range1UpBonus,
-      HpUpBonus | EvaUpBonus | AccUpBonus | CriUpBonus | BuffDebuffLv2UpBonus,
+      HpUpBonus | EvaUpBonus | AccUpBonus | CriUpBonus | Range1UpBonus | BuffDebuffLv2UpBonus,
       SpdUpBonus
     ]
   }
