@@ -327,7 +327,7 @@ function coreLinkBonusEffects(
   case 'hp': {
     const bonus = useRecoilValue(coreLinkBonusEffectsState(unit));
     const value = useRecoilValue(unitHpStatusParameterState(unit))?.hpCoreLinkBonus.value;
-    return bonus && value ?
+    return bonus && 'hp_up' in bonus && value ?
       [{
         key: 'core_link_bonus',
         effected: t('status.effected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.hp_up) }),

@@ -15,6 +15,9 @@ export type UnitTypeAndRole = {
 export type UnitAliasAndType = {
   alias: UnitAlias,
   type: UnitType
+} | {
+  not_alias: typeof UnitAlias.MagicalGirl,
+  type: typeof UnitType.Light
 }
 
 export type UnitAliasAndRole = {
@@ -32,12 +35,15 @@ type NoValueEffectActivationStateKey =
     typeof EffectActivationState[
       'Effected' |
       'Tagged' |
+      'NotTagged' |
       'StackGe' |
       'Form' |
       'Equipped' |
+      'NotEquipped' |
       'InSquad' |
       'EffectedBy' |
-      'Unit'
+      'Unit' |
+      'NumOfUnits'
     ]
   >
 
@@ -65,10 +71,16 @@ type ActivationState =
 export type ActivationSelfState =
   ActivationState &
   {
+    [EffectActivationState.NotTagged]?: SkillEffectTag
+  } &
+  {
     [EffectActivationState.Form]?: UnitForms
   } &
   {
     [EffectActivationState.Equipped]?: EquipmentId
+  } &
+  {
+    [EffectActivationState.NotEquipped]?: ReadonlyArray<EquipmentId>
   } &
   {
     [EffectActivationState.EffectedBy]?: UnitNumber | UnitAlias
@@ -85,7 +97,9 @@ export type ActivationTargetState =
   }
 
 export type ActivationSquadState = {
-  [EffectActivationState.InSquad]: UnitNumber | UnitAlias
+  [EffectActivationState.InSquad]?: UnitNumber | UnitAlias
+} & {
+  [EffectActivationState.NumOfUnits]?: { unit: typeof UnitKind.AGS, greater_or_equal: 3 }
 }
 
 export type SkillEffectActivationState =
@@ -99,7 +113,7 @@ export type SkillEffectActivationState =
 
 export type SkillEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
-  round?: { at: 1 | 2 } | { from: 3 } | { until: 1 | 2 | 3 | 4 }
+  round?: { at: 1 | 2 | 3 } | { from: 3 } | { until: 1 | 2 | 3 | 4 }
 } | {
   trigger: Exclude<EffectTrigger, typeof EffectTrigger.StartRound>
 }

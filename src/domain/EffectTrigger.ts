@@ -20,6 +20,7 @@ export const EffectTrigger = {
   BeHitFireActive: 'be_hit_fire_active',
   BeHitIceActive: 'be_hit_ice_active',
   BeHitElectricActive: 'be_hit_electric_active',
+  TakeDamage: 'take_damage',
   Evade: 'evade',
   Critical: 'critical',
   Revive: 'revive',

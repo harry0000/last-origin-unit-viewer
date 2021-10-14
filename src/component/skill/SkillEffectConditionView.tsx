@@ -44,13 +44,10 @@ function stateValuesView(entry: StateValuesEntry, unitNumber: UnitNumber, t: TFu
   case 'hp_less_than':
     return (<span>{t(`effect:condition.state.${entry[0]}`, { value: entry[1] })}</span>);
   case 'effected':
-    return (
-      <span>{t(`effect:condition.state.${entry[0]}`, { effect: entry[1] })}</span>
-    );
+    return (<span>{t(`effect:condition.state.${entry[0]}`, { effect: entry[1] })}</span>);
   case 'tagged':
-    return (
-      <span>{t(`effect:condition.state.${entry[0]}`, { tag: entry[1] })}</span>
-    );
+  case 'not_tagged':
+    return (<span>{t(`effect:condition.state.${entry[0]}`, { tag: entry[1] })}</span>);
   case 'stack_ge':
     if ('effect' in entry[1]) {
       return t(
@@ -68,18 +65,24 @@ function stateValuesView(entry: StateValuesEntry, unitNumber: UnitNumber, t: TFu
       );
     }
   case 'form':
-    return (
-      <span>{t(`effect:condition.state.${entry[0]}`, { form: entry[1] })}</span>
-    );
+    return (<span>{t(`effect:condition.state.${entry[0]}`, { form: entry[1] })}</span>);
   case 'unit':
     return unitStateView(entry[0], entry[1], unitNumber, t);
+  case 'num_of_units': {
+    const { unit, greater_or_equal } = entry[1];
+    return (<span>{t(`effect:condition.state.${entry[0]}`, { unit, greater_or_equal })}</span>);
+  }
   case 'in_squad':
   case 'effected_by':
     return unitStateView(entry[0], entry[1], unitNumber, t);
-  case 'equipped':
-    return (
-      <span>{t(`effect:condition.state.${entry[0]}`, { equipment: t(`equipment:${entry[1]}`) })}</span>
-    );
+  case 'equipped': {
+    const equipment = t(`equipment:${entry[1]}`);
+    return (<span>{t(`effect:condition.state.${entry[0]}`, { equipment })}</span>);
+  }
+  case 'not_equipped': {
+    const equipments = entry[1].map(e => `${t('effect:quote')}${t(`equipment:${e}`)}${t('effect:unquote')}`).join('');
+    return (<span>{t(`effect:condition.state.${entry[0]}`, { equipments })}</span>);
+  }
   case 'protected':
   case 'in_front_line':
   case 'in_mid_line':
@@ -138,6 +141,7 @@ function unitStateView(
     case UnitAlias.Horizon:
     case UnitAlias.TomosFriends:
     case UnitAlias.CityGuard:
+    case UnitAlias.MagicalGirl:
     case UnitAlias.SpartanSeries:
       return (
         <React.Fragment>
@@ -157,6 +161,14 @@ function unitStateView(
         <React.Fragment>
           <UnitAliasView unitAlias={unit.alias} exceptUnit={key === EffectActivationState.InSquad ? selfUnitNumber : undefined} />
           <span>{t('effect:of_preposition')}{t(`effect:condition.state.${key}`, { unit: target })}</span>
+        </React.Fragment>
+      );
+    } if ('not_alias' in unit) {
+      const target = t(`effect:unit.${unit.type}`);
+      return (
+        <React.Fragment>
+          <UnitAliasView unitAlias={unit.not_alias} exceptUnit={key === EffectActivationState.InSquad ? selfUnitNumber : undefined} />
+          <span>{t('effect:negative_form')}{t(`effect:condition.state.${key}`, { unit: target })}</span>
         </React.Fragment>
       );
     } else {

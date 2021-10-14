@@ -54,9 +54,20 @@ function calcSpecificBonus(linkRate: number, no: UnitNumber):
   { [Effect.CriUp]: MilliPercentageValue } |
   { [Effect.DefUp]: MilliPercentageValue } |
   { [Effect.EvaUp]: MilliPercentageValue } |
-  { [Effect.SpdUp]: MicroValue }
+  { [Effect.SpdUp]: MicroValue } |
+  {
+    [Effect.AccUp]: MilliPercentageValue,
+    [Effect.CriUp]: MilliPercentageValue
+  }
 {
   const bonus = unitCoreLinkBonusData[no].specific_link_bonus;
+  if ('acc_up' in bonus && 'cri_up' in bonus) {
+    return {
+      [Effect.AccUp]: { milliPercentage: calcBonusValue(bonus.acc_up.milliPercentage, linkRate) },
+      [Effect.CriUp]: { milliPercentage: calcBonusValue(bonus.cri_up.milliPercentage, linkRate) }
+    };
+  }
+
   if ('damage_multiplier' in bonus) { return { damage_multiplier: { milliPercentage: calcBonusValue(bonus.damage_multiplier.milliPercentage, linkRate) } }; }
   if ('hp_up' in bonus) { return  { [Effect.HpUp]: { milliPercentage: calcBonusValue(bonus.hp_up.milliPercentage, linkRate) } }; }
   if ('acc_up' in bonus) { return { [Effect.AccUp]: { milliPercentage: calcBonusValue(bonus.acc_up.milliPercentage, linkRate) } }; }
@@ -79,6 +90,12 @@ function calcBonus(linkRate: number, no: UnitNumber): CoreLinkBonus {
       [Effect.HpUp]: { milliPercentage: hp + specific.hp_up.milliPercentage },
       [Effect.AtkUp]: { milliPercentage: atk },
       [Effect.ExpUp]: { milliPercentage: exp }
+    };
+  } else if ('acc_up' in specific && 'cri_up' in specific) {
+    return {
+      [Effect.AtkUp]: { milliPercentage: atk },
+      [Effect.ExpUp]: { milliPercentage: exp },
+      ...specific
     };
   } else {
     return {
