@@ -69,6 +69,8 @@ export type SkillEffectTag =
   'command_defense_troop' |
   'cheerleader' |
   'with_flammables' |
+  'bleeding_hole' |
+  'night_of_blood_queen' |
   'clear_and_serene' |
   'foresight' |
   'mimesis' |
@@ -77,6 +79,9 @@ export type SkillEffectTag =
   'controlling_excitement' |
   'devotion' |
   'fury' |
+  'intelligence_collecting' |
+  'collection_complete' |
+  'parts_acquired' |
   'light_of_sky' |
   'tactical_data_link' |
   'passive_radar' |

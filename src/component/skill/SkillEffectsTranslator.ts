@@ -96,6 +96,7 @@ export function translateSkillEffectDetails(
   case Effect.AMG11Construction:
   case Effect.DeployRabbitDField:
   case Effect.SummonHologramTiger:
+  case Effect.GoldenFactoryConstruction:
     return {
       tag: getTag(entry[1], t),
       detail: t(`effect:effect.description.${entry[0]}`, { times: entry[1].times }),

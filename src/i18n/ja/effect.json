@@ -33,7 +33,8 @@
     "tomos_friends": "トモの友達",
     "city_guard": "シティーガード",
     "magical_girl": "魔法少女",
-    "spartan_series": "スパルタンシリーズ"
+    "spartan_series": "スパルタンシリーズ",
+    "golden_factory": "ゴールデンファクトリー"
   },
   "form": {
     "normal": "通常時",
@@ -119,6 +120,8 @@
     "command_offense_troop": "攻撃隊指揮",
     "command_defense_troop": "警護隊指揮",
     "cheerleader": "チアリーダー",
+    "bleeding_hole": "貫通",
+    "night_of_blood_queen": "血の女王の夜",
     "clear_and_serene": "明鏡止水",
     "foresight": "看破",
     "mimesis": "擬態",
@@ -127,6 +130,9 @@
     "controlling_excitement": "興奮調節",
     "devotion": "献身",
     "fury": "憤怒",
+    "intelligence_collecting": "情報収集中",
+    "collection_complete": "情報獲得完了",
+    "parts_acquired": "部品確保",
     "light_of_sky": "天空の光",
     "tactical_data_link": "戦術データリンク",
     "passive_radar": "パッシブレーダー",
@@ -411,7 +417,8 @@
       "deploy_defensive_wall": "空きマスに同じ行の後ろの味方を保護する防壁を生成 (最大{{times}}個)",
       "amg_11_construction": "空きマスに挑発攻撃を行うAMG-11タレットを設置 (最大{{times}}体)",
       "deploy_rabbit_d_field": "空きマスに同じ行の後ろの味方を保護するラビットを設置 (最大{{times}}体)",
-      "summon_hologram_tiger": "空きマスに被撃時に破壊されるホログラムタイガーを召喚 (最大{{times}}体)"
+      "summon_hologram_tiger": "空きマスに被撃時に破壊されるホログラムタイガーを召喚 (最大{{times}}体)",
+      "golden_factory_construction": "空きマスにゴールデンファクトリーを設置 (最大{{times}}個)"
     },
     "target": {
       "self": "自分",

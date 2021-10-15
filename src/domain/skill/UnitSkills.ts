@@ -51,8 +51,10 @@ export type SkillEffectValue = Readonly<{
       SkillEffectAddition :
     E extends typeof Effect.CooperativeAttack ?
       { unit: UnitNumber, active: 1 | 2 } & SkillEffectAddition :
-    E extends PushPullEffectKey | RangeUpDownEffectKey ?
+    E extends PushPullEffectKey ?
       IntegerValue<1 | 2> & SkillEffectAddition :
+    E extends RangeUpDownEffectKey ?
+      IntegerValue<1 | 2 | 3> & SkillEffectAddition :
     E extends IntegerValueEffectKey ?
       ValueWithAddition<'value'> :
     E extends MicroValueEffectKey ?

@@ -26,7 +26,8 @@ export type NoValueEffectKey =
     'DeployDefensiveWall' |
     'AMG11Construction' |
     'DeployRabbitDField' |
-    'SummonHologramTiger'
+    'SummonHologramTiger' |
+    'GoldenFactoryConstruction'
   ]
 export type PushPullEffectKey = typeof Effect['Pull' | 'Push']
 export type RangeUpDownEffectKey = typeof Effect['RangeUp' | 'RangeDown']
