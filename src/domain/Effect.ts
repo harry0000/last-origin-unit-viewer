@@ -82,7 +82,8 @@ export const Effect = {
   DeployDefensiveWall: 'deploy_defensive_wall',
   AMG11Construction: 'amg_11_construction',
   DeployRabbitDField: 'deploy_rabbit_d_field',
-  SummonHologramTiger: 'summon_hologram_tiger'
+  SummonHologramTiger: 'summon_hologram_tiger',
+  GoldenFactoryConstruction: 'golden_factory_construction'
 } as const;
 export type Effect = typeof Effect[keyof typeof Effect]
 

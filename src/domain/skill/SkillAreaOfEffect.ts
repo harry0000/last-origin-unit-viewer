@@ -32,6 +32,7 @@ export const SkillAreaType = {
   LineMiddleExplosion: 'line_middle_explosion',
   LineStrongExplosion: 'line_strong_explosion',
   FanShapeGreatlyAttenuate: 'fan_shape_greatly_attenuate',
+  FanShapeSlightlyAttenuate: 'fan_shape_slightly_attenuate',
   FanShapeStrongExplosion: 'fan_shape_strong_explosion',
   CrossSmallExplosion: 'cross_small_explosion',
   CrossStrongExplosion: 'cross_strong_explosion',

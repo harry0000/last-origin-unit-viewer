@@ -275,6 +275,7 @@ function calculateEffectValue(
   case Effect.AMG11Construction:
   case Effect.DeployRabbitDField:
   case Effect.SummonHologramTiger:
+  case Effect.GoldenFactoryConstruction:
   case Effect.TagStack:
   case Effect.TagRelease:
     // HACK: tag property of 'TagStack' and 'TagRelease' is calculated as addition.

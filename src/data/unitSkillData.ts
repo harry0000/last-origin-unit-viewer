@@ -8924,6 +8924,91 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  141: {
+    no: 141,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 132000 },
+        per_lv_up: { milliPercentage: 12000 }
+      },
+      range: 1,
+      cost: 8,
+      area: 'fan_shape_slightly_attenuate',
+      effects: [{
+        details: {
+          self: { ignore_protect: {} },
+          target: { eva_down: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } } }
+        }
+      }, {
+        conditions: [{ state: { target: [{ tagged: 'bleeding_hole' }] } }],
+        details: { self: { additional_damage: { base: { milliPercentage: 26000 }, per_lv_up: { milliPercentage: 6000 } } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 32000 },
+        per_lv_up: { milliPercentage: 2000 }
+      },
+      range: 3,
+      cost: 4,
+      area: 'single',
+      effects: [{
+        details: {
+          target: { fixed_damage_over_time: { tag: 'bleeding_hole', base: { value: 280 }, per_lv_up: { value: 80 }, term: { for_rounds: 4 } } },
+          self: {
+            atk_up: { tag: 'night_of_blood_queen', base: { milliPercentage: 53000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 4 } },
+            defense_penetration: { tag: 'night_of_blood_queen', base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 4 } },
+            range_up: { tag: 'night_of_blood_queen', value: 3, term: { for_rounds: 4 } }
+          }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { defense_penetration: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'attack' }],
+        details: { self: { merciless: { base: { milliPercentage: 53000 }, per_lv_up: { milliPercentage: 3000 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        details: {
+          self: {
+            defense_penetration: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 22000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
+        details: {
+          self: {
+            defense_penetration: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        details: { target: { reconnaissance: { term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'night_of_blood_queen' }] } }],
+        details: {
+          self: {
+            cri_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            eva_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }]
+  },
   147: {
     no: 147,
     active: [{
@@ -10637,6 +10722,95 @@ export const unitSkillData: UnitSkillData = {
             defense_penetration: { base: { milliPercentage: 18000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true }
           }
         }
+      }]
+    }]
+  },
+  186: {
+    no: 186,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 128000 },
+        per_lv_up: { milliPercentage: 11000 }
+      },
+      range: 4,
+      cost: 5,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'start_wave', state: { self: [{ effected: 'reconnaissance' }] } }],
+        details: { self: { tag_stack: { tag: 'intelligence_collecting', term: { for_rounds: 99 } } } }
+      }, {
+        conditions: [{ trigger: 'idle', state: { self: [{ tagged: 'intelligence_collecting' }] } }],
+        details: {
+          self: {
+            tag_release: { tag: 'intelligence_collecting' },
+            tag_stack: { tag: 'collection_complete', term: { for_rounds: 99 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'attack', state: { self: [{ tagged: 'collection_complete' }] } }],
+        details: {
+          self: { tag_release: { tag: 'collection_complete' }, },
+          target: { stunned: {} }
+        }
+      }]
+    }, {
+      range: 6,
+      cost: 8,
+      area: 'single',
+      effects: [{
+        details: { target: { golden_factory_construction: { times: 1 } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: 'golden_factory' }] } }],
+        details: { self: { tag_stack: { tag: 'parts_acquired', term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'idle', state: { self: [{ tagged: 'parts_acquired' }] } }],
+        details: {
+          self: {
+            marked: { term: { for_rounds: 1 } },
+            nullify_damage: { term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { spd_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { self: [{ equipped: 'energy_shield' }] } }],
+        details: { self: { ap_up: { base: { microValue: 600000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { num_of_enemies: 'proportion' },
+        details: { target: { atk_down: { base: { milliPercentage: 800 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave', state: { target: [{ unit: 'ags' }] } }],
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 17000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite' },
+            def_up: { base: { milliPercentage: 17000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite' },
+            spd_up: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { squad: [{ in_squad: 117 }], target: [{ unit: 'ags' }] } }],
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 7000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite' },
+            def_up: { base: { milliPercentage: 7000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite' },
+            spd_up: { base: { milliPercentage: 800 }, per_lv_up: { milliPercentage: 300 }, term: 'infinite' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'idle' }],
+        details: { target: { damage_reduction: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
       }]
     }]
   },

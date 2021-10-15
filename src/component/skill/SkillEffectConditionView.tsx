@@ -95,11 +95,11 @@ function stateValuesView(entry: StateValuesEntry, unitNumber: UnitNumber, t: TFu
   }
 }
 
-function unitStateView(key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'], unit: UnitNumber | UnitAlias, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'], unit: UnitNumber | UnitAlias | 'golden_factory', selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'], unit: UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitNumber | UnitAlias, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
   key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'],
-  unit: UnitNumber | UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitAlias,
+  unit: UnitNumber | UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitAlias | 'golden_factory',
   selfUnitNumber: UnitNumber,
   t: TFunction
 ): Exclude<ReactNode, undefined> {
@@ -122,6 +122,7 @@ function unitStateView(
     case UnitRole.Attacker:
     case UnitRole.Defender:
     case UnitRole.Supporter:
+    case 'golden_factory':
       return (
         <span>
           {t(`effect:condition.state.${key}`, { unit: t(`effect:unit.${unit}`) })}

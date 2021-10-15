@@ -154,6 +154,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
     select: 4,
     area: ['none', 'middle', 'weak', 'effective', 'middle', 'weak', 'none', 'middle', 'weak']
   },
+  [SkillAreaType.FanShapeSlightlyAttenuate]: {
+    select: 4,
+    area: ['none', 'high', 'middle', 'effective', 'high', 'middle', 'none', 'high', 'middle']
+  },
   [SkillAreaType.FanShapeStrongExplosion]: {
     select: 5,
     area: ['none', 'none', 'high', 'none', 'effective', 'high', 'none', 'none', 'high']

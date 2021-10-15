@@ -70,7 +70,7 @@ export type SkillEffectDataValue = Readonly<{
       IntegerValue<1 | 2> & SkillEffectAddition :
     E extends RangeUpDownEffectKey ?
       (
-        IntegerValue<1 | 2> |
+        IntegerValue<1 | 2 | 3> |
         { value: { [key in 1 | 10]: 0 | 1 | 2 } }
       ) & SkillEffectAddition :
     E extends IntegerValueEffectKey ?
