@@ -1297,17 +1297,17 @@ export const equipmentData = {
       role: 'attacker'
     },
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 15000, term: { for_rounds: 1 } }, damage_taken_increase: { milliPercentage: 10000, term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 17000, term: { for_rounds: 1 } }, damage_taken_increase: { milliPercentage: 11000, term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 19000, term: { for_rounds: 1 } }, damage_taken_increase: { milliPercentage: 12000, term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 21000, term: { for_rounds: 1 } }, damage_taken_increase: { milliPercentage: 13000, term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 23000, term: { for_rounds: 1 } }, damage_taken_increase: { milliPercentage: 14000, term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 25000, term: { for_rounds: 1 } }, damage_taken_increase: { milliPercentage: 15000, term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 27000, term: { for_rounds: 1 } }, damage_taken_increase: { milliPercentage: 16000, term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 29000, term: { for_rounds: 1 } }, damage_taken_increase: { milliPercentage: 17000, term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 31000, term: { for_rounds: 1 } }, damage_taken_increase: { milliPercentage: 18000, term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 33000, term: { for_rounds: 1 } }, damage_taken_increase: { milliPercentage: 19000, term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 35000, term: { for_rounds: 1 } }, damage_taken_increase: { milliPercentage: 20000, term: { for_rounds: 1 } } } }]
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 15000, term: { for_rounds: 1 } }, damage_taken_increased: { milliPercentage: 10000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 17000, term: { for_rounds: 1 } }, damage_taken_increased: { milliPercentage: 11000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 19000, term: { for_rounds: 1 } }, damage_taken_increased: { milliPercentage: 12000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 21000, term: { for_rounds: 1 } }, damage_taken_increased: { milliPercentage: 13000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 23000, term: { for_rounds: 1 } }, damage_taken_increased: { milliPercentage: 14000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 25000, term: { for_rounds: 1 } }, damage_taken_increased: { milliPercentage: 15000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 27000, term: { for_rounds: 1 } }, damage_taken_increased: { milliPercentage: 16000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 29000, term: { for_rounds: 1 } }, damage_taken_increased: { milliPercentage: 17000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 31000, term: { for_rounds: 1 } }, damage_taken_increased: { milliPercentage: 18000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 33000, term: { for_rounds: 1 } }, damage_taken_increased: { milliPercentage: 19000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 35000, term: { for_rounds: 1 } }, damage_taken_increased: { milliPercentage: 20000, term: { for_rounds: 1 } } } }]
     ]
   },
   // particle_accelerator_capacity: {
