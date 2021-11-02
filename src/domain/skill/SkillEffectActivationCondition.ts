@@ -99,7 +99,7 @@ export type ActivationTargetState =
 export type ActivationSquadState = {
   [EffectActivationState.InSquad]?: UnitNumber | UnitAlias | 'golden_factory'
 } & {
-  [EffectActivationState.NumOfUnits]?: { unit: typeof UnitKind.AGS, greater_or_equal: 3 }
+  [EffectActivationState.NumOfUnits]?: { unit: typeof UnitKind.AGS, greater_or_equal: 3 } | { unit: UnitType, greater_or_equal: 1 | 2 }
 }
 
 export type SkillEffectActivationState =
@@ -113,7 +113,7 @@ export type SkillEffectActivationState =
 
 export type SkillEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
-  round?: { at: 1 | 2 | 3 } | { from: 3 } | { until: 1 | 2 | 3 | 4 }
+  round?: { at: 1 | 2 | 3 | 4 } | { from: 3 } | { until: 1 | 2 | 3 | 4 }
 } | {
   trigger: Exclude<EffectTrigger, typeof EffectTrigger.StartRound>
 }
