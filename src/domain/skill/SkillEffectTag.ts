@@ -75,6 +75,7 @@ export type SkillEffectTag =
   'foresight' |
   'mimesis' |
   'psychic_barrier' |
+  'death_blow' |
   'overexcitement' |
   'controlling_excitement' |
   'devotion' |

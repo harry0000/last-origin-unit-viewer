@@ -839,6 +839,13 @@ export const unitBasicData = {
     type: 'flying',
     role: 'attacker'
   },
+  180: {
+    no: 180,
+    kind: 'bioroid',
+    rank: 's',
+    type: 'light',
+    role: 'attacker'
+  },
   181: {
     no: 181,
     kind: 'bioroid',
@@ -880,6 +887,13 @@ export const unitBasicData = {
     rank: 'ss',
     type: 'light',
     role: 'defender'
+  },
+  187: {
+    no: 187,
+    kind: 'bioroid',
+    rank: 'ss',
+    type: 'heavy',
+    role: 'supporter'
   },
   188: {
     no: 188,
