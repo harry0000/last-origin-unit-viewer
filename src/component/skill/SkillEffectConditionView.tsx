@@ -12,7 +12,11 @@ import {
   ActivationSquadState,
   ActivationTargetState,
   SkillEffectActivationCondition,
-  SkillEffectActivationState, UnitAliasAndRole, UnitAliasAndType, UnitTypeAndRole
+  SkillEffectActivationState,
+  UnitAliasAndRole,
+  UnitAliasAndType,
+  UnitAliasExceptUnit,
+  UnitTypeAndRole
 } from '../../domain/skill/SkillEffectActivationCondition';
 import { EffectActivationState } from '../../domain/EffectActivationState';
 import { SkillEffect } from '../../domain/skill/UnitSkills';
@@ -73,6 +77,7 @@ function stateValuesView(entry: StateValuesEntry, unitNumber: UnitNumber, t: TFu
     return (<span>{t(`effect:condition.state.${entry[0]}`, { unit, greater_or_equal })}</span>);
   }
   case 'in_squad':
+    return unitStateView(entry[0], entry[1], unitNumber, t);
   case 'effected_by':
     return unitStateView(entry[0], entry[1], unitNumber, t);
   case 'equipped': {
@@ -95,11 +100,12 @@ function stateValuesView(entry: StateValuesEntry, unitNumber: UnitNumber, t: TFu
   }
 }
 
-function unitStateView(key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'], unit: UnitNumber | UnitAlias | 'golden_factory', selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
-function unitStateView(key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'], unit: UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitNumber | UnitAlias, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.Unit, unit: UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitAliasExceptUnit | UnitNumber | UnitAlias, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.EffectedBy, unit: UnitNumber | UnitAlias | UnitAliasExceptUnit, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.InSquad, unit: UnitNumber | UnitAlias | 'golden_factory', selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
   key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'],
-  unit: UnitNumber | UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitAlias | 'golden_factory',
+  unit: UnitNumber | UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitAliasExceptUnit | UnitAlias | 'golden_factory',
   selfUnitNumber: UnitNumber,
   t: TFunction
 ): Exclude<ReactNode, undefined> {
@@ -157,13 +163,26 @@ function unitStateView(
     }
   } else {
     if ('alias' in unit) {
-      const target = 'type' in unit ? t(`effect:unit.${unit.type}`) : t(`effect:unit.${unit.role}`);
-      return (
-        <React.Fragment>
-          <UnitAliasView unitAlias={unit.alias} exceptUnit={key === EffectActivationState.InSquad ? selfUnitNumber : undefined} />
-          <span>{t('effect:of_preposition')}{t(`effect:condition.state.${key}`, { unit: target })}</span>
-        </React.Fragment>
-      );
+      if ('except' in unit) {
+        return (
+          <React.Fragment>
+            <span>
+              {t('effect:with_quotes', { value: t('unit:display', { number: unit.except }) })}
+              {t('effect:except_preposition')}
+            </span>
+            <UnitAliasView unitAlias={unit.alias} exceptUnit={unit.except} />
+            <span>{t(`effect:condition.state.${key}`, { unit: '' })}</span>
+          </React.Fragment>
+        );
+      } else {
+        const target = 'type' in unit ? t(`effect:unit.${unit.type}`) : t(`effect:unit.${unit.role}`);
+        return (
+          <React.Fragment>
+            <UnitAliasView unitAlias={unit.alias} exceptUnit={key === EffectActivationState.InSquad ? selfUnitNumber : undefined} />
+            <span>{t('effect:of_preposition')}{t(`effect:condition.state.${key}`, { unit: target })}</span>
+          </React.Fragment>
+        );
+      }
     } if ('not_alias' in unit) {
       const target = t(`effect:unit.${unit.type}`);
       return (

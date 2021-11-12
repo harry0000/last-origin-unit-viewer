@@ -1,34 +1,34 @@
 import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue } from '../ValueUnit';
+import { ParameterPerLevel } from './UnitStatusData';
 import { UnitLvValue } from './UnitLv';
 import { UnitNumber } from '../UnitBasicInfo';
 
 import { unitStatusData } from '../../data/unitStatusData';
-import { ParameterPerLevel } from './UnitStatusData';
 
-function calculateAddition(_1: number, _90: number, lv: UnitLvValue): number {
-  return ((_90 - _1) / 89) * (lv - 1);
-}
+type IntegerValueParameterPerLevel = ParameterPerLevel<keyof IntegerValue>
+type MilliValueParameterPerLevel = ParameterPerLevel<keyof MilliValue>
 
-function calculateIntegerParam(data: { 1: IntegerValue, 90: IntegerValue }, lv: UnitLvValue): IntegerValue {
+function calculateIntegerParam(data: IntegerValueParameterPerLevel, lv: UnitLvValue): IntegerValue {
   const base = data[1].value;
+  const perLv = '90' in data ? (data[90].value - base) / 89 : (data[100].value - base) / 99;
   return {
-    value: base + Math.round(calculateAddition(base, data[90].value, lv))
+    value: base + Math.round(perLv * (lv - 1))
   };
 }
 
-function calculateMilliValueParam(data: { 1: MilliValue, 90: MilliValue }, lv: UnitLvValue): MilliValue {
+function calculateMilliValueParam(data: MilliValueParameterPerLevel, lv: UnitLvValue): MilliValue {
   const base = data[1].milliValue;
-  const addition = calculateAddition(base, data[90].milliValue, lv);
+  const perLv = '90' in data ? (data[90].milliValue - base) / 89 : (data[100].milliValue - base) / 99;
   return {
-    milliValue: base + (Math.round(addition / 1000) * 1000)
+    milliValue: base + Math.round(perLv * (lv - 1))
   };
 }
 
 class UnitBaseParameter {
 
-  readonly #hp: ParameterPerLevel<keyof IntegerValue>;
-  readonly #atk: ParameterPerLevel<keyof MilliValue>;
-  readonly #def: ParameterPerLevel<keyof MilliValue>;
+  readonly #hp: IntegerValueParameterPerLevel;
+  readonly #atk: MilliValueParameterPerLevel;
+  readonly #def: MilliValueParameterPerLevel;
   readonly acc: MilliPercentageValue;
   readonly eva: MilliPercentageValue;
   readonly cri: MilliPercentageValue;

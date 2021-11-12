@@ -16,7 +16,8 @@ export type SkillEffectTag =
   'revenger' |
   'alert_mode' |
   'yummy' |
-  'elan_vital' |
+  'counterattack_initiation' |
+  'fire_net_building' |
   'rifled_mortar' |
   'bullet_curtain_max' |
   'bullet_curtain_many' |
@@ -30,6 +31,7 @@ export type SkillEffectTag =
   'awakening' |
   'fire_support' |
   'charging_order' |
+  'seize_opportunity' |
   'bombardment_squadron_command' |
   'elation' |
   'f_armory_deployment' |
@@ -38,6 +40,7 @@ export type SkillEffectTag =
   'devour' |
   'electromagnatic_consonance' |
   'max_output_burst' |
+  'shot_frost_bolt' |
   'squadron_escort' |
   'forceful_breakthrough' |
   'readying_bombardment' |
@@ -78,6 +81,7 @@ export type SkillEffectTag =
   'death_blow' |
   'overexcitement' |
   'controlling_excitement' |
+  'excitement' |
   'devotion' |
   'fury' |
   'intelligence_collecting' |
@@ -87,4 +91,6 @@ export type SkillEffectTag =
   'tactical_data_link' |
   'passive_radar' |
   'command_induction' |
+  'energy_convert' |
+  'electromagnetic_induction_target' |
   'predator'

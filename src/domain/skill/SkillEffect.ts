@@ -10,6 +10,7 @@ export type NoValueEffectKey =
     'ColumnProtect' |
     'RowProtect' |
     'TargetProtect' |
+    'ReAttack' |
     'FollowUpAttack' |
     'IgnoreBarrierDr' |
     'IgnoreDr' |

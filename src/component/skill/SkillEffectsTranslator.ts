@@ -60,6 +60,19 @@ function translateMilliPercentageDetail(
   };
 }
 
+type TagStackEffectValue = NonNullable<SkillEffectValue[typeof Effect.TagStack]>
+
+function translateTagStackDetail(
+  key: typeof Effect['TagStack' | 'TagRelease'],
+  value: TagStackEffectValue,
+  t: TFunction
+): SkillEffectDetailsProps {
+  return {
+    detail: getDetail(t(`effect:effect.description.${key}`, { tag: value.tag }), value, t),
+    term: getTerm(value, t)
+  };
+}
+
 export function translateSkillEffectDetails(
   entry: SkillEffectDetailsEntry,
   t: TFunction
@@ -74,6 +87,7 @@ export function translateSkillEffectDetails(
   case Effect.ColumnProtect:
   case Effect.RowProtect:
   case Effect.TargetProtect:
+  case Effect.ReAttack:
   case Effect.FollowUpAttack:
   case Effect.IgnoreBarrierDr:
   case Effect.IgnoreDr:
@@ -186,24 +200,18 @@ export function translateSkillEffectDetails(
     };
   }
   case Effect.FormChange:
-  case Effect.FormRelease: {
+  case Effect.FormRelease:
     return {
       tag: getTag(entry[1], t),
       detail: getDetail(t(`effect:effect.description.${entry[0]}`, { form: entry[1].form }), entry[1], t),
       term
     };
-  }
   case Effect.TagStack:
   case Effect.TagRelease:
-    return {
-      detail: getDetail(
-        t(`effect:effect.description.${entry[0]}`, { tag: entry[1].tag }),
-        entry[1],
-        t
-      ),
-      term
-    };
-  case Effect.TagUnstack: {
+    return 'length' in entry[1] ?
+      entry[1].map(v => translateTagStackDetail(entry[0], v, t)) :
+      translateTagStackDetail(entry[0], entry[1], t);
+  case Effect.TagUnstack:
     return {
       detail: getDetail(
         t(`effect:effect.description.${entry[0]}`, { tag: entry[1].tag, value: entry[1].value }),
@@ -212,7 +220,6 @@ export function translateSkillEffectDetails(
       ),
       term
     };
-  }
   case Effect.DefDown:
   case Effect.EvaUp:
   case Effect.StatusResistUp:

@@ -4,6 +4,9 @@ import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue, ValueUnit }
 export type ParameterPerLevel<T extends Exclude<ValueUnit, 'microValue' | 'milliPercentage'>> = {
   1: { [key in T]: number },
   90: { [key in T]: number }
+} | {
+  1: { [key in T]: number },
+  100: { [key in T]: number }
 }
 
 type GrowParameter = Readonly<{
