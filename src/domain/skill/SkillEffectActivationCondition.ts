@@ -25,6 +25,11 @@ export type UnitAliasAndRole = {
   role: UnitRole
 }
 
+export type UnitAliasExceptUnit = {
+  alias: UnitAlias,
+  except: UnitNumber
+}
+
 type HPRateEffectActivationStateKey =
   typeof EffectActivationState['HpGreaterOrEqual' | 'HpLessOrEqual' | 'HpGreaterThan' | 'HpLessThan']
 
@@ -83,17 +88,17 @@ export type ActivationSelfState =
     [EffectActivationState.NotEquipped]?: ReadonlyArray<EquipmentId>
   } &
   {
-    [EffectActivationState.EffectedBy]?: UnitNumber | UnitAlias
+    [EffectActivationState.EffectedBy]?: UnitNumber
   }
 
 export type ActivationTargetState =
   ActivationState &
   {
-    [EffectActivationState.EffectedBy]?: UnitNumber | UnitAlias
+    [EffectActivationState.EffectedBy]?: UnitNumber | UnitAliasExceptUnit
   } &
   {
     [EffectActivationState.Unit]?:
-      UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitNumber | UnitAlias
+      UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitNumber | UnitAlias | UnitAliasExceptUnit
   }
 
 export type ActivationSquadState = {

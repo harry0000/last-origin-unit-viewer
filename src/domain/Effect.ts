@@ -62,6 +62,7 @@ export const Effect = {
   ColumnProtect: 'column_protect',
   RowProtect: 'row_protect',
   TargetProtect: 'target_protect',
+  ReAttack: 're_attack',
   FollowUpAttack: 'follow_up_attack',
   CooperativeAttack: 'cooperative_attack',
   Counterattack: 'counterattack',

@@ -29,6 +29,7 @@ import { sumMilliPercentageValues, ValueUnit } from '../ValueUnit';
 import { foldObjectNonNullableEntry, NonNullableEntry } from '../../util/object';
 import { CoreLinkBonus, FullLinkBonus } from '../UnitCoreLinkBonusData';
 import { AffectionBonus } from '../UnitAffection';
+import { SkillEffectTag } from './SkillEffectTag';
 
 type SkillEffectLv = SkillLv | 11 | 12 | 13
 
@@ -129,7 +130,7 @@ function calculateArea(data: SkillAreaOfEffectData['area'], lv: SkillLv): SkillA
   }
 }
 
-type IncludeAddition = SkillEffectDataValue[Exclude<keyof SkillEffectDataValue, typeof Effect['DefDown' | 'EvaUp' | 'StatusResistUp']>]
+type IncludeAddition = SkillEffectDataValue[Exclude<keyof SkillEffectDataValue, typeof Effect['TagRelease' | 'DefDown' | 'EvaUp' | 'StatusResistUp']>]
 
 function calculateTerm(
   term: NonNullable<IncludeAddition>['term'] | undefined,
@@ -177,6 +178,14 @@ function calculateTimes(
   }
 }
 
+function calculateAddition(
+  addition: Pick<NonNullable<IncludeAddition>, 'tag' | 'max_stack' | 'term' | 'rate' | 'times' | 'cannot_be_dispelled'> & { tag: SkillEffectTag },
+  lv: SkillLv
+): SkillEffectValue[NoValueEffectKey] & { tag: SkillEffectTag }
+function calculateAddition(
+  addition: Pick<NonNullable<IncludeAddition>, 'tag' | 'max_stack' | 'term' | 'rate' | 'times' | 'cannot_be_dispelled'>,
+  lv: SkillLv
+): SkillEffectValue[NoValueEffectKey]
 function calculateAddition(
   addition: Pick<NonNullable<IncludeAddition>, 'tag' | 'max_stack' | 'term' | 'rate' | 'times' | 'cannot_be_dispelled'>,
   lv: SkillLv
@@ -258,6 +267,7 @@ function calculateEffectValue(
   case Effect.ColumnProtect:
   case Effect.RowProtect:
   case Effect.TargetProtect:
+  case Effect.ReAttack:
   case Effect.FollowUpAttack:
   case Effect.IgnoreBarrierDr:
   case Effect.IgnoreDr:
@@ -277,8 +287,11 @@ function calculateEffectValue(
   case Effect.SummonHologramTiger:
   case Effect.GoldenFactoryConstruction:
   case Effect.TagStack:
+    return { [entry[0]]: calculateAddition(entry[1], lv) };
   case Effect.TagRelease:
-    // HACK: tag property of 'TagStack' and 'TagRelease' is calculated as addition.
+    if ('length' in entry[1]) {
+      return { [entry[0]]: entry[1].map(v => calculateAddition(v, lv)) };
+    }
     return { [entry[0]]: calculateAddition(entry[1], lv) };
   case Effect.CooperativeAttack:
     return {

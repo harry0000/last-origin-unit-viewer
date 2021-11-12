@@ -60,6 +60,8 @@ type SkillEffectAddition = Readonly<{
 type ValueWithAddition<T extends ValueUnit> =
   EffectDataValue<T> & SkillEffectAddition
 
+type TagStackEffectDataValue = { tag: SkillEffectTag } & Omit<SkillEffectAddition, 'tag'>
+
 export type SkillEffectDataValue = Readonly<{
   [E in Exclude<Effect, EquipmentEffectOnly>]?:
     E extends NoValueEffectKey ?
@@ -87,8 +89,11 @@ export type SkillEffectDataValue = Readonly<{
       { effect: Effect } & SkillEffectAddition :
     E extends typeof Effect.ActivationRatePercentageUp ?
       { effect: Effect } & ValueWithAddition<'milliPercentage'> :
-    E extends typeof Effect['TagStack' | 'TagRelease'] ?
-      { tag: SkillEffectTag } & Omit<SkillEffectAddition, 'tag'> :
+    E extends typeof Effect.TagStack ?
+      TagStackEffectDataValue :
+    E extends typeof Effect.TagRelease ?
+      TagStackEffectDataValue |
+      ReadonlyArray<TagStackEffectDataValue> :
     E extends typeof Effect.TagUnstack ?
       {
         tag: SkillEffectTag,
