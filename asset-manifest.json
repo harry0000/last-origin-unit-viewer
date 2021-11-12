@@ -1,10 +1,10 @@
 {
   "files": {
     "main.css": "/last-origin-unit-viewer/static/css/main.93688b0d.chunk.css",
-    "main.js": "/last-origin-unit-viewer/static/js/main.c1113ef9.chunk.js",
-    "main.js.map": "/last-origin-unit-viewer/static/js/main.c1113ef9.chunk.js.map",
-    "runtime-main.js": "/last-origin-unit-viewer/static/js/runtime-main.412dec27.js",
-    "runtime-main.js.map": "/last-origin-unit-viewer/static/js/runtime-main.412dec27.js.map",
+    "main.js": "/last-origin-unit-viewer/static/js/main.924ef5ea.chunk.js",
+    "main.js.map": "/last-origin-unit-viewer/static/js/main.924ef5ea.chunk.js.map",
+    "runtime-main.js": "/last-origin-unit-viewer/static/js/runtime-main.d1a7766e.js",
+    "runtime-main.js.map": "/last-origin-unit-viewer/static/js/runtime-main.d1a7766e.js.map",
     "static/css/2.4c97ca4f.chunk.css": "/last-origin-unit-viewer/static/css/2.4c97ca4f.chunk.css",
     "static/js/2.ebb284c7.chunk.js": "/last-origin-unit-viewer/static/js/2.ebb284c7.chunk.js",
     "static/js/2.ebb284c7.chunk.js.map": "/last-origin-unit-viewer/static/js/2.ebb284c7.chunk.js.map",
@@ -15,8 +15,8 @@
     "static/js/4.27a0d539.chunk.js": "/last-origin-unit-viewer/static/js/4.27a0d539.chunk.js",
     "static/js/4.27a0d539.chunk.js.map": "/last-origin-unit-viewer/static/js/4.27a0d539.chunk.js.map",
     "static/css/5.6b503cbb.chunk.css": "/last-origin-unit-viewer/static/css/5.6b503cbb.chunk.css",
-    "static/js/5.d4d34359.chunk.js": "/last-origin-unit-viewer/static/js/5.d4d34359.chunk.js",
-    "static/js/5.d4d34359.chunk.js.map": "/last-origin-unit-viewer/static/js/5.d4d34359.chunk.js.map",
+    "static/js/5.445f37b4.chunk.js": "/last-origin-unit-viewer/static/js/5.445f37b4.chunk.js",
+    "static/js/5.445f37b4.chunk.js.map": "/last-origin-unit-viewer/static/js/5.445f37b4.chunk.js.map",
     "static/js/6.7b7cc75f.chunk.js": "/last-origin-unit-viewer/static/js/6.7b7cc75f.chunk.js",
     "static/js/6.7b7cc75f.chunk.js.map": "/last-origin-unit-viewer/static/js/6.7b7cc75f.chunk.js.map",
     "static/js/7.83421f78.chunk.js": "/last-origin-unit-viewer/static/js/7.83421f78.chunk.js",
@@ -33,10 +33,10 @@
     "static/media/TwitterSocialIcon.06ff10e1.svg": "/last-origin-unit-viewer/static/media/TwitterSocialIcon.06ff10e1.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.412dec27.js",
+    "static/js/runtime-main.d1a7766e.js",
     "static/css/2.4c97ca4f.chunk.css",
     "static/js/2.ebb284c7.chunk.js",
     "static/css/main.93688b0d.chunk.css",
-    "static/js/main.c1113ef9.chunk.js"
+    "static/js/main.924ef5ea.chunk.js"
   ]
 }
