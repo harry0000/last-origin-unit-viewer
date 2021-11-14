@@ -11999,7 +11999,7 @@ export const unitSkillData: UnitSkillData = {
           details: {
             self: {
               form_change: { form: 'fixed_position' },
-              damage_reduction: { base: { milliPercentage: 70000 }, per_lv_up: { milliPercentage: 3500 }, term: { for_rounds: 1 } },
+              damage_reduction: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
               row_protect: { term: { for_rounds: 1 } }
             }
           }
