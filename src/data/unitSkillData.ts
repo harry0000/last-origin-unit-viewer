@@ -12012,7 +12012,7 @@ export const unitSkillData: UnitSkillData = {
           details: {
             self: {
               def_up: { base: { milliPercentage: 70000 }, per_lv_up: { milliPercentage: 3500 }, term: { for_rounds: 1 } },
-              damage_reduction: { base: { milliPercentage: 70000 }, per_lv_up: { milliPercentage: 3500 }, term: { for_rounds: 1 } },
+              damage_reduction: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
               row_protect: { term: { for_rounds: 1 } },
               immovable: { term: { for_rounds: 1 }, cannot_be_dispelled: true }
             }
