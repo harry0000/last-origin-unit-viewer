@@ -1926,7 +1926,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }]
     }, {
-      range: 2,
+      range: 6,
       cost: 6,
       area: 'single',
       effects: [{
@@ -7820,11 +7820,17 @@ export const unitSkillData: UnitSkillData = {
         base: { milliPercentage: 120000 },
         per_lv_up: { milliPercentage: 6000 }
       },
-      range: 1,
+      range: 2,
       cost: 4,
       area: 'single',
       effects: [{
-        details: { target: { provoked: { term: { for_rounds: 2 } } } }
+        details: {
+          target: {
+            provoked: { term: { for_rounds: 2 } },
+            atk_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            cri_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
+          }
+        }
       }]
     }, {
       range: 0,
@@ -7838,8 +7844,8 @@ export const unitSkillData: UnitSkillData = {
         details: {
           self: {
             row_protect: { term: { for_rounds: 3 } },
-            damage_reduction: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 3 } },
-            spd_down: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: -2500 }, term: { for_rounds: 3 } }
+            column_protect: { term: { for_rounds: 3 } },
+            damage_reduction: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 3 } }
           }
         }
       }]
