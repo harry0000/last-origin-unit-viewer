@@ -63,3 +63,5 @@ export type MilliPercentageEffectKey =
       'FormRelease'
     ]
   >
+
+export type MultipleMilliPercentageEffectKey = typeof Effect['DefDown' | 'AccDown' | 'CriDown' | 'EvaUp' | 'StatusResistUp']

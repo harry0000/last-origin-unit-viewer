@@ -19,7 +19,7 @@ import {
 import {
   IntegerValueEffectKey,
   MicroValueEffectKey,
-  MilliPercentageEffectKey, NoValueEffectKey,
+  MilliPercentageEffectKey, MultipleMilliPercentageEffectKey, NoValueEffectKey,
   RangeUpDownEffectKey
 } from './SkillEffect';
 import { SkillAreaType } from './SkillAreaOfEffect';
@@ -130,10 +130,10 @@ function calculateArea(data: SkillAreaOfEffectData['area'], lv: SkillLv): SkillA
   }
 }
 
-type IncludeAddition = SkillEffectDataValue[Exclude<keyof SkillEffectDataValue, typeof Effect['TagRelease' | 'DefDown' | 'EvaUp' | 'StatusResistUp']>]
+type IncludeAddition = NonNullable<SkillEffectDataValue[NoValueEffectKey]>
 
 function calculateTerm(
-  term: NonNullable<IncludeAddition>['term'] | undefined,
+  term: IncludeAddition['term'] | undefined,
   lv: SkillLv
 ) {
   if (!term || typeof term === 'string') {
@@ -151,7 +151,7 @@ function calculateTerm(
 }
 
 function calculateRate(
-  rate: NonNullable<IncludeAddition>['rate'] | undefined,
+  rate: IncludeAddition['rate'] | undefined,
   lv: SkillLv
 ) {
   if (!rate || typeof rate === 'string') {
@@ -162,7 +162,7 @@ function calculateRate(
 }
 
 function calculateTimes(
-  times: NonNullable<IncludeAddition>['times'] | undefined,
+  times: IncludeAddition['times'] | undefined,
   lv: SkillLv
 ) {
   if (!times || typeof times === 'number') {
@@ -179,15 +179,15 @@ function calculateTimes(
 }
 
 function calculateAddition(
-  addition: Pick<NonNullable<IncludeAddition>, 'tag' | 'max_stack' | 'term' | 'rate' | 'times' | 'cannot_be_dispelled'> & { tag: SkillEffectTag },
+  addition: Pick<IncludeAddition, 'tag' | 'max_stack' | 'term' | 'rate' | 'times' | 'cannot_be_dispelled'> & { tag: SkillEffectTag },
   lv: SkillLv
 ): SkillEffectValue[NoValueEffectKey] & { tag: SkillEffectTag }
 function calculateAddition(
-  addition: Pick<NonNullable<IncludeAddition>, 'tag' | 'max_stack' | 'term' | 'rate' | 'times' | 'cannot_be_dispelled'>,
+  addition: Pick<IncludeAddition, 'tag' | 'max_stack' | 'term' | 'rate' | 'times' | 'cannot_be_dispelled'>,
   lv: SkillLv
 ): SkillEffectValue[NoValueEffectKey]
 function calculateAddition(
-  addition: Pick<NonNullable<IncludeAddition>, 'tag' | 'max_stack' | 'term' | 'rate' | 'times' | 'cannot_be_dispelled'>,
+  addition: Pick<IncludeAddition, 'tag' | 'max_stack' | 'term' | 'rate' | 'times' | 'cannot_be_dispelled'>,
   lv: SkillLv
 ): SkillEffectValue[NoValueEffectKey] {
   return {
@@ -244,10 +244,10 @@ function calculateMicroValueEffectValue(
 }
 
 function calculateMilliPercentageEffectValue(
-  data: NonNullable<SkillEffectDataValue[Exclude<MilliPercentageEffectKey, typeof Effect['DefDown' | 'EvaUp' | 'StatusResistUp']>]>,
+  data: NonNullable<SkillEffectDataValue[Exclude<MilliPercentageEffectKey, MultipleMilliPercentageEffectKey>]>,
   lv: SkillLv,
   effectLv: SkillEffectLv
-): NonNullable<SkillEffectValue[Exclude<MilliPercentageEffectKey, typeof Effect['DefDown' | 'EvaUp' | 'StatusResistUp']>]> {
+): NonNullable<SkillEffectValue[Exclude<MilliPercentageEffectKey, MultipleMilliPercentageEffectKey>]> {
   return {
     ...calculateAddition(data, lv),
     ...calculateDataValue('milliPercentage', data, effectLv)
@@ -359,6 +359,8 @@ function calculateEffectValue(
       }
     };
   case Effect.DefDown:
+  case Effect.AccDown:
+  case Effect.CriDown:
   case Effect.EvaUp:
   case Effect.StatusResistUp:
     if ('length' in entry[1]) {

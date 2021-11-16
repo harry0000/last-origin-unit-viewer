@@ -923,25 +923,26 @@ export const unitSkillData: UnitSkillData = {
     no: 14,
     active: [{
       damage_deal: {
-        base: { milliPercentage: 119000 },
-        per_lv_up: { milliPercentage: 6000 }
+        base: { milliPercentage: 110000 },
+        per_lv_up: { milliPercentage: 10000 }
       },
       range: 2,
       cost: 4,
       area: 'single',
       effects: [{
+        conditions: [{ trigger: 'hit' }],
         details: {
           target: {
+            provoked: { term: { for_rounds: 2 } },
             atk_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
             cri_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 2 } },
-            spd_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 2 } },
-            provoked: { term: { for_rounds: 2 } }
+            spd_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 2 } }
           }
         }
       }]
     }, {
       range: 6,
-      cost: 7,
+      cost: 6,
       area: 'single',
       effects: [{
         details: {
@@ -968,10 +969,10 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 } },
-            cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 } },
-            acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 } },
-            spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 } }
+            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } }
           }
         }
       }]
@@ -2500,13 +2501,13 @@ export const unitSkillData: UnitSkillData = {
         10: 'cross_adjacent_without_back'
       },
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { target: [{ hp_less_or_equal: 75 }] } }],
+        conditions: [{ trigger: 'start_round', state: { target: [{ hp_less_or_equal: 90 }] } }],
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 } },
-            def_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 } },
-            spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 750 } },
-            follow_up_attack: {}
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
+            def_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
+            follow_up_attack: { term: { for_rounds: 1 } }
           }
         }
       }]
@@ -2516,8 +2517,8 @@ export const unitSkillData: UnitSkillData = {
     no: 37,
     active: [{
       damage_deal: {
-        base: { milliPercentage: 110000 },
-        per_lv_up: { milliPercentage: 5500 }
+        base: { milliPercentage: 105000 },
+        per_lv_up: { milliPercentage: 9500 }
       },
       range: 3,
       cost: 4,
@@ -2525,10 +2526,10 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         details: {
           target: {
+            provoked: { term: { for_rounds: 2 } },
             atk_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
             cri_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
-            spd_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 2 } },
-            provoked: { term: { for_rounds: 2 } }
+            spd_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 2 } }
           }
         }
       }]
@@ -2541,6 +2542,10 @@ export const unitSkillData: UnitSkillData = {
       },
       effects: [{
         details: {
+          self: {
+            eva_up: { base: { milliPercentage: 12500 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 3 } },
+            damage_reduction: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 3 } }
+          },
           target: {
             eva_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 3 } },
             damage_reduction: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 3 } },
@@ -2550,17 +2555,21 @@ export const unitSkillData: UnitSkillData = {
       }]
     }],
     passive: [{
-      area: 'back_line_adjacent',
+      area: 'line_with_back_line',
       effects: [{
+        conditions: [{ trigger: 'start_wave', state: { target: [{ unit: { type: 'light', role: 'attacker' } }, { unit: { type: 'light', role: 'supporter' } }] } }],
+        details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
         details: {
           self: {
-            def_up: { base: { milliPercentage: 38000 }, per_lv_up: { milliPercentage: 3000 } },
-            ice_resist_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 } }
+            def_up: { base: { milliPercentage: 45000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            ice_resist_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } }
           }
         }
       }, {
         conditions: [{ trigger: 'start_round', state: { target: [{ unit: { type: 'light', role: 'attacker' } }, { unit: { type: 'light', role: 'supporter' } }] } }],
-        details: { target: { target_protect: {} } }
+        details: { target: { target_protect: { term: { for_rounds: 1 } } } }
       }]
     }]
   },
@@ -3279,8 +3288,8 @@ export const unitSkillData: UnitSkillData = {
     no: 56,
     active: [{
       damage_deal: {
-        base: { milliPercentage: 120000 },
-        per_lv_up: { milliPercentage: 9000 }
+        base: { milliPercentage: 143500 },
+        per_lv_up: { milliPercentage: 13000 }
       },
       range: 2,
       cost: 8,
@@ -3291,8 +3300,8 @@ export const unitSkillData: UnitSkillData = {
       }]
     }, {
       damage_deal: {
-        base: { milliPercentage: 200000 },
-        per_lv_up: { milliPercentage: 10000 }
+        base: { milliPercentage: 210000 },
+        per_lv_up: { milliPercentage: 18500 }
       },
       range: 4,
       cost: 8,
@@ -3313,18 +3322,18 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: {
           self: {
-            defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 } },
-            anti_light_type: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 } },
-            anti_heavy_type: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 } }
+            defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            anti_light_type: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            anti_heavy_type: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
           }
         }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ effected_by: 54 }, { effected_by: 55 }] } }],
         details: {
           self: {
-            ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 } },
-            anti_light_type: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 } },
-            anti_heavy_type: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 } }
+            ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
+            anti_light_type: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            anti_heavy_type: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
           }
         }
       }]
@@ -3660,12 +3669,9 @@ export const unitSkillData: UnitSkillData = {
         base: { milliPercentage: 138000 },
         per_lv_up: { milliPercentage: 12500 }
       },
-      range: 3,
+      range: 6,
       cost: 8,
-      area: {
-        1: 'fan_shape_strong_explosion',
-        5: 'fan_shape'
-      },
+      area: 'fan_shape',
       effects: [{
         details: { self: { ignore_protect: {} } }
       }, {
@@ -3742,8 +3748,8 @@ export const unitSkillData: UnitSkillData = {
     no: 66,
     active: [{
       damage_deal: {
-        base: { milliPercentage: 160000 },
-        per_lv_up: { milliPercentage: 7500 }
+        base: { milliPercentage: 166500 },
+        per_lv_up: { milliPercentage: 15000 }
       },
       range: 3,
       cost: 5,
@@ -3755,11 +3761,14 @@ export const unitSkillData: UnitSkillData = {
             defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 } }
           }
         }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
       }]
     }, {
       damage_deal: {
-        base: { milliPercentage: 210000 },
-        per_lv_up: { milliPercentage: 10000 }
+        base: { milliPercentage: 219500 },
+        per_lv_up: { milliPercentage: 19500 }
       },
       range: 5,
       cost: 7,
@@ -3767,8 +3776,8 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         details: { self: { ignore_protect: {} } }
       }, {
-        conditions: [{ state: { target: [{ effected: 'marked' }] } }],
-        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 } } } }
+        conditions: [{ state: { target: [{ effected: 'marked' }, { effected: 'immovable' }] } }],
+        details: { self: { additional_damage: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 } } } }
       }, {
         conditions: [{ trigger: 'use_this_active' }],
         details: { self: { acc_up: { base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 6000 } } } }
@@ -3777,15 +3786,17 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'end_wave' }],
-        effective: 'next_wave',
+        conditions: [{ trigger: 'start_round' }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1500 } },
-            cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 } },
-            spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 } }
+            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
           }
         }
+      }, {
+        conditions: [{ trigger: 'end_wave' }],
+        effective: 'next_wave',
+        details: { self: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite' } } }
       }]
     }]
   },
@@ -3931,32 +3942,32 @@ export const unitSkillData: UnitSkillData = {
     no: 69,
     active: [{
       damage_deal: {
-        base: { milliPercentage: 240000 },
-        per_lv_up: { milliPercentage: 12000 }
+        base: { milliPercentage: 259000 },
+        per_lv_up: { milliPercentage: 23500 }
       },
       range: 5,
       cost: 9,
       area: 'single',
       effects: [{
         conditions: [{ trigger: 'critical' }],
-        details: { self: { additional_fire_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
+        details: { self: { additional_fire_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } } } }
+      }, {
+        conditions: [{ state: { target: [{ effected: 'damage_taken_increased' }, { effected: 'def_down' }] } }],
+        details: { target: { effect_removal: { effect: 'damage_reduction' } } }
       }]
     }, {
       damage_deal: {
-        base: { milliPercentage: 210000 },
-        per_lv_up: { milliPercentage: 10500 }
+        base: { milliPercentage: 275000 },
+        per_lv_up: { milliPercentage: 25000 }
       },
       range: 4,
       cost: 8,
       area: 'single',
       effects: [{
+        details: { self: { defense_penetration: { base: { milliPercentage: 35000 }, per_lv_up: { milliPercentage: 5000 } } } }
+      }, {
         conditions: [{ trigger: 'critical' }],
-        details: {
-          self: {
-            additional_fire_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } },
-            defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 } }
-          }
-        }
+        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 } } } }
       }]
     }],
     passive: [{
@@ -3965,7 +3976,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_wave', state: { target: [{ unit: { type: 'heavy', role: 'attacker' } }] } }],
         details: { target: { ap_up: { base: { microValue: 2000000 }, per_lv_up: { microValue: 100000 } } } }
       }, {
-        conditions: [{ trigger: 'attack', state: { target: [{ unit: 'heavy' }] } }],
+        conditions: [{ trigger: 'attack', state: { target: [{ unit: { type: 'heavy', role: 'attacker' } }] } }],
         details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 } } } }
       }]
     }]
@@ -3974,8 +3985,8 @@ export const unitSkillData: UnitSkillData = {
     no: 70,
     active: [{
       damage_deal: {
-        base: { milliPercentage: 129000 },
-        per_lv_up: { milliPercentage: 6500 }
+        base: { milliPercentage: 122000 },
+        per_lv_up: { milliPercentage: 10500 }
       },
       range: 3,
       cost: 6,
@@ -4024,7 +4035,7 @@ export const unitSkillData: UnitSkillData = {
           target: {
             atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 3 } },
             acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 3 } },
-            ap_up: { base: { microValue: 450000 }, per_lv_up: { microValue: 50000 } }
+            ap_up: { base: { microValue: 450000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' }
           }
         }
       }]
@@ -4700,7 +4711,7 @@ export const unitSkillData: UnitSkillData = {
         base: { milliPercentage: 127000 },
         per_lv_up: { milliPercentage: 11000 }
       },
-      range: 3,
+      range: 2,
       cost: 4,
       area: 'single',
       effects: [{
@@ -4716,7 +4727,7 @@ export const unitSkillData: UnitSkillData = {
         base: { milliPercentage: 190500 },
         per_lv_up: { milliPercentage: 16500 }
       },
-      range: 4,
+      range: 5,
       cost: 7,
       area: 'single',
       effects: [{
@@ -5137,7 +5148,7 @@ export const unitSkillData: UnitSkillData = {
       }]
     }],
     passive: [{
-      area: 'forward',
+      area: 'row_toward_front',
       effects: [{
         conditions: [{ trigger: 'start_wave', state: { target: [{ unit: 'defender' }] } }],
         details: {
@@ -5148,7 +5159,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }]
     }, {
-      area: 'forward',
+      area: 'row_toward_front',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
         details: {
@@ -5168,7 +5179,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }]
     }, {
-      area: 'forward',
+      area: 'row_toward_front',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
         details: {
@@ -5218,7 +5229,7 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { damage_taken_increased: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } } } }
       }]
     }, {
-      range: 4,
+      range: 6,
       cost: 7,
       area: 'single',
       effects: [{
@@ -6181,7 +6192,7 @@ export const unitSkillData: UnitSkillData = {
         base: { milliPercentage: 122500 },
         per_lv_up: { milliPercentage: 10500 }
       },
-      range: 3,
+      range: 4,
       cost: 8,
       area: {
         1: 'line_strong_explosion',
@@ -6210,7 +6221,7 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { ap_up: { base: { microValue: 100000 }, per_lv_up: { microValue: 100000 } } } }
       }]
     }, {
-      area: 'line_with_front',
+      area: 'cross_adjacent_without_back',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
         details: {
@@ -7593,8 +7604,8 @@ export const unitSkillData: UnitSkillData = {
     no: 117,
     active: [{
       damage_deal: {
-        base: { milliPercentage: 100000 },
-        per_lv_up: { milliPercentage: 5000 }
+        base: { milliPercentage: 107500 },
+        per_lv_up: { milliPercentage: 9000 }
       },
       range: 3,
       cost: 4,
@@ -7603,7 +7614,7 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 } } } }
       }]
     }, {
-      range: 4,
+      range: 6,
       cost: 6,
       area: 'single',
       effects: [{
@@ -7862,16 +7873,16 @@ export const unitSkillData: UnitSkillData = {
         details: {
           target: {
             fixed_damage_over_time: { tag: 'overloaded', base: { value: 80 }, per_lv_up: { value: 40 }, term: { for_rounds: 2 } },
-            damage_taken_increased: { tag: 'overloaded', base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
             atk_up: { tag: 'overloaded', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
-            acc_down: { tag: 'overloaded', base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } }
+            acc_down: { tag: 'overloaded', base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
+            damage_taken_increased: { tag: 'overloaded', base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } }
           }
         }
       }]
     }, {
       damage_deal: {
-        base: { milliPercentage: 250000 },
-        per_lv_up: { milliPercentage: 12500 }
+        base: { milliPercentage: 308000 },
+        per_lv_up: { milliPercentage: 28000 }
       },
       range: 1,
       cost: 8,
@@ -8886,19 +8897,22 @@ export const unitSkillData: UnitSkillData = {
     no: 135,
     active: [{
       damage_deal: {
-        base: { milliPercentage: 130000 },
-        per_lv_up: { milliPercentage: 6500 }
+        base: { milliPercentage: 146000 },
+        per_lv_up: { milliPercentage: 13000 }
       },
       range: 2,
       cost: 5,
       area: 'single',
       effects: [{
         details: { self: { anti_light_type: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
+      }, {
+        conditions: [{ state: { target: [{ effected: 'def_down' }, { effected: 'eva_down' }] } }],
+        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
       }]
     }, {
       damage_deal: {
-        base: { milliPercentage: 180000 },
-        per_lv_up: { milliPercentage: 9000 }
+        base: { milliPercentage: 241500 },
+        per_lv_up: { milliPercentage: 21500 }
       },
       range: 4,
       cost: 7,
@@ -8906,8 +8920,14 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         details: {
           target: {
-            acc_down: { base: { milliPercentage: 35000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 3 } },
-            cri_down: { base: { milliPercentage: 22000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 } }
+            acc_down: [
+              { base: { milliPercentage: 17500 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
+              { base: { milliPercentage: 17500 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } }
+            ],
+            cri_down: [
+              { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+              { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
+            ]
           }
         }
       }, {
@@ -8922,7 +8942,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'backward',
       effects: [{
         conditions: [{ trigger: 'start_wave' }],
-        details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 } } } }
+        details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
         details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
@@ -8939,7 +8959,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'start_wave', state: { target: [{ effected_by: 133 }, { unit: 133 }, { unit : 176 }] } }],
-        details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 } } } }
+        details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { target: [{ effected_by: 133 }, { unit: 133 }, { unit : 176 }] } }],
         details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
@@ -9479,8 +9499,8 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
-            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
             fire_resist_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
             ice_resist_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } }
           }
@@ -9489,8 +9509,8 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'attacker' }] } }],
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
-            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
+            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
           }
         }
       }, {
@@ -9501,7 +9521,8 @@ export const unitSkillData: UnitSkillData = {
         details: {
           self: {
             atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
-            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
+            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
           }
         }
       }, {
@@ -9509,7 +9530,8 @@ export const unitSkillData: UnitSkillData = {
         details: {
           target: {
             atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
-            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
+            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
           }
         }
       }]
@@ -9539,8 +9561,8 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'hit' }],
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 1 }, max_stack: 3 },
-            ice_resist_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 }, max_stack: 3 }
+            atk_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 2 }, max_stack: 3 },
+            ice_resist_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 }, max_stack: 3 }
           }
         }
       }]

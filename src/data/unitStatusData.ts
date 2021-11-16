@@ -1305,12 +1305,12 @@ export const unitStatusData: UnitStatusData = {
   },
   81: {
     hp: {
-      1: { value: 242 },
-      90: { value: 3170 }
+      1: { value: 254 },
+      90: { value: 3324 }
     },
     atk: {
       1: { milliValue: 50000 },
-      90: { milliValue: 589000 }
+      90: { milliValue: 628000 }
     },
     def: {
       1: { milliValue: 20000 },

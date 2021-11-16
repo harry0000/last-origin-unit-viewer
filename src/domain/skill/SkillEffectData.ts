@@ -16,6 +16,7 @@ import {
   IntegerValueEffectKey,
   MicroValueEffectKey,
   MilliPercentageEffectKey,
+  MultipleMilliPercentageEffectKey,
   NoValueEffectKey,
   PushPullEffectKey,
   RangeUpDownEffectKey
@@ -102,10 +103,10 @@ export type SkillEffectDataValue = Readonly<{
       } & Omit<SkillEffectAddition, 'tag'> :
     E extends typeof Effect['FormChange' | 'FormRelease'] ?
       { form: UnitForms } & SkillEffectAddition :
-    E extends typeof Effect['DefDown' | 'EvaUp' | 'StatusResistUp'] ?
+    E extends MultipleMilliPercentageEffectKey ?
       ValueWithAddition<'milliPercentage'> |
       ReadonlyArray<ValueWithAddition<'milliPercentage'>> :
-    E extends Exclude<MilliPercentageEffectKey, typeof Effect['DefDown' | 'EvaUp' | 'StatusResistUp']> ?
+    E extends Exclude<MilliPercentageEffectKey, MultipleMilliPercentageEffectKey> ?
       ValueWithAddition<'milliPercentage'> :
       never
 }>

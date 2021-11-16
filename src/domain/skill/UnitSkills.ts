@@ -24,7 +24,7 @@ import {
   EquipmentEffectOnly,
   IntegerValueEffectKey,
   MicroValueEffectKey,
-  MilliPercentageEffectKey, NoValueEffectKey, PushPullEffectKey,
+  MilliPercentageEffectKey, MultipleMilliPercentageEffectKey, NoValueEffectKey, PushPullEffectKey,
   RangeUpDownEffectKey
 } from './SkillEffect';
 import { UnitNumber } from '../UnitBasicInfo';
@@ -84,10 +84,10 @@ export type SkillEffectValue = Readonly<{
       } & Omit<SkillEffectAddition, 'tag'> :
     E extends typeof Effect['FormChange' | 'FormRelease'] ?
       { form: UnitForms } & SkillEffectAddition :
-    E extends typeof Effect['DefDown' | 'EvaUp' | 'StatusResistUp'] ?
+    E extends MultipleMilliPercentageEffectKey ?
       ValueWithAddition<'milliPercentage'> |
       ReadonlyArray<ValueWithAddition<'milliPercentage'>> :
-    E extends Exclude<MilliPercentageEffectKey, typeof Effect['DefDown' | 'EvaUp' | 'StatusResistUp']> ?
+    E extends Exclude<MilliPercentageEffectKey, MultipleMilliPercentageEffectKey> ?
       ValueWithAddition<'milliPercentage'> :
       never
 }>
