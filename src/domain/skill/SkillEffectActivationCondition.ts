@@ -89,6 +89,9 @@ export type ActivationSelfState =
   } &
   {
     [EffectActivationState.EffectedBy]?: UnitNumber
+  } &
+  {
+    [EffectActivationState.Unit]?: UnitAliasExceptUnit
   }
 
 export type ActivationTargetState =

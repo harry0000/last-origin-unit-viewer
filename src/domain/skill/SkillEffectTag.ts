@@ -15,6 +15,7 @@ export type SkillEffectTag =
   'sadistic_nature' |
   'revenger' |
   'alert_mode' |
+  'undying_will' |
   'yummy' |
   'counterattack_initiation' |
   'fire_net_building' |
@@ -44,13 +45,12 @@ export type SkillEffectTag =
   'squadron_escort' |
   'forceful_breakthrough' |
   'readying_bombardment' |
-  'arrogance' |
+  'arrogance_and_anger' |
   'hubris' |
   'hardpoint_mount_equipment' |
   'hardpoint_mount_support' |
   'where_are_you_looking_at' |
   'stealth_camouflage' |
-  'viff_activate' |
   'overwhelming_cuteness' |
   'observation_data_reception' |
   'guiding_technique' |

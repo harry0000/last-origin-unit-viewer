@@ -225,7 +225,7 @@ function calculateIntegerValueEffectValue(
   data: NonNullable<SkillEffectDataValue[IntegerValueEffectKey]>,
   lv: SkillLv,
   effectLv: SkillEffectLv
-): SkillEffectValue[IntegerValueEffectKey] {
+): NonNullable<SkillEffectValue[IntegerValueEffectKey]> {
   return {
     ...calculateAddition(data, lv),
     ...calculateDataValue('value', data, effectLv)
@@ -310,8 +310,10 @@ function calculateEffectValue(
       }
     };
   case Effect.RangeUp:
-  case Effect.RangeDown:
-    return { [entry[0]]: calculateRangeUpDownEffectValue(entry[1], lv) };
+  case Effect.RangeDown: {
+    const v = calculateRangeUpDownEffectValue(entry[1], lv);
+    return v ? { [entry[0]]: v } : {};
+  }
   case Effect.FixedDamageOverTime:
   case Effect.FixedFireDamageOverTime:
   case Effect.FixedIceDamageOverTime:

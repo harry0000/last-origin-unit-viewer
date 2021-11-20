@@ -318,16 +318,16 @@ export const unitStatusData: UnitStatusData = {
   },
   18: {
     hp: {
-      1: { value: 253 },
-      90: { value: 3403 }
+      1: { value: 266 },
+      90: { value: 3578 }
     },
     atk: {
       1: { milliValue: 50000 },
       90: { milliValue: 646000 }
     },
     def: {
-      1: { milliValue: 19000 },
-      90: { milliValue: 357000 }
+      1: { milliValue: 21000 },
+      90: { milliValue: 394000 }
     },
     acc: { milliPercentage: 120000 },
     eva: { milliPercentage: 0 },
@@ -760,7 +760,7 @@ export const unitStatusData: UnitStatusData = {
   44: {
     hp: {
       1: { value: 152 },
-      90: { value: 1635 }
+      100: { value: 1835 }
     },
     atk: {
       1: { milliValue: 48000 },
@@ -812,8 +812,8 @@ export const unitStatusData: UnitStatusData = {
       1: { milliValue: 5000 },
       90: { milliValue: 52000 }
     },
-    acc: { milliPercentage: 102000 },
-    eva: { milliPercentage: 18000 },
+    acc: { milliPercentage: 116000 },
+    eva: { milliPercentage: 27000 },
     cri: { milliPercentage: 15000 },
     spd: { microValue: 4400000 },
     fireResist: { milliPercentage: 0 },
@@ -1663,7 +1663,7 @@ export const unitStatusData: UnitStatusData = {
   104: {
     hp: {
       1: { value: 240 },
-      90: { value: 2735 }
+      100: { value: 3012 }
     },
     atk: {
       1: { milliValue: 58000 },
@@ -2293,7 +2293,7 @@ export const unitStatusData: UnitStatusData = {
   136: {
     hp: {
       1: { value: 170 },
-      90: { value: 1872 }
+      100: { value: 1952 }
     },
     atk: {
       1: { milliValue: 50000 },
