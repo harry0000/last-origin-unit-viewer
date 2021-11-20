@@ -9,7 +9,6 @@ import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { UnitAlias, unitNumbersForAlias } from '../../domain/UnitAlias';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 
-// TODO: Move to excepting logic from view.
 const UnitAliasView: React.FC<{
   unitAlias: UnitAlias,
   exceptUnit?: UnitNumber

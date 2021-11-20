@@ -4592,8 +4592,8 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_wave' }],
-        scale_factor: { num_of_units: 'electric_active' },
+        conditions: [{ trigger: 'start_wave', state: { squad: [{ in_squad: 'electric_active' }] } }],
+        scale_factor: { num_of_units: 'electric_active', except: 'self' },
         details: { self: { atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite' } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: 'electric_active' }] } }],
@@ -5433,20 +5433,9 @@ export const unitSkillData: UnitSkillData = {
     }, {
       area: 'fixed_all',
       effects: [{
+        // TODO: investigation required including myself in target of mongoose_team
         conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'mongoose_team' }] } }],
         details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
-      }, {
-        conditions: [{ trigger: 'start_round' }],
-        details: {
-          self: {
-            atk_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
-            cri_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 1 } },
-            damage_reduction: { base: { milliPercentage: 4800 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } },
-            fire_resist_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200. }, term: { for_rounds: 1 } },
-            ice_resist_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200. }, term: { for_rounds: 1 } },
-            electric_resist_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200. }, term: { for_rounds: 1 } }
-          }
-        }
       }, {
         conditions: [{ trigger: 'start_round' }],
         scale_factor: { num_of_units: 'mongoose_team' },
@@ -12588,7 +12577,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'start_round' }],
-        scale_factor: { num_of_units: 'ags' },
+        scale_factor: { num_of_units: 'ags', except: 'self' },
         details: {
           self: {
             atk_up: { base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 1000 } },

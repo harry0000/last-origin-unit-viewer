@@ -8,6 +8,7 @@
     "fixed": "固定範囲"
   },
   "unit": {
+    "self": "自分",
     "ally": "味方",
     "enemy": "敵",
     "bioroid": "バイオロイド",
@@ -201,11 +202,11 @@
       "in_back_line": "後列にいる",
       "in_squad": "{{unit}}がいる",
       "unit": "{{unit}}である",
-      "num_of_units": "$t(effect:unit.{{unit}})が{{greater_or_equal}}体以上いる",
+      "num_of_units": "$t(effect:unit.self)を除く$t(effect:unit.{{unit}})が{{greater_or_equal}}体以上いる",
       "effected_by": "{{unit}}のスキル効果を受けている"
     },
     "target": {
-      "self": "自分が",
+      "self": "$t(effect:unit.self)が",
       "target": "対象が",
       "squad": "分隊内に"
     }
@@ -431,7 +432,7 @@
       "golden_factory_construction": "空きマスにゴールデンファクトリーを設置 (最大{{times}}個)"
     },
     "target": {
-      "self": "自分",
+      "self": "$t(effect:unit.self)",
       "single": "対象1体",
       "area": "範囲内の対象",
       "around": "対象の周辺"

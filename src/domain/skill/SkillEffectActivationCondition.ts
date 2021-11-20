@@ -105,7 +105,7 @@ export type ActivationTargetState =
   }
 
 export type ActivationSquadState = {
-  [EffectActivationState.InSquad]?: UnitNumber | UnitAlias | 'golden_factory'
+  [EffectActivationState.InSquad]?: UnitNumber | typeof UnitAlias.ElectricActive | typeof UnitAlias.Horizon | 'golden_factory'
 } & {
   [EffectActivationState.NumOfUnits]?:
     { unit: typeof UnitKind.AGS, greater_or_equal: 3 } |
