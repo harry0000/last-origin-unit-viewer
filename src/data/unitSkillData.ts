@@ -11309,7 +11309,7 @@ export const unitSkillData: UnitSkillData = {
     }],
     passive: [{
       area: 'fixed_all',
-      effects: [{
+      equipment_effects: [{
         conditions: [{ trigger: 'start_wave', state: { squad: [{ num_of_units: { unit: 'light', greater_or_equal: 2 } }], target: [{ unit: 'light' }] } }],
         details: { target: { defense_penetration: { base: { milliPercentage: 16000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 99 }, cannot_be_dispelled: true } } }
       }, {
@@ -11318,7 +11318,7 @@ export const unitSkillData: UnitSkillData = {
       }]
     }, {
       area: 'fixed_all',
-      effects: [{
+      equipment_effects: [{
         conditions: [{ trigger: 'start_wave', state: { squad: [{ num_of_units: { unit: 'flying', greater_or_equal: 2 } }], target: [{ unit: 'flying' }] } }],
         details: {
           target: {
@@ -11337,7 +11337,7 @@ export const unitSkillData: UnitSkillData = {
       }]
     }, {
       area: 'fixed_all',
-      effects: [{
+      equipment_effects: [{
         conditions: [{ trigger: 'start_wave', state: { squad: [{ num_of_units: { unit: 'heavy', greater_or_equal: 1 } }], target: [{ unit: 'heavy' }] } }],
         details: {
           target: {

@@ -132,10 +132,3 @@ export type PassiveSkillAsEquipmentEffect = Readonly<{
   area: SkillAreaType,
   equipment_effects: ReadonlyArray<SkillEffect>
 }>
-
-export type Passive1Skill =
-  PassiveSkill |
-  PassiveSkillAsEquipmentEffect
-
-export type Passive2Skill = PassiveSkill
-export type Passive3Skill = PassiveSkill

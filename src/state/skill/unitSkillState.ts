@@ -13,9 +13,8 @@ import { useTranslation } from 'react-i18next';
 import {
   ActiveSkill,
   DamageDeal,
-  Passive1Skill,
-  Passive2Skill,
-  Passive3Skill,
+  PassiveSkill,
+  PassiveSkillAsEquipmentEffect,
   SkillEffect
 } from '../../domain/skill/UnitSkills';
 import { FormChangeUnitNumbers, UnitForms } from '../../domain/UnitFormValue';
@@ -88,7 +87,7 @@ const unitActive2SkillState = selectorFamily<ActiveSkill, UnitBasicInfo>({
   }
 });
 
-const unitPassive1SkillState = selectorFamily<Passive1Skill | undefined, UnitBasicInfo>({
+const unitPassive1SkillState = selectorFamily<PassiveSkill | PassiveSkillAsEquipmentEffect | undefined, UnitBasicInfo>({
   key: 'unitPassive1SkillState',
   get: (unit) => ({ get }) => {
     const skill = get(unitSkillState(unit));
@@ -98,7 +97,7 @@ const unitPassive1SkillState = selectorFamily<Passive1Skill | undefined, UnitBas
   }
 });
 
-const unitPassive2SkillState = selectorFamily<Passive2Skill | undefined, UnitBasicInfo>({
+const unitPassive2SkillState = selectorFamily<PassiveSkill | PassiveSkillAsEquipmentEffect | undefined, UnitBasicInfo>({
   key: 'unitPassive2SkillState',
   get: (unit) => ({ get }) => {
     const skill = get(unitSkillState(unit));
@@ -108,7 +107,7 @@ const unitPassive2SkillState = selectorFamily<Passive2Skill | undefined, UnitBas
   }
 });
 
-const unitPassive3SkillState = selectorFamily<Passive3Skill | undefined, UnitBasicInfo>({
+const unitPassive3SkillState = selectorFamily<PassiveSkill | PassiveSkillAsEquipmentEffect | undefined, UnitBasicInfo>({
   key: 'unitPassive3SkillState',
   get: (unit) => ({ get }) => {
     const skill = get(unitSkillState(unit));
@@ -298,10 +297,20 @@ export function useFormChangeSkillBadge(skillType: SkillType, unit: UnitBasicInf
 }
 
 export function useEffectsAsEquipmentDescription(skillType: SkillType, unit: UnitBasicInfo): boolean {
-  if (skillType === 'passive1') {
+  switch (skillType) {
+  case 'passive1': {
     const ps1 = useRecoilValue(unitPassive1SkillState(unit));
     return !!ps1 && 'equipment_effects' in ps1;
-  } else {
+  }
+  case 'passive2': {
+    const ps2 = useRecoilValue(unitPassive2SkillState(unit));
+    return !!ps2 && 'equipment_effects' in ps2;
+  }
+  case 'passive3': {
+    const ps3 = useRecoilValue(unitPassive3SkillState(unit));
+    return !!ps3 && 'equipment_effects' in ps3;
+  }
+  default:
     return false;
   }
 }
@@ -338,11 +347,19 @@ export function useSkillEffects(skillType: SkillType, unit: UnitBasicInfo): [eff
   }
   case 'passive2': {
     const skill = useRecoilValue(unitPassive2SkillState(unit));
-    return skill && [skill.effects, skill.area, unit.no];
+    return skill && (
+      'effects' in skill ?
+        [skill.effects, skill.area, unit.no] :
+        [skill.equipment_effects, skill.area, unit.no]
+    );
   }
   case 'passive3': {
     const skill = useRecoilValue(unitPassive3SkillState(unit));
-    return skill && [skill.effects, skill.area, unit.no];
+    return skill && (
+      'effects' in skill ?
+        [skill.effects, skill.area, unit.no] :
+        [skill.equipment_effects, skill.area, unit.no]
+    );
   }
   }
 }

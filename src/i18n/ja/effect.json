@@ -443,7 +443,7 @@
 
   "effects_as_equipment": {
     "description": {
-      "prefix": "※スキルの効果は ",
+      "prefix": "※このスキルの効果は ",
       "suffix": " に分類されます",
       "as_equipment": "装備と同じカテゴリー"
     },

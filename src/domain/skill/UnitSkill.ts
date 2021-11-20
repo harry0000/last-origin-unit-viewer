@@ -1,8 +1,7 @@
 import {
   ActiveSkill,
-  Passive1Skill,
-  Passive2Skill,
-  Passive3Skill
+  PassiveSkill,
+  PassiveSkillAsEquipmentEffect
 } from './UnitSkills';
 import { CoreLinkBonus, FullLinkBonus } from '../UnitCoreLinkBonusData';
 import { UnitBasicInfo, UnitRankComparator } from '../UnitBasicInfo';
@@ -74,8 +73,8 @@ abstract class UnitSkill {
   protected abstract get active2SkillData(): ActiveSkillData
 
   protected abstract get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined
-  protected abstract get passive2SkillData(): PassiveSkillData | undefined
-  protected abstract get passive3SkillData(): PassiveSkillData | undefined
+  protected abstract get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined
+  protected abstract get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined
 
   active1Skill(
     coreLinkBonus: CoreLinkBonus,
@@ -108,7 +107,7 @@ abstract class UnitSkill {
   passive1Skill(
     fullLinkBonus: FullLinkBonus | undefined,
     affectionBonus: AffectionBonus | undefined
-  ): Passive1Skill | undefined {
+  ): PassiveSkill | PassiveSkillAsEquipmentEffect | undefined {
     const ps = this.passive1SkillData;
     return ps && calculatePassiveSkill(ps, this.skillLv.passive1Lv, fullLinkBonus, affectionBonus);
   }
@@ -116,7 +115,7 @@ abstract class UnitSkill {
   passive2Skill(
     fullLinkBonus: FullLinkBonus | undefined,
     affectionBonus: AffectionBonus | undefined
-  ): Passive2Skill | undefined {
+  ): PassiveSkill | PassiveSkillAsEquipmentEffect | undefined {
     const ps = this.passive2SkillData;
     return ps && calculatePassiveSkill(ps, this.skillLv.passive2Lv, fullLinkBonus, affectionBonus);
   }
@@ -124,7 +123,7 @@ abstract class UnitSkill {
   passive3Skill(
     fullLinkBonus: FullLinkBonus | undefined,
     affectionBonus: AffectionBonus | undefined
-  ): Passive3Skill | undefined {
+  ): PassiveSkill | PassiveSkillAsEquipmentEffect | undefined {
     const ps = this.passive3SkillData;
     return ps && calculatePassiveSkill(ps, this.skillLv.passive3Lv, fullLinkBonus, affectionBonus);
   }
@@ -188,11 +187,11 @@ class FormLessUnitSkill extends UnitSkill {
     return unitSkillData[this.#unit.no].passive[0];
   }
 
-  protected get passive2SkillData(): PassiveSkillData | undefined {
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.#unit.no].passive[1];
   }
 
-  protected get passive3SkillData(): PassiveSkillData | undefined {
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.#unit.no].passive[2];
   }
 }
@@ -285,11 +284,11 @@ class AlexandraUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Alex
     return unitSkillData[this.unitNumber].passive[0][this.unitForm()];
   }
 
-  protected get passive2SkillData(): PassiveSkillData | undefined {
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[1];
   }
 
-  protected get passive3SkillData(): PassiveSkillData | undefined {
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[2];
   }
 }
@@ -319,11 +318,11 @@ class LeonaUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Leona> {
     return unitSkillData[this.unitNumber].passive[0][this.unitForm()];
   }
 
-  protected get passive2SkillData(): PassiveSkillData | undefined {
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[1][this.unitForm()];
   }
 
-  protected get passive3SkillData(): PassiveSkillData | undefined {
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[2];
   }
 }
@@ -353,11 +352,11 @@ class BloodyPantherUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.
     return unitSkillData[this.unitNumber].passive[0];
   }
 
-  protected get passive2SkillData(): PassiveSkillData | undefined {
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[1];
   }
 
-  protected get passive3SkillData(): PassiveSkillData | undefined {
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[2][this.unitForm()];
   }
 }
@@ -387,11 +386,11 @@ class EmilyUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Emily> {
     return unitSkillData[this.unitNumber].passive[0];
   }
 
-  protected get passive2SkillData(): PassiveSkillData | undefined {
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[1];
   }
 
-  protected get passive3SkillData(): PassiveSkillData | undefined {
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[2];
   }
 }
@@ -421,11 +420,11 @@ class PhantomUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Phanto
     return unitSkillData[this.unitNumber].passive[0][this.unitForm()];
   }
 
-  protected get passive2SkillData(): PassiveSkillData | undefined {
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[1][this.unitForm()];
   }
 
-  protected get passive3SkillData(): PassiveSkillData | undefined {
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[2][this.unitForm()];
   }
 }
@@ -455,11 +454,11 @@ class InvincibleDragonUnitSkill extends FormChangeUnitSkill<typeof FormChangeUni
     return unitSkillData[this.unitNumber].passive[0];
   }
 
-  protected get passive2SkillData(): PassiveSkillData | undefined {
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[1];
   }
 
-  protected get passive3SkillData(): PassiveSkillData | undefined {
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[2];
   }
 }
@@ -489,11 +488,11 @@ class SirenUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Siren> {
     return unitSkillData[this.unitNumber].passive[0];
   }
 
-  protected get passive2SkillData(): PassiveSkillData | undefined {
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[1][this.unitForm()];
   }
 
-  protected get passive3SkillData(): PassiveSkillData | undefined {
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[2];
   }
 }
@@ -523,11 +522,11 @@ class RampartUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Rampar
     return unitSkillData[this.unitNumber].passive[0];
   }
 
-  protected get passive2SkillData(): PassiveSkillData | undefined {
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[1];
   }
 
-  protected get passive3SkillData(): PassiveSkillData | undefined {
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[2];
   }
 }
@@ -557,11 +556,11 @@ class FortressUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Fortr
     return unitSkillData[this.unitNumber].passive[0][this.unitForm()];
   }
 
-  protected get passive2SkillData(): PassiveSkillData | undefined {
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return undefined;
   }
 
-  protected get passive3SkillData(): PassiveSkillData | undefined {
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return undefined;
   }
 }
