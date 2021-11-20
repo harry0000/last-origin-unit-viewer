@@ -5444,9 +5444,9 @@ export const unitSkillData: UnitSkillData = {
             atk_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
             cri_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 1 } },
             damage_reduction: { base: { milliPercentage: 4800 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } },
-            fire_resist_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200. }, term: { for_rounds: 1 } },
-            ice_resist_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200. }, term: { for_rounds: 1 } },
-            electric_resist_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200. }, term: { for_rounds: 1 } }
+            fire_resist_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 1 } },
+            ice_resist_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 1 } },
+            electric_resist_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 1 } }
           }
         }
       }]
@@ -7295,7 +7295,7 @@ export const unitSkillData: UnitSkillData = {
         details: {
           self: {
             damage_reduction: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
-            spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 150. }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 150 }, term: { for_rounds: 1 } },
             fire_resist_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
             ice_resist_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
           }
@@ -7425,18 +7425,18 @@ export const unitSkillData: UnitSkillData = {
         details: {
           self: { damage_reduction: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } },
           target: {
-            atk_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 600. }, term: { for_rounds: 1 } },
+            atk_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 600 }, term: { for_rounds: 1 } },
             acc_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
-            spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 300. }, term: { for_rounds: 1 } }
+            spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } }
           }
         }
       }, {
         conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'city_guard' }] } }],
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 600. }, term: { for_rounds: 1 } },
+            atk_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 600 }, term: { for_rounds: 1 } },
             acc_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
-            spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 300. }, term: { for_rounds: 1 } }
+            spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } }
           }
         }
       }]
