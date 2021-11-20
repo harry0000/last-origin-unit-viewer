@@ -4785,13 +4785,18 @@ export const unitSkillData: UnitSkillData = {
     }, {
       area: 'fixed_all',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'light' }] } }],
+        conditions: [{ trigger: 'start_round' }],
         scale_factor: { num_of_units: 'light' },
         details: {
           self: {
             cri_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
             atk_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 1 } }
-          },
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'light' }] } }],
+        scale_factor: { num_of_units: 'light' },
+        details: {
           target: {
             cri_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
             atk_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 1 } }
