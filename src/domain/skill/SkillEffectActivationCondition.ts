@@ -107,7 +107,10 @@ export type ActivationTargetState =
 export type ActivationSquadState = {
   [EffectActivationState.InSquad]?: UnitNumber | UnitAlias | 'golden_factory'
 } & {
-  [EffectActivationState.NumOfUnits]?: { unit: typeof UnitKind.AGS, greater_or_equal: 3 } | { unit: UnitType, greater_or_equal: 1 | 2 }
+  [EffectActivationState.NumOfUnits]?:
+    { unit: typeof UnitKind.AGS, greater_or_equal: 3 } |
+    { unit: 'ally', greater_or_equal: 2 | 4 } |
+    { unit: UnitType, greater_or_equal: 1 | 2 }
 }
 
 export type SkillEffectActivationState =

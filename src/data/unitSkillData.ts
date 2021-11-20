@@ -7265,7 +7265,6 @@ export const unitSkillData: UnitSkillData = {
       range: 3,
       cost: 7,
       area: 'single',
-      // TODO: cooperative_attack with 179: Sadius
       effects: [{
         details: { target: { immovable: { term: { for_rounds: 2 } } } }
       }, {
@@ -7276,6 +7275,9 @@ export const unitSkillData: UnitSkillData = {
             stunned: { tag: 'freeze' }
           }
         }
+      }, {
+        conditions: [{ state: { squad: [{ in_squad: 179 }] } }],
+        details: { self: { cooperative_attack: { unit: 179, active: 2 } } }
       }]
     }],
     passive: [{
@@ -7489,7 +7491,6 @@ export const unitSkillData: UnitSkillData = {
         range: 3,
         cost: 4,
         area: 'row_toward_front',
-        // TODO: cooperative_attack with 179: Sadius
         effects: [{
           details: {
             target: {
@@ -7497,6 +7498,9 @@ export const unitSkillData: UnitSkillData = {
               acc_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
             }
           }
+        }, {
+          conditions: [{ state: { squad: [{ in_squad: 179 }] } }],
+          details: { self: { cooperative_attack: { unit: 179, active: 1 } } }
         }]
       }
     }, {
@@ -10636,6 +10640,107 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  179: {
+    no: 179,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 143000 },
+        per_lv_up: { milliPercentage: 13000 },
+        attribute: 'electric'
+      },
+      range: 3,
+      cost: 8,
+      area: 'line',
+      effects: [{
+        details: { target: { electric_resist_down: { base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } } } }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'high_voltage' }] } }],
+        details: {
+          target: {
+            electric_resist_down: { base: { milliPercentage: 23000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 3 } },
+            stunned: { term: { for_rounds: 1 } },
+            tag_release: { tag: 'high_voltage' }
+          }
+        }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 138500 },
+        per_lv_up: { milliPercentage: 12000 },
+        attribute: 'electric'
+      },
+      range: 4,
+      cost: 9,
+      area: 'cross',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ state: { target: [{ effected: 'electric_resist_down' }] } }],
+        details: { target: { spd_down: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 } } } }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        details: { self: { additional_electric_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 } } } }
+      }]
+    }],
+    passive: [{
+      area: 'line',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: [{ num_of_units: { unit: 'ally', greater_or_equal: 2 } }] } }],
+        details: { self: { atk_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: [{ num_of_units: { unit: 'ally', greater_or_equal: 4 } }] } }],
+        details: { self: { cri_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: { type: 'light', role: 'defender' } }, { unit: 'city_guard' }] } }],
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_wave' }],
+        details: { self: { tag_stack: { tag: 'charge_electrically', term: { for_rounds: 10 } } } }
+      }, {
+        conditions: [{ trigger: 'idle', state: { self: [{ tagged: 'charge_electrically' }] } }],
+        details: {
+          self: {
+            tag_release: { tag: 'charge_electrically' },
+            tag_stack: { tag: 'high_voltage', term: { for_rounds: 3 } }
+          }
+        }
+      }]
+    }, {
+      area: 'line',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 1500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 3 }, max_stack: 3 },
+            spd_up: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 3 }
+          }
+        }
+      }]
+    }, {
+      area: 'line',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { num_of_units: 'city_guard' },
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        details: { target: { electric_resist_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
   180: {
     no: 180,
     active: [{
@@ -11444,6 +11549,75 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  190: {
+    no: 190,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 63000 },
+        per_lv_up: { milliPercentage: 3000 }
+      },
+      range: 3,
+      cost: 5,
+      area: '2_x_2',
+      effects: [{
+        details: {
+          target: {
+            atk_down: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            acc_down: { base: { milliPercentage: 17000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
+            eva_down: { base: { milliPercentage: 17000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }, {
+      range: 6,
+      cost: 8,
+      area: 'single',
+      effects: [{
+        conditions: [{ state: { target: [{ unit: 'attacker' }] } }],
+        details: { target: { atk_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ state: { target: [{ unit: 'defender' }] } }],
+        details: {
+          target: {
+            def_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
+            eva_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ state: { target: [{ unit: 'supporter' }] } }],
+        details: { target: { ap_up: { base: { microValue: 2100000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
+      }]
+    }],
+    passive: [{
+      area: 'line_adjacent',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'attacker' }] } }],
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 26000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{
+          trigger: 'start_round',
+          state: { target: [{ unit: { type: 'light', role: 'attacker' }, hp_greater_or_equal: 95 }, { unit: { type: 'flying', role: 'attacker' }, hp_greater_or_equal: 95 }] }
+        }],
+        details: { target: { ignore_barrier_dr: { term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'front',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'defender' }] } }],
+        details: {
+          target: {
+            def_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            eva_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }]
+  },
   201: {
     no: 201,
     active: [{
@@ -11723,6 +11897,69 @@ export const unitSkillData: UnitSkillData = {
       }]
     }],
     passive: []
+  },
+  206: {
+    no: 206,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 110000 },
+        per_lv_up: { milliPercentage: 10000 }
+      },
+      range: 3,
+      cost: 6,
+      area: 'single',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        details: {
+          self: { additional_damage: { base: { milliPercentage: 48000 }, per_lv_up: { milliPercentage: 3000 } } },
+          target: { effect_removal: { effect: 'counterattack' } }
+        }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 110000 },
+        per_lv_up: { milliPercentage: 10000 }
+      },
+      range: 6,
+      cost: 10,
+      area: 'cross_strong_explosion',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        details: { target: { effect_removal: { effect: 'counterattack' } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 53000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 53000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            defense_penetration: { milliPercentage: 100000, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            eva_up: { base: { milliPercentage: 53000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 8800 }, per_lv_up: { milliPercentage: 800 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'attack' }],
+        details: { self: { re_attack: { rate: 'constant' } } }
+      }]
+    }]
   },
   215: {
     no: 215,
