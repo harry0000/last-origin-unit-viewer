@@ -253,8 +253,8 @@
       "fire_resist_down": "火炎属性耐性 -{{value}}%",
       "ice_resist_up": "冷気属性耐性 +{{value}}%",
       "ice_resist_down": "冷気属性耐性 -{{value}}%",
-      "electric_resist_up": "電撃属性耐性 +{{value}}%",
-      "electric_resist_down": "電撃属性耐性 -{{value}}%"
+      "electric_resist_up": "電気属性耐性 +{{value}}%",
+      "electric_resist_down": "電気属性耐性 -{{value}}%"
     }
   },
   "damage_deal": {
@@ -273,8 +273,8 @@
       "fire_resist_down": "火炎属性耐性ダウン",
       "ice_resist_up": "冷気属性耐性アップ",
       "ice_resist_down": "冷気属性耐性ダウン",
-      "electric_resist_up": "電撃属性耐性アップ",
-      "electric_resist_down": "電撃属性耐性ダウン",
+      "electric_resist_up": "電気属性耐性アップ",
+      "electric_resist_down": "電気属性耐性ダウン",
       "fixed_damage": "固定ダメージ",
       "damage_over_time": "持続固定ダメージ",
       "fixed_damage_over_time": "持続固定ダメージ",
@@ -341,8 +341,8 @@
       "fire_resist_down": "火炎属性耐性 -{{value}}%",
       "ice_resist_up": "冷気属性耐性 +{{value}}%",
       "ice_resist_down": "冷気属性耐性 -{{value}}%",
-      "electric_resist_up": "電撃属性耐性 +{{value}}%",
-      "electric_resist_down": "電撃属性耐性 -{{value}}%",
+      "electric_resist_up": "電気属性耐性 +{{value}}%",
+      "electric_resist_down": "電気属性耐性 -{{value}}%",
       "fixed_damage": "攻撃力の{{value}}%の固定ダメージ",
       "damage_over_time": "攻撃力の{{value}}%の持続固定ダメージ",
       "fixed_damage_over_time": "{{value}}の持続固定ダメージ",
