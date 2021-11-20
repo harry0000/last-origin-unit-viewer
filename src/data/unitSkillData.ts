@@ -7386,6 +7386,9 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ state: { target: [{ effected: 'immovable' }] } }],
         details: { target: { stunned: { term: { for_rounds: 1 } } } }
       }, {
+        conditions: [{ state: { squad: [{ in_squad: 184 }] } }],
+        details: { self: { cooperative_attack: { unit: 184, active: 1 } } }
+      }, {
         conditions: [{ state: { self: [{ equipped: 'chop_maker_ii' }] } }],
         details: { self: { additional_damage: { milliPercentage: 20000 } } }
       }]
