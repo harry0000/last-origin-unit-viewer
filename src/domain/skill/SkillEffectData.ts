@@ -55,7 +55,8 @@ type SkillEffectAddition = Readonly<{
     { readonly [key in 1 | 5]: SkillEffectTimesValue } |
     { readonly [key in 1 | 10]: SkillEffectTimesValue } |
     { readonly [key in 1 | 5 | 10]: SkillEffectTimesValue },
-  cannot_be_dispelled?: true
+  cannot_be_dispelled?: true,
+  enabledLv?: 10
 }>
 
 type ValueWithAddition<T extends ValueUnit> =
@@ -74,7 +75,7 @@ export type SkillEffectDataValue = Readonly<{
     E extends RangeUpDownEffectKey ?
       (
         IntegerValue<1 | 2 | 3> |
-        { value: { [key in 1 | 10]: 0 | 1 | 2 } }
+        { value: { 1: 1, 10:  2 } }
       ) & SkillEffectAddition :
     E extends IntegerValueEffectKey ?
       ValueWithAddition<'value'> :

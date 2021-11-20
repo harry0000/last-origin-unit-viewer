@@ -1,3 +1,5 @@
+import deepEqual from 'fast-deep-equal';
+
 import {
   ActiveSkillData,
   PassiveSkillData,
@@ -19,7 +21,9 @@ import {
 import {
   IntegerValueEffectKey,
   MicroValueEffectKey,
-  MilliPercentageEffectKey, MultipleMilliPercentageEffectKey, NoValueEffectKey,
+  MilliPercentageEffectKey,
+  MultipleMilliPercentageEffectKey,
+  NoValueEffectKey,
   RangeUpDownEffectKey
 } from './SkillEffect';
 import { SkillAreaType } from './SkillAreaOfEffect';
@@ -203,7 +207,7 @@ function calculateAddition(
 function calculateRangeUpDownEffectValue(
   data: NonNullable<SkillEffectDataValue[RangeUpDownEffectKey]>,
   lv: SkillLv
-): SkillEffectValue[RangeUpDownEffectKey] {
+): NonNullable<SkillEffectValue[RangeUpDownEffectKey]> {
   const value =
     typeof data.value === 'number' ?
       data.value :
@@ -211,14 +215,10 @@ function calculateRangeUpDownEffectValue(
         data.value[10] :
         data.value[1];
 
-  if (value === 0) {
-    return undefined;
-  } else {
-    return {
-      ...calculateAddition(data, lv),
-      value
-    };
-  }
+  return {
+    ...calculateAddition(data, lv),
+    value
+  };
 }
 
 function calculateIntegerValueEffectValue(
@@ -259,6 +259,10 @@ function calculateEffectValue(
   lv: SkillLv,
   effectLv: SkillEffectLv
 ): SkillEffectValue {
+  if ('enabledLv' in entry[1] && (entry[1].enabledLv ?? 1) > lv) {
+    return {};
+  }
+
   switch (entry[0]) {
   case Effect.MinimizeDamage:
   case Effect.NullifyDamage:
@@ -310,10 +314,8 @@ function calculateEffectValue(
       }
     };
   case Effect.RangeUp:
-  case Effect.RangeDown: {
-    const v = calculateRangeUpDownEffectValue(entry[1], lv);
-    return v ? { [entry[0]]: v } : {};
-  }
+  case Effect.RangeDown:
+    return { [entry[0]]: calculateRangeUpDownEffectValue(entry[1], lv) };
   case Effect.FixedDamageOverTime:
   case Effect.FixedFireDamageOverTime:
   case Effect.FixedIceDamageOverTime:
@@ -380,9 +382,11 @@ function calculateEffectDataValue(
   lv: SkillLv,
   effectLv: SkillEffectLv
 ): SkillEffectValue | undefined {
-  return data && foldObjectNonNullableEntry(data, entry =>
+  const calculated = data && foldObjectNonNullableEntry(data, entry =>
     calculateEffectValue(entry, lv, effectLv)
   )({});
+
+  return calculated && !deepEqual(calculated, {}) ? calculated : undefined;
 }
 
 function calculateAroundEffectDataValue(
@@ -423,7 +427,9 @@ function calculateEffects(
   lv: SkillLv,
   effectLv: SkillEffectLv
 ): ReadonlyArray<SkillEffect> {
-  return data.map(effect => calculateEffect(effect, lv, effectLv));
+  return data
+    .map(effect => calculateEffect(effect, lv, effectLv))
+    .filter(effect => effect.details.self || effect.details.target || effect.details.around);
 }
 
 export function calculateActiveSkill(

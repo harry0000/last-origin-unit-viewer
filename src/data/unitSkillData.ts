@@ -520,7 +520,7 @@ export const unitSkillData: UnitSkillData = {
             cri_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
             acc_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
             defense_penetration: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            range_up: { value: { 1: 0, 10: 1 }, term: { for_rounds: 1 } }
+            range_up: { value: 1, term: { for_rounds: 1 }, enabledLv: 10 }
           }
         }
       }]
@@ -1914,7 +1914,7 @@ export const unitSkillData: UnitSkillData = {
             acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
             cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
             defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } },
-            range_up: { value: { 1: 0, 10: 1 }, term: { for_rounds: 1 } }
+            range_up: { value: 1, term: { for_rounds: 1 }, enabledLv: 10 }
           }
         }
       }, {
@@ -2281,9 +2281,12 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: { self: { tag_stack: { tag: 'awakening', term: { for_rounds: 1 } } } }
       }, {
-        // TODO: follow_up_attack to sisters_of_valhalla is only skill lv 10
-        conditions: [{ trigger: 'start_round', state: { target: [{ unit: { type: 'light', role: 'supporter' } }, { unit: 'sisters_of_valhalla' }] } }],
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: { type: 'light', role: 'supporter' } }] } }],
         details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+      }, {
+        // TODO: investigation required target light supporter of sisters_of_valhalla
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'sisters_of_valhalla' }] } }],
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 }, enabledLv: 10 } } }
       }, {
         conditions: [{ trigger: 'attack', state: { self: [{ tagged: 'awakening' }] } }],
         details: {
@@ -8075,9 +8078,8 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        // TODO: enable only skill lv 10
         conditions: [{ trigger: 'start_wave' }],
-        details: { self: { battle_continuation: { value: 300, term: 'infinite', times: 1, cannot_be_dispelled: true } } }
+        details: { self: { battle_continuation: { value: 300, term: 'infinite', times: 1, cannot_be_dispelled: true, enabledLv: 10 } } }
       }, {
         details: { self: { activation_rate_percentage_up: { tag: 'hit_vital_spot', effect: 'additional_damage', milliPercentage: 1000 } } }
       }]
@@ -8806,7 +8808,7 @@ export const unitSkillData: UnitSkillData = {
           target: {
             acc_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
             anti_flying_type: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            range_up: { value: { 1: 0, 10: 1 }, term: { for_rounds: 1 } }
+            range_up: { value: 1, term: { for_rounds: 1 }, enabledLv: 10 }
           }
         }
       }]
