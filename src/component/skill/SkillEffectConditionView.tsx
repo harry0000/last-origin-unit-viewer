@@ -102,7 +102,7 @@ function stateValuesView(entry: StateValuesEntry, unitNumber: UnitNumber, t: TFu
 
 function unitStateView(key: typeof EffectActivationState.Unit, unit: UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitAliasExceptUnit | UnitNumber | UnitAlias, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.EffectedBy, unit: UnitNumber | UnitAlias | UnitAliasExceptUnit, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
-function unitStateView(key: typeof EffectActivationState.InSquad, unit: UnitNumber | UnitAlias | 'golden_factory', selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.InSquad, unit: UnitNumber | typeof UnitAlias.ElectricActive | typeof UnitAlias.Horizon | 'golden_factory', selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
   key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'],
   unit: UnitNumber | UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitAliasExceptUnit | UnitAlias | 'golden_factory',
@@ -150,8 +150,10 @@ function unitStateView(
     case UnitAlias.CityGuard:
     case UnitAlias.MagicalGirl:
     case UnitAlias.SpartanSeries:
+      // TODO: Move to excepting logic from view.
       return (
         <React.Fragment>
+          {ifTruthy(key === EffectActivationState.InSquad, (<span>{t('effect:unit.self')}{t('effect:except_preposition')}</span>))}
           <UnitAliasView unitAlias={unit} exceptUnit={key === EffectActivationState.InSquad ? selfUnitNumber : undefined} />
           <span>{t(`effect:condition.state.${key}`, { unit: '' })}</span>
         </React.Fragment>
@@ -178,7 +180,7 @@ function unitStateView(
         const target = 'type' in unit ? t(`effect:unit.${unit.type}`) : t(`effect:unit.${unit.role}`);
         return (
           <React.Fragment>
-            <UnitAliasView unitAlias={unit.alias} exceptUnit={key === EffectActivationState.InSquad ? selfUnitNumber : undefined} />
+            <UnitAliasView unitAlias={unit.alias} />
             <span>{t('effect:of_preposition')}{t(`effect:condition.state.${key}`, { unit: target })}</span>
           </React.Fragment>
         );
@@ -187,7 +189,7 @@ function unitStateView(
       const target = t(`effect:unit.${unit.type}`);
       return (
         <React.Fragment>
-          <UnitAliasView unitAlias={unit.not_alias} exceptUnit={key === EffectActivationState.InSquad ? selfUnitNumber : undefined} />
+          <UnitAliasView unitAlias={unit.not_alias} />
           <span>{t('effect:negative_form')}{t(`effect:condition.state.${key}`, { unit: target })}</span>
         </React.Fragment>
       );
@@ -336,15 +338,22 @@ const SkillEffectConditionView: React.FC<
             } else if ('num_of_enemies' in v) {
               return (<span>{t('effect:unit.enemy')}{t(`effect:scale_factor.${v.num_of_enemies}`)}</span>);
             } else {
+              const exceptSelf = !!v.except;
               if (isUnitAlias(v.num_of_units)) {
                 return (
                   <React.Fragment>
-                    <UnitAliasView unitAlias={v.num_of_units} exceptUnit={unitNumber} />
+                    {ifTruthy(exceptSelf, (<span>{t('effect:unit.self')}{t('effect:except_preposition')}</span>))}
+                    <UnitAliasView unitAlias={v.num_of_units} exceptUnit={exceptSelf ? unitNumber : undefined} />
                     <span>{t('effect:scale_factor.num_of_allies')}</span>
                   </React.Fragment>
                 );
               } else {
-                return (<span>{t(`effect:unit.${v.num_of_units}`)}{t('effect:scale_factor.num_of_allies')}</span>);
+                return (
+                  <React.Fragment>
+                    {ifTruthy(exceptSelf, (<span>{t('effect:unit.self')}{t('effect:except_preposition')}</span>))}
+                    <span>{t(`effect:unit.${v.num_of_units}`)}{t('effect:scale_factor.num_of_allies')}</span>
+                  </React.Fragment>
+                );
               }
             }
           }

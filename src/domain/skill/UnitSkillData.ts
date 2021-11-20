@@ -98,6 +98,18 @@ type CirceSkillData = Readonly<{
     readonly [PassiveSkillDataAsEquipmentEffect, PassiveSkillData]
 }>
 
+type LemonadeAlphaSkillData = Readonly<{
+  no: 187
+  active:
+    readonly [ActiveSkillData, ActiveSkillData],
+  passive:
+    readonly [
+      PassiveSkillDataAsEquipmentEffect,
+      PassiveSkillDataAsEquipmentEffect,
+      PassiveSkillDataAsEquipmentEffect
+    ]
+}>
+
 type AlexandraSkillData = Readonly<{
   no: typeof FormChangeUnits.Alexandra,
   active:
@@ -215,6 +227,7 @@ type FortressSkillData = Readonly<{
 
 type UnitSkill<N extends UnitNumber> =
   N extends CirceSkillData['no'] ? CirceSkillData :
+  N extends LemonadeAlphaSkillData['no'] ? LemonadeAlphaSkillData :
   N extends AlexandraSkillData['no'] ? AlexandraSkillData :
   N extends LeonaSkillData['no'] ? LeonaSkillData :
   N extends BloodyPantherSkillData['no'] ? BloodyPantherSkillData :

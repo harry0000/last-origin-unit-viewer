@@ -2408,5 +2408,104 @@ export const equipmentData = {
       [{ details: { anti_heavy_type: { milliPercentage: 24000 }, range_up: { value: 1 } } }],
       [{ details: { anti_heavy_type: { milliPercentage: 25000 }, range_up: { value: 1 } } }]
     ]
+  },
+  smar_stone: {
+    type: 'gear',
+    id: 'smar_stone',
+    exclusive: {
+      unit: 206
+    },
+    status_effects: [
+      { atk_up: { milliValue: 100000 }, acc_up: { milliPercentage: 10000 }, cri_up: { milliPercentage:  5000 } },
+      { atk_up: { milliValue: 105000 }, acc_up: { milliPercentage: 11000 }, cri_up: { milliPercentage:  5500 } },
+      { atk_up: { milliValue: 110000 }, acc_up: { milliPercentage: 12000 }, cri_up: { milliPercentage:  6000 } },
+      { atk_up: { milliValue: 115000 }, acc_up: { milliPercentage: 13000 }, cri_up: { milliPercentage:  6500 } },
+      { atk_up: { milliValue: 120000 }, acc_up: { milliPercentage: 14000 }, cri_up: { milliPercentage:  7000 } },
+      { atk_up: { milliValue: 125000 }, acc_up: { milliPercentage: 15000 }, cri_up: { milliPercentage:  7500 } },
+      { atk_up: { milliValue: 130000 }, acc_up: { milliPercentage: 16000 }, cri_up: { milliPercentage:  8000 } },
+      { atk_up: { milliValue: 135000 }, acc_up: { milliPercentage: 17000 }, cri_up: { milliPercentage:  8500 } },
+      { atk_up: { milliValue: 140000 }, acc_up: { milliPercentage: 18000 }, cri_up: { milliPercentage:  9000 } },
+      { atk_up: { milliValue: 145000 }, acc_up: { milliPercentage: 19000 }, cri_up: { milliPercentage:  9500 } },
+      { atk_up: { milliValue: 150000 }, acc_up: { milliPercentage: 20000 }, cri_up: { milliPercentage: 10000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'hit' }, details: { additional_ice_damage: { milliPercentage: 20000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_ice_damage: { milliPercentage: 21000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_ice_damage: { milliPercentage: 22000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_ice_damage: { milliPercentage: 23000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_ice_damage: { milliPercentage: 24000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_ice_damage: { milliPercentage: 25000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_ice_damage: { milliPercentage: 26000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_ice_damage: { milliPercentage: 27000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_ice_damage: { milliPercentage: 28000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_ice_damage: { milliPercentage: 29000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_ice_damage: { milliPercentage: 30000 } } }]
+    ]
+  },
+  twen_stone: {
+    type: 'gear',
+    id: 'twen_stone',
+    exclusive: {
+      unit: 206
+    },
+    status_effects: [
+      { atk_up: { milliValue: 100000 }, acc_up: { milliPercentage: 10000 }, cri_up: { milliPercentage:  5000 } },
+      { atk_up: { milliValue: 105000 }, acc_up: { milliPercentage: 11000 }, cri_up: { milliPercentage:  5500 } },
+      { atk_up: { milliValue: 110000 }, acc_up: { milliPercentage: 12000 }, cri_up: { milliPercentage:  6000 } },
+      { atk_up: { milliValue: 115000 }, acc_up: { milliPercentage: 13000 }, cri_up: { milliPercentage:  6500 } },
+      { atk_up: { milliValue: 120000 }, acc_up: { milliPercentage: 14000 }, cri_up: { milliPercentage:  7000 } },
+      { atk_up: { milliValue: 125000 }, acc_up: { milliPercentage: 15000 }, cri_up: { milliPercentage:  7500 } },
+      { atk_up: { milliValue: 130000 }, acc_up: { milliPercentage: 16000 }, cri_up: { milliPercentage:  8000 } },
+      { atk_up: { milliValue: 135000 }, acc_up: { milliPercentage: 17000 }, cri_up: { milliPercentage:  8500 } },
+      { atk_up: { milliValue: 140000 }, acc_up: { milliPercentage: 18000 }, cri_up: { milliPercentage:  9000 } },
+      { atk_up: { milliValue: 145000 }, acc_up: { milliPercentage: 19000 }, cri_up: { milliPercentage:  9500 } },
+      { atk_up: { milliValue: 150000 }, acc_up: { milliPercentage: 20000 }, cri_up: { milliPercentage: 10000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'hit' }, details: { additional_fire_damage: { milliPercentage: 20000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_fire_damage: { milliPercentage: 21000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_fire_damage: { milliPercentage: 22000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_fire_damage: { milliPercentage: 23000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_fire_damage: { milliPercentage: 24000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_fire_damage: { milliPercentage: 25000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_fire_damage: { milliPercentage: 26000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_fire_damage: { milliPercentage: 27000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_fire_damage: { milliPercentage: 28000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_fire_damage: { milliPercentage: 29000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_fire_damage: { milliPercentage: 30000 } } }]
+    ]
+  },
+  jowi_stone: {
+    type: 'gear',
+    id: 'jowi_stone',
+    exclusive: {
+      unit: 206
+    },
+    status_effects: [
+      { atk_up: { milliValue: 100000 }, acc_up: { milliPercentage: 10000 }, cri_up: { milliPercentage:  5000 } },
+      { atk_up: { milliValue: 105000 }, acc_up: { milliPercentage: 11000 }, cri_up: { milliPercentage:  5500 } },
+      { atk_up: { milliValue: 110000 }, acc_up: { milliPercentage: 12000 }, cri_up: { milliPercentage:  6000 } },
+      { atk_up: { milliValue: 115000 }, acc_up: { milliPercentage: 13000 }, cri_up: { milliPercentage:  6500 } },
+      { atk_up: { milliValue: 120000 }, acc_up: { milliPercentage: 14000 }, cri_up: { milliPercentage:  7000 } },
+      { atk_up: { milliValue: 125000 }, acc_up: { milliPercentage: 15000 }, cri_up: { milliPercentage:  7500 } },
+      { atk_up: { milliValue: 130000 }, acc_up: { milliPercentage: 16000 }, cri_up: { milliPercentage:  8000 } },
+      { atk_up: { milliValue: 135000 }, acc_up: { milliPercentage: 17000 }, cri_up: { milliPercentage:  8500 } },
+      { atk_up: { milliValue: 140000 }, acc_up: { milliPercentage: 18000 }, cri_up: { milliPercentage:  9000 } },
+      { atk_up: { milliValue: 145000 }, acc_up: { milliPercentage: 19000 }, cri_up: { milliPercentage:  9500 } },
+      { atk_up: { milliValue: 150000 }, acc_up: { milliPercentage: 20000 }, cri_up: { milliPercentage: 10000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'hit' }, details: { additional_electric_damage: { milliPercentage: 20000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_electric_damage: { milliPercentage: 21000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_electric_damage: { milliPercentage: 22000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_electric_damage: { milliPercentage: 23000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_electric_damage: { milliPercentage: 24000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_electric_damage: { milliPercentage: 25000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_electric_damage: { milliPercentage: 26000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_electric_damage: { milliPercentage: 27000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_electric_damage: { milliPercentage: 28000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_electric_damage: { milliPercentage: 29000 } } }],
+      [{ condition: { trigger: 'hit' }, details: { additional_electric_damage: { milliPercentage: 30000 } } }]
+    ]
   }
 } as const;

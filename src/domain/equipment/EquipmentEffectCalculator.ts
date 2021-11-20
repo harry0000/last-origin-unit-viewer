@@ -125,6 +125,9 @@ function calculateEffectDetails(
           ...extractValueUnitData('value', entry[1])
         }
       };
+    case Effect.AdditionalFireDamage:
+    case Effect.AdditionalIceDamage:
+    case Effect.AdditionalElectricDamage:
     case Effect.FixedDamage:
     case Effect.AntiLightType:
     case Effect.AntiHeavyType:

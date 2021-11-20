@@ -63,6 +63,9 @@ function translateDetail(entry: NonNullableEntry<Keyof<EquipmentEffectValue>, Eq
   case Effect.RangeUp:
   case Effect.RangeDown:
     return buildDetail(t(`effect:effect.description.${entry[0]}`, { value: entry[1].value }), entry[1], t);
+  case Effect.AdditionalFireDamage:
+  case Effect.AdditionalIceDamage:
+  case Effect.AdditionalElectricDamage:
   case Effect.FixedDamage:
   case Effect.AntiLightType:
   case Effect.AntiHeavyType:

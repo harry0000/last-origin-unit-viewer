@@ -221,6 +221,8 @@ export function translateSkillEffectDetails(
       term
     };
   case Effect.DefDown:
+  case Effect.AccDown:
+  case Effect.CriDown:
   case Effect.EvaUp:
   case Effect.StatusResistUp:
     return 'length' in entry[1] ?

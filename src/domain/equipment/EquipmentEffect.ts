@@ -20,6 +20,9 @@ export type IntegerValueEffectKey = typeof Effect[
   'BattleContinuation'
 ]
 export type MilliPercentageEffectKey = typeof Effect[
+  'AdditionalFireDamage' |
+  'AdditionalIceDamage' |
+  'AdditionalElectricDamage' |
   'FixedDamage' |
   'AntiLightType' |
   'AntiHeavyType' |

@@ -8,6 +8,7 @@
     "fixed": "固定範囲"
   },
   "unit": {
+    "self": "自分",
     "ally": "味方",
     "enemy": "敵",
     "bioroid": "バイオロイド",
@@ -67,6 +68,7 @@
     "sadistic_nature": "サディズム",
     "revenger": "リベンジャー",
     "alert_mode": "警備モード!",
+    "undying_will": "不屈の意思",
     "yummy": "美味しい!",
     "counterattack_initiation": "逆襲準備",
     "fire_net_building": "火網構築",
@@ -96,13 +98,12 @@
     "squadron_escort": "編隊護衛",
     "forceful_breakthrough": "強行突入",
     "readying_bombardment": "砲撃待機",
-    "arrogance": "傲慢さ",
+    "arrogance_and_anger": "傲慢と憤怒",
     "hubris": "思い上がり",
     "hardpoint_mount_equipment": "ハードポイント<武装>",
     "hardpoint_mount_support": "ハードポイント<補助>",
     "where_are_you_looking_at": "どこ見てるの?",
     "stealth_camouflage": "ステルス偽装",
-    "viff_activate": "VIFF機動",
     "overwhelming_cuteness": "圧倒的な可愛さ？",
     "observation_data_reception": "観測データ受信",
     "guiding_technique": "技術先導",
@@ -123,12 +124,15 @@
     "command_offense_troop": "攻撃隊指揮",
     "command_defense_troop": "警護隊指揮",
     "cheerleader": "チアリーダー",
+    "with_flammables": "引火物付着",
     "bleeding_hole": "貫通",
     "night_of_blood_queen": "血の女王の夜",
     "clear_and_serene": "明鏡止水",
     "foresight": "看破",
     "mimesis": "擬態",
     "psychic_barrier": "念動力場",
+    "charge_electrically": "充電",
+    "high_voltage": "高電圧",
     "death_blow": "一撃必殺",
     "overexcitement": "過興奮状態",
     "controlling_excitement": "興奮調節",
@@ -162,6 +166,7 @@
       "attacked": "攻撃後",
       "be_attacked": "攻撃された時",
       "hit": "攻撃命中時",
+      "hit_fire_active": "火属性攻撃命中時",
       "hit_any_active": "スキル命中時",
       "hit_vital_spot": "急所をついた時",
       "be_hit": "被撃時",
@@ -197,11 +202,11 @@
       "in_back_line": "後列にいる",
       "in_squad": "{{unit}}がいる",
       "unit": "{{unit}}である",
-      "num_of_units": "$t(effect:unit.{{unit}})が{{greater_or_equal}}体以上いる",
+      "num_of_units": "$t(effect:unit.self)を除く$t(effect:unit.{{unit}})が{{greater_or_equal}}体以上いる",
       "effected_by": "{{unit}}のスキル効果を受けている"
     },
     "target": {
-      "self": "自分が",
+      "self": "$t(effect:unit.self)が",
       "target": "対象が",
       "squad": "分隊内に"
     }
@@ -221,8 +226,7 @@
     "next_wave": "次の戦闘中",
     "next_round": "1ラウンド後",
     "next_active": "次の攻撃時",
-    "only_this_attack": "その攻撃に対して",
-    "until_be_hit": "被撃するまで"
+    "only_this_attack": "その攻撃に対して"
   },
   "rate": {
     "percentage": "{{value}}%の確率で",
@@ -428,7 +432,7 @@
       "golden_factory_construction": "空きマスにゴールデンファクトリーを設置 (最大{{times}}個)"
     },
     "target": {
-      "self": "自分",
+      "self": "$t(effect:unit.self)",
       "single": "対象1体",
       "area": "範囲内の対象",
       "around": "対象の周辺"
@@ -442,7 +446,7 @@
 
   "effects_as_equipment": {
     "description": {
-      "prefix": "※スキルの効果は ",
+      "prefix": "※このスキルの効果は ",
       "suffix": " に分類されます",
       "as_equipment": "装備と同じカテゴリー"
     },

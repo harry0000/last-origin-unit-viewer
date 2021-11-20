@@ -13,7 +13,8 @@ export type SkillEffectScaleFactor =
       'ally' |
       UnitKind |
       typeof UnitType.Light |
-      typeof UnitAlias['ElectricActive' | 'SteelLine' | 'AngerOfHorde' | 'MongooseTeam' | 'TomosFriends' | 'CityGuard']
+      typeof UnitAlias['ElectricActive' | 'SteelLine' | 'AngerOfHorde' | 'MongooseTeam' | 'TomosFriends' | 'CityGuard'],
+    except?: 'self'
   } | {
     num_of_enemies: 'proportion' | 'inverse_proportion'
   }
