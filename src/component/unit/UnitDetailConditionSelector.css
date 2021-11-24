@@ -1,0 +1,9 @@
+h1.unit-detail-condition-header {
+  font-size: 1rem;
+  color: #aaa;
+  font-weight: bold;
+  margin: 0.5rem 0;
+  padding-left: 5px;
+  border-left: #aaa solid 3px;
+  user-select: none;
+}

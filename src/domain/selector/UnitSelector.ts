@@ -1,9 +1,28 @@
+import { ActiveSkillCondition, matchActiveSkillConditions } from './ActiveSkillCondition';
+import {
+  SkillEffectCondition,
+  matchSkillConditions
+} from './SkillEffectCondition';
 import { UnitBasicData, UnitBasicInfo, UnitRank, UnitRole, UnitType } from '../UnitBasicInfo';
 import { UnitSkillData } from '../skill/UnitSkillData';
 import {
-  SkillEffectSelectorCondition,
-  matchSkillConditions
-} from './SkillEffectSelectorCondition';
+  CoreLinkBonusCondition,
+  FullLinkBonusCondition,
+  matchCoreLinkBonusConditions
+} from './CoreLinkBonusCondition';
+import { UnitCoreLinkBonusData } from '../UnitCoreLinkBonusData';
+import { matchRankUpConditions, RankUpCondition } from './RankUpCondition';
+import { UnitRankUpBonusData } from '../status/UnitRankUpBonusData';
+
+function toggleSelector<T>(values: ReadonlySet<T>, value: T): ReadonlySet<T> {
+  const newValues = new Set(values);
+  if (values.has(value)) {
+    newValues.delete(value);
+    return newValues;
+  } else {
+    return newValues.add(value);
+  }
+}
 
 class UnitSelector {
 
@@ -13,6 +32,10 @@ class UnitSelector {
       new Set<UnitType>(['light', 'heavy', 'flying']),
       new Set<UnitRole>(['attacker', 'defender', 'supporter']),
       new Set(),
+      new Set(),
+      undefined,
+      undefined,
+      undefined,
       undefined
     );
   }
@@ -20,20 +43,32 @@ class UnitSelector {
   readonly #ranks: ReadonlySet<UnitRank>;
   readonly #types: ReadonlySet<UnitType>;
   readonly #roles: ReadonlySet<UnitRole>;
-  readonly #skillEffects: ReadonlySet<SkillEffectSelectorCondition>;
+  readonly #activeSkills: ReadonlySet<ActiveSkillCondition>;
+  readonly #skillEffects: ReadonlySet<SkillEffectCondition>;
+  readonly coreLinkBonus: CoreLinkBonusCondition | undefined;
+  readonly fullLinkBonus: FullLinkBonusCondition | undefined;
+  readonly rankUpCondition: RankUpCondition | undefined;
   readonly selectedUnit?: UnitBasicInfo;
 
   private constructor(
     ranks: ReadonlySet<UnitRank>,
     types: ReadonlySet<UnitType>,
     roles: ReadonlySet<UnitRole>,
-    skillEffects: ReadonlySet<SkillEffectSelectorCondition>,
+    activeSkills: ReadonlySet<ActiveSkillCondition>,
+    skillEffects: ReadonlySet<SkillEffectCondition>,
+    coreLinkBonus: CoreLinkBonusCondition | undefined,
+    fullLinkBonus: FullLinkBonusCondition | undefined,
+    rankUpCondition: RankUpCondition | undefined,
     selectedUnit?: UnitBasicInfo
   ) {
     this.#ranks = ranks;
     this.#types = types;
     this.#roles = roles;
+    this.#activeSkills = activeSkills;
     this.#skillEffects = skillEffects;
+    this.coreLinkBonus = coreLinkBonus;
+    this.fullLinkBonus = fullLinkBonus;
+    this.rankUpCondition = rankUpCondition;
     this.selectedUnit = selectedUnit;
   }
 
@@ -41,14 +76,22 @@ class UnitSelector {
     ranks?: ReadonlySet<UnitRank>,
     types?: ReadonlySet<UnitType>,
     roles?: ReadonlySet<UnitRole>,
-    skillEffects?: ReadonlySet<SkillEffectSelectorCondition>,
+    activeSkills?: ReadonlySet<ActiveSkillCondition>,
+    skillEffects?: ReadonlySet<SkillEffectCondition>,
+    coreLinkBonus?: CoreLinkBonusCondition | undefined,
+    fullLinkBonus?: FullLinkBonusCondition | undefined,
+    rankUpCondition?: RankUpCondition | undefined,
     selectedUnit?: UnitBasicInfo
   }): UnitSelector {
     const newValues = {
       ranks: values.ranks ?? this.#ranks,
       types: values.types ?? this.#types,
       roles: values.roles ?? this.#roles,
+      activeSkills: values.activeSkills ?? this.#activeSkills,
       skillEffects: values.skillEffects ?? this.#skillEffects,
+      coreLinkBonus: 'coreLinkBonus' in values ? values.coreLinkBonus : this.coreLinkBonus,
+      fullLinkBonus: 'fullLinkBonus' in values ? values.fullLinkBonus : this.fullLinkBonus,
+      rankUpCondition: 'rankUpCondition' in values ? values.rankUpCondition : this.rankUpCondition,
       selectedUnit: values.selectedUnit
     };
 
@@ -56,45 +99,67 @@ class UnitSelector {
       newValues.ranks,
       newValues.types,
       newValues.roles,
+      newValues.activeSkills,
       newValues.skillEffects,
+      newValues.coreLinkBonus,
+      newValues.fullLinkBonus,
+      newValues.rankUpCondition,
       newValues.selectedUnit
     );
   }
 
-  #toggleSelector<T>(values: ReadonlySet<T>, value: T): ReadonlySet<T> {
-    const newValues = new Set(values);
-    if (values.has(value)) {
-      newValues.delete(value);
-      return newValues;
-    } else {
-      return newValues.add(value);
-    }
-  }
-
   toggleRank(rank: UnitRank): UnitSelector {
     return this.#updateStore({
-      ranks: this.#toggleSelector(this.#ranks, rank),
+      ranks: toggleSelector(this.#ranks, rank),
       selectedUnit: undefined
     });
   }
 
   toggleType(type: UnitType): UnitSelector {
     return this.#updateStore({
-      types: this.#toggleSelector(this.#types, type),
+      types: toggleSelector(this.#types, type),
       selectedUnit: undefined
     });
   }
 
   toggleRole(role: UnitRole): UnitSelector {
     return this.#updateStore({
-      roles: this.#toggleSelector(this.#roles, role),
+      roles: toggleSelector(this.#roles, role),
       selectedUnit: undefined
     });
   }
 
-  toggleSkillEffect(effect: SkillEffectSelectorCondition): UnitSelector {
+  toggleActiveSkillCondition(condition: ActiveSkillCondition): UnitSelector {
     return this.#updateStore({
-      skillEffects: this.#toggleSelector(this.#skillEffects, effect),
+      activeSkills: toggleSelector(this.#activeSkills, condition),
+      selectedUnit: undefined
+    });
+  }
+
+  toggleSkillEffectCondition(condition: SkillEffectCondition): UnitSelector {
+    return this.#updateStore({
+      skillEffects: toggleSelector(this.#skillEffects, condition),
+      selectedUnit: undefined
+    });
+  }
+
+  selectCoreLinkBonusCondition(coreLinkBonus: CoreLinkBonusCondition | undefined): UnitSelector {
+    return this.#updateStore({
+      coreLinkBonus,
+      selectedUnit: undefined
+    });
+  }
+
+  selectFullLinkBonusCondition(fullLinkBonus: FullLinkBonusCondition | undefined): UnitSelector {
+    return this.#updateStore({
+      fullLinkBonus,
+      selectedUnit: undefined
+    });
+  }
+
+  selectRankUpCondition(rankUpCondition: RankUpCondition | undefined): UnitSelector {
+    return this.#updateStore({
+      rankUpCondition,
       selectedUnit: undefined
     });
   }
@@ -117,16 +182,26 @@ class UnitSelector {
     return this.#roles.has(role);
   }
 
-  isSkillEffectSelected(effect: SkillEffectSelectorCondition): boolean {
+  isActiveSkillConditionSelected(condition: ActiveSkillCondition): boolean {
+    return this.#activeSkills.has(condition);
+  }
+
+  isSkillEffectSelected(effect: SkillEffectCondition): boolean {
     return this.#skillEffects.has(effect);
   }
 
   selectUnits(
     units: UnitBasicData,
-    skills: UnitSkillData
+    skills: UnitSkillData,
+    coreLinkBonuses: UnitCoreLinkBonusData,
+    rankUpBonuses: UnitRankUpBonusData
   ): ReadonlyArray<UnitBasicInfo> {
     return Object.values(units).filter(unit =>
-      this.#matchUnit(unit) && matchSkillConditions(skills[unit.no], this.#skillEffects)
+      this.#matchUnit(unit) &&
+      matchActiveSkillConditions(skills[unit.no], this.#activeSkills) &&
+      matchSkillConditions(skills[unit.no], this.#skillEffects) &&
+      matchCoreLinkBonusConditions(coreLinkBonuses[unit.no], this.coreLinkBonus, this.fullLinkBonus) &&
+      matchRankUpConditions(unit.no, rankUpBonuses, this.rankUpCondition)
     );
   }
 

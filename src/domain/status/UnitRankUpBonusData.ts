@@ -5,6 +5,7 @@ import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue } from '../V
 import { unitBasicData } from '../../data/unitBasicData';
 import { unitRankUpBonusData } from '../../data/unitRankUpBonusData';
 
+export type UnitRankUpBonusData = typeof unitRankUpBonusData
 export type RankUpUnitNumber = keyof typeof unitRankUpBonusData
 
 const rankUpUnitNumbers: ReadonlySet<UnitNumber> = new Set(Object.keys(unitRankUpBonusData).map(r => +r as UnitNumber));

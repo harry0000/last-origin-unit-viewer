@@ -1,25 +1,53 @@
 import { atom, atomFamily, selector, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
-import { SkillEffectSelectorCondition } from '../../domain/selector/SkillEffectSelectorCondition';
+import { ActiveSkillCondition } from '../../domain/selector/ActiveSkillCondition';
+import {
+  CoreLinkBonusCondition,
+  FullLinkBonusCondition
+} from '../../domain/selector/CoreLinkBonusCondition';
+import {
+  DefensiveSkillEffectCondition,
+  OffensiveSkillEffectCondition,
+  OtherSkillEffectCondition,
+  SkillEffectCondition,
+  StatusSkillEffectCondition
+} from '../../domain/selector/SkillEffectCondition';
+import { RankUpCondition } from '../../domain/selector/RankUpCondition';
 import { UnitBasicInfo, UnitNumber, UnitRank, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
 import UnitSelector from '../../domain/selector/UnitSelector';
 
-import { buildUnitTileIconSrcUrl } from '../../service/UnitIconSrcUrlBuilder';
 import { unitBasicData } from '../../data/unitBasicData';
+import { unitCoreLinkBonusData } from '../../data/unitCoreLinkBonusData';
+import { unitRankUpBonusData } from '../../data/unitRankUpBonusData';
 import { unitSkillData } from '../../data/unitSkillData';
+
 import { updateEquipmentEnhanceLvSelector } from '../equipment/unitEquipmentState';
 import { updateSkillTab } from '../ui/unitSkillTabState';
 import { useUnitCurrentRank } from '../status/unitLvStatusState';
+
+import { buildUnitTileIconSrcUrl } from '../../service/UnitIconSrcUrlBuilder';
 
 const selectorAtoms = {
   unit: atomFamily<boolean, UnitRank | UnitType | UnitRole>({
     key: 'unitConditionSelectorAtom',
     default: true
   }),
-  skillEffect: atomFamily<boolean, SkillEffectSelectorCondition>({
-    key: 'skillEffectSelectorAtom',
+  skillCondition: atomFamily<boolean, ActiveSkillCondition | SkillEffectCondition>({
+    key: 'skillConditionSelectorAtom',
     default: false
+  }),
+  coreLinkCondition: atomFamily<boolean, CoreLinkBonusCondition | undefined>({
+    key: 'coreLinkConditionSelectorAtom',
+    default: (cond) => !cond
+  }),
+  fullLinkCondition: atomFamily<boolean, FullLinkBonusCondition | undefined>({
+    key: 'fullLinkConditionSelectorAtom',
+    default: (cond) => !cond
+  }),
+  rankUpCondition: atomFamily<boolean, RankUpCondition | undefined>({
+    key: 'rankUpConditionSelectorAtom',
+    default: (cond) => !cond
   })
 };
 
@@ -68,8 +96,27 @@ const unitSelectorState = selector<UnitSelector>({
       Object.values(UnitType).forEach(type => set(selectorAtoms.unit(type), newValue.isTypeSelected(type)));
       Object.values(UnitRole).forEach(role => set(selectorAtoms.unit(role), newValue.isRoleSelected(role)));
       Object
-        .values(SkillEffectSelectorCondition)
-        .forEach(effect => set(selectorAtoms.skillEffect(effect), newValue.isSkillEffectSelected(effect)));
+        .values(ActiveSkillCondition)
+        .forEach(condition => set(selectorAtoms.skillCondition(condition), newValue.isActiveSkillConditionSelected(condition)));
+      Object
+        .values(StatusSkillEffectCondition)
+        .forEach(condition => set(selectorAtoms.skillCondition(condition), newValue.isSkillEffectSelected(condition)));
+      Object
+        .values(OffensiveSkillEffectCondition)
+        .forEach(condition => set(selectorAtoms.skillCondition(condition), newValue.isSkillEffectSelected(condition)));
+      Object
+        .values(DefensiveSkillEffectCondition)
+        .forEach(condition => set(selectorAtoms.skillCondition(condition), newValue.isSkillEffectSelected(condition)));
+      Object
+        .values(OtherSkillEffectCondition)
+        .forEach(condition => set(selectorAtoms.skillCondition(condition), newValue.isSkillEffectSelected(condition)));
+
+      [undefined, ...Object.values(CoreLinkBonusCondition)]
+        .forEach(condition => set(selectorAtoms.coreLinkCondition(condition), newValue.coreLinkBonus === condition));
+      [undefined, ...Object.values(FullLinkBonusCondition)]
+        .forEach(condition => set(selectorAtoms.fullLinkCondition(condition), newValue.fullLinkBonus === condition));
+      [undefined, ...Object.values(RankUpCondition)]
+        .forEach(condition => set(selectorAtoms.rankUpCondition(condition), newValue.rankUpCondition === condition));
 
       set(_unitSelectorState, newValue);
     }
@@ -100,21 +147,94 @@ export function useUnitRoleSelector(role: UnitRole): [selected: boolean, toggle:
   ];
 }
 
-export function useSkillEffectBadge(effect: SkillEffectSelectorCondition): boolean {
-  return useRecoilValue(selectorAtoms.skillEffect(effect));
+export function useSelectedActiveSkillConditions(): ReadonlyArray<ActiveSkillCondition> {
+  return Object
+    .values(ActiveSkillCondition)
+    .filter(cond => useRecoilValue(selectorAtoms.skillCondition(cond)));
 }
 
-export function useSkillEffectSelector(effect: SkillEffectSelectorCondition): [selected: boolean, toggle: () => void] {
+export function useSelectedSkillEffectConditions(): ReadonlyArray<SkillEffectCondition> {
+  return [
+    ...Object.values(StatusSkillEffectCondition),
+    ...Object.values(OffensiveSkillEffectCondition),
+    ...Object.values(DefensiveSkillEffectCondition),
+    ...Object.values(OtherSkillEffectCondition)
+  ].filter(cond => useRecoilValue(selectorAtoms.skillCondition(cond)));
+}
+
+export function useSelectedCoreLinkBonusCondition(): CoreLinkBonusCondition | undefined {
+  return Object
+    .values(CoreLinkBonusCondition)
+    .map(condition => {
+      const selected = useRecoilValue(selectorAtoms.coreLinkCondition(condition));
+      return selected ? condition : undefined;
+    })
+    .find(condition => !!condition);
+}
+
+export function useSelectedFullLinkBonusCondition(): FullLinkBonusCondition | undefined {
+  return Object
+    .values(FullLinkBonusCondition)
+    .map(condition => {
+      const selected = useRecoilValue(selectorAtoms.fullLinkCondition(condition));
+      return selected ? condition : undefined;
+    })
+    .find(condition => !!condition);
+}
+
+export function useSelectedRankUpCondition(): RankUpCondition | undefined {
+  return Object
+    .values(RankUpCondition)
+    .map(condition => {
+      const selected = useRecoilValue(selectorAtoms.rankUpCondition(condition));
+      return selected ? condition : undefined;
+    })
+    .find(condition => !!condition);
+}
+
+export function useCoreLinkBonusConditionSelector(condition: CoreLinkBonusCondition | undefined): [selected: boolean, select: () => void] {
   const setter = useSetRecoilState(unitSelectorState);
   return [
-    useRecoilValue(selectorAtoms.skillEffect(effect)),
-    () => setter(s => s.toggleSkillEffect(effect))
+    useRecoilValue(selectorAtoms.coreLinkCondition(condition)),
+    () => setter(s => s.selectCoreLinkBonusCondition(condition))
+  ];
+}
+
+export function useFullLinkBonusConditionSelector(condition: FullLinkBonusCondition | undefined): [selected: boolean, select: () => void] {
+  const setter = useSetRecoilState(unitSelectorState);
+  return [
+    useRecoilValue(selectorAtoms.fullLinkCondition(condition)),
+    () => setter(s => s.selectFullLinkBonusCondition(condition))
+  ];
+}
+
+export function useRankUpConditionSelector(condition: RankUpCondition | undefined): [selected: boolean, select: () => void] {
+  const setter = useSetRecoilState(unitSelectorState);
+  return [
+    useRecoilValue(selectorAtoms.rankUpCondition(condition)),
+    () => setter(s => s.selectRankUpCondition(condition))
+  ];
+}
+
+export function useActiveSkillConditionSelector(condition: ActiveSkillCondition): [selected: boolean, toggle: () => void] {
+  const setter = useSetRecoilState(unitSelectorState);
+  return [
+    useRecoilValue(selectorAtoms.skillCondition(condition)),
+    () => setter(s => s.toggleActiveSkillCondition(condition))
+  ];
+}
+
+export function useSkillEffectConditionSelector(condition: SkillEffectCondition): [selected: boolean, toggle: () => void] {
+  const setter = useSetRecoilState(unitSelectorState);
+  return [
+    useRecoilValue(selectorAtoms.skillCondition(condition)),
+    () => setter(s => s.toggleSkillEffectCondition(condition))
   ];
 }
 
 export function useFilteredUnitList(): ReadonlyArray<UnitBasicInfo> {
   const unitSelector = useRecoilValue(unitSelectorState);
-  return unitSelector.selectUnits(unitBasicData, unitSkillData);
+  return unitSelector.selectUnits(unitBasicData, unitSkillData, unitCoreLinkBonusData, unitRankUpBonusData);
 }
 
 export function useSelectedUnit(): UnitBasicInfo | undefined {

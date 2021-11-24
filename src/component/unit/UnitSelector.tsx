@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import SelectorButton from './SelectorButton';
-import SkillEffectSelector from './SkillEffectSelector';
+import UnitDetailConditionsSelector from './UnitDetailConditionsSelector';
 
 import { UnitRank, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
 import { useUnitRankSelector, useUnitRoleSelector, useUnitTypeSelector } from '../../state/selector/unitSelectorState';
@@ -78,7 +78,7 @@ const UnitSelector: React.FC<{ className?: string }> = (props) => {
         <UnitRoleSelectorButton role={UnitRole.Defender} />
         <UnitRoleSelectorButton role={UnitRole.Supporter} />
       </div>
-      <SkillEffectSelector />
+      <UnitDetailConditionsSelector />
     </div>
   );
 };
