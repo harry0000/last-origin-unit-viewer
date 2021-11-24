@@ -2,29 +2,23 @@
 /** @jsx jsx */
 import { Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { ReactNode } from 'react';
 
 import { CheckboxChecked, CheckboxUnchecked } from '../icon/FluentIcons';
 import RoundedToggleButton from '../common/RoundedToggleButton';
 import SVGIcon from '../icon/SVGIcon';
 
-import { SkillEffectSelectorCondition } from '../../domain/selector/SkillEffectSelectorCondition';
-
-import { useSkillEffectSelector } from '../../state/selector/unitSelectorState';
-
-const SkillEffectSelectorButton: React.FC<{
+const UnitDetailConditionSelectorButton: React.FC<{
   css?: Interpolation<Theme>,
-  effect: SkillEffectSelectorCondition
-}> = ({ effect, ...others }) => {
-  const { t } = useTranslation();
-  const [selected, toggle] = useSkillEffectSelector(effect);
-
+  children: ReactNode,
+  selected: boolean,
+  onSelect: () => void
+}> = ({ children, selected, onSelect, ...others }) => {
   return (
     <RoundedToggleButton
       {...others}
       selected={selected}
-      onChange={() => toggle()}
+      onChange={onSelect}
     >
       <SVGIcon
         css={{
@@ -35,9 +29,9 @@ const SkillEffectSelectorButton: React.FC<{
       >
         {selected ? <CheckboxChecked fill="#000" /> : <CheckboxUnchecked />}
       </SVGIcon>
-      <span>{t(`form.skill.${effect}`)}</span>
+      <span>{children}</span>
     </RoundedToggleButton>
   );
 };
 
-export default SkillEffectSelectorButton;
+export default UnitDetailConditionSelectorButton;

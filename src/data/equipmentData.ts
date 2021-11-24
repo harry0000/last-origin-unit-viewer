@@ -711,10 +711,23 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { exp_up: { milliPercentage: { ss: 25000 }, term: 'infinite' } } }]
     ]
   },
-  // enhanced_exp_os: {
-  //   type: 'os',
-  //   id: 'enhanced_exp_os'
-  // },
+  enhanced_exp_os: {
+    type: 'os',
+    id: 'enhanced_exp_os',
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { exp_up: { milliPercentage: 15500, term: 'infinite' }, spd_down: { milliPercentage: 20000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { exp_up: { milliPercentage: 16600, term: 'infinite' }, spd_down: { milliPercentage: 21000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { exp_up: { milliPercentage: 17700, term: 'infinite' }, spd_down: { milliPercentage: 22000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { exp_up: { milliPercentage: 18800, term: 'infinite' }, spd_down: { milliPercentage: 23000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { exp_up: { milliPercentage: 19900, term: 'infinite' }, spd_down: { milliPercentage: 24000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { exp_up: { milliPercentage: 21000, term: 'infinite' }, spd_down: { milliPercentage: 25000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { exp_up: { milliPercentage: 22100, term: 'infinite' }, spd_down: { milliPercentage: 26000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { exp_up: { milliPercentage: 23200, term: 'infinite' }, spd_down: { milliPercentage: 27000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { exp_up: { milliPercentage: 24300, term: 'infinite' }, spd_down: { milliPercentage: 28000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { exp_up: { milliPercentage: 25400, term: 'infinite' }, spd_down: { milliPercentage: 29000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { exp_up: { milliPercentage: 27500, term: 'infinite' }, spd_down: { milliPercentage: 30000, term: 'infinite' } } }]
+    ]
+  },
   runaway_inducement_os: {
     type: 'os',
     id: 'runaway_inducement_os',

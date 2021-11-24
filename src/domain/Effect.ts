@@ -67,6 +67,7 @@ export const Effect = {
   CooperativeAttack: 'cooperative_attack',
   Counterattack: 'counterattack',
   IgnoreBarrierDr: 'ignore_barrier_dr',
+  // TODO: delete if unused
   IgnoreDr: 'ignore_dr',
   IgnoreProtect: 'ignore_protect',
   Pull: 'pull',
