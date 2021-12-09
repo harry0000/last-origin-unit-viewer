@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Badge } from 'react-bootstrap';
 
 import {
+  useConditionEmptyBadge,
   useSelectedActiveSkillConditions,
   useSelectedCoreLinkBonusCondition,
   useSelectedFullLinkBonusCondition,
@@ -14,7 +15,7 @@ import {
   useSelectedSkillEffectConditions
 } from '../../state/selector/unitSelectorState';
 
-import { ifNonNullable } from '../../util/react';
+import { ifNonNullable, ifTruthy } from '../../util/react';
 
 import './UnitSelectorDetailConditionBadge.css';
 
@@ -30,6 +31,16 @@ const UnitSelectorDetailConditionBadge: React.FC<{ children: ReactNode }> = ({ c
     >
       {children}
     </Badge>
+  );
+};
+
+const ConditionEmptyBadges: React.FC = () => {
+  const { t } = useTranslation();
+  const show = useConditionEmptyBadge();
+
+  return ifTruthy(
+    show,
+    <UnitSelectorDetailConditionBadge>{t('form.empty_condition')}</UnitSelectorDetailConditionBadge>
   );
 };
 
@@ -107,6 +118,7 @@ const RankUpConditionBadge: React.FC = () => {
 
 export {
   ActiveSkillConditionBadges,
+  ConditionEmptyBadges,
   SkillEffectConditionBadges,
   CoreLinkBonusConditionBadge,
   FullLinkBonusConditionBadge,

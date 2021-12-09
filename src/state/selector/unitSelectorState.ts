@@ -147,6 +147,16 @@ export function useUnitRoleSelector(role: UnitRole): [selected: boolean, toggle:
   ];
 }
 
+export function useConditionEmptyBadge(): boolean {
+  const actives  = useSelectedActiveSkillConditions();
+  const skills   = useSelectedSkillEffectConditions();
+  const coreLink = useSelectedCoreLinkBonusCondition();
+  const fullLink = useSelectedFullLinkBonusCondition();
+  const rankUp   = useSelectedRankUpCondition();
+
+  return !actives.length && !skills.length && !coreLink && !fullLink && !rankUp;
+}
+
 export function useSelectedActiveSkillConditions(): ReadonlyArray<ActiveSkillCondition> {
   return Object
     .values(ActiveSkillCondition)
