@@ -136,6 +136,11 @@
       "flying": "機動"
     }
   },
+  "cost": {
+    "part": "部品",
+    "nutrient": "栄養",
+    "power": "電力"
+  },
   "lv": "Lv.",
   "squad": {
     "share_squad": "分隊編成を共有",

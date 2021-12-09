@@ -6,7 +6,40 @@ import { useTranslation } from 'react-i18next';
 
 import UnitRankView from './UnitRankView';
 
+import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
+import { UnitCost } from '../../domain/status/UnitCost';
 import { useSelectedUnit } from '../../state/selector/unitSelectorState';
+import { useUnitCost } from '../../state/status/unitLvStatusState';
+
+import { ifNonNullable, ifTruthy } from '../../util/react';
+
+import './UnitBasicInfoView.css';
+
+const UnitCostView: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
+  const { part, nutrient, power } = useUnitCost(unit);
+  const CostView = ({ type, value }: { type: keyof UnitCost, value: number }) => {
+    const { t } = useTranslation();
+    return (
+      <span>
+        <span
+          className={`cost-icon ${type}`}
+          css={{ backgroundImage: `url(${process.env.PUBLIC_URL}/icon/cost_${type}.webp)` }}
+        >
+          <span className="sr-only">{t(`unit.type.${type}`)}</span>
+        </span>
+        <span className="cost-value">{value}</span>
+      </span>
+    );
+  };
+
+  return (
+    <span className="unit-cost">
+      <CostView type="part" value={part} />
+      <CostView type="nutrient" value={nutrient} />
+      <CostView type="power" value={power} />
+    </span>
+  );
+};
 
 const UnitInfoView: React.FC = () => {
   const { t } = useTranslation();
@@ -17,27 +50,13 @@ const UnitInfoView: React.FC = () => {
 
   return (
     <React.Fragment>
-      <div
-        css={{
-          color: '#ffcc00',
-          fontSize: '1.5em',
-          paddingLeft: 10,
-          textOverflow: 'ellipsis',
-          overflow: 'hidden',
-          whiteSpace: 'nowrap'
-        }}
-        title={name}
-      >
-        {name}
+      <div className="unit-name" title={name}>
+        {name ? name : (<React.Fragment>&nbsp;</React.Fragment>)}
       </div>
-      <div
-        css={{
-          color: '#ccc',
-          fontSize: '0.9em',
-          paddingLeft: 10
-        }}
-      >
-        {type}&nbsp;{role}
+      <div className="unit-sub-info">
+        <span>{type}</span><span className="spacer" /><span>{role}</span>
+        {ifTruthy(!!unit, (<span className="divider" />))}
+        {ifNonNullable(unit, v => (<UnitCostView unit={v} />))}
       </div>
     </React.Fragment>
   );
@@ -45,22 +64,11 @@ const UnitInfoView: React.FC = () => {
 
 const UnitBasicInfoView: React.FC = () => {
   return (
-    <div
-      css={{
-        display: 'flex',
-        alignItems: 'center'
-      }}
-    >
+    <div className="unit-basic-info-view">
       <div>
         <UnitRankView />
       </div>
-      <div
-        css={{
-          flexGrow: 1,
-          overflow: 'hidden',
-          userSelect: 'text'
-        }}
-      >
+      <div className="unit-info">
         <UnitInfoView />
       </div>
     </div>

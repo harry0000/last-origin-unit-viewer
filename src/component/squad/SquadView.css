@@ -1,0 +1,87 @@
+:root {
+  --lo-squad-cost-part-color: rgb(247, 193, 5);
+  --lo-squad-cost-nutrient-color: rgb(137, 244, 30);
+  --lo-squad-cost-power-color: rgb(26, 199, 247);
+}
+
+.squad-grid {
+  display: flex;
+  justify-content: center;
+}
+
+.squad-summary {
+  display: flex;
+  justify-content: space-evenly;
+  position: relative;
+  margin-bottom: 10px
+}
+
+.squad-action {
+  position: absolute;
+  right: 5px;
+}
+
+@media (max-width: 480px) {
+  .squad-summary {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cost-summary {
+    margin-bottom: 5px;
+  }
+}
+
+.cost-summary,
+.type-summary {
+  display: flex;
+}
+
+.cost-summary > div:not(:first-of-type),
+.type-summary > div:not(:first-of-type) {
+  margin-left: 12px;
+}
+
+.cost-summary .cost-icon:is(.part, .nutrient, .power) {
+  display: inline-block;
+  vertical-align: middle;
+  height: 24px;
+  width: 24px;
+  background-size: 24px;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+  overflow: hidden;
+}
+
+.cost-summary .cost-icon.part {
+  background-color: var(--lo-squad-cost-part-color);
+}
+
+.cost-summary .cost-icon.nutrient {
+  background-color: var(--lo-squad-cost-nutrient-color);
+}
+
+.cost-summary .cost-icon.power {
+  background-color: var(--lo-squad-cost-power-color);
+}
+
+.cost-summary .cost-icon:is(.part, .nutrient, .power),
+img.type-icon {
+  margin-right: 5px;
+}
+
+img.type-icon {
+  opacity: 0.8;
+}
+
+.cost-summary .cost-value,
+.type-summary .type-count {
+  color: #ccc;
+  font-weight: bold;
+}
+
+.cost-summary .cost-value {
+  display: inline-block;
+  text-align: right;
+  width: 2em;
+}

@@ -13,7 +13,7 @@ import {
 import deepEqual from 'fast-deep-equal';
 
 import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';
-import UnitCoreLink, { CoreLinkSlotAvailableLv, CoreLinkUnit } from '../../domain/UnitCoreLink';
+import UnitCoreLink, { CoreLinkCount, CoreLinkSlotAvailableLv, CoreLinkUnit } from '../../domain/UnitCoreLink';
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 import { UnitLvValue } from '../../domain/status/UnitLv';
 
@@ -33,6 +33,10 @@ function createSlotAvailableAtom(slotKey: CoreLinkSlotKey) {
 const atoms = {
   linkRate: atomFamily<number, UnitNumber>({
     key: '_unitCoreLinkRateAtom',
+    default: 0
+  }),
+  linkCount: atomFamily<CoreLinkCount, UnitNumber>({
+    key: '_unitCoreLinkCountAtom',
     default: 0
   }),
   slotAvailable: {
@@ -95,6 +99,7 @@ function updateInnerAtoms(get: GetRecoilValue, set: SetRecoilState): (unit: Unit
     set(atoms.slotAvailable.slot4(unit), coreLink.isSlot4Available(lv));
     set(atoms.slotAvailable.slot5(unit), coreLink.isSlot5Available(lv));
     set(atoms.linkRate(unit), coreLink.linkRate(lv));
+    set(atoms.linkCount(unit), coreLink.linkCount(lv));
 
     set(atoms.fullLinkBonus(unit), coreLink.fullLinkBonusEffect(lv));
     set(atoms.fullLinkAvailable(unit), coreLink.isFullLinkBonusAvailable(lv));
@@ -109,6 +114,11 @@ const unitCoreLinkRestore = selector<ReadonlyArray<UnitCoreLink>>({
       newValue.forEach(v => set(unitCoreLinkState(v.unit), v));
     }
   }
+});
+
+export const coreLinkCountState = selectorFamily<CoreLinkCount, UnitNumber>({
+  key: 'coreLinkCountState',
+  get: (unit) => ({ get }) => get(atoms.linkCount(unit))
 });
 
 export const coreLinkBonusEffectsState = selectorFamily<CoreLinkBonus, UnitNumber>({

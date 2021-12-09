@@ -9,7 +9,7 @@ import { Image } from 'react-bootstrap';
 import { TenKeyPosition } from '../../domain/squad/Squad';
 import { UnitBasicInfo, UnitRank } from '../../domain/UnitBasicInfo';
 
-import { useIgnoreSquadUnitDrop, useSquad, useSquadUnitDrag } from '../../state/squad/squadState';
+import { useIgnoreSquadUnitDrop, useSquadGrid, useSquadUnitDrag } from '../../state/squad/squadState';
 import { useSquadUnit } from '../../state/selector/unitSelectorState';
 import { useUnitDamagedState } from '../../state/status/unitDamagedState';
 import { ifTruthy } from '../../util/react';
@@ -130,7 +130,7 @@ const EmptyTile: React.FC<{
 };
 
 const SquadGridTile: React.FC<{ position: TenKeyPosition }> = ({ position }) => {
-  const [assignedUnit, canAssignUnit, isHoveringUnit, dropRef] = useSquad(position);
+  const [assignedUnit, canAssignUnit, isHoveringUnit, dropRef] = useSquadGrid(position);
 
   return (
     <td
