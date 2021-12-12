@@ -1,0 +1,68 @@
+.unit-basic-info-view {
+  display: flex;
+  align-items: center;
+}
+
+.unit-basic-info-view > .unit-info {
+  flex-grow: 1;
+  overflow: hidden;
+  user-select: text;
+  padding-left: 10px;
+}
+
+.unit-name {
+  color: #fc0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.unit-sub-info {
+  color: #888;
+  font-size: 0.9em;
+  font-weight: bold;
+  user-select: none;
+}
+
+@media (max-width: 480px) {
+  .unit-name {
+    font-size: 1.2em;
+  }
+}
+
+@media (min-width: 480px) {
+  .unit-name {
+    font-size: 1.5em;
+  }
+}
+
+.unit-sub-info .spacer {
+  display: inline-block;
+  width: 8px;
+}
+
+.unit-sub-info .divider {
+  border-left: 2px solid #888;
+  margin: 0 10px;
+}
+
+.unit-cost .cost-icon {
+  display: inline-block;
+  vertical-align: text-bottom;
+  height: 16px;
+  width: 16px;
+  background-size: 16px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  opacity: 0.8;
+}
+
+.unit-cost > span:not(:first-of-type) {
+  margin-left: 10px;
+}
+
+.unit-cost .cost-value {
+  text-align: right;
+  display: inline-block;
+  width: 1.5em;
+}

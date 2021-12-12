@@ -1,5 +1,5 @@
 import { Sequence } from '../../util/type';
-import { UnitBasicInfo } from '../UnitBasicInfo';
+import { UnitBasicInfo, UnitType } from '../UnitBasicInfo';
 
 type SquadGrid<T> = readonly [
   T, T, T,
@@ -37,6 +37,22 @@ export class Squad {
 
   get unitCount(): UnitCountsInSquad {
     return this.#units.filter(u => !!u).length as UnitCountsInSquad;
+  }
+
+  get unitTypeCount(): Readonly<Record<UnitType, number>> {
+    return this.#units.reduce((acc, unit) => {
+      if (!unit) {
+        return acc;
+      }
+
+      switch (unit.type) {
+      case UnitType.Light:  ++acc.light;  break;
+      case UnitType.Flying: ++acc.flying; break;
+      case UnitType.Heavy:  ++acc.heavy;  break;
+      }
+      return acc;
+    },
+    { light: 0, flying: 0, heavy: 0 });
   }
 
   get #isOvercapacity(): boolean {

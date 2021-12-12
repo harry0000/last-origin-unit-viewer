@@ -19,6 +19,7 @@
       }
     },
     "unit_detail_condition": "詳細条件",
+    "empty_condition": "なし",
     "active_skill_condition": "アクティブスキル",
     "status_skill_effect_condition": "ステータス系スキル効果",
     "offensive_skill_effect_condition": "攻撃系スキル効果",
@@ -135,6 +136,11 @@
       "heavy": "重装",
       "flying": "機動"
     }
+  },
+  "cost": {
+    "part": "部品",
+    "nutrient": "栄養",
+    "power": "電力"
   },
   "lv": "Lv.",
   "squad": {

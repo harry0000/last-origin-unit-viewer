@@ -7,6 +7,7 @@ export const unitEquipmentSlot = {
   7: { chip1: 20, chip2: 40, os: 60, gear: 80 },
   8: { chip1: 20, chip2: 40, os: 60, gear: 80 },
   9: { chip1: 20, chip2: 40, os: 60, gear: 80 },
+  10: { chip1: 20, chip2: 40, os: 60, gear: 80 },
   11: { chip1: 20, chip2: 40, os: 60, gear: 80 },
   12: { chip1: 40, chip2: 60, os: 80, gear: 20 },
   13: { chip1: 20, chip2: 40, os: 60, gear: 80 },
@@ -111,6 +112,7 @@ export const unitEquipmentSlot = {
   136: { chip1: 40, chip2: 60, os: 80, gear: 20 },
   137: { chip1: 40, chip2: 80, os: 60, gear: 20 },
   138: { chip1: 20, chip2: 80, os: 60, gear: 40 },
+  139: { chip1: 20, chip2: 40, os: 60, gear: 80 },
   141: { chip1: 40, chip2: 60, os: 80, gear: 20 },
   147: { chip1: 20, chip2: 40, os: 60, gear: 80 },
   149: { chip1: 20, chip2: 80, os: 60, gear: 40 },
@@ -138,6 +140,8 @@ export const unitEquipmentSlot = {
   187: { chip1: 20, chip2: 40, os: 60, gear: 80 },
   188: { chip1: 20, chip2: 80, os: 60, gear: 40 },
   190: { chip1: 20, chip2: 40, os: 60, gear: 80 },
+  191: { chip1: 20, chip2: 40, os: 60, gear: 80 },
+  194: { chip1: 20, chip2: 40, os: 60, gear: 80 },
   201: { chip1: 20, chip2: 40, os: 60, gear: 80 },
   202: { chip1: 20, chip2: 40, os: 60, gear: 80 },
   203: { chip1: 20, chip2: 40, os: 60, gear: 80 },
@@ -151,5 +155,9 @@ export const unitEquipmentSlot = {
   224: { chip1: 20, chip2: 40, os: 60, gear: 80 },
   225: { chip1: 40, chip2: 60, os: 20, gear: 80 },
   226: { chip1: 20, chip2: 40, os: 60, gear: 80 },
-  227: { chip1: 20, chip2: 40, os: 60, gear: 80 }
+  227: { chip1: 20, chip2: 40, os: 60, gear: 80 },
+  228: { chip1: 20, chip2: 40, os: 60, gear: 80 },
+  231: { chip1: 20, chip2: 40, os: 60, gear: 80 },
+  232: { chip1: 20, chip2: 40, os: 60, gear: 80 },
+  233: { chip1: 20, chip2: 40, os: 60, gear: 80 }
 } as const;

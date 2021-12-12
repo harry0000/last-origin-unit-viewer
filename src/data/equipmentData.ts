@@ -105,17 +105,17 @@ export const equipmentData = {
     type: 'chip',
     id: 'attack_chip_beta',
     status_effects: [
-      { atk_up: { milliValue:  60000 }, eva_down: { milliPercentage:  6000 } },
-      { atk_up: { milliValue:  66000 }, eva_down: { milliPercentage:  6600 } },
-      { atk_up: { milliValue:  72000 }, eva_down: { milliPercentage:  7200 } },
-      { atk_up: { milliValue:  78000 }, eva_down: { milliPercentage:  7800 } },
-      { atk_up: { milliValue:  84000 }, eva_down: { milliPercentage:  8400 } },
-      { atk_up: { milliValue:  90000 }, eva_down: { milliPercentage:  9000 } },
-      { atk_up: { milliValue:  96000 }, eva_down: { milliPercentage:  9600 } },
-      { atk_up: { milliValue: 102000 }, eva_down: { milliPercentage: 10200 } },
-      { atk_up: { milliValue: 108000 }, eva_down: { milliPercentage: 10800 } },
-      { atk_up: { milliValue: 114000 }, eva_down: { milliPercentage: 11400 } },
-      { atk_up: { milliValue: 120000 }, eva_down: { milliPercentage: 12000 } }
+      { atk_up: { milliValue: { ss:  60000 } }, eva_down: { milliPercentage: { ss:  6000 } } },
+      { atk_up: { milliValue: { ss:  66000 } }, eva_down: { milliPercentage: { ss:  6600 } } },
+      { atk_up: { milliValue: { ss:  72000 } }, eva_down: { milliPercentage: { ss:  7200 } } },
+      { atk_up: { milliValue: { ss:  78000 } }, eva_down: { milliPercentage: { ss:  7800 } } },
+      { atk_up: { milliValue: { ss:  84000 } }, eva_down: { milliPercentage: { ss:  8400 } } },
+      { atk_up: { milliValue: { ss:  90000 } }, eva_down: { milliPercentage: { ss:  9000 } } },
+      { atk_up: { milliValue: { ss:  96000 } }, eva_down: { milliPercentage: { ss:  9600 } } },
+      { atk_up: { milliValue: { ss: 102000 } }, eva_down: { milliPercentage: { ss: 10200 } } },
+      { atk_up: { milliValue: { ss: 108000 } }, eva_down: { milliPercentage: { ss: 10800 } } },
+      { atk_up: { milliValue: { ss: 114000 } }, eva_down: { milliPercentage: { ss: 11400 } } },
+      { atk_up: { milliValue: { ss: 120000 } }, eva_down: { milliPercentage: { ss: 12000 } } }
     ]
   },
   enhanced_output_chip: {

@@ -7,6 +7,7 @@ export type SkillEffectTag =
   'corrosion' |
   'overloaded' |
   'plasma_generator' |
+  'frost_storm' |
   'electric_charge' |
   'sadistic_chef' |
   'practice_begins' |
@@ -72,6 +73,8 @@ export type SkillEffectTag =
   'command_defense_troop' |
   'cheerleader' |
   'with_flammables' |
+  'asceticism' |
+  'fanaticism' |
   'bleeding_hole' |
   'night_of_blood_queen' |
   'clear_and_serene' |
@@ -95,4 +98,6 @@ export type SkillEffectTag =
   'command_induction' |
   'energy_convert' |
   'electromagnetic_induction_target' |
-  'predator'
+  'predator' |
+  'last_roar' |
+  'hunt_preparation'

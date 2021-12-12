@@ -69,7 +69,7 @@ type ActivationState =
     [EffectActivationState.StackGe]?: {
       tag: SkillEffectTag,
       effect?: Effect,
-      value: 1 | 2 | 3 | 4 | 5
+      value: 1 | 2 | 3 | 4 | 5 | 6 | 7
     }
   }
 
@@ -105,26 +105,42 @@ export type ActivationTargetState =
   }
 
 export type ActivationSquadState = {
-  [EffectActivationState.InSquad]?: UnitNumber | typeof UnitAlias.ElectricActive | typeof UnitAlias.Horizon | 'golden_factory'
-} & {
-  [EffectActivationState.NumOfUnits]?:
+  [EffectActivationState.InSquad]: UnitNumber | typeof UnitAlias['ElectricActive' | 'Horizon' | 'KouheiChurch'] | 'golden_factory'
+} | {
+  [EffectActivationState.NumOfUnits]:
     { unit: typeof UnitKind.AGS, greater_or_equal: 3 } |
     { unit: 'ally', greater_or_equal: 2 | 4 } |
     { unit: UnitType, greater_or_equal: 1 | 2 }
 }
 
+export type ActivationEnemyState = {
+  [EffectActivationState.NumOfUnits]:
+    { greater_or_equal: 1, less_or_equal: 2 } |
+    { greater_or_equal: 3, less_or_equal: 4 } |
+    { greater_or_equal: 5 }
+}
+
 export type SkillEffectActivationState =
   { self: ReadonlyArray<ActivationSelfState> } |
   { target: ReadonlyArray<ActivationTargetState> } |
-  { squad: ReadonlyArray<ActivationSquadState> } |
+  { squad: ActivationSquadState } |
+  { enemy: ActivationEnemyState } |
   {
     self: ReadonlyArray<ActivationSelfState>,
     target: ReadonlyArray<ActivationTargetState>
+  } |
+  {
+    self: ReadonlyArray<ActivationSelfState>,
+    squad: ActivationSquadState
+  } |
+  {
+    target: ReadonlyArray<ActivationTargetState>,
+    squad: ActivationSquadState
   }
 
 export type SkillEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
-  round?: { at: 1 | 2 | 3 | 4 } | { from: 3 } | { until: 1 | 2 | 3 | 4 }
+  round?: { at: 1 | 2 | 3 | 4 } | { from: 2 | 3 } | { until: 1 | 2 | 3 | 4 }
 } | {
   trigger: Exclude<EffectTrigger, typeof EffectTrigger.StartRound>
 }

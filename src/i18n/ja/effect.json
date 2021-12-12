@@ -34,6 +34,7 @@
     "tomos_friends": "トモの友達",
     "city_guard": "シティーガード",
     "magical_girl": "魔法少女",
+    "kouhei_church": "コウヘイ教団",
     "spartan_series": "スパルタンシリーズ",
     "golden_factory": "ゴールデンファクトリー"
   },
@@ -60,6 +61,7 @@
     "corrosion": "腐食",
     "overloaded": "過負荷",
     "plasma_generator": "P.G有効化",
+    "frost_storm": "フロストストーム",
     "electric_charge": "電荷収束",
     "sadistic_chef": "サディズムシェフ",
     "practice_begins": "実習開始",
@@ -125,6 +127,8 @@
     "command_defense_troop": "警護隊指揮",
     "cheerleader": "チアリーダー",
     "with_flammables": "引火物付着",
+    "asceticism": "苦行",
+    "fanaticism": "狂信",
     "bleeding_hole": "貫通",
     "night_of_blood_queen": "血の女王の夜",
     "clear_and_serene": "明鏡止水",
@@ -148,7 +152,9 @@
     "command_induction": "指令誘導",
     "energy_convert": "エネルギーコンバート",
     "electromagnetic_induction_target": "誘導対象",
-    "predator": "捕食者"
+    "predator": "捕食者",
+    "last_roar": "最後の咆哮",
+    "hunt_preparation": "狩りの準備$t(effect:tag_separator)待機"
   },
   "condition": {
     "trigger": {
@@ -203,12 +209,15 @@
       "in_squad": "{{unit}}がいる",
       "unit": "{{unit}}である",
       "num_of_units": "$t(effect:unit.self)を除く$t(effect:unit.{{unit}})が{{greater_or_equal}}体以上いる",
+      "num_of_enemies": "{{greater_or_equal}}～{{less_or_equal}}体である",
+      "num_of_enemies_ge": "{{greater_or_equal}}体以上いる",
       "effected_by": "{{unit}}のスキル効果を受けている"
     },
     "target": {
       "self": "$t(effect:unit.self)が",
       "target": "対象が",
-      "squad": "分隊内に"
+      "squad": "分隊内に",
+      "enemy": "敵が"
     }
   },
   "scale_factor" : {

@@ -98,7 +98,7 @@ const EffectDetailList: React.FC<{ effects: ReadonlyArray<TranslatedEquipmentEff
                 <div key={detail} className="detail">
                   <div>{detail}</div>
                   {ifNonNullable(term, v => (
-                    <div className="term"><span>{v}</span></div>
+                    <div className="term"><span css={{ color: '#aaa', fontSize: '0.9em' }}>{v}</span></div>
                   ))}
                 </div>
               );

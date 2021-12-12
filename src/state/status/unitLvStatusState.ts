@@ -7,6 +7,7 @@ import {
   useRecoilValue,
   useSetRecoilState
 } from 'recoil';
+import deepEqual from 'fast-deep-equal';
 
 import {
   AccEnhancementStatusEffect,
@@ -16,24 +17,31 @@ import {
   EvaEnhancementStatusEffect,
   HpEnhancementStatusEffect
 } from '../../domain/status/StatusEffect';
+import {
+  AvailableUnitRank,
+  isRankUpUnitBasicInfo,
+  isRankUpUnitNumber,
+  RankUpUnitNumber,
+  UnitRankUpBonus
+} from '../../domain/status/UnitRankUpBonusData';
+import { UnitBasicInfo, UnitNumber, UnitRank } from '../../domain/UnitBasicInfo';
 import { UnitLvMode, UnitLvValue } from '../../domain/status/UnitLv';
 import UnitLvStatus from '../../domain/status/UnitLvStatus';
-import { UnitNumber, UnitRank } from '../../domain/UnitBasicInfo';
+import UnitRankState, { availableUnitRanks, getUnitDefaultRank, RankUpAvailableLv } from '../../domain/status/UnitRankState';
+import { calculateRankUpUnitCost, calculateUnitCost, summaryUnitCosts, UnitCost } from '../../domain/status/UnitCost';
 
+import {
+  coreLinkCountState,
+  fullLinkBonusEffectState,
+  updateCoreLinkDependency
+} from '../corelink/unitCoreLinkState';
 import {
   updateChip1EquipmentDependency,
   updateChip2EquipmentDependency,
   updateGearEquipmentDependency,
   updateOsEquipmentDependency
 } from '../equipment/unitEquipmentState';
-import { updateCoreLinkDependency } from '../corelink/unitCoreLinkState';
-import UnitRankState, { availableUnitRanks, getUnitDefaultRank, RankUpAvailableLv } from '../../domain/status/UnitRankState';
-import {
-  isRankUpUnitNumber,
-  RankUpUnitNumber,
-  UnitRankUpBonus
-} from '../../domain/status/UnitRankUpBonusData';
-import deepEqual from 'fast-deep-equal';
+import { useSquad } from '../squad/squadState';
 
 type Status = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri'
 type StatusKey = `${Capitalize<Status>}`
@@ -157,9 +165,30 @@ export const unitRankUpBonusEffectState = selectorFamily<UnitRankUpBonus | undef
   get: (unit) => ({ get }) => isRankUpUnitNumber(unit) ? get(unitLvStateAtoms.rankUpBonus(unit)) : undefined
 });
 
-const unitCurrentRankState = selectorFamily<UnitRank, UnitNumber>({
-  key: 'unitCurrentRankState',
-  get: (unit) => ({ get }) => isRankUpUnitNumber(unit) ? get(unitLvStateAtoms.rank(unit)) : getUnitDefaultRank(unit)
+const unitCurrentRankState = (<N extends UnitNumber>() =>
+  selectorFamily<AvailableUnitRank<N>, N>({
+    key: 'unitCurrentRankState',
+    get: (unit) => ({ get }) => isRankUpUnitNumber(unit) ? get(unitLvStateAtoms.rank(unit)) : getUnitDefaultRank(unit)
+  })
+)();
+
+const unitCostState = selectorFamily<UnitCost, UnitBasicInfo>({
+  key: 'unitCostState',
+  get: (unit) => ({ get }) => {
+    const coreLinkCount = get(coreLinkCountState(unit.no));
+    const fullLinkBonus = get(fullLinkBonusEffectState(unit.no));
+
+    return isRankUpUnitBasicInfo(unit) ?
+      calculateRankUpUnitCost(unit, get(unitCurrentRankState(unit.no)), coreLinkCount, fullLinkBonus) :
+      calculateUnitCost(unit, coreLinkCount, fullLinkBonus);
+  }
+});
+
+const squadUnitCostState = selectorFamily<UnitCost, ReadonlyArray<{ unit: UnitBasicInfo }>>({
+  key: 'squadUnitCostState',
+  get: (squadUnits) => ({ get }) => {
+    return summaryUnitCosts(...squadUnits.map(({ unit }) => get(unitCostState(unit))));
+  }
 });
 
 const updateUnitLvDependency = selectorFamily<UnitLvValue, UnitNumber>({
@@ -243,6 +272,15 @@ const unitLvStatusState = selectorFamily<UnitLvStatus, UnitNumber>({
     }
   }
 });
+
+export function useUnitCost(unit: UnitBasicInfo): UnitCost {
+  return useRecoilValue(unitCostState(unit));
+}
+
+export function useSquadUnitCostSummary(): UnitCost {
+  const squad = useSquad();
+  return useRecoilValue(squadUnitCostState(squad.units));
+}
 
 export function useUnitLv(unit: UnitNumber): [lvMode: UnitLvMode, lv: UnitLvValue, setLv: (lv: UnitLvValue) => void] {
   const lv = useRecoilValue(unitLvState(unit));
@@ -333,7 +371,7 @@ export function useUnitRank(unit: RankUpUnitNumber): [
   ];
 }
 
-export function useUnitCurrentRank(unit: UnitNumber): UnitRank {
+export function useUnitCurrentRank<N extends UnitNumber>(unit: N): AvailableUnitRank<N> {
   return useRecoilValue(unitCurrentRankState(unit));
 }
 

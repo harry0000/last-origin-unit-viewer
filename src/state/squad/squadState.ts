@@ -1,4 +1,4 @@
-import { atom, useRecoilCallback, useRecoilState, useSetRecoilState } from 'recoil';
+import { atom, useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { CSSProperties, RefObject, useEffect, useRef, useState } from 'react';
 import { ConnectDragSource, ConnectDropTarget } from 'react-dnd/dist/types/types';
 import { useDrag, useDrop } from 'react-dnd';
@@ -7,7 +7,7 @@ import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { Squad, TenKeyPosition } from '../../domain/squad/Squad';
-import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
+import { UnitBasicInfo, UnitType } from '../../domain/UnitBasicInfo';
 
 import { SquadJsonStructure } from '../../service/SquadJsonStructure';
 import { convertToJsonObject } from '../../service/SquadJsonConverter';
@@ -49,6 +49,11 @@ const squadShareModalShowAtom = atom<boolean>({
   key: 'squadShareModalShowAtom',
   default: false
 });
+
+export function useSquadUnitTypeCount(): Readonly<Record<UnitType, number>> {
+  const squad = useRecoilValue(squadAtom);
+  return squad.unitTypeCount;
+}
 
 export function useUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
   const [, dragRef, previewRef] = useDrag(
@@ -113,7 +118,12 @@ export function useUnitDragPreview():
   };
 }
 
-export function useSquad(position: TenKeyPosition): [
+
+export function useSquad(): Squad {
+  return useRecoilValue(squadAtom);
+}
+
+export function useSquadGrid(position: TenKeyPosition): [
   assignedUnit: UnitBasicInfo | undefined,
   canAssignUnit: boolean,
   isHoveringUnit: boolean,

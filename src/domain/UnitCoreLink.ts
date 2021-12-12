@@ -13,6 +13,7 @@ import { UnitNumber, UnitRank, UnitRole, UnitType } from './UnitBasicInfo';
 import { unitCoreLinkBonusData } from '../data/unitCoreLinkBonusData';
 import { unitBasicData } from '../data/unitBasicData';
 
+export type CoreLinkCount = 0 | 1 | 2 | 3 | 4 | 5
 export type CoreLinkSlotAvailableLv = 10 | 30 | 50 | 70 | 90
 
 export type CoreLinkUnit = Readonly<{
@@ -259,6 +260,16 @@ class UnitCoreLink {
   slot3LinkRate(lv: UnitLvValue): number { return this.isSlot3Available(lv) && this.slot3 ? this.slot3.rate : 0; }
   slot4LinkRate(lv: UnitLvValue): number { return this.isSlot4Available(lv) && this.slot4 ? this.slot4.rate : 0; }
   slot5LinkRate(lv: UnitLvValue): number { return this.isSlot5Available(lv) && this.slot5 ? this.slot5.rate : 0; }
+
+  linkCount(lv: UnitLvValue): CoreLinkCount {
+    return (
+      (this.slot1LinkRate(lv) > 0 ? 1 : 0) +
+      (this.slot2LinkRate(lv) > 0 ? 1 : 0) +
+      (this.slot3LinkRate(lv) > 0 ? 1 : 0) +
+      (this.slot4LinkRate(lv) > 0 ? 1 : 0) +
+      (this.slot5LinkRate(lv) > 0 ? 1 : 0)
+    ) as CoreLinkCount;
+  }
 
   linkRate(lv: UnitLvValue): number {
     return (

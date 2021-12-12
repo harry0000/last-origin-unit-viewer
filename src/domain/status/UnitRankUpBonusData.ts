@@ -1,4 +1,4 @@
-import { UnitNumber } from '../UnitBasicInfo';
+import { UnitBasicInfo, UnitNumber } from '../UnitBasicInfo';
 import { UnitRank } from '../UnitBasicInfo';
 import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue } from '../ValueUnit';
 
@@ -7,10 +7,14 @@ import { unitRankUpBonusData } from '../../data/unitRankUpBonusData';
 
 export type UnitRankUpBonusData = typeof unitRankUpBonusData
 export type RankUpUnitNumber = keyof typeof unitRankUpBonusData
+export type RankUpUnitBasicInfo<N extends RankUpUnitNumber = RankUpUnitNumber, I extends UnitBasicInfo = UnitBasicInfo> = I extends { no: N } ? I : never
 
 const rankUpUnitNumbers: ReadonlySet<UnitNumber> = new Set(Object.keys(unitRankUpBonusData).map(r => +r as UnitNumber));
 export function isRankUpUnitNumber(arg: UnitNumber): arg is RankUpUnitNumber {
   return rankUpUnitNumbers.has(arg);
+}
+export function isRankUpUnitBasicInfo(arg: UnitBasicInfo): arg is RankUpUnitBasicInfo {
+  return isRankUpUnitNumber(arg.no);
 }
 
 export type BaseUnitRank<N extends UnitNumber> = typeof unitBasicData[N]['rank']

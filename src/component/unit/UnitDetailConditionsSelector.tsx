@@ -21,6 +21,7 @@ import { RankUpCondition } from '../../domain/selector/RankUpCondition';
 import { Accordion } from 'react-bootstrap';
 import {
   ActiveSkillConditionBadges,
+  ConditionEmptyBadges,
   CoreLinkBonusConditionBadge,
   FullLinkBonusConditionBadge,
   RankUpConditionBadge,
@@ -177,6 +178,7 @@ const UnitDetailConditionsSelector: React.FC = () => {
           {ifTruthy(
             collapsed,
             (<React.Fragment>
+              <ConditionEmptyBadges />
               <ActiveSkillConditionBadges />
               <SkillEffectConditionBadges />
               <CoreLinkBonusConditionBadge />

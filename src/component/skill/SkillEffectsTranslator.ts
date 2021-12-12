@@ -176,7 +176,7 @@ export function translateSkillEffectDetails(
     };
   }
   case Effect.PreventsEffect: {
-    const effect = t(`effect:effect.name.${entry[1].effect}`);
+    const effect = entry[1].effect;
 
     return {
       tag: getTag(entry[1], t),
