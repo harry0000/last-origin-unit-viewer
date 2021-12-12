@@ -12776,12 +12776,12 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'revive' }],
         details: {
           self: {
-            spd_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', cannot_be_dispelled: true },
+            spd_up: { tag: 'last_roar', base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', cannot_be_dispelled: true },
             effect_removal: { effect: 'battle_continuation' }
           }
         }
       }, {
-        conditions: [{ trigger: 'be_killed' }],
+        conditions: [{ trigger: 'be_killed', state: { self: [{ tagged: 'last_roar' }] } }],
         details: { target: { fixed_damage: { base: { milliPercentage: 150000 }, per_lv_up: { milliPercentage: 20000 } } } }
       }]
     }]

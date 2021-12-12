@@ -153,6 +153,7 @@
     "energy_convert": "エネルギーコンバート",
     "electromagnetic_induction_target": "誘導対象",
     "predator": "捕食者",
+    "last_roar": "最後の咆哮",
     "hunt_preparation": "狩りの準備$t(effect:tag_separator)待機"
   },
   "condition": {

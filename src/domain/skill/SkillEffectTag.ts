@@ -99,4 +99,5 @@ export type SkillEffectTag =
   'energy_convert' |
   'electromagnetic_induction_target' |
   'predator' |
+  'last_roar' |
   'hunt_preparation'
