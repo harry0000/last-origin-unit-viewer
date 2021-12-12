@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import UnitAliasView from './UnitAliasView';
 
 import {
+  ActivationEnemyState,
   ActivationSelfState,
   ActivationSquadState,
   ActivationTargetState,
@@ -38,6 +39,15 @@ type StateValuesEntry =
 
 function isNeedSeparator(array: ReadonlyArray<unknown>, index: number): boolean {
   return array.length > 1 && index + 1 < array.length;
+}
+
+function enemyStateValuesView({ num_of_units }: ActivationEnemyState, t: TFunction): ReactNode {
+  const body =
+    'less_or_equal' in num_of_units ?
+      t('effect:condition.state.num_of_enemies', num_of_units as Record<string, unknown>) :
+      t('effect:condition.state.num_of_enemies_ge', num_of_units);
+
+  return (<span>{body}</span>);
 }
 
 function stateValuesView(entry: StateValuesEntry, unitNumber: UnitNumber, t: TFunction): ReactNode {
@@ -102,7 +112,7 @@ function stateValuesView(entry: StateValuesEntry, unitNumber: UnitNumber, t: TFu
 
 function unitStateView(key: typeof EffectActivationState.Unit, unit: UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitAliasExceptUnit | UnitNumber | UnitAlias, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.EffectedBy, unit: UnitNumber | UnitAlias | UnitAliasExceptUnit, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
-function unitStateView(key: typeof EffectActivationState.InSquad, unit: UnitNumber | typeof UnitAlias.ElectricActive | typeof UnitAlias.Horizon | 'golden_factory', selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.InSquad, unit: UnitNumber | typeof UnitAlias.ElectricActive | typeof UnitAlias.Horizon | typeof UnitAlias.KouheiChurch | 'golden_factory', selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
   key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'],
   unit: UnitNumber | UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitAliasExceptUnit | UnitAlias | 'golden_factory',
@@ -149,6 +159,7 @@ function unitStateView(
     case UnitAlias.TomosFriends:
     case UnitAlias.CityGuard:
     case UnitAlias.MagicalGirl:
+    case UnitAlias.KouheiChurch:
     case UnitAlias.SpartanSeries:
       // TODO: Move to excepting logic from view.
       return (
@@ -240,7 +251,9 @@ const StateView: React.FC<{
     Object
       .entries(state)
       .map((entry) => {
-        return { key: entry[0], node: stateValuesPerTargetView(entry[0], entry[1] as SkillEffectActivationStateValues, unitNumber, t) };
+        return entry[0] === 'enemy' ?
+          { key: entry[0], node: enemyStateValuesView(entry[1] as ActivationEnemyState, t) } :
+          { key: entry[0], node: stateValuesPerTargetView(entry[0], entry[1] as SkillEffectActivationStateValues, unitNumber, t) };
       });
 
   return (

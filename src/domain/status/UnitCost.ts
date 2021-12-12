@@ -86,7 +86,7 @@ const initialUnitCostData = {
       },
       [UnitType.Heavy]: {
         [UnitRole.Attacker]:  { part: 43, nutrient: 0, power: 38 },
-        // [UnitRole.Defender]:  { part: 54, nutrient: 0, power: 27 },
+        [UnitRole.Defender]:  { part: 54, nutrient: 0, power: 27 },
         [UnitRole.Supporter]: { part: 43, nutrient: 0, power: 27 }
       },
       [UnitType.Flying]: {
@@ -169,8 +169,8 @@ const unitCostMap: {
     27: { 1: 30, 2: 33, 3: 37, 4: 41, 5: 47 },
     32: { 1: 36, 2: 40, 3: 45, 4: 50, 5: 57 },
     38: { 1: 42, 2: 46, 3: 52, 4: 58, 5: 66 },
-    43: { 1: 48, 2: 53, 3: 59, 4: 66, 5: 76 }
-    // 54: { 1: 60, 2: 66, 3: 74, 4: 83, 5: 95 }
+    43: { 1: 48, 2: 53, 3: 59, 4: 66, 5: 76 },
+    54: { 1: 60, 2: 66, 3: 74, 4: 83, 5: 95 }
   },
   [UnitRank.S]: {
     0:  { 1:  0, 2:  0, 3:  0, 4:  0, 5:  0 },

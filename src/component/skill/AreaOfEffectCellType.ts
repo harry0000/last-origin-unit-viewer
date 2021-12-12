@@ -46,6 +46,14 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
     select: 5,
     area: ['none', 'effective', 'effective', 'none', 'effective', 'effective', 'none', 'none', 'none']
   },
+  [SkillAreaType.TwoByThree]: {
+    select: 4,
+    area: ['effective', 'effective', 'effective', 'effective', 'effective', 'effective', 'none', 'none', 'none']
+  },
+  [SkillAreaType.MercilessCat]: {
+    select: 4,
+    area: ['effective', 'effective', 'none', 'effective', 'effective', 'effective', 'none', 'none', 'none']
+  },
   [SkillAreaType.FanShape]: {
     select: 5,
     area: ['none', 'none', 'effective', 'none', 'effective', 'effective', 'none', 'none', 'effective']
@@ -58,13 +66,17 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
     select: 5,
     area: ['effective', 'none', 'none', 'effective', 'effective', 'none', 'effective', 'none', 'none']
   },
+  [SkillAreaType.InvertedFanShapeWing]: {
+    select: 6,
+    area: ['effective', 'effective', 'none', 'none', 'none', 'effective', 'effective', 'effective', 'none']
+  },
+  [SkillAreaType.Wing]: {
+    select: 5,
+    area: ['none', 'effective', 'effective', 'none', 'effective', 'none', 'none', 'effective', 'effective']
+  },
   [SkillAreaType.Zigzag]: {
     select: 5,
     area: ['effective', 'none', 'effective', 'none', 'effective', 'none', 'none', 'none', 'none']
-  },
-  [SkillAreaType.MercilessCat]: {
-    select: 4,
-    area: ['effective', 'effective', 'none', 'effective', 'effective', 'effective', 'none', 'none', 'none']
   },
   [SkillAreaType.Line]: {
     select: 5,
@@ -125,6 +137,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
   [SkillAreaType.Diagonal]: {
     select: 5,
     area: ['effective', 'none', 'effective', 'none', 'effective', 'none', 'effective', 'none', 'effective']
+  },
+  [SkillAreaType.MiddleStaircase]: {
+    select: 8,
+    area: ['none', 'effective', 'none', 'effective', 'effective', 'none', 'effective', 'effective', 'none']
   },
   [SkillAreaType.All]: {
     select: 5,
@@ -261,6 +277,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
   [SkillAreaType.UnderWatcher]: {
     select: 6,
     area: ['effective', 'effective', 'effective', 'effective', 'effective', 'none', 'effective', 'effective', 'effective']
+  },
+  [SkillAreaType.AllBackward]: {
+    select: 6,
+    area: ['effective', 'effective', 'none', 'effective', 'effective', 'none', 'effective', 'effective', 'none']
   },
   [SkillAreaType.AllAdjacentWithoutFront]: {
     select: 5,
