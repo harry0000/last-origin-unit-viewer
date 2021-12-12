@@ -105,9 +105,9 @@ export type ActivationTargetState =
   }
 
 export type ActivationSquadState = {
-  [EffectActivationState.InSquad]?: UnitNumber | typeof UnitAlias['ElectricActive' | 'Horizon' | 'KouheiChurch'] | 'golden_factory'
-} & {
-  [EffectActivationState.NumOfUnits]?:
+  [EffectActivationState.InSquad]: UnitNumber | typeof UnitAlias['ElectricActive' | 'Horizon' | 'KouheiChurch'] | 'golden_factory'
+} | {
+  [EffectActivationState.NumOfUnits]:
     { unit: typeof UnitKind.AGS, greater_or_equal: 3 } |
     { unit: 'ally', greater_or_equal: 2 | 4 } |
     { unit: UnitType, greater_or_equal: 1 | 2 }
@@ -123,11 +123,19 @@ export type ActivationEnemyState = {
 export type SkillEffectActivationState =
   { self: ReadonlyArray<ActivationSelfState> } |
   { target: ReadonlyArray<ActivationTargetState> } |
-  { squad: ReadonlyArray<ActivationSquadState> } |
+  { squad: ActivationSquadState } |
   { enemy: ActivationEnemyState } |
   {
     self: ReadonlyArray<ActivationSelfState>,
     target: ReadonlyArray<ActivationTargetState>
+  } |
+  {
+    self: ReadonlyArray<ActivationSelfState>,
+    squad: ActivationSquadState
+  } |
+  {
+    target: ReadonlyArray<ActivationTargetState>,
+    squad: ActivationSquadState
   }
 
 export type SkillEffectActivationTrigger = {

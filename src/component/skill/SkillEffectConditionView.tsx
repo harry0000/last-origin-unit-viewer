@@ -29,25 +29,29 @@ import { ifNonNullable, ifTruthy } from '../../util/react';
 
 type SkillEffectActivationStateValues =
   ReadonlyArray<ActivationSelfState> |
-  ReadonlyArray<ActivationTargetState> |
-  ReadonlyArray<ActivationSquadState>
+  ReadonlyArray<ActivationTargetState>
 
 type StateValuesEntry =
   NonNullableEntry<keyof ActivationSelfState, ActivationSelfState> |
-  NonNullableEntry<keyof ActivationTargetState, ActivationTargetState> |
-  NonNullableEntry<keyof ActivationSquadState, ActivationSquadState>
+  NonNullableEntry<keyof ActivationTargetState, ActivationTargetState>
 
 function isNeedSeparator(array: ReadonlyArray<unknown>, index: number): boolean {
   return array.length > 1 && index + 1 < array.length;
 }
 
-function enemyStateValuesView({ num_of_units }: ActivationEnemyState, t: TFunction): ReactNode {
+function enemyStateView({ num_of_units }: ActivationEnemyState, t: TFunction): ReactNode {
   const body =
     'less_or_equal' in num_of_units ?
       t('effect:condition.state.num_of_enemies', num_of_units as Record<string, unknown>) :
       t('effect:condition.state.num_of_enemies_ge', num_of_units);
 
   return (<span>{body}</span>);
+}
+
+function squadStateView(state: ActivationSquadState, unitNumber: UnitNumber, t: TFunction): ReactNode {
+  return 'num_of_units' in state ?
+    (<span>{t('effect:condition.state.num_of_units', state.num_of_units as Record<string, unknown>)}</span>) :
+    unitStateView(EffectActivationState.InSquad, state.in_squad, unitNumber, t);
 }
 
 function stateValuesView(entry: StateValuesEntry, unitNumber: UnitNumber, t: TFunction): ReactNode {
@@ -81,12 +85,6 @@ function stateValuesView(entry: StateValuesEntry, unitNumber: UnitNumber, t: TFu
   case 'form':
     return (<span>{t(`effect:condition.state.${entry[0]}`, { form: entry[1] })}</span>);
   case 'unit':
-    return unitStateView(entry[0], entry[1], unitNumber, t);
-  case 'num_of_units': {
-    const { unit, greater_or_equal } = entry[1];
-    return (<span>{t(`effect:condition.state.${entry[0]}`, { unit, greater_or_equal })}</span>);
-  }
-  case 'in_squad':
     return unitStateView(entry[0], entry[1], unitNumber, t);
   case 'effected_by':
     return unitStateView(entry[0], entry[1], unitNumber, t);
@@ -251,9 +249,13 @@ const StateView: React.FC<{
     Object
       .entries(state)
       .map((entry) => {
-        return entry[0] === 'enemy' ?
-          { key: entry[0], node: enemyStateValuesView(entry[1] as ActivationEnemyState, t) } :
-          { key: entry[0], node: stateValuesPerTargetView(entry[0], entry[1] as SkillEffectActivationStateValues, unitNumber, t) };
+        return (
+          entry[0] === 'enemy' ?
+            { key: entry[0], node: enemyStateView(entry[1] as ActivationEnemyState, t) } :
+            entry[0] === 'squad' ?
+              { key: entry[0], node: squadStateView(entry[1] as ActivationSquadState, unitNumber, t) } :
+              { key: entry[0], node: stateValuesPerTargetView(entry[0], entry[1] as SkillEffectActivationStateValues, unitNumber, t) }
+        );
       });
 
   return (

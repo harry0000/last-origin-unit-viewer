@@ -441,10 +441,10 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_wave' }],
         details: { self: { ap_up: { base: { microValue: 2200000 }, per_lv_up: { microValue: 200000 }, term: 'immediate' } } }
       }, {
-        conditions: [{ trigger: 'start_wave', state: { squad: [{ in_squad: 12 }] } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 12 } } }],
         details: { self: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1250 }, term: 'infinite' } } }
       }, {
-        conditions: [{ trigger: 'start_wave', state: { squad: [{ in_squad: 16 }] } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 16 } } }],
         details: { self: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1250 }, term: 'infinite' } } }
       }, {
         conditions: [{ trigger: 'kill' }],
@@ -1696,7 +1696,7 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'fixed_all',
       effects: [{
-        conditions: [{ trigger: 'start_wave', state: { squad: [{ in_squad: 25 }] } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 25 } } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: 'infinite' },
@@ -2130,7 +2130,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_wave', state: { squad: [{ in_squad: 25 }] } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 25 } } }],
         details: { self: { spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite' } } }
       }]
     }]
@@ -2690,7 +2690,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'critical' }],
         details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
       }, {
-        conditions: [{ state: { squad: [{ in_squad: 42 }] } }],
+        conditions: [{ state: { squad: { in_squad: 42 } } }],
         details: { self: { cooperative_attack: { unit: 42, active: 2 } } }
       }]
     }, {
@@ -2707,7 +2707,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'critical' }],
         details: { self: { additional_damage: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 } } } }
       }, {
-        conditions: [{ state: { squad: [{ in_squad: 42 }] } }],
+        conditions: [{ state: { squad: { in_squad: 42 } } }],
         details: { self: { cooperative_attack: { unit: 42, active: 2 } } }
       }]
     }],
@@ -2875,7 +2875,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ state: { target: [{ effected: 'def_down' }, { effected: 'eva_down' }] } }],
         details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
       }, {
-        conditions: [{ trigger: 'hit', state: { squad: [{ in_squad: 42 }] } }],
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 42 } } }],
         details: { self: { cooperative_attack: { unit: 42, active: 2 } } }
       }]
     }, {
@@ -2890,7 +2890,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'critical' }],
         details: { self: { additional_damage: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 } } } }
       }, {
-        conditions: [{ trigger: 'hit', state: { squad: [{ in_squad: 42 }] } }],
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 42 } } }],
         details: { self: { cooperative_attack: { unit: 42, active: 2 } } }
       }]
     }],
@@ -2963,7 +2963,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ state: { target: [{ effected: 'def_down' }, { effected: 'eva_down' }] } }],
         details: { self: { additional_damage: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 } } } }
       }, {
-        conditions: [{ trigger: 'hit', state: { squad: [{ in_squad: 42 }] } }],
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 42 } } }],
         details: { self: { cooperative_attack: { unit: 42, active: 2 } } }
       }]
     }, {
@@ -3181,7 +3181,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_wave', state: { squad: [{ in_squad: 51 }] } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 51 } } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite' },
@@ -4675,11 +4675,11 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_wave', state: { squad: [{ in_squad: 'electric_active' }] } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 'electric_active' } } }],
         scale_factor: { num_of_units: 'electric_active', except: 'self' },
         details: { self: { atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite' } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: 'electric_active' }] } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'electric_active' } } }],
         details: {
           self: {
             cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
@@ -5183,7 +5183,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'critical' }],
         details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
       }, {
-        conditions: [{ trigger: 'hit', state: { squad: [{ in_squad: 84 }] } }],
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 84 } } }],
         details: { self: { cooperative_attack: { unit: 84, active: 2 } } }
       }]
     }, {
@@ -5346,7 +5346,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'hit', state: { squad: [{ in_squad: 84 }] } }],
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 84 } } }],
         details: { self: { cooperative_attack: { unit: 84, active: 2 } } }
       }, {
         conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'forceful_breakthrough' }] } }],
@@ -6162,7 +6162,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: 'horizon' }] } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'horizon' } } }],
         details: { target: { atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { target: [{ unit: 89 }] } }],
@@ -6210,7 +6210,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ state: { squad: [{ in_squad: 93 }] } }],
+        conditions: [{ state: { squad: { in_squad: 93 } } }],
         details: { self: { cooperative_attack: { unit: 93, active: 2 } } }
       }, {
         conditions: [{ trigger: 'use_this_active' }],
@@ -6315,7 +6315,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ state: { target: [{ effected: 'marked' }, { effected: 'immovable' }] } }],
         details: { self: { additional_damage: { base: { milliPercentage: 27000 }, per_lv_up: { milliPercentage: 2000 } } } }
       }, {
-        conditions: [{ trigger: 'hit', state: { squad: [{ in_squad: 91 }] } }],
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 91 } } }],
         details: { self: { cooperative_attack: { unit: 91, active: 2 } } }
       }]
     }, {
@@ -6386,7 +6386,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ state: { target: [{ effected: 'marked' }, { effected: 'immovable' }] } }],
         details: { self: { additional_damage: { base: { milliPercentage: 27000 }, per_lv_up: { milliPercentage: 2000 } } } }
       }, {
-        conditions: [{ state: { squad: [{ in_squad: 91 }] } }],
+        conditions: [{ state: { squad: { in_squad: 91 } } }],
         details: { self: { cooperative_attack: { unit: 91, active: 2 } } }
       }]
     }, {
@@ -6512,7 +6512,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ state: { target: [{ effected: 'provoked' }] } }],
         details: { self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } } } }
       }, {
-        conditions: [{ state: { squad: [{ in_squad: 93 }] } }],
+        conditions: [{ state: { squad: { in_squad: 93 } } }],
         details: { self: { cooperative_attack: { unit: 93, active: 2 } } }
       }]
     }, {
@@ -6587,7 +6587,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ state: { target: [{ effected: 'marked' }, { effected: 'eva_down' }] } }],
         details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
       }, {
-        conditions: [{ trigger: 'hit', state: { squad: [{ in_squad: 91 }] } }],
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 91 } } }],
         details: { self: { cooperative_attack: { unit: 91, active: 2 } } }
       }]
     }, {
@@ -7080,7 +7080,7 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'cross',
       effects: [{
-        conditions: [{ trigger: 'start_wave', state: { squad: [{ in_squad: 110 }] } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 110 } } }],
         details: { self: { spd_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite' } } }
       }, {
         conditions: [{ trigger: 'enemy_killed' }],
@@ -7353,7 +7353,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ state: { squad: [{ in_squad: 179 }] } }],
+        conditions: [{ state: { squad: { in_squad: 179 } } }],
         details: { self: { cooperative_attack: { unit: 179, active: 2 } } }
       }]
     }],
@@ -7404,7 +7404,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'hit', state: { squad: [{ in_squad: 115 }] } }],
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 115 } } }],
         details: { self: { cooperative_attack: { unit: 115, active: 2 } } }
       }]
     }, {
@@ -7463,7 +7463,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ state: { target: [{ effected: 'immovable' }] } }],
         details: { target: { stunned: { term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ state: { squad: [{ in_squad: 184 }] } }],
+        conditions: [{ state: { squad: { in_squad: 184 } } }],
         details: { self: { cooperative_attack: { unit: 184, active: 1 } } }
       }, {
         conditions: [{ state: { self: [{ equipped: 'chop_maker_ii' }] } }],
@@ -7559,7 +7559,7 @@ export const unitSkillData: UnitSkillData = {
             }
           }
         }, {
-          conditions: [{ trigger: 'hit', state: { squad: [{ in_squad: 112 }] } }],
+          conditions: [{ trigger: 'hit', state: { squad: { in_squad: 112 } } }],
           details: { self: { cooperative_attack: { unit: 112, active: 2 } } }
         }]
       },
@@ -7579,7 +7579,7 @@ export const unitSkillData: UnitSkillData = {
             }
           }
         }, {
-          conditions: [{ state: { squad: [{ in_squad: 179 }] } }],
+          conditions: [{ state: { squad: { in_squad: 179 } } }],
           details: { self: { cooperative_attack: { unit: 179, active: 1 } } }
         }]
       }
@@ -7685,7 +7685,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'hit', state: { squad: [{ in_squad: 114 }] } }],
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 114 } } }],
         details: { self: { cooperative_attack: { unit: 114, active: 1 } } }
       }]
     }],
@@ -8553,8 +8553,8 @@ export const unitSkillData: UnitSkillData = {
       area: 'self',
       effects: [{
         conditions: [
-          { trigger: 'start_wave', state: { self: [{ hp_greater_than: 90 }], squad: [{ num_of_units: { unit: 'ags', greater_or_equal: 3 } }] } },
-          { trigger: 'revive', state: { squad: [{ num_of_units: { unit: 'ags', greater_or_equal: 3 } }] } },
+          { trigger: 'start_wave', state: { self: [{ hp_greater_than: 90 }], squad: { num_of_units: { unit: 'ags', greater_or_equal: 3 } } } },
+          { trigger: 'revive', state: { squad: { num_of_units: { unit: 'ags', greater_or_equal: 3 } } } },
         ],
         details: { self: { battle_continuation_with_hp_rate: { base: { milliPercentage: 91000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', times: 1, cannot_be_dispelled: true } } }
       }, {
@@ -8581,7 +8581,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: 171 }] } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 171 } } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
@@ -9447,7 +9447,7 @@ export const unitSkillData: UnitSkillData = {
         scale_factor: { num_of_units: 'kouhei_church' },
         details: { target: { damage_taken_increased: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite' } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: 'kouhei_church' }] } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'kouhei_church' } } }],
         scale_factor: { num_of_units: 'kouhei_church', except: 'self' },
         details: { self: { atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
       }]
@@ -10568,10 +10568,10 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: { self: { spd_up: { base: { milliPercentage: 500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: 133 }] } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 133 } } }],
         details: { self: { spd_up: { base: { milliPercentage: 500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: 135 }] } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 135 } } }],
         details: { self: { spd_up: { base: { milliPercentage: 500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
       }]
     }, {
@@ -10586,7 +10586,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'light' }], squad: [{ in_squad: 133 }] } }],
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'light' }], squad: { in_squad: 133 } } }],
         details: {
           target: {
             atk_up: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
@@ -10595,7 +10595,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'light' }], squad: [{ in_squad: 135 }] } }],
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'light' }], squad: { in_squad: 135 } } }],
         details: {
           target: {
             atk_up: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
@@ -10785,7 +10785,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: 7 }] } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 7 } } }],
         details: {
           target: {
             atk_up: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
@@ -10794,7 +10794,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: 8 }] } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 8 } } }],
         details: {
           target: {
             atk_up: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
@@ -10870,10 +10870,10 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: [{ num_of_units: { unit: 'ally', greater_or_equal: 2 } }] } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 2 } } } }],
         details: { self: { atk_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: [{ num_of_units: { unit: 'ally', greater_or_equal: 4 } }] } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 4 } } } }],
         details: { self: { cri_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { target: [{ unit: { type: 'light', role: 'defender' } }, { unit: 'city_guard' }] } }],
@@ -10984,7 +10984,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', round: { at: 4 } }],
         details: { self: { atk_up: { base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'be_killed', state: { squad: [{ in_squad: 174 }] } }],
+        conditions: [{ trigger: 'be_killed', state: { squad: { in_squad: 174 } } }],
         details: { target: { atk_up: { base: { milliPercentage: 35000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 2 } } } }
       }]
     }, {
@@ -11108,7 +11108,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'hit' }],
         details: { self: { spd_down: { base: { milliPercentage: 69000 }, per_lv_up: { milliPercentage: -1000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true } } }
       }, {
-        conditions: [{ state: { squad: [{ in_squad: 51 }] } }],
+        conditions: [{ state: { squad: { in_squad: 51 } } }],
         details: { self: { cooperative_attack: { unit: 51, active: 2 } } }
       }]
     }],
@@ -11251,7 +11251,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ state: { squad: [{ in_squad: 112 }] } }],
+        conditions: [{ state: { squad: { in_squad: 112 } } }],
         details: { self: { cooperative_attack: { unit: 112, active: 2 } } }
       }]
     }, {
@@ -11481,7 +11481,7 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         details: { target: { golden_factory_construction: { times: 1 } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: 'golden_factory' }] } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'golden_factory' } } }],
         details: { self: { tag_stack: { tag: 'parts_acquired', term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'idle', state: { self: [{ tagged: 'parts_acquired' }] } }],
@@ -11521,7 +11521,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_wave', state: { squad: [{ in_squad: 117 }], target: [{ unit: 'ags' }] } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 117 }, target: [{ unit: 'ags' }] } }],
         details: {
           target: {
             atk_up: { base: { milliPercentage: 7000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite' },
@@ -11592,16 +11592,16 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'fixed_all',
       equipment_effects: [{
-        conditions: [{ trigger: 'start_wave', state: { squad: [{ num_of_units: { unit: 'light', greater_or_equal: 2 } }], target: [{ unit: 'light' }] } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'light', greater_or_equal: 2 } }, target: [{ unit: 'light' }] } }],
         details: { target: { defense_penetration: { base: { milliPercentage: 16000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 99 }, cannot_be_dispelled: true } } }
       }, {
-        conditions: [{ trigger: 'start_wave', state: { squad: [{ num_of_units: { unit: 'light', greater_or_equal: 2 } }], target: [{ unit: 'flying' }, { unit: 'heavy' }] } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'light', greater_or_equal: 2 } }, target: [{ unit: 'flying' }, { unit: 'heavy' }] } }],
         details: { target: { damage_taken_increased: { base: { milliPercentage: 16000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 99 }, cannot_be_dispelled: true } } }
       }]
     }, {
       area: 'fixed_all',
       equipment_effects: [{
-        conditions: [{ trigger: 'start_wave', state: { squad: [{ num_of_units: { unit: 'flying', greater_or_equal: 2 } }], target: [{ unit: 'flying' }] } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'flying', greater_or_equal: 2 } }, target: [{ unit: 'flying' }] } }],
         details: {
           target: {
             range_up: { value: 1, term: { for_rounds: 99 }, cannot_be_dispelled: true },
@@ -11609,7 +11609,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_wave', state: { squad: [{ num_of_units: { unit: 'flying', greater_or_equal: 2 } }], target: [{ unit: 'light' }, { unit: 'heavy' }] } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'flying', greater_or_equal: 2 } }, target: [{ unit: 'light' }, { unit: 'heavy' }] } }],
         details: {
           target: {
             range_down: { value: 1, term: { for_rounds: 99 }, cannot_be_dispelled: true },
@@ -11620,7 +11620,7 @@ export const unitSkillData: UnitSkillData = {
     }, {
       area: 'fixed_all',
       equipment_effects: [{
-        conditions: [{ trigger: 'start_wave', state: { squad: [{ num_of_units: { unit: 'heavy', greater_or_equal: 1 } }], target: [{ unit: 'heavy' }] } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'heavy', greater_or_equal: 1 } }, target: [{ unit: 'heavy' }] } }],
         details: {
           target: {
             ap_up: { base: { microValue: 1800000 }, per_lv_up: { microValue: 200000 }, term: 'immediate' },
@@ -11628,7 +11628,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_wave', state: { squad: [{ num_of_units: { unit: 'heavy', greater_or_equal: 1 } }], target: [{ unit: 'light' }, { unit: 'flying' }] } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'heavy', greater_or_equal: 1 } }, target: [{ unit: 'light' }, { unit: 'flying' }] } }],
         details: {
           target: {
             fire_resist_down: { base: { milliPercentage: 16000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 99 }, cannot_be_dispelled: true },
@@ -11875,7 +11875,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ state: { squad: [{ in_squad: 42 }] } }],
+        conditions: [{ state: { squad: { in_squad: 42 } } }],
         details: { self: { cooperative_attack: { unit: 42, active: 2 } } }
       }]
     }, {
@@ -12370,7 +12370,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'passive_radar' }], squad: [{ in_squad: 217 }] } }],
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'passive_radar' }], squad: { in_squad: 217 } } }],
         details: { self: { cooperative_attack: { unit: 217, active: 2 } } }
       }]
     }],
@@ -12432,7 +12432,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ state: { self: [{ tagged: 'command_induction' }] } }],
         details: { self: { defense_penetration: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 3000 } } } }
       }, {
-        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'command_induction' }], squad: [{ in_squad: 216 }] } }],
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'command_induction' }], squad: { in_squad: 216 } } }],
         details: { self: { cooperative_attack: { unit: 216, active: 2 } } }
       }]
     }],
@@ -12448,7 +12448,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ effected: 'follow_up_attack' }], squad: [{ in_squad: 215 }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ effected: 'follow_up_attack' }], squad: { in_squad: 215 } } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
@@ -13448,7 +13448,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: [{ num_of_units: { unit: 'ally', greater_or_equal: 4 } }] } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 4 } } } }],
         details: {
           target: {
             anti_light_type: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
