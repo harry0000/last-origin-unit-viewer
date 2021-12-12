@@ -40,7 +40,7 @@ const EffectDetailRow: React.FC<{
           textAlign: 'right',
           flexShrink: 0
         }}>
-        {ifNonNullable(term, v => (<span css={{ marginLeft: 10 }}>{v}</span>))}
+        {ifNonNullable(term, v => (<span css={{ marginLeft: 10, color: '#aaa', fontSize: '0.9em' }}>{v}</span>))}
       </div>
     </div>
   );
