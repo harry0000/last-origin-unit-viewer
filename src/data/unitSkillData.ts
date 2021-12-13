@@ -3915,7 +3915,6 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'end_wave' }],
-        effective: 'next_wave',
         details: { self: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite' } } }
       }]
     }]

@@ -159,7 +159,7 @@
   "condition": {
     "trigger": {
       "start_wave": "戦闘開始時",
-      "end_wave": "戦闘終了時",
+      "end_wave": "戦闘終了後(次の戦闘開始時)",
       "start_round": "ラウンド開始時",
       "idle": "待機時",
       "kill": "自分が敵を倒した時",
@@ -231,9 +231,7 @@
     "for_rounds": "{{value}}ラウンド"
   },
   "effective": {
-    "next_wave": "次の戦闘中",
     "next_round": "1ラウンド後",
-    "next_active": "次の攻撃時",
     "only_this_attack": "その攻撃に対して"
   },
   "rate": {

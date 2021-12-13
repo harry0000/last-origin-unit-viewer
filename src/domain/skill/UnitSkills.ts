@@ -1,11 +1,20 @@
+import { ActiveSkillEffective, PassiveSkillEffective } from './SkillEffective';
 import {
   DamageAttribute,
   SkillApCostValue,
   SkillRangeValue
 } from './UnitSkillData';
+import { Effect } from '../Effect';
 import {
-  Effect
-} from '../Effect';
+  EquipmentEffectOnly,
+  IntegerValueEffectKey,
+  MicroValueEffectKey,
+  MilliPercentageEffectKey,
+  MultipleMilliPercentageEffectKey,
+  NoValueEffectKey,
+  PushPullEffectKey,
+  RangeUpDownEffectKey
+} from './SkillEffect';
 import {
   IntegerValue,
   MilliPercentageValue,
@@ -17,16 +26,8 @@ import { SkillEffectActivationCondition } from './SkillEffectActivationCondition
 import { SkillEffectScaleFactor } from './SkillEffectScaleFactor';
 import { SkillEffectTag, SkillEffectTagStackValue } from './SkillEffectTag';
 import { SkillEffectTerm, SkillEffectTermRoundsValue } from './SkillEffectTerm';
-import { SkillEffective } from './SkillEffective';
-import { UnitForms } from '../UnitFormValue';
 import { SkillEffectTimesValue } from './SkillEffectTimesValue';
-import {
-  EquipmentEffectOnly,
-  IntegerValueEffectKey,
-  MicroValueEffectKey,
-  MilliPercentageEffectKey, MultipleMilliPercentageEffectKey, NoValueEffectKey, PushPullEffectKey,
-  RangeUpDownEffectKey
-} from './SkillEffect';
+import { UnitForms } from '../UnitFormValue';
 import { UnitNumber } from '../UnitBasicInfo';
 
 type SkillEffectAddition = Readonly<{
@@ -100,7 +101,7 @@ export type SkillEffect = Readonly<{
   conditions?:
     readonly [SkillEffectActivationCondition] |
     readonly [SkillEffectActivationCondition, SkillEffectActivationCondition],
-  effective?: SkillEffective,
+  effective?: PassiveSkillEffective,
   scale_factor?: SkillEffectScaleFactor,
   details: {
     readonly self?: SkillEffectValue,
@@ -112,7 +113,7 @@ export type SkillEffect = Readonly<{
 export type DamageDeal = {
   milliPercentage: number,
   attribute?: DamageAttribute,
-  effective?: typeof SkillEffective.NextRound
+  effective?: ActiveSkillEffective
 }
 
 export type ActiveSkill = Readonly<{
