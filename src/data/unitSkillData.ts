@@ -1439,11 +1439,11 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'kill' }],
         details: { self: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 100000 } } } }
       }, {
-        conditions: [{ state: { self: [{ equipped: 'lunch_box' }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'lunch_box' }] } }],
         details: {
           self: {
-            atk_up: { tag: 'yummy', milliPercentage: 5000 },
-            spd_up: { tag: 'yummy', milliPercentage: 5000 }
+            atk_up: { tag: 'yummy', milliPercentage: 5000, term: { for_rounds: 1 } },
+            spd_up: { tag: 'yummy', milliPercentage: 5000, term: { for_rounds: 1 } }
           }
         }
       }]
@@ -3233,14 +3233,14 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'end_wave' }],
         details: { self: { reconnaissance: {} } }
       }, {
-        conditions: [{ state: { self: [{ in_front_line: {} }] } }],
-        details: { self: { eva_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 } } } }
+        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
+        details: { self: { eva_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ state: { self: [{ in_mid_line: {} }] } }],
-        details: { self: { eva_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 } } } }
+        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
+        details: { self: { eva_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ state: { self: [{ in_back_line: {} }] } }],
-        details: { self: { eva_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 } } } }
+        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        details: { self: { eva_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } } } }
       }]
     }, {
       area: 'fixed_all',
@@ -6612,27 +6612,27 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
         details: {
           self: {
-            acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 3000 } },
-            eva_up: { base: { milliPercentage: 35000 }, per_lv_up: { milliPercentage: 5000 } }
+            acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            eva_up: { base: { milliPercentage: 35000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } }
           }
         }
       }, {
-        conditions: [{ state: { self: [{ in_mid_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
         details: {
           self: {
-            acc_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 } },
-            eva_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 } }
+            acc_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            eva_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } }
           }
         }
       }, {
-        conditions: [{ state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
         details: {
           self: {
-            acc_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 } },
-            eva_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 3000 } }
+            acc_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            eva_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } }
           }
         }
       }, {
