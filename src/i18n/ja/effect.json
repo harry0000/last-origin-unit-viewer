@@ -181,8 +181,7 @@
       "be_hit_electric_active": "電気属性攻撃を被撃時",
       "evade": "回避時",
       "critical": "クリティカル時",
-      "revive": "戦闘続行発動時",
-      "moved": "移動時"
+      "revive": "戦闘続行発動時"
     },
     "round": {
       "at": "{{round}}ラウンド目の",
