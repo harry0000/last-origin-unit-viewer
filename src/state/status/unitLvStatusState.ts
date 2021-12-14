@@ -375,10 +375,6 @@ export function useUnitCurrentRank<N extends UnitNumber>(unit: N): AvailableUnit
   return useRecoilValue(unitCurrentRankState(unit));
 }
 
-export function useRankUpBonusEffect(unit: UnitNumber): UnitRankUpBonus | undefined {
-  return useRecoilValue(unitRankUpBonusEffectState(unit));
-}
-
 const unitLvStatusRestore = selector<ReadonlyArray<UnitLvStatus>>({
   key: 'unitLvStatusRestore',
   get: () => [],
