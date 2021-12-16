@@ -2978,8 +2978,8 @@ export const unitSkillData: UnitSkillData = {
       },
       effects: [{
         details: {
+          self: { ignore_protect: {} },
           target: {
-            ignore_protect: {},
             acc_down: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 }, term: { for_rounds: 2 } },
             eva_down: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
             cri_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
