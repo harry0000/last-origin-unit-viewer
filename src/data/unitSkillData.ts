@@ -3331,7 +3331,7 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { eva_down: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } } } }
       }, {
         conditions: [{ state: { target: [{ effected: 'marked' }, { effected: 'immovable' }] } }],
-        details: { self: { anti_flying_type: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
+        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
       }]
     }, {
       damage_deal: {
