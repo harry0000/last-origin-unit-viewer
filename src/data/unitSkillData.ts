@@ -4767,7 +4767,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ state: { self: [{ tagged: 'max_output_burst' }] } }],
-        details: { target: { activation_rate_percentage_up: { effect: 'all_buff_removal', milliPercentage: 50000 } } }
+        details: { self: { activation_rate_percentage_up: { effect: 'all_buff_removal', milliPercentage: 50000 } } }
       }]
     }],
     passive: [{
@@ -7881,6 +7881,7 @@ export const unitSkillData: UnitSkillData = {
           target: {
             cri_up: { tag: 'power_of_pureblood', base: { milliPercentage: 1500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
             acc_up: { tag: 'power_of_pureblood', base: { milliPercentage: 2500 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
+            // FIXME: rate up for any effect activation
             activation_rate_percentage_up: { tag: 'lucky_hit', effect: 'additional_damage', base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
           }
         }
@@ -11950,7 +11951,7 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { additional_damage: { base: { milliPercentage: 31500 }, per_lv_up: { milliPercentage: 1500 } } } }
       }, {
         conditions: [{ state: { target: [{ tagged: 'wet' }] } }],
-        details: { target: { activation_rate_percentage_up: { effect: 'stunned', milliPercentage: 75000 } } }
+        details: { self: { activation_rate_percentage_up: { effect: 'stunned', milliPercentage: 75000 } } }
       }]
     }],
     passive: [{
@@ -12094,11 +12095,11 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'critical' }],
         details: {
-          self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } } },
-          target: {
-            activation_rate_percentage_up: { effect: 'stunned', milliPercentage: 25000 },
-            effect_removal: { effect: 'damage_reduction' }
-          }
+          self: {
+            additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } },
+            activation_rate_percentage_up: { effect: 'stunned', milliPercentage: 25000 }
+          },
+          target: { effect_removal: { effect: 'damage_reduction' } }
         }
       }]
     }, {
@@ -12924,7 +12925,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ state: { target: [{ effected: 'immovable' }] } }],
-        details: { target: { activation_rate_percentage_up: { effect: 'silenced', milliPercentage: 100000 } } }
+        details: { self: { activation_rate_percentage_up: { effect: 'silenced', milliPercentage: 100000 } } }
       }, {
         conditions: [{ state: { target: [{ unit: 'light' }] } }],
         details: {
