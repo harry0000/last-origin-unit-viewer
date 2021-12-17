@@ -9131,10 +9131,16 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_wave', state: { target: [{ effected_by: 133 }, { unit: 133 }, { unit : 176 }] } }],
+        conditions: [{ trigger: 'start_wave', state: { target: [{ unit: 133 }, { unit : 176 }] } }],
         details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { target: [{ effected_by: 133 }, { unit: 133 }, { unit : 176 }] } }],
+        conditions: [{ trigger: 'start_wave', state: { target: [{ effected_by: 133 }] } }],
+        details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 133 }, { unit : 176 }] } }],
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ effected_by: 133 }] } }],
         details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
       }]
     }]
