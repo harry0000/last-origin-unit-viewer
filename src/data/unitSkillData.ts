@@ -10430,7 +10430,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ state: { target: [{ effected: 'fire_resist_down' }, { effected: 'ice_resist_down' }] } }],
-        details: { target: { additional_electric_damage: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 } } } }
+        details: { self: { additional_electric_damage: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 } } } }
       }]
     }],
     passive: [{
@@ -10979,7 +10979,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ state: { target: [{ effected: 'ice_resist_down' }, { effected: 'electric_resist_down' }] } }],
-        details: { target: { additional_fire_damage: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 } } } }
+        details: { self: { additional_fire_damage: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 } } } }
       }, {
         conditions: [{ state: { self: [{ tagged: 'death_blow' }] } }],
         details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 5000 } } } }
