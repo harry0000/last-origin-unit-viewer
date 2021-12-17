@@ -9997,7 +9997,7 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { target_protect: { term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ effected: 'damage_reduction' }], target: [{ unit: 'attacker' }, { unit: 'supporter' }] } }],
-        details: { target: { atk_up: { base: { milliPercentage: 19000 }, per_lv_up: { milliPercentage: 1600 } } } }
+        details: { target: { atk_up: { base: { milliPercentage: 19000 }, per_lv_up: { milliPercentage: 1600 }, term: { for_rounds: 1 } } } }
       }]
     }]
   },
@@ -13425,7 +13425,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'hit' }],
         details: {
           target: {
-            immovable: {},
+            immovable: { term: { for_rounds: 2 } },
             stunned: { rate: { milliPercentage: 40000 } }
           }
         }
