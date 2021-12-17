@@ -7202,13 +7202,15 @@ export const unitSkillData: UnitSkillData = {
       cost: 8,
       area: 'row_toward_front',
       effects: [{
-        details: {
-          self: { ignore_protect: {} },
-          target: { push: { value: 2 } }
-        }
+        details: { self: { ignore_protect: {} } }
       }, {
         conditions: [{ trigger: 'hit' }],
-        details: { target: { damage_taken_increased: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 }, term: { for_rounds: 2 } } } }
+        details: {
+          target: {
+            push: { value: 2 },
+            damage_taken_increased: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 }, term: { for_rounds: 2 } }
+          }
+        }
       }, {
         conditions: [{ state: { target: [{ tagged: 'wet' }] } }],
         details: {
