@@ -1554,17 +1554,17 @@ export const equipmentData = {
       { fire_resist_up: { milliPercentage: 50000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  5000 }, cri_up: { milliPercentage:  5000 }, spd_up: { milliPercentage:  5000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  6000 }, cri_up: { milliPercentage:  6000 }, spd_up: { milliPercentage:  6000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  7000 }, cri_up: { milliPercentage:  7000 }, spd_up: { milliPercentage:  7000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  8000 }, cri_up: { milliPercentage:  8000 }, spd_up: { milliPercentage:  8000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage:  9000 }, cri_up: { milliPercentage:  9000 }, spd_up: { milliPercentage:  9000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 10000 }, cri_up: { milliPercentage: 10000 }, spd_up: { milliPercentage: 10000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 11000 }, cri_up: { milliPercentage: 11000 }, spd_up: { milliPercentage: 11000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 12000 }, cri_up: { milliPercentage: 12000 }, spd_up: { milliPercentage: 12000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 13000 }, cri_up: { milliPercentage: 13000 }, spd_up: { milliPercentage: 13000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 14000 }, cri_up: { milliPercentage: 14000 }, spd_up: { milliPercentage: 14000 } } }],
-      [{ condition: { trigger: 'be_hit_fire_active' }, details: { atk_up: { milliPercentage: 15000 }, cri_up: { milliPercentage: 15000 }, spd_up: { milliPercentage: 15000 } } }]
+      [{ condition: { trigger: 'be_hit_fire_active', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  5000, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  5000, term: { for_rounds: 2 } }, spd_up: { milliPercentage:  5000, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'be_hit_fire_active', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  6000, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  6000, term: { for_rounds: 2 } }, spd_up: { milliPercentage:  6000, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'be_hit_fire_active', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  7000, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  7000, term: { for_rounds: 2 } }, spd_up: { milliPercentage:  7000, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'be_hit_fire_active', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  8000, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  8000, term: { for_rounds: 2 } }, spd_up: { milliPercentage:  8000, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'be_hit_fire_active', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage:  9000, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  9000, term: { for_rounds: 2 } }, spd_up: { milliPercentage:  9000, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'be_hit_fire_active', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 10000, term: { for_rounds: 2 } }, cri_up: { milliPercentage: 10000, term: { for_rounds: 2 } }, spd_up: { milliPercentage: 10000, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'be_hit_fire_active', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 11000, term: { for_rounds: 2 } }, cri_up: { milliPercentage: 11000, term: { for_rounds: 2 } }, spd_up: { milliPercentage: 11000, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'be_hit_fire_active', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 12000, term: { for_rounds: 2 } }, cri_up: { milliPercentage: 12000, term: { for_rounds: 2 } }, spd_up: { milliPercentage: 12000, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'be_hit_fire_active', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 13000, term: { for_rounds: 2 } }, cri_up: { milliPercentage: 13000, term: { for_rounds: 2 } }, spd_up: { milliPercentage: 13000, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'be_hit_fire_active', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 14000, term: { for_rounds: 2 } }, cri_up: { milliPercentage: 14000, term: { for_rounds: 2 } }, spd_up: { milliPercentage: 14000, term: { for_rounds: 2 } } } }],
+      [{ condition: { trigger: 'be_hit_fire_active', state: { unit: 'bioroid' } }, details: { atk_up: { milliPercentage: 15000, term: { for_rounds: 2 } }, cri_up: { milliPercentage: 15000, term: { for_rounds: 2 } }, spd_up: { milliPercentage: 15000, term: { for_rounds: 2 } } } }]
     ]
   },
   horns_of_the_evil_overlord: {
