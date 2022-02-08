@@ -1,4 +1,4 @@
-export type SkillEffectTagStackValue = 1 | 2 | 3 | 5
+export type SkillEffectTagStackValue = 1 | 2 | 3 | 5 | 6
 
 export type SkillEffectTag =
   'ignite' |
@@ -100,4 +100,5 @@ export type SkillEffectTag =
   'electromagnetic_induction_target' |
   'predator' |
   'last_roar' |
-  'hunt_preparation'
+  'hunt_preparation' |
+  'heat_absorption'

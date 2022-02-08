@@ -154,7 +154,8 @@
     "electromagnetic_induction_target": "誘導対象",
     "predator": "捕食者",
     "last_roar": "最後の咆哮",
-    "hunt_preparation": "狩りの準備$t(effect:tag_separator)待機"
+    "hunt_preparation": "狩りの準備$t(effect:tag_separator)待機",
+    "heat_absorption": "熱気吸収"
   },
   "condition": {
     "trigger": {
@@ -181,6 +182,7 @@
       "be_hit_electric_active": "電気属性攻撃を被撃時",
       "evade": "回避時",
       "critical": "クリティカル時",
+      "counter": "反撃時",
       "revive": "戦闘続行発動時"
     },
     "round": {

@@ -11875,6 +11875,57 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  192: {
+    no: 192,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 210000 },
+        per_lv_up: { milliPercentage: 10000 },
+        attribute: 'fire'
+      },
+      range: 4,
+      cost: 6,
+      area: 'single',
+      effects: [{
+        details: { target: { fixed_fire_damage_over_time: { base: { value: 230 }, per_lv_up: { value: 10 }, term: { for_rounds: 3 } } } }
+      }, {
+        conditions: [{ state: { squad: { in_squad: 42 } } }],
+        details: { self: { cooperative_attack: { unit: 42, active: 2 } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 180000 },
+        per_lv_up: { milliPercentage: 10000 },
+        attribute: 'fire'
+      },
+      range:5,
+      cost: 8,
+      area: '2_x_2',
+      effects: [{
+        details: { target: { fire_resist_down: { base: { milliPercentage: 26000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+      }]
+    }],
+    passive: [{
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { ice_resist_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { num_of_enemies: 'proportion' },
+        details: { self: { atk_up: { base: { milliPercentage: 6200 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: { alias: 'anger_of_horde', except: 192 } }] } }],
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'enemy_killed' }],
+        details: { target: { fire_resist_down: { base: { milliPercentage: 16000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 6 } } }
+      }]
+    }]
+  },
   194: {
     no: 194,
     active: [{
@@ -13474,6 +13525,159 @@ export const unitSkillData: UnitSkillData = {
             anti_heavy_type: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
           }
         }
+      }]
+    }]
+  },
+  234: {
+    no: 234,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 220000 },
+        per_lv_up: { milliPercentage: 20000 },
+        attribute: 'ice'
+      },
+      range: 5,
+      cost: 6,
+      area: 'single',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        details: {
+          self: { tag_stack: { tag: 'heat_absorption', term: { for_rounds: 99 }, max_stack: 1 } },
+          target: {
+            atk_down: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            ice_resist_down: { base: { milliPercentage: 16000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 110000 },
+        per_lv_up: { milliPercentage: 10000 },
+        attribute: 'ice'
+      },
+      range: 6,
+      cost: 9,
+      area: 'row_toward_front',
+      effects: [{
+        conditions: [{ state: { self: [{ tagged: 'heat_absorption' }] } }],
+        details: {
+          self: { tag_release: { tag: 'heat_absorption' } },
+          target: { additional_ice_damage: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 } } }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { target: { spd_down: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { at: 1 } }],
+        details: {
+          target: {
+            atk_down: { base: { milliPercentage: 27000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            ice_resist_down: { base: { milliPercentage: 27000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { at: 2 } }],
+        details: {
+          target: {
+            atk_down: { base: { milliPercentage: 21500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            ice_resist_down: { base: { milliPercentage: 21500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { from: 3 } }],
+        details: {
+          target: {
+            atk_down: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            ice_resist_down: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            damage_reduction: { base: { milliPercentage: 37000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            fire_resist_up: { base: { milliPercentage: 37000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'heat_absorption' }] } }],
+        details: { self: { range_down: { value: 3, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'be_hit' }],
+        details: { self: { counterattack: { base: { milliPercentage: 105000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'counter' }],
+        details: { self: { fire_resist_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 3 } } }
+      }]
+    }, {
+      area: 'line_with_forward',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          target: {
+            fire_resist_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            target_protect: { term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }]
+  },
+  235: {
+    no: 235,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 110000 },
+        per_lv_up: { milliPercentage: 10000 },
+        attribute: 'electric'
+      },
+      range: 4,
+      cost: 6,
+      area: 'line',
+      effects: [{
+        details: { target: { acc_down: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 2 } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 165000 },
+        per_lv_up: { milliPercentage: 15000 },
+        attribute: 'electric'
+      },
+      range: 5,
+      cost: 6,
+      area: 'single',
+      effects: [{
+        details: {
+          self: { ignore_protect: {} },
+          target: { electric_resist_down: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 3 } }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'be_hit' }],
+        details: { self: { counterattack: { base: { milliPercentage: 85000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'counter' }],
+        details: {
+          self: {
+            eva_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 3 },
+            status_resist_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 3 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'attack' }],
+        details: { self: { merciless: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
       }]
     }]
   }
