@@ -13563,8 +13563,10 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         conditions: [{ state: { self: [{ tagged: 'heat_absorption' }] } }],
         details: {
-          self: { tag_release: { tag: 'heat_absorption' } },
-          target: { additional_ice_damage: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 } } }
+          self: {
+            tag_release: { tag: 'heat_absorption', term: 'immediate' },
+            additional_ice_damage: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 }, term: 'immediate' }
+          }
         }
       }]
     }],
