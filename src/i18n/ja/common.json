@@ -173,8 +173,7 @@
       "core_link_multiplier_bonus": "リンクボーナス (+ {{value}} %)",
       "full_link_bonus": "フルリンクボーナス",
       "full_link_multiplier_bonus": "フルリンクボーナス (+ {{value}} %)",
-      "equipment": "$t(equipment:{{id}}) Lv. {{lv}}",
-      "rank_up": "$t(unit.rank.{{rank}})ランクアップボーナス"
+      "equipment": "$t(equipment:{{id}}) Lv. {{lv}}"
     },
     "core_link": "コアリンク",
     "core_link_slot1": "コアリンクスロット1",

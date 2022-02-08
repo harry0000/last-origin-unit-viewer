@@ -22,6 +22,7 @@ export const SkillAreaType = {
   LineWithFrontLine: 'line_with_front_line',
   LineWithBack: 'line_with_back',
   LineWithBackLine: 'line_with_back_line',
+  LineWithForward: 'line_with_forward',
   LineWithBackward: 'line_with_backward',
   SelfAndLeftDirection: 'self_and_left_direction',
   Cross: 'cross',

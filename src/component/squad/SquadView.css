@@ -18,6 +18,7 @@
 
 .squad-action {
   position: absolute;
+  top: 0;
   right: 5px;
 }
 
@@ -28,13 +29,15 @@
   }
 
   .cost-summary {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 }
 
 .cost-summary,
 .type-summary {
   display: flex;
+  width: 240px;
+  justify-content: center;
 }
 
 .cost-summary > div:not(:first-of-type),

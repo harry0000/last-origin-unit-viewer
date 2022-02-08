@@ -10,11 +10,11 @@ import {
   RampartForm,
   SirenForm
 } from '../UnitFormValue';
+import { ActiveSkillEffective } from './SkillEffective';
 import { AvailableMaxUnitRank } from '../status/UnitRankUpBonusData';
 import { MilliPercentageValue } from '../ValueUnit';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import { SkillEffects, SkillEffectsAsEquipmentEffect } from './SkillEffectData';
-import { SkillEffective } from './SkillEffective';
 import { UnitNumber, UnitRank } from '../UnitBasicInfo';
 
 export const DamageAttribute = {
@@ -31,7 +31,7 @@ type DamageDealData = Readonly<({
   milliPercentage: number
 }) & {
   attribute?: DamageAttribute,
-  effective?: typeof SkillEffective.NextRound
+  effective?: ActiveSkillEffective
 }>
 
 export type SkillRangeValue = 0 | 1 | 2 | 3 | 4 | 5 | 6

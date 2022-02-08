@@ -1,16 +1,4 @@
-import {
-  Effect
-} from '../Effect';
-import { IntegerValue, ValueUnit } from '../ValueUnit';
-import { SkillEffectActivationCondition } from './SkillEffectActivationCondition';
-import { SkillEffectActivationRate } from './SkillEffectActivationRate';
-import { SkillEffectScaleFactor } from './SkillEffectScaleFactor';
-import { SkillEffectTag, SkillEffectTagStackValue } from './SkillEffectTag';
-import { SkillEffectTerm, SkillEffectTermRoundsValue } from './SkillEffectTerm';
-import { SkillEffectTimesValue } from './SkillEffectTimesValue';
-import { SkillEffective } from './SkillEffective';
-import { UnitForms } from '../UnitFormValue';
-import { UnitNumber } from '../UnitBasicInfo';
+import { Effect } from '../Effect';
 import {
   EquipmentEffectOnly,
   IntegerValueEffectKey,
@@ -21,6 +9,16 @@ import {
   PushPullEffectKey,
   RangeUpDownEffectKey
 } from './SkillEffect';
+import { IntegerValue, ValueUnit } from '../ValueUnit';
+import { PassiveSkillEffective } from './SkillEffective';
+import { SkillEffectActivationCondition } from './SkillEffectActivationCondition';
+import { SkillEffectActivationRate } from './SkillEffectActivationRate';
+import { SkillEffectScaleFactor } from './SkillEffectScaleFactor';
+import { SkillEffectTag, SkillEffectTagStackValue } from './SkillEffectTag';
+import { SkillEffectTerm, SkillEffectTermRoundsValue } from './SkillEffectTerm';
+import { SkillEffectTimesValue } from './SkillEffectTimesValue';
+import { UnitForms } from '../UnitFormValue';
+import { UnitNumber } from '../UnitBasicInfo';
 
 type EffectValue<T extends ValueUnit> =
   {
@@ -120,7 +118,7 @@ export type SkillEffectData = Readonly<{
   conditions?:
     readonly [SkillEffectActivationCondition] |
     readonly [SkillEffectActivationCondition, SkillEffectActivationCondition],
-  effective?: SkillEffective,
+  effective?: PassiveSkillEffective,
   scale_factor?: SkillEffectScaleFactor,
   details: {
     readonly self?: SkillEffectDataValue,

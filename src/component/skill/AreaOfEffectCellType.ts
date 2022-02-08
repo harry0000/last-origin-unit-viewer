@@ -114,6 +114,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
     select: 5,
     area: ['effective', 'effective', 'none', 'effective', 'effective', 'none', 'effective', 'effective', 'none']
   },
+  [SkillAreaType.LineWithForward]: {
+    select: 4,
+    area: ['effective', 'none', 'none', 'effective', 'effective', 'effective', 'effective', 'none', 'none']
+  },
   [SkillAreaType.LineWithBackward]: {
     select: 6,
     area: ['none', 'none', 'effective', 'effective', 'effective', 'effective', 'none', 'none', 'effective']

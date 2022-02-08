@@ -22,7 +22,7 @@ export const EffectTrigger = {
   BeHitElectricActive: 'be_hit_electric_active',
   Evade: 'evade',
   Critical: 'critical',
-  Revive: 'revive',
-  Moved: 'moved'
+  Counter: 'counter',
+  Revive: 'revive'
 } as const;
 export type EffectTrigger = typeof EffectTrigger[keyof typeof EffectTrigger]

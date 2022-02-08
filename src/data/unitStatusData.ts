@@ -2983,6 +2983,27 @@ export const unitStatusData: UnitStatusData = {
     iceResist: { milliPercentage: 0 },
     electricResist: { milliPercentage: 0 }
   },
+  192: {
+    hp: {
+      1: { value: 238 },
+      90: { value: 2708 }
+    },
+    atk: {
+      1: { milliValue: 62000 },
+      90: { milliValue: 861000 }
+    },
+    def: {
+      1: { milliValue: 18000 },
+      90: { milliValue: 273000 }
+    },
+    acc: { milliPercentage: 120000 },
+    eva: { milliPercentage: 0 },
+    cri: { milliPercentage: 10000 },
+    spd: { microValue: 3500000 },
+    fireResist: { milliPercentage: 0 },
+    iceResist: { milliPercentage: 0 },
+    electricResist: { milliPercentage: 0 }
+  },
   194: {
     hp: {
       1: { value: 144 },
@@ -3378,6 +3399,48 @@ export const unitStatusData: UnitStatusData = {
     eva: { milliPercentage: 10000 },
     cri: { milliPercentage: 15000 },
     spd: { microValue: 4100000 },
+    fireResist: { milliPercentage: 0 },
+    iceResist: { milliPercentage: 0 },
+    electricResist: { milliPercentage: 0 }
+  },
+  234: {
+    hp: {
+      1: { value: 330 },
+      90: { value: 3623 }
+    },
+    atk: {
+      1: { milliValue: 58000 },
+      90: { milliValue: 734000 }
+    },
+    def: {
+      1: { milliValue: 22000 },
+      90: { milliValue: 333000 }
+    },
+    acc: { milliPercentage: 170000 },
+    eva: { milliPercentage: 15000 },
+    cri: { milliPercentage: 8000 },
+    spd: { microValue: 4140000 },
+    fireResist: { milliPercentage: 35000 },
+    iceResist: { milliPercentage: 35000 },
+    electricResist: { milliPercentage: 35000 }
+  },
+  235: {
+    hp: {
+      1: { value: 180 },
+      90: { value: 1817 }
+    },
+    atk: {
+      1: { milliValue: 58000 },
+      90: { milliValue: 764000 }
+    },
+    def: {
+      1: { milliValue: 2000 },
+      90: { milliValue: 31000 }
+    },
+    acc: { milliPercentage: 125000 },
+    eva: { milliPercentage: 40000 },
+    cri: { milliPercentage: 15000 },
+    spd: { microValue: 4520000 },
     fireResist: { milliPercentage: 0 },
     iceResist: { milliPercentage: 0 },
     electricResist: { milliPercentage: 0 }
