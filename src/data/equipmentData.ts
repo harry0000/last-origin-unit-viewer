@@ -1041,10 +1041,23 @@ export const equipmentData = {
   //   type: 'gear',
   //   id: 'enhanced_energy_shield'
   // },
-  // enhanced_nitro_ex_3500: {
-  //   type: 'gear',
-  //   id: 'enhanced_nitro_ex_3500'
-  // },
+  enhanced_nitro_ex_3500: {
+    type: 'gear',
+    id: 'enhanced_nitro_ex_3500',
+    status_effects: [
+      { eva_up: { milliPercentage: 18000 }, spd_up: { microValue: 200000 }, ice_resist_up: { milliPercentage: 30000 } },
+      { eva_up: { milliPercentage: 19800 }, spd_up: { microValue: 220000 }, ice_resist_up: { milliPercentage: 33000 } },
+      { eva_up: { milliPercentage: 21600 }, spd_up: { microValue: 240000 }, ice_resist_up: { milliPercentage: 36000 } },
+      { eva_up: { milliPercentage: 23400 }, spd_up: { microValue: 260000 }, ice_resist_up: { milliPercentage: 39000 } },
+      { eva_up: { milliPercentage: 25200 }, spd_up: { microValue: 280000 }, ice_resist_up: { milliPercentage: 42000 } },
+      { eva_up: { milliPercentage: 27000 }, spd_up: { microValue: 300000 }, ice_resist_up: { milliPercentage: 45000 } },
+      { eva_up: { milliPercentage: 28800 }, spd_up: { microValue: 320000 }, ice_resist_up: { milliPercentage: 48000 } },
+      { eva_up: { milliPercentage: 30600 }, spd_up: { microValue: 340000 }, ice_resist_up: { milliPercentage: 51000 } },
+      { eva_up: { milliPercentage: 32400 }, spd_up: { microValue: 360000 }, ice_resist_up: { milliPercentage: 54000 } },
+      { eva_up: { milliPercentage: 34200 }, spd_up: { microValue: 380000 }, ice_resist_up: { milliPercentage: 57000 } },
+      { eva_up: { milliPercentage: 36000 }, spd_up: { microValue: 400000 }, ice_resist_up: { milliPercentage: 60000 } }
+    ]
+  },
   fire_spray: {
     type: 'gear',
     id: 'fire_spray',
