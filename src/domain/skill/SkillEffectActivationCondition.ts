@@ -33,7 +33,8 @@ export type UnitAliasExceptUnit = {
 export const GridState = {
   FrontLine: 'front_line',
   MidLine: 'mid_line',
-  BackLine: 'back_line'
+  BackLine: 'back_line',
+  AreaOfEffect: 'area_of_effect'
 } as const;
 export type GridState = typeof GridState[keyof typeof GridState]
 
@@ -86,7 +87,7 @@ export type ActivationTargetState =
   {
     [EffectActivationState.EffectedBy]?: UnitNumber | UnitAliasExceptUnit
   } & {
-    [EffectActivationState.Grid]?: GridState
+    [EffectActivationState.Grid]?: Exclude<GridState, typeof GridState.AreaOfEffect>
   } &
   {
     [EffectActivationState.Unit]?:

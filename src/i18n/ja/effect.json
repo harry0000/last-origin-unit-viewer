@@ -214,7 +214,8 @@
     "grid": {
       "front_line": "前列",
       "mid_line": "中列",
-      "back_line": "後列"
+      "back_line": "後列",
+      "area_of_effect": "スキル効果範囲内"
     },
     "target": {
       "self": "$t(effect:unit.self)が",

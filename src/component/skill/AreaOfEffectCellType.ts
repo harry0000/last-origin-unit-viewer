@@ -50,6 +50,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
     select: 4,
     area: ['effective', 'effective', 'effective', 'effective', 'effective', 'effective', 'none', 'none', 'none']
   },
+  [SkillAreaType.TagTeam]: {
+    select: 5,
+    area: ['effective', 'effective', 'none', 'effective', 'effective', 'none', 'none', 'none', 'none']
+  },
   [SkillAreaType.MercilessCat]: {
     select: 4,
     area: ['effective', 'effective', 'none', 'effective', 'effective', 'effective', 'none', 'none', 'none']
@@ -313,6 +317,9 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
   },
   [SkillAreaType.FixedCross]: {
     area: ['none', 'effective', 'none', 'effective', 'effective', 'effective', 'none', 'effective', 'none']
+  },
+  [SkillAreaType.FixedDiagonal]: {
+    area: ['effective', 'none', 'effective', 'none', 'effective', 'none', 'effective', 'none', 'effective']
   },
   [SkillAreaType.FixedAll]: {
     area: ['effective', 'effective', 'effective', 'effective', 'effective', 'effective', 'effective', 'effective', 'effective']
