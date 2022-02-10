@@ -927,17 +927,17 @@ export const equipmentData = {
       role: 'attacker'
     },
     equipment_effects: [
-      [{ condition: { trigger: 'start_round', state: { in_back_line: {} } }, details: { atk_up: { milliPercentage: { ss: 2800 } }, acc_up: { milliPercentage: { ss: 38500 } }, cri_up: { milliPercentage: { ss:  9500 } } } }],
-      [{ condition: { trigger: 'start_round', state: { in_back_line: {} } }, details: { atk_up: { milliPercentage: { ss: 3000 } }, acc_up: { milliPercentage: { ss: 40000 } }, cri_up: { milliPercentage: { ss: 10000 } } } }],
-      [{ condition: { trigger: 'start_round', state: { in_back_line: {} } }, details: { atk_up: { milliPercentage: { ss: 3200 } }, acc_up: { milliPercentage: { ss: 41500 } }, cri_up: { milliPercentage: { ss: 11000 } } } }],
-      [{ condition: { trigger: 'start_round', state: { in_back_line: {} } }, details: { atk_up: { milliPercentage: { ss: 3400 } }, acc_up: { milliPercentage: { ss: 43000 } }, cri_up: { milliPercentage: { ss: 12000 } } } }],
-      [{ condition: { trigger: 'start_round', state: { in_back_line: {} } }, details: { atk_up: { milliPercentage: { ss: 3600 } }, acc_up: { milliPercentage: { ss: 45000 } }, cri_up: { milliPercentage: { ss: 13000 } } } }],
-      [{ condition: { trigger: 'start_round', state: { in_back_line: {} } }, details: { atk_up: { milliPercentage: { ss: 3800 } }, acc_up: { milliPercentage: { ss: 47000 } }, cri_up: { milliPercentage: { ss: 14000 } } } }],
-      [{ condition: { trigger: 'start_round', state: { in_back_line: {} } }, details: { atk_up: { milliPercentage: { ss: 4000 } }, acc_up: { milliPercentage: { ss: 49000 } }, cri_up: { milliPercentage: { ss: 16000 } } } }],
-      [{ condition: { trigger: 'start_round', state: { in_back_line: {} } }, details: { atk_up: { milliPercentage: { ss: 4200 } }, acc_up: { milliPercentage: { ss: 51000 } }, cri_up: { milliPercentage: { ss: 18000 } } } }],
-      [{ condition: { trigger: 'start_round', state: { in_back_line: {} } }, details: { atk_up: { milliPercentage: { ss: 4400 } }, acc_up: { milliPercentage: { ss: 53000 } }, cri_up: { milliPercentage: { ss: 20000 } } } }],
-      [{ condition: { trigger: 'start_round', state: { in_back_line: {} } }, details: { atk_up: { milliPercentage: { ss: 4600 } }, acc_up: { milliPercentage: { ss: 55000 } }, cri_up: { milliPercentage: { ss: 22000 } } } }],
-      [{ condition: { trigger: 'start_round', state: { in_back_line: {} } }, details: { atk_up: { milliPercentage: { ss: 5000 } }, acc_up: { milliPercentage: { ss: 60000 } }, cri_up: { milliPercentage: { ss: 24000 } } } }]
+      [{ condition: { trigger: 'start_round', state: { grid: 'back_line' } }, details: { atk_up: { milliPercentage: { ss: 2800 } }, acc_up: { milliPercentage: { ss: 38500 } }, cri_up: { milliPercentage: { ss:  9500 } } } }],
+      [{ condition: { trigger: 'start_round', state: { grid: 'back_line' } }, details: { atk_up: { milliPercentage: { ss: 3000 } }, acc_up: { milliPercentage: { ss: 40000 } }, cri_up: { milliPercentage: { ss: 10000 } } } }],
+      [{ condition: { trigger: 'start_round', state: { grid: 'back_line' } }, details: { atk_up: { milliPercentage: { ss: 3200 } }, acc_up: { milliPercentage: { ss: 41500 } }, cri_up: { milliPercentage: { ss: 11000 } } } }],
+      [{ condition: { trigger: 'start_round', state: { grid: 'back_line' } }, details: { atk_up: { milliPercentage: { ss: 3400 } }, acc_up: { milliPercentage: { ss: 43000 } }, cri_up: { milliPercentage: { ss: 12000 } } } }],
+      [{ condition: { trigger: 'start_round', state: { grid: 'back_line' } }, details: { atk_up: { milliPercentage: { ss: 3600 } }, acc_up: { milliPercentage: { ss: 45000 } }, cri_up: { milliPercentage: { ss: 13000 } } } }],
+      [{ condition: { trigger: 'start_round', state: { grid: 'back_line' } }, details: { atk_up: { milliPercentage: { ss: 3800 } }, acc_up: { milliPercentage: { ss: 47000 } }, cri_up: { milliPercentage: { ss: 14000 } } } }],
+      [{ condition: { trigger: 'start_round', state: { grid: 'back_line' } }, details: { atk_up: { milliPercentage: { ss: 4000 } }, acc_up: { milliPercentage: { ss: 49000 } }, cri_up: { milliPercentage: { ss: 16000 } } } }],
+      [{ condition: { trigger: 'start_round', state: { grid: 'back_line' } }, details: { atk_up: { milliPercentage: { ss: 4200 } }, acc_up: { milliPercentage: { ss: 51000 } }, cri_up: { milliPercentage: { ss: 18000 } } } }],
+      [{ condition: { trigger: 'start_round', state: { grid: 'back_line' } }, details: { atk_up: { milliPercentage: { ss: 4400 } }, acc_up: { milliPercentage: { ss: 53000 } }, cri_up: { milliPercentage: { ss: 20000 } } } }],
+      [{ condition: { trigger: 'start_round', state: { grid: 'back_line' } }, details: { atk_up: { milliPercentage: { ss: 4600 } }, acc_up: { milliPercentage: { ss: 55000 } }, cri_up: { milliPercentage: { ss: 22000 } } } }],
+      [{ condition: { trigger: 'start_round', state: { grid: 'back_line' } }, details: { atk_up: { milliPercentage: { ss: 5000 } }, acc_up: { milliPercentage: { ss: 60000 } }, cri_up: { milliPercentage: { ss: 24000 } } } }]
     ]
   },
   observation_gear: {

@@ -203,15 +203,18 @@
       "form": "<$t(effect:form.{{form}})>である",
       "equipped": "$t(effect:quote){{equipment}}$t(effect:unquote)を装備している",
       "not_equipped": "{{equipments}}を装備していない",
-      "in_front_line": "前列にいる",
-      "in_mid_line": "中列にいる",
-      "in_back_line": "後列にいる",
+      "grid": "$t(effect:condition.grid.{{grid}})にいる",
       "in_squad": "{{unit}}がいる",
       "unit": "{{unit}}である",
       "num_of_units": "$t(effect:unit.self)を除く$t(effect:unit.{{unit}})が{{greater_or_equal}}体以上いる",
       "num_of_enemies": "{{greater_or_equal}}～{{less_or_equal}}体である",
       "num_of_enemies_ge": "{{greater_or_equal}}体以上いる",
       "effected_by": "{{unit}}のスキル効果を受けている"
+    },
+    "grid": {
+      "front_line": "前列",
+      "mid_line": "中列",
+      "back_line": "後列"
     },
     "target": {
       "self": "$t(effect:unit.self)が",

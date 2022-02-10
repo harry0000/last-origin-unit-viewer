@@ -30,32 +30,17 @@ export type UnitAliasExceptUnit = {
   except: UnitNumber
 }
 
+export const GridState = {
+  FrontLine: 'front_line',
+  MidLine: 'mid_line',
+  BackLine: 'back_line'
+} as const;
+export type GridState = typeof GridState[keyof typeof GridState]
+
 type HPRateEffectActivationStateKey =
   typeof EffectActivationState['HpGreaterOrEqual' | 'HpLessOrEqual' | 'HpGreaterThan' | 'HpLessThan']
 
-type NoValueEffectActivationStateKey =
-  Exclude<
-    EffectActivationState,
-    HPRateEffectActivationStateKey |
-    typeof EffectActivationState[
-      'Effected' |
-      'Tagged' |
-      'NotTagged' |
-      'StackGe' |
-      'Form' |
-      'Equipped' |
-      'NotEquipped' |
-      'InSquad' |
-      'EffectedBy' |
-      'Unit' |
-      'NumOfUnits'
-    ]
-  >
-
 type ActivationState =
-  {
-    [key in NoValueEffectActivationStateKey]?: Record<string, never>
-  } &
   {
     [key in HPRateEffectActivationStateKey]?: number
   } &
@@ -89,6 +74,8 @@ export type ActivationSelfState =
   } &
   {
     [EffectActivationState.EffectedBy]?: UnitNumber
+  } & {
+    [EffectActivationState.Grid]?: GridState
   } &
   {
     [EffectActivationState.Unit]?: UnitAliasExceptUnit
@@ -98,6 +85,8 @@ export type ActivationTargetState =
   ActivationState &
   {
     [EffectActivationState.EffectedBy]?: UnitNumber | UnitAliasExceptUnit
+  } & {
+    [EffectActivationState.Grid]?: GridState
   } &
   {
     [EffectActivationState.Unit]?:

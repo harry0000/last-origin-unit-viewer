@@ -126,8 +126,8 @@ function translateCondition(condition: EquipmentEffectActivationCondition, t: TF
       .entries(condition.state)
       .map(entry => {
         switch (entry[0]) {
-        case EffectActivationState.InBackLine:
-          return t('effect:condition.state.in_back_line');
+        case EffectActivationState.Grid:
+          return t('effect:condition.state.grid', { grid: entry[1] });
         case EffectActivationState.HpGreaterOrEqual:
           return t('effect:condition.state.hp_greater_or_equal', { value: entry[1] });
         case EffectActivationState.Effected:

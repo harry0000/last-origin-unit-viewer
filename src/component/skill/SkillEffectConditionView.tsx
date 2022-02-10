@@ -96,10 +96,8 @@ function stateValuesView(entry: StateValuesEntry, unitNumber: UnitNumber, t: TFu
     const equipments = entry[1].map(e => `${t('effect:quote')}${t(`equipment:${e}`)}${t('effect:unquote')}`).join('');
     return (<span>{t(`effect:condition.state.${entry[0]}`, { equipments })}</span>);
   }
-  case 'in_front_line':
-  case 'in_mid_line':
-  case 'in_back_line':
-    return (<span>{t(`effect:condition.state.${entry[0]}`)}</span>);
+  case 'grid':
+    return (<span>{t(`effect:condition.state.${entry[0]}`, { grid: entry[1] })}</span>);
   default: {
     const _exhaustiveCheck: never = entry;
     return _exhaustiveCheck;
