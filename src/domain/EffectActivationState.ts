@@ -3,7 +3,6 @@ export const EffectActivationState = {
   HpLessOrEqual: 'hp_less_or_equal',
   HpGreaterThan: 'hp_greater_than',
   HpLessThan: 'hp_less_than',
-  Protected: 'protected',
   Effected: 'effected',
   Tagged: 'tagged',
   NotTagged: 'not_tagged',

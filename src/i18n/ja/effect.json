@@ -195,7 +195,6 @@
       "hp_less_or_equal": "HP{{value}}%以下である",
       "hp_greater_than":  "HP{{value}}%より多い",
       "hp_less_than": "HP{{value}}%未満である",
-      "protected": "保護対象である",
       "effected": "$t(effect:effect.name.{{effect}})状態である",
       "tagged": "<$t(effect:tag.{{tag}})>状態である",
       "not_tagged": "<$t(effect:tag.{{tag}})>状態でない",
