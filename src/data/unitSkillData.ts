@@ -1538,7 +1538,7 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
         details: {
           self: {
             def_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
@@ -1546,7 +1546,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }] } }],
         details: {
           self: {
             def_up: { base: { milliPercentage: 12500 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
@@ -1554,7 +1554,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
         details: {
           self: {
             def_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
@@ -1650,7 +1650,7 @@ export const unitSkillData: UnitSkillData = {
     }, {
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }, { in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }, { grid: 'back_line' }] } }],
         details: {
           self: {
             atk_up: { tag: 'rifled_mortar', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } },
@@ -1779,7 +1779,7 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         details: { self: { anti_heavy_type: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
@@ -1845,7 +1845,7 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'fixed_front_line',
       effects: [{
-        conditions: [{ trigger: 'start_wave', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_wave', state: { self: [{ grid: 'front_line' }] } }],
         details: {
           target: {
             ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
@@ -2110,7 +2110,7 @@ export const unitSkillData: UnitSkillData = {
     }, {
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }, { in_mid_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }, { grid: 'mid_line' }] } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
@@ -2120,7 +2120,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 375 }, term: { for_rounds: 1 } },
@@ -2307,14 +2307,14 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'critical' }],
         details: { self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } } } }
       }, {
-        conditions: [{ state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ state: { self: [{ grid: 'front_line' }] } }],
         details: { self: { ignore_barrier_dr: {} } }
       }]
     }],
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
@@ -2323,7 +2323,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }] } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
@@ -2332,7 +2332,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
@@ -2714,16 +2714,16 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'fixed_all',
       effects: [{
-        conditions: [{ trigger: 'start_wave', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_wave', state: { self: [{ grid: 'front_line' }] } }],
         details: { self: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 } } } }
       }, {
-        conditions: [{ trigger: 'start_wave', state: { self: [{ in_front_line: {} }], target: [{ unit: 'light' }] } }],
+        conditions: [{ trigger: 'start_wave', state: { self: [{ grid: 'front_line' }], target: [{ unit: 'light' }] } }],
         details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 } } } }
       }, {
         conditions: [{ trigger: 'start_wave', state: { target: [{ unit: 'anger_of_horde' }] } }],
         details: { target: { tag_stack: { tag: 'charging_order', term: 'infinite' } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }], target: [{ unit: 'light' }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }], target: [{ unit: 'light' }] } }],
         details: {
           target: {
             acc_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
@@ -2731,7 +2731,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }], target: [{ unit: 'heavy' }, { unit: 'flying' }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }], target: [{ unit: 'heavy' }, { unit: 'flying' }] } }],
         details: {
           target: {
             acc_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
@@ -2912,7 +2912,7 @@ export const unitSkillData: UnitSkillData = {
     }, {
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
         details: {
           self: {
             acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
@@ -2922,7 +2922,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }] } }],
         details: {
           self: {
             acc_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
@@ -2931,7 +2931,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
         details: {
           self: {
             acc_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
@@ -3012,13 +3012,13 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
         details: { self: { eva_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }] } }],
         details: { self: { eva_up: { base: { milliPercentage: 35000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
         details: { self: { eva_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'end_wave' }],
@@ -3151,7 +3151,7 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
         details: {
           self:{
             acc_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
@@ -3160,7 +3160,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }] } }],
         details: {
           self: {
             acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 }, term: { for_rounds: 1 } },
@@ -3233,13 +3233,13 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'end_wave' }],
         details: { self: { reconnaissance: {} } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
         details: { self: { eva_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }] } }],
         details: { self: { eva_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
         details: { self: { eva_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } } } }
       }]
     }, {
@@ -3711,13 +3711,13 @@ export const unitSkillData: UnitSkillData = {
       cost: 7,
       area: 'single',
       effects: [{
-        conditions: [{ state: { target: [{ in_front_line: {} }] } }],
+        conditions: [{ state: { target: [{ grid: 'front_line' }] } }],
         details: { self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } } } }
       }, {
-        conditions: [{ state: { target: [{ in_mid_line: {} }] } }],
+        conditions: [{ state: { target: [{ grid: 'mid_line' }] } }],
         details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 } } } }
       }, {
-        conditions: [{ state: { target: [{ in_back_line: {} }] } }],
+        conditions: [{ state: { target: [{ grid: 'back_line' }] } }],
         details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
       }, {
         conditions: [{ trigger: 'use_this_active' }],
@@ -3835,7 +3835,7 @@ export const unitSkillData: UnitSkillData = {
     }, {
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 16500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
@@ -3844,7 +3844,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }] } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 27000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
@@ -3853,7 +3853,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
@@ -4299,13 +4299,13 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
         details: { self: { eva_up: { base: { milliPercentage: 41000 }, per_lv_up: { milliPercentage: 6000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }] } }],
         details: { self: { eva_up: { base: { milliPercentage: 38000 }, per_lv_up: { milliPercentage: 5500 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
         details: { self: { eva_up: { base: { milliPercentage: 35000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'be_attacked' }],
@@ -4499,7 +4499,7 @@ export const unitSkillData: UnitSkillData = {
             }
           }
         }, {
-          conditions: [{ trigger: 'attack', state: { self: [{ in_mid_line: {} }, { in_back_line: {} }] } }],
+          conditions: [{ trigger: 'attack', state: { self: [{ grid: 'mid_line' }, { grid: 'back_line' }] } }],
           details: {
             self: {
               form_change: { form: 'optical_camouflage' },
@@ -5231,7 +5231,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
         details: { self: { counterattack: { base: { milliPercentage: 80000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
       }]
     }]
@@ -6231,10 +6231,10 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ state: { self: [{ grid: 'back_line' }] } }],
         details: { self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } } } }
       }, {
-        conditions: [{ state: { self: [{ in_mid_line: {} }] } }],
+        conditions: [{ state: { self: [{ grid: 'mid_line' }] } }],
         details: { self: { additional_damage: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 } } } }
       }, {
         conditions: [{ state: { self: [{ stack_ge: { tag: 'where_are_you_looking_at', value: 3 } }] } }],
@@ -6612,7 +6612,7 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
         details: {
           self: {
             acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
@@ -6620,7 +6620,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }] } }],
         details: {
           self: {
             acc_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
@@ -6628,7 +6628,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
         details: {
           self: {
             acc_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
@@ -7001,13 +7001,13 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
         details: { self: { spd_up: { tag: 'guiding_technique', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }] } }],
         details: { self: { damage_reduction: { tag: 'balance_seeker', base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
         details: {
           self: {
             acc_up: { tag: 'secretive_research', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } },
@@ -7224,7 +7224,7 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'line_with_back',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
         details: {
           target: {
             spd_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 375 }, term: { for_rounds: 1 } },
@@ -7235,7 +7235,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }, { in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }, { grid: 'back_line' }] } }],
         details: {
           target: {
             spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } },
@@ -9522,7 +9522,7 @@ export const unitSkillData: UnitSkillData = {
     }, {
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
         details: {
           self: {
             defense_penetration: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
@@ -9531,7 +9531,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }] } }],
         details: {
           self: {
             defense_penetration: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
@@ -9618,11 +9618,97 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }, { tagged: 'clear_and_serene' }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }, { tagged: 'clear_and_serene' }] } }],
         details: { self: { eva_up: { milliPercentage: 30000, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'evade' }],
         details: { self: { counterattack: { base: { milliPercentage: 80000 }, per_lv_up: { milliPercentage: 5000 } } } }
+      }]
+    }]
+  },
+  148: {
+    no: 148,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 128000 },
+        per_lv_up: { milliPercentage: 8000 },
+        attribute: 'fire'
+      },
+      range: 3,
+      cost: 4,
+      area: 'row_slightly_attenuate',
+      effects: [{
+        details: {
+          target: {
+            fixed_fire_damage_over_time: { base: { value: 640 }, per_lv_up: { value: 40 }, term: { for_rounds: 3 } },
+            fire_resist_down: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 } },
+            immovable: { term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }, {
+      range: 6,
+      cost: 7,
+      area: 'fixed_diagonal',
+      effects: [{
+        details: {
+          target: {
+            ice_resist_up: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 } },
+            barrier: { base: { value: 640 }, per_lv_up: { value: 40 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ state: { self: [{ grid: 'area_of_effect' }], target: [{ unit: 'light' }] } }],
+        details: { target: { eva_up: { base: { milliPercentage: 22000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            ice_resist_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
+            damage_reduction: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_wave' }],
+        details: { self: { ap_up: { base: { microValue: 2200000 }, per_lv_up: { microValue: 200000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_diagonal',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          target: {
+            target_protect: { term: { for_rounds: 1 } },
+            ice_resist_up: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'attacker' }] } }],
+        details: { target: { atk_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'supporter' }] } }],
+        details: { target: { spd_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'end_wave' }],
+        details: { self: { reconnaissance: {} } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { self: [{ effected: 'reconnaissance' }] } }],
+        details: { self: { minimize_damage: { times: 2, term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_wave' }],
+        details: {
+          target: {
+            status_resist_down: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
+            fire_resist_down: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } }
+          }
+        }
       }]
     }]
   },
@@ -9689,7 +9775,7 @@ export const unitSkillData: UnitSkillData = {
     }, {
       area: 'inverted_fan_shape',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }], target: [{ unit: 'flying' }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }], target: [{ unit: 'flying' }] } }],
         details: {
           target: {
             acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
@@ -9698,7 +9784,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }], target: [{ unit: 'flying' }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }], target: [{ unit: 'flying' }] } }],
         details: {
           target: {
             acc_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
@@ -9707,7 +9793,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }], target: [{ unit: 'flying' }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }], target: [{ unit: 'flying' }] } }],
         details: {
           target: {
             acc_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
@@ -11745,6 +11831,116 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  189: {
+    no: 189,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 165000 },
+        per_lv_up: { milliPercentage: 15000 }
+      },
+      range: 3,
+      cost: 6,
+      area: 'single',
+      effects: [{
+        details: { target: { stunned: { term: { for_rounds: 2 }, rate: 'constant' } } }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        details: { self: { additional_damage: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 } } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 265000 },
+        per_lv_up: { milliPercentage: 15000 }
+      },
+      range: 4,
+      cost: 9,
+      area: 'single_and_front_middle_explosion',
+      effects: [{
+        details: {
+          self: { ignore_protect: {} },
+          target: { def_down: { base: { milliPercentage: 43000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 3 } } }
+        }
+      }, {
+        conditions: [{ state: { squad: { in_squad: 84 } } }],
+        details: { self: { cooperative_attack: { unit: 84, active: 2 } } }
+      }, {
+        conditions: [{ state: { squad: { in_squad: 119 } } }],
+        details: { self: { cooperative_attack: { unit: 119, active: 1 } } }
+      }, {
+        conditions: [{ state: { squad: { in_squad: 120 } } }],
+        details: { self: { cooperative_attack: { unit: 120, active: 2 } } }
+      }, {
+        conditions: [{ state: { squad: { in_squad: 122 } } }],
+        details: { self: { cooperative_attack: { unit: 122, active: 2 } } }
+      }, {
+        conditions: [{ state: { squad: { in_squad: 133 } } }],
+        details: { self: { cooperative_attack: { unit: 133, active: 2 } } }
+      }, {
+        conditions: [{ state: { squad: { in_squad: 137 } } }],
+        details: { self: { cooperative_attack: { unit: 137, active: 2 } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { num_of_units: 'ally' },
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 4300 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'tag_team',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 16000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'idle' }],
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            spd_up: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            defense_penetration: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }, {
+      area: 'tag_team',
+      effects: [{
+        conditions: [{
+          trigger: 'start_round',
+          state: { target: [{ unit: 84 }, { unit: 119 }, { unit: 120 }, { unit: 122 }, { unit: 133 }, { unit: 137 }, { unit: 189 }] }
+        }],
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 5250 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{
+          trigger: 'idle',
+          state: { target: [{ unit: 84 }, { unit: 119 }, { unit: 120 }, { unit: 122 }, { unit: 133 }, { unit: 137 }, { unit: 189 }] }
+        }],
+        details: {
+          // TODO: self or target ???
+          target: {
+            atk_up: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            spd_up: { base: { milliPercentage: 5250 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 2 } },
+            defense_penetration: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }]
+  },
   190: {
     no: 190,
     active: [{
@@ -12783,7 +12979,7 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_front_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 24000 }, per_lv_up: { milliPercentage: 1200 } },
@@ -12792,7 +12988,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_mid_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }] } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 18000 }, per_lv_up: { milliPercentage: 900 } },
@@ -12801,7 +12997,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ in_back_line: {} }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 600 } },
@@ -13563,8 +13759,10 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         conditions: [{ state: { self: [{ tagged: 'heat_absorption' }] } }],
         details: {
-          self: { tag_release: { tag: 'heat_absorption' } },
-          target: { additional_ice_damage: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 } } }
+          self: {
+            tag_release: { tag: 'heat_absorption', term: 'immediate' },
+            additional_ice_damage: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 }, term: 'immediate' }
+          }
         }
       }]
     }],

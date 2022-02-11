@@ -1164,6 +1164,16 @@ export const unitCoreLinkBonusData: UnitCoreLinkBonusData = {
       { spd_up: { microValue: 100000 } }
     ]
   },
+  148: {
+    specific_link_bonus: { acc_up: { milliPercentage: 7000 } },
+    full_link_bonus: [
+      { sortie_cost: { milliPercentage: 25000 } },
+      { hp_up: { milliPercentage: 20000 } },
+      { acc_up: { milliPercentage: 75000 } },
+      { buff_debuff_lv_up: { value: 2 } },
+      { spd_up: { microValue: 100000 } }
+    ]
+  },
   149: {
     specific_link_bonus: { cri_up: { milliPercentage: 2000 } },
     full_link_bonus: [
@@ -1401,6 +1411,16 @@ export const unitCoreLinkBonusData: UnitCoreLinkBonusData = {
       { acc_up: { milliPercentage: 75000 } },
       { range_up: { value: 1 } },
       { buff_debuff_lv_up: { value: 2 } },
+      { spd_up: { microValue: 100000 } }
+    ]
+  },
+  189: {
+    specific_link_bonus: { damage_multiplier: { milliPercentage: 2000 } },
+    full_link_bonus: [
+      { sortie_cost: { milliPercentage: 25000 } },
+      { damage_multiplier: { milliPercentage: 20000 } },
+      { acc_up: { milliPercentage: 75000 } },
+      { cri_up: { milliPercentage: 20000 } },
       { spd_up: { microValue: 100000 } }
     ]
   },

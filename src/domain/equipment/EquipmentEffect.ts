@@ -1,9 +1,10 @@
 import { Effect } from '../Effect';
 import { EffectActivationState } from '../EffectActivationState';
 import { EffectTrigger } from '../EffectTrigger';
+import { GridState } from '../skill/SkillEffectActivationCondition';
+import { IntegerValue, MicroValue, MilliPercentageValue } from '../ValueUnit';
 import { SkillEffectTag } from '../skill/SkillEffectTag';
 import { UnitKind } from '../UnitBasicInfo';
-import { IntegerValue, MicroValue, MilliPercentageValue } from '../ValueUnit';
 
 export type NoValueEffectKey = typeof Effect[
   'MinimizeDamage' |
@@ -87,7 +88,7 @@ export type EquipmentEffectValue = Readonly<{
 }>
 
 type ActivationState = Readonly<{
-  [EffectActivationState.InBackLine]?: Record<string, never>,
+  [EffectActivationState.Grid]?: typeof GridState.BackLine,
   [EffectActivationState.HpGreaterOrEqual]?: 25,
   [EffectActivationState.Effected]?: Effect,
   [EffectActivationState.Tagged]?: SkillEffectTag,

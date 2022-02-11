@@ -7,6 +7,7 @@ export const SkillAreaType = {
   TwoByTwo: '2_x_2',
   TwoByThree: '2_x_3',
   MercilessCat: 'merciless_cat',
+  TagTeam: 'tag_team',
   FanShape: 'fan_shape',
   FanShapeWithoutFront: 'fan_shape_without_front',
   InvertedFanShape: 'inverted_fan_shape',
@@ -73,6 +74,7 @@ export const SkillAreaType = {
   FixedBackLine: 'fixed_back_line',
   FixedMiddleRow: 'fixed_middle_row',
   FixedCross: 'fixed_cross',
+  FixedDiagonal: 'fixed_diagonal',
   FixedAll: 'fixed_all',
 } as const;
 export type SkillAreaType = typeof SkillAreaType[keyof typeof SkillAreaType]
