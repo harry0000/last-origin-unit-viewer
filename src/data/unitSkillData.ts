@@ -2998,7 +2998,7 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { ap_up: { base: { microValue: 800000 }, per_lv_up: { microValue: 40000 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ effected: 'reconnaissance' }], target: [{ unit: 'light' }, { unit: 'heavy' }] } }],
-        details: { self: { ap_up: { base: { microValue: 400000 }, per_lv_up: { microValue: 20000 } } } }
+        details: { target: { ap_up: { base: { microValue: 400000 }, per_lv_up: { microValue: 20000 } } } }
       }]
     }, {
       area: 'front_line_adjacent',
