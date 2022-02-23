@@ -20,11 +20,16 @@ import {
   MilliPercentageValue,
   ValueUnit
 } from '../ValueUnit';
+import {
+  SelfSkillEffectActivationCondition,
+  SkillEffectActivationTrigger,
+  TargetSkillEffectActivationCondition
+} from './SkillEffectActivationCondition';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import { SkillEffectActivationRate } from './SkillEffectActivationRate';
-import { SkillEffectActivationCondition } from './SkillEffectActivationCondition';
 import { SkillEffectScaleFactor } from './SkillEffectScaleFactor';
 import { SkillEffectTag, SkillEffectTagStackValue } from './SkillEffectTag';
+import { SkillEffectTarget } from './SkillEffectData';
 import { SkillEffectTerm, SkillEffectTermRoundsValue } from './SkillEffectTerm';
 import { SkillEffectTimesValue } from './SkillEffectTimesValue';
 import { UnitForms } from '../UnitFormValue';
@@ -97,18 +102,46 @@ export type AroundSkillEffectValue = Readonly<{
   [Effect.FixedDamage]?: ValueWithAddition<'milliPercentage'>
 }>
 
-export type SkillEffect = Readonly<{
+export type SelfSkillEffect = Readonly<{
   conditions?:
-    readonly [SkillEffectActivationCondition] |
-    readonly [SkillEffectActivationCondition, SkillEffectActivationCondition],
+    readonly [SelfSkillEffectActivationCondition] |
+    readonly [SelfSkillEffectActivationCondition, SelfSkillEffectActivationCondition],
   effective?: PassiveSkillEffective,
   scale_factor?: SkillEffectScaleFactor,
+  details: { readonly self: SkillEffectValue }
+}>
+
+type TargetSkillEffect = Readonly<{
+  conditions?:
+    readonly [TargetSkillEffectActivationCondition] |
+    readonly [TargetSkillEffectActivationCondition, TargetSkillEffectActivationCondition],
+  effective?: PassiveSkillEffective,
+  scale_factor?: SkillEffectScaleFactor,
+  target: SkillEffectTarget,
   details: {
     readonly self?: SkillEffectValue,
-    readonly target?: SkillEffectValue,
-    readonly around?: AroundSkillEffectValue
+    readonly target?: SkillEffectValue
   }
 }>
+
+type AroundSkillEffect = Readonly<{
+  conditions: readonly [SkillEffectActivationTrigger],
+  details: { readonly around: AroundSkillEffectValue }
+}>
+
+export function isSelfSkillEffect(arg: SkillEffect): arg is SelfSkillEffect {
+  return !isTargetSkillEffect(arg) && !isAroundSkillEffect(arg);
+}
+
+export function isTargetSkillEffect(arg: SkillEffect): arg is TargetSkillEffect {
+  return 'target' in arg;
+}
+
+export function isAroundSkillEffect(arg: SkillEffect): arg is AroundSkillEffect {
+  return 'around' in arg.details;
+}
+
+export type SkillEffect = SelfSkillEffect | TargetSkillEffect | AroundSkillEffect
 
 export type DamageDeal = {
   milliPercentage: number,

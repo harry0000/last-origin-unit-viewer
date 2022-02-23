@@ -162,6 +162,11 @@
       "start_wave": "戦闘開始時",
       "end_wave": "戦闘終了後(次の戦闘開始時)",
       "start_round": "ラウンド開始時",
+      "round": {
+        "at": "{{round}}ラウンド目開始時",
+        "from": "{{round}}ラウンド目以降、ラウンド開始時",
+        "until": "{{round}}ラウンド目まで、ラウンド開始時"
+      },
       "idle": "待機時",
       "kill": "自分が敵を倒した時",
       "be_killed": "自分が倒された時",
@@ -184,11 +189,6 @@
       "critical": "クリティカル時",
       "counter": "反撃時",
       "revive": "戦闘続行発動時"
-    },
-    "round": {
-      "at": "{{round}}ラウンド目の",
-      "from": "{{round}}ラウンド目以降、",
-      "until": "{{round}}ラウンド目まで、"
     },
     "state": {
       "hp_greater_or_equal": "HP{{value}}%以上である",
@@ -219,7 +219,6 @@
     },
     "target": {
       "self": "$t(effect:unit.self)が",
-      "target": "対象が",
       "squad": "分隊内に",
       "enemy": "敵が"
     }
@@ -436,17 +435,23 @@
       "attack_critical": "攻撃がクリティカル確定",
       "counterattack_critical": "反撃がクリティカル確定",
 
-      "deploy_defensive_wall": "空きマスに同じ行の後ろの味方を保護する防壁を生成 (最大{{times}}個)",
-      "amg_11_construction": "空きマスに挑発攻撃を行うAMG-11タレットを設置 (最大{{times}}体)",
-      "deploy_rabbit_d_field": "空きマスに同じ行の後ろの味方を保護するラビットを設置 (最大{{times}}体)",
-      "summon_hologram_tiger": "空きマスに被撃時に破壊されるホログラムタイガーを召喚 (最大{{times}}体)",
-      "golden_factory_construction": "空きマスにゴールデンファクトリーを設置 (最大{{times}}個)"
+      "deploy_defensive_wall": "同じ行の後ろの味方を保護する防壁を生成 (最大{{times}}個)",
+      "amg_11_construction": "挑発攻撃を行うAMG-11タレットを設置 (最大{{times}}体)",
+      "deploy_rabbit_d_field": "同じ行の後ろの味方を保護するラビットを設置 (最大{{times}}体)",
+      "summon_hologram_tiger": "被撃時に破壊されるホログラムタイガーを召喚 (最大{{times}}体)",
+      "golden_factory_construction": "ゴールデンファクトリーを設置 (最大{{times}}個)"
     },
     "target": {
       "self": "$t(effect:unit.self)",
+      "target": "対象",
       "single": "対象1体",
       "area": "範囲内の対象",
-      "around": "対象の周辺"
+      "around": "対象の周辺",
+      "kind": {
+        "ally": "味方対象",
+        "ally_grid": "味方空きマス",
+        "enemy": "敵対象"
+      }
     }
   },
   "damage": "ダメージ",
@@ -464,6 +469,7 @@
     "annotation": "このスキルの効果は、他のスキルの発動条件に使用されません"
   },
 
+  "case_particle": "が",
   "case": "場合",
   "below_effects": "以下の効果",
 
@@ -472,14 +478,18 @@
   "with_quotes": "$t(effect:quote){{value}}$t(effect:unquote)",
 
   "separator": "、",
-  "and_separator": " & ",
-  "or_separator": " or ",
+  "and_separator": "と",
+
+  "or_symbolic_separator": " / ",
+  "and_symbolic_separator": " & ",
 
   "tag_separator": "：",
+  "unit_separator": "/",
 
   "or_conjunction": "または",
   "as_preposition": "の",
   "of_preposition": "の",
+  "to_preposition": "に",
   "except_preposition": "を除く",
 
   "negative_form": "ではない"

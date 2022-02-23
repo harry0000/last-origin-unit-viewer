@@ -8,24 +8,35 @@ export function mapObjectValue<K extends string | number | symbol, V, R>(object:
   return Object.fromEntries(Object.entries<V>(object).map(([key, value]) => [key, f(value)])) as Record<K, R>;
 }
 
-export type Entry<K extends string | number | symbol, T> = K extends keyof T ? readonly [`${string & K}`, T[K]] : never
-export type NonNullableEntry<K extends string | number | symbol, T> = K extends keyof T ? readonly [`${string & K}`, NonNullable<T[K]>] : never
+export type Entry<T> =
+  T extends Record<string | number | symbol, unknown> ?
+    keyof T extends string ?
+      NonNullable<{ [K in keyof T]: [`${string & K}`, T[K]] }[keyof T]> :
+      never :
+    never
 
-export function typedEntries<T, K extends keyof T = keyof T>(object: T): ReadonlyArray<Entry<K, T>> {
-  return Object.entries(object) as unknown as ReadonlyArray<Entry<K, T>>;
+export type NonNullableEntry<T> =
+  T extends Record<string | number | symbol, unknown> ?
+    keyof T extends string ?
+      NonNullable<{ [K in keyof T]: [`${string & K}`, NonNullable<T[K]>] }[keyof T]> :
+      never :
+    never
+
+export function typedEntries<T>(object: T): ReadonlyArray<Entry<T>> {
+  return Object.entries(object) as unknown as ReadonlyArray<Entry<T>>;
 }
 
-export function typedNonNullableEntries<T, K extends keyof T = keyof T>(object: T): ReadonlyArray<NonNullableEntry<K, T>> {
-  return Object.entries(object) as unknown as ReadonlyArray<NonNullableEntry<K, T>>;
+export function typedNonNullableEntries<T>(object: T): ReadonlyArray<NonNullableEntry<T>> {
+  return Object.entries(object) as unknown as ReadonlyArray<NonNullableEntry<T>>;
 }
 
 export function foldObjectNonNullableEntry<T, R, K extends keyof T = keyof T>(
   object: T,
-  f: (entry: NonNullableEntry<K, T>) => K extends keyof R ? R : never
+  f: (entry: NonNullableEntry<T>) => K extends keyof R ? R : never
 ): (z: R) => R {
   return function (z): R {
     return Object.entries(object).reduce<R>((acc, entry) => {
-      const r = entry[1] ? f(entry as unknown as NonNullableEntry<K, T>) : entry;
+      const r = entry[1] ? f(entry as unknown as NonNullableEntry<T>) : entry;
       return {
         ...acc,
         ...r

@@ -6,6 +6,8 @@ import { unitBasicData } from '../../data/unitBasicData';
 import { unitSkillData } from '../../data/unitSkillData';
 import { unitRankUpBonusData } from '../../data/unitRankUpBonusData';
 
+import { typedEntries } from '../../util/object';
+
 export function getUnitMaxRank(unit: UnitNumber): UnitRank {
   switch (unitSkillData[unit].passive.length) {
   case 3: return UnitRank.SS;
@@ -93,8 +95,7 @@ class UnitRankState {
     }
 
     const bonuses: Array<[UnitRank, RankUpBonus]> = [];
-    Object.entries<RankUpBonus>(unitRankUpBonusData[this.unit]).forEach(([key, bonus]) => {
-      const rank = key as UnitRank;
+    typedEntries(unitRankUpBonusData[this.unit]).forEach(([rank, bonus]) => {
       if (this.rank === rank || UnitRankComparator[this.rank].greaterThan(rank)) {
         bonuses.push([rank, bonus]);
       }

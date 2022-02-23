@@ -11,7 +11,6 @@ import {
 } from '../../domain/equipment/EquipmentEffect';
 import { calcMicroValue, calcMilliPercentageValue } from '../../domain/ValueUnit';
 
-import { Keyof } from '../../util/type';
 import { NonNullableEntry, typedNonNullableEntries } from '../../util/object';
 
 export type TranslatedEquipmentEffect = {
@@ -47,7 +46,7 @@ function buildDetail(body: string, value: EquipmentEffectAddition, t: TFunction)
   return `${rate}${body}${additions ? ` (${additions})` : '' }`;
 }
 
-function translateDetail(entry: NonNullableEntry<Keyof<EquipmentEffectValue>, EquipmentEffectValue>, t: TFunction): string {
+function translateDetail(entry: NonNullableEntry<EquipmentEffectValue>, t: TFunction): string {
   switch (entry[0]) {
   case Effect.MinimizeDamage:
   case Effect.AllDebuffRemoval:
@@ -138,7 +137,7 @@ function translateCondition(condition: EquipmentEffectActivationCondition, t: TF
           return t('effect:condition.state.unit', { unit: t(`effect:unit.${entry[1]}`) });
         }
       })
-      .join(t('effect:and_separator')) :
+      .join(t('effect:and_symbolic_separator')) :
     '';
 
   return `${trigger}${trigger && state ? t('effect:separator') : ''}${state}${state ? t('effect:case') : ''}`;

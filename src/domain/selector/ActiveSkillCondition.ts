@@ -28,20 +28,20 @@ export function matchActiveSkillConditions(
     case ActiveSkillCondition.FireActive:
       return actives.some(as =>
         as.damage_deal?.attribute === DamageAttribute.Fire ||
-        as.effects.some(e => !!e.details.self?.additional_fire_damage)
+        as.effects.some(e => 'self' in e.details && !!e.details.self?.additional_fire_damage)
       );
     case ActiveSkillCondition.IceActive:
       return actives.some(as =>
         as.damage_deal?.attribute === DamageAttribute.Ice ||
-        as.effects.some(e => !!e.details.self?.additional_ice_damage)
+        as.effects.some(e => 'self' in e.details && !!e.details.self?.additional_ice_damage)
       );
     case ActiveSkillCondition.ElectricActive:
       return actives.some(as =>
         as.damage_deal?.attribute === DamageAttribute.Electric ||
-        as.effects.some(e => !!e.details.self?.additional_electric_damage)
+        as.effects.some(e => 'self' in e.details && !!e.details.self?.additional_electric_damage)
       );
     case ActiveSkillCondition.IgnoreProtect:
-      return actives.some(as => as.effects.some(e => !!e.details.self?.ignore_protect));
+      return actives.some(as => as.effects.some(e => 'self' in e.details && !!e.details.self?.ignore_protect));
     case ActiveSkillCondition.AreaOfEffect:
       return actives.some(as => !!as.damage_deal && as.area !== SkillAreaType.Single);
     }
