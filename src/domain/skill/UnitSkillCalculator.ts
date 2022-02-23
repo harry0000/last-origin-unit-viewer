@@ -1,6 +1,14 @@
 import deepEqual from 'fast-deep-equal';
 
 import {
+  ActiveSkill,
+  AroundSkillEffectValue,
+  PassiveSkillAsEquipmentEffect,
+  PassiveSkill,
+  SkillEffect,
+  SkillEffectValue
+} from './UnitSkills';
+import {
   ActiveSkillData,
   PassiveSkillData,
   PassiveSkillDataAsEquipmentEffect,
@@ -8,16 +16,16 @@ import {
   SkillApCostValue,
   SkillAreaOfEffectData
 } from './UnitSkillData';
-import { AroundSkillEffectDataValue, SkillEffectData, SkillEffectDataValue } from './SkillEffectData';
-import { Effect } from '../Effect';
+import { AffectionBonus } from '../UnitAffection';
 import {
-  ActiveSkill,
-  PassiveSkillAsEquipmentEffect,
-  PassiveSkill,
-  SkillEffect,
-  SkillEffectValue,
-  AroundSkillEffectValue
-} from './UnitSkills';
+  AroundSkillEffectDataValue,
+  isAroundSkillEffectData,
+  isTargetSkillEffectData,
+  SkillEffectData,
+  SkillEffectDataValue
+} from './SkillEffectData';
+import { CoreLinkBonus, FullLinkBonus } from '../UnitCoreLinkBonusData';
+import { Effect } from '../Effect';
 import {
   IntegerValueEffectKey,
   MicroValueEffectKey,
@@ -27,13 +35,11 @@ import {
   RangeUpDownEffectKey
 } from './SkillEffect';
 import { SkillAreaType } from './SkillAreaOfEffect';
+import { SkillEffectTag } from './SkillEffectTag';
 import { SkillLv } from './UnitSkillLvValue';
 import { sumMilliPercentageValues, ValueUnit } from '../ValueUnit';
 
 import { foldObjectNonNullableEntry, NonNullableEntry } from '../../util/object';
-import { CoreLinkBonus, FullLinkBonus } from '../UnitCoreLinkBonusData';
-import { AffectionBonus } from '../UnitAffection';
-import { SkillEffectTag } from './SkillEffectTag';
 
 type SkillEffectLv = SkillLv | 11 | 12 | 13
 
@@ -255,7 +261,7 @@ function calculateMilliPercentageEffectValue(
 }
 
 function calculateEffectValue(
-  entry: NonNullableEntry<Exclude<Effect, typeof Effect.HpUp>, SkillEffectDataValue>,
+  entry: NonNullableEntry<Omit<SkillEffectDataValue, typeof Effect.HpUp>>,
   lv: SkillLv,
   effectLv: SkillEffectLv
 ): SkillEffectValue {
@@ -382,26 +388,27 @@ function calculateEffectDataValue(
   lv: SkillLv,
   effectLv: SkillEffectLv
 ): SkillEffectValue | undefined {
-  const calculated = data && foldObjectNonNullableEntry(data, entry =>
+  const calculated = foldObjectNonNullableEntry(data ?? {}, entry =>
     calculateEffectValue(entry, lv, effectLv)
   )({});
 
-  return calculated && !deepEqual(calculated, {}) ? calculated : undefined;
+  return !deepEqual(calculated, {}) ? calculated : undefined;
 }
 
 function calculateAroundEffectDataValue(
-  data: AroundSkillEffectDataValue | undefined,
+  data: AroundSkillEffectDataValue,
   lv: SkillLv,
   effectLv: SkillEffectLv
-): AroundSkillEffectValue | undefined {
+): AroundSkillEffectValue {
   return (
-    data?.fixed_damage &&
-    {
-      fixed_damage: {
-        ...calculateDataValue('milliPercentage', data.fixed_damage, effectLv),
-        ...calculateAddition(data.fixed_damage, lv)
-      }
-    }
+    data?.fixed_damage ?
+      {
+        fixed_damage: {
+          ...calculateDataValue('milliPercentage', data.fixed_damage, effectLv),
+          ...calculateAddition(data.fixed_damage, lv)
+        }
+      } :
+      {}
   );
 }
 
@@ -409,17 +416,36 @@ function calculateEffect(
   data: SkillEffectData,
   lv: SkillLv,
   effectLv: SkillEffectLv
-): SkillEffect {
-  return {
-    conditions: data.conditions,
-    effective: data.effective,
-    scale_factor: data.scale_factor,
-    details: {
-      self: calculateEffectDataValue(data.details.self, lv, effectLv),
-      target: calculateEffectDataValue(data.details.target, lv, effectLv),
-      around: calculateAroundEffectDataValue(data.details.around, lv, effectLv)
-    }
-  };
+): SkillEffect | undefined {
+  if (isAroundSkillEffectData(data)) {
+    const around = calculateAroundEffectDataValue(data.details.around, lv, effectLv);
+    return around && {
+      conditions: data.conditions,
+      details: { around }
+    };
+  } else if (isTargetSkillEffectData(data)) {
+    const self = calculateEffectDataValue(data.details.self, lv, effectLv);
+    const target = calculateEffectDataValue(data.details.target, lv, effectLv);
+    return self || target ?
+      {
+        conditions: data.conditions,
+        scale_factor: data.scale_factor,
+        target: data.target,
+        details: Object.assign(
+          self ? { self } : {},
+          target ? { target } : {},
+        )
+      } :
+      undefined;
+  } else {
+    const self = calculateEffectDataValue(data.details.self, lv, effectLv);
+    return self && {
+      conditions: data.conditions,
+      effective: data.effective,
+      scale_factor: data.scale_factor,
+      details: { self }
+    };
+  }
 }
 
 function calculateEffects(
@@ -428,8 +454,10 @@ function calculateEffects(
   effectLv: SkillEffectLv
 ): ReadonlyArray<SkillEffect> {
   return data
-    .map(effect => calculateEffect(effect, lv, effectLv))
-    .filter(effect => effect.details.self || effect.details.target || effect.details.around);
+    .flatMap(effect => {
+      const e = calculateEffect(effect, lv, effectLv);
+      return e ?? [];
+    });
 }
 
 export function calculateActiveSkill(

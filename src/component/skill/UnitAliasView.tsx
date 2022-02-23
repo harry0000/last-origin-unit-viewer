@@ -29,7 +29,11 @@ const UnitAliasView: React.FC<{
       placement='auto'
       overlay={popover}
     >
-      <span css={{ cursor: 'help', textDecoration: 'underline' }}>
+      <span css={{
+        display: 'inline-block',
+        cursor: 'help',
+        textDecoration: 'underline'
+      }}>
         {t(`effect:unit.${unitAlias}`)}
       </span>
     </OverlayTrigger>

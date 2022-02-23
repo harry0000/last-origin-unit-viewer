@@ -11,14 +11,23 @@ import {
 } from './SkillEffect';
 import { IntegerValue, ValueUnit } from '../ValueUnit';
 import { PassiveSkillEffective } from './SkillEffective';
-import { SkillEffectActivationCondition } from './SkillEffectActivationCondition';
+import {
+  SelfSkillEffectActivationCondition,
+  SkillEffectActivationTrigger,
+  TargetSkillEffectActivationCondition,
+  UnitAliasAndRole,
+  UnitAliasAndType,
+  UnitAliasExceptUnit,
+  UnitTypeAndRole
+} from './SkillEffectActivationCondition';
 import { SkillEffectActivationRate } from './SkillEffectActivationRate';
 import { SkillEffectScaleFactor } from './SkillEffectScaleFactor';
 import { SkillEffectTag, SkillEffectTagStackValue } from './SkillEffectTag';
 import { SkillEffectTerm, SkillEffectTermRoundsValue } from './SkillEffectTerm';
 import { SkillEffectTimesValue } from './SkillEffectTimesValue';
+import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
-import { UnitNumber } from '../UnitBasicInfo';
+import { UnitKind, UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
 
 type EffectValue<T extends ValueUnit> =
   {
@@ -110,22 +119,69 @@ export type SkillEffectDataValue = Readonly<{
       never
 }>
 
+export const SkillEffectTargetKind = {
+  Ally: 'ally',
+  AllyGrid: 'ally_grid', // for summon skill effects
+  Enemy: 'enemy'
+} as const;
+export type SkillEffectTargetKind = typeof SkillEffectTargetKind[keyof typeof SkillEffectTargetKind]
+
+export type SkillEffectTarget = Readonly<{
+  kind: typeof SkillEffectTargetKind.Ally,
+  conditions?: ReadonlyArray<
+    UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitNumber | UnitAlias | UnitAliasExceptUnit
+  >
+} | {
+  kind: typeof SkillEffectTargetKind.Enemy,
+  conditions?: ReadonlyArray<UnitType | UnitRole>
+} | {
+  kind: typeof SkillEffectTargetKind.AllyGrid
+}>
+
 export type AroundSkillEffectDataValue = Readonly<{
   [Effect.FixedDamage]?: ValueWithAddition<'milliPercentage'>
 }>
 
-export type SkillEffectData = Readonly<{
+type SelfSkillEffect = Readonly<{
   conditions?:
-    readonly [SkillEffectActivationCondition] |
-    readonly [SkillEffectActivationCondition, SkillEffectActivationCondition],
+    readonly [SelfSkillEffectActivationCondition] |
+    readonly [SelfSkillEffectActivationCondition, SelfSkillEffectActivationCondition],
   effective?: PassiveSkillEffective,
   scale_factor?: SkillEffectScaleFactor,
+  details: { readonly self: SkillEffectDataValue }
+}>
+
+type TargetSkillEffect = Readonly<{
+  conditions?:
+    readonly [TargetSkillEffectActivationCondition] |
+    readonly [TargetSkillEffectActivationCondition, TargetSkillEffectActivationCondition],
+  effective?: PassiveSkillEffective,
+  scale_factor?: SkillEffectScaleFactor,
+  target: SkillEffectTarget,
   details: {
     readonly self?: SkillEffectDataValue,
     readonly target?: SkillEffectDataValue,
-    readonly around?: AroundSkillEffectDataValue
   }
 }>
+
+type AroundSkillEffect = Readonly<{
+  conditions: readonly [SkillEffectActivationTrigger],
+  details: { readonly around: AroundSkillEffectDataValue }
+}>
+
+export function isSelfSkillEffectData(arg: SkillEffectData): arg is SelfSkillEffect {
+  return !isTargetSkillEffectData(arg) && !isAroundSkillEffectData(arg);
+}
+
+export function isTargetSkillEffectData(arg: SkillEffectData): arg is TargetSkillEffect {
+  return 'target' in arg;
+}
+
+export function isAroundSkillEffectData(arg: SkillEffectData): arg is AroundSkillEffect {
+  return 'around' in arg.details;
+}
+
+export type SkillEffectData = SelfSkillEffect | TargetSkillEffect | AroundSkillEffect
 
 export type SkillEffects = Readonly<{
   effects: ReadonlyArray<SkillEffectData>

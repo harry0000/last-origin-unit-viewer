@@ -1,14 +1,15 @@
 import { TFunction } from 'i18next';
 
-import { NonNullableEntry } from '../../util/object';
 import { AroundSkillEffectValue, SkillEffectValue } from '../../domain/skill/UnitSkills';
 import { Effect } from '../../domain/Effect';
 import { calcValue, MilliPercentageValue } from '../../domain/ValueUnit';
 import { isFormChangeUnitNumber, UnitForms } from '../../domain/UnitFormValue';
 
+import { NonNullableEntry } from '../../util/object';
+
 export type SkillEffectDetailsEntry =
-  NonNullableEntry<keyof SkillEffectValue, SkillEffectValue> |
-  NonNullableEntry<keyof AroundSkillEffectValue, AroundSkillEffectValue>
+  NonNullableEntry<SkillEffectValue> |
+  NonNullableEntry<AroundSkillEffectValue>
 
 type SkillEffectDetailsProps = { tag?: string, detail: string, term?: string }
 

@@ -16,7 +16,6 @@ import { toIntegerValue, toMicroValue, toMilliPercentageValue, toMilliValue } fr
 
 import { equipmentData } from '../../data/equipmentData';
 
-import { Keyof } from '../../util/type';
 import { foldObjectNonNullableEntry, NonNullableEntry, typedEntries } from '../../util/object';
 
 function extractStatusEffect(data: StatusEffectData): StatusEffect {
@@ -71,7 +70,7 @@ function extractValueUnitData<T extends number, U extends ValueUnit>(
 
 function calculateAddition(data: EffectAdditionData): EquipmentEffectAddition {
   const entries =
-    typedEntries(data).flatMap<NonNullableEntry<Keyof<EquipmentEffectAddition>, EquipmentEffectAddition>>(entry => {
+    typedEntries(data).flatMap<NonNullableEntry<EquipmentEffectAddition>>(entry => {
       switch (entry[0]) {
       case 'max_stack': {
         const value = entry[1];

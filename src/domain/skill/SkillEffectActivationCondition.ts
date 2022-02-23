@@ -25,9 +25,12 @@ export type UnitAliasAndRole = {
   role: UnitRole
 }
 
-export type UnitAliasExceptUnit = {
-  alias: UnitAlias,
-  except: UnitNumber
+export type UnitAliasExceptUnit<
+  A extends UnitAlias = UnitAlias,
+  E extends UnitNumber = UnitNumber
+> = {
+  alias: A,
+  except: E
 }
 
 export const GridState = {
@@ -75,23 +78,22 @@ export type ActivationSelfState =
   } &
   {
     [EffectActivationState.EffectedBy]?: UnitNumber
-  } & {
+  } &
+  {
     [EffectActivationState.Grid]?: GridState
   } &
   {
-    [EffectActivationState.Unit]?: UnitAliasExceptUnit
+    // HACK: for seize_opportunity tag
+    [EffectActivationState.Unit]?: UnitAliasExceptUnit<typeof UnitAlias.AngerOfHorde, 41>
   }
 
 export type ActivationTargetState =
   ActivationState &
   {
-    [EffectActivationState.EffectedBy]?: UnitNumber | UnitAliasExceptUnit
-  } & {
-    [EffectActivationState.Grid]?: Exclude<GridState, typeof GridState.AreaOfEffect>
+    [EffectActivationState.EffectedBy]?: UnitNumber | UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80>
   } &
   {
-    [EffectActivationState.Unit]?:
-      UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitNumber | UnitAlias | UnitAliasExceptUnit
+    [EffectActivationState.Grid]?: Exclude<GridState, typeof GridState.AreaOfEffect>
   }
 
 export type ActivationSquadState = {
@@ -110,23 +112,27 @@ export type ActivationEnemyState = {
     { greater_or_equal: 5 }
 }
 
-export type SkillEffectActivationState =
+export type SelfSkillEffectActivationState =
   { self: ReadonlyArray<ActivationSelfState> } |
-  { target: ReadonlyArray<ActivationTargetState> } |
   { squad: ActivationSquadState } |
   { enemy: ActivationEnemyState } |
+  {
+    self: ReadonlyArray<ActivationSelfState>,
+    squad: ActivationSquadState
+  }
+
+export type TargetSkillEffectActivationState =
+  { target: ReadonlyArray<ActivationTargetState> } |
   {
     self: ReadonlyArray<ActivationSelfState>,
     target: ReadonlyArray<ActivationTargetState>
   } |
   {
-    self: ReadonlyArray<ActivationSelfState>,
-    squad: ActivationSquadState
-  } |
-  {
     target: ReadonlyArray<ActivationTargetState>,
     squad: ActivationSquadState
   }
+
+export type SkillEffectActivationState = SelfSkillEffectActivationState | TargetSkillEffectActivationState
 
 export type SkillEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
@@ -135,7 +141,14 @@ export type SkillEffectActivationTrigger = {
   trigger: Exclude<EffectTrigger, typeof EffectTrigger.StartRound>
 }
 
-export type SkillEffectActivationCondition =
+export type SelfSkillEffectActivationCondition =
   SkillEffectActivationTrigger |
-  { state: SkillEffectActivationState } |
-  SkillEffectActivationTrigger & { state: SkillEffectActivationState }
+  { state: SelfSkillEffectActivationState } |
+  SkillEffectActivationTrigger & { state: SelfSkillEffectActivationState }
+
+export type TargetSkillEffectActivationCondition =
+  SelfSkillEffectActivationCondition |
+  { state: TargetSkillEffectActivationState } |
+  SkillEffectActivationTrigger & { state: TargetSkillEffectActivationState }
+
+export type SkillEffectActivationCondition = TargetSkillEffectActivationCondition

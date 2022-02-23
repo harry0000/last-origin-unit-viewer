@@ -15,6 +15,10 @@ import { SkillType, useSkillEffects } from '../../state/skill/unitSkillState';
 import { ifNonNullable } from '../../util/react';
 
 const SkillEffectView: React.FC<{ effect: SkillEffect, unitNumber: UnitNumber, area: SkillAreaType }> = ({ effect, unitNumber, area }) => {
+  const self   = 'self'   in effect.details ? effect.details.self   : undefined;
+  const target = 'target' in effect.details ? effect.details.target : undefined;
+  const around = 'around' in effect.details ? effect.details.around : undefined;
+
   return (
     <div
       css={{
@@ -22,15 +26,15 @@ const SkillEffectView: React.FC<{ effect: SkillEffect, unitNumber: UnitNumber, a
         borderRadius: 5,
         marginTop: 10,
         padding: 5,
-        '& > .skill-effect-details:not(:first-of-type)': {
+        '& > .skill-effect-details': {
           marginTop: 10
         }
       }}
     >
-      <SkillEffectConditionView {...effect} unitNumber={unitNumber} />
-      {ifNonNullable(effect.details.self, self => (<SkillEffectDetailsView className='skill-effect-details' target='self' details={self} area={area} />))}
-      {ifNonNullable(effect.details.target, target => (<SkillEffectDetailsView className='skill-effect-details' target='target' details={target} area={area} />))}
-      {ifNonNullable(effect.details.around, around => (<SkillEffectDetailsView className='skill-effect-details' target='around' details={around} area={area} />))}
+      <SkillEffectConditionView effect={effect} unitNumber={unitNumber} />
+      {ifNonNullable(self  , v => (<SkillEffectDetailsView className='skill-effect-details' target='self' details={v} area={area} />))}
+      {ifNonNullable(target, v => (<SkillEffectDetailsView className='skill-effect-details' target='target' details={v} area={area} />))}
+      {ifNonNullable(around, v => (<SkillEffectDetailsView className='skill-effect-details' target='around' details={v} area={area} />))}
     </div>
   );
 };
