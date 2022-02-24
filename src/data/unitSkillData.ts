@@ -3251,7 +3251,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: { self: { defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'kill' }],
+        conditions: [{ trigger: 'enemy_killed' }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 250 }, term: 'infinite' },
