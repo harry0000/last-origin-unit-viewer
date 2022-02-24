@@ -13225,6 +13225,74 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  210: {
+    no: 210,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 110000 },
+        per_lv_up: { milliPercentage: 10000 }
+      },
+      range: 2,
+      cost: 7,
+      area: 'line',
+      effects: [{
+        conditions: [{ trigger: 'critical' }],
+        details: { self: { additional_damage: { base: { milliPercentage: 48000 }, per_lv_up: { milliPercentage: 3000 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ tagged: 'smooth' }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 48000 }, per_lv_up: { milliPercentage: 3000 } } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 75000 },
+        per_lv_up: { milliPercentage: 5000 }
+      },
+      range: 4,
+      cost: 6,
+      area: 'line',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          self: { range_up: { value: 2, term: { for_rounds: 2 } } },
+          target: {
+            atk_down: { tag: 'smooth', base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            def_down: { tag: 'smooth', base: { milliPercentage: 48000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            acc_up: { base: { milliPercentage: 55000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'cross_adjacent_without_back',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 3200 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['attacker'] },
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
   215: {
     no: 215,
     active: [{
