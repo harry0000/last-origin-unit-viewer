@@ -93,6 +93,7 @@ export type SkillEffectTag =
   'collection_complete' |
   'parts_acquired' |
   'light_of_sky' |
+  'smooth' |
   'tactical_data_link' |
   'passive_radar' |
   'command_induction' |
