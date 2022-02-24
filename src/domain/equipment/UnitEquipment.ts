@@ -15,9 +15,9 @@ import { UnitLvValue } from '../status/UnitLv';
 import { UnitNumber } from '../UnitBasicInfo';
 import { calculateStatusEffect } from './EquipmentEffectCalculator';
 
-import { unitEquipmentSlot } from '../../data/unitEquipmentSlot';
+import { unitEquipmentSlotData } from '../../data/unitEquipmentSlotData';
 
-export type EquipmentSlotAvailableLv = typeof unitEquipmentSlot[UnitNumber][keyof typeof unitEquipmentSlot[UnitNumber]]
+export type EquipmentSlotAvailableLv = typeof unitEquipmentSlotData[UnitNumber][keyof typeof unitEquipmentSlotData[UnitNumber]]
 
 type EquipmentAttribute = Readonly<{
   rank: EquipmentRank,
@@ -74,7 +74,7 @@ export class UnitChip1Equipment {
   }
 
   get chip1AvailableLv(): EquipmentSlotAvailableLv {
-    return unitEquipmentSlot[this.unit].chip1;
+    return unitEquipmentSlotData[this.unit].chip1;
   }
 
   isChip1Available(lv: UnitLvValue): boolean {
@@ -130,7 +130,7 @@ export class UnitChip2Equipment {
   }
 
   get chip2AvailableLv(): EquipmentSlotAvailableLv {
-    return unitEquipmentSlot[this.unit].chip2;
+    return unitEquipmentSlotData[this.unit].chip2;
   }
 
   isChip2Available(lv: UnitLvValue): boolean {
@@ -186,7 +186,7 @@ export class UnitOsEquipment {
   }
 
   get osAvailableLv(): EquipmentSlotAvailableLv {
-    return unitEquipmentSlot[this.unit].os;
+    return unitEquipmentSlotData[this.unit].os;
   }
 
   isOsAvailable(lv: UnitLvValue): boolean {
@@ -242,7 +242,7 @@ export class UnitGearEquipment {
   }
 
   get gearAvailableLv(): EquipmentSlotAvailableLv {
-    return unitEquipmentSlot[this.unit].gear;
+    return unitEquipmentSlotData[this.unit].gear;
   }
 
   isGearAvailable(lv: UnitLvValue): boolean {
