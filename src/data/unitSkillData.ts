@@ -1940,10 +1940,10 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: {
           target: {
-            ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
-            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: 'infinite' },
-            cri_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite' },
-            damage_taken_increased: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: -1500 }, term: 'infinite' }
+            ap_up: { tag: 'charging_in_sir', base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
+            atk_up: { tag: 'charging_in_sir', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: 'infinite' },
+            cri_up: { tag: 'charging_in_sir', base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite' },
+            damage_taken_increased: { tag: 'charging_in_sir', base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: -1500 }, term: 'infinite' }
           }
         }
       }]
