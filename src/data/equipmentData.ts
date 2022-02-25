@@ -207,17 +207,17 @@ export const equipmentData = {
     type: 'chip',
     id: 'defense_chip_beta',
     status_effects: [
-      { def_up: { milliValue:  65000 }, atk_down: { milliValue: 25000 } },
-      { def_up: { milliValue:  71500 }, atk_down: { milliValue: 27500 } },
-      { def_up: { milliValue:  78000 }, atk_down: { milliValue: 30000 } },
-      { def_up: { milliValue:  84500 }, atk_down: { milliValue: 32500 } },
-      { def_up: { milliValue:  91000 }, atk_down: { milliValue: 35000 } },
-      { def_up: { milliValue:  97500 }, atk_down: { milliValue: 37500 } },
-      { def_up: { milliValue: 104000 }, atk_down: { milliValue: 40000 } },
-      { def_up: { milliValue: 110500 }, atk_down: { milliValue: 42500 } },
-      { def_up: { milliValue: 117000 }, atk_down: { milliValue: 45000 } },
-      { def_up: { milliValue: 123500 }, atk_down: { milliValue: 47500 } },
-      { def_up: { milliValue: 130000 }, atk_down: { milliValue: 50000 } }
+      { def_up: { milliValue: { ss:  65000 } }, atk_down: { milliValue: { ss: 25000 } } },
+      { def_up: { milliValue: { ss:  71500 } }, atk_down: { milliValue: { ss: 27500 } } },
+      { def_up: { milliValue: { ss:  78000 } }, atk_down: { milliValue: { ss: 30000 } } },
+      { def_up: { milliValue: { ss:  84500 } }, atk_down: { milliValue: { ss: 32500 } } },
+      { def_up: { milliValue: { ss:  91000 } }, atk_down: { milliValue: { ss: 35000 } } },
+      { def_up: { milliValue: { ss:  97500 } }, atk_down: { milliValue: { ss: 37500 } } },
+      { def_up: { milliValue: { ss: 104000 } }, atk_down: { milliValue: { ss: 40000 } } },
+      { def_up: { milliValue: { ss: 110500 } }, atk_down: { milliValue: { ss: 42500 } } },
+      { def_up: { milliValue: { ss: 117000 } }, atk_down: { milliValue: { ss: 45000 } } },
+      { def_up: { milliValue: { ss: 123500 } }, atk_down: { milliValue: { ss: 47500 } } },
+      { def_up: { milliValue: { ss: 130000 } }, atk_down: { milliValue: { ss: 50000 } } }
     ]
   },
   evasion_chip: {
@@ -275,17 +275,17 @@ export const equipmentData = {
     type: 'chip',
     id: 'hp_chip_beta',
     status_effects: [
-      { hp_up: { value: 240 }, atk_down: { milliValue: 25000 } },
-      { hp_up: { value: 288 }, atk_down: { milliValue: 27500 } },
-      { hp_up: { value: 336 }, atk_down: { milliValue: 30000 } },
-      { hp_up: { value: 384 }, atk_down: { milliValue: 32500 } },
-      { hp_up: { value: 432 }, atk_down: { milliValue: 35000 } },
-      { hp_up: { value: 480 }, atk_down: { milliValue: 37500 } },
-      { hp_up: { value: 528 }, atk_down: { milliValue: 40000 } },
-      { hp_up: { value: 576 }, atk_down: { milliValue: 42500 } },
-      { hp_up: { value: 624 }, atk_down: { milliValue: 45000 } },
-      { hp_up: { value: 672 }, atk_down: { milliValue: 47500 } },
-      { hp_up: { value: 720 }, atk_down: { milliValue: 50000 } }
+      { hp_up: { value: { ss: 240 } }, atk_down: { milliValue: { ss: 25000 } } },
+      { hp_up: { value: { ss: 288 } }, atk_down: { milliValue: { ss: 27500 } } },
+      { hp_up: { value: { ss: 336 } }, atk_down: { milliValue: { ss: 30000 } } },
+      { hp_up: { value: { ss: 384 } }, atk_down: { milliValue: { ss: 32500 } } },
+      { hp_up: { value: { ss: 432 } }, atk_down: { milliValue: { ss: 35000 } } },
+      { hp_up: { value: { ss: 480 } }, atk_down: { milliValue: { ss: 37500 } } },
+      { hp_up: { value: { ss: 528 } }, atk_down: { milliValue: { ss: 40000 } } },
+      { hp_up: { value: { ss: 576 } }, atk_down: { milliValue: { ss: 42500 } } },
+      { hp_up: { value: { ss: 624 } }, atk_down: { milliValue: { ss: 45000 } } },
+      { hp_up: { value: { ss: 672 } }, atk_down: { milliValue: { ss: 47500 } } },
+      { hp_up: { value: { ss: 720 } }, atk_down: { milliValue: { ss: 50000 } } }
     ]
   },
   lightweight_chip: {
