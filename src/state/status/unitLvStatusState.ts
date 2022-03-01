@@ -2,7 +2,6 @@ import {
   atomFamily,
   DefaultValue,
   RecoilValueReadOnly,
-  selector,
   selectorFamily,
   useRecoilValue,
   useSetRecoilState
@@ -42,6 +41,8 @@ import {
   updateOsEquipmentDependency
 } from '../equipment/unitEquipmentState';
 import { useSquad } from '../squad/squadState';
+
+import { setOnlySelector, setOnlySelectorFamily } from '../../util/recoil';
 
 type Status = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri'
 type StatusKey = `${Capitalize<Status>}`
@@ -191,9 +192,8 @@ const squadUnitCostState = selectorFamily<UnitCost, ReadonlyArray<{ unit: UnitBa
   }
 });
 
-const updateUnitLvDependency = selectorFamily<UnitLvValue, UnitNumber>({
+const updateUnitLvDependency = setOnlySelectorFamily<UnitLvValue, UnitNumber>({
   key: 'updateUnitLvDependency',
-  get: () => () => { throw new Error(); },
   set: (unit) => ({ set }, lv) => {
     set(updateChip1EquipmentDependency(unit), lv);
     set(updateChip2EquipmentDependency(unit), lv);
@@ -375,9 +375,8 @@ export function useUnitCurrentRank<N extends UnitNumber>(unit: N): AvailableUnit
   return useRecoilValue(unitCurrentRankState(unit));
 }
 
-const unitLvStatusRestore = selector<ReadonlyArray<UnitLvStatus>>({
+const unitLvStatusRestore = setOnlySelector<ReadonlyArray<UnitLvStatus>>({
   key: 'unitLvStatusRestore',
-  get: () => [],
   set: ({ set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
       newValue.forEach(v => set(unitLvStatusState(v.unit), v));

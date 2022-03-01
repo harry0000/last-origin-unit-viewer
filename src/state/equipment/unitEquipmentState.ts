@@ -3,7 +3,6 @@ import {
   DefaultValue,
   GetRecoilValue,
   RecoilValueReadOnly,
-  selector,
   selectorFamily,
   SetRecoilState,
   useRecoilState,
@@ -44,6 +43,8 @@ import { TranslatedEquipmentEffect, translateEquipmentEffect } from './Equipment
 import { translateEquipmentStatusEffects } from './EquipmentStatusEffectsTlanslator';
 import { unitLvState } from '../status/unitLvStatusState';
 
+import { setOnlySelector, setOnlySelectorFamily, updateSelectorFamily } from '../../util/recoil';
+
 export type EquipmentSlot = 'chip1' | 'chip2' | 'os' | 'gear'
 type EquipmentSlotKey = `${Capitalize<EquipmentSlot>}`
 
@@ -74,9 +75,8 @@ const gearEnhanceLvSelectorState = atomFamily<boolean, EquipmentEnhancementLevel
   default: (lv) => lv === 10
 });
 
-const updateChip1EnhanceLvSelector = selectorFamily<void, EquipmentEnhancementLevel>({
+const updateChip1EnhanceLvSelector = updateSelectorFamily<EquipmentEnhancementLevel>({
   key: 'updateChip1EnhanceLvSelector',
-  get: () => () => { throw new Error(); },
   set: (enhanceLv) => ({ set }) => {
     set(selectedEnhanceLvState('chip1'), enhanceLv);
     enhanceLvs.forEach(lv => {
@@ -85,9 +85,8 @@ const updateChip1EnhanceLvSelector = selectorFamily<void, EquipmentEnhancementLe
   }
 });
 
-const updateChip2EnhanceLvSelector = selectorFamily<void, EquipmentEnhancementLevel>({
+const updateChip2EnhanceLvSelector = updateSelectorFamily<EquipmentEnhancementLevel>({
   key: 'updateChip2EnhanceLvSelector',
-  get: () => () => { throw new Error(); },
   set: (enhanceLv) => ({ set }) => {
     set(selectedEnhanceLvState('chip2'), enhanceLv);
     enhanceLvs.forEach(lv => {
@@ -96,9 +95,8 @@ const updateChip2EnhanceLvSelector = selectorFamily<void, EquipmentEnhancementLe
   }
 });
 
-const updateOsEnhanceLvSelector = selectorFamily<void, EquipmentEnhancementLevel>({
+const updateOsEnhanceLvSelector = updateSelectorFamily<EquipmentEnhancementLevel>({
   key: 'updateOsEnhanceLvSelector',
-  get: () => () => { throw new Error(); },
   set: (enhanceLv) => ({ set }) => {
     set(selectedEnhanceLvState('os'), enhanceLv);
     enhanceLvs.forEach(lv => {
@@ -107,9 +105,8 @@ const updateOsEnhanceLvSelector = selectorFamily<void, EquipmentEnhancementLevel
   }
 });
 
-const updateGearEnhanceLvSelector = selectorFamily<void, EquipmentEnhancementLevel>({
+const updateGearEnhanceLvSelector = updateSelectorFamily<EquipmentEnhancementLevel>({
   key: 'updateGearEnhanceLvSelector',
-  get: () => () => { throw new Error(); },
   set: (enhanceLv) => ({ set }) => {
     set(selectedEnhanceLvState('gear'), enhanceLv);
     enhanceLvs.forEach(lv => {
@@ -119,9 +116,8 @@ const updateGearEnhanceLvSelector = selectorFamily<void, EquipmentEnhancementLev
   }
 });
 
-export const updateEquipmentEnhanceLvSelector = selector<UnitBasicInfo | undefined>({
+export const updateEquipmentEnhanceLvSelector = setOnlySelector<UnitBasicInfo | undefined>({
   key: 'updateEquipmentEnhanceLvSelector',
-  get: () => { throw new Error(); },
   set: ({ get, set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
       const chip1Lv = (newValue && get(_unitChip1EquipmentAtom(newValue.no)).chip1?.enhanceLv) ?? 10;
@@ -229,9 +225,8 @@ function updateGearInnerAtoms(get: GetRecoilValue, set: SetRecoilState, unit: Un
   }
 }
 
-export const updateChip1EquipmentDependency = selectorFamily<UnitLvValue, UnitNumber>({
+export const updateChip1EquipmentDependency = setOnlySelectorFamily<UnitLvValue, UnitNumber>({
   key: 'updateChip1EquipmentDependency',
-  get: () => () => { throw new Error(); },
   set: (unit) => ({ get, set }, lv) => {
     if (!(lv instanceof DefaultValue)) {
       updateChip1InnerAtoms(get, set, unit, get(unitChip1EquipmentState(unit)), lv);
@@ -239,9 +234,8 @@ export const updateChip1EquipmentDependency = selectorFamily<UnitLvValue, UnitNu
   }
 });
 
-export const updateChip2EquipmentDependency = selectorFamily<UnitLvValue, UnitNumber>({
+export const updateChip2EquipmentDependency = setOnlySelectorFamily<UnitLvValue, UnitNumber>({
   key: 'updateChip2EquipmentDependency',
-  get: () => () => { throw new Error(); },
   set: (unit) => ({ get, set }, lv) => {
     if (!(lv instanceof DefaultValue)) {
       updateChip2InnerAtoms(get, set, unit, get(unitChip2EquipmentState(unit)), lv);
@@ -249,9 +243,8 @@ export const updateChip2EquipmentDependency = selectorFamily<UnitLvValue, UnitNu
   }
 });
 
-export const updateOsEquipmentDependency = selectorFamily<UnitLvValue, UnitNumber>({
+export const updateOsEquipmentDependency = setOnlySelectorFamily<UnitLvValue, UnitNumber>({
   key: 'updateOsEquipmentDependency',
-  get: () => () => { throw new Error(); },
   set: (unit) => ({ get, set }, lv) => {
     if (!(lv instanceof DefaultValue)) {
       updateOsInnerAtoms(get, set, unit, get(unitOsEquipmentState(unit)), lv);
@@ -259,9 +252,8 @@ export const updateOsEquipmentDependency = selectorFamily<UnitLvValue, UnitNumbe
   }
 });
 
-export const updateGearEquipmentDependency = selectorFamily<UnitLvValue, UnitNumber>({
+export const updateGearEquipmentDependency = setOnlySelectorFamily<UnitLvValue, UnitNumber>({
   key: 'updateGearEquipmentDependency',
-  get: () => () => { throw new Error(); },
   set: (unit) => ({ get, set }, lv) => {
     if (!(lv instanceof DefaultValue)) {
       updateGearInnerAtoms(get, set, unit, get(unitGearEquipmentState(unit)), lv);
@@ -313,9 +305,8 @@ const unitGearEquipmentState = selectorFamily<UnitGearEquipment, UnitNumber>({
   }
 });
 
-const unitChip1EquipmentRestore = selector<ReadonlyArray<UnitChip1Equipment>>({
+const unitChip1EquipmentRestore = setOnlySelector<ReadonlyArray<UnitChip1Equipment>>({
   key: 'unitChip1EquipmentRestore',
-  get: () => [],
   set: ({ set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
       newValue.forEach(v => set(unitChip1EquipmentState(v.unit), v));
@@ -323,9 +314,8 @@ const unitChip1EquipmentRestore = selector<ReadonlyArray<UnitChip1Equipment>>({
   }
 });
 
-const unitChip2EquipmentRestore = selector<ReadonlyArray<UnitChip2Equipment>>({
+const unitChip2EquipmentRestore = setOnlySelector<ReadonlyArray<UnitChip2Equipment>>({
   key: 'unitChip2EquipmentRestore',
-  get: () => [],
   set: ({ set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
       newValue.forEach(v => set(unitChip2EquipmentState(v.unit), v));
@@ -333,9 +323,8 @@ const unitChip2EquipmentRestore = selector<ReadonlyArray<UnitChip2Equipment>>({
   }
 });
 
-const unitOsEquipmentRestore = selector<ReadonlyArray<UnitOsEquipment>>({
+const unitOsEquipmentRestore = setOnlySelector<ReadonlyArray<UnitOsEquipment>>({
   key: 'unitOsEquipmentRestore',
-  get: () => [],
   set: ({ set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
       newValue.forEach(v => set(unitOsEquipmentState(v.unit), v));
@@ -343,9 +332,8 @@ const unitOsEquipmentRestore = selector<ReadonlyArray<UnitOsEquipment>>({
   }
 });
 
-const unitGearEquipmentRestore = selector<ReadonlyArray<UnitGearEquipment>>({
+const unitGearEquipmentRestore = setOnlySelector<ReadonlyArray<UnitGearEquipment>>({
   key: 'unitGearEquipmentRestore',
-  get: () => [],
   set: ({ set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
       newValue.forEach(v => set(unitGearEquipmentState(v.unit), v));

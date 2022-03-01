@@ -18,7 +18,7 @@ import {
   useStatusParameterIncrement
 } from '../../state/status/unitLvStatusState';
 import { useSelectedUnit } from '../../state/selector/unitSelectorState';
-import { useStatusParameter } from '../../state/status/unitStatusParameterState';
+import { useEmptyStatusParameter, useStatusParameter } from '../../state/status/unitStatusParameterState';
 
 const parameterCol: CSSObject = {
   fontSize: '1.2em',
@@ -61,7 +61,7 @@ const StatusParameterValueView: React.FC<{ parameter: EnhanceableStatus | 'spd' 
     return (<span>{value}</span>);
   };
   const EmptyView: React.FC = () => {
-    const value = useStatusParameter(parameter);
+    const value = useEmptyStatusParameter(parameter);
     return (<span>{value}</span>);
   };
 

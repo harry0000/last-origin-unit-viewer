@@ -1,15 +1,17 @@
-import { atomFamily, DefaultValue, RecoilValueReadOnly, selector, useRecoilState, useSetRecoilState } from 'recoil';
+import { atomFamily, DefaultValue, RecoilValueReadOnly, useRecoilState, useSetRecoilState } from 'recoil';
+
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 import UnitDamagedState from '../../domain/UnitDamagedState';
+
+import { setOnlySelector } from '../../util/recoil';
 
 const unitDamagedState = atomFamily<UnitDamagedState, UnitNumber>({
   key: 'unitDamagedState',
   default: (unit) => new UnitDamagedState(unit)
 });
 
-const unitDamagedStateRestore = selector<ReadonlyArray<UnitDamagedState>>({
+const unitDamagedStateRestore = setOnlySelector<ReadonlyArray<UnitDamagedState>>({
   key: 'unitDamagedStateRestore',
-  get: () => [],
   set: ({ set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
       newValue.forEach(v => set(unitDamagedState(v.unit), v));

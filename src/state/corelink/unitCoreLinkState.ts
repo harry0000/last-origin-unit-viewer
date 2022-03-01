@@ -3,7 +3,6 @@ import {
   DefaultValue,
   GetRecoilValue,
   RecoilValueReadOnly,
-  selector,
   selectorFamily,
   SetRecoilState,
   useRecoilState,
@@ -19,6 +18,8 @@ import { UnitLvValue } from '../../domain/status/UnitLv';
 
 import { unitLvState } from '../status/unitLvStatusState';
 import { unitCoreLinkBonusData } from '../../data/unitCoreLinkBonusData';
+
+import { setOnlySelector, setOnlySelectorFamily } from '../../util/recoil';
 
 export type CoreLinkSlot = 'slot1' | 'slot2' | 'slot3' | 'slot4' | 'slot5'
 type CoreLinkSlotKey = `${Capitalize<CoreLinkSlot>}`
@@ -65,9 +66,8 @@ const _unitCoreLinkAtom = atomFamily<UnitCoreLink, UnitNumber>({
   default: (unit) => new UnitCoreLink(unit)
 });
 
-export const updateCoreLinkDependency = selectorFamily<UnitLvValue, UnitNumber>({
+export const updateCoreLinkDependency = setOnlySelectorFamily<UnitLvValue, UnitNumber>({
   key: 'updateCoreLinkDependency',
-  get: () => () => { throw new Error(); },
   set: (unit) => ({ get, set }, lv) => {
     if (!(lv instanceof DefaultValue)) {
       const coreLink = get(_unitCoreLinkAtom(unit));
@@ -106,9 +106,8 @@ function updateInnerAtoms(get: GetRecoilValue, set: SetRecoilState): (unit: Unit
   };
 }
 
-const unitCoreLinkRestore = selector<ReadonlyArray<UnitCoreLink>>({
+const unitCoreLinkRestore = setOnlySelector<ReadonlyArray<UnitCoreLink>>({
   key: 'unitCoreLinkRestore',
-  get: () => [],
   set: ({ set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
       newValue.forEach(v => set(unitCoreLinkState(v.unit), v));
