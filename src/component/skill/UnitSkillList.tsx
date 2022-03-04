@@ -11,6 +11,7 @@ import {
   PassiveSkillIcon
 } from '../icon/SkillIcons';
 import { Nav, Tab } from 'react-bootstrap';
+import UnitFormSelector from './UnitFormSelector';
 
 import {
   SkillType,
@@ -106,11 +107,12 @@ const Passive3SkillNavItem: React.FC = () => {
 
 const SkillPane = React.lazy(() => import('./SkillPane'));
 
-const UnitSkillList: React.FC<{ className?: string, css?: Interpolation<Theme> }> = (props) => {
+const UnitSkillList: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
   const [activeTab, setActiveTab] = useSkillTab();
 
   return (
     <div {...props}>
+      <UnitFormSelector />
       <Tab.Container
         id="unit-skill-viewer"
         activeKey={activeTab}

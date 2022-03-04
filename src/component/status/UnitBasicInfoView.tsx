@@ -62,9 +62,9 @@ const UnitInfoView: React.FC = () => {
   );
 };
 
-const UnitBasicInfoView: React.FC = () => {
+const UnitBasicInfoView: React.FC<{ className: string }> = ({ className }) => {
   return (
-    <div className="unit-basic-info-view">
+    <div className={`${className} unit-basic-info-view`}>
       <div>
         <UnitRankView />
       </div>

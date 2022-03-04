@@ -6,14 +6,12 @@ import React from 'react';
 
 import AffectionBonusSelector from './AffectionBonusSelector';
 import DamagedStateSelector from './DamagedStateSelector';
-import UnitBasicInfoView from './UnitBasicInfoView';
 import UnitCoreLinkView from './corelink/UnitCoreLinkView';
 import UnitEquipmentView from './equipment/UnitEquipmentView';
-import UnitFormSelector from './UnitFormSelector';
 import UnitFullLinkView from './corelink/UnitFullLinkView';
 import UnitStatusParameterView from './UnitStatusParameter';
 
-const UnitStatus: React.FC<{ className?: string, css?: Interpolation<Theme> }> = (props) => {
+const UnitStatus: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
   return (
     <div
       {...props}
@@ -26,7 +24,6 @@ const UnitStatus: React.FC<{ className?: string, css?: Interpolation<Theme> }> =
         }
       }}
     >
-      <UnitBasicInfoView />
       <UnitStatusParameterView />
       <UnitEquipmentView />
       <UnitCoreLinkView />
@@ -34,7 +31,6 @@ const UnitStatus: React.FC<{ className?: string, css?: Interpolation<Theme> }> =
       <div css={{ '& > *:not(:first-of-type)': { marginTop: 10 } }}>
         <AffectionBonusSelector />
         <DamagedStateSelector />
-        <UnitFormSelector />
       </div>
     </div>
   );

@@ -117,6 +117,10 @@
       "cri_up": "$t(status.cri) +{{value}}%",
       "spd_up": "$t(status.spd) +{{value}}",
       "range_up": "射程 +{{value}}"
+    },
+    "unit_detail_tab": {
+      "status": "ステータス",
+      "skill": "スキル詳細"
     }
   },
   "unit": {

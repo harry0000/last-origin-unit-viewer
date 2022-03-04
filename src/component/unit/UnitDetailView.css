@@ -1,0 +1,31 @@
+.tab-content.unit-detail {
+  min-height: 925px;
+  padding-top: 10px;
+}
+
+@media (max-width: 480px) {
+  .nav.unit-detail-view-tab {
+    justify-content: center;
+  }
+}
+
+.nav-item.unit-detail-tab-item {
+  width: 160px;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.nav-item > .nav-link.unit-detail-tab-link {
+  border-radius: unset;
+  font-weight: bold;
+}
+
+.nav-item > .nav-link.unit-detail-tab-link {
+  color: #aaa;
+  background-color: rgba(255, 255, 255, .2);
+}
+
+.nav-item > .nav-link.unit-detail-tab-link.active {
+  color: #000;
+  background-color: #fc0;
+}
