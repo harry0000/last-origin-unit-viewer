@@ -1,5 +1,4 @@
-.tab-content.unit-detail {
-  min-height: 925px;
+.nav.unit-detail-view-tab {
   padding-top: 10px;
 }
 
@@ -28,4 +27,13 @@
 .nav-item > .nav-link.unit-detail-tab-link.active {
   color: #000;
   background-color: #fc0;
+}
+
+.nav-link.unit-detail-tab-link {
+  padding: 0.25rem 0.5rem;
+}
+
+.tab-content.unit-detail {
+  min-height: 925px;
+  padding: 10px 0;
 }
