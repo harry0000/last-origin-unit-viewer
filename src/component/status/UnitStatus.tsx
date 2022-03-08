@@ -18,7 +18,6 @@ const UnitStatus: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
       css={{
         userSelect: 'none',
         overflowY: 'hidden',
-        padding: '0 10px 10px',
         '& > *:not(:first-of-type)': {
           marginTop: 15
         }

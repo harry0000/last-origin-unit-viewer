@@ -5,8 +5,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Nav, Tab } from 'react-bootstrap';
-import UnitStatus from '../status/UnitStatus';
+import UnitBasicInfoView from '../status/UnitBasicInfoView';
 import UnitSkillList from '../skill/UnitSkillList';
+import UnitStatus from '../status/UnitStatus';
 
 import './UnitDetailView.css';
 
@@ -37,7 +38,11 @@ const UnitDetailTabItem: React.FC<{
 
 const UnitDetailView: React.FC<{ className: string }> = ({ className }) => {
   return (
-    <div className={className}>
+    <div
+      className={className}
+      css={{ padding: '0 10px' }}
+    >
+      <UnitBasicInfoView />
       <Tab.Container
         id="unit-detail-view-tab-container"
         defaultActiveKey={UnitDetailTabEvent.Status}
