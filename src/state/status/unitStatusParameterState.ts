@@ -207,17 +207,31 @@ const unitElectricResistStatusParameterState = selectorFamily<UnitElectricResist
   }
 });
 
-export function useStatusParameter(parameter: EnhanceableStatus | 'spd'): string
-export function useStatusParameter(parameter: EnhanceableStatus | 'spd', unit: UnitNumber): string
-export function useStatusParameter(parameter: EnhanceableStatus | 'spd', unit?: UnitNumber): string {
+export function useEmptyStatusParameter(parameter: EnhanceableStatus | 'spd'): string {
   switch (parameter) {
-  case 'hp':  return `${unit ? useRecoilValue(unitHpStatusParameterState(unit))?.hp.value : 0}`;
-  case 'atk': return formatMilliValue(unit && useRecoilValue(unitAtkStatusParameterState(unit)).atk);
-  case 'def': return formatMilliValue(unit && useRecoilValue(unitDefStatusParameterState(unit)).def);
-  case 'acc': return formatMilliPercentage(unit && useRecoilValue(unitAccStatusParameterState(unit)).acc);
-  case 'eva': return formatMilliPercentage(unit && useRecoilValue(unitEvaStatusParameterState(unit)).eva);
-  case 'cri': return formatMilliPercentage(unit && useRecoilValue(unitCriStatusParameterState(unit)).cri);
-  case 'spd': return formatMicroValue(unit && useRecoilValue(unitSpdStatusParameterState(unit)).spd);
+  case 'hp':
+    return '0';
+  case 'atk':
+  case 'def':
+    return formatMilliValue(undefined);
+  case 'acc':
+  case 'eva':
+  case 'cri':
+    return formatMilliPercentage(undefined);
+  case 'spd':
+    return formatMicroValue(undefined);
+  }
+}
+
+export function useStatusParameter(parameter: EnhanceableStatus | 'spd', unit: UnitNumber): string {
+  switch (parameter) {
+  case 'hp':  return `${useRecoilValue(unitHpStatusParameterState(unit)).hp.value}`;
+  case 'atk': return formatMilliValue(useRecoilValue(unitAtkStatusParameterState(unit)).atk);
+  case 'def': return formatMilliValue(useRecoilValue(unitDefStatusParameterState(unit)).def);
+  case 'acc': return formatMilliPercentage(useRecoilValue(unitAccStatusParameterState(unit)).acc);
+  case 'eva': return formatMilliPercentage(useRecoilValue(unitEvaStatusParameterState(unit)).eva);
+  case 'cri': return formatMilliPercentage(useRecoilValue(unitCriStatusParameterState(unit)).cri);
+  case 'spd': return formatMicroValue(useRecoilValue(unitSpdStatusParameterState(unit)).spd);
   }
 }
 

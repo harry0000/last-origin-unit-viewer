@@ -1,14 +1,16 @@
-import { atom, selector, useRecoilState, useRecoilValue } from 'recoil';
+import { atom, useRecoilState, useRecoilValue } from 'recoil';
+
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
+
+import { setOnlySelector } from '../../util/recoil';
 
 const unitSkillTabState = atom<string | undefined>({
   key: 'unitSkillTabState',
   default: undefined
 });
 
-export const updateSkillTab = selector<UnitBasicInfo | undefined>({
+export const updateSkillTab = setOnlySelector<UnitBasicInfo | undefined>({
   key: 'updateSkillTabDependency',
-  get: () => { throw new Error(); },
   set: ({ set }, newValue) => {
     set(unitSkillTabState, newValue ? 'active1' : undefined);
   }

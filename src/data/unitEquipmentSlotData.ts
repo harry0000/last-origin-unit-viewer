@@ -1,4 +1,4 @@
-export const unitEquipmentSlot = {
+export const unitEquipmentSlotData = {
   2: { chip1: 60, chip2: 80, os: 20, gear: 40 },
   3: { chip1: 20, chip2: 40, os: 80, gear: 60 },
   4: { chip1: 20, chip2: 40, os: 60, gear: 80 },

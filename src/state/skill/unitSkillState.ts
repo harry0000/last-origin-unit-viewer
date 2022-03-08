@@ -2,7 +2,6 @@ import {
   atomFamily,
   DefaultValue,
   RecoilValueReadOnly,
-  selector,
   selectorFamily,
   useRecoilState,
   useRecoilValue,
@@ -31,6 +30,8 @@ import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink
 import { useActiveSkillTab } from '../ui/unitSkillTabState';
 import { useSelectedUnit } from '../selector/unitSelectorState';
 
+import { setOnlySelector } from '../../util/recoil';
+
 export const SkillType = {
   Active1: 'active1',
   Active2: 'active2',
@@ -45,9 +46,8 @@ const unitSkillState = atomFamily<UnitSkill, UnitBasicInfo>({
   default: (unit) => buildUnitSkill(unit)
 });
 
-const unitSkillRestore = selector<ReadonlyArray<UnitSkill>>({
+const unitSkillRestore = setOnlySelector<ReadonlyArray<UnitSkill>>({
   key: 'unitSkillRestore',
-  get: () => [],
   set: ({ set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
       newValue.forEach(v => set(unitSkillState(v.unit), v));

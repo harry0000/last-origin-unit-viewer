@@ -8,20 +8,23 @@ import { unitStatusData } from '../../data/unitStatusData';
 type IntegerValueParameterPerLevel = ParameterPerLevel<keyof IntegerValue>
 type MilliValueParameterPerLevel = ParameterPerLevel<keyof MilliValue>
 
-function calculateIntegerParam(data: IntegerValueParameterPerLevel, lv: UnitLvValue): IntegerValue {
-  const base = data[1].value;
-  const perLv = '90' in data ? (data[90].value - base) / 89 : (data[100].value - base) / 99;
-  return {
-    value: base + Math.round(perLv * (lv - 1))
-  };
-}
+function calculateParam(...args: [unit: keyof IntegerValue, data: IntegerValueParameterPerLevel, lv: UnitLvValue]): IntegerValue
+function calculateParam(...args: [unit: keyof MilliValue,   data: MilliValueParameterPerLevel,   lv: UnitLvValue]): MilliValue
+function calculateParam(
+  ...args:
+    [unit: keyof IntegerValue, data: IntegerValueParameterPerLevel, lv: UnitLvValue] |
+    [unit: keyof MilliValue,   data: MilliValueParameterPerLevel,   lv: UnitLvValue]
+): IntegerValue | MilliValue {
+  const isInteger = args[0] === 'value';
+  const [, , lv] = args;
 
-function calculateMilliValueParam(data: MilliValueParameterPerLevel, lv: UnitLvValue): MilliValue {
-  const base = data[1].milliValue;
-  const perLv = '90' in data ? (data[90].milliValue - base) / 89 : (data[100].milliValue - base) / 99;
-  return {
-    milliValue: base + Math.round(perLv * (lv - 1))
-  };
+  const base = isInteger ? args[1][1].value : args[1][1].milliValue;
+  const perLv = '90' in args[1] ?
+    ((isInteger ? args[1][90].value  : args[1][90].milliValue)  - base) / 89 :
+    ((isInteger ? args[1][100].value : args[1][100].milliValue) - base) / 99;
+
+  const calculated = base + Math.round(perLv * (lv - 1));
+  return isInteger ? { value: calculated } : { milliValue: calculated };
 }
 
 class UnitBaseParameter {
@@ -55,15 +58,15 @@ class UnitBaseParameter {
   }
 
   hp(lv: UnitLvValue): IntegerValue {
-    return calculateIntegerParam(this.#hp, lv);
+    return calculateParam('value', this.#hp, lv);
   }
 
   atk(lv: UnitLvValue): MilliValue {
-    return calculateMilliValueParam(this.#atk, lv);
+    return calculateParam('milliValue', this.#atk, lv);
   }
 
   def(lv: UnitLvValue): MilliValue {
-    return calculateMilliValueParam(this.#def, lv);
+    return calculateParam('milliValue', this.#def, lv);
   }
 }
 

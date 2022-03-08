@@ -28,6 +28,8 @@ import { useUnitCurrentRank } from '../status/unitLvStatusState';
 
 import { buildUnitTileIconSrcUrl } from '../../service/UnitIconSrcUrlBuilder';
 
+import { setOnlySelector } from '../../util/recoil';
+
 const selectorAtoms = {
   unit: atomFamily<boolean, UnitRank | UnitType | UnitRole>({
     key: 'unitConditionSelectorAtom',
@@ -66,9 +68,8 @@ const _unitSelectorState = atom({
   default: UnitSelector.initialState()
 });
 
-const updateSelectedUnitDependency = selector<UnitBasicInfo | undefined>({
+const updateSelectedUnitDependency = setOnlySelector<UnitBasicInfo | undefined>({
   key: 'updateSelectedUnitDependency',
-  get: () => { throw new Error(); },
   set: ({ set }, unit) => {
     set(updateSkillTab, unit);
     set(updateEquipmentEnhanceLvSelector, unit);

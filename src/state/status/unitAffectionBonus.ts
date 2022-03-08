@@ -2,7 +2,6 @@ import {
   atomFamily,
   DefaultValue,
   RecoilValueReadOnly,
-  selector,
   selectorFamily,
   useRecoilState,
   useSetRecoilState
@@ -10,6 +9,8 @@ import {
 
 import UnitAffection, { AffectionBonus } from '../../domain/UnitAffection';
 import { BioroidUnitNumber, UnitBasicInfo, UnitKind } from '../../domain/UnitBasicInfo';
+
+import { setOnlySelector } from '../../util/recoil';
 
 const unitAffectionState = atomFamily<UnitAffection, BioroidUnitNumber>({
   key: 'unitAffectionState',
@@ -25,9 +26,8 @@ const unitAffectionStateResolver = selectorFamily<UnitAffection | undefined, Uni
   }
 });
 
-const unitAffectionStateRestore = selector<ReadonlyArray<UnitAffection>>({
+const unitAffectionStateRestore = setOnlySelector<ReadonlyArray<UnitAffection>>({
   key: 'unitAffectionStateRestore',
-  get: () => [],
   set: ({ set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
       newValue.forEach(v => set(unitAffectionState(v.unit), v));

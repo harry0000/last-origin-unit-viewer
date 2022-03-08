@@ -19,7 +19,7 @@ const UnitFormSelector: React.FC = () => {
   return ifNonNullable(
     formChangeUnit,
     unit => (
-      <div css={{ display: 'flex', alignItems: 'center', padding: '5px 0' }}>
+      <div css={{ display: 'flex', alignItems: 'center', padding: '10px 0' }}>
         <OverlayTrigger
           placement='top'
           overlay={<Tooltip id='tooltip-form-change'>{t('form_change')}</Tooltip>}
