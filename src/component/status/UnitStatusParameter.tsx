@@ -36,8 +36,8 @@ const remainPointsStyle: CSSObject = {
   color: '#000',
   fontWeight: 'bold',
   border: '5px solid #fc0',
-  borderRadius: 8,
-  backgroundColor: '#ff8',
+  borderRadius: 7,
+  backgroundColor: '#ffa',
   width: 110,
   marginLeft: 'auto'
 };
