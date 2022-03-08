@@ -1803,10 +1803,23 @@ export const equipmentData = {
       { eva_up: { milliPercentage: 36000 }, spd_up: { microValue: 400000 }, ice_resist_up: { milliPercentage: 60000 } }
     ]
   },
-  // enhanced_energy_shield: {
-  //   type: 'gear',
-  //   id: 'enhanced_energy_shield'
-  // },
+  enhanced_energy_shield: {
+    type: 'gear',
+    id: 'enhanced_energy_shield',
+    equipment_effects: [
+      [{ condition: { trigger: 'start_round' }, details: { barrier: { value: 400, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 10000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { barrier: { value: 420, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 11000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { barrier: { value: 450, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 12000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { barrier: { value: 480, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 13000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { barrier: { value: 520, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 14000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { barrier: { value: 560, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 15000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { barrier: { value: 600, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 16000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { barrier: { value: 650, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 17000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { barrier: { value: 700, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 18000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { barrier: { value: 750, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 19000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { barrier: { value: 800, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 20000, term: { for_rounds: 1 } } } }]
+    ]
+  },
   '40mm_du_rounds': {
     type: 'gear',
     id: '40mm_du_rounds',
