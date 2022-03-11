@@ -29,7 +29,7 @@ import { isUnitAlias, UnitAlias } from '../../domain/UnitAlias';
 
 import SkillEffectConditionViewModel from './SkillEffectConditionViewModel';
 
-import { Entry, NonNullableEntry, typedEntries, typedNonNullableEntries } from '../../util/object';
+import { Entry, typedEntries } from '../../util/object';
 import { ifNonNullable, ifTruthy } from '../../util/react';
 
 function needSeparator(array: ReadonlyArray<unknown>, index: number): boolean {
@@ -37,7 +37,7 @@ function needSeparator(array: ReadonlyArray<unknown>, index: number): boolean {
 }
 
 function stateValuesView(
-  entry: NonNullableEntry<ActivationSelfState> | NonNullableEntry<ActivationTargetState>,
+  entry: Entry<ActivationSelfState> | Entry<ActivationTargetState>,
   unitNumber: UnitNumber,
   t: TFunction
 ): ReactNode {
@@ -167,7 +167,7 @@ const SelfAndTargetStateView: React.FC<{
       {state.map((v, i: number) => {
         return (
           <React.Fragment key={JSON.stringify(v)}>
-            {typedNonNullableEntries(v).map((entry, i, entries) => (
+            {typedEntries(v).map((entry, i, entries) => (
               <React.Fragment key={entry[0]}>
                 {stateValuesView(entry, unitNumber, t)}
                 {ifTruthy(needSeparator(entries, i), (<span>{t('effect:and_symbolic_separator')}</span>))}

@@ -11,7 +11,7 @@ import {
 } from '../../domain/equipment/EquipmentEffect';
 import { calcMicroValue, calcMilliPercentageValue } from '../../domain/ValueUnit';
 
-import { NonNullableEntry, typedNonNullableEntries } from '../../util/object';
+import { Entry, typedEntries } from '../../util/object';
 
 export type TranslatedEquipmentEffect = {
   condition?: string,
@@ -46,7 +46,7 @@ function buildDetail(body: string, value: EquipmentEffectAddition, t: TFunction)
   return `${rate}${body}${additions ? ` (${additions})` : '' }`;
 }
 
-function translateDetail(entry: NonNullableEntry<EquipmentEffectValue>, t: TFunction): string {
+function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): string {
   switch (entry[0]) {
   case Effect.MinimizeDamage:
   case Effect.AllDebuffRemoval:
@@ -144,7 +144,7 @@ function translateCondition(condition: EquipmentEffectActivationCondition, t: TF
 }
 
 function translateDetails(details: EquipmentEffectValue, t: TFunction): TranslatedEquipmentEffect['details'] {
-  return typedNonNullableEntries(details).map(entry => {
+  return typedEntries(details).map(entry => {
     const value = entry[1];
     return {
       detail: translateDetail(entry, t),

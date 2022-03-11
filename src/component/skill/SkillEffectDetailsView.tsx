@@ -11,7 +11,7 @@ import { AroundSkillEffectValue, SkillEffect, SkillEffectValue } from '../../dom
 import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
 
 import { ifNonNullable } from '../../util/react';
-import { typedNonNullableEntries } from '../../util/object';
+import { typedEntries } from '../../util/object';
 import { Keyof } from '../../util/type';
 
 const EffectDetailRow: React.FC<{
@@ -76,7 +76,7 @@ const SkillEffectDetailsView: React.FC<{
   return (
     <div className={className}>
       <div><Badge variant="light">{t(`effect:effect.target.${targetKey}`)}</Badge></div>
-      {typedNonNullableEntries(details).map(entry => (<EffectDetail key={entry[0]} entry={entry} />))}
+      {typedEntries(details).map(entry => (<EffectDetail key={entry[0]} entry={entry} />))}
     </div>
   );
 };

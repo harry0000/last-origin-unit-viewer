@@ -1,4 +1,6 @@
-export function isRecord(arg: unknown): arg is Record<string, unknown> {
+import { Increment } from './type';
+
+export function isRecord(arg: unknown): arg is Record<string | number | symbol, unknown> {
   return !!arg && Object.prototype.toString.call(arg) === '[object Object]';
 }
 
@@ -8,38 +10,43 @@ export function mapObjectValue<K extends string | number | symbol, V, R>(object:
   return Object.fromEntries(Object.entries<V>(object).map(([key, value]) => [key, f(value)])) as Record<K, R>;
 }
 
-export type Entry<T> =
+type TupleEntry<T extends ReadonlyArray<unknown>, I extends number = 0, R = never> =
+  T extends readonly [infer Head, ...infer Tail] ?
+    TupleEntry<Tail, Increment<I> & number, R | [`${I}`, Head]> :
+    R
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+type ObjectEntry<T extends {}> =
   T extends Record<string | number | symbol, unknown> ?
-    keyof T extends string ?
-      NonNullable<{ [K in keyof T]: [`${string & K}`, T[K]] }[keyof T]> :
+    keyof T extends infer K ?
+      K extends string | number ?
+        [`${K}`, Required<T>[K]] :
+        never :
       never :
     never
 
-export type NonNullableEntry<T> =
-  T extends Record<string | number | symbol, unknown> ?
-    keyof T extends string ?
-      NonNullable<{ [K in keyof T]: [`${string & K}`, NonNullable<T[K]>] }[keyof T]> :
-      never :
-    never
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type Entry<T extends {}> =
+  T extends readonly [unknown, ...unknown[]] ?
+    TupleEntry<T> :
+    T extends ReadonlyArray<infer U> ?
+      [`${number}`, U] :
+      ObjectEntry<T>
 
-export function typedEntries<T>(object: T): ReadonlyArray<Entry<T>> {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function typedEntries<T extends {}>(object: T): ReadonlyArray<Entry<T>> {
   return Object.entries(object) as unknown as ReadonlyArray<Entry<T>>;
 }
 
-export function typedNonNullableEntries<T>(object: T): ReadonlyArray<NonNullableEntry<T>> {
-  return Object.entries(object) as unknown as ReadonlyArray<NonNullableEntry<T>>;
-}
-
-export function foldObjectNonNullableEntry<T, R, K extends keyof T = keyof T>(
+export function foldObjectEntry<T extends Record<string | number | symbol, unknown>, R>(
   object: T,
-  f: (entry: NonNullableEntry<T>) => K extends keyof R ? R : never
+  f: (entry: Entry<T>) => keyof T extends keyof R ? R : never
 ): (z: R) => R {
   return function (z): R {
-    return Object.entries(object).reduce<R>((acc, entry) => {
-      const r = entry[1] ? f(entry as unknown as NonNullableEntry<T>) : entry;
+    return typedEntries(object).reduce<R>((acc, entry) => {
       return {
         ...acc,
-        ...r
+        ...f(entry)
       };
     }, z);
   };

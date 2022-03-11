@@ -5,11 +5,11 @@ import { Effect } from '../../domain/Effect';
 import { calcValue, MilliPercentageValue } from '../../domain/ValueUnit';
 import { isFormChangeUnitNumber, UnitForms } from '../../domain/UnitFormValue';
 
-import { NonNullableEntry } from '../../util/object';
+import { Entry } from '../../util/object';
 
 export type SkillEffectDetailsEntry =
-  NonNullableEntry<SkillEffectValue> |
-  NonNullableEntry<AroundSkillEffectValue>
+  Entry<SkillEffectValue> |
+  Entry<AroundSkillEffectValue>
 
 type SkillEffectDetailsProps = { tag?: string, detail: string, term?: string }
 

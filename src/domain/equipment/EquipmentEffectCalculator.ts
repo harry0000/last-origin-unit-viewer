@@ -16,10 +16,10 @@ import { toIntegerValue, toMicroValue, toMilliPercentageValue, toMilliValue } fr
 
 import { equipmentData } from '../../data/equipmentData';
 
-import { foldObjectNonNullableEntry, NonNullableEntry, typedEntries } from '../../util/object';
+import { Entry, foldObjectEntry, typedEntries } from '../../util/object';
 
 function extractStatusEffect(data: StatusEffectData): StatusEffect {
-  return foldObjectNonNullableEntry(data, entry => {
+  return foldObjectEntry<StatusEffectData, StatusEffect>(data, entry => {
     switch (entry[0]) {
     case Effect.HpUp:
       return { [Effect.HpUp]: toIntegerValue(entry[1]) };
@@ -70,7 +70,7 @@ function extractValueUnitData<T extends number, U extends ValueUnit>(
 
 function calculateAddition(data: EffectAdditionData): EquipmentEffectAddition {
   const entries =
-    typedEntries(data).flatMap<NonNullableEntry<EquipmentEffectAddition>>(entry => {
+    typedEntries(data).flatMap<Entry<EquipmentEffectAddition>>(entry => {
       switch (entry[0]) {
       case 'max_stack': {
         const value = entry[1];
@@ -103,7 +103,7 @@ function calculateAddition(data: EffectAdditionData): EquipmentEffectAddition {
 function calculateEffectDetails(
   details: EquipmentEffectValueData
 ): EquipmentEffectValue {
-  return foldObjectNonNullableEntry(details, entry => {
+  return foldObjectEntry<EquipmentEffectValueData, EquipmentEffectValue>(details, entry => {
     switch (entry[0]) {
     case Effect.MinimizeDamage:
     case Effect.AllDebuffRemoval:
