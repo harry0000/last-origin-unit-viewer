@@ -69,7 +69,7 @@ export type StatusEffectData = {
 export type EquipmentId = keyof typeof equipmentData
 export type EquipmentData = typeof equipmentData[EquipmentId]
 
-type EquipmentTypeFilter<T extends EquipmentType, E = EquipmentData> = E extends { type: T } ? E : never
+type EquipmentTypeFilter<T extends EquipmentType> = Extract<EquipmentData, { type: T }>
 
 export type Chip = EquipmentTypeFilter<typeof EquipmentType.Chip>
 export type Os   = EquipmentTypeFilter<typeof EquipmentType.Os>

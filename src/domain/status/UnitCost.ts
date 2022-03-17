@@ -212,8 +212,6 @@ type UnitBasicInfoConstraint =
   { type: Exclude<UnitType, typeof UnitType.Heavy>, rank: UnitRank, role: UnitRole } |
   { type: typeof UnitType.Heavy, rank: Exclude<UnitRank, typeof UnitRank.B>, role: UnitRole }
 
-type AGSUnitBasicInfo<I extends UnitBasicInfo = UnitBasicInfo> = I extends { kind: typeof UnitKind.AGS } ? I : never
-
 function resolveBioroidUnitCost(
   unit: UnitBasicInfoConstraint,
   coreLinkCount: CoreLinkCount
@@ -231,7 +229,7 @@ function resolveBioroidUnitCost(
 }
 
 function resolveAgsUnitCost(
-  unit: AGSUnitBasicInfo,
+  unit: Extract<UnitBasicInfo, { kind: typeof UnitKind.AGS }>,
   coreLinkCount: CoreLinkCount
 ): UnitCost {
   const agsCost = initialUnitCostData.ags;

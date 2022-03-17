@@ -65,7 +65,7 @@ export type UnitNumber = keyof typeof unitBasicData
 export type UnitBasicInfo = typeof unitBasicData[UnitNumber]
 export type UnitBasicData = typeof unitBasicData & { readonly [key in UnitNumber]: UnitBasicInfo }
 
-type UnitKindFilter<T extends UnitKind, U = UnitBasicInfo> = U extends { kind: T } ? U : never
+type UnitKindFilter<T extends UnitKind> = Extract<UnitBasicInfo, { kind: T }>
 
 export type BioroidUnitNumber = UnitKindFilter<typeof UnitKind.Bioroid>['no']
 export type AgsUnitNumber     = UnitKindFilter<typeof UnitKind.AGS>['no']
