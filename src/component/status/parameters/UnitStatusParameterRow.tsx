@@ -6,8 +6,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Col, Image, Row } from 'react-bootstrap';
+import AutoFireButton from '../../common/AutoFireButton';
 import StatusEffectsView from './StatusEffectsView';
-import UnitStatusParameterButton from './UnitStatusParameterButton';
 
 import { UnitNumber } from '../../../domain/UnitBasicInfo';
 
@@ -87,24 +87,24 @@ const StatusParameterDecrementButton: React.FC<{ parameter: EnhanceableStatus }>
   const selected = useSelectedUnit();
   const DecrementButton: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
     const [decrementDisabled, decrement] = useStatusParameterDecrement(parameter, unit);
-    return (<UnitStatusParameterButton disabled={decrementDisabled} onClick={decrement}><span>-</span></UnitStatusParameterButton>);
+    return (<AutoFireButton variant="secondary" disabled={decrementDisabled} onClick={decrement}><span>-</span></AutoFireButton>);
   };
 
   return selected ?
     (<DecrementButton unit={selected.no} />) :
-    (<UnitStatusParameterButton disabled={true} onClick={() => { return; }}><span>-</span></UnitStatusParameterButton>);
+    (<AutoFireButton variant="secondary" disabled={true} onClick={() => { return; }}><span>-</span></AutoFireButton>);
 };
 
 const StatusParameterIncrementButton: React.FC<{ parameter: EnhanceableStatus }> = ({ parameter }) => {
   const selected = useSelectedUnit();
   const IncrementButton: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
     const [incrementDisabled, increment] = useStatusParameterIncrement(parameter, unit);
-    return (<UnitStatusParameterButton disabled={incrementDisabled} onClick={increment}><span>+</span></UnitStatusParameterButton>);
+    return (<AutoFireButton variant="secondary" disabled={incrementDisabled} onClick={increment}><span>+</span></AutoFireButton>);
   };
 
   return selected ?
     (<IncrementButton unit={selected.no} />) :
-    (<UnitStatusParameterButton disabled={true} onClick={() => { return; }}><span>+</span></UnitStatusParameterButton>);
+    (<AutoFireButton variant="secondary" disabled={true} onClick={() => { return; }}><span>+</span></AutoFireButton>);
 };
 
 const EnhanceableStatusParameterRow: React.FC<{

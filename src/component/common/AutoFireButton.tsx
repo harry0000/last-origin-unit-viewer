@@ -4,6 +4,7 @@ import { Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
 import React, { useEffect, useRef, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { ButtonVariant } from 'react-bootstrap/types';
 
 function useLazyInterval(callback: () => void, lazy: number, interval: number | undefined): void {
   const savedCallback = useRef<() => void>();
@@ -33,8 +34,9 @@ function useLazyInterval(callback: () => void, lazy: number, interval: number | 
   }, [lazy, interval]);
 }
 
-const UnitStatusParameterButton: React.FC<{
+const AutoFireButton: React.FC<{
   css?: Interpolation<Theme>,
+  variant: ButtonVariant,
   disabled?: boolean,
   onClick: () => void
 }> = ({ disabled, onClick, children, ...others }) => {
@@ -51,7 +53,6 @@ const UnitStatusParameterButton: React.FC<{
   return (
     <Button
       {...others}
-      variant='secondary'
       disabled={disabled}
       onMouseDown={() => setMouseDown(true)}
       onMouseUp={() => setMouseDown(false)}
@@ -70,4 +71,4 @@ const UnitStatusParameterButton: React.FC<{
   );
 };
 
-export default UnitStatusParameterButton;
+export default AutoFireButton;
