@@ -13,7 +13,7 @@ import { UnitCost } from '../../domain/status/UnitCost';
 import { UnitType } from '../../domain/UnitBasicInfo';
 
 import { useSquadShareModalOpener, useSquadUnitTypeCount } from '../../state/squad/squadState';
-import { useSquadUnitCostSummary } from '../../state/status/unitLvStatusState';
+import { useSquadUnitCostSummary } from '../../state/status/parameters/unitLvStatusState';
 
 import './SquadView.css';
 

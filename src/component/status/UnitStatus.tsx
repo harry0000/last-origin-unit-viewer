@@ -9,7 +9,7 @@ import DamagedStateSelector from './DamagedStateSelector';
 import UnitCoreLinkView from './corelink/UnitCoreLinkView';
 import UnitEquipmentView from './equipment/UnitEquipmentView';
 import UnitFullLinkView from './corelink/UnitFullLinkView';
-import UnitStatusParameterView from './UnitStatusParameter';
+import UnitStatusParameterView from './parameters/UnitStatusParameter';
 
 const UnitStatus: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
   return (

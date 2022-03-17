@@ -17,7 +17,7 @@ import { calcMicroValue, calcMilliPercentageValue } from '../../../domain/ValueU
 import { useCoreLinkEffect, useCoreLinkRate } from '../../../state/corelink/unitCoreLinkState';
 import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
 
-import '../UnitStatusSlot.css';
+import '../UnitSlot.css';
 import './UnitCoreLinkView.css';
 
 const CoreLinkRate: React.FC = () => {

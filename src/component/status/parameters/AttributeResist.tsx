@@ -8,16 +8,16 @@ import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import StatusEffectsView from './StatusEffectsView';
 import { formatResistPercentage } from './UnitStatusParameterFormatter';
 
-import { DamageAttribute } from '../../domain/skill/UnitSkillData';
-import { MilliPercentageValue } from '../../domain/ValueUnit';
-import { UnitNumber } from '../../domain/UnitBasicInfo';
+import { DamageAttribute } from '../../../domain/skill/UnitSkillData';
+import { MilliPercentageValue } from '../../../domain/ValueUnit';
+import { UnitNumber } from '../../../domain/UnitBasicInfo';
 
-import { useSelectedUnit } from '../../state/selector/unitSelectorState';
+import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
 import {
   useUnitElectricResistParameter,
   useUnitFireResistParameter,
   useUnitIceResistParameter
-} from '../../state/status/unitStatusParameterState';
+} from '../../../state/status/parameters/unitStatusParameterState';
 
 const AttributeResist: React.FC<{
   attribute: DamageAttribute,

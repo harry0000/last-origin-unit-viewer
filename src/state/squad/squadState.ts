@@ -28,7 +28,7 @@ import {
 } from '../equipment/unitEquipmentState';
 import { useUnitCoreLinkResolver, useUnitCoreLinkRestore } from '../corelink/unitCoreLinkState';
 import { useUnitDamagedStateResolver, useUnitDamagedStateRestore } from '../status/unitDamagedState';
-import { useUnitLvStatusResolver, useUnitLvStatusRestore } from '../status/unitLvStatusState';
+import { useUnitLvStatusResolver, useUnitLvStatusRestore } from '../status/parameters/unitLvStatusState';
 import { useUnitSelector } from '../selector/unitSelectorState';
 import { useUnitSkillResolver, useUnitSkillRestore } from '../skill/unitSkillState';
 

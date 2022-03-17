@@ -11,7 +11,7 @@ import { UnitLvMode } from '../../domain/status/UnitLv';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 
 import { useSelectedUnit } from '../../state/selector/unitSelectorState';
-import { useUnitLvMode } from '../../state/status/unitLvStatusState';
+import { useUnitLvMode } from '../../state/status/parameters/unitLvStatusState';
 
 const style = {
   '& > .btn.btn-toggle': {

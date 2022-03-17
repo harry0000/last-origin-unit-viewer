@@ -9,16 +9,16 @@ import { Col, Image, Row } from 'react-bootstrap';
 import StatusEffectsView from './StatusEffectsView';
 import UnitStatusParameterButton from './UnitStatusParameterButton';
 
-import { UnitNumber } from '../../domain/UnitBasicInfo';
+import { UnitNumber } from '../../../domain/UnitBasicInfo';
 
 import {
   EnhanceableStatus,
   useStatusParameterDecrement,
   useStatusParameterEnhancedLv,
   useStatusParameterIncrement
-} from '../../state/status/unitLvStatusState';
-import { useSelectedUnit } from '../../state/selector/unitSelectorState';
-import { useEmptyStatusParameter, useStatusParameter } from '../../state/status/unitStatusParameterState';
+} from '../../../state/status/parameters/unitLvStatusState';
+import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
+import { useEmptyStatusParameter, useStatusParameter } from '../../../state/status/parameters/unitStatusParameterState';
 
 const parameterCol: CSSObject = {
   fontSize: '1.2em',

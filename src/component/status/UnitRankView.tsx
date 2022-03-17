@@ -14,7 +14,7 @@ import { RankUpUnitNumber, isRankUpUnitNumber } from '../../domain/status/UnitRa
 import { UnitRank, UnitRole } from '../../domain/UnitBasicInfo';
 
 import { useSelectedUnit } from '../../state/selector/unitSelectorState';
-import { useUnitRank } from '../../state/status/unitLvStatusState';
+import { useUnitRank } from '../../state/status/parameters/unitLvStatusState';
 
 import { ifNonNullable, ifTruthy } from '../../util/react';
 

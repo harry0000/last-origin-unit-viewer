@@ -41,7 +41,7 @@ import {
 
 import { TranslatedEquipmentEffect, translateEquipmentEffect } from './EquipmentEffectsTranslator';
 import { translateEquipmentStatusEffects } from './EquipmentStatusEffectsTlanslator';
-import { unitLvState } from '../status/unitLvStatusState';
+import { unitLvState } from '../status/parameters/unitLvStatusState';
 
 import { setOnlySelector, setOnlySelectorFamily, updateSelectorFamily } from '../../util/recoil';
 

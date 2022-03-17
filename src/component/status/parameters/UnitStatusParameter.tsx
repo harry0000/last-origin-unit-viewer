@@ -13,18 +13,18 @@ import {
   HpParameterRow,
   SpdParameterRow
 } from './UnitStatusParameterRow';
-import { ArrowReset } from '../icon/FluentIcons';
+import { ArrowReset } from '../../icon/FluentIcons';
 import { Col, Container, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
 import { ElectricResist, FireResist, IceResist } from './AttributeResist';
-import NumberValueDropdown from '../common/NumberValueDropdown';
-import SVGButton from '../common/SVGButton';
-import UnitLvModeToggleButton from './UnitLvModeToggleButton';
+import NumberValueDropdown from '../../common/NumberValueDropdown';
+import SVGButton from '../../common/SVGButton';
+import UnitLvModeToggleButton from '../UnitLvModeToggleButton';
 
-import { UnitLvMode, UnitLvValue } from '../../domain/status/UnitLv';
-import { UnitNumber } from '../../domain/UnitBasicInfo';
+import { UnitLvMode, UnitLvValue } from '../../../domain/status/UnitLv';
+import { UnitNumber } from '../../../domain/UnitBasicInfo';
 
-import { useRemainPoints, useUnitLv, useUsedPointReset } from '../../state/status/unitLvStatusState';
-import { useSelectedUnit } from '../../state/selector/unitSelectorState';
+import { useRemainPoints, useUnitLv, useUsedPointReset } from '../../../state/status/parameters/unitLvStatusState';
+import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
 
 const unitLvStyle: CSSObject = {
   fontSize: '1.4em',

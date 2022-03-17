@@ -2,7 +2,7 @@ import { TFunction } from 'i18next';
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
-import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/unitCoreLinkState';
+import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../../corelink/unitCoreLinkState';
 import {
   unitAccEnhancementStatusEffectState,
   unitAtkEnhancementStatusEffectState,
@@ -22,14 +22,14 @@ import {
   useChip2EquipmentEffect,
   useGearEquipmentEffect,
   useOsEquipmentEffect
-} from '../equipment/unitEquipmentState';
+} from '../../equipment/unitEquipmentState';
 
-import { EffectedParameter, StatusEffectPopoverRowProps } from '../../component/status/StatusEffectsView';
+import { EffectedParameter, StatusEffectPopoverRowProps } from '../../../component/status/parameters/StatusEffectsView';
 
-import { ChipEquipment, GearEquipment, OsEquipment } from '../../domain/equipment/UnitEquipment';
-import { StatusEffect } from '../../domain/status/StatusEffect';
-import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
-import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../domain/ValueUnit';
+import { ChipEquipment, GearEquipment, OsEquipment } from '../../../domain/equipment/UnitEquipment';
+import { StatusEffect } from '../../../domain/status/StatusEffect';
+import { UnitBasicInfo, UnitNumber } from '../../../domain/UnitBasicInfo';
+import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../../domain/ValueUnit';
 
 export function useStatusEffects(unit: UnitBasicInfo, parameter: EffectedParameter): ReadonlyArray<StatusEffectPopoverRowProps> {
   const unitNumber = unit.no;

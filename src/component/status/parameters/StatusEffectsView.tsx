@@ -5,8 +5,8 @@ import { Interpolation } from '@emotion/serialize';
 import React, { ReactNode } from 'react';
 
 import { OverlayTrigger, Popover } from 'react-bootstrap';
-import PopoverListContent from '../common/PopoverListContent';
-import { effectValueColor } from '../common/effectValueColor';
+import PopoverListContent from '../../common/PopoverListContent';
+import { effectValueColor } from '../../common/effectValueColor';
 import {
   formatMicroValue,
   formatMilliPercentage,
@@ -14,11 +14,11 @@ import {
   formatResistPercentage
 } from './UnitStatusParameterFormatter';
 
-import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
+import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 
-import { useSelectedUnit } from '../../state/selector/unitSelectorState';
-import { useStatusEffects } from '../../state/status/unitStatusEffects';
-import { useStatusEffectsSummary } from '../../state/status/unitStatusParameterState';
+import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
+import { useStatusEffects } from '../../../state/status/parameters/unitStatusEffects';
+import { useStatusEffectsSummary } from '../../../state/status/parameters/unitStatusParameterState';
 
 export type EffectedParameter = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri' | 'spd' | 'fireResist' | 'iceResist' | 'electricResist'
 
