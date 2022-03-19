@@ -3,8 +3,10 @@ import { constSelector, selectorFamily, useRecoilValue } from 'recoil';
 import {
   Chip,
   EquipmentData,
-  EquipmentType,
   Gear,
+  isChipEquipment,
+  isGearEquipment,
+  isOsEquipment,
   matchExclusive,
   Os
 } from '../../domain/equipment/EquipmentData';
@@ -20,17 +22,9 @@ function filterEquipment(unit: UnitNumber) {
   };
 }
 
-const chipEquipment = constSelector<ReadonlyArray<Chip>>(
-  Object.values(equipmentData).filter(e => e.type === EquipmentType.Chip) as ReadonlyArray<Chip>
-);
-
-const osEquipment = constSelector<ReadonlyArray<Os>>(
-  Object.values(equipmentData).filter(e => e.type === EquipmentType.Os) as ReadonlyArray<Os>
-);
-
-const gearEquipment = constSelector<ReadonlyArray<Gear>>(
-  Object.values(equipmentData).filter(e => e.type === EquipmentType.Gear) as ReadonlyArray<Gear>
-);
+const chipEquipment = constSelector<ReadonlyArray<Chip>>(Object.values(equipmentData).filter(isChipEquipment));
+const osEquipment   = constSelector<ReadonlyArray<Os>>(Object.values(equipmentData).filter(isOsEquipment));
+const gearEquipment = constSelector<ReadonlyArray<Gear>>(Object.values(equipmentData).filter(isGearEquipment));
 
 const availableChipEquipmentState = selectorFamily<ReadonlyArray<Chip>, UnitNumber>({
   key: 'availableChipEquipmentState',

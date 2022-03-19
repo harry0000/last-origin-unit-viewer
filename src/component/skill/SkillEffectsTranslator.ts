@@ -6,6 +6,7 @@ import { calcValue, MilliPercentageValue } from '../../domain/ValueUnit';
 import { isFormChangeUnitNumber, UnitForms } from '../../domain/UnitFormValue';
 
 import { Entry } from '../../util/object';
+import { notFalsy } from '../../util/type';
 
 export type SkillEffectDetailsEntry =
   Entry<SkillEffectValue> |
@@ -29,7 +30,7 @@ function getDetail(body: string, value: SkillEffectDetailsEntry[1], t: TFunction
       undefined,
     'cannot_be_dispelled' in value && value.cannot_be_dispelled ?
       t('effect:cannot_be_dispelled') : undefined
-  ].filter(s => !!s)
+  ].filter(notFalsy)
     .join(t('effect:separator'));
 
   return `${rate}${body}${additions ? ` (${additions})` : '' }`;

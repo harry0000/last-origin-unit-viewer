@@ -45,3 +45,9 @@ export type Increment<T extends number> = Add<T, 1>
 
 export type IndexOf<T extends readonly unknown[]> = Exclude<Partial<T>['length'], T['length']>
 export type Keyof<T> = T extends Record<string | number | symbol, unknown> ? keyof T : never
+
+type Falsy = false | '' | 0 | -0 | 0n | typeof NaN | null | undefined
+
+export function notFalsy<A>(arg: A | Falsy): arg is A {
+  return !!arg;
+}

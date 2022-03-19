@@ -12,6 +12,7 @@ import {
 import { calcMicroValue, calcMilliPercentageValue } from '../../domain/ValueUnit';
 
 import { Entry, typedEntries } from '../../util/object';
+import { notFalsy } from '../../util/type';
 
 export type TranslatedEquipmentEffect = {
   condition?: string,
@@ -40,7 +41,7 @@ function buildDetail(body: string, value: EquipmentEffectAddition, t: TFunction)
     'max_stack' in value && value.max_stack ?
       t('effect:max_stack', { count: value.max_stack }) :
       undefined
-  ].filter(s => !!s)
+  ].filter(notFalsy)
     .join(t('effect:separator'));
 
   return `${rate}${body}${additions ? ` (${additions})` : '' }`;
