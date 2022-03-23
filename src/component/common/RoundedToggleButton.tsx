@@ -15,10 +15,10 @@ const RoundedToggleButton: React.FC<{
   onChange?: React.ChangeEventHandler<HTMLInputElement>,
   children: ReactNode
 }> = (props) => {
-  const { disabled, selected, onChange, children, ...others } = props;
+  const { disabled, selected, onChange, children, ...rest } = props;
 
   return (
-    <ButtonGroup {...others} toggle>
+    <ButtonGroup {...rest} toggle>
       <ToggleButton
         type='checkbox'
         variant="toggle"

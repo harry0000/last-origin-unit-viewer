@@ -39,7 +39,7 @@ const AutoFireButton: React.FC<{
   variant: ButtonVariant,
   disabled?: boolean,
   onClick: () => void
-}> = ({ disabled, onClick, children, ...others }) => {
+}> = ({ disabled, onClick, children, ...rest }) => {
   const [isMouseDown, setMouseDown] = useState(false);
 
   useEffect(() => { setMouseDown(false); }, [disabled]);
@@ -52,7 +52,7 @@ const AutoFireButton: React.FC<{
 
   return (
     <Button
-      {...others}
+      {...rest}
       disabled={disabled}
       onMouseDown={() => setMouseDown(true)}
       onMouseUp={() => setMouseDown(false)}

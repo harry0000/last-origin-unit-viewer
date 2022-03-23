@@ -22,9 +22,9 @@ const style = {
 const UnitLvModeToggleButton: React.FC = () => {
   const { t } = useTranslation();
   const selected = useSelectedUnit();
-  const ToggleButton = ({ disabled, selected, toggle, ...others }: { disabled?: boolean, selected: boolean, toggle?: () => void }) => (
+  const ToggleButton = ({ disabled, selected, toggle, ...rest }: { disabled?: boolean, selected: boolean, toggle?: () => void }) => (
     <RoundedToggleButton
-      {...others}
+      {...rest}
       css={style}
       disabled={disabled}
       selected={selected}

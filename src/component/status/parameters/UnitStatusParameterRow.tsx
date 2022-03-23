@@ -110,11 +110,11 @@ const StatusParameterIncrementButton: React.FC<{ parameter: EnhanceableStatus }>
 const EnhanceableStatusParameterRow: React.FC<{
   css?: Interpolation<Theme>,
   parameter: EnhanceableStatus
-}> = ({ parameter, ...others }) => {
+}> = ({ parameter, ...rest }) => {
   const { t } = useTranslation();
 
   return (
-    <Row {...others} css={{ alignItems: 'center' }}>
+    <Row {...rest} css={{ alignItems: 'center' }}>
       <Col
         xs={{ span: 4, order: 1 }}
         sm={{ span: 3, order: 1 }}

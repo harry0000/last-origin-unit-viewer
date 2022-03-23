@@ -59,10 +59,10 @@ const RankMenuItem: React.FC<{
   active: boolean,
   disabled: boolean,
   availableLv?: RankUpAvailableLv
-}> = ({ rank, role, active, disabled, availableLv,...others }) => {
+}> = ({ rank, role, active, disabled, availableLv,...rest }) => {
   return (
     <Dropdown.Item
-      {...others}
+      {...rest}
       className="rank"
       eventKey={rank}
       active={active}

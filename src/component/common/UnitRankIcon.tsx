@@ -18,13 +18,13 @@ type Props = {
   role: UnitRole
 } & ImageSizeProps
 
-const UnitRankIcon: React.FC<Props> = ({ rank, role, ...others }) => {
+const UnitRankIcon: React.FC<Props> = ({ rank, role, ...rest }) => {
   const { t } = useTranslation();
   const src = `${process.env.PUBLIC_URL}/icon/${rank}_${role}.webp`;
 
   return (
     <Image
-      {...others}
+      {...rest}
       draggable="false"
       alt={`${t(`unit.rank.${rank}`)} ${t(`unit.role.${role}`)}`}
       src={src}

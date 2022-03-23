@@ -15,10 +15,10 @@ const SVGButton: React.FC<{
   fluidSvg?: boolean,
   disabled?: boolean,
   onClick?: React.MouseEventHandler<HTMLElement>
-}> = ({ variant, fluidSvg, disabled, svg, onClick, ...others }) => {
+}> = ({ variant, fluidSvg, disabled, svg, onClick, ...rest }) => {
   return (
     <Button
-      {...others}
+      {...rest}
       className={`svg-btn${fluidSvg ? ' fluid' : ''}`}
       variant={variant ?? 'primary'}
       disabled={disabled}

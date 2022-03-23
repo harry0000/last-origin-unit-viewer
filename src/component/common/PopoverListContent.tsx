@@ -6,7 +6,7 @@ import React, { ReactNode } from 'react';
 
 import { Popover } from 'react-bootstrap';
 
-const PopoverListContentRow: React.FC<{ css?: Interpolation<Theme>, children: ReactNode }> = ({ children, ...others }) => {
+const PopoverListContentRow: React.FC<{ css?: Interpolation<Theme>, children: ReactNode }> = ({ children, ...rest }) => {
   return (
     <div
       css={{
@@ -17,7 +17,7 @@ const PopoverListContentRow: React.FC<{ css?: Interpolation<Theme>, children: Re
         borderRadius: 3,
         padding: '3px 8px'
       }}
-      {...others}
+      {...rest}
     >
       {children}
     </div>
