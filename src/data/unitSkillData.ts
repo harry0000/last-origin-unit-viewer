@@ -6256,7 +6256,6 @@ export const unitSkillData: UnitSkillData = {
           10: 'all_adjacent'
         },
         effects: [{
-          conditions: [{ trigger: 'start_wave' }],
           target: { kind: 'ally', conditions: ['light', 'flying'] },
           details: {
             target: {
@@ -6265,7 +6264,6 @@ export const unitSkillData: UnitSkillData = {
             }
           }
         }, {
-          conditions: [{ trigger: 'start_wave' }],
           target: { kind: 'ally', conditions: [{ type: 'light', alias: 'horizon' }, { type: 'flying', alias: 'horizon' }] },
           details: {
             target: {
@@ -6275,7 +6273,6 @@ export const unitSkillData: UnitSkillData = {
             }
           }
         }, {
-          conditions: [{ trigger: 'start_wave' }],
           target: { kind: 'ally', conditions: ['heavy'] },
           details: {
             target: {
