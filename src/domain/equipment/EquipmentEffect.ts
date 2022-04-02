@@ -95,10 +95,14 @@ type ActivationState = Readonly<{
   [EffectActivationState.Unit]?: UnitKind
 }>
 
-export type EquipmentEffectActivationCondition = Readonly<{
-  trigger?: EffectTrigger,
-  state?: ActivationState
-}>
+type EquipmentEffectActivationTrigger = {
+  trigger: typeof EffectTrigger.StartRound,
+  round?: { at: 1 }
+} | {
+  trigger: Exclude<EffectTrigger, typeof EffectTrigger.StartRound>
+}
+
+export type EquipmentEffectActivationCondition = Readonly<EquipmentEffectActivationTrigger & { state?: ActivationState }>
 
 export type EffectDetails = Readonly<{
   condition?: EquipmentEffectActivationCondition,

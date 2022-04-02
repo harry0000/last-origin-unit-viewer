@@ -119,8 +119,18 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   }
 }
 
+function translateTrigger(condition: EquipmentEffectActivationCondition, t: TFunction): string {
+  return 'trigger' in condition ?
+    condition.trigger === 'start_round' ?
+      condition.round ?
+        t('effect:condition.trigger.round.at', { round: condition.round.at }) :
+        t('effect:condition.trigger.start_round') :
+      t(`effect:condition.trigger.${condition.trigger}`) :
+    '';
+}
+
 function translateCondition(condition: EquipmentEffectActivationCondition, t: TFunction): string {
-  const trigger = 'trigger' in condition ? t(`effect:condition.trigger.${condition.trigger}`) : '';
+  const trigger = translateTrigger(condition, t);
   const state = 'state' in condition && condition.state ?
     Object
       .entries(condition.state)
