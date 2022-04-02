@@ -11,7 +11,6 @@ import UnitAliasView from './UnitAliasView';
 import {
   ActivationEnemyState,
   ActivationSelfState,
-  ActivationSquadState,
   ActivationTargetState,
   SelfSkillEffectActivationCondition,
   SelfSkillEffectActivationState,
@@ -31,6 +30,7 @@ import SkillEffectConditionViewModel from './SkillEffectConditionViewModel';
 
 import { Entry, typedEntries } from '../../util/object';
 import { ifNonNullable, ifTruthy } from '../../util/react';
+import { isReadonlyArray, ValueOf } from '../../util/type';
 
 function needSeparator(array: ReadonlyArray<unknown>, index: number): boolean {
   return ++index < array.length;
@@ -95,11 +95,12 @@ function stateValuesView(
 
 function unitStateView(key: typeof EffectActivationState.Unit, unit: UnitAliasExceptUnit<typeof UnitAlias.AngerOfHorde, 41>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.EffectedBy, unit: UnitNumber | UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
-function unitStateView(key: typeof EffectActivationState.InSquad, unit: UnitNumber | typeof UnitAlias.ElectricActive | typeof UnitAlias.Horizon | typeof UnitAlias.KouheiChurch | 'golden_factory', selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.InSquad, unit: UnitNumber | ReadonlyArray<UnitNumber> | typeof UnitAlias.ElectricActive | typeof UnitAlias.Horizon | typeof UnitAlias.KouheiChurch | 'golden_factory', selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
   key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'],
   unit:
     UnitNumber |
+    ReadonlyArray<UnitNumber> |
     UnitAliasExceptUnit<typeof UnitAlias.AngerOfHorde, 41> |
     UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
     typeof UnitAlias.ElectricActive |
@@ -109,14 +110,18 @@ function unitStateView(
   selfUnitNumber: UnitNumber,
   t: TFunction
 ): Exclude<ReactNode, undefined> {
+  function unitName(unit: UnitNumber): string {
+    return t('effect:with_quotes', { value: t('unit:display', { number: unit }) });
+  }
+
   if (typeof unit === 'number') {
     return (
-      <span>
-        {t(
-          `effect:condition.state.${key}`,
-          { unit: t('effect:with_quotes', { value: t('unit:display', { number: unit }) }) }
-        )}
-      </span>
+      <span>{t(`effect:condition.state.${key}`, { unit: unitName(unit) })}</span>
+    );
+  } else if (isReadonlyArray(unit)) {
+    const units = unit.map(u => unitName(u)).join(t('effect:unit_separator'));
+    return (
+      <span>{t(`effect:condition.state.${key}`, { unit: units })}</span>
     );
   } else if (typeof unit === 'string') {
     if (isUnitAlias(unit)) {
@@ -182,7 +187,7 @@ const SelfAndTargetStateView: React.FC<{
 };
 
 const SquadStateView: React.FC<{
-  state: ActivationSquadState,
+  state: ValueOf<SelfSkillEffectActivationState, 'squad'>,
   unitNumber: UnitNumber
 }> = ({ state, unitNumber }) => {
   const { t } = useTranslation();
@@ -191,9 +196,11 @@ const SquadStateView: React.FC<{
     <React.Fragment>
       {t('effect:condition.target.squad')}
       {
-        'num_of_units' in state ?
-          t('effect:condition.state.num_of_units', state.num_of_units as Record<string, unknown>) :
-          unitStateView(EffectActivationState.InSquad, state.in_squad, unitNumber, t)
+        isReadonlyArray(state) ?
+          unitStateView(EffectActivationState.InSquad, state.map(s => s.in_squad), unitNumber, t) :
+          'num_of_units' in state ?
+            t('effect:condition.state.num_of_units', state.num_of_units as Record<string, unknown>) :
+            unitStateView(EffectActivationState.InSquad, state.in_squad, unitNumber, t)
       }
     </React.Fragment>
   );
@@ -211,7 +218,7 @@ const EnemyStateView: React.FC<{
       {
         'less_or_equal' in num_of_units ?
           t('effect:condition.state.num_of_enemies', num_of_units as Record<string, unknown>) :
-          t('effect:condition.state.num_of_enemies_ge', num_of_units)
+          t('effect:condition.state.num_of_enemies_ge', num_of_units as Record<string, unknown>)
       }
     </React.Fragment>
   );

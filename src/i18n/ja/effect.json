@@ -8,6 +8,7 @@
     "fixed": "固定範囲"
   },
   "unit": {
+    "unit": "戦闘員",
     "self": "自分",
     "ally": "味方",
     "enemy": "敵",
@@ -100,8 +101,7 @@
     "squadron_escort": "編隊護衛",
     "forceful_breakthrough": "強行突入",
     "readying_bombardment": "砲撃待機",
-    "arrogance_and_anger": "傲慢と憤怒",
-    "hubris": "思い上がり",
+    "artillery_command": "砲撃指揮",
     "hardpoint_mount_equipment": "ハードポイント<武装>",
     "hardpoint_mount_support": "ハードポイント<補助>",
     "where_are_you_looking_at": "どこ見てるの?",
