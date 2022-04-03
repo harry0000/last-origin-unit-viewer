@@ -7,6 +7,10 @@ import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
 import { UnitKind, UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
 
+export type UnitNotAlias = {
+  not_alias: typeof UnitAlias.KouheiChurch
+}
+
 export type UnitTypeAndRole = {
   type: UnitType,
   role: UnitRole
@@ -96,25 +100,33 @@ export type ActivationTargetState =
     [EffectActivationState.Grid]?: Exclude<GridState, typeof GridState.AreaOfEffect>
   }
 
-export type ActivationSquadState = {
-  [EffectActivationState.InSquad]: UnitNumber | typeof UnitAlias['ElectricActive' | 'Horizon' | 'KouheiChurch'] | 'golden_factory'
-} | {
+type InSquadStateUnit = UnitNumber | typeof UnitAlias['ElectricActive' | 'Horizon' | 'KouheiChurch'] | 'golden_factory'
+
+type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
+  [EffectActivationState.InSquad]: T
+}
+
+type NumOfUnitsInSquadState = {
   [EffectActivationState.NumOfUnits]:
     { unit: typeof UnitKind.AGS, greater_or_equal: 3 } |
     { unit: 'ally', greater_or_equal: 2 | 4 } |
     { unit: UnitType, greater_or_equal: 1 | 2 }
 }
 
+export type ActivationSquadState = InSquadState | NumOfUnitsInSquadState
+
 export type ActivationEnemyState = {
   [EffectActivationState.NumOfUnits]:
     { greater_or_equal: 1, less_or_equal: 2 } |
     { greater_or_equal: 3, less_or_equal: 4 } |
-    { greater_or_equal: 5 }
+    { greater_or_equal: 5, less_or_equal: 6 } |
+    { greater_or_equal: 5 } |
+    { greater_or_equal: 7 }
 }
 
 export type SelfSkillEffectActivationState =
   { self: ReadonlyArray<ActivationSelfState> } |
-  { squad: ActivationSquadState } |
+  { squad: ActivationSquadState | ReadonlyArray<InSquadState<87 | 89 | 90>> } |
   { enemy: ActivationEnemyState } |
   {
     self: ReadonlyArray<ActivationSelfState>,

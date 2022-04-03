@@ -11,7 +11,7 @@ import { UnitLvMode } from '../../domain/status/UnitLv';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 
 import { useSelectedUnit } from '../../state/selector/unitSelectorState';
-import { useUnitLvMode } from '../../state/status/unitLvStatusState';
+import { useUnitLvMode } from '../../state/status/parameters/unitLvStatusState';
 
 const style = {
   '& > .btn.btn-toggle': {
@@ -22,9 +22,9 @@ const style = {
 const UnitLvModeToggleButton: React.FC = () => {
   const { t } = useTranslation();
   const selected = useSelectedUnit();
-  const ToggleButton = ({ disabled, selected, toggle, ...others }: { disabled?: boolean, selected: boolean, toggle?: () => void }) => (
+  const ToggleButton = ({ disabled, selected, toggle, ...rest }: { disabled?: boolean, selected: boolean, toggle?: () => void }) => (
     <RoundedToggleButton
-      {...others}
+      {...rest}
       css={style}
       disabled={disabled}
       selected={selected}

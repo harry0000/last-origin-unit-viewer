@@ -53,6 +53,7 @@ export const SkillAreaType = {
   Forward: 'forward',
   Backward: 'backward',
   RightDirection: 'right_direction',
+  RightSpreadForwardAdjacent: 'right_spread_forward_adjacent',
   LineAdjacent: 'line_adjacent',
   RowAdjacent: 'row_adjacent',
   RowAdjacentWithSelfAndLeftDirection: 'row_adjacent_with_self_and_left_direction',

@@ -223,19 +223,19 @@ const UnitDetailConditionsSelector: React.FC = () => {
           <section>
             <h1 className="unit-detail-condition-header">{t('form.core_link_bonus_condition')}</h1>
             {[undefined, ...Object.values(CoreLinkBonusCondition)].map(condition => (
-              <CoreLinkBonusConditionSelector key={condition} condition={condition} />
+              <CoreLinkBonusConditionSelector key={`${condition}`} condition={condition} />
             ))}
           </section>
           <section>
             <h1 className="unit-detail-condition-header">{t('form.full_link_bonus_condition')}</h1>
             {[undefined, ...Object.values(FullLinkBonusCondition)].map(condition => (
-              <FullLinkBonusConditionSelector key={condition} condition={condition} />
+              <FullLinkBonusConditionSelector key={`${condition}`} condition={condition} />
             ))}
           </section>
           <section>
             <h1 className="unit-detail-condition-header">{t('form.rank_up_condition')}</h1>
             {[undefined, ...Object.values(RankUpCondition)].map(condition => (
-              <RankUpConditionSelector key={condition} condition={condition} />
+              <RankUpConditionSelector key={`${condition}`} condition={condition} />
             ))}
           </section>
         </div>

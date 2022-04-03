@@ -146,10 +146,10 @@ const EquipmentItem: React.FC<{
   active: boolean,
   label: string,
   src: string
-}> = ({ slot, eventKey, active, label, src, ...others }) => {
+}> = ({ slot, eventKey, active, label, src, ...rest }) => {
   return (
     <Dropdown.Item
-      {...others}
+      {...rest}
       className="equipment"
       eventKey={eventKey}
       active={active}
@@ -176,13 +176,13 @@ const EquipmentItem: React.FC<{
 const RemoveEquipmentItem: React.FC<{
   active: boolean,
   type: SlotEquipmentType<EquipmentSlot>
-}> = ({ active, type, ...others }) => {
+}> = ({ active, type, ...rest }) => {
   const { t } = useTranslation();
   const label = t('status.remove_equipment');
 
   return (
     <Dropdown.Item
-      {...others}
+      {...rest}
       className="equipment remove"
       active={active}
     >
@@ -201,12 +201,12 @@ const RemoveEquipmentItem: React.FC<{
 };
 
 const EquipmentSelectorMenu = <T extends EquipmentSlot>(
-  { unit, slot, type, value, items, ...others }: Omit<Props<T>, 'id' | 'onSelect'>
+  { unit, slot, type, value, items, ...rest }: Omit<Props<T>, 'id' | 'onSelect'>
 ): ReturnType<React.FC<Omit<Props<T>, 'id' | 'onSelect'>>> => {
   const { t } = useTranslation();
 
   return (
-    <Dropdown.Menu {...others} className="equipment">
+    <Dropdown.Menu {...rest} className="equipment">
       <EquipmentEnhancementLvSelector slot={slot} unit={unit.no} />
       <div className="equipment-list">
         <RemoveEquipmentItem type={type} active={!value?.id} />

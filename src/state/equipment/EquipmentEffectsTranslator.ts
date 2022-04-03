@@ -11,7 +11,8 @@ import {
 } from '../../domain/equipment/EquipmentEffect';
 import { calcMicroValue, calcMilliPercentageValue } from '../../domain/ValueUnit';
 
-import { NonNullableEntry, typedNonNullableEntries } from '../../util/object';
+import { Entry, typedEntries } from '../../util/object';
+import { notFalsy } from '../../util/type';
 
 export type TranslatedEquipmentEffect = {
   condition?: string,
@@ -40,13 +41,13 @@ function buildDetail(body: string, value: EquipmentEffectAddition, t: TFunction)
     'max_stack' in value && value.max_stack ?
       t('effect:max_stack', { count: value.max_stack }) :
       undefined
-  ].filter(s => !!s)
+  ].filter(notFalsy)
     .join(t('effect:separator'));
 
   return `${rate}${body}${additions ? ` (${additions})` : '' }`;
 }
 
-function translateDetail(entry: NonNullableEntry<EquipmentEffectValue>, t: TFunction): string {
+function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): string {
   switch (entry[0]) {
   case Effect.MinimizeDamage:
   case Effect.AllDebuffRemoval:
@@ -118,8 +119,18 @@ function translateDetail(entry: NonNullableEntry<EquipmentEffectValue>, t: TFunc
   }
 }
 
+function translateTrigger(condition: EquipmentEffectActivationCondition, t: TFunction): string {
+  return 'trigger' in condition ?
+    condition.trigger === 'start_round' ?
+      condition.round ?
+        t('effect:condition.trigger.round.at', { round: condition.round.at }) :
+        t('effect:condition.trigger.start_round') :
+      t(`effect:condition.trigger.${condition.trigger}`) :
+    '';
+}
+
 function translateCondition(condition: EquipmentEffectActivationCondition, t: TFunction): string {
-  const trigger = 'trigger' in condition ? t(`effect:condition.trigger.${condition.trigger}`) : '';
+  const trigger = translateTrigger(condition, t);
   const state = 'state' in condition && condition.state ?
     Object
       .entries(condition.state)
@@ -144,7 +155,7 @@ function translateCondition(condition: EquipmentEffectActivationCondition, t: TF
 }
 
 function translateDetails(details: EquipmentEffectValue, t: TFunction): TranslatedEquipmentEffect['details'] {
-  return typedNonNullableEntries(details).map(entry => {
+  return typedEntries(details).map(entry => {
     const value = entry[1];
     return {
       detail: translateDetail(entry, t),

@@ -47,9 +47,9 @@ const skillBadgeStyle: CSSObject = {
   fontSize: '1.2em'
 };
 
-const NestedContainer: React.FC<{ css?: Interpolation<Theme>, children: ReactNode }> = ({ children, ...others }) => (
+const NestedContainer: React.FC<{ css?: Interpolation<Theme>, children: ReactNode }> = ({ children, ...rest }) => (
   <Container
-    {...others}
+    {...rest}
     fluid
     css={{ padding: 0 }}
   >

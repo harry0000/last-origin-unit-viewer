@@ -5,8 +5,8 @@ import { Interpolation } from '@emotion/serialize';
 import React, { ReactNode } from 'react';
 
 import { OverlayTrigger, Popover } from 'react-bootstrap';
-import PopoverListContent from '../common/PopoverListContent';
-import { effectValueColor } from '../common/effectValueColor';
+import PopoverListContent from '../../common/PopoverListContent';
+import { effectValueColor } from '../../common/effectValueColor';
 import {
   formatMicroValue,
   formatMilliPercentage,
@@ -14,11 +14,11 @@ import {
   formatResistPercentage
 } from './UnitStatusParameterFormatter';
 
-import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
+import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 
-import { useSelectedUnit } from '../../state/selector/unitSelectorState';
-import { useStatusEffects } from '../../state/status/unitStatusEffects';
-import { useStatusEffectsSummary } from '../../state/status/unitStatusParameterState';
+import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
+import { useStatusEffects } from '../../../state/status/parameters/unitStatusEffects';
+import { useStatusEffectsSummary } from '../../../state/status/parameters/unitStatusParameterState';
 
 export type EffectedParameter = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri' | 'spd' | 'fireResist' | 'iceResist' | 'electricResist'
 
@@ -26,7 +26,7 @@ const StatusEffectValueView: React.FC<{
   css?: Interpolation<Theme>,
   parameter: EffectedParameter,
   value: number
-}> = ({ parameter, value, ...others }) => {
+}> = ({ parameter, value, ...rest }) => {
   const [sign, color] =
     value === 0 ? ['+', undefined] as const :
       value > 0 ?
@@ -52,18 +52,18 @@ const StatusEffectValueView: React.FC<{
     }
   })();
 
-  return (<span {...others} css={color}>{`${sign}\u00A0${formatted}`}</span>);
+  return (<span {...rest} css={color}>{`${sign}\u00A0${formatted}`}</span>);
 };
 
 const StatusEffectSummaryView: React.FC<{
   css?: Interpolation<Theme>,
   parameter: EffectedParameter,
   unit: UnitBasicInfo
-}> = ({ parameter, unit, ...others }) => {
+}> = ({ parameter, unit, ...rest }) => {
   const summary = useStatusEffectsSummary(parameter, unit);
 
   return (
-    <StatusEffectValueView {...others}  parameter={parameter} value={summary} />
+    <StatusEffectValueView {...rest}  parameter={parameter} value={summary} />
   );
 };
 
@@ -125,12 +125,12 @@ const UnitStatusEffectsView: React.FC<{
 const StatusEffectsView: React.FC<{
   css?: Interpolation<Theme>,
   parameter: EffectedParameter
-}> = ({ parameter, ...others }) => {
+}> = ({ parameter, ...rest }) => {
   const selected = useSelectedUnit();
 
   return (
     <div
-      { ...others }
+      { ...rest }
       css={{
         display: 'flex',
         justifyContent: 'flex-end'

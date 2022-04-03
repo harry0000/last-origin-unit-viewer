@@ -50,10 +50,6 @@ const PartialFitUnitView: React.FC<{
       >
         <UnitRankIcon
           sizes="(max-width: 480px) 24px, (min-width: 480px) 30px"
-          css={{
-            '@media (max-width: 480px)': { height: 24, width: 24 },
-            '@media (min-width: 480px)': { height: 30, width: 30 }
-          }}
           rank={rank}
           role={role}
         />

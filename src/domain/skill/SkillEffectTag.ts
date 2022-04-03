@@ -46,8 +46,7 @@ export type SkillEffectTag =
   'squadron_escort' |
   'forceful_breakthrough' |
   'readying_bombardment' |
-  'arrogance_and_anger' |
-  'hubris' |
+  'artillery_command' |
   'hardpoint_mount_equipment' |
   'hardpoint_mount_support' |
   'where_are_you_looking_at' |

@@ -1,5 +1,6 @@
-import { Sequence } from '../../util/type';
 import { UnitBasicInfo, UnitType } from '../UnitBasicInfo';
+
+import { notFalsy, Sequence } from '../../util/type';
 
 type SquadGrid<T> = readonly [
   T, T, T,
@@ -36,7 +37,7 @@ export class Squad {
   }
 
   get unitCount(): UnitCountsInSquad {
-    return this.#units.filter(u => !!u).length as UnitCountsInSquad;
+    return this.#units.filter(notFalsy).length as UnitCountsInSquad;
   }
 
   get unitTypeCount(): Readonly<Record<UnitType, number>> {

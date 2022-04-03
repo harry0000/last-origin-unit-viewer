@@ -15,7 +15,7 @@ const CircleImageSwitch: React.FC<{
   disabled?: boolean,
   selected?: boolean,
   onChange?: React.ChangeEventHandler<HTMLInputElement>
-}> = ({ id, src, height, width, alt, disabled, selected, onChange, ...others }) => {
+}> = ({ id, src, height, width, alt, disabled, selected, onChange, ...rest }) => {
   const [active, setActive] = useState(selected);
   const [focus, setFocus] = useState(false);
 
@@ -27,7 +27,7 @@ const CircleImageSwitch: React.FC<{
   }, [disabled]);
 
   return (
-    <div className="circle-image-check" {...others}>
+    <div className="circle-image-check" {...rest}>
       <input
         type="checkbox"
         id={id}

@@ -11,10 +11,10 @@ import {
   UnitHpStatusParameter,
   UnitIceResistStatusParameter,
   UnitSpdStatusParameter
-} from '../../domain/status/UnitStatusParameter';
-import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
+} from '../../../domain/status/UnitStatusParameter';
+import { UnitBasicInfo, UnitNumber } from '../../../domain/UnitBasicInfo';
 
-import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/unitCoreLinkState';
+import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../../corelink/unitCoreLinkState';
 import {
   EnhanceableStatus,
   unitAccEnhancementStatusEffectState,
@@ -42,15 +42,15 @@ import {
   unitChip2EquipmentStatusEffectsState,
   unitGearEquipmentStatusEffectsState,
   unitOsEquipmentStatusEffectsState
-} from '../equipment/unitEquipmentState';
+} from '../../equipment/unitEquipmentState';
 
-import { EffectedParameter } from '../../component/status/StatusEffectsView';
-import { calcMicroValue, calcMilliPercentageValue, calcMilliValue, MilliPercentageValue } from '../../domain/ValueUnit';
+import { EffectedParameter } from '../../../component/status/parameters/StatusEffectsView';
+import { calcMicroValue, calcMilliPercentageValue, calcMilliValue, MilliPercentageValue } from '../../../domain/ValueUnit';
 import {
   formatMicroValue,
   formatMilliPercentage,
   formatMilliValue
-} from '../../component/status/UnitStatusParameterFormatter';
+} from '../../../component/status/parameters/UnitStatusParameterFormatter';
 
 export const unitHpStatusParameterState = selectorFamily<UnitHpStatusParameter, UnitNumber>({
   key: 'unitHpStatusParameterState',

@@ -23,12 +23,12 @@ const CoreLinkUnitItem: React.FC<{
   eventKey?: string,
   active: boolean,
   unit: CoreLinkUnit
-}> = ({ eventKey, active, unit, ...others }) => {
+}> = ({ eventKey, active, unit, ...rest }) => {
   const { t } = useTranslation();
 
   return (
     <Dropdown.Item
-      {...others}
+      {...rest}
       className="core-link"
       eventKey={eventKey}
       active={active}

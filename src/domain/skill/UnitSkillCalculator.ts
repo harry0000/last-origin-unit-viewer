@@ -39,7 +39,7 @@ import { SkillEffectTag } from './SkillEffectTag';
 import { SkillLv } from './UnitSkillLvValue';
 import { sumMilliPercentageValues, ValueUnit } from '../ValueUnit';
 
-import { foldObjectNonNullableEntry, NonNullableEntry } from '../../util/object';
+import { Entry, foldObjectEntry } from '../../util/object';
 
 type SkillEffectLv = SkillLv | 11 | 12 | 13
 
@@ -261,7 +261,7 @@ function calculateMilliPercentageEffectValue(
 }
 
 function calculateEffectValue(
-  entry: NonNullableEntry<Omit<SkillEffectDataValue, typeof Effect.HpUp>>,
+  entry: Entry<Omit<SkillEffectDataValue, typeof Effect.HpUp>>,
   lv: SkillLv,
   effectLv: SkillEffectLv
 ): SkillEffectValue {
@@ -388,7 +388,7 @@ function calculateEffectDataValue(
   lv: SkillLv,
   effectLv: SkillEffectLv
 ): SkillEffectValue | undefined {
-  const calculated = foldObjectNonNullableEntry(data ?? {}, entry =>
+  const calculated = foldObjectEntry(data ?? {}, entry =>
     calculateEffectValue(entry, lv, effectLv)
   )({});
 

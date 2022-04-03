@@ -14,7 +14,7 @@ import { RankUpUnitNumber, isRankUpUnitNumber } from '../../domain/status/UnitRa
 import { UnitRank, UnitRole } from '../../domain/UnitBasicInfo';
 
 import { useSelectedUnit } from '../../state/selector/unitSelectorState';
-import { useUnitRank } from '../../state/status/unitLvStatusState';
+import { useUnitRank } from '../../state/status/parameters/unitLvStatusState';
 
 import { ifNonNullable, ifTruthy } from '../../util/react';
 
@@ -59,10 +59,10 @@ const RankMenuItem: React.FC<{
   active: boolean,
   disabled: boolean,
   availableLv?: RankUpAvailableLv
-}> = ({ rank, role, active, disabled, availableLv,...others }) => {
+}> = ({ rank, role, active, disabled, availableLv,...rest }) => {
   return (
     <Dropdown.Item
-      {...others}
+      {...rest}
       className="rank"
       eventKey={rank}
       active={active}

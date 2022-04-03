@@ -16,7 +16,7 @@ import UnitCoreLink, { CoreLinkCount, CoreLinkSlotAvailableLv, CoreLinkUnit } fr
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 import { UnitLvValue } from '../../domain/status/UnitLv';
 
-import { unitLvState } from '../status/unitLvStatusState';
+import { unitLvState } from '../status/parameters/unitLvStatusState';
 import { unitCoreLinkBonusData } from '../../data/unitCoreLinkBonusData';
 
 import { setOnlySelector, setOnlySelectorFamily } from '../../util/recoil';

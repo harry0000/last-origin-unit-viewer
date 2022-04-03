@@ -69,11 +69,15 @@ export type StatusEffectData = {
 export type EquipmentId = keyof typeof equipmentData
 export type EquipmentData = typeof equipmentData[EquipmentId]
 
-type EquipmentTypeFilter<T extends EquipmentType, E = EquipmentData> = E extends { type: T } ? E : never
+type EquipmentTypeFilter<T extends EquipmentType> = Extract<EquipmentData, { type: T }>
 
 export type Chip = EquipmentTypeFilter<typeof EquipmentType.Chip>
 export type Os   = EquipmentTypeFilter<typeof EquipmentType.Os>
 export type Gear = EquipmentTypeFilter<typeof EquipmentType.Gear>
+
+export function isChipEquipment(arg: EquipmentData): arg is Chip { return arg.type === EquipmentType.Chip; }
+export function isOsEquipment(arg: EquipmentData):   arg is Os   { return arg.type === EquipmentType.Os;   }
+export function isGearEquipment(arg: EquipmentData): arg is Gear { return arg.type === EquipmentType.Gear; }
 
 export type ChipId = EquipmentTypeFilter<typeof EquipmentType.Chip>['id']
 export type OsId   = EquipmentTypeFilter<typeof EquipmentType.Os>['id']

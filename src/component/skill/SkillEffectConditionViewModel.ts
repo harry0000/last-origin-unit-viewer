@@ -10,7 +10,7 @@ type SkillEffectTargets =
   { around?: true }
 
 type EnemyTargetConditions<T extends SkillEffectTarget = SkillEffectTarget> =
-  T extends { kind: typeof SkillEffectTargetKind.Enemy } ? Required <T> : never
+  Required<Extract<T, { kind: typeof SkillEffectTargetKind.Enemy }>>
 
 class SkillEffectConditionViewModel {
 

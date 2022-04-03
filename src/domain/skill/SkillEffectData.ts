@@ -18,6 +18,7 @@ import {
   UnitAliasAndRole,
   UnitAliasAndType,
   UnitAliasExceptUnit,
+  UnitNotAlias,
   UnitTypeAndRole
 } from './SkillEffectActivationCondition';
 import { SkillEffectActivationRate } from './SkillEffectActivationRate';
@@ -129,7 +130,7 @@ export type SkillEffectTargetKind = typeof SkillEffectTargetKind[keyof typeof Sk
 export type SkillEffectTarget = Readonly<{
   kind: typeof SkillEffectTargetKind.Ally,
   conditions?: ReadonlyArray<
-    UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAliasAndType | UnitAliasAndRole | UnitNumber | UnitAlias | UnitAliasExceptUnit
+    UnitNumber | UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAlias | UnitNotAlias | UnitAliasAndType | UnitAliasAndRole | UnitAliasExceptUnit
   >
 } | {
   kind: typeof SkillEffectTargetKind.Enemy,

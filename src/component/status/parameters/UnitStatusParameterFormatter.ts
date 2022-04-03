@@ -5,7 +5,7 @@ import {
   MicroValue,
   MilliPercentageValue,
   MilliValue
-} from '../../domain/ValueUnit';
+} from '../../../domain/ValueUnit';
 
 export function formatMilliValue(value: number): string
 export function formatMilliValue(value?: MilliValue): string

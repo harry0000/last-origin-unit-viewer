@@ -13,10 +13,10 @@ const UnitDetailConditionSelectorRadioButton: React.FC<{
   children: ReactNode,
   selected: boolean,
   onSelect: () => void
-}> = ({ children, selected, onSelect, ...others }) => {
+}> = ({ children, selected, onSelect, ...rest }) => {
   return (
     <RoundedToggleButton
-      {...others}
+      {...rest}
       selected={selected}
       onChange={onSelect}
     >

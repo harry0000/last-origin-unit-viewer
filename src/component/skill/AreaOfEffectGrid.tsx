@@ -35,7 +35,7 @@ const overlayStyle: (type: AreaOfEffectCellType) => CSSObject = (type) =>
     } :
     {};
 
-const AreaOfEffectCell: React.FC<{ selected: boolean, type: AreaOfEffectCellType }> = ({ selected, type, ...others }) => {
+const AreaOfEffectCell: React.FC<{ selected: boolean, type: AreaOfEffectCellType }> = ({ selected, type, ...rest }) => {
   const { t } = useTranslation();
 
   return (
@@ -64,7 +64,7 @@ const AreaOfEffectCell: React.FC<{ selected: boolean, type: AreaOfEffectCellType
         type === AreaOfEffectCellType.Middle ||
         type === AreaOfEffectCellType.Weak ?
           (<OverlayTrigger
-            {...others}
+            {...rest}
             placement='auto'
             overlay={<Tooltip id='tooltip-aoe-cell'>{t(`skill.effective_rate.${type}`)}</Tooltip>}
           >
@@ -80,7 +80,7 @@ const AreaOfEffectGrid: React.FC<{
   css?: Interpolation<Theme>,
   skillType: SkillType,
   unit: UnitBasicInfo
-}> = ({ skillType, unit, ...others }) => {
+}> = ({ skillType, unit, ...rest }) => {
   const { t } = useTranslation();
   const cellType = useSkillArea(skillType, unit);
 
@@ -88,7 +88,7 @@ const AreaOfEffectGrid: React.FC<{
     ifNonNullable(
       cellType,
       cell => (
-        <div {...others}>
+        <div {...rest}>
           <table
             css={{
               borderCollapse: 'collapse',

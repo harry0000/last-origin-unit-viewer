@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import React, { Fragment, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import '../UnitStatusSlot.css';
+import '../UnitSlot.css';
 
 const EquipmentSelector = React.lazy(() => import('./EquipmentSelector'));
 

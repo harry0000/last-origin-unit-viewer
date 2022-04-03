@@ -4,8 +4,11 @@ import { Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
 import React from 'react';
 
-import { UnitRank, UnitRole } from '../../domain/UnitBasicInfo';
 import { Image } from 'react-bootstrap';
+import { ImageSizeProps } from './ImageSizeProps';
+
+import { UnitRank, UnitRole } from '../../domain/UnitBasicInfo';
+
 import { useTranslation } from 'react-i18next';
 
 type Props = {
@@ -13,24 +16,19 @@ type Props = {
   className?: string,
   rank: UnitRank,
   role: UnitRole
-} & (
-  {
-    height: number,
-    width: number
-  } | {
-    sizes: string
-  }
-)
+} & ImageSizeProps
 
-const UnitRankIcon: React.FC<Props> = ({ rank, role, ...others }) => {
+const UnitRankIcon: React.FC<Props> = ({ rank, role, ...rest }) => {
   const { t } = useTranslation();
+  const src = `${process.env.PUBLIC_URL}/icon/${rank}_${role}.webp`;
 
   return (
     <Image
-      {...others}
+      {...rest}
       draggable="false"
       alt={`${t(`unit.rank.${rank}`)} ${t(`unit.role.${role}`)}`}
-      src={`${process.env.PUBLIC_URL}/icon/${rank}_${role}.webp`}
+      src={src}
+      srcSet={`${src} ${rank === UnitRank.SS ? 185 : 123}w`}
     />
   );
 };

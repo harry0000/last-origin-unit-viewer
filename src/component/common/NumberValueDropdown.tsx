@@ -16,7 +16,7 @@ type Props<T extends number> = {
 }
 
 const NumberValueDropdown = <T extends number>(
-  { id, items, value, onChange, ...others }: Props<T>
+  { id, items, value, onChange, ...rest }: Props<T>
 ): ReturnType<React.FC<Props<T>>> => {
   const NumberValueToggle =
     React.forwardRef<HTMLAnchorElement, {
@@ -45,7 +45,7 @@ const NumberValueDropdown = <T extends number>(
     ));
 
   return (
-    <div {...others}>
+    <div {...rest}>
       <Dropdown
         className="numeric"
         onSelect={(eventKey, event) => {
