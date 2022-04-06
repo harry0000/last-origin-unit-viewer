@@ -52,7 +52,7 @@ export function isReadonlyArray<T>(arg: ReadonlyArray<T> | unknown): arg is Read
   return Array.isArray(arg);
 }
 
-type Falsy = false | '' | 0 | -0 | 0n | typeof NaN | null | undefined
+type Falsy = false | '' | 0 | -0 | 0n | null | undefined
 
 export function notFalsy<A>(arg: A | Falsy): arg is A {
   return !!arg;
