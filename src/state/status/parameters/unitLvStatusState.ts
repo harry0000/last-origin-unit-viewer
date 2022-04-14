@@ -40,9 +40,10 @@ import {
   updateGearEquipmentDependency,
   updateOsEquipmentDependency
 } from '../../equipment/unitEquipmentState';
+import { useSelectedUnit } from '../../selector/unitSelectorState';
 import { useSquad } from '../../squad/squadState';
 
-import { setOnlySelector, setOnlySelectorFamily } from '../../../util/recoil';
+import { setOnlySelector, setOnlySelectorFamily, updateSelectorFamily } from '../../../util/recoil';
 
 type Status = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri'
 type StatusKey = `${Capitalize<Status>}`
@@ -273,6 +274,88 @@ const unitLvStatusState = selectorFamily<UnitLvStatus, UnitNumber>({
   }
 });
 
+const unitStatusEnhancedLvState = selectorFamily<number, [status: EnhanceableStatus, unit: UnitNumber | undefined]>({
+  key: 'unitStatusEnhancedLvState',
+  get: ([status, unit]) => ({ get }) => {
+    if (!unit) {
+      return 0;
+    }
+
+    switch (status) {
+    case 'hp':  return get(unitLvStateAtoms.hp.lv(unit));
+    case 'atk': return get(unitLvStateAtoms.atk.lv(unit));
+    case 'def': return get(unitLvStateAtoms.def.lv(unit));
+    case 'acc': return get(unitLvStateAtoms.acc.lv(unit));
+    case 'eva': return get(unitLvStateAtoms.eva.lv(unit));
+    case 'cri': return get(unitLvStateAtoms.cri.lv(unit));
+    }
+  }
+});
+
+const selectedUnitStatusIncrementDisabled = selectorFamily<boolean, [status: EnhanceableStatus, unit: UnitNumber | undefined]>({
+  key: 'selectedUnitStatusIncrementDisabled',
+  get: ([status, selected]) => ({ get }) => {
+    switch (status) {
+    case 'hp':  return !selected || !get(unitLvStateAtoms.hp.canIncrement(selected));
+    case 'atk': return !selected || !get(unitLvStateAtoms.atk.canIncrement(selected));
+    case 'def': return !selected || !get(unitLvStateAtoms.def.canIncrement(selected));
+    case 'acc': return !selected || !get(unitLvStateAtoms.acc.canIncrement(selected));
+    case 'eva': return !selected || !get(unitLvStateAtoms.eva.canIncrement(selected));
+    case 'cri': return !selected || !get(unitLvStateAtoms.cri.canIncrement(selected));
+    }
+  }
+});
+
+const selectedUnitStatusDecrementDisabled = selectorFamily<boolean, [status: EnhanceableStatus, unit: UnitNumber | undefined]>({
+  key: 'selectedUnitStatusDecrementDisabled',
+  get: ([status, selected]) => ({ get }) => {
+    switch (status) {
+    case 'hp':  return !selected || !get(unitLvStateAtoms.hp.canDecrement(selected));
+    case 'atk': return !selected || !get(unitLvStateAtoms.atk.canDecrement(selected));
+    case 'def': return !selected || !get(unitLvStateAtoms.def.canDecrement(selected));
+    case 'acc': return !selected || !get(unitLvStateAtoms.acc.canDecrement(selected));
+    case 'eva': return !selected || !get(unitLvStateAtoms.eva.canDecrement(selected));
+    case 'cri': return !selected || !get(unitLvStateAtoms.cri.canDecrement(selected));
+    }
+  }
+});
+
+const selectedUnitStatusIncrement = updateSelectorFamily<[status: EnhanceableStatus, unit: UnitNumber | undefined]>({
+  key: 'selectedUnitStatusIncrement',
+  set: ([status, selected]) => ({ set }) => {
+    if (!selected) {
+      return;
+    }
+
+    switch (status) {
+    case 'hp':  return set(unitLvStatusState(selected), s => s.upHpLv());
+    case 'atk': return set(unitLvStatusState(selected), s => s.upAtkLv());
+    case 'def': return set(unitLvStatusState(selected), s => s.upDefLv());
+    case 'acc': return set(unitLvStatusState(selected), s => s.upAccLv());
+    case 'eva': return set(unitLvStatusState(selected), s => s.upEvaLv());
+    case 'cri': return set(unitLvStatusState(selected), s => s.upCriLv());
+    }
+  }
+});
+
+const selectedUnitStatusDecrement = updateSelectorFamily<[status: EnhanceableStatus, unit: UnitNumber | undefined]>({
+  key: 'selectedUnitStatusDecrement',
+  set: ([status, selected]) => ({ set }) => {
+    if (!selected) {
+      return;
+    }
+
+    switch (status) {
+    case 'hp':  return set(unitLvStatusState(selected), s => s.downHpLv());
+    case 'atk': return set(unitLvStatusState(selected), s => s.downAtkLv());
+    case 'def': return set(unitLvStatusState(selected), s => s.downDefLv());
+    case 'acc': return set(unitLvStatusState(selected), s => s.downAccLv());
+    case 'eva': return set(unitLvStatusState(selected), s => s.downEvaLv());
+    case 'cri': return set(unitLvStatusState(selected), s => s.downCriLv());
+    }
+  }
+});
+
 export function useUnitCost(unit: UnitBasicInfo): UnitCost {
   return useRecoilValue(unitCostState(unit));
 }
@@ -308,41 +391,29 @@ export function useUsedPointReset(unit: UnitNumber): [disable: boolean, reset: (
   return [!canReset, () => { setter(s => s.resetParameterPoints()); }];
 }
 
-export function useStatusParameterEnhancedLv(parameter: EnhanceableStatus, unit: UnitNumber): number {
-  switch (parameter) {
-  case 'hp':  return useRecoilValue(unitLvStateAtoms.hp.lv(unit));
-  case 'atk': return useRecoilValue(unitLvStateAtoms.atk.lv(unit));
-  case 'def': return useRecoilValue(unitLvStateAtoms.def.lv(unit));
-  case 'acc': return useRecoilValue(unitLvStateAtoms.acc.lv(unit));
-  case 'eva': return useRecoilValue(unitLvStateAtoms.eva.lv(unit));
-  case 'cri': return useRecoilValue(unitLvStateAtoms.cri.lv(unit));
-  }
+export function useStatusEnhancedLv(status: EnhanceableStatus, unit: UnitNumber): number {
+  return useRecoilValue(unitStatusEnhancedLvState([status, unit]));
 }
 
-export function useStatusParameterIncrement(parameter: EnhanceableStatus, unit: UnitNumber): [incrementDisabled: boolean, increment: () => void] {
-  const setter = useSetRecoilState(unitLvStatusState(unit));
-
-  switch (parameter) {
-  case 'hp':  return [!useRecoilValue(unitLvStateAtoms.hp.canIncrement(unit)), () => { setter(s => s.upHpLv()); }];
-  case 'atk': return [!useRecoilValue(unitLvStateAtoms.atk.canIncrement(unit)), () => { setter(s => s.upAtkLv()); }];
-  case 'def': return [!useRecoilValue(unitLvStateAtoms.def.canIncrement(unit)), () => { setter(s => s.upDefLv()); }];
-  case 'acc': return [!useRecoilValue(unitLvStateAtoms.acc.canIncrement(unit)), () => { setter(s => s.upAccLv()); }];
-  case 'eva': return [!useRecoilValue(unitLvStateAtoms.eva.canIncrement(unit)), () => { setter(s => s.upEvaLv()); }];
-  case 'cri': return [!useRecoilValue(unitLvStateAtoms.cri.canIncrement(unit)), () => { setter(s => s.upCriLv()); }];
-  }
+export function useSelectedUnitStatusEnhancedLv(status: EnhanceableStatus): number {
+  const selected = useSelectedUnit()?.no;
+  return useRecoilValue(unitStatusEnhancedLvState([status, selected]));
 }
 
-export function useStatusParameterDecrement(parameter: EnhanceableStatus, unit: UnitNumber): [decrementDisabled: boolean, decrement: () => void] {
-  const setter = useSetRecoilState(unitLvStatusState(unit));
+export function useStatusParameterIncrement(status: EnhanceableStatus): [incrementDisabled: boolean, increment: () => void] {
+  const selected = useSelectedUnit()?.no;
+  return [
+    useRecoilValue(selectedUnitStatusIncrementDisabled([status, selected])),
+    useSetRecoilState(selectedUnitStatusIncrement([status, selected]))
+  ];
+}
 
-  switch (parameter) {
-  case 'hp':  return [!useRecoilValue(unitLvStateAtoms.hp.canDecrement(unit)), () => { setter(s => s.downHpLv()); }];
-  case 'atk': return [!useRecoilValue(unitLvStateAtoms.atk.canDecrement(unit)), () => { setter(s => s.downAtkLv()); }];
-  case 'def': return [!useRecoilValue(unitLvStateAtoms.def.canDecrement(unit)), () => { setter(s => s.downDefLv()); }];
-  case 'acc': return [!useRecoilValue(unitLvStateAtoms.acc.canDecrement(unit)), () => { setter(s => s.downAccLv()); }];
-  case 'eva': return [!useRecoilValue(unitLvStateAtoms.eva.canDecrement(unit)), () => { setter(s => s.downEvaLv()); }];
-  case 'cri': return [!useRecoilValue(unitLvStateAtoms.cri.canDecrement(unit)), () => { setter(s => s.downCriLv()); }];
-  }
+export function useStatusParameterDecrement(status: EnhanceableStatus): [decrementDisabled: boolean, decrement: () => void] {
+  const selected = useSelectedUnit()?.no;
+  return [
+    useRecoilValue(selectedUnitStatusDecrementDisabled([status, selected])),
+    useSetRecoilState(selectedUnitStatusDecrement([status, selected]))
+  ];
 }
 
 export function useUnitRank(unit: RankUpUnitNumber): [

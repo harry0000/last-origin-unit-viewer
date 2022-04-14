@@ -6,13 +6,14 @@ import React, { ReactNode } from 'react';
 
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import PopoverListContent from '../../common/PopoverListContent';
-import { effectValueColor } from '../../common/effectValueColor';
 import {
+  appendPercentage,
   formatMicroValue,
   formatMilliPercentage,
   formatMilliValue,
   formatResistPercentage
 } from './UnitStatusParameterFormatter';
+import { effectValueColor } from '../../common/effectValueColor';
 
 import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 
@@ -25,8 +26,9 @@ export type EffectedParameter = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri' | '
 const StatusEffectValueView: React.FC<{
   css?: Interpolation<Theme>,
   parameter: EffectedParameter,
-  value: number
-}> = ({ parameter, value, ...rest }) => {
+  value: number,
+  showPercentage: boolean
+}> = ({ parameter, value, showPercentage, ...rest }) => {
   const [sign, color] =
     value === 0 ? ['+', undefined] as const :
       value > 0 ?
@@ -42,13 +44,17 @@ const StatusEffectValueView: React.FC<{
     case 'acc':
     case 'eva':
     case 'cri':
-      return formatMilliPercentage(Math.abs(value));
+      return showPercentage ?
+        appendPercentage(formatMilliPercentage(Math.abs(value))) :
+        formatMilliPercentage(Math.abs(value));
     case 'spd':
       return formatMicroValue(Math.abs(value));
     case 'fireResist':
     case 'iceResist':
     case 'electricResist':
-      return formatResistPercentage(Math.abs(value));
+      return showPercentage ?
+        appendPercentage(formatResistPercentage(Math.abs(value))) :
+        formatResistPercentage(Math.abs(value));
     }
   })();
 
@@ -63,7 +69,7 @@ const StatusEffectSummaryView: React.FC<{
   const summary = useStatusEffectsSummary(parameter, unit);
 
   return (
-    <StatusEffectValueView {...rest}  parameter={parameter} value={summary} />
+    <StatusEffectValueView {...rest}  parameter={parameter} value={summary} showPercentage={false} />
   );
 };
 
@@ -87,7 +93,7 @@ const StatusEffectsPopoverView: React.FC<{
               {affected}
             </div>
             <div css={{ width: 120, textAlign: 'right', marginLeft: 'auto' }}>
-              <StatusEffectValueView parameter={parameter} value={value} />
+              <StatusEffectValueView parameter={parameter} value={value} showPercentage={true} />
             </div>
           </PopoverListContent.Row>
         ))}
@@ -124,13 +130,14 @@ const UnitStatusEffectsView: React.FC<{
 
 const StatusEffectsView: React.FC<{
   css?: Interpolation<Theme>,
+  className?: string,
   parameter: EffectedParameter
 }> = ({ parameter, ...rest }) => {
   const selected = useSelectedUnit();
 
   return (
     <div
-      { ...rest }
+      {...rest}
       css={{
         display: 'flex',
         justifyContent: 'flex-end'
@@ -141,7 +148,7 @@ const StatusEffectsView: React.FC<{
         {
           selected ?
             (<UnitStatusEffectsView unit={selected} parameter={parameter} />) :
-            (<StatusEffectValueView parameter={parameter} value={0} />)
+            (<StatusEffectValueView parameter={parameter} value={0} showPercentage={false} />)
         }
       </div>
       <div>&nbsp;)</div>

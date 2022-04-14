@@ -126,8 +126,8 @@ const UnitLvView: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <div>
-      <div css={{ display: 'flex' }}>
+    <div css={{ color: '#ccc' }}>
+      <div css={{ display: 'flex', alignItems: 'center' }}>
         <div css={unitLvStyle}>
           <span css={{ marginRight: 5 }}>{t('lv')}</span>
           <UnitLvValueView />
