@@ -38,10 +38,7 @@ const UnitDetailTabItem: React.FC<{
 
 const UnitDetailView: React.FC<{ className: string }> = ({ className }) => {
   return (
-    <div
-      className={className}
-      css={{ padding: '0 10px' }}
-    >
+    <div className={className}>
       <UnitBasicInfoView />
       <Tab.Container
         id="unit-detail-view-tab-container"

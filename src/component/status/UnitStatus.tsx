@@ -9,7 +9,9 @@ import DamagedStateSelector from './DamagedStateSelector';
 import UnitCoreLinkView from './corelink/UnitCoreLinkView';
 import UnitEquipmentView from './equipment/UnitEquipmentView';
 import UnitFullLinkView from './corelink/UnitFullLinkView';
-import UnitStatusParameterView from './parameters/UnitStatusParameter';
+import UnitLvView from './parameters/UnitLvView';
+import UnitStatusParameter from './parameters/UnitStatusParameter';
+import UnitStatusParametersForm from './parameters/UnitStatusParametersForm';
 
 const UnitStatus: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
   return (
@@ -18,12 +20,15 @@ const UnitStatus: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
       css={{
         userSelect: 'none',
         overflowY: 'hidden',
+        padding: '0 5px 5px',
         '& > *:not(:first-of-type)': {
-          marginTop: 15
+          marginTop: 10
         }
       }}
     >
-      <UnitStatusParameterView />
+      <UnitStatusParameter />
+      <UnitLvView />
+      <UnitStatusParametersForm />
       <UnitEquipmentView />
       <UnitCoreLinkView />
       <UnitFullLinkView />

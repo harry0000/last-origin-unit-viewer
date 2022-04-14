@@ -1,5 +1,6 @@
 import { selectorFamily, useRecoilValue } from 'recoil';
 
+import { DamageAttribute } from '../../../domain/skill/UnitSkillData';
 import {
   UnitAccStatusParameter,
   UnitAtkStatusParameter,
@@ -13,6 +14,7 @@ import {
   UnitSpdStatusParameter
 } from '../../../domain/status/UnitStatusParameter';
 import { UnitBasicInfo, UnitNumber } from '../../../domain/UnitBasicInfo';
+import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../../domain/ValueUnit';
 
 import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../../corelink/unitCoreLinkState';
 import {
@@ -43,13 +45,15 @@ import {
   unitGearEquipmentStatusEffectsState,
   unitOsEquipmentStatusEffectsState
 } from '../../equipment/unitEquipmentState';
+import { useSelectedUnit } from '../../selector/unitSelectorState';
 
 import { EffectedParameter } from '../../../component/status/parameters/StatusEffectsView';
-import { calcMicroValue, calcMilliPercentageValue, calcMilliValue, MilliPercentageValue } from '../../../domain/ValueUnit';
 import {
+  appendPercentage,
   formatMicroValue,
   formatMilliPercentage,
-  formatMilliValue
+  formatMilliValue,
+  formatResistPercentage
 } from '../../../component/status/parameters/UnitStatusParameterFormatter';
 
 export const unitHpStatusParameterState = selectorFamily<UnitHpStatusParameter, UnitNumber>({
@@ -207,49 +211,49 @@ const unitElectricResistStatusParameterState = selectorFamily<UnitElectricResist
   }
 });
 
-export function useEmptyStatusParameter(parameter: EnhanceableStatus | 'spd'): string {
-  switch (parameter) {
-  case 'hp':
-    return '0';
-  case 'atk':
-  case 'def':
-    return formatMilliValue(undefined);
-  case 'acc':
-  case 'eva':
-  case 'cri':
-    return formatMilliPercentage(undefined);
-  case 'spd':
-    return formatMicroValue(undefined);
+const selectedUnitStatusParameter = selectorFamily<string, [status: EnhanceableStatus | 'spd', selected: UnitNumber | undefined]>({
+  key: 'selectedUnitStatusParameter',
+  get: ([status, selected]) => ({ get }) => {
+    switch (status) {
+    case 'hp':  return `${selected ? get(unitHpStatusParameterState(selected)).hp.value : 0}`;
+    case 'atk': return formatMilliValue(selected && get(unitAtkStatusParameterState(selected)).atk);
+    case 'def': return formatMilliValue(selected && get(unitDefStatusParameterState(selected)).def);
+    case 'acc': return formatMilliPercentage(selected && get(unitAccStatusParameterState(selected)).acc);
+    case 'eva': return formatMilliPercentage(selected && get(unitEvaStatusParameterState(selected)).eva);
+    case 'cri': return formatMilliPercentage(selected && get(unitCriStatusParameterState(selected)).cri);
+    case 'spd': return formatMicroValue(selected && get(unitSpdStatusParameterState(selected)).spd);
+    }
   }
-}
+});
 
-export function useStatusParameter(parameter: EnhanceableStatus | 'spd', unit: UnitNumber): string {
-  switch (parameter) {
-  case 'hp':  return `${useRecoilValue(unitHpStatusParameterState(unit)).hp.value}`;
-  case 'atk': return formatMilliValue(useRecoilValue(unitAtkStatusParameterState(unit)).atk);
-  case 'def': return formatMilliValue(useRecoilValue(unitDefStatusParameterState(unit)).def);
-  case 'acc': return formatMilliPercentage(useRecoilValue(unitAccStatusParameterState(unit)).acc);
-  case 'eva': return formatMilliPercentage(useRecoilValue(unitEvaStatusParameterState(unit)).eva);
-  case 'cri': return formatMilliPercentage(useRecoilValue(unitCriStatusParameterState(unit)).cri);
-  case 'spd': return formatMicroValue(useRecoilValue(unitSpdStatusParameterState(unit)).spd);
+const selectedUnitResistStatusParameter = selectorFamily<string, [attribute: DamageAttribute, selected: UnitNumber | undefined]>({
+  key: 'selectedUnitResistStatusParameter',
+  get: ([attribute, selected]) => ({ get }) => {
+    const value = (() => {
+      switch (attribute) {
+      case DamageAttribute.Fire:     return selected && get(unitFireResistStatusParameterState(selected)).resist;
+      case DamageAttribute.Ice:      return selected && get(unitIceResistStatusParameterState(selected)).resist;
+      case DamageAttribute.Electric: return selected && get(unitElectricResistStatusParameterState(selected)).resist;
+      }
+    })();
+
+    return appendPercentage(formatResistPercentage(value));
   }
+});
+
+export function useStatusParameter(status: EnhanceableStatus | 'spd'): string {
+  const selected = useSelectedUnit()?.no;
+  return useRecoilValue(selectedUnitStatusParameter([status, selected]));
 }
 
-export function useUnitFireResistParameter(unit: UnitNumber): MilliPercentageValue {
-  return useRecoilValue(unitFireResistStatusParameterState(unit)).resist;
-}
-
-export function useUnitIceResistParameter(unit: UnitNumber): MilliPercentageValue {
-  return useRecoilValue(unitIceResistStatusParameterState(unit)).resist;
-}
-
-export function useUnitElectricResistParameter(unit: UnitNumber): MilliPercentageValue {
-  return useRecoilValue(unitElectricResistStatusParameterState(unit)).resist;
+export function useSelectedUnitAttributeResistParameter(attribute: DamageAttribute): string {
+  const selected = useSelectedUnit()?.no;
+  return useRecoilValue(selectedUnitResistStatusParameter([attribute, selected]));
 }
 
 export function useStatusEffectsSummary(parameter: EffectedParameter, unit: UnitBasicInfo): number {
   switch (parameter) {
-  case 'hp':return useRecoilValue(unitHpStatusParameterState(unit.no)).hpEffectValue.value;
+  case 'hp': return useRecoilValue(unitHpStatusParameterState(unit.no)).hpEffectValue.value;
   case 'atk': return calcMilliValue(useRecoilValue(unitAtkStatusParameterState(unit.no)).atkEffectValue);
   case 'def': return calcMilliValue(useRecoilValue(unitDefStatusParameterState(unit.no)).defEffectValue);
   case 'acc': return calcMilliPercentageValue(useRecoilValue(unitAccStatusParameterState(unit.no)).accEffectValue);

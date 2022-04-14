@@ -10,7 +10,7 @@ import {
   unitDefEnhancementStatusEffectState,
   unitEvaEnhancementStatusEffectState,
   unitHpEnhancementStatusEffectState,
-  useStatusParameterEnhancedLv
+  useStatusEnhancedLv
 } from './unitLvStatusState';
 import {
   unitAtkStatusParameterState,
@@ -57,7 +57,7 @@ function enhancementEffects(
 ): ReadonlyArray<StatusEffectPopoverRowProps> {
   switch (parameter) {
   case 'hp': {
-    const lv = useStatusParameterEnhancedLv(parameter, unit);
+    const lv = useStatusEnhancedLv(parameter, unit);
     const value = useRecoilValue(unitHpEnhancementStatusEffectState(unit)).hp_up?.value;
     return lv && value ?
       [{
@@ -68,7 +68,7 @@ function enhancementEffects(
       [];
   }
   case 'atk': {
-    const lv = useStatusParameterEnhancedLv(parameter, unit);
+    const lv = useStatusEnhancedLv(parameter, unit);
     const value = useRecoilValue(unitAtkEnhancementStatusEffectState(unit)).atk_up;
     return lv && value ?
       [{
@@ -79,7 +79,7 @@ function enhancementEffects(
       [];
   }
   case 'def': {
-    const lv = useStatusParameterEnhancedLv(parameter, unit);
+    const lv = useStatusEnhancedLv(parameter, unit);
     const value = useRecoilValue(unitDefEnhancementStatusEffectState(unit)).def_up;
     return lv && value ?
       [{
@@ -90,7 +90,7 @@ function enhancementEffects(
       [];
   }
   case 'acc': {
-    const lv = useStatusParameterEnhancedLv(parameter, unit);
+    const lv = useStatusEnhancedLv(parameter, unit);
     const value = useRecoilValue(unitAccEnhancementStatusEffectState(unit)).acc_up;
     return lv && value ?
       [{
@@ -101,7 +101,7 @@ function enhancementEffects(
       [];
   }
   case 'eva': {
-    const lv = useStatusParameterEnhancedLv(parameter, unit);
+    const lv = useStatusEnhancedLv(parameter, unit);
     const value = useRecoilValue(unitEvaEnhancementStatusEffectState(unit)).eva_up;
     return lv && value ?
       [{
@@ -112,7 +112,7 @@ function enhancementEffects(
       [];
   }
   case 'cri': {
-    const lv = useStatusParameterEnhancedLv(parameter, unit);
+    const lv = useStatusEnhancedLv(parameter, unit);
     const value = useRecoilValue(unitCriEnhancementStatusEffectState(unit)).cri_up;
     return lv && value ?
       [{
