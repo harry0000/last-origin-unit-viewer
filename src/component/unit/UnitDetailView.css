@@ -1,5 +1,6 @@
 .nav.unit-detail-view-tab {
   padding-top: 10px;
+  user-select: none;
 }
 
 @media (max-width: 480px) {
