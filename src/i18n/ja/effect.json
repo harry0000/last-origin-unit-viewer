@@ -332,7 +332,6 @@
       "cooperative_attack": "協同攻撃対象",
       "counterattack": "反撃",
       "ignore_barrier_dr": "バリア・被ダメージダウン効果無視",
-      "ignore_dr": "被ダメージダウン効果無視",
       "ignore_protect": "保護効果無視",
       "reconnaissance": "偵察",
       "marked": "標的",
@@ -419,7 +418,6 @@
       "counterattack": "{{value}}%の威力で反撃",
 
       "ignore_barrier_dr": "バリア・被ダメージダウン効果を無視",
-      "ignore_dr": "被ダメージダウン効果を無視",
       "ignore_protect": "保護効果を無視",
 
       "pull": "{{value}}マス前方に引き寄せる",

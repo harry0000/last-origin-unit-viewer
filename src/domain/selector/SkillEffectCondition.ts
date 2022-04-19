@@ -234,7 +234,7 @@ export function matchSkillConditions(
     case OffensiveSkillEffectCondition.DefensePenetration:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.defense_penetration);
     case OffensiveSkillEffectCondition.IgnoreBarrierDR:
-      return checkAllSkillEffectDetails(actives, passives, e => !!e.ignore_dr || !!e.ignore_barrier_dr);
+      return checkAllSkillEffectDetails(actives, passives, e => !!e.ignore_barrier_dr);
     case OffensiveSkillEffectCondition.AntiLightUnitType:
       return checkAllSkillEffectDetails(actives, passives, e => !!e?.anti_light_type);
     case OffensiveSkillEffectCondition.AntiFlyingUnitType:
