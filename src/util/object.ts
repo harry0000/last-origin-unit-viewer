@@ -4,12 +4,6 @@ export function isRecord(arg: unknown): arg is Record<string | number | symbol, 
   return !!arg && Object.prototype.toString.call(arg) === '[object Object]';
 }
 
-export function mapObjectValue<K extends string | number | symbol, V, R>(object: Record<K, V>, f: (value: V) => R): Record<K, R>
-export function mapObjectValue<K extends string | number | symbol, V, R>(object: Partial<Record<K, V>>, f: (value: V) => R): Partial<Record<K, R>>
-export function mapObjectValue<K extends string | number | symbol, V, R>(object: Record<K, V>, f: (value: V) => R): Record<K, R> {
-  return Object.fromEntries(Object.entries<V>(object).map(([key, value]) => [key, f(value)])) as Record<K, R>;
-}
-
 type TupleEntry<T extends ReadonlyArray<unknown>, I extends number = 0, R = never> =
   T extends readonly [infer Head, ...infer Tail] ?
     TupleEntry<Tail, Increment<I> & number, R | [`${I}`, Head]> :
