@@ -495,7 +495,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           target: {
-            damage_over_time: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 } },
+            fixed_damage: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 } },
             damage_taken_increased: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 1 }
           }
         }
@@ -525,7 +525,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           target: {
-            damage_over_time: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 } },
+            fixed_damage: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 } },
             damage_taken_increased: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 1 }
           }
         }
@@ -587,7 +587,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           target: {
-            damage_over_time: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 } },
+            fixed_damage: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 } },
             damage_taken_increased: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 1 }
           }
         }
