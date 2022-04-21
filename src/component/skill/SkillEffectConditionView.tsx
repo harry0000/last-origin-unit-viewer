@@ -42,17 +42,17 @@ function stateValuesView(
   t: TFunction
 ): ReactNode {
   switch (entry[0]) {
-  case 'hp_greater_or_equal':
-  case 'hp_less_or_equal':
-  case 'hp_greater_than':
-  case 'hp_less_than':
+  case EffectActivationState.HpGreaterOrEqual:
+  case EffectActivationState.HpLessOrEqual:
+  case EffectActivationState.HpGreaterThan:
+  case EffectActivationState.HpLessThan:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { value: entry[1] })}</span>);
-  case 'affected':
+  case EffectActivationState.Affected:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { effect: entry[1] })}</span>);
-  case 'tagged':
-  case 'not_tagged':
+  case EffectActivationState.Tagged:
+  case EffectActivationState.NotTagged:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { tag: entry[1] })}</span>);
-  case 'stack_ge':
+  case EffectActivationState.StackGe:
     if ('effect' in entry[1]) {
       return t(
         'effect:condition.state.tag_effect_stack_ge',
@@ -68,23 +68,23 @@ function stateValuesView(
         { tag: entry[1].tag, value: entry[1].value }
       );
     }
-  case 'form':
+  case EffectActivationState.Form:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { form: entry[1] })}</span>);
-  case 'unit':
+  case EffectActivationState.Unit:
     return unitStateView(entry[0], entry[1], unitNumber, t);
-  case 'affected_by':
+  case EffectActivationState.AffectedBy:
     return unitStateView(entry[0], entry[1], unitNumber, t);
-  case 'equipped': {
+  case EffectActivationState.Equipped: {
     const equipment = t(`equipment:${entry[1]}`);
     return (<span>{t(`effect:condition.state.${entry[0]}`, { equipment })}</span>);
   }
-  case 'not_equipped': {
+  case EffectActivationState.NotEquipped: {
     const equipments = entry[1]
       .map(e => `${t('effect:with_quotes', { value: t(`equipment:${e}`) })}`)
       .join(t('effect:unit_separator'));
     return (<span>{t(`effect:condition.state.${entry[0]}`, { equipments })}</span>);
   }
-  case 'grid':
+  case EffectActivationState.Grid:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { grid: entry[1] })}</span>);
   default: {
     const _exhaustiveCheck: never = entry;
