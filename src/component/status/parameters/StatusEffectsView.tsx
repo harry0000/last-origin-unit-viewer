@@ -69,7 +69,7 @@ const StatusEffectSummaryView: React.FC<{
 
 export type StatusEffectPopoverRowProps = {
   key: string,
-  effected: string,
+  affected: string,
   value: number
 }
 
@@ -81,10 +81,10 @@ const StatusEffectsPopoverView: React.FC<{
   const popover = (
     <Popover id="popover-unit-status-effects" css={{ maxWidth: 'none' }}>
       <PopoverListContent>
-        {effects.map(({ key, effected, value }) => (
+        {effects.map(({ key, affected, value }) => (
           <PopoverListContent.Row key={key} css={{ display: 'flex' }}>
             <div css={{ flexShrink: 0 }}>
-              {effected}
+              {affected}
             </div>
             <div css={{ width: 120, textAlign: 'right', marginLeft: 'auto' }}>
               <StatusEffectValueView parameter={parameter} value={value} />

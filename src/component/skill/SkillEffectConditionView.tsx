@@ -47,7 +47,7 @@ function stateValuesView(
   case 'hp_greater_than':
   case 'hp_less_than':
     return (<span>{t(`effect:condition.state.${entry[0]}`, { value: entry[1] })}</span>);
-  case 'effected':
+  case 'affected':
     return (<span>{t(`effect:condition.state.${entry[0]}`, { effect: entry[1] })}</span>);
   case 'tagged':
   case 'not_tagged':
@@ -72,7 +72,7 @@ function stateValuesView(
     return (<span>{t(`effect:condition.state.${entry[0]}`, { form: entry[1] })}</span>);
   case 'unit':
     return unitStateView(entry[0], entry[1], unitNumber, t);
-  case 'effected_by':
+  case 'affected_by':
     return unitStateView(entry[0], entry[1], unitNumber, t);
   case 'equipped': {
     const equipment = t(`equipment:${entry[1]}`);
@@ -94,10 +94,10 @@ function stateValuesView(
 }
 
 function unitStateView(key: typeof EffectActivationState.Unit, unit: UnitAliasExceptUnit<typeof UnitAlias.AngerOfHorde, 41>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
-function unitStateView(key: typeof EffectActivationState.EffectedBy, unit: UnitNumber | UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.AffectedBy, unit: UnitNumber | UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.InSquad, unit: UnitNumber | ReadonlyArray<UnitNumber> | typeof UnitAlias.ElectricActive | typeof UnitAlias.Horizon | typeof UnitAlias.KouheiChurch | 'golden_factory', selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
-  key: typeof EffectActivationState['InSquad' | 'Unit' | 'EffectedBy'],
+  key: typeof EffectActivationState['InSquad' | 'Unit' | 'AffectedBy'],
   unit:
     UnitNumber |
     ReadonlyArray<UnitNumber> |

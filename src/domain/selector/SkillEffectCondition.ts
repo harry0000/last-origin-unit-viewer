@@ -153,7 +153,7 @@ function checkSelfEffectedState(skillEffect: SkillEffectData, f: (e: Effect) => 
         'state' in cond &&
         'self' in cond.state &&
         cond.state.self.some(s => {
-          const effect = s[EffectActivationState.Effected];
+          const effect = s[EffectActivationState.Affected];
           return !!effect && f(effect);
         })
       );

@@ -62,7 +62,7 @@ function enhancementEffects(
     return lv && value ?
       [{
         key: 'enhancement',
-        effected: t('status.effected.enhancement', { lv }),
+        affected: t('status.affected.enhancement', { lv }),
         value
       }] :
       [];
@@ -73,7 +73,7 @@ function enhancementEffects(
     return lv && value ?
       [{
         key: 'enhancement',
-        effected: t('status.effected.enhancement', { lv }),
+        affected: t('status.affected.enhancement', { lv }),
         value: calcMilliValue(value)
       }] :
       [];
@@ -84,7 +84,7 @@ function enhancementEffects(
     return lv && value ?
       [{
         key: 'enhancement',
-        effected: t('status.effected.enhancement', { lv }),
+        affected: t('status.affected.enhancement', { lv }),
         value: calcMilliValue(value)
       }] :
       [];
@@ -95,7 +95,7 @@ function enhancementEffects(
     return lv && value ?
       [{
         key: 'enhancement',
-        effected: t('status.effected.enhancement', { lv }),
+        affected: t('status.affected.enhancement', { lv }),
         value: calcMilliPercentageValue(value)
       }] :
       [];
@@ -106,7 +106,7 @@ function enhancementEffects(
     return lv && value ?
       [{
         key: 'enhancement',
-        effected: t('status.effected.enhancement', { lv }),
+        affected: t('status.affected.enhancement', { lv }),
         value: calcMilliPercentageValue(value)
       }] :
       [];
@@ -117,7 +117,7 @@ function enhancementEffects(
     return lv && value ?
       [{
         key: 'enhancement',
-        effected: t('status.effected.enhancement', { lv }),
+        affected: t('status.affected.enhancement', { lv }),
         value: calcMilliPercentageValue(value)
       }] :
       [];
@@ -214,7 +214,7 @@ function equipmentEffects(
   if (value) {
     return [{
       key: `equipment-${slot}`,
-      effected: t('status.effected.equipment', { id: equipment.id, lv: equipment.enhanceLv }),
+      affected: t('status.affected.equipment', { id: equipment.id, lv: equipment.enhanceLv }),
       value
     }];
   } else {
@@ -234,7 +234,7 @@ function coreLinkBonusEffects(
     return bonus && 'hp_up' in bonus && value ?
       [{
         key: 'core_link_bonus',
-        effected: t('status.effected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.hp_up) }),
+        affected: t('status.affected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.hp_up) }),
         value
       }] :
       [];
@@ -245,7 +245,7 @@ function coreLinkBonusEffects(
     return bonus && value?.milliValue ?
       [{
         key: 'core_link_bonus',
-        effected: t('status.effected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.atk_up) }),
+        affected: t('status.affected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.atk_up) }),
         value: calcMilliValue(value)
       }] :
       [];
@@ -256,7 +256,7 @@ function coreLinkBonusEffects(
     return bonus && 'def_up' in bonus && value?.milliValue ?
       [{
         key: 'core_link_bonus',
-        effected: t('status.effected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.def_up) }),
+        affected: t('status.affected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.def_up) }),
         value: calcMilliValue(value)
       }] :
       [];
@@ -266,7 +266,7 @@ function coreLinkBonusEffects(
     return bonus && 'acc_up' in bonus && bonus.acc_up.milliPercentage ?
       [{
         key: 'core_link_bonus',
-        effected: t('status.effected.core_link_bonus'),
+        affected: t('status.affected.core_link_bonus'),
         value: calcMilliPercentageValue(bonus.acc_up)
       }] :
       [];
@@ -276,7 +276,7 @@ function coreLinkBonusEffects(
     return bonus && 'eva_up' in bonus && bonus.eva_up.milliPercentage ?
       [{
         key: 'core_link_bonus',
-        effected: t('status.effected.core_link_bonus'),
+        affected: t('status.affected.core_link_bonus'),
         value: calcMilliPercentageValue(bonus.eva_up)
       }] :
       [];
@@ -286,7 +286,7 @@ function coreLinkBonusEffects(
     return bonus && 'cri_up' in bonus && bonus.cri_up.milliPercentage ?
       [{
         key: 'core_link_bonus',
-        effected: t('status.effected.core_link_bonus'),
+        affected: t('status.affected.core_link_bonus'),
         value: calcMilliPercentageValue(bonus.cri_up)
       }] :
       [];
@@ -296,7 +296,7 @@ function coreLinkBonusEffects(
     return bonus && 'spd_up' in bonus && bonus.spd_up.microValue ?
       [{
         key: 'core_link_bonus',
-        effected: t('status.effected.full_link_bonus'),
+        affected: t('status.affected.full_link_bonus'),
         value: calcMicroValue(bonus.spd_up)
       }] :
       [];
@@ -320,7 +320,7 @@ function fullLinkBonusEffects(
     return bonus && 'hp_up' in bonus ?
       [{
         key: 'full_link_bonus',
-        effected: t('status.effected.full_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.hp_up) }),
+        affected: t('status.affected.full_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.hp_up) }),
         value
       }] :
       [];
@@ -330,7 +330,7 @@ function fullLinkBonusEffects(
     return bonus && 'acc_up' in bonus ?
       [{
         key: 'full_link_bonus',
-        effected: t('status.effected.full_link_bonus'),
+        affected: t('status.affected.full_link_bonus'),
         value: calcMilliPercentageValue(bonus.acc_up)
       }] :
       [];
@@ -340,7 +340,7 @@ function fullLinkBonusEffects(
     return bonus && 'eva_up' in bonus ?
       [{
         key: 'full_link_bonus',
-        effected: t('status.effected.full_link_bonus'),
+        affected: t('status.affected.full_link_bonus'),
         value: calcMilliPercentageValue(bonus.eva_up)
       }] :
       [];
@@ -350,7 +350,7 @@ function fullLinkBonusEffects(
     return bonus && 'cri_up' in bonus ?
       [{
         key: 'full_link_bonus',
-        effected: t('status.effected.full_link_bonus'),
+        affected: t('status.affected.full_link_bonus'),
         value: calcMilliPercentageValue(bonus.cri_up)
       }] :
       [];
@@ -360,7 +360,7 @@ function fullLinkBonusEffects(
     return bonus && 'spd_up' in bonus ?
       [{
         key: 'full_link_bonus',
-        effected: t('status.effected.full_link_bonus'),
+        affected: t('status.affected.full_link_bonus'),
         value: calcMicroValue(bonus.spd_up)
       }] :
       [];

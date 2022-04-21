@@ -171,7 +171,7 @@
     "fire_resist": "火炎属性耐性",
     "ice_resist": "冷気属性耐性",
     "electric_resist": "電気属性耐性",
-    "effected": {
+    "affected": {
       "enhancement": "強化Lv. {{lv}}",
       "core_link_bonus": "リンクボーナス",
       "core_link_multiplier_bonus": "リンクボーナス (+ {{value}} %)",
