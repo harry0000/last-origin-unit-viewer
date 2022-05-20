@@ -8,8 +8,9 @@ import { useTranslation } from 'react-i18next';
 import { AreaOfEffectCellType } from './AreaOfEffectCellType';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-import { SkillType, useSkillArea } from '../../state/skill/unitSkillState';
+import { SkillType } from '../../domain/skill/SkillType';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
+import { useSkillArea } from '../../state/skill/unitSkillState';
 
 import { ifNonNullable } from '../../util/react';
 

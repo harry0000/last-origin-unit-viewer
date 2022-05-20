@@ -17,11 +17,12 @@ import {
   SkillEffect
 } from '../../domain/skill/UnitSkills';
 import { FormChangeUnitNumbers, UnitForms } from '../../domain/UnitFormValue';
+import { FormChangeUnitSkill, UnitSkill, isFormChangeUnitSkill, buildUnitSkill } from '../../domain/skill/UnitSkill';
 import { SkillApCostValue, SkillRangeValue } from '../../domain/skill/UnitSkillData';
 import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
 import { SkillLv } from '../../domain/skill/UnitSkillLvValue';
+import { SkillType } from '../../domain/skill/SkillType';
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
-import { UnitSkill, buildUnitSkill, isFormChangeUnitSkill, FormChangeUnitSkill } from '../../domain/skill/UnitSkill';
 
 import { AreaOfEffectCell, AreaOfEffectCells } from '../../component/skill/AreaOfEffectCellType';
 
@@ -32,14 +33,6 @@ import { useSelectedUnit } from '../selector/unitSelectorState';
 
 import { setOnlySelector } from '../../util/recoil';
 
-export const SkillType = {
-  Active1: 'active1',
-  Active2: 'active2',
-  Passive1: 'passive1',
-  Passive2: 'passive2',
-  Passive3: 'passive3'
-} as const;
-export type SkillType = typeof SkillType[keyof typeof SkillType]
 
 const unitSkillState = atomFamily<UnitSkill, UnitBasicInfo>({
   key: 'unitSkillState',

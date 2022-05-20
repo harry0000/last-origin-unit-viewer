@@ -6,9 +6,10 @@ import { useTranslation } from 'react-i18next';
 
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
+import { SkillType } from '../../domain/skill/SkillType';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
-import { SkillType, useEffectsAsEquipmentDescription } from '../../state/skill/unitSkillState';
+import { useEffectsAsEquipmentDescription } from '../../state/skill/unitSkillState';
 
 import { ifTruthy } from '../../util/react';
 

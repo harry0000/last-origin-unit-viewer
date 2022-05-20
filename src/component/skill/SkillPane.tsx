@@ -13,10 +13,10 @@ import NumberValueDropdown from '../common/NumberValueDropdown';
 import SkillEffectsView from './SkillEffectsView';
 
 import { SkillLv } from '../../domain/skill/UnitSkillLvValue';
+import { SkillType } from '../../domain/skill/SkillType';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
 import {
-  SkillType,
   useFormChangeSkillBadge,
   useRankUpSkillBadge,
   useSkillCost,

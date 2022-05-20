@@ -13,8 +13,9 @@ import {
 import { Nav, Tab } from 'react-bootstrap';
 import UnitFormSelector from './UnitFormSelector';
 
+import { SkillType } from '../../domain/skill/SkillType';
+
 import {
-  SkillType,
   useActive1SkillNav,
   useActive2SkillNav,
   usePassive1SkillNav,

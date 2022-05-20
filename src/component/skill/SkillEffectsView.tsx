@@ -8,9 +8,10 @@ import SkillEffectDetailsView from './SkillEffectDetailsView';
 
 import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
 import { SkillEffect } from '../../domain/skill/UnitSkills';
+import { SkillType } from '../../domain/skill/SkillType';
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 
-import { SkillType, useSkillEffects } from '../../state/skill/unitSkillState';
+import { useSkillEffects } from '../../state/skill/unitSkillState';
 
 import { ifNonNullable } from '../../util/react';
 
