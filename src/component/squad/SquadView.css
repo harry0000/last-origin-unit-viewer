@@ -18,7 +18,7 @@
 
 .squad-action {
   position: absolute;
-  top: 0;
+  top: 5px;
   right: 5px;
 }
 
@@ -71,6 +71,7 @@
 .cost-summary .cost-icon:is(.part, .nutrient, .power),
 img.type-icon {
   margin-right: 5px;
+  user-select: none;
 }
 
 img.type-icon {
