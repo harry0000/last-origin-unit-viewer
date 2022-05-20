@@ -298,7 +298,7 @@ export const unitSkillData: UnitSkillData = {
       range: 5,
       cost: 10,
       area: {
-        1: 'circle_small_explosion',
+        1: 'cross_small_explosion',
         10: 'circle_small_explosion'
       },
       effects: [{
