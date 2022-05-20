@@ -1,20 +1,20 @@
-import { Increment } from './type';
-
 export function isRecord(arg: unknown): arg is Record<string | number | symbol, unknown> {
   return !!arg && Object.prototype.toString.call(arg) === '[object Object]';
 }
 
-type TupleEntry<T extends ReadonlyArray<unknown>, I extends number = 0, R = never> =
+type TupleEntry<T extends readonly unknown[], I extends unknown[] = [], R = never> =
   T extends readonly [infer Head, ...infer Tail] ?
-    TupleEntry<Tail, Increment<I> & number, R | [`${I}`, Head]> :
+    TupleEntry<Tail, [...I, unknown], R | [`${I['length']}`, Head]> :
     R
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type ObjectEntry<T extends {}> =
-  T extends Record<string | number | symbol, unknown> ?
-    keyof T extends infer K ?
-      K extends string | number ?
-        [`${K}`, Required<T>[K]] :
+  T extends object ?
+    { [K in keyof T]: [K, Required<T>[K]] }[keyof T] extends infer E ?
+      E extends [infer K, infer V] ?
+        K extends string | number ?
+          [`${K}`, V] :
+          never :
         never :
       never :
     never

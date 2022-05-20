@@ -39,10 +39,6 @@ type IndexSequenceImpl<T extends unknown[]> = {
 type IndexSequence<N extends number> = IndexSequenceImpl<MakeTuple<unknown, N>>[number];
 export type Sequence<N extends number> = Exclude<N | IndexSequence<N>, 0>
 
-type Repeat<T extends number, R extends unknown[] = []> = R['length'] extends T ? R : Repeat<T, [unknown, ...R]>
-type Add<T extends number, U extends number> = [...Repeat<T>, ...Repeat <U>]['length']
-export type Increment<T extends number> = Add<T, 1>
-
 export type IndexOf<T extends readonly unknown[]> = Exclude<Partial<T>['length'], T['length']>
 export type Keyof<T> = T extends Record<string | number | symbol, unknown> ? keyof T : never
 export type ValueOf<T extends Record<string | number | symbol, unknown>, K extends Keyof<T>> = T extends { [key in K]: infer V } ? V : never
