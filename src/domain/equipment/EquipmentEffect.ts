@@ -90,7 +90,7 @@ export type EquipmentEffectValue = Readonly<{
 type ActivationState = Readonly<{
   [EffectActivationState.Grid]?: typeof GridState.BackLine,
   [EffectActivationState.HpGreaterOrEqual]?: 25,
-  [EffectActivationState.Effected]?: Effect,
+  [EffectActivationState.Affected]?: Effect,
   [EffectActivationState.Tagged]?: SkillEffectTag,
   [EffectActivationState.Unit]?: UnitKind
 }>

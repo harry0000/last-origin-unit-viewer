@@ -13,7 +13,6 @@ export type NoValueEffectKey =
     'ReAttack' |
     'FollowUpAttack' |
     'IgnoreBarrierDr' |
-    'IgnoreDr' |
     'IgnoreProtect' |
     'Reconnaissance' |
     'Marked' |

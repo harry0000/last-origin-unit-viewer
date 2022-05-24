@@ -53,7 +53,7 @@ type ActivationState =
     [key in HPRateEffectActivationStateKey]?: number
   } &
   {
-    [EffectActivationState.Effected]?: Effect
+    [EffectActivationState.Affected]?: Effect
   } &
   {
     [EffectActivationState.Tagged]?: SkillEffectTag
@@ -81,7 +81,7 @@ export type ActivationSelfState =
     [EffectActivationState.NotEquipped]?: ReadonlyArray<EquipmentId>
   } &
   {
-    [EffectActivationState.EffectedBy]?: UnitNumber
+    [EffectActivationState.AffectedBy]?: UnitNumber
   } &
   {
     [EffectActivationState.Grid]?: GridState
@@ -94,7 +94,7 @@ export type ActivationSelfState =
 export type ActivationTargetState =
   ActivationState &
   {
-    [EffectActivationState.EffectedBy]?: UnitNumber | UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80>
+    [EffectActivationState.AffectedBy]?: UnitNumber | UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80>
   } &
   {
     [EffectActivationState.Grid]?: Exclude<GridState, typeof GridState.AreaOfEffect>

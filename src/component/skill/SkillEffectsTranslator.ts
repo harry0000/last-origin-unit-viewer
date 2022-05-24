@@ -92,7 +92,6 @@ export function translateSkillEffectDetails(
   case Effect.ReAttack:
   case Effect.FollowUpAttack:
   case Effect.IgnoreBarrierDr:
-  case Effect.IgnoreDr:
   case Effect.IgnoreProtect:
   case Effect.Reconnaissance:
   case Effect.Marked:

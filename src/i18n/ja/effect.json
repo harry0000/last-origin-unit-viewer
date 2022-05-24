@@ -196,7 +196,7 @@
       "hp_less_or_equal": "HP{{value}}%以下である",
       "hp_greater_than":  "HP{{value}}%より多い",
       "hp_less_than": "HP{{value}}%未満である",
-      "effected": "$t(effect:effect.name.{{effect}})状態である",
+      "affected": "$t(effect:effect.name.{{effect}})状態である",
       "tagged": "<$t(effect:tag.{{tag}})>状態である",
       "not_tagged": "<$t(effect:tag.{{tag}})>状態でない",
       "tag_stack_ge": "<$t(effect:tag.{{tag}})> {{value}}以上である",
@@ -210,7 +210,7 @@
       "num_of_units": "$t(effect:unit.self)を除く$t(effect:unit.{{unit}})が{{greater_or_equal}}体以上いる",
       "num_of_enemies": "{{greater_or_equal}}～{{less_or_equal}}体である",
       "num_of_enemies_ge": "{{greater_or_equal}}体以上いる",
-      "effected_by": "{{unit}}のスキル効果を受けている"
+      "affected_by": "{{unit}}のスキル効果を受けている"
     },
     "grid": {
       "front_line": "前列",
@@ -287,7 +287,6 @@
       "electric_resist_up": "電気属性耐性アップ",
       "electric_resist_down": "電気属性耐性ダウン",
       "fixed_damage": "固定ダメージ",
-      "damage_over_time": "持続固定ダメージ",
       "fixed_damage_over_time": "持続固定ダメージ",
       "fixed_fire_damage_over_time": "火炎持続固定ダメージ",
       "fixed_ice_damage_over_time": "冷気持続固定ダメージ",
@@ -332,7 +331,6 @@
       "cooperative_attack": "協同攻撃対象",
       "counterattack": "反撃",
       "ignore_barrier_dr": "バリア・被ダメージダウン効果無視",
-      "ignore_dr": "被ダメージダウン効果無視",
       "ignore_protect": "保護効果無視",
       "reconnaissance": "偵察",
       "marked": "標的",
@@ -355,7 +353,6 @@
       "electric_resist_up": "電気属性耐性 +{{value}}%",
       "electric_resist_down": "電気属性耐性 -{{value}}%",
       "fixed_damage": "攻撃力の{{value}}%の固定ダメージ",
-      "damage_over_time": "攻撃力の{{value}}%の持続固定ダメージ",
       "fixed_damage_over_time": "{{value}}の持続固定ダメージ",
       "fixed_fire_damage_over_time": "{{value}}の火炎持続固定ダメージ",
       "fixed_ice_damage_over_time": "{{value}}の冷気持続固定ダメージ",
@@ -419,7 +416,6 @@
       "counterattack": "{{value}}%の威力で反撃",
 
       "ignore_barrier_dr": "バリア・被ダメージダウン効果を無視",
-      "ignore_dr": "被ダメージダウン効果を無視",
       "ignore_protect": "保護効果を無視",
 
       "pull": "{{value}}マス前方に引き寄せる",

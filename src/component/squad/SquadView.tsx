@@ -33,7 +33,7 @@ const SquadCostSummaryView: React.FC = () => {
             maskSize: '24px'
           }}
         >
-          <span className="sr-only">{t(`unit.type.${type}`)}</span>
+          <span className="sr-only">{t(`cost.${type}`)}</span>
         </span>
         <span className="cost-value">{value}</span>
       </div>

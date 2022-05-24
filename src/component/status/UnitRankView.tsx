@@ -139,7 +139,8 @@ const UnitRankView: React.FC = () => {
         alignItems: 'center',
         justifyContent: 'center',
         width: 75,
-        height: 65
+        height: 65,
+        userSelect: 'none'
       }}
     >
       {ifNonNullable(

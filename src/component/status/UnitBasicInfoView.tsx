@@ -25,7 +25,7 @@ const UnitCostView: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
           className={`cost-icon ${type}`}
           css={{ backgroundImage: `url(${process.env.PUBLIC_URL}/icon/cost_${type}.webp)` }}
         >
-          <span className="sr-only">{t(`unit.type.${type}`)}</span>
+          <span className="sr-only">{t(`cost.${type}`)}</span>
         </span>
         <span className="cost-value">{value}</span>
       </span>

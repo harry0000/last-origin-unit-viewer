@@ -140,8 +140,8 @@ function translateCondition(condition: EquipmentEffectActivationCondition, t: TF
           return t('effect:condition.state.grid', { grid: entry[1] });
         case EffectActivationState.HpGreaterOrEqual:
           return t('effect:condition.state.hp_greater_or_equal', { value: entry[1] });
-        case EffectActivationState.Effected:
-          return t('effect:condition.state.effected', { effect: entry[1] });
+        case EffectActivationState.Affected:
+          return t('effect:condition.state.affected', { effect: entry[1] });
         case EffectActivationState.Tagged:
           return t('effect:condition.state.tagged', { tag: entry[1] });
         case EffectActivationState.Unit:
