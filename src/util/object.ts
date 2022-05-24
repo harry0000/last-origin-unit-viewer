@@ -9,6 +9,7 @@ type TupleEntry<T extends readonly unknown[], I extends unknown[] = [], R = neve
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type ObjectEntry<T extends {}> =
+  // eslint-disable-next-line @typescript-eslint/ban-types
   T extends object ?
     { [K in keyof T]: [K, Required<T>[K]] }[keyof T] extends infer E ?
       E extends [infer K, infer V] ?
