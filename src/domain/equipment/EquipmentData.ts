@@ -96,7 +96,7 @@ type MilliPercentageValue                    = Readonly<{ milliPercentage: Equip
 
 export type EffectAdditionData = Readonly<
   { max_stack?: 3 } &
-  { term?: 'immediate' | 'infinite' | { readonly for_rounds: 1 | 2 } } &
+  { term?: 'immediate' | 'infinite' | { readonly for_rounds: 1 | 2 | 3 } } &
   { rate?: 'constant' | MilliPercentageValue } &
   { times?: EquipmentRankDataValue<1 | 2 | 3 | 4> }
 >

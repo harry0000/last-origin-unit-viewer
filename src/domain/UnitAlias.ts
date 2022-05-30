@@ -17,6 +17,7 @@ export const UnitAlias = {
   CityGuard: 'city_guard',
   MagicalGirl: 'magical_girl',
   KouheiChurch: 'kouhei_church',
+  SmartEnjoy: 'smart_enjoy',
   SpartanSeries: 'spartan_series'
 } as const;
 export type UnitAlias = typeof UnitAlias[keyof typeof UnitAlias]
@@ -38,6 +39,7 @@ export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> 
   [UnitAlias.CityGuard]: new Set([111, 112, 113, 114, 115, 179, 184]),
   [UnitAlias.MagicalGirl]: new Set([123, 127]),
   [UnitAlias.KouheiChurch]: new Set([126, 138, 139]),
+  [UnitAlias.SmartEnjoy]: new Set([205, 206]),
   [UnitAlias.SpartanSeries]: new Set([215, 216, 217])
 } as const;
 

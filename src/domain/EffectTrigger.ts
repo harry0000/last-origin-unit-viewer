@@ -15,6 +15,7 @@ export const EffectTrigger = {
   Hit: 'hit',
   HitFireActive: 'hit_fire_active',
   HitAnyActive: 'hit_any_active',
+  HitActive2: 'hit_active_2',
   HitVitalSpot: 'hit_vital_spot',
   BeHit: 'be_hit',
   BeHitFireActive: 'be_hit_fire_active',

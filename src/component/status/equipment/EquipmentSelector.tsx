@@ -23,7 +23,10 @@ import {
   useEquipmentStatusEffects,
   useUnitEquipment
 } from '../../../state/equipment/unitEquipmentState';
-import { TranslatedEquipmentEffect } from '../../../state/equipment/EquipmentEffectsTranslator';
+import {
+  TranslatedEquipmentEffect,
+  TranslatedEquipmentEffectAsSkill
+} from '../../../state/equipment/EquipmentEffectsTranslator';
 import { useAvailableEquipment } from '../../../state/equipment/availableEquipment';
 import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
 
@@ -57,6 +60,10 @@ type Props<S extends EquipmentSlot> = {
   onSelect: (equipment: SlotEquipment<S> | undefined) => void
 }
 
+const EffectTypeHeader: React.FC<{ children: string }> = ({ children }) => {
+  return (<div className="header">{children}</div>);
+};
+
 const EquipmentEnhancementLvSelector: React.FC<{ slot: EquipmentSlot, unit: UnitNumber }> = ({ slot, unit }) => {
   const SelectorButton = ({ enhanceLv }: { enhanceLv: EquipmentEnhancementLevel }) => {
     const [selected, select] = useEquipmentEnhanceLvSelector(slot, unit, enhanceLv);
@@ -79,13 +86,17 @@ const EquipmentStatusEffects: React.FC<{ slot: EquipmentSlot, equipment: Equipme
 
   return (
     <div className="status-effects">
-      <div><Badge pill variant="light">{t('status.equipment_status_effect')}</Badge></div>
+      <EffectTypeHeader>{t('status.equipment_status_effect')}</EffectTypeHeader>
       <div className="details">{effects}</div>
     </div>
   );
 };
 
-const EffectDetailList: React.FC<{ effects: ReadonlyArray<TranslatedEquipmentEffect> }> = ({ effects }) => {
+const EffectDetailList: React.FC<{
+  effects: ReadonlyArray<TranslatedEquipmentEffect> | ReadonlyArray<TranslatedEquipmentEffectAsSkill>
+}> = ({ effects }) => {
+  const { t } = useTranslation();
+
   return (
     <React.Fragment>
       {effects.map(e => {
@@ -93,19 +104,43 @@ const EffectDetailList: React.FC<{ effects: ReadonlyArray<TranslatedEquipmentEff
         return (
           <div key={JSON.stringify(e)}>
             {ifNonNullable(condition, cond => (<div className="condition">{cond}</div>))}
-            {details.map(({ detail, term }) => {
-              return (
-                <div key={detail} className="detail">
-                  <div>{detail}</div>
-                  {ifNonNullable(term, v => (
-                    <div className="term"><span css={{ color: '#aaa', fontSize: '0.9em' }}>{v}</span></div>
-                  ))}
-                </div>
-              );
-            })}
+            {
+              'self' in details ?
+                (<React.Fragment>
+                  <Badge variant="light">{t('effect:effect.target.self')}</Badge>
+                  <EffectDetailRows details={details.self} />
+                  {ifNonNullable(
+                    'target' in details ? details.target : undefined,
+                    target => (
+                      <React.Fragment>
+                        <Badge variant="light">{t('effect:effect.target.target')}</Badge>
+                        <EffectDetailRows details={target} />
+                      </React.Fragment>
+                    )
+                  )}
+                </React.Fragment>) :
+                (<EffectDetailRows details={details} />)
+            }
           </div>
         );
       })}
+    </React.Fragment>
+  );
+};
+
+const EffectDetailRows: React.FC<{
+  details: TranslatedEquipmentEffect['details']
+}> = ({ details }) => {
+  return (
+    <React.Fragment>
+      {details.map(({ detail, term }) => (
+        <div key={detail} className="detail">
+          <div>{detail}</div>
+          {ifNonNullable(term, v => (
+            <div className="term"><span css={{ color: '#aaa', fontSize: '0.9em' }}>{v}</span></div>
+          ))}
+        </div>
+      ))}
     </React.Fragment>
   );
 };
@@ -118,7 +153,7 @@ const EquipmentEffects: React.FC<{ slot: EquipmentSlot, equipment: EquipmentId }
     effects,
     e => (
       <div className="effects">
-        <div><Badge pill variant="light">{t('status.equipment_effect')}</Badge></div>
+        <EffectTypeHeader>{t('status.equipment_effect')}</EffectTypeHeader>
         <EffectDetailList effects={e} />
       </div>
     )
@@ -133,7 +168,7 @@ const EquipmentEffectsAsSkill: React.FC<{ slot: EquipmentSlot, equipment: Equipm
     effects,
     e => (
       <div className="effects">
-        <div><Badge pill variant="light">{t('status.equipment_effect_as_skill')}</Badge></div>
+        <EffectTypeHeader>{t('status.equipment_effect_as_skill')}</EffectTypeHeader>
         <EffectDetailList effects={e} />
       </div>
     )

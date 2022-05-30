@@ -181,6 +181,7 @@
       "hit": "攻撃命中時",
       "hit_fire_active": "火属性攻撃命中時",
       "hit_any_active": "スキル命中時",
+      "hit_active_2": "[$t(skill:active, { \"unit\": {{unit}}, \"no\": 2 })]命中時",
       "hit_vital_spot": "急所をついた時",
       "be_hit": "被撃時",
       "be_hit_fire_active": "火炎属性攻撃を被撃時",

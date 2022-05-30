@@ -1,5 +1,5 @@
 import { Effect } from '../Effect';
-import { EquipmentEffectAddition, EffectDetails, EquipmentEffectValue } from './EquipmentEffect';
+import { EquipmentEffectAddition, EffectDetails, EffectDetailsAsSkill, EquipmentEffectValue } from './EquipmentEffect';
 import {
   EffectAdditionData,
   EquipmentEffects,
@@ -141,13 +141,17 @@ function calculateEffectDetails(
     case Effect.SpdUp:
     case Effect.SpdDown:
     case Effect.FireResistUp:
+    case Effect.FireResistDown:
     case Effect.IceResistUp:
+    case Effect.IceResistDown:
     case Effect.ElectricResistUp:
+    case Effect.ElectricResistDown:
     case Effect.StatusResistUp:
     case Effect.ExpUp:
     case Effect.DefensePenetration:
     case Effect.DamageTakenIncreased:
     case Effect.DamageReduction:
+    case Effect.BattleContinuationWithHpRate:
     case Effect.Counterattack:
       return {
         [entry[0]]: {
@@ -183,21 +187,38 @@ function calculateEffectDetails(
   })({});
 }
 
-function calculateEffectValues(effect: EquipmentEffects[number] | EquipmentEffectsAsSkill[number]): EffectDetails {
-  return Object.assign(
-    { details: calculateEffectDetails(effect.details) },
-    'condition' in effect ? { condition: effect.condition } : {}
-  );
+function calculateCondition(effect: EquipmentEffects[number] | EquipmentEffectsAsSkill[number]): Pick<Required<EffectDetails>, 'condition'> | Record<string, never> {
+  return 'condition' in effect ? { condition: effect.condition } : {};
 }
 
 export function calculateEffect(equipmentId: EquipmentId, enhanceLv: EquipmentEnhancementLevel): ReadonlyArray<EffectDetails> | undefined {
   const equipment = equipmentData[equipmentId];
 
-  return 'equipment_effects' in equipment ? equipment.equipment_effects[enhanceLv].map(calculateEffectValues) : undefined;
+  return 'equipment_effects' in equipment ?
+    equipment.equipment_effects[enhanceLv].map(effect =>
+      Object.assign(
+        { details: calculateEffectDetails(effect.details) },
+        calculateCondition(effect)
+      )
+    ) :
+    undefined;
 }
 
-export function calculateEffectAsSkill(equipmentId: EquipmentId, enhanceLv: EquipmentEnhancementLevel): ReadonlyArray<EffectDetails> | undefined {
+export function calculateEffectAsSkill(equipmentId: EquipmentId, enhanceLv: EquipmentEnhancementLevel): ReadonlyArray<EffectDetailsAsSkill> | undefined {
   const equipment = equipmentData[equipmentId];
 
-  return 'effects' in equipment ? equipment.effects[enhanceLv].map(calculateEffectValues) : undefined;
+  return 'effects' in equipment ?
+    equipment.effects[enhanceLv].map(effect =>
+      Object.assign(
+        {
+          details:
+            Object.assign(
+              { self: calculateEffectDetails(effect.details.self) },
+              'target' in effect.details ? { target: calculateEffectDetails(effect.details.target) } : {}
+            )
+        },
+        calculateCondition(effect)
+      )
+    ) :
+    undefined;
 }

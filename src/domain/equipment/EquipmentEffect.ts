@@ -38,13 +38,17 @@ export type MilliPercentageEffectKey = typeof Effect[
   'SpdUp' |
   'SpdDown' |
   'FireResistUp' |
+  'FireResistDown' |
   'IceResistUp' |
+  'IceResistDown' |
   'ElectricResistUp' |
+  'ElectricResistDown' |
   'StatusResistUp' |
   'ExpUp' |
   'DefensePenetration' |
   'DamageTakenIncreased' |
   'DamageReduction' |
+  'BattleContinuationWithHpRate' |
   'Counterattack'
 ]
 export type MicroValueEffectKey = typeof Effect.ApUp
@@ -63,7 +67,7 @@ export type EquipmentEffectKey =
 
 export type EquipmentEffectAddition = Readonly<
   { max_stack?: 3 } &
-  { term?: 'immediate' | 'infinite' | { readonly for_rounds: 1 | 2 } } &
+  { term?: 'immediate' | 'infinite' | { readonly for_rounds: 1 | 2 | 3 } } &
   { rate?: 'constant' | MilliPercentageValue } &
   { times?: 1 | 2 | 3 | 4 }
 >
@@ -99,7 +103,10 @@ type EquipmentEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
   round?: { at: 1 }
 } | {
-  trigger: Exclude<EffectTrigger, typeof EffectTrigger.StartRound>
+  trigger: typeof EffectTrigger.HitActive2,
+  unit: 205
+} | {
+  trigger: Exclude<EffectTrigger, typeof EffectTrigger['StartRound' | 'HitActive2']>
 }
 
 export type EquipmentEffectActivationCondition = Readonly<EquipmentEffectActivationTrigger & { state?: ActivationState }>
@@ -107,4 +114,12 @@ export type EquipmentEffectActivationCondition = Readonly<EquipmentEffectActivat
 export type EffectDetails = Readonly<{
   condition?: EquipmentEffectActivationCondition,
   details: EquipmentEffectValue
+}>
+
+export type EffectDetailsAsSkill = Readonly<{
+  condition?: EquipmentEffectActivationCondition,
+  details: {
+    self: EquipmentEffectValue,
+    target?: EquipmentEffectValue
+  }
 }>

@@ -91,6 +91,16 @@
   width: 100%;
 }
 
+.details > :is(.status-effects, .effects) > .header {
+  width: 100%;
+  line-height: 1;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #aaa;
+  background: transparent linear-gradient(135deg, transparent 3px, #333 3px) no-repeat;
+  padding: 4px 5px;
+}
+
 .details > .status-effects {
   font-size: 0.8em;
   font-weight: bold;

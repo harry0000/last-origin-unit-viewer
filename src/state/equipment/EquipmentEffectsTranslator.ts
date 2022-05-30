@@ -5,10 +5,12 @@ import { EffectActivationState } from '../../domain/EffectActivationState';
 import { EffectAdditionData } from '../../domain/equipment/EquipmentData';
 import {
   EffectDetails,
+  EffectDetailsAsSkill,
   EquipmentEffectActivationCondition,
   EquipmentEffectAddition,
   EquipmentEffectValue
 } from '../../domain/equipment/EquipmentEffect';
+import { EffectTrigger } from '../../domain/EffectTrigger';
 import { calcMicroValue, calcMilliPercentageValue } from '../../domain/ValueUnit';
 
 import { Entry, typedEntries } from '../../util/object';
@@ -20,6 +22,14 @@ export type TranslatedEquipmentEffect = {
     detail: string,
     term?: string
   }>
+}
+
+export type TranslatedEquipmentEffectAsSkill = {
+  condition?: string,
+  details: {
+    self: TranslatedEquipmentEffect['details'],
+    target?: TranslatedEquipmentEffect['details']
+  }
 }
 
 function translateTerm(term: Required<EffectAdditionData>['term'], t: TFunction): string {
@@ -80,13 +90,17 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   case Effect.SpdUp:
   case Effect.SpdDown:
   case Effect.FireResistUp:
+  case Effect.FireResistDown:
   case Effect.IceResistUp:
+  case Effect.IceResistDown:
   case Effect.ElectricResistUp:
+  case Effect.ElectricResistDown:
   case Effect.StatusResistUp:
   case Effect.ExpUp:
   case Effect.DefensePenetration:
   case Effect.DamageTakenIncreased:
   case Effect.DamageReduction:
+  case Effect.BattleContinuationWithHpRate:
   case Effect.Counterattack:
     return buildDetail(
       t(`effect:effect.description.${entry[0]}`, { value: calcMilliPercentageValue(entry[1]) }),
@@ -120,13 +134,20 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
 }
 
 function translateTrigger(condition: EquipmentEffectActivationCondition, t: TFunction): string {
-  return 'trigger' in condition ?
-    condition.trigger === 'start_round' ?
-      condition.round ?
-        t('effect:condition.trigger.round.at', { round: condition.round.at }) :
-        t('effect:condition.trigger.start_round') :
-      t(`effect:condition.trigger.${condition.trigger}`) :
-    '';
+  if (!('trigger' in condition)) {
+    return '';
+  }
+
+  switch (condition.trigger) {
+  case EffectTrigger.StartRound:
+    return condition.round ?
+      t('effect:condition.trigger.round.at', { round: condition.round.at }) :
+      t('effect:condition.trigger.start_round');
+  case EffectTrigger.HitActive2:
+    return t(`effect:condition.trigger.${condition.trigger}`, { unit: condition.unit });
+  default:
+    return t(`effect:condition.trigger.${condition.trigger}`);
+  }
 }
 
 function translateCondition(condition: EquipmentEffectActivationCondition, t: TFunction): string {
@@ -164,10 +185,32 @@ function translateDetails(details: EquipmentEffectValue, t: TFunction): Translat
   });
 }
 
-export function translateEquipmentEffect(effects: ReadonlyArray<EffectDetails>, t: TFunction): ReadonlyArray<TranslatedEquipmentEffect> {
+export function translateEquipmentEffect(
+  effects: ReadonlyArray<EffectDetails>,
+  t: TFunction
+): ReadonlyArray<TranslatedEquipmentEffect> {
   return effects.map(e => {
     return {
       details: translateDetails(e.details, t),
+      ...('condition' in e && e.condition ? { condition: translateCondition(e.condition, t) } : {})
+    };
+  });
+}
+
+export function translateEquipmentEffectAsSkill(
+  effects: ReadonlyArray<EffectDetailsAsSkill>,
+  t: TFunction
+): ReadonlyArray<TranslatedEquipmentEffectAsSkill> {
+  return effects.map(e => {
+    return {
+      details: {
+        self: translateDetails(e.details.self, t),
+        ...(
+          'target' in e.details && e.details.target ?
+            { target: translateDetails(e.details.target, t) } :
+            {}
+        )
+      },
       ...('condition' in e && e.condition ? { condition: translateCondition(e.condition, t) } : {})
     };
   });

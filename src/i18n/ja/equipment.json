@@ -122,5 +122,8 @@
   "suspicious_supplements": "あやしいサプリメント",
   "smar_stone": "水魔石",
   "twen_stone": "投炎石",
-  "jowi_stone": "造為石"
+  "jowi_stone": "造為石",
+  "elemental_heart_fire": "元素の心臓(火炎)",
+  "elemental_heart_ice": "元素の心臓(冷気)",
+  "elemental_heart_electric": "元素の心臓(電気)"
 }
