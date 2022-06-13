@@ -25,6 +25,8 @@ export type SkillEffectTag =
   'bullet_curtain_many' |
   'bullet_curtain_usual' |
   'charging_in_sir' |
+  'ground_control_artillery' |
+  'support_fire' |
   'attack_command' |
   'attack_command_defence' |
   'defense_command' |
@@ -34,6 +36,7 @@ export type SkillEffectTag =
   'fire_support' |
   'charging_order' |
   'seize_opportunity' |
+  'stealth_mode' |
   'bombardment_squadron_command' |
   'elation' |
   'f_armory_deployment' |
@@ -46,9 +49,14 @@ export type SkillEffectTag =
   'squadron_escort' |
   'forceful_breakthrough' |
   'readying_bombardment' |
+  'neri_wins' |
+  'ho_ho' |
+  'anti_air_formation' |
+  'arrogance_and_anger' |
   'artillery_command' |
-  'hardpoint_mount_equipment' |
-  'hardpoint_mount_support' |
+  'hardpoint_equipment_armament' |
+  'hardpoint_equipment_support' |
+  'tactical_air_relay' |
   'where_are_you_looking_at' |
   'stealth_camouflage' |
   'overwhelming_cuteness' |
@@ -68,6 +76,8 @@ export type SkillEffectTag =
   'duel_target' |
   'duelist' |
   'second_coming' |
+  'great_overlord_please_be_careful' |
+  'great_overlords_order' |
   'command_offense_troop' |
   'command_defense_troop' |
   'cheerleader' |

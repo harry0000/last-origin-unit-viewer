@@ -14,6 +14,7 @@ export type NoValueEffectKey =
     'FollowUpAttack' |
     'IgnoreBarrierDr' |
     'IgnoreProtect' |
+    'IgnoreProtectDeactivate' |
     'Reconnaissance' |
     'Marked' |
     'Provoked' |
@@ -23,7 +24,6 @@ export type NoValueEffectKey =
     'RefundAp' |
     'AttackCritical' |
     'CounterattackCritical' |
-    'DeployDefensiveWall' |
     'AMG11Construction' |
     'DeployRabbitDField' |
     'SummonHologramTiger' |
@@ -40,7 +40,9 @@ export type IntegerValueEffectKey =
     'Barrier' |
     'BattleContinuation'
   ]
+export type MilliValueEffectKey = typeof Effect['AtkValueUp' | 'DefValueUp']
 export type MicroValueEffectKey = typeof Effect['ApUp' | 'ApDown' | 'SetAp']
+export type MilliPercentageEffectDependsOnStatusKey = typeof Effect['DamageMultiplierUpByStatusProportion']
 export type MilliPercentageEffectKey =
   Exclude<
     Effect,
@@ -49,7 +51,9 @@ export type MilliPercentageEffectKey =
     PushPullEffectKey |
     RangeUpDownEffectKey |
     IntegerValueEffectKey |
+    MilliValueEffectKey |
     MicroValueEffectKey |
+    MilliPercentageEffectDependsOnStatusKey |
     typeof Effect[
       'CooperativeAttack' |
       'EffectRemoval' |

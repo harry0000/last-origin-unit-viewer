@@ -90,6 +90,18 @@ type UnitPassiveSkillData<R extends UnitRank> =
   R extends typeof UnitRank.B  ? BRankPassiveSkill :
     never
 
+type PhoenixSkillData = Readonly<{
+  no: 27
+  active:
+    readonly [ActiveSkillData, ActiveSkillData],
+  passive:
+    readonly [
+      PassiveSkillData,
+      PassiveSkillData,
+      PassiveSkillDataAsEquipmentEffect
+    ]
+}>
+
 type CirceSkillData = Readonly<{
   no: 136
   active:
@@ -226,6 +238,7 @@ type FortressSkillData = Readonly<{
 }>
 
 type UnitSkill<N extends UnitNumber> =
+  N extends PhoenixSkillData['no'] ? PhoenixSkillData :
   N extends CirceSkillData['no'] ? CirceSkillData :
   N extends LemonadeAlphaSkillData['no'] ? LemonadeAlphaSkillData :
   N extends AlexandraSkillData['no'] ? AlexandraSkillData :

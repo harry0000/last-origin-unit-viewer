@@ -6,6 +6,7 @@ import { SkillEffectTag } from './SkillEffectTag';
 import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
 import { UnitKind, UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
+import { UnitStatusData } from '../status/UnitStatusData';
 
 export type UnitNotAlias = {
   not_alias: typeof UnitAlias.KouheiChurch
@@ -48,9 +49,17 @@ export type GridState = typeof GridState[keyof typeof GridState]
 type HPRateEffectActivationStateKey =
   typeof EffectActivationState['HpGreaterOrEqual' | 'HpLessOrEqual' | 'HpGreaterThan' | 'HpLessThan']
 
+type StatusEffectActivationStateKey =
+  typeof EffectActivationState['StatusLessThanSelf']
+
 type ActivationState =
   {
     [key in HPRateEffectActivationStateKey]?: number
+  } &
+  {
+    [key in StatusEffectActivationStateKey]?: {
+      status: Exclude<keyof UnitStatusData[UnitNumber], 'hp'>
+    }
   } &
   {
     [EffectActivationState.Affected]?: Effect
@@ -59,11 +68,20 @@ type ActivationState =
     [EffectActivationState.Tagged]?: SkillEffectTag
   } &
   {
+    [EffectActivationState.TaggedAffected]?: {
+      tag: SkillEffectTag,
+      effects: ReadonlyArray<Effect>
+    }
+  } &
+  {
     [EffectActivationState.StackGe]?: {
       tag: SkillEffectTag,
       effect?: Effect,
       value: 1 | 2 | 3 | 4 | 5 | 6 | 7
     }
+  } &
+  {
+    [EffectActivationState.Grid]?: GridState
   }
 
 export type ActivationSelfState =
@@ -84,9 +102,6 @@ export type ActivationSelfState =
     [EffectActivationState.AffectedBy]?: UnitNumber
   } &
   {
-    [EffectActivationState.Grid]?: GridState
-  } &
-  {
     // HACK: for seize_opportunity tag
     [EffectActivationState.Unit]?: UnitAliasExceptUnit<typeof UnitAlias.AngerOfHorde, 41>
   }
@@ -100,7 +115,7 @@ export type ActivationTargetState =
     [EffectActivationState.Grid]?: Exclude<GridState, typeof GridState.AreaOfEffect>
   }
 
-type InSquadStateUnit = UnitNumber | typeof UnitAlias['ElectricActive' | 'Horizon' | 'KouheiChurch'] | 'golden_factory'
+type InSquadStateUnit = UnitNumber | typeof UnitAlias['ElectricActive' | 'SteelLine' | 'Horizon' | 'KouheiChurch'] | 'golden_factory'
 
 type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
   [EffectActivationState.InSquad]: T
@@ -120,6 +135,7 @@ export type ActivationEnemyState = {
     { greater_or_equal: 1, less_or_equal: 2 } |
     { greater_or_equal: 3, less_or_equal: 4 } |
     { greater_or_equal: 5, less_or_equal: 6 } |
+    { greater_or_equal: 3, unit: typeof UnitType.Heavy } |
     { greater_or_equal: 5 } |
     { greater_or_equal: 7 }
 }

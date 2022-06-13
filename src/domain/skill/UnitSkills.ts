@@ -10,6 +10,7 @@ import {
   IntegerValueEffectKey,
   MicroValueEffectKey,
   MilliPercentageEffectKey,
+  MilliValueEffectKey,
   MultipleMilliPercentageEffectKey,
   NoValueEffectKey,
   PushPullEffectKey,
@@ -65,6 +66,8 @@ export type SkillEffectValue = Readonly<{
       IntegerValue<1 | 2 | 3> & SkillEffectAddition :
     E extends IntegerValueEffectKey ?
       ValueWithAddition<'value'> :
+    E extends MilliValueEffectKey ?
+      ValueWithAddition<'milliValue'> :
     E extends MicroValueEffectKey ?
       ValueWithAddition<'microValue'> :
     E extends typeof Effect.EffectRemoval ?
@@ -90,6 +93,8 @@ export type SkillEffectValue = Readonly<{
       } & Omit<SkillEffectAddition, 'tag'> :
     E extends typeof Effect['FormChange' | 'FormRelease'] ?
       { form: UnitForms } & SkillEffectAddition :
+    E extends typeof Effect['DamageMultiplierUpByStatusProportion'] ?
+      ValueWithAddition<'milliPercentage'> & { status: 'eva' } :
     E extends MultipleMilliPercentageEffectKey ?
       ValueWithAddition<'milliPercentage'> |
       ReadonlyArray<ValueWithAddition<'milliPercentage'>> :

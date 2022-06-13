@@ -277,14 +277,15 @@ class RankUpUnitCostResolver<N extends  RankUpUnitNumber> {
     } else {
       const agsCost = initialUnitCostData.ags;
       switch (unit.no) {
-      case 107: return agsCost[currentRank as AvailableUnitRank<107>][unit.type][unit.role];
-      case 114: return agsCost[currentRank as AvailableUnitRank<114>][unit.type][unit.role];
-      case 115: return agsCost[currentRank as AvailableUnitRank<115>][unit.type][unit.role];
-      case 202: return agsCost[currentRank as AvailableUnitRank<202>][unit.type][unit.role];
-      case 215: return agsCost[currentRank as AvailableUnitRank<215>][unit.type][unit.role];
-      case 216: return agsCost[currentRank as AvailableUnitRank<216>][unit.type][unit.role];
-      case 217: return agsCost[currentRank as AvailableUnitRank<217>][unit.type][unit.role];
-      case 225: return agsCost[currentRank as AvailableUnitRank<225>][unit.type][unit.role];
+      case 107: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
+      case 114: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
+      case 115: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
+      case 128: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
+      case 202: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
+      case 215: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
+      case 216: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
+      case 217: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
+      case 225: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       default: {
         const _exhaustiveCheck: never = unit;
         return _exhaustiveCheck;

@@ -1,6 +1,7 @@
 import { UnitNumber } from './UnitBasicInfo';
 
 export const UnitAlias = {
+  BioroidUnder145cmTall: 'bioroid_under_145cm_tall',
   ElectricActive: 'electric_active',
   ArtilleryTypeActive: 'artillery_type_active',
   Squad21: 'squad_21',
@@ -23,6 +24,7 @@ export const UnitAlias = {
 export type UnitAlias = typeof UnitAlias[keyof typeof UnitAlias]
 
 export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> } = {
+  [UnitAlias.BioroidUnder145cmTall]: new Set([9, 22, 26, 37, 51, 76, 84, 90, 102, 108, 118, 123, 141, 161, 177, 188, 206]),
   [UnitAlias.ElectricActive]: new Set([6, 11, 75, 84, 113, 115, 132, 139, 174, 179, 201, 221, 231, 235]),
   [UnitAlias.ArtilleryTypeActive]: new Set([22, 51, 202]),
   [UnitAlias.Squad21]: new Set([2, 3, 85, 92, 118, 121, 187]),

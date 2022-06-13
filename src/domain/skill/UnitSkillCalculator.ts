@@ -30,6 +30,7 @@ import {
   IntegerValueEffectKey,
   MicroValueEffectKey,
   MilliPercentageEffectKey,
+  MilliValueEffectKey,
   MultipleMilliPercentageEffectKey,
   NoValueEffectKey,
   RangeUpDownEffectKey
@@ -238,6 +239,17 @@ function calculateIntegerValueEffectValue(
   };
 }
 
+function calculateMilliValueEffectValue(
+  data: NonNullable<SkillEffectDataValue[MilliValueEffectKey]>,
+  lv: SkillLv,
+  effectLv: SkillEffectLv
+): NonNullable<SkillEffectValue[MilliValueEffectKey]> {
+  return {
+    ...calculateAddition(data, lv),
+    ...calculateDataValue('milliValue', data, effectLv)
+  };
+}
+
 function calculateMicroValueEffectValue(
   data: NonNullable<SkillEffectDataValue[MicroValueEffectKey]>,
   lv: SkillLv,
@@ -281,6 +293,7 @@ function calculateEffectValue(
   case Effect.FollowUpAttack:
   case Effect.IgnoreBarrierDr:
   case Effect.IgnoreProtect:
+  case Effect.IgnoreProtectDeactivate:
   case Effect.Reconnaissance:
   case Effect.Marked:
   case Effect.Provoked:
@@ -290,7 +303,6 @@ function calculateEffectValue(
   case Effect.RefundAp:
   case Effect.AttackCritical:
   case Effect.CounterattackCritical:
-  case Effect.DeployDefensiveWall:
   case Effect.AMG11Construction:
   case Effect.DeployRabbitDField:
   case Effect.SummonHologramTiger:
@@ -328,6 +340,9 @@ function calculateEffectValue(
   case Effect.Barrier:
   case Effect.BattleContinuation:
     return { [entry[0]]: calculateIntegerValueEffectValue(entry[1], lv, effectLv) };
+  case Effect.AtkValueUp:
+  case Effect.DefValueUp:
+    return { [entry[0]]: calculateMilliValueEffectValue(entry[1], lv, effectLv) };
   case Effect.ApUp:
   case Effect.ApDown:
   case Effect.SetAp:
@@ -365,6 +380,13 @@ function calculateEffectValue(
         tag: entry[1].tag,
         effect: entry[1].effect,
         value: entry[1].value
+      }
+    };
+  case Effect.DamageMultiplierUpByStatusProportion:
+    return {
+      [entry[0]]: {
+        ...calculateMilliPercentageEffectValue(entry[1], lv, effectLv),
+        status: entry[1].status
       }
     };
   case Effect.DefDown:

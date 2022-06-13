@@ -38,6 +38,12 @@ export type RankUpBonus = {
   acc_up?: MilliPercentageValue,
   eva_up?: MilliPercentageValue,
   spd_up?: MicroValue
+} | {
+  // HACK: for Goltarion
+  atk_up: MilliValue,
+  cri_up: MilliPercentageValue,
+  acc_up: MilliPercentageValue,
+  spd_up: MicroValue
 }
 
 export type UnitRankUpBonus = Partial<Record<UnitRank, RankUpBonus>>

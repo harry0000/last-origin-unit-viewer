@@ -2,7 +2,12 @@ import { TFunction } from 'i18next';
 
 import { AroundSkillEffectValue, SkillEffectValue } from '../../domain/skill/UnitSkills';
 import { Effect } from '../../domain/Effect';
-import { calcValue, MilliPercentageValue } from '../../domain/ValueUnit';
+import {
+  calcMicroValue,
+  calcMilliPercentageValue,
+  calcMilliValue,
+  MilliPercentageValue
+} from '../../domain/ValueUnit';
 import { isFormChangeUnitNumber, UnitForms } from '../../domain/UnitFormValue';
 
 import { Entry } from '../../util/object';
@@ -18,7 +23,7 @@ function getDetail(body: string, value: SkillEffectDetailsEntry[1], t: TFunction
   const rate = 'rate' in value && value.rate ?
     typeof value.rate === 'string' ?
       `${t(`effect:rate.${value.rate}`)}${t('effect:separator')}` :
-      `${t('effect:rate.percentage', { value: calcValue(value.rate) })}${t('effect:separator')}` :
+      `${t('effect:rate.percentage', { value: calcMilliPercentageValue(value.rate) })}${t('effect:separator')}` :
     '';
   const additions = [
     'times' in value && value.times ?
@@ -57,7 +62,7 @@ function translateMilliPercentageDetail(
 ): SkillEffectDetailsProps {
   return {
     tag: getTag(value, t),
-    detail: getDetail(t(`effect:effect.description.${effect}`, { value: calcValue(value) }), value, t),
+    detail: getDetail(t(`effect:effect.description.${effect}`, { value: calcMilliPercentageValue(value) }), value, t),
     term: getTerm(value, t)
   };
 }
@@ -93,6 +98,7 @@ export function translateSkillEffectDetails(
   case Effect.FollowUpAttack:
   case Effect.IgnoreBarrierDr:
   case Effect.IgnoreProtect:
+  case Effect.IgnoreProtectDeactivate:
   case Effect.Reconnaissance:
   case Effect.Marked:
   case Effect.Provoked:
@@ -107,7 +113,6 @@ export function translateSkillEffectDetails(
       detail: getDetail(t(`effect:effect.description.${entry[0]}`), entry[1], t),
       term
     };
-  case Effect.DeployDefensiveWall:
   case Effect.AMG11Construction:
   case Effect.DeployRabbitDField:
   case Effect.SummonHologramTiger:
@@ -147,13 +152,24 @@ export function translateSkillEffectDetails(
       ),
       term
     };
+  case Effect.AtkValueUp:
+  case Effect.DefValueUp:
+    return {
+      tag: getTag(entry[1], t),
+      detail: getDetail(
+        t(`effect:effect.description.${entry[0]}`, { value: calcMilliValue(entry[1]) }),
+        entry[1],
+        t
+      ),
+      term
+    };
   case Effect.ApUp:
   case Effect.ApDown:
   case Effect.SetAp:
     return {
       tag: getTag(entry[1], t),
       detail: getDetail(
-        t(`effect:effect.description.${entry[0]}`, { value: calcValue(entry[1]) }),
+        t(`effect:effect.description.${entry[0]}`, { value: calcMicroValue(entry[1]) }),
         entry[1],
         t
       ),
@@ -186,7 +202,7 @@ export function translateSkillEffectDetails(
     };
   }
   case Effect.ActivationRatePercentageUp: {
-    const value  = calcValue(entry[1]);
+    const value  = calcMilliPercentageValue(entry[1]);
     const effect = entry[1].effect;
 
     return {
@@ -216,6 +232,16 @@ export function translateSkillEffectDetails(
     return {
       detail: getDetail(
         t(`effect:effect.description.${entry[0]}`, { tag: entry[1].tag, value: entry[1].value }),
+        entry[1],
+        t
+      ),
+      term
+    };
+  case Effect.DamageMultiplierUpByStatusProportion:
+    return {
+      tag: getTag(entry[1], t),
+      detail: getDetail(
+        t(`effect:effect.description.${entry[0]}`, { status: entry[1].status, value: calcMilliPercentageValue(entry[1]) }),
         entry[1],
         t
       ),
