@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 import {
   ActiveSkill,
+  ActiveSkillAsEquipmentEffect,
   DamageDeal,
   PassiveSkill,
   PassiveSkillAsEquipmentEffect,
@@ -69,7 +70,7 @@ const unitActive1SkillState = selectorFamily<ActiveSkill, UnitBasicInfo>({
   }
 });
 
-const unitActive2SkillState = selectorFamily<ActiveSkill, UnitBasicInfo>({
+const unitActive2SkillState = selectorFamily<ActiveSkill | ActiveSkillAsEquipmentEffect, UnitBasicInfo>({
   key: 'unitActive2SkillState',
   get: (unit) => ({ get }) => {
     const skill = get(unitSkillState(unit));
@@ -210,7 +211,7 @@ export function useDamageDeal(skillType: SkillType, unit: UnitBasicInfo):
   }
   case 'active2': {
     const as = useRecoilValue(unitActive2SkillState(unit));
-    return as.damage_deal ?
+    return 'damage_deal' in as && !!as.damage_deal ?
       [as.damage_deal, as.area] :
       [undefined, undefined];
   }
@@ -291,6 +292,10 @@ export function useFormChangeSkillBadge(skillType: SkillType, unit: UnitBasicInf
 
 export function useEffectsAsEquipmentDescription(skillType: SkillType, unit: UnitBasicInfo): boolean {
   switch (skillType) {
+  case 'active2': {
+    const as2 = useRecoilValue(unitActive2SkillState(unit));
+    return 'equipment_effects' in as2;
+  }
   case 'passive1': {
     const ps1 = useRecoilValue(unitPassive1SkillState(unit));
     return !!ps1 && 'equipment_effects' in ps1;
@@ -328,7 +333,9 @@ export function useSkillEffects(skillType: SkillType, unit: UnitBasicInfo): [eff
   }
   case 'active2': {
     const skill = useRecoilValue(unitActive2SkillState(unit));
-    return [skill.effects, skill.area, unit.no];
+    return 'effects' in skill ?
+      [skill.effects, skill.area, unit.no] :
+      [skill.equipment_effects, skill.area, unit.no];
   }
   case 'passive1': {
     const skill = useRecoilValue(unitPassive1SkillState(unit));

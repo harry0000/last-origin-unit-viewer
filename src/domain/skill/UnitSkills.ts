@@ -80,6 +80,11 @@ export type SkillEffectValue = Readonly<{
       { effect: Effect } & SkillEffectAddition :
     E extends typeof Effect.ActivationRatePercentageUp ?
       { effect: Effect } & ValueWithAddition<'milliPercentage'> :
+    E extends typeof Effect.AbsolutelyActivated ?
+      {
+        tag: SkillEffectTag,
+        effect: Effect
+      } & Omit<SkillEffectAddition, 'tag'> :
     E extends typeof Effect.TagStack ?
       TagStackEffectValue :
     E extends typeof Effect.TagRelease ?
@@ -160,6 +165,13 @@ export type ActiveSkill = Readonly<{
   range: SkillRangeValue,
   area: SkillAreaType,
   effects: ReadonlyArray<SkillEffect>
+}>
+
+export type ActiveSkillAsEquipmentEffect = Readonly<{
+  cost: SkillApCostValue,
+  range: SkillRangeValue,
+  area: SkillAreaType,
+  equipment_effects: ReadonlyArray<SkillEffect>
 }>
 
 export type PassiveSkill = Readonly<{

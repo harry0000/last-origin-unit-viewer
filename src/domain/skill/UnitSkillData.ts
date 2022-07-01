@@ -70,13 +70,13 @@ export type ActiveSkillData = Readonly<{
   range: SkillRangeValue
 } & SkillApCostData & SkillEffects & SkillAreaOfEffectData>
 
+export type ActiveSkillDataAsEquipmentEffect = Readonly<{
+  range: SkillRangeValue
+} & SkillApCostData & SkillEffectsAsEquipmentEffect & SkillAreaOfEffectData>
+
 export type PassiveSkillData = Readonly<SkillEffects & SkillAreaOfEffectData>
 
 export type PassiveSkillDataAsEquipmentEffect = Readonly<SkillEffectsAsEquipmentEffect & SkillAreaOfEffectData>
-
-export function isPassiveSkillData(arg: PassiveSkillData | PassiveSkillDataAsEquipmentEffect): arg is PassiveSkillData {
-  return !!(arg as PassiveSkillData).effects;
-}
 
 type BRankPassiveSkill  = readonly []
 type ARankPassiveSkill  = readonly [PassiveSkillData]
@@ -89,6 +89,18 @@ type UnitPassiveSkillData<R extends UnitRank> =
   R extends typeof UnitRank.A  ? ARankPassiveSkill :
   R extends typeof UnitRank.B  ? BRankPassiveSkill :
     never
+
+type BlackLilithSkillData = Readonly<{
+  no: 16
+  active:
+    readonly [ActiveSkillData, ActiveSkillDataAsEquipmentEffect],
+  passive:
+    readonly [
+      PassiveSkillData,
+      PassiveSkillData,
+      PassiveSkillData
+    ]
+}>
 
 type PhoenixSkillData = Readonly<{
   no: 27
@@ -238,6 +250,7 @@ type FortressSkillData = Readonly<{
 }>
 
 type UnitSkill<N extends UnitNumber> =
+  N extends BlackLilithSkillData['no'] ? BlackLilithSkillData :
   N extends PhoenixSkillData['no'] ? PhoenixSkillData :
   N extends CirceSkillData['no'] ? CirceSkillData :
   N extends LemonadeAlphaSkillData['no'] ? LemonadeAlphaSkillData :

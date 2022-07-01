@@ -13,6 +13,7 @@ export const SkillAreaType = {
   FanShapeForwardTargeting: 'fan_shape_forward_targeting',
   InvertedFanShape: 'inverted_fan_shape',
   InvertedFanShapeWing: 'inverted_fan_shape_wing',
+  Wedge: 'wedge',
   Wing: 'wing',
   Zigzag: 'zigzag',
   Line: 'line',

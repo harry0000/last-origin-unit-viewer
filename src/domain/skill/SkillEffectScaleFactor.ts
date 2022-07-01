@@ -1,21 +1,25 @@
 import { SkillEffectTag } from './SkillEffectTag';
 import { UnitAlias } from '../UnitAlias';
-import { UnitKind, UnitType } from '../UnitBasicInfo';
+import { UnitKind, UnitRole, UnitType } from '../UnitBasicInfo';
 
-export type SkillEffectScaleFactorType = 'proportion' | 'inverse_proportion'
+export type VariationType = 'proportional' | 'inversely_proportional'
 
 export type SkillEffectScaleFactor =
   {
     per_stack: {
       tag: SkillEffectTag
     }
-  } |
-  {
-    per_units_in_squad: {
-      unit:
-        'ally' |
+  } | {
+    per_units: {
+      type: 'all'
+    }
+  } | {
+    per_units: {
+      type: 'squad',
+      unit?:
         UnitKind |
         typeof UnitType.Light |
+        typeof UnitRole.Supporter |
         typeof UnitAlias[
           'BioroidUnder145cmTall' |
           'ElectricActive' |
@@ -23,6 +27,7 @@ export type SkillEffectScaleFactor =
           'SistersOfValhalla' |
           'AngerOfHorde' |
           'MongooseTeam' |
+          'Horizon' |
           'TomosFriends' |
           'CityGuard' |
           'KouheiChurch'
@@ -30,8 +35,9 @@ export type SkillEffectScaleFactor =
       except?: 'self'
     }
   } | {
-    per_enemies: {
-      type: SkillEffectScaleFactorType,
-      unit: 'enemy' | UnitType
+    per_units: {
+      type: 'enemy',
+      variation: VariationType,
+      unit?: UnitType
     }
   }

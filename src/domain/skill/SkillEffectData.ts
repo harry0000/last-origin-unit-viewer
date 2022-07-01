@@ -102,6 +102,11 @@ export type SkillEffectDataValue = Readonly<{
       { effect: Effect } & SkillEffectAddition :
     E extends typeof Effect.ActivationRatePercentageUp ?
       { effect: Effect } & ValueWithAddition<'milliPercentage'> :
+    E extends typeof Effect.AbsolutelyActivated ?
+      {
+        tag: SkillEffectTag,
+        effect: Effect
+      } & Omit<SkillEffectAddition, 'tag'> :
     E extends typeof Effect.TagStack ?
       TagStackEffectDataValue :
     E extends typeof Effect.TagRelease ?

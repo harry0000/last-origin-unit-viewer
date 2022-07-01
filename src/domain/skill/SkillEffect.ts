@@ -22,8 +22,9 @@ export type NoValueEffectKey =
     'Silenced' |
     'Stunned' |
     'RefundAp' |
+    'AttackHit' |
     'AttackCritical' |
-    'CounterattackCritical' |
+    'IgnoreDef' |
     'AMG11Construction' |
     'DeployRabbitDField' |
     'SummonHologramTiger' |
@@ -59,6 +60,7 @@ export type MilliPercentageEffectKey =
       'EffectRemoval' |
       'PreventsEffect' |
       'ActivationRatePercentageUp' |
+      'AbsolutelyActivated' |
       'TagStack' |
       'TagUnstack' |
       'TagRelease' |

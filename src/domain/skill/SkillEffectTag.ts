@@ -12,18 +12,17 @@ export type SkillEffectTag =
   'sadistic_chef' |
   'practice_begins' |
   'output_increase' |
-  'masochistic_nature' |
-  'sadistic_nature' |
-  'revenger' |
+  'targeting' |
+  'begin_containment' |
+  'counterattack_posture' |
+  'cats_hand' |
   'alert_mode' |
   'undying_will' |
   'yummy' |
   'counterattack_initiation' |
   'fire_net_building' |
   'rifled_mortar' |
-  'bullet_curtain_max' |
-  'bullet_curtain_many' |
-  'bullet_curtain_usual' |
+  'ammo_supplied' |
   'charging_in_sir' |
   'ground_control_artillery' |
   'support_fire' |
@@ -36,31 +35,32 @@ export type SkillEffectTag =
   'fire_support' |
   'charging_order' |
   'seize_opportunity' |
-  'stealth_mode' |
+  'rapid_acceleration' |
   'bombardment_squadron_command' |
+  'stealth_mode' |
   'elation' |
   'f_armory_deployment' |
   'enhance_output' |
   'scrap_collect' |
-  'devour' |
   'electromagnatic_consonance' |
   'max_output_burst' |
   'shot_frost_bolt' |
-  'squadron_escort' |
   'forceful_breakthrough' |
+  'forced_reconnaissance' |
   'readying_bombardment' |
   'neri_wins' |
   'ho_ho' |
   'anti_air_formation' |
   'arrogance_and_anger' |
   'artillery_command' |
+  'reloading' |
   'hardpoint_equipment_armament' |
   'hardpoint_equipment_support' |
   'tactical_air_relay' |
   'where_are_you_looking_at' |
   'stealth_camouflage' |
   'overwhelming_cuteness' |
-  'observation_data_reception' |
+  'receiving_observation_data' |
   'guiding_technique' |
   'balance_seeker' |
   'secretive_research' |
@@ -71,10 +71,11 @@ export type SkillEffectTag =
   'power_of_pureblood' |
   'bulk_up' |
   'now_copy_me' |
+  'magical_girl_at_centurys_end' |
   'hit_vital_spot' |
   'bravery' |
-  'duel_target' |
-  'duelist' |
+  'duel_preparation' |
+  'counterattack_preparation' |
   'second_coming' |
   'great_overlord_please_be_careful' |
   'great_overlords_order' |
@@ -107,7 +108,6 @@ export type SkillEffectTag =
   'passive_radar' |
   'command_induction' |
   'energy_convert' |
-  'electromagnetic_induction_target' |
   'predator' |
   'last_roar' |
   'hunt_preparation' |

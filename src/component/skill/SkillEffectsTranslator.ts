@@ -106,8 +106,9 @@ export function translateSkillEffectDetails(
   case Effect.Silenced:
   case Effect.Stunned:
   case Effect.RefundAp:
+  case Effect.AttackHit:
   case Effect.AttackCritical:
-  case Effect.CounterattackCritical:
+  case Effect.IgnoreDef:
     return {
       tag: getTag(entry[1], t),
       detail: getDetail(t(`effect:effect.description.${entry[0]}`), entry[1], t),
@@ -192,15 +193,12 @@ export function translateSkillEffectDetails(
       term
     };
   }
-  case Effect.PreventsEffect: {
-    const effect = entry[1].effect;
-
+  case Effect.PreventsEffect:
     return {
       tag: getTag(entry[1], t),
-      detail: getDetail(t(`effect:effect.description.${entry[0]}`, { effect }), entry[1], t),
+      detail: getDetail(t(`effect:effect.description.${entry[0]}`, entry[1]), entry[1], t),
       term
     };
-  }
   case Effect.ActivationRatePercentageUp: {
     const value  = calcMilliPercentageValue(entry[1]);
     const effect = entry[1].effect;
@@ -216,6 +214,11 @@ export function translateSkillEffectDetails(
       term
     };
   }
+  case Effect.AbsolutelyActivated:
+    return {
+      detail: getDetail(t(`effect:effect.description.${entry[0]}`, entry[1]), entry[1], t),
+      term
+    };
   case Effect.FormChange:
   case Effect.FormRelease:
     return {

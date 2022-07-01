@@ -1,13 +1,15 @@
 import {
   ActiveSkillData,
+  ActiveSkillDataAsEquipmentEffect,
   PassiveSkillData,
   PassiveSkillDataAsEquipmentEffect,
   UnitSkillData
 } from '../skill/UnitSkillData';
 import { FormChangeUnits } from '../UnitFormValue';
+import { SkillEffectsAsEquipmentEffect } from '../skill/SkillEffectData';
 import { UnitNumber } from '../UnitBasicInfo';
 
-export function extractAllActiveSkills(skill: UnitSkillData[UnitNumber]): ReadonlyArray<ActiveSkillData> {
+export function extractAllActiveSkills(skill: UnitSkillData[UnitNumber]): ReadonlyArray<ActiveSkillData | ActiveSkillDataAsEquipmentEffect> {
   switch (skill.no) {
   case FormChangeUnits.Alexandra:
     return [...skill.active.flatMap(as => Object.values(as))];
@@ -69,4 +71,16 @@ export function extractAllPassiveSkills(skill: UnitSkillData[UnitNumber]): Reado
   default:
     return skill.passive;
   }
+}
+
+function isSkillEffectsDataAsEquipmentEffect<
+  T extends ActiveSkillData | ActiveSkillDataAsEquipmentEffect | PassiveSkillData | PassiveSkillDataAsEquipmentEffect
+>(arg: T): arg is Extract<T, SkillEffectsAsEquipmentEffect> {
+  return 'equipment_effects' in arg;
+}
+
+export function extractEffectsData(
+  data: ActiveSkillData | ActiveSkillDataAsEquipmentEffect | PassiveSkillData | PassiveSkillDataAsEquipmentEffect
+): ActiveSkillData['effects'] | ActiveSkillDataAsEquipmentEffect['equipment_effects'] | PassiveSkillData['effects'] | PassiveSkillDataAsEquipmentEffect['equipment_effects'] {
+  return isSkillEffectsDataAsEquipmentEffect(data) ? data.equipment_effects : data.effects;
 }

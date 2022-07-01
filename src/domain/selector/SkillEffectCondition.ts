@@ -1,17 +1,16 @@
 import {
   ActiveSkillData,
+  ActiveSkillDataAsEquipmentEffect,
   PassiveSkillData,
   PassiveSkillDataAsEquipmentEffect,
-  UnitSkillData,
-  isPassiveSkillData
+  UnitSkillData
 } from '../skill/UnitSkillData';
 import { Effect } from '../Effect';
-import { EffectActivationState } from '../EffectActivationState';
 import { SkillEffectData, SkillEffectDataValue } from '../skill/SkillEffectData';
 import { SkillEffectTag } from '../skill/SkillEffectTag';
 import { UnitNumber } from '../UnitBasicInfo';
 
-import { extractAllActiveSkills, extractAllPassiveSkills } from './SkillDataExtractor';
+import { extractAllActiveSkills, extractAllPassiveSkills, extractEffectsData } from './SkillDataExtractor';
 
 export const StatusSkillEffectCondition = {
   AtkUp: 'atk_up',
@@ -95,17 +94,17 @@ function hasAbnormalConditionTags(details: SkillEffectDataValue): boolean {
 }
 
 function checkAllSkillEffectDetails(
-  actives: ReadonlyArray<ActiveSkillData>,
+  actives: ReadonlyArray<ActiveSkillData | ActiveSkillDataAsEquipmentEffect>,
   passives: ReadonlyArray<PassiveSkillData | PassiveSkillDataAsEquipmentEffect>,
   f: (effect: SkillEffectDataValue) => boolean
 ): boolean {
   return (
-    actives.some(as => as.effects.some(e =>
+    actives.some(as => extractEffectsData(as).some(e =>
       'self'   in e.details && e.details.self   && f(e.details.self) ||
       'target' in e.details && e.details.target && f(e.details.target) ||
       'around' in e.details && e.details.around && f(e.details.around)
     )) ||
-    passives.some(ps => (isPassiveSkillData(ps) ? ps.effects : ps.equipment_effects).some(e =>
+    passives.some(ps => extractEffectsData(ps).some(e =>
       'self'   in e.details && e.details.self   && f(e.details.self) ||
       'target' in e.details && e.details.target && f(e.details.target) ||
       'around' in e.details && e.details.around && f(e.details.around)
@@ -114,20 +113,20 @@ function checkAllSkillEffectDetails(
 }
 
 function checkActiveSkillEffect(
-  actives: ReadonlyArray<ActiveSkillData>,
+  actives: ReadonlyArray<ActiveSkillData | ActiveSkillDataAsEquipmentEffect>,
   f: (effect: SkillEffectData) => boolean
 ): boolean {
-  return actives.some(as => as.effects.some(f));
+  return actives.some(as => extractEffectsData(as).some(f));
 }
 
 function checkAllSkillEffect(
-  actives: ReadonlyArray<ActiveSkillData>,
+  actives: ReadonlyArray<ActiveSkillData | ActiveSkillDataAsEquipmentEffect>,
   passives: ReadonlyArray<PassiveSkillData | PassiveSkillDataAsEquipmentEffect>,
   f: (effect: SkillEffectData) => boolean
 ): boolean {
   return (
     checkActiveSkillEffect(actives, f) ||
-    passives.some(ps => (isPassiveSkillData(ps) ? ps.effects : ps.equipment_effects).some(f))
+    passives.some(ps => extractEffectsData(ps).some(f))
   );
 }
 
@@ -153,8 +152,7 @@ function checkSelfEffectedState(skillEffect: SkillEffectData, f: (e: Effect) => 
         'state' in cond &&
         'self' in cond.state &&
         cond.state.self.some(s => {
-          const effect = s[EffectActivationState.Affected];
-          return !!effect && f(effect);
+          return 'affected' in s && s.affected && f(s.affected);
         })
       );
     }) :

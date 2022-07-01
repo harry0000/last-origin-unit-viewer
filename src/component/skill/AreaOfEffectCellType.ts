@@ -78,6 +78,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
     select: 6,
     area: ['effective', 'effective', 'none', 'none', 'none', 'effective', 'effective', 'effective', 'none']
   },
+  [SkillAreaType.Wedge]: {
+    select: 6,
+    area: ['effective', 'effective', 'none', 'none', 'effective', 'effective', 'effective', 'effective', 'none']
+  },
   [SkillAreaType.Wing]: {
     select: 5,
     area: ['none', 'effective', 'effective', 'none', 'effective', 'none', 'none', 'effective', 'effective']
@@ -300,7 +304,7 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
   },
   [SkillAreaType.CatsHand]: {
     select: 6,
-    area: ['none', 'effective', 'none', 'effective', 'none', 'none', 'none', 'effective', 'none']
+    area: ['effective', 'effective', 'none', 'effective', 'none', 'effective', 'effective', 'effective', 'none']
   },
   [SkillAreaType.UnderWatcher]: {
     select: 6,

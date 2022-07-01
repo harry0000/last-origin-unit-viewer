@@ -1,8 +1,16 @@
 import {
   ActiveSkill,
+  ActiveSkillAsEquipmentEffect,
   PassiveSkill,
   PassiveSkillAsEquipmentEffect
 } from './UnitSkills';
+import {
+  ActiveSkillData,
+  ActiveSkillDataAsEquipmentEffect,
+  PassiveSkillData,
+  PassiveSkillDataAsEquipmentEffect
+} from './UnitSkillData';
+import { AffectionBonus } from '../UnitAffection';
 import { CoreLinkBonus, FullLinkBonus } from '../UnitCoreLinkBonusData';
 import { UnitBasicInfo, UnitRankComparator } from '../UnitBasicInfo';
 import UnitFormValue, {
@@ -19,9 +27,8 @@ import {
   calculateActiveSkill,
   calculatePassiveSkill
 } from './UnitSkillCalculator';
+
 import { unitSkillData } from '../../data/unitSkillData';
-import { ActiveSkillData, PassiveSkillData, PassiveSkillDataAsEquipmentEffect } from './UnitSkillData';
-import { AffectionBonus } from '../UnitAffection';
 
 export function buildUnitSkill(unit: UnitBasicInfo): UnitSkill {
   if (isFormChangeUnitBasicInfo(unit)) {
@@ -70,7 +77,7 @@ abstract class UnitSkill {
   protected abstract updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill
 
   protected abstract get active1SkillData(): ActiveSkillData
-  protected abstract get active2SkillData(): ActiveSkillData
+  protected abstract get active2SkillData(): ActiveSkillData | ActiveSkillDataAsEquipmentEffect
 
   protected abstract get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined
   protected abstract get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined
@@ -94,7 +101,7 @@ abstract class UnitSkill {
     coreLinkBonus: CoreLinkBonus,
     fullLinkBonus: FullLinkBonus | undefined,
     affectionBonus: AffectionBonus | undefined
-  ): ActiveSkill {
+  ): ActiveSkill | ActiveSkillAsEquipmentEffect {
     return calculateActiveSkill(
       this.active2SkillData,
       this.skillLv.active2Lv,
@@ -181,7 +188,7 @@ class FormLessUnitSkill extends UnitSkill {
   }
 
   protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.#unit.no].active[0]; }
-  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.#unit.no].active[1]; }
+  protected get active2SkillData(): ActiveSkillData | ActiveSkillDataAsEquipmentEffect { return unitSkillData[this.#unit.no].active[1]; }
 
   protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.#unit.no].passive[0];

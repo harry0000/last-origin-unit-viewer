@@ -2,6 +2,7 @@ import deepEqual from 'fast-deep-equal';
 
 import {
   ActiveSkill,
+  ActiveSkillAsEquipmentEffect,
   AroundSkillEffectValue,
   PassiveSkillAsEquipmentEffect,
   PassiveSkill,
@@ -10,6 +11,7 @@ import {
 } from './UnitSkills';
 import {
   ActiveSkillData,
+  ActiveSkillDataAsEquipmentEffect,
   PassiveSkillData,
   PassiveSkillDataAsEquipmentEffect,
   SkillApCostData,
@@ -301,8 +303,9 @@ function calculateEffectValue(
   case Effect.Silenced:
   case Effect.Stunned:
   case Effect.RefundAp:
+  case Effect.AttackHit:
   case Effect.AttackCritical:
-  case Effect.CounterattackCritical:
+  case Effect.IgnoreDef:
   case Effect.AMG11Construction:
   case Effect.DeployRabbitDField:
   case Effect.SummonHologramTiger:
@@ -348,7 +351,8 @@ function calculateEffectValue(
   case Effect.SetAp:
     return { [entry[0]]: calculateMicroValueEffectValue(entry[1], lv, effectLv) };
   case Effect.EffectRemoval:
-  case Effect.PreventsEffect: {
+  case Effect.PreventsEffect:
+  case Effect.AbsolutelyActivated: {
     const effect = 'effect' in entry[1] ? { effect: entry[1].effect } : { effects: entry[1].effects };
     return {
       [entry[0]]: {
@@ -481,21 +485,26 @@ function calculateEffects(
     });
 }
 
+export function calculateActiveSkill(data: ActiveSkillData, lv: SkillLv, coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined, affectionBonus: AffectionBonus | undefined): ActiveSkill
+export function calculateActiveSkill(data: ActiveSkillData | ActiveSkillDataAsEquipmentEffect, lv: SkillLv, coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined, affectionBonus: AffectionBonus | undefined): ActiveSkill | ActiveSkillAsEquipmentEffect
 export function calculateActiveSkill(
-  data: ActiveSkillData,
+  data: ActiveSkillData | ActiveSkillDataAsEquipmentEffect,
   lv: SkillLv,
   coreLinkBonus: CoreLinkBonus,
   fullLinkBonus: FullLinkBonus | undefined,
   affectionBonus: AffectionBonus | undefined
-): ActiveSkill {
+): ActiveSkill | ActiveSkillAsEquipmentEffect {
   const effectLv = calculateSkillEffectLv(lv, fullLinkBonus, affectionBonus);
 
   return {
-    damage_deal: calculateDamageDeal(data.damage_deal, lv, coreLinkBonus, fullLinkBonus),
+    ...('damage_deal' in data ? { damage_deal: calculateDamageDeal(data.damage_deal, lv, coreLinkBonus, fullLinkBonus) } : {}),
     cost: calculateApCost(data.cost, lv),
     range: data.range,
     area: calculateArea(data.area, lv),
-    effects: calculateEffects(data.effects, lv, effectLv)
+    ...('effects' in data ?
+      { effects: calculateEffects(data.effects, lv, effectLv) } :
+      { equipment_effects: calculateEffects(data.equipment_effects, lv, effectLv) }
+    )
   };
 }
 
