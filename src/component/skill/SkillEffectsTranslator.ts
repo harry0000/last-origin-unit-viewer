@@ -240,7 +240,7 @@ export function translateSkillEffectDetails(
       ),
       term
     };
-  case Effect.DamageMultiplierUpByStatusProportion:
+  case Effect.DamageMultiplierUpByStatus:
     return {
       tag: getTag(entry[1], t),
       detail: getDetail(

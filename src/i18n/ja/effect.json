@@ -380,7 +380,7 @@
     "description": {
       "damage_multiplier_up": "スキル威力 +{{value}}%",
       "damage_multiplier_down": "スキル威力 -{{value}}%",
-      "damage_multiplier_up_by_status_proportion": "$t(common:status.{{status}})の +{{value}}% だけスキル威力アップ",
+      "damage_multiplier_up_by_status": "$t(common:status.{{status}})の +{{value}}% だけスキル威力アップ",
 
       "additional_damage": "与ダメージ +{{value}}%",
       "additional_damage_focusing": "対象の数が少ないほど、与ダメージ +{{value}}%",
@@ -407,7 +407,7 @@
 
       "atk_value_up": "攻撃力 +{{value}}",
       "def_value_up": "防御力 +{{value}}",
-      "atk_value_up_by_self_proportion": "$t(effect:unit.self)の攻撃力の +{{value}}% だけ攻撃力アップ",
+      "atk_value_up_by_self_value": "$t(effect:unit.self)の攻撃力の +{{value}}% だけ攻撃力アップ",
 
       "atk_up": "攻撃力 +{{value}}%",
       "atk_down": "攻撃力 -{{value}}%",

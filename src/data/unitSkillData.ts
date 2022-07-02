@@ -3630,7 +3630,7 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { minimize_damage: { tag: 'stealth_mode', times: { 1: 1, 10: 2 }, term: 'infinite' } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
-        details: { self: { damage_multiplier_up_by_status_proportion: { status: 'eva', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } } }
+        details: { self: { damage_multiplier_up_by_status: { status: 'eva', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'stealth_mode' }] } }],
         details: { self: { atk_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
@@ -6965,7 +6965,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'hardpoint_equipment_armament' }] } }],
         target: { kind: 'ally' },
-        details: { target: { atk_value_up_by_self_proportion: { tag: 'tactical_air_relay', base: { milliPercentage: 1200 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } } } }
+        details: { target: { atk_value_up_by_self_value: { tag: 'tactical_air_relay', base: { milliPercentage: 1200 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'hardpoint_equipment_support' }] } }],
         target: { kind: 'ally' },
@@ -10935,7 +10935,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: { target: { damage_taken_increased: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } } } }
       }, {
-        details: { self: { damage_multiplier_up_by_status_proportion: { status: 'eva', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2500 } } } }
+        details: { self: { damage_multiplier_up_by_status: { status: 'eva', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2500 } } } }
       }]
     }, {
       damage_deal: {

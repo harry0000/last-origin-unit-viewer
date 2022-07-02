@@ -120,7 +120,7 @@ export type SkillEffectDataValue = Readonly<{
       } & Omit<SkillEffectAddition, 'tag'> :
     E extends typeof Effect['FormChange' | 'FormRelease'] ?
       { form: UnitForms } & SkillEffectAddition :
-    E extends typeof Effect['DamageMultiplierUpByStatusProportion'] ?
+    E extends typeof Effect['DamageMultiplierUpByStatus'] ?
       ValueWithAddition<'milliPercentage'> & { status: 'eva' } :
     E extends MultipleMilliPercentageEffectKey ?
       ValueWithAddition<'milliPercentage'> |

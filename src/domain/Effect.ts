@@ -1,7 +1,7 @@
 export const Effect = {
   DamageMultiplierUp: 'damage_multiplier_up',
   DamageMultiplierDown: 'damage_multiplier_down',
-  DamageMultiplierUpByStatusProportion: 'damage_multiplier_up_by_status_proportion',
+  DamageMultiplierUpByStatus: 'damage_multiplier_up_by_status',
   AdditionalDamage: 'additional_damage',
   AdditionalDamageFocusing: 'additional_damage_focusing',
   Enmity: 'enmity',
@@ -25,7 +25,7 @@ export const Effect = {
   AntiFlyingType: 'anti_flying_type',
   AtkValueUp: 'atk_value_up',
   DefValueUp: 'def_value_up',
-  AtkValueUpBySelfProportion: 'atk_value_up_by_self_proportion',
+  AtkValueUpBySelfValue: 'atk_value_up_by_self_value',
   HpUp: 'hp_up',
   AtkUp: 'atk_up',
   AtkDown: 'atk_down',

@@ -43,7 +43,7 @@ export type IntegerValueEffectKey =
   ]
 export type MilliValueEffectKey = typeof Effect['AtkValueUp' | 'DefValueUp']
 export type MicroValueEffectKey = typeof Effect['ApUp' | 'ApDown' | 'SetAp']
-export type MilliPercentageEffectDependsOnStatusKey = typeof Effect['DamageMultiplierUpByStatusProportion']
+export type MilliPercentageEffectDependsOnStatusKey = typeof Effect['DamageMultiplierUpByStatus']
 export type MilliPercentageEffectKey =
   Exclude<
     Effect,
