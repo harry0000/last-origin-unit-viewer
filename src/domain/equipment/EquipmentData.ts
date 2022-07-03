@@ -25,7 +25,7 @@ import { SkillEffectTag } from '../skill/SkillEffectTag';
 import { equipmentData } from '../../data/equipmentData';
 import { unitBasicData } from '../../data/unitBasicData';
 
-import { Sequence } from '../../util/type';
+import { Sequence, ValueOf } from '../../util/type';
 
 export const EquipmentType = {
   Chip: 'chip',
@@ -79,12 +79,12 @@ export function isChipEquipment(arg: EquipmentData): arg is Chip { return arg.ty
 export function isOsEquipment(arg: EquipmentData):   arg is Os   { return arg.type === EquipmentType.Os;   }
 export function isGearEquipment(arg: EquipmentData): arg is Gear { return arg.type === EquipmentType.Gear; }
 
-export type ChipId = EquipmentTypeFilter<typeof EquipmentType.Chip>['id']
-export type OsId   = EquipmentTypeFilter<typeof EquipmentType.Os>['id']
-export type GearId = EquipmentTypeFilter<typeof EquipmentType.Gear>['id']
+export type ChipId = Chip['id']
+export type OsId   = Os['id']
+export type GearId = Gear['id']
 
-export type EquipmentEffects<E = EquipmentData> = E extends { equipment_effects: ReadonlyArray<infer T> } ? T : never
-export type EquipmentEffectsAsSkill<E = EquipmentData> = E extends { effects: ReadonlyArray<infer T> } ? T : never
+type EquipmentEffects<E = EquipmentData> = E extends { equipment_effects: ReadonlyArray<infer T> } ? T : never
+type EquipmentEffectsAsSkill<E = EquipmentData> = E extends { effects: ReadonlyArray<infer T> } ? T : never
 
 export type EquipmentRankDataValue<T extends number> =
   T |
@@ -96,7 +96,7 @@ type MilliPercentageValue                    = Readonly<{ milliPercentage: Equip
 
 export type EffectAdditionData = Readonly<
   { max_stack?: 3 } &
-  { term?: 'immediate' | 'infinite' | { readonly for_rounds: 1 | 2 | 3 } } &
+  { term?: 'immediate' | 'infinite' | { readonly for_rounds: 1 | 2 | 3 | 99 | 999 } } &
   { rate?: 'constant' | MilliPercentageValue } &
   { times?: EquipmentRankDataValue<1 | 2 | 3 | 4> }
 >
@@ -105,8 +105,12 @@ export type EquipmentEffectValueData = Readonly<{
   [E in EquipmentEffectKey]?:
     E extends NoValueEffectKey ?
       EffectAdditionData :
+    E extends typeof Effect.DamageMultiplierUpByStatus ?
+      Readonly<{ status: 'def' }> & MilliPercentageValue & EffectAdditionData :
     E extends typeof Effect.EffectRemoval ?
       Readonly<{ effect: Effect } | { effects: ReadonlyArray<Effect> }> & EffectAdditionData :
+    E extends typeof Effect.PreventsEffect ?
+      Readonly<{ effect: Effect }> & EffectAdditionData :
     E extends typeof Effect.ActivationRatePercentageUp ?
       Readonly<{ effect: Effect, tag: SkillEffectTag }> & MilliPercentageValue & EffectAdditionData :
     E extends typeof Effect['RangeUp' | 'RangeDown']?
@@ -119,6 +123,19 @@ export type EquipmentEffectValueData = Readonly<{
       MilliPercentageValue & EffectAdditionData :
       never
 }>
+
+export type EquipmentEffectsData = ReadonlyArray<Readonly<{
+  condition?: ValueOf<EquipmentEffects[number], 'condition'>,
+  details: EquipmentEffectValueData
+}>>
+
+export type EquipmentEffectsAsSkillData = ReadonlyArray<Readonly<{
+  condition?: ValueOf<EquipmentEffectsAsSkill[number], 'condition'>,
+  details: Readonly<{
+    self: EquipmentEffectValueData,
+    target?: EquipmentEffectValueData,
+  }>
+}>>
 
 export function matchExclusive(unit: UnitNumber, equipment: EquipmentData): boolean {
   if (!('exclusive' in equipment)) {

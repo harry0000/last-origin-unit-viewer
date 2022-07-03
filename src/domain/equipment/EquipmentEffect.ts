@@ -5,13 +5,18 @@ import { GridState } from '../skill/SkillEffectActivationCondition';
 import { IntegerValue, MicroValue, MilliPercentageValue } from '../ValueUnit';
 import { SkillEffectTag } from '../skill/SkillEffectTag';
 import { UnitKind } from '../UnitBasicInfo';
+import { EffectAdditionData, EquipmentRankDataValue } from './EquipmentData';
 
 export type NoValueEffectKey = typeof Effect[
+  'RangeDownActive1' |
+  'RangeUpActive2' |
+  'ActionCountUp' |
   'MinimizeDamage' |
   'AllDebuffRemoval' |
   'ColumnProtect' |
   'RowProtect' |
   'IgnoreBarrierDr' |
+  'IgnoreProtect' |
   'Reconnaissance' |
   'Stunned'
 ]
@@ -59,25 +64,38 @@ export type EquipmentEffectKey =
   MilliPercentageEffectKey |
   MicroValueEffectKey |
   typeof Effect[
-  'RangeUp' |
-  'RangeDown' |
-  'EffectRemoval' |
-  'ActivationRatePercentageUp'
-]
+    'DamageMultiplierUpByStatus' |
+    'RangeUp' |
+    'RangeDown' |
+    'EffectRemoval' |
+    'PreventsEffect' |
+    'ActivationRatePercentageUp'
+  ]
 
-export type EquipmentEffectAddition = Readonly<
-  { max_stack?: 3 } &
-  { term?: 'immediate' | 'infinite' | { readonly for_rounds: 1 | 2 | 3 } } &
-  { rate?: 'constant' | MilliPercentageValue } &
-  { times?: 1 | 2 | 3 | 4 }
->
+type EquipmentEffectRateValue =
+  EffectAdditionData extends { rate?: infer R } ?
+    R extends { milliPercentage: EquipmentRankDataValue<number> } ?
+      MilliPercentageValue :
+      R :
+    never
+type EquipmentEffectTimesValue =
+  EffectAdditionData extends { times?: EquipmentRankDataValue<infer T> } ? T : never
+
+export type EquipmentEffectAddition =
+  Omit<EffectAdditionData, 'rate' | 'times'> &
+  Readonly<{ rate?: EquipmentEffectRateValue }> &
+  Readonly<{ times?: EquipmentEffectTimesValue }>
 
 export type EquipmentEffectValue = Readonly<{
   [E in EquipmentEffectKey]?:
     E extends NoValueEffectKey ?
       EquipmentEffectAddition :
+    E extends typeof Effect.DamageMultiplierUpByStatus ?
+      Readonly<{ status: 'def' }> & MilliPercentageValue & EquipmentEffectAddition :
     E extends typeof Effect.EffectRemoval ?
       Readonly<{ effect: Effect } | { effects: ReadonlyArray<Effect> }> & EquipmentEffectAddition :
+    E extends typeof Effect.PreventsEffect ?
+      Readonly<{ effect: Effect }> & EquipmentEffectAddition :
     E extends typeof Effect.ActivationRatePercentageUp ?
       Readonly<{ effect: Effect, tag: SkillEffectTag }> & MilliPercentageValue & EquipmentEffectAddition :
     E extends typeof Effect['RangeUp' | 'RangeDown']?

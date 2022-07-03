@@ -59,11 +59,15 @@ function buildDetail(body: string, value: EquipmentEffectAddition, t: TFunction)
 
 function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): string {
   switch (entry[0]) {
+  case Effect.RangeDownActive1:
+  case Effect.RangeUpActive2:
+  case Effect.ActionCountUp:
   case Effect.MinimizeDamage:
   case Effect.AllDebuffRemoval:
   case Effect.ColumnProtect:
   case Effect.RowProtect:
   case Effect.IgnoreBarrierDr:
+  case Effect.IgnoreProtect:
   case Effect.Reconnaissance:
   case Effect.Stunned:
     return buildDetail(t(`effect:effect.description.${entry[0]}`), entry[1], t);
@@ -107,6 +111,12 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
       entry[1],
       t
     );
+  case Effect.DamageMultiplierUpByStatus:
+    return buildDetail(
+      t(`effect:effect.description.${entry[0]}`, { value: calcMilliPercentageValue(entry[1]), status: entry[1].status }),
+      entry[1],
+      t
+    );
   case Effect.ApUp:
     return t(`effect:effect.description.${entry[0]}`, { value: calcMicroValue(entry[1]) });
   case Effect.EffectRemoval: {
@@ -117,6 +127,8 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
 
     return buildDetail(t('effect:effect.description.effect_removal', { effects }), entry[1], t);
   }
+  case Effect.PreventsEffect:
+    return buildDetail(t('effect:effect.description.prevents_effect', entry[1]), entry[1], t);
   case Effect.ActivationRatePercentageUp:{
     const { tag, effect } = entry[1];
     const value = calcMilliPercentageValue(entry[1]);

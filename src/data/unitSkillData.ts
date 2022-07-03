@@ -8541,11 +8541,10 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        // FIXME: add enhance_output_limit_release_device
-        conditions: [{ trigger: 'attack', state: { self: [{ equipped: 'output_limit_release_device' }] } }],
+        conditions: [{ trigger: 'attack', state: { self: [{ equipped: 'output_limit_release_device' }, { equipped: 'enhanced_output_limit_release_device' }] } }],
         details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
       }, {
-        conditions: [{ trigger: 'be_attacked', state: { self: [{ equipped: 'output_limit_release_device' }] } }],
+        conditions: [{ trigger: 'be_attacked', state: { self: [{ equipped: 'output_limit_release_device' }, { equipped: 'enhanced_output_limit_release_device' }] } }],
         details: { self: { counterattack: { base: { milliPercentage: 67000 }, per_lv_up: { milliPercentage: 4000 } } } }
       }]
     }, {
@@ -8560,8 +8559,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        // FIXME: add enhance_output_limit_release_device
-        conditions: [{ trigger: 'start_wave', state: { self: [{ equipped: 'output_limit_release_device' }] } }],
+        conditions: [{ trigger: 'start_wave', state: { self: [{ equipped: 'output_limit_release_device' }, { equipped: 'enhanced_output_limit_release_device' }] } }],
         details: { self: { form_change: { form: 'offensive_tactics' } } }
       }, {
         conditions: [{ trigger: 'start_wave', state: { self: [{ equipped: 'energy_shield' }, { equipped: 'enhanced_energy_shield' }] } }],
@@ -13630,9 +13628,8 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally', conditions: [{ type: 'flying', role: 'attacker' }, { type: 'flying', role: 'supporter' }] },
         details: { target: { target_protect: { term: { for_rounds: 1 } } } }
       }, {
-        // FIXME: add enhance_output_limit_release_device
         // FIXME: add HQ1 Commander OS
-        conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'output_limit_release_device' }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'output_limit_release_device' }, { equipped: 'enhanced_output_limit_release_device' }] } }],
         details: {
           self: {
             column_protect: { term: { for_rounds: 1 } },
@@ -14580,8 +14577,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'predator' }] } }],
         details: { self: { ignore_barrier_dr: { term: { for_rounds: 1 } } } }
       }, {
-        // FIXME: add enhance_output_limit_release_device
-        conditions: [{ trigger: 'critical', state: { self: [{ equipped: 'output_limit_release_device' }] } }],
+        conditions: [{ trigger: 'critical', state: { self: [{ equipped: 'output_limit_release_device' }, { equipped: 'enhanced_output_limit_release_device' }] } }],
         details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 }, term: 'immediate' } } }
       }]
     }, {

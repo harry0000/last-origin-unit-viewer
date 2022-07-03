@@ -1,6 +1,12 @@
 import { Effect } from '../Effect';
 
-export type EquipmentEffectOnly = typeof Effect['HpUp']
+export type EquipmentEffectOnly =
+  typeof Effect[
+    'HpUp' |
+    'RangeDownActive1' |
+    'RangeUpActive2' |
+    'ActionCountUp'
+  ]
 export type NoValueEffectKey =
   typeof Effect[
     'MinimizeDamage' |
