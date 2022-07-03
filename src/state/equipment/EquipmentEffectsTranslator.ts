@@ -73,10 +73,13 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
     return buildDetail(t(`effect:effect.description.${entry[0]}`), entry[1], t);
   case Effect.FixedDamageOverTime:
   case Effect.Barrier:
-  case Effect.BattleContinuation:
   case Effect.RangeUp:
   case Effect.RangeDown:
     return buildDetail(t(`effect:effect.description.${entry[0]}`, { value: entry[1].value }), entry[1], t);
+  case Effect.BattleContinuation:
+    return 'value' in entry[1] ?
+      buildDetail(t('effect:effect.description.battle_continuation', { value: entry[1].value }), entry[1], t) :
+      buildDetail(t('effect:effect.description.battle_continuation_with_hp_rate', { value: calcMilliPercentageValue(entry[1]) }), entry[1], t);
   case Effect.AdditionalFireDamage:
   case Effect.AdditionalIceDamage:
   case Effect.AdditionalElectricDamage:
@@ -104,7 +107,6 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   case Effect.DefensePenetration:
   case Effect.DamageTakenIncreased:
   case Effect.DamageReduction:
-  case Effect.BattleContinuationWithHpRate:
   case Effect.Counterattack:
     return buildDetail(
       t(`effect:effect.description.${entry[0]}`, { value: calcMilliPercentageValue(entry[1]) }),

@@ -59,7 +59,6 @@ export const Effect = {
   AreaDamageDispersion: 'area_damage_dispersion',
   Barrier: 'barrier',
   BattleContinuation: 'battle_continuation',
-  BattleContinuationWithHpRate: 'battle_continuation_with_hp_rate',
   FormChange: 'form_change',
   FormRelease: 'form_release',
   TagStack: 'tag_stack',

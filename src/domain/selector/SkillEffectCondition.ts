@@ -258,7 +258,7 @@ export function matchSkillConditions(
     case DefensiveSkillEffectCondition.MinimizeOrNullifyDamage:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.minimize_damage || !!e.nullify_damage);
     case DefensiveSkillEffectCondition.BattleContinuation:
-      return checkAllSkillEffectDetails(actives, passives, e => !!e.battle_continuation || !!e.battle_continuation_with_hp_rate);
+      return checkAllSkillEffectDetails(actives, passives, e => !!e.battle_continuation);
     case OtherSkillEffectCondition.Reconnaissance:
       return checkAllSkillEffect(
         actives,

@@ -64,12 +64,15 @@ export type SkillEffectValue = Readonly<{
       IntegerValue<1 | 2> & SkillEffectAddition :
     E extends RangeUpDownEffectKey ?
       IntegerValue<1 | 2 | 3> & SkillEffectAddition :
-    E extends IntegerValueEffectKey | typeof Effect.BattleContinuation ?
+    E extends IntegerValueEffectKey ?
       ValueWithAddition<'value'> :
     E extends MilliValueEffectKey ?
       ValueWithAddition<'milliValue'> :
     E extends MicroValueEffectKey ?
       ValueWithAddition<'microValue'> :
+    E extends typeof Effect.BattleContinuation ?
+      ValueWithAddition<'value'> |
+      ValueWithAddition<'milliPercentage'> :
     E extends typeof Effect.EffectRemoval ?
       ({
         effect: Effect

@@ -65,7 +65,6 @@ type NotAffectedActivationState =
   Readonly<{
     [EffectActivationState.NotAffected]?:
       readonly [typeof Effect.DefUp, typeof Effect.DamageReduction] |
-      readonly [typeof Effect.BattleContinuation, typeof Effect.BattleContinuationWithHpRate] |
       readonly [typeof Effect.BattleContinuation]
   }>
 

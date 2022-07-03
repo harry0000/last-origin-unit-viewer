@@ -119,7 +119,6 @@ function calculateEffectDetails(
       return { [entry[0]]: calculateAddition(entry[1]) };
     case Effect.FixedDamageOverTime:
     case Effect.Barrier:
-    case Effect.BattleContinuation:
     case Effect.RangeUp:
     case Effect.RangeDown:
       return {
@@ -128,6 +127,10 @@ function calculateEffectDetails(
           ...extractValueUnitData('value', entry[1])
         }
       };
+    case Effect.BattleContinuation:
+      return 'value' in entry[1] ?
+        { [entry[0]]: { ...calculateAddition(entry[1]), ...extractValueUnitData('value', entry[1]) } } :
+        { [entry[0]]: { ...calculateAddition(entry[1]), ...extractValueUnitData('milliPercentage', entry[1]) } };
     case Effect.AdditionalFireDamage:
     case Effect.AdditionalIceDamage:
     case Effect.AdditionalElectricDamage:
@@ -155,7 +158,6 @@ function calculateEffectDetails(
     case Effect.DefensePenetration:
     case Effect.DamageTakenIncreased:
     case Effect.DamageReduction:
-    case Effect.BattleContinuationWithHpRate:
     case Effect.Counterattack:
       return {
         [entry[0]]: {

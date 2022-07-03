@@ -2965,17 +2965,17 @@ export const equipmentData = {
       [{ condition: { trigger: 'hit_active_2', unit: 205 }, target: { kind: 'enemy' }, details: { self: { additional_fire_damage: { milliPercentage: 30000 } }, target: { fire_resist_down: { milliPercentage: 80000, term: { for_rounds: 3 } } } } }]
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 30000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 30000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 33000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 33000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 36000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 36000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 39000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 39000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 42000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 42000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 45000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 45000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 48000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 48000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 51000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 51000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 54000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 54000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 57000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 57000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 60000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 60000, term: 'infinite', times: 1 } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 30000, term: 'infinite' }, battle_continuation: { milliPercentage: 30000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 33000, term: 'infinite' }, battle_continuation: { milliPercentage: 33000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 36000, term: 'infinite' }, battle_continuation: { milliPercentage: 36000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 39000, term: 'infinite' }, battle_continuation: { milliPercentage: 39000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 42000, term: 'infinite' }, battle_continuation: { milliPercentage: 42000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 45000, term: 'infinite' }, battle_continuation: { milliPercentage: 45000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 48000, term: 'infinite' }, battle_continuation: { milliPercentage: 48000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 51000, term: 'infinite' }, battle_continuation: { milliPercentage: 51000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 54000, term: 'infinite' }, battle_continuation: { milliPercentage: 54000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 57000, term: 'infinite' }, battle_continuation: { milliPercentage: 57000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 60000, term: 'infinite' }, battle_continuation: { milliPercentage: 60000, term: 'infinite', times: 1 } } }]
     ]
   },
   elemental_heart_ice: {
@@ -3011,17 +3011,17 @@ export const equipmentData = {
       [{ condition: { trigger: 'hit_active_2', unit: 205 }, target: { kind: 'enemy' }, details: { self: { additional_ice_damage: { milliPercentage: 30000 } }, target: { ice_resist_down: { milliPercentage: 80000, term: { for_rounds: 3 } } } } }]
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 30000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 30000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 33000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 33000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 36000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 36000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 39000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 39000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 42000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 42000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 45000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 45000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 48000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 48000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 51000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 51000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 54000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 54000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 57000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 57000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 60000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 60000, term: 'infinite', times: 1 } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 30000, term: 'infinite' }, battle_continuation: { milliPercentage: 30000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 33000, term: 'infinite' }, battle_continuation: { milliPercentage: 33000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 36000, term: 'infinite' }, battle_continuation: { milliPercentage: 36000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 39000, term: 'infinite' }, battle_continuation: { milliPercentage: 39000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 42000, term: 'infinite' }, battle_continuation: { milliPercentage: 42000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 45000, term: 'infinite' }, battle_continuation: { milliPercentage: 45000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 48000, term: 'infinite' }, battle_continuation: { milliPercentage: 48000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 51000, term: 'infinite' }, battle_continuation: { milliPercentage: 51000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 54000, term: 'infinite' }, battle_continuation: { milliPercentage: 54000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 57000, term: 'infinite' }, battle_continuation: { milliPercentage: 57000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 60000, term: 'infinite' }, battle_continuation: { milliPercentage: 60000, term: 'infinite', times: 1 } } }]
     ]
   },
   elemental_heart_electric: {
@@ -3057,17 +3057,17 @@ export const equipmentData = {
       [{ condition: { trigger: 'hit_active_2', unit: 205 }, target: { kind: 'enemy' }, details: { self: { additional_electric_damage: { milliPercentage: 30000 } }, target: { electric_resist_down: { milliPercentage: 80000, term: { for_rounds: 3 } } } } }]
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 30000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 30000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 33000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 33000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 36000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 36000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 39000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 39000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 42000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 42000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 45000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 45000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 48000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 48000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 51000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 51000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 54000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 54000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 57000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 57000, term: 'infinite', times: 1 } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 60000, term: 'infinite' }, battle_continuation_with_hp_rate: { milliPercentage: 60000, term: 'infinite', times: 1 } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 30000, term: 'infinite' }, battle_continuation: { milliPercentage: 30000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 33000, term: 'infinite' }, battle_continuation: { milliPercentage: 33000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 36000, term: 'infinite' }, battle_continuation: { milliPercentage: 36000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 39000, term: 'infinite' }, battle_continuation: { milliPercentage: 39000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 42000, term: 'infinite' }, battle_continuation: { milliPercentage: 42000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 45000, term: 'infinite' }, battle_continuation: { milliPercentage: 45000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 48000, term: 'infinite' }, battle_continuation: { milliPercentage: 48000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 51000, term: 'infinite' }, battle_continuation: { milliPercentage: 51000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 54000, term: 'infinite' }, battle_continuation: { milliPercentage: 54000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 57000, term: 'infinite' }, battle_continuation: { milliPercentage: 57000, term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 60000, term: 'infinite' }, battle_continuation: { milliPercentage: 60000, term: 'infinite', times: 1 } } }]
     ]
   }
 } as const;

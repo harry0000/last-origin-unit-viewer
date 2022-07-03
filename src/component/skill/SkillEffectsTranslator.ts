@@ -144,7 +144,6 @@ export function translateSkillEffectDetails(
   case Effect.FixedIceDamageOverTime:
   case Effect.FixedElectricDamageOverTime:
   case Effect.Barrier:
-  case Effect.BattleContinuation:
     return {
       tag: getTag(entry[1], t),
       detail: getDetail(
@@ -154,6 +153,17 @@ export function translateSkillEffectDetails(
       ),
       term
     };
+  case Effect.BattleContinuation: {
+    const body = 'value' in entry[1] ?
+      t('effect:effect.description.battle_continuation', { value: entry[1].value }) :
+      t('effect:effect.description.battle_continuation_with_hp_rate', { value: calcMilliPercentageValue(entry[1]) });
+
+    return {
+      tag: getTag(entry[1], t),
+      detail: getDetail(body, entry[1], t),
+      term
+    };
+  }
   case Effect.AtkValueUp:
   case Effect.DefValueUp:
     return {

@@ -1232,7 +1232,7 @@ export const unitSkillData: UnitSkillData = {
           trigger: 'start_wave',
           state: { self: [{ status_greater_or_equal_than: { status: 'def', than: 'atk', value: 25 } }] }
         }],
-        details: { self: { battle_continuation_with_hp_rate: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 4000 }, times: 1, term: 'infinite' } } }
+        details: { self: { battle_continuation: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 4000 }, times: 1, term: 'infinite' } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
         details: {
@@ -1487,7 +1487,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'self',
       effects: [{
         conditions: [{ trigger: 'start_wave' }],
-        details: { self: { battle_continuation_with_hp_rate: { tag: 'undying_will', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 3000 }, term: 'infinite', times: 1 } } }
+        details: { self: { battle_continuation: { tag: 'undying_will', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 3000 }, term: 'infinite', times: 1 } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
         details: { self: { def_up: { base: { milliPercentage: 60000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } } }
@@ -1501,7 +1501,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'be_attacked', state: { self: [{ not_tagged: 'undying_will' }] } }],
-        details: { self: { battle_continuation_with_hp_rate: { tag: 'undying_will', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 3000 }, term: 'infinite', times: 1, rate: { milliPercentage: 10000 } } } }
+        details: { self: { battle_continuation: { tag: 'undying_will', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 3000 }, term: 'infinite', times: 1, rate: { milliPercentage: 10000 } } } }
       }]
     }]
   },
@@ -3142,7 +3142,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{
           trigger: 'start_round',
           round: { at: 1 },
-          state: { target: [{ not_affected: ['battle_continuation', 'battle_continuation_with_hp_rate'] }] }
+          state: { target: [{ not_affected: ['battle_continuation'] }] }
         }],
         target: { kind: 'ally' },
         details: {
@@ -6551,7 +6551,7 @@ export const unitSkillData: UnitSkillData = {
           self: {
             cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite' },
             status_resist_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 3000 }, term: 'infinite' },
-            battle_continuation_with_hp_rate: { base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 2500 }, term: 'infinite', times: 1, cannot_be_dispelled: true }
+            battle_continuation: { base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 2500 }, term: 'infinite', times: 1, cannot_be_dispelled: true }
           }
         }
       }, {
@@ -8695,7 +8695,7 @@ export const unitSkillData: UnitSkillData = {
         details: {
           self: {
             barrier: { base: { value: 530 }, per_lv_up: { value: 30 }, term: 'infinite' },
-            battle_continuation_with_hp_rate: { base: { milliPercentage: 53000 }, per_lv_up: { milliPercentage: 3000 }, term: 'infinite', times: 1 }
+            battle_continuation: { base: { milliPercentage: 53000 }, per_lv_up: { milliPercentage: 3000 }, term: 'infinite', times: 1 }
           }
         }
       }]
@@ -9683,10 +9683,10 @@ export const unitSkillData: UnitSkillData = {
           { trigger: 'start_wave', state: { self: [{ hp_greater_than: 90 }], squad: { num_of_units: { unit: 'ags', greater_or_equal: 3 } } } },
           { trigger: 'revive', state: { squad: { num_of_units: { unit: 'ags', greater_or_equal: 3 } } } },
         ],
-        details: { self: { battle_continuation_with_hp_rate: { base: { milliPercentage: 91000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', times: 1, cannot_be_dispelled: true } } }
+        details: { self: { battle_continuation: { base: { milliPercentage: 91000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', times: 1, cannot_be_dispelled: true } } }
       }, {
         conditions: [{ state: { self: [{ hp_less_or_equal: 90 }] } }],
-        details: { self: { effect_removal: { effect: 'battle_continuation_with_hp_rate' } } }
+        details: { self: { effect_removal: { effect: 'battle_continuation' } } }
       }]
     }, {
       area: {
@@ -9749,7 +9749,7 @@ export const unitSkillData: UnitSkillData = {
           { trigger: 'start_round', state: { self: [{ tagged_affected: { tag: 'great_overlords_order', effects: ['atk_up', 'defense_penetration', 'damage_multiplier_up', 'ignore_barrier_dr'] } }] } },
           { trigger: 'revive', state: { self: [{ tagged_affected: { tag: 'great_overlords_order', effects: ['atk_up', 'defense_penetration', 'damage_multiplier_up', 'ignore_barrier_dr'] } }] } },
         ],
-        details: { self: { battle_continuation_with_hp_rate: { base: { milliPercentage: 91000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', times: 1, max_stack: 1, cannot_be_dispelled: true } } }
+        details: { self: { battle_continuation: { base: { milliPercentage: 91000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', times: 1, max_stack: 1, cannot_be_dispelled: true } } }
       }]
     }]
   },
@@ -10653,13 +10653,13 @@ export const unitSkillData: UnitSkillData = {
       area: 'self',
       effects: [{
         conditions: [{ trigger: 'start_wave' }],
-        details: { self: { battle_continuation_with_hp_rate: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', times: 1 } } }
+        details: { self: { battle_continuation: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', times: 1 } } }
       }, {
         conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 126 } } }],
-        details: { self: { battle_continuation_with_hp_rate: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', times: 1 } } }
+        details: { self: { battle_continuation: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', times: 1 } } }
       }, {
         conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 139 } } }],
-        details: { self: { battle_continuation_with_hp_rate: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', times: 1 } } }
+        details: { self: { battle_continuation: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', times: 1 } } }
       }, {
         conditions: [{ trigger: 'revive' }],
         details: {
@@ -12959,7 +12959,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'self',
       effects: [{
         conditions: [{ trigger: 'start_wave' }],
-        details: { self: { battle_continuation_with_hp_rate: { milliPercentage: 50000, times: 1, term: { for_rounds: 99 }, cannot_be_dispelled: true } } }
+        details: { self: { battle_continuation: { milliPercentage: 50000, times: 1, term: { for_rounds: 99 }, cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
         details: {

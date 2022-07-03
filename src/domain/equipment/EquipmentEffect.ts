@@ -22,8 +22,7 @@ export type NoValueEffectKey = typeof Effect[
 ]
 export type IntegerValueEffectKey = typeof Effect[
   'FixedDamageOverTime' |
-  'Barrier' |
-  'BattleContinuation'
+  'Barrier'
 ]
 export type MilliPercentageEffectKey = typeof Effect[
   'AdditionalFireDamage' |
@@ -53,7 +52,6 @@ export type MilliPercentageEffectKey = typeof Effect[
   'DefensePenetration' |
   'DamageTakenIncreased' |
   'DamageReduction' |
-  'BattleContinuationWithHpRate' |
   'Counterattack'
 ]
 export type MicroValueEffectKey = typeof Effect.ApUp
@@ -67,6 +65,7 @@ export type EquipmentEffectKey =
     'DamageMultiplierUpByStatus' |
     'RangeUp' |
     'RangeDown' |
+    'BattleContinuation' |
     'EffectRemoval' |
     'PreventsEffect' |
     'ActivationRatePercentageUp'
@@ -100,6 +99,9 @@ export type EquipmentEffectValue = Readonly<{
       Readonly<{ effect: Effect, tag: SkillEffectTag }> & MilliPercentageValue & EquipmentEffectAddition :
     E extends typeof Effect['RangeUp' | 'RangeDown']?
       IntegerValue<1 | 2> & EquipmentEffectAddition :
+    E extends typeof Effect.BattleContinuation ?
+      IntegerValue & EquipmentEffectAddition |
+      MilliPercentageValue & EquipmentEffectAddition :
     E extends IntegerValueEffectKey ?
       IntegerValue & EquipmentEffectAddition :
     E extends MicroValueEffectKey?

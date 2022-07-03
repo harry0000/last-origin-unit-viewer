@@ -31,6 +31,8 @@ import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
 import { UnitKind, UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
 
+import { isRecord } from '../../util/object';
+
 type EffectValue<T extends ValueUnit> =
   {
     readonly [key in T]: number
@@ -42,6 +44,13 @@ type EffectDataValue<T extends ValueUnit> =
     readonly per_lv_up: { readonly [key in T]: number }
   } |
   EffectValue<T>
+
+export function isEffectDataValue<T extends ValueUnit>(unit: T, arg: EffectDataValue<T> | unknown): arg is EffectDataValue<T> {
+  return isRecord(arg) && (
+    'base' in arg && isRecord(arg.base) && typeof arg.base[unit] === 'number' ||
+    typeof arg[unit] === 'number'
+  );
+}
 
 type SkillEffectAddition = Readonly<{
   tag?: SkillEffectTag,
@@ -87,7 +96,9 @@ export type SkillEffectDataValue = Readonly<{
         { value: { 1: 1, 10:  2 } }
       ) & SkillEffectAddition :
     E extends typeof Effect.BattleContinuation ?
-      ValueWithAddition<'value'> | Readonly<{ value: { 1: 1, 5: 2, 10:  3 } }> & SkillEffectAddition :
+      ValueWithAddition<'value'> |
+      ValueWithAddition<'milliPercentage'> |
+      Readonly<{ value: { 1: 1, 5: 2, 10:  3 } }> & SkillEffectAddition :
     E extends IntegerValueEffectKey ?
       ValueWithAddition<'value'> :
     E extends MilliValueEffectKey ?

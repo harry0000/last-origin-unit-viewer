@@ -22,6 +22,7 @@ import { AffectionBonus } from '../UnitAffection';
 import {
   AroundSkillEffectDataValue,
   isAroundSkillEffectData,
+  isEffectDataValue,
   isTargetSkillEffectData,
   SkillEffectData,
   SkillEffectDataValue
@@ -236,13 +237,11 @@ function calculateBattleContinuationEffectValue(
   effectLv: SkillEffectLv
 ): NonNullable<SkillEffectValue[typeof Effect.BattleContinuation]> {
   const value =
-    'base' in data ?
-      calculateDataValue('value', data, effectLv) :
-      {
-        value: typeof data.value === 'number' ?
-          data.value :
-          lv === 10 ? data.value[10] : lv >= 5 ? data.value[5] : data.value[1]
-      };
+    isEffectDataValue('milliPercentage', data) ?
+      calculateDataValue('milliPercentage', data, effectLv) :
+      isEffectDataValue('value', data) ?
+        calculateDataValue('value', data, effectLv) :
+        { value: lv === 10 ? data.value[10] : lv >= 5 ? data.value[5] : data.value[1] };
 
   return {
     ...calculateAddition(data, lv),
