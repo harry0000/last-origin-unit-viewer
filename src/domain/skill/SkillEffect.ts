@@ -4,11 +4,11 @@ export type EquipmentEffectOnly =
   typeof Effect[
     'HpUp' |
     'RangeDownActive1' |
-    'RangeUpActive2' |
-    'ActionCountUp'
+    'RangeUpActive2'
   ]
 export type NoValueEffectKey =
   typeof Effect[
+    'ActionCountUp' |
     'MinimizeDamage' |
     'NullifyDamage' |
     'AllBuffRemoval' |
@@ -44,8 +44,7 @@ export type IntegerValueEffectKey =
     'FixedFireDamageOverTime' |
     'FixedIceDamageOverTime' |
     'FixedElectricDamageOverTime' |
-    'Barrier' |
-    'BattleContinuation'
+    'Barrier'
   ]
 export type MilliValueEffectKey = typeof Effect['AtkValueUp' | 'DefValueUp']
 export type MicroValueEffectKey = typeof Effect['ApUp' | 'ApDown' | 'SetAp']
@@ -67,6 +66,7 @@ export type MilliPercentageEffectKey =
       'PreventsEffect' |
       'ActivationRatePercentageUp' |
       'AbsolutelyActivated' |
+      'BattleContinuation' |
       'TagStack' |
       'TagUnstack' |
       'TagRelease' |

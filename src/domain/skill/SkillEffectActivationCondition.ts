@@ -50,7 +50,7 @@ type HPRateEffectActivationStateKey =
   typeof EffectActivationState['HpGreaterOrEqual' | 'HpLessOrEqual' | 'HpGreaterThan' | 'HpLessThan']
 
 type StatusEffectActivationStateKey =
-  typeof EffectActivationState['StatusLessThanSelf']
+  typeof EffectActivationState['StatusGreaterThanSelf' | 'StatusLessThanSelf']
 
 type AffectedByActivationState =
   Readonly<{
@@ -63,8 +63,10 @@ type AffectedByActivationState =
 
 type NotAffectedActivationState =
   Readonly<{
-    [EffectActivationState.NotAffected]:
-      readonly [typeof Effect.DefUp, typeof Effect.DamageReduction]
+    [EffectActivationState.NotAffected]?:
+      readonly [typeof Effect.DefUp, typeof Effect.DamageReduction] |
+      readonly [typeof Effect.BattleContinuation, typeof Effect.BattleContinuationWithHpRate] |
+      readonly [typeof Effect.BattleContinuation]
   }>
 
 type ActivationState =
@@ -130,7 +132,7 @@ export type ActivationTargetState =
   ActivationState &
   {
     [EffectActivationState.Grid]?: Exclude<GridState, typeof GridState.AreaOfEffect>
-  } |
+  } &
   NotAffectedActivationState
 
 type InSquadStateUnit = UnitNumber | typeof UnitAlias['ElectricActive' | 'SteelLine' | 'Horizon' | 'KouheiChurch'] | 'golden_factory'
@@ -176,7 +178,7 @@ export type TargetSkillEffectActivationState =
   } |
   {
     target: ReadonlyArray<ActivationTargetState>,
-    squad: ActivationSquadState
+    squad: ActivationSquadState | { [EffectActivationState.NotInSquad]: 41 }
   }
 
 export type SkillEffectActivationState = SelfSkillEffectActivationState | TargetSkillEffectActivationState

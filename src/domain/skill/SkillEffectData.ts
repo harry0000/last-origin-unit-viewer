@@ -86,6 +86,8 @@ export type SkillEffectDataValue = Readonly<{
         IntegerValue<1 | 2 | 3> |
         { value: { 1: 1, 10:  2 } }
       ) & SkillEffectAddition :
+    E extends typeof Effect.BattleContinuation ?
+      ValueWithAddition<'value'> | Readonly<{ value: { 1: 1, 5: 2, 10:  3 } }> & SkillEffectAddition :
     E extends IntegerValueEffectKey ?
       ValueWithAddition<'value'> :
     E extends MilliValueEffectKey ?

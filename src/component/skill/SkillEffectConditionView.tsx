@@ -16,6 +16,7 @@ import {
   SelfSkillEffectActivationCondition,
   SelfSkillEffectActivationState,
   SkillEffectActivationCondition,
+  SkillEffectActivationState,
   TargetSkillEffectActivationCondition,
   UnitAliasExceptUnit
 } from '../../domain/skill/SkillEffectActivationCondition';
@@ -50,6 +51,7 @@ function stateValuesView(
   case EffectActivationState.HpGreaterThan:
   case EffectActivationState.HpLessThan:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { value: entry[1] })}</span>);
+  case EffectActivationState.StatusGreaterThanSelf:
   case EffectActivationState.StatusLessThanSelf:
     return (<span>{t(`effect:condition.state.${entry[0]}`, entry[1])}</span>);
   case EffectActivationState.StatusGreaterOrEqualThan:
@@ -121,8 +123,9 @@ function stateValuesView(
 function unitStateView(key: typeof EffectActivationState.Unit, unit: UnitAliasExceptUnit<typeof UnitAlias.AngerOfHorde, 41>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.AffectedBy, unit: ValueOf<ActivationSelfState, typeof EffectActivationState.AffectedBy>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.InSquad, unit: ValueOf<ActivationSquadState, typeof EffectActivationState.InSquad> | ReadonlyArray<UnitNumber>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.NotInSquad, unit: 41, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
-  key: typeof EffectActivationState['InSquad' | 'Unit' | 'AffectedBy'],
+  key: typeof EffectActivationState['InSquad' | 'NotInSquad' | 'Unit' | 'AffectedBy'],
   unit:
     UnitNumber |
     ReadonlyArray<UnitNumber> |
@@ -217,7 +220,7 @@ const SelfAndTargetStateView: React.FC<{
 };
 
 const SquadStateView: React.FC<{
-  state: ValueOf<SelfSkillEffectActivationState, 'squad'>,
+  state: ValueOf<SkillEffectActivationState, 'squad'>,
   unitNumber: UnitNumber
 }> = ({ state, unitNumber }) => {
   const { t } = useTranslation();
@@ -232,7 +235,9 @@ const SquadStateView: React.FC<{
             'greater_or_equal' in state.num_of_units ?
               t('effect:condition.state.num_of_units_ge', state.num_of_units as Record<string, unknown>) :
               t('effect:condition.state.num_of_units_le', state.num_of_units) :
-            unitStateView(EffectActivationState.InSquad, state.in_squad, unitNumber, t)
+            'not_in_squad' in state ?
+              unitStateView(EffectActivationState.NotInSquad, state.not_in_squad, unitNumber, t) :
+              unitStateView(EffectActivationState.InSquad, state.in_squad, unitNumber, t)
       }
     </React.Fragment>
   );
@@ -320,7 +325,7 @@ const ConditionStateView: React.FC<{
     } else if (key === 'squad') {
       return (
         <React.Fragment key={key}>
-          <SquadStateView key={key} state={value} unitNumber={unitNumber}/>
+          <SquadStateView key={key} state={value} unitNumber={unitNumber} />
           <Separator show={needSeparator} />
         </React.Fragment>
       );
@@ -345,7 +350,14 @@ const ConditionStateView: React.FC<{
                 <Separator show={needSeparator(array, i)} />
               </React.Fragment>
             ) :
-            (<NotTargetStateView key={entry[0]} entry={entry} unitNumber={unitNumber} needSeparator={needSeparator(array, i)} />)
+            entry[0] === 'squad' ?
+              (
+                <React.Fragment key={entry[0]}>
+                  <SquadStateView state={entry[1]} unitNumber={unitNumber} />
+                  <Separator show={needSeparator(array, i)} />
+                </React.Fragment>
+              ) :
+              (<NotTargetStateView key={entry[0]} entry={entry} unitNumber={unitNumber} needSeparator={needSeparator(array, i)} />)
         ) :
         typedEntries(props.condition.state).map((entry, i, array) => (
           <NotTargetStateView key={entry[0]} entry={entry} unitNumber={unitNumber} needSeparator={needSeparator(array, i)} />

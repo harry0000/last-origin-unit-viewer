@@ -3080,6 +3080,135 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  40: {
+    no: 40,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 123010 },
+        per_lv_up: { milliPercentage: 12310 }
+      },
+      range: 3,
+      cost: 5,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            marked: { term: { for_rounds: 2 } },
+            damage_taken_increased: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ grid: 'front_line' }] } }],
+        details: { self: { additional_damage: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 42 } } }],
+        details: { self: { cooperative_attack: { unit: 42, active: 2 } } }
+      }]
+    }, {
+      range: 6,
+      cost: 7,
+      area: 'single',
+      effects: [{
+        conditions: [{ state: { target: [{ grid: 'mid_line' }, { grid: 'back_line' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            damage_reduction: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ state: { target: [{ grid: 'front_line' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
+            spd_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 2 } },
+            damage_reduction: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ state: { target: [{ grid: 'front_line' }] } }],
+        target: { kind: 'ally', conditions: ['anger_of_horde'] },
+        details: { target: { ignore_protect: { term: { for_rounds: 2 } } } }
+      }]
+    }],
+    passive: [{
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{
+          trigger: 'start_round',
+          round: { at: 1 },
+          state: { target: [{ not_affected: ['battle_continuation', 'battle_continuation_with_hp_rate'] }] }
+        }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            tag_stack: { tag: 'treatment_target_selection', term: 'infinite', cannot_be_dispelled: true },
+            battle_continuation: { tag: 'first_aid', value: { 1: 1, 5: 2, 10: 3 }, term: 'infinite', times: 1, cannot_be_dispelled: true }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'treatment_target_selection', not_affected: ['battle_continuation'] }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            minimize_damage: { tag: 'first_aid', term: { for_rounds: 1 }, cannot_be_dispelled: true },
+            status_resist_up: { tag: 'first_aid', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave', state: { target: [{ status_greater_than_self: { status: 'atk' } }], squad: { not_in_squad: 41 } } }],
+        target: { kind: 'ally' },
+        details: { target: { tag_stack: { tag: 'unbreakable_tooth', term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { target: [{ status_greater_than_self: { status: 'def' } }], squad: { not_in_squad: 41 } } }],
+        target: { kind: 'ally' },
+        details: { target: { tag_stack: { tag: 'instinct_to_protect_horde', term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { target: [{ status_greater_than_self: { status: 'eva' } }], squad: { not_in_squad: 41 } } }],
+        target: { kind: 'ally' },
+        details: { target: { tag_stack: { tag: 'tireless_legs', term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'unbreakable_tooth' }] } }],
+        target: { kind: 'ally' },
+        details: { self: { spd_up: { tag: 'influence', base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'instinct_to_protect_horde' }] } }],
+        target: { kind: 'ally' },
+        details: { self: { spd_up: { tag: 'influence', base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'tireless_legs' }] } }],
+        target: { kind: 'ally' },
+        details: { self: { spd_up: { tag: 'influence', base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ stack_ge: { tag: 'influence', effect: 'spd_up', value: 3 } }] } }],
+        details: { self: { tag_stack: { tag: 'scenery_in_my_mind', term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 41 } } }],
+        details: { self: { spd_up: { tag: 'dreamed_ideals', base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 900 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'use_any_active', state: { self: [{ tagged: 'scenery_in_my_mind' }, { tagged: 'dreamed_ideals' }] } }],
+        details: { self: { ap_up: { microValue: 1000000, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { action_count_up: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged_affected: { tag: 'first_aid', effects: ['minimize_damage'] } }] } }],
+        target: { kind: 'ally' },
+        details: { target: { enmity: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
   41: {
     no: 41,
     active: [{

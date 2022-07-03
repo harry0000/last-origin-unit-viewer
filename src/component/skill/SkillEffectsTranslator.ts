@@ -87,6 +87,7 @@ export function translateSkillEffectDetails(
   const term = getTerm(entry[1], t);
 
   switch (entry[0]) {
+  case Effect.ActionCountUp:
   case Effect.MinimizeDamage:
   case Effect.NullifyDamage:
   case Effect.AllBuffRemoval:

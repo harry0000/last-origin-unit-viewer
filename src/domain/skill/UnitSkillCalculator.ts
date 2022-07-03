@@ -230,6 +230,26 @@ function calculateRangeUpDownEffectValue(
   };
 }
 
+function calculateBattleContinuationEffectValue(
+  data: NonNullable<SkillEffectDataValue[typeof Effect.BattleContinuation]>,
+  lv: SkillLv,
+  effectLv: SkillEffectLv
+): NonNullable<SkillEffectValue[typeof Effect.BattleContinuation]> {
+  const value =
+    'base' in data ?
+      calculateDataValue('value', data, effectLv) :
+      {
+        value: typeof data.value === 'number' ?
+          data.value :
+          lv === 10 ? data.value[10] : lv >= 5 ? data.value[5] : data.value[1]
+      };
+
+  return {
+    ...calculateAddition(data, lv),
+    ...value
+  };
+}
+
 function calculateIntegerValueEffectValue(
   data: NonNullable<SkillEffectDataValue[IntegerValueEffectKey]>,
   lv: SkillLv,
@@ -284,6 +304,7 @@ function calculateEffectValue(
   }
 
   switch (entry[0]) {
+  case Effect.ActionCountUp:
   case Effect.MinimizeDamage:
   case Effect.NullifyDamage:
   case Effect.AllBuffRemoval:
@@ -341,8 +362,9 @@ function calculateEffectValue(
   case Effect.FixedIceDamageOverTime:
   case Effect.FixedElectricDamageOverTime:
   case Effect.Barrier:
-  case Effect.BattleContinuation:
     return { [entry[0]]: calculateIntegerValueEffectValue(entry[1], lv, effectLv) };
+  case Effect.BattleContinuation:
+    return { [entry[0]]: calculateBattleContinuationEffectValue(entry[1], lv, effectLv) };
   case Effect.AtkValueUp:
   case Effect.DefValueUp:
     return { [entry[0]]: calculateMilliValueEffectValue(entry[1], lv, effectLv) };

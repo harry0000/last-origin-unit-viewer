@@ -33,6 +33,14 @@ export type SkillEffectTag =
   'camouflage' |
   'awakening' |
   'fire_support' |
+  'first_aid' |
+  'treatment_target_selection' |
+  'influence' |
+  'unbreakable_tooth' |
+  'instinct_to_protect_horde' |
+  'tireless_legs' |
+  'scenery_in_my_mind' |
+  'dreamed_ideals' |
   'charging_order' |
   'seize_opportunity' |
   'rapid_acceleration' |
