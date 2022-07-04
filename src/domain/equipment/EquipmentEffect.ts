@@ -15,6 +15,7 @@ export type NoValueEffectKey = typeof Effect[
   'AllDebuffRemoval' |
   'ColumnProtect' |
   'RowProtect' |
+  'ReAttack' |
   'IgnoreBarrierDr' |
   'IgnoreProtect' |
   'Reconnaissance' |

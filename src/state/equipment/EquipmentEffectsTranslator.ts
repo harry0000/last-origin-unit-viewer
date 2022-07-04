@@ -66,6 +66,7 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   case Effect.AllDebuffRemoval:
   case Effect.ColumnProtect:
   case Effect.RowProtect:
+  case Effect.ReAttack:
   case Effect.IgnoreBarrierDr:
   case Effect.IgnoreProtect:
   case Effect.Reconnaissance:
