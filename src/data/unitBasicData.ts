@@ -1181,5 +1181,12 @@ export const unitBasicData = {
     rank: 'ss',
     type: 'flying',
     role: 'attacker'
+  },
+  237: {
+    no: 237,
+    kind: 'ags',
+    rank: 's',
+    type: 'heavy',
+    role: 'supporter'
   }
 } as const;

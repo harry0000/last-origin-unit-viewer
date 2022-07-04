@@ -15640,5 +15640,80 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { merciless: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
       }]
     }]
+  },
+  237: {
+    no: 237,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 140000 },
+        per_lv_up: { milliPercentage: 10000 }
+      },
+      range: 2,
+      cost: 5,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { ap_down: { base: { microValue: 550000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 75000 },
+        per_lv_up: { milliPercentage: 5000 }
+      },
+      range: 3,
+      cost: 9,
+      area: 'line_with_front_line',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            damage_multiplier_down: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            acc_down: { base: { milliPercentage: 55000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 2 } },
+            effect_removal: { effect: 'acc_up', term: 'immediate' }
+          }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'all_adjacent',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        target: { kind: 'ally' },
+        details: { target: { reconnaissance: { term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: { target: { acc_up: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['attacker'] },
+        details: {
+          target: {
+            defense_penetration: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            effect_removal: { effects: ['atk_down', 'acc_down', 'cri_down'], term: 'immediate' }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_front_line',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: { target: { damage_reduction: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['defender'] },
+        details: {
+          target: {
+            damage_reduction: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            marked: { term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }]
   }
 } as const;
