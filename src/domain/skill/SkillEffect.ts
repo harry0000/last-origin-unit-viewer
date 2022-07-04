@@ -11,6 +11,7 @@ export type NoValueEffectKey =
     'ActionCountUp' |
     'MinimizeDamage' |
     'NullifyDamage' |
+    'AllBuffBlocking' |
     'AllBuffRemoval' |
     'AllDebuffRemoval' |
     'ColumnProtect' |

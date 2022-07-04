@@ -90,6 +90,7 @@ export function translateSkillEffectDetails(
   case Effect.ActionCountUp:
   case Effect.MinimizeDamage:
   case Effect.NullifyDamage:
+  case Effect.AllBuffBlocking:
   case Effect.AllBuffRemoval:
   case Effect.AllDebuffRemoval:
   case Effect.ColumnProtect:

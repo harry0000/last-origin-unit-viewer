@@ -11437,9 +11437,9 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           target: {
-            ap_down: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
-            eva_down: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 } },
-            damage_taken_increased: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
+            ap_down: { tag: 'pre_cooking', base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
+            eva_down: { tag: 'pre_cooking', base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 } },
+            damage_taken_increased: { tag: 'pre_cooking', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
           }
         }
       }]
@@ -11451,11 +11451,11 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally', conditions: ['bioroid'] },
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
-            acc_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
-            status_resist_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } },
-            ap_up: { base: { microValue: 2000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' },
-            all_debuff_removal: { term: 'immediate' }
+            atk_up: { tag: 'best_desserts', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            acc_up: { tag: 'best_desserts', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
+            status_resist_up: { tag: 'best_desserts', base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } },
+            ap_up: { tag: 'best_desserts', base: { microValue: 2000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' },
+            all_debuff_removal: { tag: 'best_desserts', term: 'immediate' }
           }
         }
       }]
@@ -11500,6 +11500,32 @@ export const unitSkillData: UnitSkillData = {
           target: {
             cri_up: { base: { milliPercentage: 500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
             spd_up: { base: { milliPercentage: 500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        scale_factor: { per_units: { type: 'squad', unit: 'bioroid', except: 'self' } },
+        details: { self: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'best_desserts' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            status_resist_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } },
+            all_buff_removal_resist_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } },
+            ignore_protect: { term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'pre_cooking' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            all_buff_removal: { term: 'immediate' },
+            all_buff_blocking: { term: { for_rounds: 1 }, cannot_be_dispelled: true }
           }
         }
       }]

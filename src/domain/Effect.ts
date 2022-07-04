@@ -64,6 +64,7 @@ export const Effect = {
   TagStack: 'tag_stack',
   TagUnstack: 'tag_unstack',
   TagRelease: 'tag_release',
+  AllBuffBlocking: 'all_buff_blocking',
   AllBuffRemoval: 'all_buff_removal',
   AllDebuffRemoval: 'all_debuff_removal',
   EffectRemoval: 'effect_removal',

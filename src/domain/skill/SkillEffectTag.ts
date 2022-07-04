@@ -98,6 +98,8 @@ export type SkillEffectTag =
   'clear_and_serene' |
   'foresight' |
   'mimesis' |
+  'pre_cooking' |
+  'best_desserts' |
   'psychic_barrier' |
   'charge_electrically' |
   'high_voltage' |
