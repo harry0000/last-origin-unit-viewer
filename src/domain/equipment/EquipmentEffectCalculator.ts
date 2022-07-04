@@ -116,6 +116,7 @@ function calculateEffectDetails(
     case Effect.IgnoreBarrierDr:
     case Effect.IgnoreProtect:
     case Effect.Reconnaissance:
+    case Effect.Marked:
     case Effect.Stunned:
       return { [entry[0]]: calculateAddition(entry[1]) };
     case Effect.FixedDamageOverTime:

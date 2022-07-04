@@ -19,6 +19,7 @@ export type NoValueEffectKey = typeof Effect[
   'IgnoreBarrierDr' |
   'IgnoreProtect' |
   'Reconnaissance' |
+  'Marked' |
   'Stunned'
 ]
 export type IntegerValueEffectKey = typeof Effect[

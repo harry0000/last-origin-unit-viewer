@@ -2443,13 +2443,26 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }]
     ]
   },
-  // dust_storm: {
-  //   type: 'gear',
-  //   id: 'dust_storm',
-  //   exclusive: {
-  //     unit: 41
-  //   }
-  // },
+  dust_storm: {
+    type: 'gear',
+    id: 'dust_storm',
+    exclusive: {
+      unit: 41
+    },
+    equipment_effects: [
+      [{ condition: { trigger: 'start_round' }, details: { marked: { term: { for_rounds: 1 } }, eva_up: { milliPercentage: 100000, term: { for_rounds: 1 } }, damage_reduction: { milliPercentage: 20000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { marked: { term: { for_rounds: 1 } }, eva_up: { milliPercentage: 110000, term: { for_rounds: 1 } }, damage_reduction: { milliPercentage: 23000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { marked: { term: { for_rounds: 1 } }, eva_up: { milliPercentage: 120000, term: { for_rounds: 1 } }, damage_reduction: { milliPercentage: 26000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { marked: { term: { for_rounds: 1 } }, eva_up: { milliPercentage: 130000, term: { for_rounds: 1 } }, damage_reduction: { milliPercentage: 29000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { marked: { term: { for_rounds: 1 } }, eva_up: { milliPercentage: 140000, term: { for_rounds: 1 } }, damage_reduction: { milliPercentage: 32000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { marked: { term: { for_rounds: 1 } }, eva_up: { milliPercentage: 150000, term: { for_rounds: 1 } }, damage_reduction: { milliPercentage: 35000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { marked: { term: { for_rounds: 1 } }, eva_up: { milliPercentage: 160000, term: { for_rounds: 1 } }, damage_reduction: { milliPercentage: 38000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { marked: { term: { for_rounds: 1 } }, eva_up: { milliPercentage: 170000, term: { for_rounds: 1 } }, damage_reduction: { milliPercentage: 41000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { marked: { term: { for_rounds: 1 } }, eva_up: { milliPercentage: 180000, term: { for_rounds: 1 } }, damage_reduction: { milliPercentage: 44000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { marked: { term: { for_rounds: 1 } }, eva_up: { milliPercentage: 190000, term: { for_rounds: 1 } }, damage_reduction: { milliPercentage: 47000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { marked: { term: { for_rounds: 1 } }, eva_up: { milliPercentage: 200000, term: { for_rounds: 1 } }, damage_reduction: { milliPercentage: 50000, term: { for_rounds: 1 } } } }]
+    ]
+  },
   enhanced_mk_engine: {
     type: 'gear',
     id: 'enhanced_mk_engine',
@@ -2536,13 +2549,26 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 500000, term: 'immediate' } } }]
     ]
   },
-  // l_r_c_bullet: {
-  //   type: 'gear',
-  //   id: 'l_r_c_bullet',
-  //   exclusive: {
-  //     unit: 41
-  //   }
-  // },
+  l_r_c_bullet: {
+    type: 'gear',
+    id: 'l_r_c_bullet',
+    exclusive: {
+      unit: 41
+    },
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 20000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 20000, term: 'infinite' }, defense_penetration: { milliPercentage: 20000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 21000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 21000, term: 'infinite' }, defense_penetration: { milliPercentage: 23000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 22000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 22000, term: 'infinite' }, defense_penetration: { milliPercentage: 26000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 23000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 23000, term: 'infinite' }, defense_penetration: { milliPercentage: 29000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 24000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 24000, term: 'infinite' }, defense_penetration: { milliPercentage: 32000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 25000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 25000, term: 'infinite' }, defense_penetration: { milliPercentage: 35000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 26000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 26000, term: 'infinite' }, defense_penetration: { milliPercentage: 38000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 27000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 27000, term: 'infinite' }, defense_penetration: { milliPercentage: 41000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 28000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 28000, term: 'infinite' }, defense_penetration: { milliPercentage: 44000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 29000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 29000, term: 'infinite' }, defense_penetration: { milliPercentage: 47000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 30000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 30000, term: 'infinite' }, defense_penetration: { milliPercentage: 50000, term: 'infinite' } } }]
+    ]
+  },
   mark_of_the_dragonslayer: {
     type: 'gear',
     id: 'mark_of_the_dragonslayer',
