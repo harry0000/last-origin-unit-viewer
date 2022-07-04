@@ -31,7 +31,8 @@ export type SkillEffectScaleFactor =
           'TomosFriends' |
           'CityGuard' |
           'KouheiChurch'
-        ],
+        ] |
+        readonly [typeof UnitAlias.BioroidUnder145cmTall, typeof UnitAlias.SistersOfValhalla],
       except?: 'self'
     }
   } | {

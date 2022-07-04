@@ -3055,19 +3055,7 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { target_protect: { term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
-        scale_factor: { per_units: { type: 'squad', unit: 'bioroid_under_145cm_tall', except: 'self' } },
-        target: { kind: 'ally' },
-        details: {
-          target: {
-            atk_value_up: { base: { milliValue: 40000 }, per_lv_up: { milliValue: 4000 }, term: { for_rounds: 1 } },
-            def_value_up: { base: { milliValue: 20000 }, per_lv_up: { milliValue: 2000 }, term: { for_rounds: 1 } },
-            eva_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
-            ap_up: { base: { microValue: 100000 }, per_lv_up: { microValue: 20000 }, term: 'immediate' }
-          }
-        }
-      }, {
-        conditions: [{ trigger: 'start_round' }],
-        scale_factor: { per_units: { type: 'squad', unit: 'sisters_of_valhalla' } },
+        scale_factor: { per_units: { type: 'squad', unit: ['bioroid_under_145cm_tall', 'sisters_of_valhalla'] } },
         target: { kind: 'ally' },
         details: {
           target: {

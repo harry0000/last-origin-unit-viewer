@@ -435,9 +435,15 @@ const EffectScaleFactorView: React.FC<{
             <React.Fragment>
               {ifTruthy(exceptSelf, (<span>{t('effect:unit.self')}{t('effect:except_preposition')}</span>))}
               {
-                isUnitAlias(unit) ?
-                  (<UnitAliasView unitAlias={unit} exceptUnit={exceptSelf ? unitNumber : undefined} />) :
-                  (<span>{t(`effect:unit.${unit}`)}</span>)
+                isReadonlyArray(unit) ?
+                  (<React.Fragment>
+                    <UnitAliasView unitAlias={unit[0]} exceptUnit={exceptSelf ? unitNumber : undefined} />
+                    <span>&nbsp;{t('effect:unit_separator')}&nbsp;</span>
+                    <UnitAliasView unitAlias={unit[1]} exceptUnit={exceptSelf ? unitNumber : undefined} />
+                  </React.Fragment>) :
+                  isUnitAlias(unit) ?
+                    (<UnitAliasView unitAlias={unit} exceptUnit={exceptSelf ? unitNumber : undefined} />) :
+                    (<span>{t(`effect:unit.${unit}`)}</span>)
               }
               <span>{t('effect:scale_factor.num_of_allies')}</span>
             </React.Fragment>
