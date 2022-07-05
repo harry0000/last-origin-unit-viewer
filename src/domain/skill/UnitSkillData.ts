@@ -1,6 +1,7 @@
 import {
   AlexandraForm,
   BloodyPantherForm,
+  BulgasariForm,
   EmilyForm,
   FormChangeUnits,
   FortressForm,
@@ -201,6 +202,16 @@ type PhantomSkillData = Readonly<{
     ]
 }>
 
+type BulgasariSkillData = Readonly<{
+  no: typeof FormChangeUnits.Bulgasari,
+  active:
+    readonly [
+      ActiveSkillData,
+      { readonly [key in BulgasariForm]: ActiveSkillData }
+    ],
+  passive: SSRankPassiveSkill
+}>
+
 type InvincibleDragonSkillData = Readonly<{
   no: typeof FormChangeUnits.InvincibleDragon,
   active:
@@ -259,6 +270,7 @@ type UnitSkill<N extends UnitNumber> =
   N extends BloodyPantherSkillData['no'] ? BloodyPantherSkillData :
   N extends EmilySkillData['no'] ? EmilySkillData :
   N extends PhantomSkillData['no'] ? PhantomSkillData :
+  N extends BulgasariSkillData['no'] ? BulgasariSkillData :
   N extends InvincibleDragonSkillData['no'] ? InvincibleDragonSkillData :
   N extends SirenSkillData['no'] ? SirenSkillData :
   N extends RampartSkillData['no'] ? RampartSkillData :

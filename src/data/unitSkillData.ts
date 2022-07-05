@@ -6167,35 +6167,60 @@ export const unitSkillData: UnitSkillData = {
         }
       }]
     }, {
-      // FIXME: change to form change unit if implement Electric Pile Bunker
-      damage_deal: {
-        base: { milliPercentage: 255000 },
-        per_lv_up: { milliPercentage: 21500 }
+      normal: {
+        damage_deal: {
+          base: { milliPercentage: 255000 },
+          per_lv_up: { milliPercentage: 21500 }
+        },
+        range: 2,
+        cost: 9,
+        area: 'single',
+        effects: [{
+          details: {
+            self: {
+              ignore_protect: {},
+              defense_penetration: { base: { milliPercentage: 43000 }, per_lv_up: { milliPercentage: 3000 } }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'hit' }],
+          target: { kind: 'enemy' },
+          details: {
+            target: {
+              effect_removal: { effects: ['column_protect', 'row_protect', 'target_protect', 'damage_reduction'] },
+              push: { value: 1 }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'hit', state: { target: [{ affected: 'def_down' }] } }],
+          target: { kind: 'enemy' },
+          details: { self: { additional_damage: { base: { milliPercentage: 26500 }, per_lv_up: { milliPercentage: 1500 } } } }
+        }, {
+          conditions: [{ trigger: 'start_wave', state: { self: [{ equipped: 'blitz_pile_bunker' }] } }],
+          details: { self: { form_change: { form: 'blitz_pile_bunker' } } }
+        }]
       },
-      range: 2,
-      cost: 9,
-      area: 'single',
-      effects: [{
-        details: {
-          self: {
-            ignore_protect: {},
-            defense_penetration: { base: { milliPercentage: 43000 }, per_lv_up: { milliPercentage: 3000 } }
-          }
-        }
-      }, {
-        conditions: [{ trigger: 'hit' }],
-        target: { kind: 'enemy' },
-        details: {
-          target: {
-            effect_removal: { effects: ['column_protect', 'row_protect', 'target_protect', 'damage_reduction'] },
-            push: { value: 1 }
-          }
-        }
-      }, {
-        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'def_down' }] } }],
-        target: { kind: 'enemy' },
-        details: { self: { additional_damage: { base: { milliPercentage: 26500 }, per_lv_up: { milliPercentage: 1500 } } } }
-      }]
+      blitz_pile_bunker: {
+        damage_deal: {
+          base: { milliPercentage: 255000 },
+          per_lv_up: { milliPercentage: 21500 },
+          attribute: 'electric'
+        },
+        range: 4,
+        cost: 9,
+        area: 'single_and_front_strong_explosion',
+        effects: [{
+          details: { self: { ignore_protect: {} } }
+        }, {
+          conditions: [{ trigger: 'hit' }],
+          target: { kind: 'enemy' },
+          details: { target: { effect_removal: { effects: ['column_protect', 'row_protect', 'target_protect', 'damage_reduction'] } } }
+        }, {
+          conditions: [{ trigger: 'hit', state: { target: [{ affected: 'def_down' }] } }],
+          target: { kind: 'enemy' },
+          details: { self: { additional_damage: { base: { milliPercentage: 26500 }, per_lv_up: { milliPercentage: 1500 } } } }
+        }]
+      }
     }],
     passive: [{
       area: 'self',

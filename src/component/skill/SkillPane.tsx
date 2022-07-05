@@ -44,7 +44,10 @@ const skillLabelStyle: CSSObject = {
   width: '4em'
 };
 const skillBadgeStyle: CSSObject = {
-  fontSize: '1.2em'
+  fontSize: '1.2em',
+  '& > .badge': {
+    whiteSpace: 'normal'
+  }
 };
 
 const NestedContainer: React.FC<{ css?: Interpolation<Theme>, children: ReactNode }> = ({ children, ...rest }) => (
