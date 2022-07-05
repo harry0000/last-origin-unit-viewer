@@ -6,6 +6,7 @@ import { SkillEffectTag } from './SkillEffectTag';
 import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
 import { UnitKind, UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
+import { UnitStatusData } from '../status/UnitStatusData';
 
 export type UnitNotAlias = {
   not_alias: typeof UnitAlias.KouheiChurch
@@ -48,9 +49,33 @@ export type GridState = typeof GridState[keyof typeof GridState]
 type HPRateEffectActivationStateKey =
   typeof EffectActivationState['HpGreaterOrEqual' | 'HpLessOrEqual' | 'HpGreaterThan' | 'HpLessThan']
 
+type StatusEffectActivationStateKey =
+  typeof EffectActivationState['StatusGreaterThanSelf' | 'StatusLessThanSelf']
+
+type AffectedByActivationState =
+  Readonly<{
+    [EffectActivationState.AffectedBy]:
+      9 | 54 | 55 | 133 | 135 |
+      UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
+      { unit: 23, effect: typeof Effect.FollowUpAttack } |
+      { unit: 83, effect: typeof Effect.TargetProtect }
+  }>
+
+type NotAffectedActivationState =
+  Readonly<{
+    [EffectActivationState.NotAffected]?:
+      readonly [typeof Effect.DefUp, typeof Effect.DamageReduction] |
+      readonly [typeof Effect.BattleContinuation]
+  }>
+
 type ActivationState =
   {
     [key in HPRateEffectActivationStateKey]?: number
+  } &
+  {
+    [key in StatusEffectActivationStateKey]?: {
+      status: Exclude<keyof UnitStatusData[UnitNumber], 'hp'>
+    }
   } &
   {
     [EffectActivationState.Affected]?: Effect
@@ -59,12 +84,22 @@ type ActivationState =
     [EffectActivationState.Tagged]?: SkillEffectTag
   } &
   {
+    [EffectActivationState.TaggedAffected]?: {
+      tag: SkillEffectTag,
+      effects: ReadonlyArray<Effect>
+    }
+  } &
+  {
     [EffectActivationState.StackGe]?: {
       tag: SkillEffectTag,
       effect?: Effect,
-      value: 1 | 2 | 3 | 4 | 5 | 6 | 7
+      value: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 9
     }
-  }
+  } &
+  {
+    [EffectActivationState.Grid]?: GridState
+  } |
+  AffectedByActivationState
 
 export type ActivationSelfState =
   ActivationState &
@@ -81,10 +116,11 @@ export type ActivationSelfState =
     [EffectActivationState.NotEquipped]?: ReadonlyArray<EquipmentId>
   } &
   {
-    [EffectActivationState.AffectedBy]?: UnitNumber
-  } &
-  {
-    [EffectActivationState.Grid]?: GridState
+    [EffectActivationState.StatusGreaterOrEqualThan]?: {
+      status: keyof UnitStatusData[UnitNumber],
+      than: keyof UnitStatusData[UnitNumber],
+      value: number
+    }
   } &
   {
     // HACK: for seize_opportunity tag
@@ -94,13 +130,11 @@ export type ActivationSelfState =
 export type ActivationTargetState =
   ActivationState &
   {
-    [EffectActivationState.AffectedBy]?: UnitNumber | UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80>
-  } &
-  {
     [EffectActivationState.Grid]?: Exclude<GridState, typeof GridState.AreaOfEffect>
-  }
+  } &
+  NotAffectedActivationState
 
-type InSquadStateUnit = UnitNumber | typeof UnitAlias['ElectricActive' | 'Horizon' | 'KouheiChurch'] | 'golden_factory'
+type InSquadStateUnit = UnitNumber | typeof UnitAlias['ElectricActive' | 'SteelLine' | 'Horizon' | 'KouheiChurch'] | 'golden_factory'
 
 type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
   [EffectActivationState.InSquad]: T
@@ -109,8 +143,9 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 type NumOfUnitsInSquadState = {
   [EffectActivationState.NumOfUnits]:
     { unit: typeof UnitKind.AGS, greater_or_equal: 3 } |
-    { unit: 'ally', greater_or_equal: 2 | 4 } |
-    { unit: UnitType, greater_or_equal: 1 | 2 }
+    { unit: 'ally', greater_or_equal: 1 | 2 | 4 } |
+    { unit: UnitType, greater_or_equal: 1 | 2 } |
+    { unit: typeof UnitType.Heavy, less_or_equal: 1 }
 }
 
 export type ActivationSquadState = InSquadState | NumOfUnitsInSquadState
@@ -120,6 +155,7 @@ export type ActivationEnemyState = {
     { greater_or_equal: 1, less_or_equal: 2 } |
     { greater_or_equal: 3, less_or_equal: 4 } |
     { greater_or_equal: 5, less_or_equal: 6 } |
+    { greater_or_equal: 3, unit: typeof UnitType.Heavy } |
     { greater_or_equal: 5 } |
     { greater_or_equal: 7 }
 }
@@ -141,7 +177,7 @@ export type TargetSkillEffectActivationState =
   } |
   {
     target: ReadonlyArray<ActivationTargetState>,
-    squad: ActivationSquadState
+    squad: ActivationSquadState | { [EffectActivationState.NotInSquad]: 41 }
   }
 
 export type SkillEffectActivationState = SelfSkillEffectActivationState | TargetSkillEffectActivationState

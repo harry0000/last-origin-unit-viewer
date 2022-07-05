@@ -11,14 +11,18 @@ import UnitAliasView from './UnitAliasView';
 import {
   ActivationEnemyState,
   ActivationSelfState,
+  ActivationSquadState,
   ActivationTargetState,
   SelfSkillEffectActivationCondition,
   SelfSkillEffectActivationState,
   SkillEffectActivationCondition,
+  SkillEffectActivationState,
   TargetSkillEffectActivationCondition,
   UnitAliasExceptUnit
 } from '../../domain/skill/SkillEffectActivationCondition';
+import { Effect } from '../../domain/Effect';
 import { EffectActivationState } from '../../domain/EffectActivationState';
+import { EffectTrigger } from '../../domain/EffectTrigger';
 import { PassiveSkillEffective } from '../../domain/skill/SkillEffective';
 import { SkillEffectScaleFactor } from '../../domain/skill/SkillEffectScaleFactor';
 import { SkillEffectTarget } from '../../domain/skill/SkillEffectData';
@@ -47,11 +51,36 @@ function stateValuesView(
   case EffectActivationState.HpGreaterThan:
   case EffectActivationState.HpLessThan:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { value: entry[1] })}</span>);
+  case EffectActivationState.StatusGreaterThanSelf:
+  case EffectActivationState.StatusLessThanSelf:
+    return (<span>{t(`effect:condition.state.${entry[0]}`, entry[1])}</span>);
+  case EffectActivationState.StatusGreaterOrEqualThan:
+    return (<span>{t(`effect:condition.state.${entry[0]}`, entry[1])}</span>);
   case EffectActivationState.Affected:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { effect: entry[1] })}</span>);
+  case EffectActivationState.NotAffected: {
+    const effects = entry[1]
+      .map(e => t(`effect:effect.name.${e}`))
+      .join(t('effect:and_symbolic_separator'));
+    return (<span>{t(`effect:condition.state.${entry[0]}`, { effects })}</span>);
+  }
+  case EffectActivationState.AffectedBy:
+    return unitStateView(entry[0], entry[1], unitNumber, t);
   case EffectActivationState.Tagged:
   case EffectActivationState.NotTagged:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { tag: entry[1] })}</span>);
+  case EffectActivationState.TaggedAffected:
+    return (
+      <span>
+        {t(
+          `effect:condition.state.${entry[0]}`,
+          {
+            tag: entry[1].tag,
+            effect: entry[1].effects.map(e => t(`effect:effect.name.${e}`)).join(t('effect:and_symbolic_separator'))
+          }
+        )}
+      </span>
+    );
   case EffectActivationState.StackGe:
     if ('effect' in entry[1]) {
       return t(
@@ -71,8 +100,6 @@ function stateValuesView(
   case EffectActivationState.Form:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { form: entry[1] })}</span>);
   case EffectActivationState.Unit:
-    return unitStateView(entry[0], entry[1], unitNumber, t);
-  case EffectActivationState.AffectedBy:
     return unitStateView(entry[0], entry[1], unitNumber, t);
   case EffectActivationState.Equipped: {
     const equipment = t(`equipment:${entry[1]}`);
@@ -94,16 +121,20 @@ function stateValuesView(
 }
 
 function unitStateView(key: typeof EffectActivationState.Unit, unit: UnitAliasExceptUnit<typeof UnitAlias.AngerOfHorde, 41>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
-function unitStateView(key: typeof EffectActivationState.AffectedBy, unit: UnitNumber | UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
-function unitStateView(key: typeof EffectActivationState.InSquad, unit: UnitNumber | ReadonlyArray<UnitNumber> | typeof UnitAlias.ElectricActive | typeof UnitAlias.Horizon | typeof UnitAlias.KouheiChurch | 'golden_factory', selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.AffectedBy, unit: ValueOf<ActivationSelfState, typeof EffectActivationState.AffectedBy>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.InSquad, unit: ValueOf<ActivationSquadState, typeof EffectActivationState.InSquad> | ReadonlyArray<UnitNumber>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.NotInSquad, unit: 41, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
-  key: typeof EffectActivationState['InSquad' | 'Unit' | 'AffectedBy'],
+  key: typeof EffectActivationState['InSquad' | 'NotInSquad' | 'Unit' | 'AffectedBy'],
   unit:
     UnitNumber |
     ReadonlyArray<UnitNumber> |
+    { unit: 23, effect: typeof Effect.FollowUpAttack } |
+    { unit: 83, effect: typeof Effect.TargetProtect } |
     UnitAliasExceptUnit<typeof UnitAlias.AngerOfHorde, 41> |
     UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
     typeof UnitAlias.ElectricActive |
+    typeof UnitAlias.SteelLine |
     typeof UnitAlias.Horizon |
     typeof UnitAlias.KouheiChurch |
     'golden_factory',
@@ -136,7 +167,7 @@ function unitStateView(
     } else {
       return (<span>{t(`effect:condition.state.${key}`, { unit: t(`effect:unit.${unit}`) })}</span>);
     }
-  } else {
+  } else if ('alias' in unit) {
     return (
       <React.Fragment>
         {t('effect:with_quotes', { value: t('unit:display', { number: unit.except }) })}
@@ -145,6 +176,8 @@ function unitStateView(
         {t(`effect:condition.state.${key}`, { unit: '' })}
       </React.Fragment>
     );
+  } else {
+    return (<span>{t('effect:condition.state.affected_effect_by', unit as Record<string, unknown>)}</span>);
   }
 }
 
@@ -187,7 +220,7 @@ const SelfAndTargetStateView: React.FC<{
 };
 
 const SquadStateView: React.FC<{
-  state: ValueOf<SelfSkillEffectActivationState, 'squad'>,
+  state: ValueOf<SkillEffectActivationState, 'squad'>,
   unitNumber: UnitNumber
 }> = ({ state, unitNumber }) => {
   const { t } = useTranslation();
@@ -199,8 +232,12 @@ const SquadStateView: React.FC<{
         isReadonlyArray(state) ?
           unitStateView(EffectActivationState.InSquad, state.map(s => s.in_squad), unitNumber, t) :
           'num_of_units' in state ?
-            t('effect:condition.state.num_of_units', state.num_of_units as Record<string, unknown>) :
-            unitStateView(EffectActivationState.InSquad, state.in_squad, unitNumber, t)
+            'greater_or_equal' in state.num_of_units ?
+              t('effect:condition.state.num_of_units_ge', state.num_of_units as Record<string, unknown>) :
+              t('effect:condition.state.num_of_units_le', state.num_of_units) :
+            'not_in_squad' in state ?
+              unitStateView(EffectActivationState.NotInSquad, state.not_in_squad, unitNumber, t) :
+              unitStateView(EffectActivationState.InSquad, state.in_squad, unitNumber, t)
       }
     </React.Fragment>
   );
@@ -214,7 +251,11 @@ const EnemyStateView: React.FC<{
 
   return (
     <React.Fragment>
-      {t('effect:condition.target.enemy')}
+      {
+        'unit' in num_of_units ?
+          t('effect:condition.target.enemy_unit', num_of_units) :
+          t('effect:condition.target.enemy')
+      }
       {
         'less_or_equal' in num_of_units ?
           t('effect:condition.state.num_of_enemies', num_of_units as Record<string, unknown>) :
@@ -225,23 +266,31 @@ const EnemyStateView: React.FC<{
 };
 
 const TriggerView: React.FC<{
-  condition: SkillEffectActivationCondition
-}> = ({ condition }) => {
+  condition: SkillEffectActivationCondition,
+  unitNumber: UnitNumber
+}> = ({ condition, unitNumber }) => {
   const { t } = useTranslation();
 
   if (!('trigger' in condition)) {
     return null;
   }
 
-  return condition.trigger === 'start_round' ?
-    condition.round ?
+  switch (condition.trigger) {
+  case EffectTrigger.StartRound:
+    return condition.round ?
       'at' in condition.round ?
         t('effect:condition.trigger.round.at', { round: condition.round.at }) :
         'from' in condition.round ?
           t('effect:condition.trigger.round.from', { round: condition.round.from }) :
           t('effect:condition.trigger.round.until', { round: condition.round.until }) :
-      t('effect:condition.trigger.start_round') :
-    t(`effect:condition.trigger.${condition.trigger}`);
+      t('effect:condition.trigger.start_round');
+  case EffectTrigger.UseActive2:
+  case EffectTrigger.HitActive1:
+  case EffectTrigger.HitActive2:
+    return t(`effect:condition.trigger.${condition.trigger}`, { unit: unitNumber });
+  default:
+    return t(`effect:condition.trigger.${condition.trigger}`);
+  }
 };
 
 const ConditionStateView: React.FC<{
@@ -276,7 +325,7 @@ const ConditionStateView: React.FC<{
     } else if (key === 'squad') {
       return (
         <React.Fragment key={key}>
-          <SquadStateView key={key} state={value} unitNumber={unitNumber}/>
+          <SquadStateView key={key} state={value} unitNumber={unitNumber} />
           <Separator show={needSeparator} />
         </React.Fragment>
       );
@@ -301,7 +350,14 @@ const ConditionStateView: React.FC<{
                 <Separator show={needSeparator(array, i)} />
               </React.Fragment>
             ) :
-            (<NotTargetStateView key={entry[0]} entry={entry} unitNumber={unitNumber} needSeparator={needSeparator(array, i)} />)
+            entry[0] === 'squad' ?
+              (
+                <React.Fragment key={entry[0]}>
+                  <SquadStateView state={entry[1]} unitNumber={unitNumber} />
+                  <Separator show={needSeparator(array, i)} />
+                </React.Fragment>
+              ) :
+              (<NotTargetStateView key={entry[0]} entry={entry} unitNumber={unitNumber} needSeparator={needSeparator(array, i)} />)
         ) :
         typedEntries(props.condition.state).map((entry, i, array) => (
           <NotTargetStateView key={entry[0]} entry={entry} unitNumber={unitNumber} needSeparator={needSeparator(array, i)} />
@@ -326,7 +382,7 @@ const ConditionRow: React.FC<{
 
   return (
     <span>
-      <TriggerView condition={condition} />
+      <TriggerView condition={condition} unitNumber={unitNumber} />
       {ifTruthy(needSeparator, t('effect:separator'))}
       {'target' in props ?
         <ConditionStateView condition={props.condition} target={props.target} unitNumber={unitNumber} /> :
@@ -368,24 +424,38 @@ const EffectScaleFactorView: React.FC<{
     v => {
       if ('per_stack' in v) {
         return (<span>{t('effect:scale_factor.per_stack', { tag: v.per_stack.tag })}</span>);
-      } else if ('num_of_enemies' in v) {
-        return (<span>{t('effect:unit.enemy')}{t(`effect:scale_factor.${v.num_of_enemies}`)}</span>);
-      } else {
-        const exceptSelf = !!v.except;
-        if (isUnitAlias(v.num_of_units)) {
+      } else  {
+        switch (v.per_units.type) {
+        case 'all':
+          return (<span>{t('effect:scale_factor.per_units')}</span>);
+        case 'squad': {
+          const { unit = 'ally', except } = v.per_units;
+          const exceptSelf = !!except;
           return (
             <React.Fragment>
               {ifTruthy(exceptSelf, (<span>{t('effect:unit.self')}{t('effect:except_preposition')}</span>))}
-              <UnitAliasView unitAlias={v.num_of_units} exceptUnit={exceptSelf ? unitNumber : undefined} />
+              {
+                isReadonlyArray(unit) ?
+                  (<React.Fragment>
+                    <UnitAliasView unitAlias={unit[0]} exceptUnit={exceptSelf ? unitNumber : undefined} />
+                    <span>&nbsp;{t('effect:unit_separator')}&nbsp;</span>
+                    <UnitAliasView unitAlias={unit[1]} exceptUnit={exceptSelf ? unitNumber : undefined} />
+                  </React.Fragment>) :
+                  isUnitAlias(unit) ?
+                    (<UnitAliasView unitAlias={unit} exceptUnit={exceptSelf ? unitNumber : undefined} />) :
+                    (<span>{t(`effect:unit.${unit}`)}</span>)
+              }
               <span>{t('effect:scale_factor.num_of_allies')}</span>
             </React.Fragment>
           );
-        } else {
+        }
+        case 'enemy':
           return (
-            <React.Fragment>
-              {ifTruthy(exceptSelf, (<span>{t('effect:unit.self')}{t('effect:except_preposition')}</span>))}
-              <span>{t(`effect:unit.${v.num_of_units}`)}{t('effect:scale_factor.num_of_allies')}</span>
-            </React.Fragment>
+            <span>
+              {t('effect:unit.enemy')}
+              {ifNonNullable(v.per_units.unit, unit => t(`effect:unit.${unit}`))}
+              {t(`effect:scale_factor.${v.per_units.variation}`)}
+            </span>
           );
         }
       }

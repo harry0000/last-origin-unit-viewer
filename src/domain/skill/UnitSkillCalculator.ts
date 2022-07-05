@@ -2,6 +2,7 @@ import deepEqual from 'fast-deep-equal';
 
 import {
   ActiveSkill,
+  ActiveSkillAsEquipmentEffect,
   AroundSkillEffectValue,
   PassiveSkillAsEquipmentEffect,
   PassiveSkill,
@@ -10,6 +11,7 @@ import {
 } from './UnitSkills';
 import {
   ActiveSkillData,
+  ActiveSkillDataAsEquipmentEffect,
   PassiveSkillData,
   PassiveSkillDataAsEquipmentEffect,
   SkillApCostData,
@@ -20,6 +22,7 @@ import { AffectionBonus } from '../UnitAffection';
 import {
   AroundSkillEffectDataValue,
   isAroundSkillEffectData,
+  isEffectDataValue,
   isTargetSkillEffectData,
   SkillEffectData,
   SkillEffectDataValue
@@ -30,6 +33,7 @@ import {
   IntegerValueEffectKey,
   MicroValueEffectKey,
   MilliPercentageEffectKey,
+  MilliValueEffectKey,
   MultipleMilliPercentageEffectKey,
   NoValueEffectKey,
   RangeUpDownEffectKey
@@ -227,6 +231,24 @@ function calculateRangeUpDownEffectValue(
   };
 }
 
+function calculateBattleContinuationEffectValue(
+  data: NonNullable<SkillEffectDataValue[typeof Effect.BattleContinuation]>,
+  lv: SkillLv,
+  effectLv: SkillEffectLv
+): NonNullable<SkillEffectValue[typeof Effect.BattleContinuation]> {
+  const value =
+    isEffectDataValue('milliPercentage', data) ?
+      calculateDataValue('milliPercentage', data, effectLv) :
+      isEffectDataValue('value', data) ?
+        calculateDataValue('value', data, effectLv) :
+        { value: lv === 10 ? data.value[10] : lv >= 5 ? data.value[5] : data.value[1] };
+
+  return {
+    ...calculateAddition(data, lv),
+    ...value
+  };
+}
+
 function calculateIntegerValueEffectValue(
   data: NonNullable<SkillEffectDataValue[IntegerValueEffectKey]>,
   lv: SkillLv,
@@ -235,6 +257,17 @@ function calculateIntegerValueEffectValue(
   return {
     ...calculateAddition(data, lv),
     ...calculateDataValue('value', data, effectLv)
+  };
+}
+
+function calculateMilliValueEffectValue(
+  data: NonNullable<SkillEffectDataValue[MilliValueEffectKey]>,
+  lv: SkillLv,
+  effectLv: SkillEffectLv
+): NonNullable<SkillEffectValue[MilliValueEffectKey]> {
+  return {
+    ...calculateAddition(data, lv),
+    ...calculateDataValue('milliValue', data, effectLv)
   };
 }
 
@@ -270,8 +303,10 @@ function calculateEffectValue(
   }
 
   switch (entry[0]) {
+  case Effect.ActionCountUp:
   case Effect.MinimizeDamage:
   case Effect.NullifyDamage:
+  case Effect.AllBuffBlocking:
   case Effect.AllBuffRemoval:
   case Effect.AllDebuffRemoval:
   case Effect.ColumnProtect:
@@ -281,6 +316,7 @@ function calculateEffectValue(
   case Effect.FollowUpAttack:
   case Effect.IgnoreBarrierDr:
   case Effect.IgnoreProtect:
+  case Effect.IgnoreProtectDeactivate:
   case Effect.Reconnaissance:
   case Effect.Marked:
   case Effect.Provoked:
@@ -288,9 +324,9 @@ function calculateEffectValue(
   case Effect.Silenced:
   case Effect.Stunned:
   case Effect.RefundAp:
+  case Effect.AttackHit:
   case Effect.AttackCritical:
-  case Effect.CounterattackCritical:
-  case Effect.DeployDefensiveWall:
+  case Effect.IgnoreDef:
   case Effect.AMG11Construction:
   case Effect.DeployRabbitDField:
   case Effect.SummonHologramTiger:
@@ -326,14 +362,19 @@ function calculateEffectValue(
   case Effect.FixedIceDamageOverTime:
   case Effect.FixedElectricDamageOverTime:
   case Effect.Barrier:
-  case Effect.BattleContinuation:
     return { [entry[0]]: calculateIntegerValueEffectValue(entry[1], lv, effectLv) };
+  case Effect.BattleContinuation:
+    return { [entry[0]]: calculateBattleContinuationEffectValue(entry[1], lv, effectLv) };
+  case Effect.AtkValueUp:
+  case Effect.DefValueUp:
+    return { [entry[0]]: calculateMilliValueEffectValue(entry[1], lv, effectLv) };
   case Effect.ApUp:
   case Effect.ApDown:
   case Effect.SetAp:
     return { [entry[0]]: calculateMicroValueEffectValue(entry[1], lv, effectLv) };
   case Effect.EffectRemoval:
-  case Effect.PreventsEffect: {
+  case Effect.PreventsEffect:
+  case Effect.AbsolutelyActivated: {
     const effect = 'effect' in entry[1] ? { effect: entry[1].effect } : { effects: entry[1].effects };
     return {
       [entry[0]]: {
@@ -365,6 +406,13 @@ function calculateEffectValue(
         tag: entry[1].tag,
         effect: entry[1].effect,
         value: entry[1].value
+      }
+    };
+  case Effect.DamageMultiplierUpByStatus:
+    return {
+      [entry[0]]: {
+        ...calculateMilliPercentageEffectValue(entry[1], lv, effectLv),
+        status: entry[1].status
       }
     };
   case Effect.DefDown:
@@ -459,21 +507,26 @@ function calculateEffects(
     });
 }
 
+export function calculateActiveSkill(data: ActiveSkillData, lv: SkillLv, coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined, affectionBonus: AffectionBonus | undefined): ActiveSkill
+export function calculateActiveSkill(data: ActiveSkillData | ActiveSkillDataAsEquipmentEffect, lv: SkillLv, coreLinkBonus: CoreLinkBonus, fullLinkBonus: FullLinkBonus | undefined, affectionBonus: AffectionBonus | undefined): ActiveSkill | ActiveSkillAsEquipmentEffect
 export function calculateActiveSkill(
-  data: ActiveSkillData,
+  data: ActiveSkillData | ActiveSkillDataAsEquipmentEffect,
   lv: SkillLv,
   coreLinkBonus: CoreLinkBonus,
   fullLinkBonus: FullLinkBonus | undefined,
   affectionBonus: AffectionBonus | undefined
-): ActiveSkill {
+): ActiveSkill | ActiveSkillAsEquipmentEffect {
   const effectLv = calculateSkillEffectLv(lv, fullLinkBonus, affectionBonus);
 
   return {
-    damage_deal: calculateDamageDeal(data.damage_deal, lv, coreLinkBonus, fullLinkBonus),
+    ...('damage_deal' in data ? { damage_deal: calculateDamageDeal(data.damage_deal, lv, coreLinkBonus, fullLinkBonus) } : {}),
     cost: calculateApCost(data.cost, lv),
     range: data.range,
     area: calculateArea(data.area, lv),
-    effects: calculateEffects(data.effects, lv, effectLv)
+    ...('effects' in data ?
+      { effects: calculateEffects(data.effects, lv, effectLv) } :
+      { equipment_effects: calculateEffects(data.equipment_effects, lv, effectLv) }
+    )
   };
 }
 

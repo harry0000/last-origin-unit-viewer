@@ -1,7 +1,6 @@
 import { atom, useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { CSSProperties, RefObject, useEffect, useRef, useState } from 'react';
-import { ConnectDragSource, ConnectDropTarget } from 'react-dnd/dist/types/types';
-import { useDrag, useDrop } from 'react-dnd';
+import { ConnectDragSource, ConnectDropTarget, useDrag, useDrop } from 'react-dnd';
 import { usePreview } from 'react-dnd-preview';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useHistory, useLocation } from 'react-router-dom';

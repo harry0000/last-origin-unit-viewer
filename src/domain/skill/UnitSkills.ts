@@ -10,6 +10,7 @@ import {
   IntegerValueEffectKey,
   MicroValueEffectKey,
   MilliPercentageEffectKey,
+  MilliValueEffectKey,
   MultipleMilliPercentageEffectKey,
   NoValueEffectKey,
   PushPullEffectKey,
@@ -65,8 +66,13 @@ export type SkillEffectValue = Readonly<{
       IntegerValue<1 | 2 | 3> & SkillEffectAddition :
     E extends IntegerValueEffectKey ?
       ValueWithAddition<'value'> :
+    E extends MilliValueEffectKey ?
+      ValueWithAddition<'milliValue'> :
     E extends MicroValueEffectKey ?
       ValueWithAddition<'microValue'> :
+    E extends typeof Effect.BattleContinuation ?
+      ValueWithAddition<'value'> |
+      ValueWithAddition<'milliPercentage'> :
     E extends typeof Effect.EffectRemoval ?
       ({
         effect: Effect
@@ -77,6 +83,11 @@ export type SkillEffectValue = Readonly<{
       { effect: Effect } & SkillEffectAddition :
     E extends typeof Effect.ActivationRatePercentageUp ?
       { effect: Effect } & ValueWithAddition<'milliPercentage'> :
+    E extends typeof Effect.AbsolutelyActivated ?
+      {
+        tag: SkillEffectTag,
+        effect: Effect
+      } & Omit<SkillEffectAddition, 'tag'> :
     E extends typeof Effect.TagStack ?
       TagStackEffectValue :
     E extends typeof Effect.TagRelease ?
@@ -90,6 +101,8 @@ export type SkillEffectValue = Readonly<{
       } & Omit<SkillEffectAddition, 'tag'> :
     E extends typeof Effect['FormChange' | 'FormRelease'] ?
       { form: UnitForms } & SkillEffectAddition :
+    E extends typeof Effect['DamageMultiplierUpByStatus'] ?
+      ValueWithAddition<'milliPercentage'> & { status: 'eva' } :
     E extends MultipleMilliPercentageEffectKey ?
       ValueWithAddition<'milliPercentage'> |
       ReadonlyArray<ValueWithAddition<'milliPercentage'>> :
@@ -155,6 +168,13 @@ export type ActiveSkill = Readonly<{
   range: SkillRangeValue,
   area: SkillAreaType,
   effects: ReadonlyArray<SkillEffect>
+}>
+
+export type ActiveSkillAsEquipmentEffect = Readonly<{
+  cost: SkillApCostValue,
+  range: SkillRangeValue,
+  area: SkillAreaType,
+  equipment_effects: ReadonlyArray<SkillEffect>
 }>
 
 export type PassiveSkill = Readonly<{

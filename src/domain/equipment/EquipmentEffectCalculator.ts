@@ -1,9 +1,9 @@
 import { Effect } from '../Effect';
-import { EquipmentEffectAddition, EffectDetails, EquipmentEffectValue } from './EquipmentEffect';
+import { EquipmentEffectAddition, EffectDetails, EffectDetailsAsSkill, EquipmentEffectValue } from './EquipmentEffect';
 import {
   EffectAdditionData,
-  EquipmentEffects,
-  EquipmentEffectsAsSkill,
+  EquipmentEffectsAsSkillData,
+  EquipmentEffectsData,
   EquipmentEffectValueData,
   EquipmentEnhancementLevel,
   EquipmentId,
@@ -105,17 +105,22 @@ function calculateEffectDetails(
 ): EquipmentEffectValue {
   return foldObjectEntry<EquipmentEffectValueData, EquipmentEffectValue>(details, entry => {
     switch (entry[0]) {
+    case Effect.RangeDownActive1:
+    case Effect.RangeUpActive2:
+    case Effect.ActionCountUp:
     case Effect.MinimizeDamage:
     case Effect.AllDebuffRemoval:
     case Effect.ColumnProtect:
     case Effect.RowProtect:
+    case Effect.ReAttack:
     case Effect.IgnoreBarrierDr:
+    case Effect.IgnoreProtect:
     case Effect.Reconnaissance:
+    case Effect.Marked:
     case Effect.Stunned:
       return { [entry[0]]: calculateAddition(entry[1]) };
     case Effect.FixedDamageOverTime:
     case Effect.Barrier:
-    case Effect.BattleContinuation:
     case Effect.RangeUp:
     case Effect.RangeDown:
       return {
@@ -124,6 +129,10 @@ function calculateEffectDetails(
           ...extractValueUnitData('value', entry[1])
         }
       };
+    case Effect.BattleContinuation:
+      return 'value' in entry[1] ?
+        { [entry[0]]: { ...calculateAddition(entry[1]), ...extractValueUnitData('value', entry[1]) } } :
+        { [entry[0]]: { ...calculateAddition(entry[1]), ...extractValueUnitData('milliPercentage', entry[1]) } };
     case Effect.AdditionalFireDamage:
     case Effect.AdditionalIceDamage:
     case Effect.AdditionalElectricDamage:
@@ -141,8 +150,11 @@ function calculateEffectDetails(
     case Effect.SpdUp:
     case Effect.SpdDown:
     case Effect.FireResistUp:
+    case Effect.FireResistDown:
     case Effect.IceResistUp:
+    case Effect.IceResistDown:
     case Effect.ElectricResistUp:
+    case Effect.ElectricResistDown:
     case Effect.StatusResistUp:
     case Effect.ExpUp:
     case Effect.DefensePenetration:
@@ -155,9 +167,17 @@ function calculateEffectDetails(
           ...extractValueUnitData('milliPercentage', entry[1])
         }
       };
+    case Effect.DamageMultiplierUpByStatus:
+      return {
+        [entry[0]]: {
+          ...calculateAddition(entry[1]),
+          ...extractValueUnitData('milliPercentage', entry[1]),
+          status: entry[1].status
+        }
+      };
     case Effect.ApUp:
       return {
-        [Effect.ApUp]: {
+        [entry[0]]: {
           ...calculateAddition(entry[1]),
           ...extractValueUnitData('microValue', entry[1])
         }
@@ -165,13 +185,15 @@ function calculateEffectDetails(
     case Effect.EffectRemoval: {
       const value = entry[1];
       return 'effect' in value ?
-        { [Effect.EffectRemoval]: { ...calculateAddition(value), effect: value.effect } } :
-        { [Effect.EffectRemoval]: { ...calculateAddition(value), effects: value.effects } };
+        { [entry[0]]: { ...calculateAddition(value), effect: value.effect } } :
+        { [entry[0]]: { ...calculateAddition(value), effects: value.effects } };
     }
+    case Effect.PreventsEffect:
+      return { [entry[0]]: { ...calculateAddition(entry[1]), effect: entry[1].effect } };
     case Effect.ActivationRatePercentageUp: {
       const { effect, tag } = entry[1];
       return {
-        [Effect.ActivationRatePercentageUp]: {
+        [entry[0]]: {
           ...calculateAddition(entry[1]),
           ...extractValueUnitData('milliPercentage', entry[1]),
           effect,
@@ -183,21 +205,38 @@ function calculateEffectDetails(
   })({});
 }
 
-function calculateEffectValues(effect: EquipmentEffects[number] | EquipmentEffectsAsSkill[number]): EffectDetails {
-  return Object.assign(
-    { details: calculateEffectDetails(effect.details) },
-    'condition' in effect ? { condition: effect.condition } : {}
-  );
+function calculateCondition(
+  effect: EquipmentEffectsData[number] | EquipmentEffectsAsSkillData[number]
+): Pick<Required<EffectDetails>, 'condition'> | Record<string, never> {
+  return effect.condition ? { condition: effect.condition } : {};
 }
 
 export function calculateEffect(equipmentId: EquipmentId, enhanceLv: EquipmentEnhancementLevel): ReadonlyArray<EffectDetails> | undefined {
   const equipment = equipmentData[equipmentId];
 
-  return 'equipment_effects' in equipment ? equipment.equipment_effects[enhanceLv].map(calculateEffectValues) : undefined;
+  if ('equipment_effects' in equipment) {
+    // HACK: to avoid "TS2590: Expression produces a union type that is too complex to represent."
+    const effects: EquipmentEffectsData = equipment.equipment_effects[enhanceLv];
+    return effects.map(effect => ({
+      details: calculateEffectDetails(effect.details),
+      ...calculateCondition(effect)
+    }));
+  } else {
+    return undefined;
+  }
 }
 
-export function calculateEffectAsSkill(equipmentId: EquipmentId, enhanceLv: EquipmentEnhancementLevel): ReadonlyArray<EffectDetails> | undefined {
+export function calculateEffectAsSkill(equipmentId: EquipmentId, enhanceLv: EquipmentEnhancementLevel): ReadonlyArray<EffectDetailsAsSkill> | undefined {
   const equipment = equipmentData[equipmentId];
 
-  return 'effects' in equipment ? equipment.effects[enhanceLv].map(calculateEffectValues) : undefined;
+  return 'effects' in equipment ?
+    equipment.effects[enhanceLv].map(effect => ({
+      details:
+        Object.assign(
+          { self: calculateEffectDetails(effect.details.self) },
+          'target' in effect.details ? { target: calculateEffectDetails(effect.details.target) } : {}
+        ),
+      ...calculateCondition(effect)
+    })) :
+    undefined;
 }

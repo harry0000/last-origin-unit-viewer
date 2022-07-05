@@ -4,6 +4,7 @@ import {
   IntegerValueEffectKey,
   MicroValueEffectKey,
   MilliPercentageEffectKey,
+  MilliValueEffectKey,
   MultipleMilliPercentageEffectKey,
   NoValueEffectKey,
   PushPullEffectKey,
@@ -30,6 +31,8 @@ import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
 import { UnitKind, UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
 
+import { isRecord } from '../../util/object';
+
 type EffectValue<T extends ValueUnit> =
   {
     readonly [key in T]: number
@@ -41,6 +44,13 @@ type EffectDataValue<T extends ValueUnit> =
     readonly per_lv_up: { readonly [key in T]: number }
   } |
   EffectValue<T>
+
+export function isEffectDataValue<T extends ValueUnit>(unit: T, arg: EffectDataValue<T> | unknown): arg is EffectDataValue<T> {
+  return isRecord(arg) && (
+    'base' in arg && isRecord(arg.base) && typeof arg.base[unit] === 'number' ||
+    typeof arg[unit] === 'number'
+  );
+}
 
 type SkillEffectAddition = Readonly<{
   tag?: SkillEffectTag,
@@ -85,8 +95,14 @@ export type SkillEffectDataValue = Readonly<{
         IntegerValue<1 | 2 | 3> |
         { value: { 1: 1, 10:  2 } }
       ) & SkillEffectAddition :
+    E extends typeof Effect.BattleContinuation ?
+      ValueWithAddition<'value'> |
+      ValueWithAddition<'milliPercentage'> |
+      Readonly<{ value: { 1: 1, 5: 2, 10:  3 } }> & SkillEffectAddition :
     E extends IntegerValueEffectKey ?
       ValueWithAddition<'value'> :
+    E extends MilliValueEffectKey ?
+      ValueWithAddition<'milliValue'> :
     E extends MicroValueEffectKey ?
       ValueWithAddition<'microValue'> :
     E extends typeof Effect.EffectRemoval ?
@@ -99,6 +115,11 @@ export type SkillEffectDataValue = Readonly<{
       { effect: Effect } & SkillEffectAddition :
     E extends typeof Effect.ActivationRatePercentageUp ?
       { effect: Effect } & ValueWithAddition<'milliPercentage'> :
+    E extends typeof Effect.AbsolutelyActivated ?
+      {
+        tag: SkillEffectTag,
+        effect: Effect
+      } & Omit<SkillEffectAddition, 'tag'> :
     E extends typeof Effect.TagStack ?
       TagStackEffectDataValue :
     E extends typeof Effect.TagRelease ?
@@ -112,6 +133,8 @@ export type SkillEffectDataValue = Readonly<{
       } & Omit<SkillEffectAddition, 'tag'> :
     E extends typeof Effect['FormChange' | 'FormRelease'] ?
       { form: UnitForms } & SkillEffectAddition :
+    E extends typeof Effect['DamageMultiplierUpByStatus'] ?
+      ValueWithAddition<'milliPercentage'> & { status: 'eva' } :
     E extends MultipleMilliPercentageEffectKey ?
       ValueWithAddition<'milliPercentage'> |
       ReadonlyArray<ValueWithAddition<'milliPercentage'>> :

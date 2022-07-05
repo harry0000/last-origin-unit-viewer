@@ -1,10 +1,17 @@
 import { Effect } from '../Effect';
 
-export type EquipmentEffectOnly = typeof Effect['HpUp']
+export type EquipmentEffectOnly =
+  typeof Effect[
+    'HpUp' |
+    'RangeDownActive1' |
+    'RangeUpActive2'
+  ]
 export type NoValueEffectKey =
   typeof Effect[
+    'ActionCountUp' |
     'MinimizeDamage' |
     'NullifyDamage' |
+    'AllBuffBlocking' |
     'AllBuffRemoval' |
     'AllDebuffRemoval' |
     'ColumnProtect' |
@@ -14,6 +21,7 @@ export type NoValueEffectKey =
     'FollowUpAttack' |
     'IgnoreBarrierDr' |
     'IgnoreProtect' |
+    'IgnoreProtectDeactivate' |
     'Reconnaissance' |
     'Marked' |
     'Provoked' |
@@ -21,9 +29,9 @@ export type NoValueEffectKey =
     'Silenced' |
     'Stunned' |
     'RefundAp' |
+    'AttackHit' |
     'AttackCritical' |
-    'CounterattackCritical' |
-    'DeployDefensiveWall' |
+    'IgnoreDef' |
     'AMG11Construction' |
     'DeployRabbitDField' |
     'SummonHologramTiger' |
@@ -37,10 +45,11 @@ export type IntegerValueEffectKey =
     'FixedFireDamageOverTime' |
     'FixedIceDamageOverTime' |
     'FixedElectricDamageOverTime' |
-    'Barrier' |
-    'BattleContinuation'
+    'Barrier'
   ]
+export type MilliValueEffectKey = typeof Effect['AtkValueUp' | 'DefValueUp']
 export type MicroValueEffectKey = typeof Effect['ApUp' | 'ApDown' | 'SetAp']
+export type MilliPercentageEffectDependsOnStatusKey = typeof Effect['DamageMultiplierUpByStatus']
 export type MilliPercentageEffectKey =
   Exclude<
     Effect,
@@ -49,12 +58,16 @@ export type MilliPercentageEffectKey =
     PushPullEffectKey |
     RangeUpDownEffectKey |
     IntegerValueEffectKey |
+    MilliValueEffectKey |
     MicroValueEffectKey |
+    MilliPercentageEffectDependsOnStatusKey |
     typeof Effect[
       'CooperativeAttack' |
       'EffectRemoval' |
       'PreventsEffect' |
       'ActivationRatePercentageUp' |
+      'AbsolutelyActivated' |
+      'BattleContinuation' |
       'TagStack' |
       'TagUnstack' |
       'TagRelease' |

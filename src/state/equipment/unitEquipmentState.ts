@@ -39,7 +39,12 @@ import {
   calculateStatusEffect
 } from '../../domain/equipment/EquipmentEffectCalculator';
 
-import { TranslatedEquipmentEffect, translateEquipmentEffect } from './EquipmentEffectsTranslator';
+import {
+  TranslatedEquipmentEffect,
+  TranslatedEquipmentEffectAsSkill,
+  translateEquipmentEffect,
+  translateEquipmentEffectAsSkill
+} from './EquipmentEffectsTranslator';
 import { translateEquipmentStatusEffects } from './EquipmentStatusEffectsTlanslator';
 import { unitLvState } from '../status/parameters/unitLvStatusState';
 
@@ -425,12 +430,12 @@ export function useEquipmentEffects(
 export function useEquipmentEffectsAsSkill(
   slot: EquipmentSlot,
   equipmentId: EquipmentId
-): ReadonlyArray<TranslatedEquipmentEffect> | undefined {
+): ReadonlyArray<TranslatedEquipmentEffectAsSkill> | undefined {
   const { t } = useTranslation();
   const lv = useRecoilValue(selectedEnhanceLvState(slot));
   const effects = calculateEffectAsSkill(equipmentId, lv);
 
-  return effects && translateEquipmentEffect(effects, t);
+  return effects && translateEquipmentEffectAsSkill(effects, t);
 }
 
 export function useUnitEquipment(unit: UnitBasicInfo, slot: 'chip1' | 'chip2'): [
