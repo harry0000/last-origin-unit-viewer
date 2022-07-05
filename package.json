@@ -21,6 +21,11 @@
       "react-app/jest"
     ]
   },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!@react-dnd|react-dnd|dnd-core)"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
