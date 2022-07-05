@@ -11,7 +11,7 @@ import SVGButton from '../../common/SVGButton';
 import UnitLvModeToggleButton from '../UnitLvModeToggleButton';
 
 import { UnitNumber } from '../../../domain/UnitBasicInfo';
-import { UnitLvMode, UnitLvValue } from '../../../domain/status/UnitLv';
+import { UnitLvMode, UnitLvValue, UnitMaxLvValue } from '../../../domain/status/UnitLv';
 
 import { useRemainPoints, useUnitLv, useUsedPointReset } from '../../../state/status/parameters/unitLvStatusState';
 import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
@@ -36,7 +36,7 @@ const resetPointsStyle: CSSObject = {
   marginLeft: 10
 };
 
-const unitLvItems = [...Array(100)].map((v, i) => 100 - i) as ReadonlyArray<UnitLvValue>;
+const unitLvItems = [...Array(UnitMaxLvValue)].map((v, i) => UnitMaxLvValue - i) as ReadonlyArray<UnitLvValue>;
 
 const UnitLvValueView: React.FC = () => {
   const selected = useSelectedUnit();
