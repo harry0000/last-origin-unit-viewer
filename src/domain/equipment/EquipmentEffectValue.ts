@@ -1,29 +1,40 @@
 import { EquipmentRank } from './EquipmentData';
-import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue } from '../ValueUnit';
+import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue, ValueUnit } from '../ValueUnit';
 
-export type EquipmentValue = number | { [EquipmentRank.SS]: number }
+type EquipmentEffectDataValue<U extends ValueUnit, R extends EquipmentRank> =
+  Record<U, number | Record<R, number>>
 
-export type IntegerEquipmentValue         = { value: EquipmentValue }
-export type MilliEquipmentValue           = { milliValue: EquipmentValue }
-export type MicroEquipmentValue           = { microValue: EquipmentValue }
-export type MilliPercentageEquipmentValue = { milliPercentage: EquipmentValue }
-
-function getEquipmentValue(value: EquipmentValue): number {
-  return typeof value === 'number' ? value : value[EquipmentRank.SS];
+function getEquipmentValue<R extends EquipmentRank>(
+  rank: R,
+  value: number | Record<R, number>
+): number {
+  return typeof value === 'number' ? value : value[rank];
 }
 
-export function toIntegerValue(value: IntegerEquipmentValue): IntegerValue {
-  return { value: getEquipmentValue(value.value) };
+export function toIntegerValue<
+  R extends EquipmentRank,
+  V extends EquipmentEffectDataValue<'value', R>
+>(rank: R, value: V): IntegerValue {
+  return { value: getEquipmentValue(rank, value.value) };
 }
 
-export function toMilliValue(value: MilliEquipmentValue): MilliValue {
-  return { milliValue: getEquipmentValue(value.milliValue) };
+export function toMilliValue<
+  R extends EquipmentRank,
+  V extends EquipmentEffectDataValue<'milliValue', R>
+>(rank: R, value: V): MilliValue {
+  return { milliValue: getEquipmentValue(rank, value.milliValue) };
 }
 
-export function toMicroValue(value: MicroEquipmentValue): MicroValue {
-  return { microValue: getEquipmentValue(value.microValue) };
+export function toMicroValue<
+  R extends EquipmentRank,
+  V extends EquipmentEffectDataValue<'microValue', R>
+>(rank: R, value: V): MicroValue {
+  return { microValue: getEquipmentValue(rank, value.microValue) };
 }
 
-export function toMilliPercentageValue(value: MilliPercentageEquipmentValue): MilliPercentageValue {
-  return { milliPercentage: getEquipmentValue(value.milliPercentage) };
+export function toMilliPercentageValue<
+  R extends EquipmentRank,
+  V extends EquipmentEffectDataValue<'milliPercentage', R>
+>(rank: R, value: V): MilliPercentageValue {
+  return { milliPercentage: getEquipmentValue(rank, value.milliPercentage) };
 }

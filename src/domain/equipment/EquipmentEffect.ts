@@ -5,7 +5,7 @@ import { GridState } from '../skill/SkillEffectActivationCondition';
 import { IntegerValue, MicroValue, MilliPercentageValue } from '../ValueUnit';
 import { SkillEffectTag } from '../skill/SkillEffectTag';
 import { UnitKind } from '../UnitBasicInfo';
-import { EffectAdditionData, EquipmentRankDataValue } from './EquipmentData';
+import { EffectAdditionData, EquipmentDataValue, EquipmentRank } from './EquipmentData';
 
 export type NoValueEffectKey = typeof Effect[
   'RangeDownActive1' |
@@ -75,12 +75,12 @@ export type EquipmentEffectKey =
 
 type EquipmentEffectRateValue =
   EffectAdditionData extends { rate?: infer R } ?
-    R extends { milliPercentage: EquipmentRankDataValue<number> } ?
+    R extends { milliPercentage: EquipmentDataValue<typeof EquipmentRank.SS, number> } ?
       MilliPercentageValue :
       R :
     never
 type EquipmentEffectTimesValue =
-  EffectAdditionData extends { times?: EquipmentRankDataValue<infer T> } ? T : never
+  EffectAdditionData extends { times?: EquipmentDataValue<typeof EquipmentRank.SS, infer T> } ? T : never
 
 export type EquipmentEffectAddition =
   Omit<EffectAdditionData, 'rate' | 'times'> &
