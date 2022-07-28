@@ -286,6 +286,7 @@
   "status": {
     "description": {
       "hp_up": "HP +{{value}}",
+      "hp_down": "HP -{{value}}",
       "atk_up": "攻撃力 +{{value}}",
       "atk_down": "攻撃力 -{{value}}",
       "def_up": "防御力 +{{value}}",

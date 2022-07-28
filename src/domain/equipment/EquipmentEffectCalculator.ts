@@ -27,7 +27,8 @@ function calculateStatusEffects<R extends EquipmentRank, D extends StatusEffectD
     .reduce<StatusEffect>((acc, entry) => {
       switch (entry[0]) {
       case Effect.HpUp:
-        return { ...acc, [Effect.HpUp]: toIntegerValue(rank, entry[1]) };
+      case Effect.HpDown:
+        return { ...acc, [entry[0]]: toIntegerValue(rank, entry[1]) };
       case Effect.AtkUp:
       case Effect.AtkDown:
       case Effect.DefUp:

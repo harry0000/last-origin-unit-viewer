@@ -406,6 +406,26 @@ export const equipmentData = {
       { atk_up: { milliValue: 80000 }, acc_up: { milliPercentage: 40000 }, eva_up: { milliPercentage: 18000 } }
     ]
   },
+  s_42_ad_lib_chip: {
+    type: 'chip',
+    id: 's_42_ad_lib_chip',
+    exclusive: {
+      unit: 128
+    },
+    status_effects: [
+      { atk_up: { milliValue: 100000 }, hp_down: { value: 30 }, def_down: { milliValue: 27000 } },
+      { atk_up: { milliValue: 110000 }, hp_down: { value: 33 }, def_down: { milliValue: 29700 } },
+      { atk_up: { milliValue: 120000 }, hp_down: { value: 36 }, def_down: { milliValue: 32400 } },
+      { atk_up: { milliValue: 130000 }, hp_down: { value: 39 }, def_down: { milliValue: 35100 } },
+      { atk_up: { milliValue: 140000 }, hp_down: { value: 42 }, def_down: { milliValue: 37800 } },
+      { atk_up: { milliValue: 150000 }, hp_down: { value: 45 }, def_down: { milliValue: 40500 } },
+      { atk_up: { milliValue: 160000 }, hp_down: { value: 48 }, def_down: { milliValue: 43200 } },
+      { atk_up: { milliValue: 170000 }, hp_down: { value: 51 }, def_down: { milliValue: 45900 } },
+      { atk_up: { milliValue: 180000 }, hp_down: { value: 54 }, def_down: { milliValue: 48600 } },
+      { atk_up: { milliValue: 190000 }, hp_down: { value: 57 }, def_down: { milliValue: 51300 } },
+      { atk_up: { milliValue: 200000 }, hp_down: { value: 60 }, def_down: { milliValue: 54000 } }
+    ]
+  },
   aerial_defense_os: {
     type: 'os',
     id: 'aerial_defense_os',

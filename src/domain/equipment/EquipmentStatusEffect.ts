@@ -1,6 +1,6 @@
 import { Effect } from '../Effect';
 
-export type IntegerValueStatusEffectKey = typeof Effect.HpUp
+export type IntegerValueStatusEffectKey = typeof Effect['HpUp' | 'HpDown']
 export type MilliValueStatusEffectKey = typeof Effect['AtkUp' | 'AtkDown' | 'DefUp' | 'DefDown']
 export type MicroValueStatusEffectKey = typeof Effect['SpdUp' | 'SpdDown']
 export type MilliPercentageStatusEffectKey =

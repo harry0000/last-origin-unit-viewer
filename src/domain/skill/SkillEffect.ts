@@ -3,6 +3,7 @@ import { Effect } from '../Effect';
 export type EquipmentEffectOnly =
   typeof Effect[
     'HpUp' |
+    'HpDown' |
     'RangeDownActive1' |
     'RangeUpActive2'
   ]

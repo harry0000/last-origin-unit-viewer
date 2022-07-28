@@ -56,6 +56,7 @@ function pickValues(...keys: StatusEffectKey[]): (...effects: StatusEffect[]) =>
         const v = e[key];
         if (v) {
           switch (key) {
+          case 'hp_down':
           case 'atk_down':
           case 'def_down':
           case 'acc_down':
@@ -99,7 +100,7 @@ export class UnitHpStatusParameter {
     const _fullLinkBonus: FullLinkBonus | Record<string, never> = fullLinkBonus ?? {};
 
     const rankUpBonusSummary = sumValues(...pickValues(Effect.HpUp)(...Object.values(rankUpBonus ?? {})));
-    const hpAddition         = sumValues(...pickValues(Effect.HpUp)(hpEnhancement, chip1, chip2, os, gear));
+    const hpAddition         = sumValues(...pickValues(Effect.HpUp, Effect.HpDown)(hpEnhancement, chip1, chip2, os, gear));
     const hp                 = sumValues(baseHp, rankUpBonusSummary, hpAddition);
 
     this.hpCoreLinkBonus = 'hp_up' in coreLinkBonus ? multiplyValue(hp, coreLinkBonus.hp_up) : { value: 0 };

@@ -27,6 +27,7 @@ export const Effect = {
   DefValueUp: 'def_value_up',
   AtkValueUpBySelfValue: 'atk_value_up_by_self_value',
   HpUp: 'hp_up',
+  HpDown: 'hp_down',
   AtkUp: 'atk_up',
   AtkDown: 'atk_down',
   DefUp: 'def_up',
