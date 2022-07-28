@@ -393,17 +393,17 @@ export const equipmentData = {
       unit: 55
     },
     status_effects: [
-      { atk_up: { milliValue: { ss: 40000 } }, acc_up: { milliPercentage: { ss: 20000 } }, eva_up: { milliPercentage: { ss: 12000 } } },
-      { atk_up: { milliValue: { ss: 44000 } }, acc_up: { milliPercentage: { ss: 22000 } }, eva_up: { milliPercentage: { ss: 12600 } } },
-      { atk_up: { milliValue: { ss: 48000 } }, acc_up: { milliPercentage: { ss: 24000 } }, eva_up: { milliPercentage: { ss: 13200 } } },
-      { atk_up: { milliValue: { ss: 52000 } }, acc_up: { milliPercentage: { ss: 26000 } }, eva_up: { milliPercentage: { ss: 13800 } } },
-      { atk_up: { milliValue: { ss: 56000 } }, acc_up: { milliPercentage: { ss: 28000 } }, eva_up: { milliPercentage: { ss: 14400 } } },
-      { atk_up: { milliValue: { ss: 60000 } }, acc_up: { milliPercentage: { ss: 30000 } }, eva_up: { milliPercentage: { ss: 15000 } } },
-      { atk_up: { milliValue: { ss: 64000 } }, acc_up: { milliPercentage: { ss: 32000 } }, eva_up: { milliPercentage: { ss: 15600 } } },
-      { atk_up: { milliValue: { ss: 68000 } }, acc_up: { milliPercentage: { ss: 34000 } }, eva_up: { milliPercentage: { ss: 16200 } } },
-      { atk_up: { milliValue: { ss: 72000 } }, acc_up: { milliPercentage: { ss: 36000 } }, eva_up: { milliPercentage: { ss: 16800 } } },
-      { atk_up: { milliValue: { ss: 76000 } }, acc_up: { milliPercentage: { ss: 38000 } }, eva_up: { milliPercentage: { ss: 17400 } } },
-      { atk_up: { milliValue: { ss: 80000 } }, acc_up: { milliPercentage: { ss: 40000 } }, eva_up: { milliPercentage: { ss: 18000 } } }
+      { atk_up: { milliValue: 40000 }, acc_up: { milliPercentage: 20000 }, eva_up: { milliPercentage: 12000 } },
+      { atk_up: { milliValue: 44000 }, acc_up: { milliPercentage: 22000 }, eva_up: { milliPercentage: 12600 } },
+      { atk_up: { milliValue: 48000 }, acc_up: { milliPercentage: 24000 }, eva_up: { milliPercentage: 13200 } },
+      { atk_up: { milliValue: 52000 }, acc_up: { milliPercentage: 26000 }, eva_up: { milliPercentage: 13800 } },
+      { atk_up: { milliValue: 56000 }, acc_up: { milliPercentage: 28000 }, eva_up: { milliPercentage: 14400 } },
+      { atk_up: { milliValue: 60000 }, acc_up: { milliPercentage: 30000 }, eva_up: { milliPercentage: 15000 } },
+      { atk_up: { milliValue: 64000 }, acc_up: { milliPercentage: 32000 }, eva_up: { milliPercentage: 15600 } },
+      { atk_up: { milliValue: 68000 }, acc_up: { milliPercentage: 34000 }, eva_up: { milliPercentage: 16200 } },
+      { atk_up: { milliValue: 72000 }, acc_up: { milliPercentage: 36000 }, eva_up: { milliPercentage: 16800 } },
+      { atk_up: { milliValue: 76000 }, acc_up: { milliPercentage: 38000 }, eva_up: { milliPercentage: 17400 } },
+      { atk_up: { milliValue: 80000 }, acc_up: { milliPercentage: 40000 }, eva_up: { milliPercentage: 18000 } }
     ]
   },
   aerial_defense_os: {
