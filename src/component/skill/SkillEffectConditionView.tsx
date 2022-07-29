@@ -24,11 +24,11 @@ import { Effect } from '../../domain/Effect';
 import { EffectActivationState } from '../../domain/EffectActivationState';
 import { EffectTrigger } from '../../domain/EffectTrigger';
 import { PassiveSkillEffective } from '../../domain/skill/SkillEffective';
+import { SkillEffect, isTargetSkillEffect } from '../../domain/skill/UnitSkills';
 import { SkillEffectScaleFactor } from '../../domain/skill/SkillEffectScaleFactor';
 import { SkillEffectTarget } from '../../domain/skill/SkillEffectData';
+import { UnitAlias, isUnitAlias, unitNumbersForAlias } from '../../domain/UnitAlias';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
-import { isTargetSkillEffect, SkillEffect } from '../../domain/skill/UnitSkills';
-import { isUnitAlias, UnitAlias } from '../../domain/UnitAlias';
 
 import SkillEffectConditionViewModel from './SkillEffectConditionViewModel';
 
@@ -99,8 +99,6 @@ function stateValuesView(
     }
   case EffectActivationState.Form:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { form: entry[1] })}</span>);
-  case EffectActivationState.Unit:
-    return unitStateView(entry[0], entry[1], unitNumber, t);
   case EffectActivationState.Equipped: {
     const equipment = t(`equipment:${entry[1]}`);
     return (<span>{t(`effect:condition.state.${entry[0]}`, { equipment })}</span>);
@@ -120,18 +118,16 @@ function stateValuesView(
   }
 }
 
-function unitStateView(key: typeof EffectActivationState.Unit, unit: UnitAliasExceptUnit<typeof UnitAlias.AngerOfHorde, 41>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.AffectedBy, unit: ValueOf<ActivationSelfState, typeof EffectActivationState.AffectedBy>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.InSquad, unit: ValueOf<ActivationSquadState, typeof EffectActivationState.InSquad> | ReadonlyArray<UnitNumber>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.NotInSquad, unit: 41, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
-  key: typeof EffectActivationState['InSquad' | 'NotInSquad' | 'Unit' | 'AffectedBy'],
+  key: typeof EffectActivationState['InSquad' | 'NotInSquad' | 'AffectedBy'],
   unit:
     UnitNumber |
     ReadonlyArray<UnitNumber> |
     { unit: 23, effect: typeof Effect.FollowUpAttack } |
     { unit: 83, effect: typeof Effect.TargetProtect } |
-    UnitAliasExceptUnit<typeof UnitAlias.AngerOfHorde, 41> |
     UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
     typeof UnitAlias.ElectricActive |
     typeof UnitAlias.SteelLine |
@@ -288,6 +284,20 @@ const TriggerView: React.FC<{
   case EffectTrigger.HitActive1:
   case EffectTrigger.HitActive2:
     return t(`effect:condition.trigger.${condition.trigger}`, { unit: unitNumber });
+  case EffectTrigger.SeizeOpportunity:
+    return (
+      <React.Fragment>
+        {
+          [...unitNumbersForAlias[UnitAlias.NotApplicableForSeizeOpportunity]].map(number =>
+            t('effect:with_quotes', { value: t('unit:display', { number }) })
+          ).join(t('effect:unit_separator'))
+        }
+        {t('effect:except_preposition')}
+        <UnitAliasView unitAlias={UnitAlias.ApplicableForSeizeOpportunity} />
+        {t('effect:case_particle')}
+        {t(`effect:condition.trigger.${condition.trigger}`)}
+      </React.Fragment>
+    );
   default:
     return t(`effect:condition.trigger.${condition.trigger}`);
   }

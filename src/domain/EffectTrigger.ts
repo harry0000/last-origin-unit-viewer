@@ -28,6 +28,7 @@ export const EffectTrigger = {
   Evade: 'evade',
   Critical: 'critical',
   Counter: 'counter',
-  Revive: 'revive'
+  Revive: 'revive',
+  SeizeOpportunity: 'seize_opportunity'
 } as const;
 export type EffectTrigger = typeof EffectTrigger[keyof typeof EffectTrigger]

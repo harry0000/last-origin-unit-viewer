@@ -10,6 +10,7 @@ export type EquipmentEffectOnly =
 export type NoValueEffectKey =
   typeof Effect[
     'ActionCountUp' |
+    'ActionCountDown' |
     'MinimizeDamage' |
     'NullifyDamage' |
     'AllBuffBlocking' |

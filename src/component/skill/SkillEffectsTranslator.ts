@@ -88,6 +88,7 @@ export function translateSkillEffectDetails(
 
   switch (entry[0]) {
   case Effect.ActionCountUp:
+  case Effect.ActionCountDown:
   case Effect.MinimizeDamage:
   case Effect.NullifyDamage:
   case Effect.AllBuffBlocking:

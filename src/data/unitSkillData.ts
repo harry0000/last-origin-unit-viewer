@@ -3243,7 +3243,7 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 } } } }
       }, {
         conditions: [{ trigger: 'start_wave' }],
-        target: { kind: 'ally', conditions: ['anger_of_horde'] },
+        target: { kind: 'ally', conditions: [{ alias: 'anger_of_horde', except: 193 }] },
         details: { target: { tag_stack: { tag: 'charging_order', term: 'infinite' } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
@@ -3286,9 +3286,9 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { marked: { tag: 'seize_opportunity', term: { for_rounds: 2 } } } }
       }, {
         // FIXME: special tagged effect
-        conditions: [{ trigger: 'hit', state: { self: [{ unit: { alias: 'anger_of_horde', except: 41 } }], target: [{ tagged: 'seize_opportunity' }] } }],
-        target: { kind: 'enemy' },
-        details: { self: { additional_damage: { milliPercentage: 20000 } } }
+        conditions: [{ trigger: 'seize_opportunity' }],
+        target: { kind: 'ally' },
+        details: { target: { additional_damage: { milliPercentage: 20000 } } }
       }]
     }, {
       area: 'self',
@@ -13643,6 +13643,188 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'enemy_killed' }],
         target: { kind: 'enemy' },
         details: { target: { fire_resist_down: { base: { milliPercentage: 16000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 6 } } }
+      }]
+    }]
+  },
+  193: {
+    no: 193,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 55000 },
+        per_lv_up: { milliPercentage: 5000 }
+      },
+      range: 3,
+      cost: 6,
+      area: '2_x_2',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            def_down: { tag: 'tenderizer', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
+            damage_taken_increased: { tag: 'tenderizer', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'caffeine_charged' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          self: { tag_unstack: { tag: 'caffeine_charged', value: 1 } },
+          target: {
+            marked: { tag: 'tenderizer', term: { for_rounds: 2 } },
+            immovable: { tag: 'tenderizer', term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ state: { squad: { in_squad: 194 } } }],
+        details: { self: { cooperative_attack: { unit: 194, active: 1 } } }
+      }, {
+        conditions: [{ state: { squad: { in_squad: 192 } } }],
+        details: { self: { cooperative_attack: { unit: 192, active: 2 } } }
+      }, {
+        conditions: [{ trigger: 'use_this_active' }],
+        details: { self: { acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 20000 } } } }
+      }]
+    }, {
+      range: 6,
+      cost: 9,
+      area: 'single',
+      effects: [{
+        conditions: [{ state: { self: [{ affected: 'atk_up' }] } }],
+        target: { kind: 'ally', conditions: [{ not_alias: 'anger_of_horde' }] },
+        details: {
+          self: { effect_removal: { effect: 'atk_up', term: 'immediate' } },
+          target: { atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', times: 2 } }
+        }
+      }, {
+        conditions: [{ state: { self: [{ affected: 'acc_up' }] } }],
+        target: { kind: 'ally', conditions: [{ not_alias: 'anger_of_horde' }] },
+        details: {
+          self: { effect_removal: { effect: 'acc_up', term: 'immediate' } },
+          target: { acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', times: 2 } }
+        }
+      }, {
+        conditions: [{ state: { self: [{ affected: 'cri_up' }] } }],
+        target: { kind: 'ally', conditions: [{ not_alias: 'anger_of_horde' }] },
+        details: {
+          self: { effect_removal: { effect: 'cri_up', term: 'immediate' } },
+          target: { cri_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', times: 2 } }
+        }
+      }, {
+        conditions: [{ state: { self: [{ affected: 'atk_up' }] } }],
+        target: { kind: 'ally', conditions: ['anger_of_horde'] },
+        details: {
+          self: { effect_removal: { effect: 'atk_up', term: 'immediate' } },
+          target: { atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } }
+        }
+      }, {
+        conditions: [{ state: { self: [{ affected: 'acc_up' }] } }],
+        target: { kind: 'ally', conditions: ['anger_of_horde'] },
+        details: {
+          self: { effect_removal: { effect: 'acc_up', term: 'immediate' } },
+          target: { acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } }
+        }
+      }, {
+        conditions: [{ state: { self: [{ affected: 'cri_up' }] } }],
+        target: { kind: 'ally', conditions: ['anger_of_horde'] },
+        details: {
+          self: { effect_removal: { effect: 'cri_up', term: 'immediate' } },
+          target: { cri_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } }
+        }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'nicotine_charged' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          self: { tag_unstack: { tag: 'nicotine_charged', value: 1 } },
+          target: {
+            set_ap: { base: { microValue: 10000000 }, per_lv_up: { microValue: 200000 }, term: 'immediate' },
+            range_up: { value: 2, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        details: {
+          self: {
+            status_resist_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'infinite', cannot_be_dispelled: true },
+            barrier: { base: { value: 500 }, per_lv_up: { value: 100 }, term: 'infinite', cannot_be_dispelled: true }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'follow_up_attack' }] } }],
+        details: {
+          self: {
+            effect_removal: { effect: 'follow_up_attack', term: 'immediate' },
+            ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'action_count_up' }] } }],
+        details: {
+          self: {
+            effect_removal: { effect: 'action_count_up', term: 'immediate' },
+            ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'action_count_down' }] } }],
+        details: {
+          self: {
+            effect_removal: { effect: 'action_count_down', term: 'immediate' },
+            ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' }
+          }
+        }
+      }]
+    }, {
+      area: 'all_adjacent',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }, { trigger: 'idle', state: { self: [{ not_tagged: 'caffeine_charged' }] } }],
+        details: { self: { spd_up: { tag: 'caffeine_charged', base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: 'infinite', times: 2, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave' }, { trigger: 'idle', state: { self: [{ not_tagged: 'nicotine_charged' }] } }],
+        details: { self: { spd_up: { tag: 'nicotine_charged', base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: 'infinite', times: 2, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'idle', state: { self: [{ not_tagged: 'caffeine_charged' }, { not_tagged: 'nicotine_charged' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'enemy_killed' }],
+        target: { kind: 'ally' },
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            acc_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
+          },
+          target: {
+            anti_light_type: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 1 },
+            anti_heavy_type: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 1 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'enemy_killed' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            acc_down: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 }, max_stack: 1 },
+            damage_multiplier_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 }, max_stack: 1 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'enemy_killed', state: { target: [{ tagged: 'tenderizer' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            acc_down: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 2 }, max_stack: 1 },
+            damage_multiplier_down: { base: { milliPercentage: 2500 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 2 }, max_stack: 1 }
+          }
+        }
       }]
     }]
   },

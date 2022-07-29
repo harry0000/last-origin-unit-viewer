@@ -9,7 +9,7 @@ import { UnitKind, UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
 import { UnitStatusData } from '../status/UnitStatusData';
 
 export type UnitNotAlias = {
-  not_alias: typeof UnitAlias.KouheiChurch
+  not_alias: typeof UnitAlias['AngerOfHorde' | 'KouheiChurch']
 }
 
 export type UnitTypeAndRole = {
@@ -121,10 +121,6 @@ export type ActivationSelfState =
       than: keyof UnitStatusData[UnitNumber],
       value: number
     }
-  } &
-  {
-    // HACK: for seize_opportunity tag
-    [EffectActivationState.Unit]?: UnitAliasExceptUnit<typeof UnitAlias.AngerOfHorde, 41>
   }
 
 export type ActivationTargetState =

@@ -29,6 +29,8 @@
     "sisters_of_valhalla": "シスターズオブヴァルハラ",
     "mongoose_team": "マングースチーム",
     "anger_of_horde": "アンガーオブホード",
+    "applicable_for_seize_opportunity": "アンガーオブホード",
+    "not_applicable_for_seize_opportunity": "アンガーオブホード",
     "doom_bringer": "ドゥームブリンガー",
     "aa_cannonier": "AAキャノニア",
     "armored_maiden": "アーマードメイデン",
@@ -171,6 +173,9 @@
     "collection_complete": "情報獲得完了",
     "parts_acquired": "部品確保",
     "light_of_sky": "天空の光",
+    "tenderizer": "テンダーライズ",
+    "caffeine_charged": "カフェインチャージ",
+    "nicotine_charged": "ニコチンチャージ",
     "smooth": "ツルツル～",
     "tactical_data_link": "戦術データリンク",
     "passive_radar": "パッシブレーダー",
@@ -217,7 +222,8 @@
       "evade": "回避時",
       "critical": "クリティカル時",
       "counter": "反撃時",
-      "revive": "戦闘続行発動時"
+      "revive": "戦闘続行発動時",
+      "seize_opportunity": "$t(effect:condition.state.tagged, { \"tag\": \"seize_opportunity\" })$t(effect:effect.target.kind.enemy)を攻撃時"
     },
     "state": {
       "hp_greater_or_equal": "HP{{value}}%以上である",
@@ -361,6 +367,8 @@
       "exp_up": "取得経験値アップ",
       "range_up": "射程距離アップ",
       "range_down": "射程距離ダウン",
+      "action_count_up": "最大行動回数アップ",
+      "action_count_down": "最大行動回数ダウン",
       "defense_penetration": "防御貫通",
       "defense_penetration_resist_up_by_self_hp_rate": "現在HPに比例して防御貫通耐性アップ",
       "damage_taken_increased": "被ダメージアップ",
@@ -447,6 +455,7 @@
       "range_down_active_1": "スキル1の射程距離 -1",
       "range_up_active_2": "スキル2の射程距離 +1",
       "action_count_up": "最大行動回数 +1",
+      "action_count_down": "最大行動回数 -1",
 
       "defense_penetration": "防御貫通 +{{value}}%",
       "defense_penetration_resist_up_by_self_hp_rate": "現在HPに比例して防御貫通耐性 +{{value}}%",
