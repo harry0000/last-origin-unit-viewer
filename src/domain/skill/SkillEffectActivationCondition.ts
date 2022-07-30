@@ -128,9 +128,15 @@ export type ActivationTargetState =
   {
     [EffectActivationState.Grid]?: Exclude<GridState, typeof GridState.AreaOfEffect>
   } &
+  {
+    [EffectActivationState.Unit]?: typeof UnitAlias.SteelLine
+  } &
   NotAffectedActivationState
 
-type InSquadStateUnit = UnitNumber | typeof UnitAlias['ElectricActive' | 'SteelLine' | 'Horizon' | 'KouheiChurch'] | 'golden_factory'
+type InSquadStateUnit =
+  UnitNumber |
+  typeof UnitAlias['ElectricActive' | 'SteelLine' | 'SteelLineExcludingOfficerRanks' | 'Horizon' | 'KouheiChurch'] |
+  'golden_factory'
 
 type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
   [EffectActivationState.InSquad]: T
@@ -140,7 +146,7 @@ type NumOfUnitsInSquadState = {
   [EffectActivationState.NumOfUnits]:
     { unit: typeof UnitKind.AGS, greater_or_equal: 3 } |
     { unit: 'ally', greater_or_equal: 1 | 2 | 4 } |
-    { unit: UnitType, greater_or_equal: 1 | 2 } |
+    { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 } |
     { unit: typeof UnitType.Heavy, less_or_equal: 1 }
 }
 

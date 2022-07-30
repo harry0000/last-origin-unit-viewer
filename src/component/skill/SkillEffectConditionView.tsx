@@ -111,6 +111,8 @@ function stateValuesView(
   }
   case EffectActivationState.Grid:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { grid: entry[1] })}</span>);
+  case EffectActivationState.Unit:
+    return unitStateView(entry[0], entry[1], unitNumber, t);
   default: {
     const _exhaustiveCheck: never = entry;
     return _exhaustiveCheck;
@@ -121,8 +123,9 @@ function stateValuesView(
 function unitStateView(key: typeof EffectActivationState.AffectedBy, unit: ValueOf<ActivationSelfState, typeof EffectActivationState.AffectedBy>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.InSquad, unit: ValueOf<ActivationSquadState, typeof EffectActivationState.InSquad> | ReadonlyArray<UnitNumber>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.NotInSquad, unit: 41, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.Unit, unit: typeof UnitAlias.SteelLine, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
-  key: typeof EffectActivationState['InSquad' | 'NotInSquad' | 'AffectedBy'],
+  key: typeof EffectActivationState['AffectedBy' | 'InSquad' | 'NotInSquad' | 'Unit'],
   unit:
     UnitNumber |
     ReadonlyArray<UnitNumber> |
@@ -131,6 +134,7 @@ function unitStateView(
     UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
     typeof UnitAlias.ElectricActive |
     typeof UnitAlias.SteelLine |
+    typeof UnitAlias.SteelLineExcludingOfficerRanks |
     typeof UnitAlias.Horizon |
     typeof UnitAlias.KouheiChurch |
     'golden_factory',
@@ -152,10 +156,13 @@ function unitStateView(
     );
   } else if (typeof unit === 'string') {
     if (isUnitAlias(unit)) {
-      // TODO: Move to excepting logic from view.
+      // TODO: Move excepting logic from view.
       return (
         <React.Fragment>
-          {ifTruthy(key === EffectActivationState.InSquad, (<span>{t('effect:unit.self')}{t('effect:except_preposition')}</span>))}
+          {ifTruthy(
+            key === EffectActivationState.InSquad && unitNumbersForAlias[unit].has(selfUnitNumber),
+            (<span>{t('effect:unit.self')}{t('effect:except_preposition')}</span>)
+          )}
           <UnitAliasView unitAlias={unit} exceptUnit={key === EffectActivationState.InSquad ? selfUnitNumber : undefined} />
           <span>{t(`effect:condition.state.${key}`, { unit: '' })}</span>
         </React.Fragment>
