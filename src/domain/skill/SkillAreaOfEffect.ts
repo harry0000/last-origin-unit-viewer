@@ -1,3 +1,5 @@
+const FixedAreaPrefix = 'fixed_' as const;
+
 export const SkillAreaType = {
   Self: 'self' ,
   Single: 'single',
@@ -44,6 +46,7 @@ export const SkillAreaType = {
   CrossSmallExplosion: 'cross_small_explosion',
   CrossStrongExplosion: 'cross_strong_explosion',
   CircleSmallExplosion: 'circle_small_explosion',
+  // FIXME: Delete if unused
   CircleStrongExplosion: 'circle_strong_explosion',
   AllStrongExplosion: 'all_strong_explosion',
   Front: 'front',
@@ -67,15 +70,22 @@ export const SkillAreaType = {
   CatsHand: 'cats_hand',
   UnderWatcher: 'under_watcher',
   AllBackward: 'all_backward',
+  // FIXME: Delete if unused
   AllAdjacentWithoutFront: 'all_adjacent_without_front',
   AllAdjacentWithoutFrontLine: 'all_adjacent_without_front_line',
   AllAdjacentWithoutBackLine: 'all_adjacent_without_back_line',
   AllAdjacent: 'all_adjacent',
-  FixedFrontLine: 'fixed_front_line',
-  FixedBackLine: 'fixed_back_line',
-  FixedMiddleRow: 'fixed_middle_row',
-  FixedCross: 'fixed_cross',
-  FixedDiagonal: 'fixed_diagonal',
-  FixedAll: 'fixed_all',
+  FixedFrontLine: `${FixedAreaPrefix}front_line`,
+  FixedBackLine: `${FixedAreaPrefix}back_line`,
+  FixedMiddleRow: `${FixedAreaPrefix}middle_row`,
+  FixedCross: `${FixedAreaPrefix}cross`,
+  FixedDiagonal: `${FixedAreaPrefix}diagonal`,
+  FixedAll: `${FixedAreaPrefix}all`
 } as const;
 export type SkillAreaType = typeof SkillAreaType[keyof typeof SkillAreaType]
+
+export type FixedSkillAreaType<T extends SkillAreaType = SkillAreaType> = T extends `${typeof FixedAreaPrefix}${string}` ? T : never
+
+export function isFixedSkillAreaType(arg: SkillAreaType): arg is FixedSkillAreaType {
+  return arg.startsWith(FixedAreaPrefix);
+}

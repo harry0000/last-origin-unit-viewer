@@ -70,12 +70,6 @@ export type SirenForm            = FormPerUnit<typeof FormChangeUnits.Siren>
 export type RampartForm          = FormPerUnit<typeof FormChangeUnits.Rampart>
 export type FortressForm         = FormPerUnit<typeof FormChangeUnits.Fortress>
 
-const formChangeUnitNumbers: ReadonlySet<number> = new Set(Object.values(FormChangeUnits));
-
-export function isFormChangeUnitNumber(arg: UnitNumber): arg is FormChangeUnitNumbers {
-  return formChangeUnitNumbers.has(arg);
-}
-
 export type FormLessUnitBasicInfo = typeof unitBasicData[Exclude<UnitNumber, FormChangeUnitNumbers>]
 
 export type FormChangeUnitBasicInfo<N extends FormChangeUnitNumbers> =
@@ -94,8 +88,22 @@ export type FormChangeUnitBasicInfo<N extends FormChangeUnitNumbers> =
   // HACK: for UnitFormValue.build()
   { no: N }
 
+const formChangeUnitNumbers: ReadonlySet<number> = new Set(Object.values(FormChangeUnits));
+
+export function isFormChangeUnitNumber(arg: UnitNumber): arg is FormChangeUnitNumbers {
+  return formChangeUnitNumbers.has(arg);
+}
+
+/**
+ * @param arg
+ * @see {@link https://github.com/microsoft/TypeScript/issues/30506}
+ */
+export function hasFormChangeUnitNumber<T extends { no: UnitNumber }>(arg: T): arg is Extract<T, { no: FormChangeUnitNumbers }> {
+  return isFormChangeUnitNumber(arg.no);
+}
+
 export function isFormChangeUnitBasicInfo<N extends FormChangeUnitNumbers>(arg: UnitBasicInfo): arg is FormChangeUnitBasicInfo<N> {
-  return formChangeUnitNumbers.has(arg.no);
+  return hasFormChangeUnitNumber(arg);
 }
 
 class UnitFormValue<N extends FormChangeUnitNumbers> {

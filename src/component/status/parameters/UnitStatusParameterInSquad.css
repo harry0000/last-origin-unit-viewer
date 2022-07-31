@@ -1,0 +1,80 @@
+.hp-value,
+.hp-bar {
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.hp-bar {
+  margin-top: 5px;
+  height: 50%;
+  width: min(100%, 17em);
+
+  border-radius: 2px;
+  background:
+    linear-gradient(90deg, transparent 23%, #ffcc00 23%, #ffcc00 27%, transparent 27%),
+    linear-gradient(90deg, #c33 0%, #c33 100%),
+    no-repeat;
+}
+
+.hp-bar.nope {
+  background:
+    linear-gradient(90deg, transparent 23%, #ffcc00 23%, #ffcc00 27%, transparent 27%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 100%),
+    no-repeat;
+}
+
+.hp-bar.damaged {
+  background:
+    linear-gradient(90deg, transparent 23%, #ffcc00 23%, #ffcc00 27%, transparent 27%),
+    linear-gradient(90deg, #c33 0%, #c33 23%, transparent 23%, transparent 27%, rgba(255, 255, 255, 0.15) 27%, rgba(255, 255, 255, 0.15) 100%),
+    no-repeat;
+}
+
+.ap-label {
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+
+  color: #0cf;
+  font-weight: bold;
+}
+
+.status-parameter-value.ap-value {
+  color: #0cf;
+  font-weight: bold;
+}
+
+.effect-list-in-squad {
+  margin-top: 5px;
+  padding: 3px;
+
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: fit-content;
+  min-height: 100px;
+  max-height: 200px;
+  max-width: min(512px, 100%);
+}
+
+.effect-list-in-squad > .effect-row-in-squad:not(:first-of-type) {
+  margin-top: 3px;
+}
+
+.effect-row-in-squad {
+  display: flex;
+}
+
+.effect-row-in-squad > .effect-label {
+  margin-left: 3px;
+}
+
+.effect-row-in-squad > .effect-label,
+.effect-row-in-squad > .effect-value {
+  align-self: center;
+  color: #ccc;
+  font-size: 0.85em;
+  font-weight: bold;
+}
