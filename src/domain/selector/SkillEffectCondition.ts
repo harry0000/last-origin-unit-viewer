@@ -33,6 +33,8 @@ export const StatusSkillEffectCondition = {
   StatusResistDown: 'status_resist_down',
   RangeUp: 'range_up',
   RangeDown: 'range_down',
+  DamageMultiplierUp: 'damage_multiplier_up',
+  DamageMultiplierDown: 'damage_multiplier_down'
 } as const;
 export type StatusSkillEffectCondition = typeof StatusSkillEffectCondition[keyof typeof StatusSkillEffectCondition]
 
@@ -57,6 +59,7 @@ export const DefensiveSkillEffectCondition = {
   Barrier: 'barrier',
   DamageReduction: 'damage_reduction',
   MinimizeOrNullifyDamage: 'minimize_or_nullify_damage',
+  DefensePenetrationResist: 'defense_penetration_resist',
   BattleContinuation: 'battle_continuation'
 } as const;
 export type DefensiveSkillEffectCondition = typeof DefensiveSkillEffectCondition[keyof typeof DefensiveSkillEffectCondition]
@@ -70,7 +73,9 @@ export const OtherSkillEffectCondition = {
   Stunned: 'stunned',
   PushPull: 'push_pull',
   WetCorrosionOverloaded: 'wet_corrosion_overloaded',
-  RemoveBuffDebuff: 'remove_buff_debuff'
+  RemoveBuffDebuff: 'remove_buff_debuff',
+  RemoveBuffResistUpPreventsDebuff: 'remove_buff_resist_up_prevents_debuff',
+  ActionCountUp: 'action_count_up'
 } as const;
 export type OtherSkillEffectCondition = typeof OtherSkillEffectCondition[keyof typeof OtherSkillEffectCondition]
 
@@ -171,32 +176,51 @@ export function matchSkillConditions(
   const passives = extractAllPassiveSkills(skill);
 
   return [...conditions.values()].every(condition => {
-    // TODO: check effect target ally or enemy
     switch (condition) {
     case StatusSkillEffectCondition.AtkUp:
-      return checkAllSkillEffectDetails(actives, passives, e => !!e.atk_up);
+      return checkAllSkillEffectDetails(actives, passives, e =>
+        !!e.atk_up || !!e.atk_value_up || !!e.atk_value_up_by_self_value
+      );
     case StatusSkillEffectCondition.AtkDown:
-      return checkAllSkillEffect(actives, passives, e => 'target' in e.details && !!e.details.target?.atk_down);
+      return checkAllSkillEffect(actives, passives, e =>
+        'target' in e && e.target.kind === 'enemy' &&
+        'target' in e.details && !!e.details.target?.atk_down
+      );
     case StatusSkillEffectCondition.AccUp:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.acc_up);
     case StatusSkillEffectCondition.AccDown:
-      return checkAllSkillEffect(actives, passives, e => 'target' in e.details && !!e.details.target?.acc_down);
+      return checkAllSkillEffect(actives, passives, e =>
+        'target' in e && e.target.kind === 'enemy' &&
+        'target' in e.details && !!e.details.target?.acc_down
+      );
     case StatusSkillEffectCondition.CriUp:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.cri_up);
     case StatusSkillEffectCondition.CriDown:
-      return checkAllSkillEffect(actives, passives, e => 'target' in e.details && !!e.details.target?.cri_down);
+      return checkAllSkillEffect(actives, passives, e =>
+        'target' in e && e.target.kind === 'enemy' &&
+        'target' in e.details && !!e.details.target?.cri_down
+      );
     case StatusSkillEffectCondition.DefUp:
-      return checkAllSkillEffectDetails(actives, passives, e => !!e.def_up);
+      return checkAllSkillEffectDetails(actives, passives, e => !!e.def_up || !!e.def_value_up);
     case StatusSkillEffectCondition.DefDown:
-      return checkAllSkillEffect(actives, passives, e => 'target' in e.details && !!e.details.target?.def_down);
+      return checkAllSkillEffect(actives, passives, e =>
+        'target' in e && e.target.kind === 'enemy' &&
+        'target' in e.details && !!e.details.target?.def_down
+      );
     case StatusSkillEffectCondition.EvaUp:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.eva_up);
     case StatusSkillEffectCondition.EvaDown:
-      return checkAllSkillEffect(actives, passives, e => 'target' in e.details && !!e.details.target?.eva_down);
+      return checkAllSkillEffect(actives, passives, e =>
+        'target' in e && e.target.kind === 'enemy' &&
+        'target' in e.details && !!e.details.target?.eva_down
+      );
     case StatusSkillEffectCondition.SpdUp:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.spd_up);
     case StatusSkillEffectCondition.SpdDown:
-      return checkAllSkillEffect(actives, passives, e => 'target' in e.details && !!e.details.target?.spd_down);
+      return checkAllSkillEffect(actives, passives, e =>
+        'target' in e && e.target.kind === 'enemy' &&
+        'target' in e.details && !!e.details.target?.spd_down
+      );
     case StatusSkillEffectCondition.ApUp:
       return checkAllSkillEffect(
         actives,
@@ -206,7 +230,10 @@ export function matchSkillConditions(
           'target' in e.details && (!!e.details.target?.ap_up || !!e.details.target?.set_ap && 'base' in e.details.target.set_ap)
       );
     case StatusSkillEffectCondition.ApDown:
-      return checkAllSkillEffect(actives, passives, e => 'target' in e.details && !!e.details.target?.ap_down);
+      return checkAllSkillEffect(actives, passives, e =>
+        'target' in e && e.target.kind === 'enemy' &&
+        'target' in e.details && !!e.details.target?.ap_down
+      );
     case StatusSkillEffectCondition.AttributeResistUp:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.fire_resist_up || !!e.ice_resist_up || !!e.electric_resist_up);
     case StatusSkillEffectCondition.AttributeResistDown:
@@ -214,6 +241,7 @@ export function matchSkillConditions(
         actives,
         passives,
         e =>
+          'target' in e && e.target.kind === 'enemy' &&
           'target' in e.details &&
           (!!e.details.target?.fire_resist_down || !!e.details.target?.ice_resist_down || !!e.details.target?.electric_resist_down)
       );
@@ -225,22 +253,34 @@ export function matchSkillConditions(
       return checkAllSkillEffectDetails(actives, passives, e => !!e.range_up);
     case StatusSkillEffectCondition.RangeDown:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.range_down);
+    case StatusSkillEffectCondition.DamageMultiplierUp:
+      return checkAllSkillEffectDetails(actives, passives, e => !!e.damage_multiplier_up || !!e.damage_multiplier_up_by_status);
+    case StatusSkillEffectCondition.DamageMultiplierDown:
+      return checkAllSkillEffect(actives, passives, e =>
+        'target' in e && e.target.kind === 'enemy' &&
+        'target' in e.details && !!e.details.target?.damage_multiplier_down
+      );
     case OffensiveSkillEffectCondition.AttackAssist:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.follow_up_attack || !!e.re_attack);
     case OffensiveSkillEffectCondition.CooperativeAttack:
       return checkActiveSkillEffect(actives, e => 'self' in e.details && !!e.details.self?.cooperative_attack);
     case OffensiveSkillEffectCondition.DefensePenetration:
-      return checkAllSkillEffectDetails(actives, passives, e => !!e.defense_penetration);
+      return checkAllSkillEffectDetails(actives, passives, e => !!e.defense_penetration || !!e.ignore_def);
     case OffensiveSkillEffectCondition.IgnoreBarrierDR:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.ignore_barrier_dr);
     case OffensiveSkillEffectCondition.AntiLightUnitType:
       return checkAllSkillEffectDetails(actives, passives, e => !!e?.anti_light_type);
     case OffensiveSkillEffectCondition.AntiFlyingUnitType:
-      return checkAllSkillEffectDetails(actives, passives, e => !!e?.anti_flying_type);
+      return checkAllSkillEffectDetails(actives, passives, e =>
+        !!e?.anti_flying_type && (!('base' in e.anti_flying_type) || e.anti_flying_type.base.milliPercentage > 0)
+      );
     case OffensiveSkillEffectCondition.AntiHeavyUnitType:
       return checkAllSkillEffectDetails(actives, passives, e => !!e?.anti_heavy_type);
     case OffensiveSkillEffectCondition.DamageTakenIncrease:
-      return checkAllSkillEffect(actives, passives, e => 'target' in e.details && !!e.details.target?.damage_taken_increased);
+      return checkAllSkillEffect(actives, passives, e =>
+        'target' in e && e.target.kind === 'enemy' &&
+        'target' in e.details && !!e.details.target?.damage_taken_increased
+      );
     case OffensiveSkillEffectCondition.Counterattack:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.counterattack);
     case OffensiveSkillEffectCondition.EnmityMerciless:
@@ -257,6 +297,8 @@ export function matchSkillConditions(
       return checkAllSkillEffectDetails(actives, passives, e => !!e.damage_reduction);
     case DefensiveSkillEffectCondition.MinimizeOrNullifyDamage:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.minimize_damage || !!e.nullify_damage);
+    case DefensiveSkillEffectCondition.DefensePenetrationResist:
+      return checkAllSkillEffectDetails(actives, passives, e => !!e.defense_penetration_resist_up_by_self_hp_rate);
     case DefensiveSkillEffectCondition.BattleContinuation:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.battle_continuation);
     case OtherSkillEffectCondition.Reconnaissance:
@@ -273,17 +315,31 @@ export function matchSkillConditions(
     case OtherSkillEffectCondition.Provoked:
       return checkAllSkillEffect(actives, passives, e => 'target' in e.details && !!e.details.target?.provoked);
     case OtherSkillEffectCondition.Immovable:
-      return checkAllSkillEffect(actives, passives, e => 'target' in e.details && !!e.details.target?.immovable);
+      return checkAllSkillEffect(actives, passives, e =>
+        'target' in e && e.target.kind === 'enemy' &&
+        'target' in e.details && !!e.details.target?.immovable
+      );
     case OtherSkillEffectCondition.Silenced:
       return checkAllSkillEffect(actives, passives, e => 'target' in e.details && !!e.details.target?.silenced);
     case OtherSkillEffectCondition.Stunned:
-      return checkAllSkillEffect(actives, passives, e => 'target' in e.details && !!e.details.target?.stunned);
+      return checkAllSkillEffect(actives, passives, e =>
+        'target' in e && e.target.kind === 'enemy' &&
+        'target' in e.details && !!e.details.target?.stunned
+      );
     case OtherSkillEffectCondition.PushPull:
       return checkActiveSkillEffect(actives, e => 'target' in e.details && (!!e.details.target?.push || !!e.details.target?.pull));
     case OtherSkillEffectCondition.WetCorrosionOverloaded:
       return checkAllSkillEffectDetails(actives, passives, e => hasAbnormalConditionTags(e));
     case OtherSkillEffectCondition.RemoveBuffDebuff:
-      return checkAllSkillEffectDetails(actives, passives, e => !!e.effect_removal || !!e.prevents_effect || !!e.all_buff_removal || !!e.all_debuff_removal);
+      return checkAllSkillEffectDetails(actives, passives, e =>
+        !!e.effect_removal || !!e.all_buff_removal || !!e.all_debuff_removal
+      );
+    case OtherSkillEffectCondition.RemoveBuffResistUpPreventsDebuff:
+      return checkAllSkillEffectDetails(actives, passives, e =>
+        !!e.all_buff_removal_resist_up || !!e.prevents_effect
+      );
+    case OtherSkillEffectCondition.ActionCountUp:
+      return checkAllSkillEffectDetails(actives, passives, e => !!e.action_count_up);
     default: {
       const _exhaustiveCheck: never = condition;
       return _exhaustiveCheck;

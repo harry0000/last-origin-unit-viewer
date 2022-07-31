@@ -401,7 +401,7 @@
       "marked": "標的",
       "provoked": "挑発",
       "immovable": "移動不可",
-      "silenced": "沈黙",
+      "silenced": "スキル使用不可",
       "stunned": "行動不能"
     },
     "description": {
@@ -485,7 +485,7 @@
       "effect_removal": "{{effects}}効果を解除",
       "all_buff_removal_resist_up": "バフ効果解除耐性 +{{value}}%",
       "tagged_effect_removal": "<$t(effect:tag.{{tag}})>の{{effects}}効果を解除",
-      "prevents_effect": "$t(effect:effect.name.{{effect}})効果を無効化",
+      "prevents_effect": "$t(effect:effect.name.{{effect}})効果免疫",
       "activation_rate_percentage_up": "$t(effect:effect.name.{{effect}})の発動率 +{{value}}%",
       "tagged_activation_rate_percentage_up": "<$t(effect:tag.{{tag}})>($t(effect:effect.name.{{effect}}))の発動率 +{{value}}%",
       "absolutely_activated": "<$t(effect:tag.{{tag}})>($t(effect:effect.name.{{effect}}))が必ず適用される",
@@ -510,7 +510,7 @@
       "marked": "標的に指定",
       "provoked": "挑発を付与",
       "immovable": "移動不可を付与",
-      "silenced": "沈黙を付与",
+      "silenced": "スキル使用不可を付与",
       "stunned": "行動不能を付与",
 
       "refund_ap": "使用したAPを返還",
