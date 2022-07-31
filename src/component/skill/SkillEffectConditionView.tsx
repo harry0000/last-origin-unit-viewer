@@ -260,9 +260,11 @@ const EnemyStateView: React.FC<{
           t('effect:condition.target.enemy')
       }
       {
-        'less_or_equal' in num_of_units ?
-          t('effect:condition.state.num_of_enemies', num_of_units as Record<string, unknown>) :
-          t('effect:condition.state.num_of_enemies_ge', num_of_units as Record<string, unknown>)
+        'equal' in num_of_units ?
+          t('effect:condition.state.num_of_enemies_eq', num_of_units) :
+          'less_or_equal' in num_of_units ?
+            t('effect:condition.state.num_of_enemies', num_of_units as Record<string, unknown>) :
+            t('effect:condition.state.num_of_enemies_ge', num_of_units as Record<string, unknown>)
       }
     </React.Fragment>
   );

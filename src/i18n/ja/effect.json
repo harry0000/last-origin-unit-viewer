@@ -185,7 +185,8 @@
     "predator": "捕食者",
     "last_roar": "最後の咆哮",
     "hunt_preparation": "狩りの準備$t(effect:tag_separator)待機",
-    "heat_absorption": "熱気吸収"
+    "heat_absorption": "熱気吸収",
+    "bridle_of_sins": "原罪のしがらみ"
   },
   "condition": {
     "trigger": {
@@ -251,6 +252,7 @@
       "num_of_units_ge": "$t(effect:unit.self)を除く$t(effect:unit.{{unit}})が{{greater_or_equal}}体以上いる",
       "num_of_units_le": "$t(effect:unit.self)を除く$t(effect:unit.{{unit}})が{{less_or_equal}}体以下である",
       "num_of_enemies": "{{greater_or_equal}}～{{less_or_equal}}体である",
+      "num_of_enemies_eq": "{{equal}}体である",
       "num_of_enemies_ge": "{{greater_or_equal}}体以上いる",
       "affected_by": "{{unit}}のスキル効果を受けている",
       "affected_effect_by": "$t(effect:quote)$t(unit:display, { \"number\": {{unit}} })$t(effect:unquote)から$t(effect:effect.name.{{effect}})の効果を受けている"

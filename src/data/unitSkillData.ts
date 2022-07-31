@@ -10685,36 +10685,36 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { greater_or_equal: 1, less_or_equal: 2 } } } }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite' },
-            acc_up: { base: { milliPercentage: 9000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite' },
-            spd_up: { base: { milliPercentage: 500 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite' }
+            atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', cannot_be_dispelled: true },
+            acc_up: { base: { milliPercentage: 9000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', cannot_be_dispelled: true },
+            spd_up: { base: { milliPercentage: 500 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', cannot_be_dispelled: true }
           }
         }
       }, {
         conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { greater_or_equal: 3, less_or_equal: 4 } } } }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite' },
-            acc_up: { base: { milliPercentage: 18000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite' },
-            spd_up: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite' }
+            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', cannot_be_dispelled: true },
+            acc_up: { base: { milliPercentage: 18000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', cannot_be_dispelled: true },
+            spd_up: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', cannot_be_dispelled: true }
           }
         }
       }, {
         conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { greater_or_equal: 5, less_or_equal: 6 } } } }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 3000 }, term: 'infinite' },
-            acc_up: { base: { milliPercentage: 27000 }, per_lv_up: { milliPercentage: 3000 }, term: 'infinite' },
-            spd_up: { base: { milliPercentage: 1500 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite' }
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 3000 }, term: 'infinite', cannot_be_dispelled: true },
+            acc_up: { base: { milliPercentage: 27000 }, per_lv_up: { milliPercentage: 3000 }, term: 'infinite', cannot_be_dispelled: true },
+            spd_up: { base: { milliPercentage: 1500 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', cannot_be_dispelled: true }
           }
         }
       }, {
         conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { greater_or_equal: 7 } } } }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 4000 }, term: 'infinite' },
-            acc_up: { base: { milliPercentage: 36000 }, per_lv_up: { milliPercentage: 4000 }, term: 'infinite' },
-            spd_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite' }
+            atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 4000 }, term: 'infinite', cannot_be_dispelled: true },
+            acc_up: { base: { milliPercentage: 36000 }, per_lv_up: { milliPercentage: 4000 }, term: 'infinite', cannot_be_dispelled: true },
+            spd_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', cannot_be_dispelled: true }
           }
         }
       }, {
@@ -10731,10 +10731,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_wave' }],
         details: { self: { battle_continuation: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', times: 1 } } }
       }, {
-        conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 126 } } }],
-        details: { self: { battle_continuation: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', times: 1 } } }
-      }, {
-        conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 139 } } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 'kouhei_church' } } }],
         details: { self: { battle_continuation: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', times: 1 } } }
       }, {
         conditions: [{ trigger: 'revive' }],
@@ -10856,9 +10853,106 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: { target: { damage_taken_increased: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite' } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'kouhei_church' } } }],
-        scale_factor: { per_units: { type: 'squad', unit: 'kouhei_church', except: 'self' } },
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 126 } } }],
         details: { self: { atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: 138 }, { in_squad: 140 }, { in_squad: 236 }] } }],
+        details: { self: { atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
+  140: {
+    no: 140,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 212000 },
+        per_lv_up: { milliPercentage: 12000 }
+      },
+      range: 2,
+      cost: 7,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            effect_removal: { effect: 'counterattack', term: 'immediate' },
+            marked: { term: { for_rounds: 2 } },
+            damage_taken_increased: { base: { milliPercentage: 22000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }, {
+      range: 6,
+      cost: 9,
+      area: 'fixed_all',
+      effects: [{
+        target: { kind: 'ally', conditions: ['attacker'] },
+        details: {
+          target: {
+            set_ap: { microValue: 4800000, term: 'immediate' },
+            counterattack: { base: { milliPercentage: 105000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 2 } },
+            damage_reduction: { base: { milliPercentage: 43000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 } },
+            range_up: { value: 2, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['attacker'] },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 16500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 21500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            anti_heavy_type: { base: { milliPercentage: 16500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: [{ alias: 'kouhei_church', role: 'attacker' }] },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 8250 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 10750 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
+            anti_heavy_type: { base: { milliPercentage: 8250 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: [{ alias: 'kouhei_church', role: 'defender' }, { alias: 'kouhei_church', role: 'supporter' }] },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 24750 }, per_lv_up: { milliPercentage: 2250 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 32250 }, per_lv_up: { milliPercentage: 2250 }, term: { for_rounds: 1 } },
+            anti_heavy_type: { base: { milliPercentage: 24750 }, per_lv_up: { milliPercentage: 2250 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        details: {
+          self: {
+            battle_continuation: { base: { value: 480 }, per_lv_up: { value: 40 }, term: 'infinite', times: 1 },
+            barrier: { base: { value: 1650 }, per_lv_up: { value: 150 }, term: 'infinite' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'revive' }],
+        details: {
+          self: {
+            minimize_damage: { term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 16500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
+            status_resist_up: { base: { milliPercentage: 48000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { from: 5 } }],
+        details: { self: { range_up: { value: 3, term: { for_rounds: 1 } } } }
       }]
     }]
   },
@@ -15934,6 +16028,97 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'attack' }],
         details: { self: { merciless: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }]
+    }]
+  },
+  236: {
+    no: 236,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 182000 },
+        per_lv_up: { milliPercentage: 12000 },
+        attribute: 'fire'
+      },
+      range: 1,
+      cost: 8,
+      area: 'single',
+      effects: [{
+        details: { self: { ignore_protect: { term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ not_tagged: 'bridle_of_sins' }] } }],
+        details: { self: { additional_fire_damage: { base: { milliPercentage: 27000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'bridle_of_sins' }] } }],
+        details: {
+          self: {
+            additional_fire_damage: { base: { milliPercentage: 82000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' },
+            ignore_barrier_dr: { term: 'immediate' }
+          }
+        }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 157000 },
+        per_lv_up: { milliPercentage: 7000 },
+        attribute: 'fire'
+      },
+      range: 6,
+      cost: 9,
+      area: 'all',
+      effects: [{
+        details: {
+          self: {
+            ignore_protect: { term: 'immediate' },
+            silenced: { term: { for_rounds: 2 }, cannot_be_dispelled: true }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ not_tagged: 'bridle_of_sins' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { fixed_fire_damage_over_time: { base: { value: 55 }, per_lv_up: { value: 5 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'bridle_of_sins' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          self: { ignore_barrier_dr: { term: 'immediate' } },
+          target: { fixed_fire_damage_over_time: { base: { value: 1650 }, per_lv_up: { value: 150 }, term: { for_rounds: 3 } } }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { self: [{ hp_greater_than: 25 }] } }],
+        details: { self: { fixed_fire_damage_over_time: { base: { value: 83 }, per_lv_up: { value: 89 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ hp_less_or_equal: 25 }] } }],
+        details: { self: { tag_stack: { tag: 'bridle_of_sins', term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 22000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { enemy: { num_of_units: { equal: 1 } } } }],
+        details: { self: { range_up: { value: 2, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: { target: { ice_resist_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'bridle_of_sins' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { fire_resist_down: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
       }]
     }]
   },

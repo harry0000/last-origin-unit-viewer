@@ -154,6 +154,7 @@ export type ActivationSquadState = InSquadState | NumOfUnitsInSquadState
 
 export type ActivationEnemyState = {
   [EffectActivationState.NumOfUnits]:
+    { equal: 1 } |
     { greater_or_equal: 1, less_or_equal: 2 } |
     { greater_or_equal: 3, less_or_equal: 4 } |
     { greater_or_equal: 5, less_or_equal: 6 } |
@@ -164,7 +165,12 @@ export type ActivationEnemyState = {
 
 export type SelfSkillEffectActivationState =
   { self: ReadonlyArray<ActivationSelfState> } |
-  { squad: ActivationSquadState | ReadonlyArray<InSquadState<87 | 89 | 90>> } |
+  {
+    squad:
+      ActivationSquadState |
+      readonly [InSquadState<87>, InSquadState<89>, InSquadState<90>] |
+      readonly [InSquadState<138>, InSquadState<140>, InSquadState<236>]
+  } |
   { enemy: ActivationEnemyState } |
   {
     self: ReadonlyArray<ActivationSelfState>,
@@ -186,7 +192,7 @@ export type SkillEffectActivationState = SelfSkillEffectActivationState | Target
 
 export type SkillEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
-  round?: { at: 1 | 2 | 3 | 4 } | { from: 2 | 3 } | { until: 1 | 2 | 3 | 4 }
+  round?: { at: 1 | 2 | 3 | 4 } | { from: 2 | 3 | 5 } | { until: 1 | 2 | 3 | 4 }
 } | {
   trigger: Exclude<EffectTrigger, typeof EffectTrigger.StartRound>
 }

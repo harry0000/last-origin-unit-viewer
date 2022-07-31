@@ -124,4 +124,5 @@ export type SkillEffectTag =
   'predator' |
   'last_roar' |
   'hunt_preparation' |
-  'heat_absorption'
+  'heat_absorption' |
+  'bridle_of_sins'
