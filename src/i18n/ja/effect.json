@@ -26,9 +26,12 @@
     "squad_21": "21分隊",
     "companion_series": "コンパニオンシリーズ",
     "steel_line": "スチールライン",
+    "steel_line_excluding_officer_ranks": "下士官/兵士階級のスチールライン",
     "sisters_of_valhalla": "シスターズオブヴァルハラ",
     "mongoose_team": "マングースチーム",
     "anger_of_horde": "アンガーオブホード",
+    "applicable_for_seize_opportunity": "アンガーオブホード",
+    "not_applicable_for_seize_opportunity": "アンガーオブホード",
     "doom_bringer": "ドゥームブリンガー",
     "aa_cannonier": "AAキャノニア",
     "armored_maiden": "アーマードメイデン",
@@ -171,6 +174,9 @@
     "collection_complete": "情報獲得完了",
     "parts_acquired": "部品確保",
     "light_of_sky": "天空の光",
+    "tenderizer": "テンダーライズ",
+    "caffeine_charged": "カフェインチャージ",
+    "nicotine_charged": "ニコチンチャージ",
     "smooth": "ツルツル～",
     "tactical_data_link": "戦術データリンク",
     "passive_radar": "パッシブレーダー",
@@ -179,7 +185,8 @@
     "predator": "捕食者",
     "last_roar": "最後の咆哮",
     "hunt_preparation": "狩りの準備$t(effect:tag_separator)待機",
-    "heat_absorption": "熱気吸収"
+    "heat_absorption": "熱気吸収",
+    "bridle_of_sins": "原罪のしがらみ"
   },
   "condition": {
     "trigger": {
@@ -217,7 +224,8 @@
       "evade": "回避時",
       "critical": "クリティカル時",
       "counter": "反撃時",
-      "revive": "戦闘続行発動時"
+      "revive": "戦闘続行発動時",
+      "seize_opportunity": "$t(effect:condition.state.tagged, { \"tag\": \"seize_opportunity\" })$t(effect:effect.target.kind.enemy)を攻撃時"
     },
     "state": {
       "hp_greater_or_equal": "HP{{value}}%以上である",
@@ -244,6 +252,7 @@
       "num_of_units_ge": "$t(effect:unit.self)を除く$t(effect:unit.{{unit}})が{{greater_or_equal}}体以上いる",
       "num_of_units_le": "$t(effect:unit.self)を除く$t(effect:unit.{{unit}})が{{less_or_equal}}体以下である",
       "num_of_enemies": "{{greater_or_equal}}～{{less_or_equal}}体である",
+      "num_of_enemies_eq": "{{equal}}体である",
       "num_of_enemies_ge": "{{greater_or_equal}}体以上いる",
       "affected_by": "{{unit}}のスキル効果を受けている",
       "affected_effect_by": "$t(effect:quote)$t(unit:display, { \"number\": {{unit}} })$t(effect:unquote)から$t(effect:effect.name.{{effect}})の効果を受けている"
@@ -286,6 +295,7 @@
   "status": {
     "description": {
       "hp_up": "HP +{{value}}",
+      "hp_down": "HP -{{value}}",
       "atk_up": "攻撃力 +{{value}}",
       "atk_down": "攻撃力 -{{value}}",
       "def_up": "防御力 +{{value}}",
@@ -360,6 +370,8 @@
       "exp_up": "取得経験値アップ",
       "range_up": "射程距離アップ",
       "range_down": "射程距離ダウン",
+      "action_count_up": "最大行動回数アップ",
+      "action_count_down": "最大行動回数ダウン",
       "defense_penetration": "防御貫通",
       "defense_penetration_resist_up_by_self_hp_rate": "現在HPに比例して防御貫通耐性アップ",
       "damage_taken_increased": "被ダメージアップ",
@@ -383,11 +395,13 @@
       "ignore_barrier_dr": "バリア・被ダメージダウン効果無視",
       "ignore_protect": "保護効果無視",
       "ignore_protect_deactivate": "保護無視無効化",
+      "push": "押し出し",
+      "pull": "引き寄せ",
       "reconnaissance": "偵察",
       "marked": "標的",
       "provoked": "挑発",
       "immovable": "移動不可",
-      "silenced": "沈黙",
+      "silenced": "スキル使用不可",
       "stunned": "行動不能"
     },
     "description": {
@@ -446,6 +460,7 @@
       "range_down_active_1": "スキル1の射程距離 -1",
       "range_up_active_2": "スキル2の射程距離 +1",
       "action_count_up": "最大行動回数 +1",
+      "action_count_down": "最大行動回数 -1",
 
       "defense_penetration": "防御貫通 +{{value}}%",
       "defense_penetration_resist_up_by_self_hp_rate": "現在HPに比例して防御貫通耐性 +{{value}}%",
@@ -470,7 +485,7 @@
       "effect_removal": "{{effects}}効果を解除",
       "all_buff_removal_resist_up": "バフ効果解除耐性 +{{value}}%",
       "tagged_effect_removal": "<$t(effect:tag.{{tag}})>の{{effects}}効果を解除",
-      "prevents_effect": "$t(effect:effect.name.{{effect}})効果を無効化",
+      "prevents_effect": "$t(effect:effect.name.{{effect}})効果免疫",
       "activation_rate_percentage_up": "$t(effect:effect.name.{{effect}})の発動率 +{{value}}%",
       "tagged_activation_rate_percentage_up": "<$t(effect:tag.{{tag}})>($t(effect:effect.name.{{effect}}))の発動率 +{{value}}%",
       "absolutely_activated": "<$t(effect:tag.{{tag}})>($t(effect:effect.name.{{effect}}))が必ず適用される",
@@ -495,7 +510,7 @@
       "marked": "標的に指定",
       "provoked": "挑発を付与",
       "immovable": "移動不可を付与",
-      "silenced": "沈黙を付与",
+      "silenced": "スキル使用不可を付与",
       "stunned": "行動不能を付与",
 
       "refund_ap": "使用したAPを返還",

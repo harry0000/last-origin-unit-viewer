@@ -22,7 +22,7 @@ import { unitCoreLinkBonusData } from '../../data/unitCoreLinkBonusData';
 import { unitRankUpBonusData } from '../../data/unitRankUpBonusData';
 import { unitSkillData } from '../../data/unitSkillData';
 
-import { updateEquipmentEnhanceLvSelector } from '../equipment/unitEquipmentState';
+import { updateEquipmentSelector } from '../equipment/unitEquipmentState';
 import { updateSkillTab } from '../ui/unitSkillTabState';
 import { useUnitCurrentRank } from '../status/parameters/unitLvStatusState';
 
@@ -72,7 +72,7 @@ const updateSelectedUnitDependency = setOnlySelector<UnitBasicInfo | undefined>(
   key: 'updateSelectedUnitDependency',
   set: ({ set }, unit) => {
     set(updateSkillTab, unit);
-    set(updateEquipmentEnhanceLvSelector, unit);
+    set(updateEquipmentSelector, unit);
   }
 });
 

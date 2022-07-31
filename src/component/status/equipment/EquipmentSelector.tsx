@@ -7,10 +7,19 @@ import { useTranslation } from 'react-i18next';
 import { Badge, Dropdown, Image } from 'react-bootstrap';
 import EquipmentItemView from './EquipmentItemView';
 import EquipmentPlaceholder from './EquipmentPlaceholder';
+import EquipmentRankToggleButton from './EquipmentRankToggleButton';
 import RoundedToggleButton from '../../common/RoundedToggleButton';
 import SlotUnavailableOverlay from '../SlotUnavailableOverlay';
 
-import { Chip, EquipmentEnhancementLevel, EquipmentId, EquipmentType, Gear, Os } from '../../../domain/equipment/EquipmentData';
+import {
+  Chip,
+  EquipmentEnhancementLevel,
+  EquipmentId,
+  EquipmentRank,
+  EquipmentType,
+  Gear,
+  Os
+} from '../../../domain/equipment/EquipmentData';
 import { ChipEquipment, GearEquipment, OsEquipment } from '../../../domain/equipment/UnitEquipment';
 import { UnitBasicInfo, UnitNumber } from '../../../domain/UnitBasicInfo';
 
@@ -20,6 +29,7 @@ import {
   useEquipmentEffects,
   useEquipmentEffectsAsSkill,
   useEquipmentEnhanceLvSelector,
+  useEquipmentRank,
   useEquipmentStatusEffects,
   useUnitEquipment
 } from '../../../state/equipment/unitEquipmentState';
@@ -46,16 +56,18 @@ type SlotEquipmentType<S extends EquipmentSlot> =
   S extends 'gear' ? typeof EquipmentType.Gear :
     never
 
+type CurrentEquipment<S extends EquipmentSlot> =
+  S extends 'chip1' | 'chip2' ? ChipEquipment :
+  S extends 'os' ? OsEquipment :
+  S extends 'gear' ? GearEquipment :
+    never
+
 type Props<S extends EquipmentSlot> = {
   unit: UnitBasicInfo,
   id: string,
   slot: S,
   type: SlotEquipmentType<S>,
-  value?:
-    S extends 'chip1' | 'chip2' ? ChipEquipment :
-    S extends 'os' ? OsEquipment :
-    S extends 'gear' ? GearEquipment :
-      never,
+  value?: CurrentEquipment<S>,
   items: ReadonlyArray<SlotEquipment<S>>,
   onSelect: (equipment: SlotEquipment<S> | undefined) => void
 }
@@ -75,6 +87,20 @@ const EquipmentEnhancementLvSelector: React.FC<{ slot: EquipmentSlot, unit: Unit
     <div className="equipment-enhancement">
       {([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const).map(n => (
         <SelectorButton key={n} enhanceLv={n} />
+      ))}
+    </div>
+  );
+};
+
+const EquipmentRankSelector: React.FC<{ slot: EquipmentSlot }> = ({ slot }) => {
+  if (slot !== 'os') {
+    return null;
+  }
+
+  return (
+    <div className="equipment-rank">
+      {([EquipmentRank.SSS, EquipmentRank.SS]).map(rank => (
+        <EquipmentRankToggleButton key={rank} rank={rank} />
       ))}
     </div>
   );
@@ -239,10 +265,12 @@ const EquipmentSelectorMenu = <T extends EquipmentSlot>(
   { unit, slot, type, value, items, ...rest }: Omit<Props<T>, 'id' | 'onSelect'>
 ): ReturnType<React.FC<Omit<Props<T>, 'id' | 'onSelect'>>> => {
   const { t } = useTranslation();
+  const rank = useEquipmentRank(slot);
 
   return (
     <Dropdown.Menu {...rest} className="equipment">
       <EquipmentEnhancementLvSelector slot={slot} unit={unit.no} />
+      <EquipmentRankSelector slot={slot} />
       <div className="equipment-list">
         <RemoveEquipmentItem type={type} active={!value?.id} />
         {items.map(item => (
@@ -250,9 +278,9 @@ const EquipmentSelectorMenu = <T extends EquipmentSlot>(
             key={item.id}
             slot={slot}
             eventKey={item.id}
-            active={item.id === value?.id}
+            active={item.id === value?.id && rank === value?.rank}
             label={t(`equipment:${item.id}`)}
-            src={`${process.env.PUBLIC_URL}/equip_icon/${item.type}_${item.id}_ss.webp`}
+            src={`${process.env.PUBLIC_URL}/equip_icon/${item.type}_${item.id}_${rank}.webp`}
           />
         ))}
       </div>

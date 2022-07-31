@@ -26,6 +26,17 @@
   grid-column: 6;
 }
 
+.dropdown-menu.equipment > .equipment-rank {
+  background-color: #0a101e;
+  border-top: 2px solid #fff;
+  border-radius: 3px 3px 0 0;
+  padding: 5px;
+}
+
+.dropdown-menu.equipment > .equipment-rank > div.btn-group:not(:last-of-type) {
+  margin-right: 5px;
+}
+
 .dropdown-menu.equipment .equipment-list {
   display: flex;
   flex-direction: column;

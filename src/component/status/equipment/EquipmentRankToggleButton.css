@@ -1,0 +1,47 @@
+:root {
+  --lo-squad-equipment-rank-sss-color: rgb(241, 65, 71);
+  --lo-squad-equipment-rank-ss-color: rgb(255, 238, 68);
+  --lo-squad-equipment-rank-s-color: rgb(249, 183, 35);
+  --lo-squad-equipment-rank-a-color: rgb(88, 219, 252);
+  --lo-squad-equipment-rank-b-color: rgb(104, 178, 95);
+}
+
+.btn.btn-equipment-rank {
+  font-weight: bold;
+  font-size: 0.9em;
+  border: 2px solid transparent;
+  border-radius: 10em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 5px;
+  width: 50px;
+}
+
+.btn.btn-equipment-rank.focus {
+  box-shadow: 0 0 0 0.1rem #00fff0;
+}
+
+.btn.btn-equipment-rank:not(.disabled):hover {
+  border: 2px solid #00fff0;
+}
+
+.btn.btn-equipment-rank.disabled {
+  color: #514E55;
+  background-color: #333;
+}
+
+.btn-equipment-rank.sss:not(:disabled):not(.disabled).active {
+  color: #000;
+  background-color: var(--lo-squad-equipment-rank-sss-color);
+}
+
+.btn-equipment-rank.ss:not(:disabled):not(.disabled).active {
+  color: #444;
+  background-color: var(--lo-squad-equipment-rank-ss-color);
+}
+
+.btn-equipment-rank:not(:disabled):not(.disabled) {
+  color: #e0e0e0;
+  background-color: #514E55;
+}

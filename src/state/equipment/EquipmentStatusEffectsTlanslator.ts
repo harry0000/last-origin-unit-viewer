@@ -8,6 +8,7 @@ export function translateEquipmentStatusEffects(effects: StatusEffect, t: TFunct
   return typedEntries(effects).flatMap((entry) => {
     switch (entry[0]) {
     case 'hp_up':
+    case 'hp_down':
       return entry[1] ? t(`effect:status.description.${entry[0]}`, { value: entry[1].value }) : [];
     case 'atk_up':
     case 'atk_down':

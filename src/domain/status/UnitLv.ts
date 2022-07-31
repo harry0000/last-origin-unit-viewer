@@ -1,7 +1,8 @@
 import { Sequence } from '../../util/type';
 import UnitParameterEnhancementLv from './UnitParameterEnhancementLv';
 
-export type UnitLvValue = Sequence<100>
+export const UnitMaxLvValue = 120 as const;
+export type UnitLvValue = Sequence<typeof UnitMaxLvValue>
 export const UnitLvMode = {
   Auto: 'auto',
   Manual: 'manual'
@@ -46,7 +47,7 @@ class UnitLv {
   }
 
   get points(): number {
-    return (this.mode === 'auto' ? 100 : this.value) * 3;
+    return (this.mode === 'auto' ? UnitMaxLvValue : this.value) * 3;
   }
 }
 

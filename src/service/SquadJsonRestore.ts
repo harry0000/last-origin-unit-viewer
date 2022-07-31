@@ -131,7 +131,7 @@ function restoreOs(unit: UnitNumber, json: OsEquipmentJsonStructure | []): UnitO
   }
 
   const [id, rank, lv] = json;
-  const os = new UnitOsEquipment(unit).equipOs(equipmentData[id], lv);
+  const os = new UnitOsEquipment(unit).equipOs(equipmentData[id], rank, lv);
 
   return (
     os.os?.id === id &&

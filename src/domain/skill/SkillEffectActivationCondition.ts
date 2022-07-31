@@ -9,7 +9,7 @@ import { UnitKind, UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
 import { UnitStatusData } from '../status/UnitStatusData';
 
 export type UnitNotAlias = {
-  not_alias: typeof UnitAlias.KouheiChurch
+  not_alias: typeof UnitAlias['AngerOfHorde' | 'KouheiChurch']
 }
 
 export type UnitTypeAndRole = {
@@ -121,10 +121,6 @@ export type ActivationSelfState =
       than: keyof UnitStatusData[UnitNumber],
       value: number
     }
-  } &
-  {
-    // HACK: for seize_opportunity tag
-    [EffectActivationState.Unit]?: UnitAliasExceptUnit<typeof UnitAlias.AngerOfHorde, 41>
   }
 
 export type ActivationTargetState =
@@ -132,9 +128,15 @@ export type ActivationTargetState =
   {
     [EffectActivationState.Grid]?: Exclude<GridState, typeof GridState.AreaOfEffect>
   } &
+  {
+    [EffectActivationState.Unit]?: typeof UnitAlias.SteelLine
+  } &
   NotAffectedActivationState
 
-type InSquadStateUnit = UnitNumber | typeof UnitAlias['ElectricActive' | 'SteelLine' | 'Horizon' | 'KouheiChurch'] | 'golden_factory'
+type InSquadStateUnit =
+  UnitNumber |
+  typeof UnitAlias['ElectricActive' | 'SteelLine' | 'SteelLineExcludingOfficerRanks' | 'Horizon' | 'KouheiChurch'] |
+  'golden_factory'
 
 type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
   [EffectActivationState.InSquad]: T
@@ -144,7 +146,7 @@ type NumOfUnitsInSquadState = {
   [EffectActivationState.NumOfUnits]:
     { unit: typeof UnitKind.AGS, greater_or_equal: 3 } |
     { unit: 'ally', greater_or_equal: 1 | 2 | 4 } |
-    { unit: UnitType, greater_or_equal: 1 | 2 } |
+    { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 } |
     { unit: typeof UnitType.Heavy, less_or_equal: 1 }
 }
 
@@ -152,6 +154,7 @@ export type ActivationSquadState = InSquadState | NumOfUnitsInSquadState
 
 export type ActivationEnemyState = {
   [EffectActivationState.NumOfUnits]:
+    { equal: 1 } |
     { greater_or_equal: 1, less_or_equal: 2 } |
     { greater_or_equal: 3, less_or_equal: 4 } |
     { greater_or_equal: 5, less_or_equal: 6 } |
@@ -162,7 +165,12 @@ export type ActivationEnemyState = {
 
 export type SelfSkillEffectActivationState =
   { self: ReadonlyArray<ActivationSelfState> } |
-  { squad: ActivationSquadState | ReadonlyArray<InSquadState<87 | 89 | 90>> } |
+  {
+    squad:
+      ActivationSquadState |
+      readonly [InSquadState<87>, InSquadState<89>, InSquadState<90>] |
+      readonly [InSquadState<138>, InSquadState<140>, InSquadState<236>]
+  } |
   { enemy: ActivationEnemyState } |
   {
     self: ReadonlyArray<ActivationSelfState>,
@@ -184,7 +192,7 @@ export type SkillEffectActivationState = SelfSkillEffectActivationState | Target
 
 export type SkillEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
-  round?: { at: 1 | 2 | 3 | 4 } | { from: 2 | 3 } | { until: 1 | 2 | 3 | 4 }
+  round?: { at: 1 | 2 | 3 | 4 } | { from: 2 | 3 | 5 } | { until: 1 | 2 | 3 | 4 }
 } | {
   trigger: Exclude<EffectTrigger, typeof EffectTrigger.StartRound>
 }

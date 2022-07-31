@@ -748,6 +748,13 @@ export const unitBasicData = {
     type: 'flying',
     role: 'defender'
   },
+  140: {
+    no: 140,
+    kind: 'bioroid',
+    rank: 's',
+    type: 'flying',
+    role: 'supporter'
+  },
   141: {
     no: 141,
     kind: 'bioroid',
@@ -965,6 +972,13 @@ export const unitBasicData = {
     type: 'heavy',
     role: 'attacker'
   },
+  193: {
+    no: 193,
+    kind: 'bioroid',
+    rank: 'ss',
+    type: 'heavy',
+    role: 'supporter'
+  },
   194: {
     no: 194,
     kind: 'bioroid',
@@ -1180,6 +1194,13 @@ export const unitBasicData = {
     kind: 'ags',
     rank: 'ss',
     type: 'flying',
+    role: 'attacker'
+  },
+  236: {
+    no: 236,
+    kind: 'bioroid',
+    rank: 'ss',
+    type: 'heavy',
     role: 'attacker'
   },
   237: {

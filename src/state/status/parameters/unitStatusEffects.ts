@@ -144,7 +144,11 @@ function equipmentEffects(
   let value: number | undefined;
   switch (parameter) {
   case 'hp':
-    value = effects.hp_up?.value ?? undefined;
+    if (effects.hp_up) {
+      value = effects.hp_up.value;
+    } else if (effects.hp_down) {
+      value = -effects.hp_down.value;
+    }
     break;
   case 'atk':
     if (effects.atk_up) {

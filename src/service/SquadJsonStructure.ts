@@ -1,4 +1,12 @@
-import { Chip, EquipmentEnhancementLevel, EquipmentRank, Gear, Os } from '../domain/equipment/EquipmentData';
+import {
+  Chip,
+  ChipEquipmentRank,
+  EquipmentEnhancementLevel,
+  Gear,
+  GearEquipmentRank,
+  Os,
+  OsEquipmentRank
+} from '../domain/equipment/EquipmentData';
 import { CoreLinkUnit } from '../domain/UnitCoreLink';
 import { FullLinkBonusIndex } from '../domain/UnitCoreLinkBonusData';
 import { SkillLv } from '../domain/skill/UnitSkillLvValue';
@@ -18,9 +26,9 @@ export type UnitEnhancementJsonStructure = readonly [
   cri_lv: number
 ]
 
-export type ChipEquipmentJsonStructure = readonly [id: Chip['id'], rank: EquipmentRank, enhanceLv: EquipmentEnhancementLevel]
-export type OsEquipmentJsonStructure   = readonly [id: Os['id'],   rank: EquipmentRank, enhanceLv: EquipmentEnhancementLevel]
-export type GearEquipmentJsonStructure = readonly [id: Gear['id'], rank: EquipmentRank, enhanceLv: EquipmentEnhancementLevel]
+export type ChipEquipmentJsonStructure = readonly [id: Chip['id'], rank: ChipEquipmentRank, enhanceLv: EquipmentEnhancementLevel]
+export type OsEquipmentJsonStructure   = readonly [id: Os['id'],   rank: OsEquipmentRank,   enhanceLv: EquipmentEnhancementLevel]
+export type GearEquipmentJsonStructure = readonly [id: Gear['id'], rank: GearEquipmentRank, enhanceLv: EquipmentEnhancementLevel]
 
 export type UnitEquipmentJsonStructure = readonly [
   chip1: ChipEquipmentJsonStructure | [],

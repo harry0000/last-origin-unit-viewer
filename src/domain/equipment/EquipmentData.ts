@@ -1,4 +1,4 @@
-import { UnitNumber, UnitRank, UnitRole, UnitType } from '../UnitBasicInfo';
+import { UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
 import { Effect } from '../Effect';
 import {
   EquipmentEffectKey,
@@ -14,12 +14,6 @@ import {
   MilliValueStatusEffectKey,
   StatusEffectKey
 } from './EquipmentStatusEffect';
-import {
-  IntegerEquipmentValue,
-  MicroEquipmentValue,
-  MilliEquipmentValue,
-  MilliPercentageEquipmentValue
-} from './EquipmentEffectValue';
 import { SkillEffectTag } from '../skill/SkillEffectTag';
 
 import { equipmentData } from '../../data/equipmentData';
@@ -35,12 +29,17 @@ export const EquipmentType = {
 export type EquipmentType = typeof EquipmentType[keyof typeof EquipmentType]
 
 export const EquipmentRank = {
-  SS: 'ss',
-  S: 's',
-  A: 'a',
-  B: 'b'
+  SSS: 'sss',
+  SS: 'ss'
+  // S: 's',
+  // A: 'a',
+  // B: 'b'
 } as const;
 export type EquipmentRank = typeof EquipmentRank[keyof typeof EquipmentRank]
+
+export type ChipEquipmentRank = typeof EquipmentRank.SS
+export type OsEquipmentRank   = EquipmentRank
+export type GearEquipmentRank = typeof EquipmentRank.SS
 
 export type EquipmentEnhancementLevel = 0 | Sequence<10>
 
@@ -57,13 +56,13 @@ export type EquipmentExclusive = {
   }
 }
 
-export type StatusEffectData = {
+export type StatusEffectData<R extends EquipmentRank> = {
   [K in StatusEffectKey]?:
-    K extends IntegerValueStatusEffectKey ? IntegerEquipmentValue :
-    K extends MilliValueStatusEffectKey ? MilliEquipmentValue :
-    K extends MicroValueStatusEffectKey ? MicroEquipmentValue :
-    K extends MilliPercentageStatusEffectKey ? MilliPercentageEquipmentValue :
-    never
+    K extends IntegerValueStatusEffectKey    ? { value: number | Record<R, number> } :
+    K extends MilliValueStatusEffectKey      ? { milliValue: number | Record<R, number> } :
+    K extends MicroValueStatusEffectKey      ? { microValue: number | Record<R, number> } :
+    K extends MilliPercentageStatusEffectKey ? { milliPercentage: number | Record<R, number> } :
+      never
 }
 
 export type EquipmentId = keyof typeof equipmentData
@@ -83,62 +82,69 @@ export type ChipId = Chip['id']
 export type OsId   = Os['id']
 export type GearId = Gear['id']
 
-type EquipmentEffects<E = EquipmentData> = E extends { equipment_effects: ReadonlyArray<infer T> } ? T : never
-type EquipmentEffectsAsSkill<E = EquipmentData> = E extends { effects: ReadonlyArray<infer T> } ? T : never
+export type EquipmentEffects<E = EquipmentData> = E extends { equipment_effects: ReadonlyArray<infer T> } ? T : never
+export type EquipmentEffectsAsSkill<E = EquipmentData> = E extends { effects: ReadonlyArray<infer T> } ? T : never
 
-export type EquipmentRankDataValue<T extends number> =
-  T |
-  { readonly [UnitRank.SS]: T }
+export type EquipmentDataValue<R extends EquipmentRank, V extends number> =
+  V |
+  { readonly [key in R]: V }
 
-type IntegerValue<T extends number = number> = Readonly<{ value: EquipmentRankDataValue<T> }>
-type MicroValue                              = Readonly<{ microValue: EquipmentRankDataValue<number> }>
-type MilliPercentageValue                    = Readonly<{ milliPercentage: EquipmentRankDataValue<number> }>
+type IntegerValue<R extends EquipmentRank, V extends number = number> = Readonly<{ value: EquipmentDataValue<R, V> }>
+type MicroValue<R extends EquipmentRank>                              = Readonly<{ microValue: EquipmentDataValue<R, number> }>
+type MilliPercentageValue<R extends EquipmentRank>                    = Readonly<{ milliPercentage: EquipmentDataValue<R, number> }>
 
 export type EffectAdditionData = Readonly<
   { max_stack?: 3 } &
   { term?: 'immediate' | 'infinite' | { readonly for_rounds: 1 | 2 | 3 | 99 | 999 } } &
-  { rate?: 'constant' | MilliPercentageValue } &
-  { times?: EquipmentRankDataValue<1 | 2 | 3 | 4> }
+  { rate?: 'constant' | MilliPercentageValue<typeof EquipmentRank.SS> } &
+  { times?: EquipmentDataValue<typeof EquipmentRank.SS, 1 | 2 | 3 | 4> }
 >
 
-export type EquipmentEffectValueData = Readonly<{
+export type EquipmentEffectValueData<R extends EquipmentRank> = Readonly<{
   [E in EquipmentEffectKey]?:
     E extends NoValueEffectKey ?
       EffectAdditionData :
     E extends typeof Effect.DamageMultiplierUpByStatus ?
-      Readonly<{ status: 'def' }> & MilliPercentageValue & EffectAdditionData :
+      Readonly<{ status: 'def' }> & MilliPercentageValue<R> & EffectAdditionData :
     E extends typeof Effect.EffectRemoval ?
       Readonly<{ effect: Effect } | { effects: ReadonlyArray<Effect> }> & EffectAdditionData :
     E extends typeof Effect.PreventsEffect ?
       Readonly<{ effect: Effect }> & EffectAdditionData :
     E extends typeof Effect.ActivationRatePercentageUp ?
-      Readonly<{ effect: Effect, tag: SkillEffectTag }> & MilliPercentageValue & EffectAdditionData :
+      Readonly<{ effect: Effect, tag: SkillEffectTag }> & MilliPercentageValue<R> & EffectAdditionData :
     E extends typeof Effect['RangeUp' | 'RangeDown']?
-      IntegerValue<1 | 2> & EffectAdditionData :
+      IntegerValue<R, 1 | 2> & EffectAdditionData :
     E extends typeof Effect.BattleContinuation ?
-      IntegerValue & EffectAdditionData |
-      MilliPercentageValue & EffectAdditionData :
+      IntegerValue<R> & EffectAdditionData |
+      MilliPercentageValue<R> & EffectAdditionData :
     E extends IntegerValueEffectKey ?
-      IntegerValue & EffectAdditionData :
+      IntegerValue<R> & EffectAdditionData :
     E extends MicroValueEffectKey?
-      MicroValue & EffectAdditionData :
+      MicroValue<R> & EffectAdditionData :
     E extends MilliPercentageEffectKey ?
-      MilliPercentageValue & EffectAdditionData :
+      MilliPercentageValue<R> & EffectAdditionData :
       never
 }>
 
-export type EquipmentEffectsData = ReadonlyArray<Readonly<{
+// HACK: to avoid "TS2590: Expression produces a union type that is too complex to represent."
+export type EquipmentEffectsData<R extends EquipmentRank> = ReadonlyArray<Readonly<{
   condition?: ValueOf<EquipmentEffects[number], 'condition'>,
-  details: EquipmentEffectValueData
+  details: EquipmentEffectValueData<R>
 }>>
 
-export type EquipmentEffectsAsSkillData = ReadonlyArray<Readonly<{
-  condition?: ValueOf<EquipmentEffectsAsSkill[number], 'condition'>,
-  details: Readonly<{
-    self: EquipmentEffectValueData,
-    target?: EquipmentEffectValueData,
-  }>
-}>>
+export function availableRankSSS<E extends EquipmentData>(arg: E): arg is Extract<E, { max_rank: typeof EquipmentRank.SSS }> {
+  return 'max_rank' in arg && arg.max_rank === EquipmentRank.SSS;
+}
+
+export function availableRank(equipment: EquipmentData, rank: EquipmentRank): boolean {
+  switch (rank) {
+  case EquipmentRank.SSS:
+    return availableRankSSS(equipment);
+  case EquipmentRank.SS:
+  default:
+    return true;
+  }
+}
 
 export function matchExclusive(unit: UnitNumber, equipment: EquipmentData): boolean {
   if (!('exclusive' in equipment)) {

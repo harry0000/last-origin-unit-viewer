@@ -113,6 +113,9 @@ export type SkillEffectTag =
   'collection_complete' |
   'parts_acquired' |
   'light_of_sky' |
+  'tenderizer' |
+  'caffeine_charged' |
+  'nicotine_charged' |
   'smooth' |
   'tactical_data_link' |
   'passive_radar' |
@@ -121,4 +124,5 @@ export type SkillEffectTag =
   'predator' |
   'last_roar' |
   'hunt_preparation' |
-  'heat_absorption'
+  'heat_absorption' |
+  'bridle_of_sins'
