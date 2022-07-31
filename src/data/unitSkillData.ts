@@ -1103,7 +1103,7 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         conditions: [{ trigger: 'start_wave' }],
         target: { kind: 'ally' },
-        details: { target: { silenced: { cannot_be_dispelled: true } } }
+        details: { target: { silenced: { term: 'infinite', cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
         target: { kind: 'ally' },
