@@ -31,9 +31,9 @@ export type MilliPercentageEffectKey = typeof Effect[
   'AdditionalIceDamage' |
   'AdditionalElectricDamage' |
   'FixedDamage' |
-  'AntiLightType' |
-  'AntiHeavyType' |
-  'AntiFlyingType' |
+  'LightTypeDamageUp' |
+  'HeavyTypeDamageUp' |
+  'FlyingTypeDamageUp' |
   'AtkUp' |
   'AtkDown' |
   'DefUp' |

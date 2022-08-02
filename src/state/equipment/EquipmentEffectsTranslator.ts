@@ -86,9 +86,9 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   case Effect.AdditionalIceDamage:
   case Effect.AdditionalElectricDamage:
   case Effect.FixedDamage:
-  case Effect.AntiLightType:
-  case Effect.AntiHeavyType:
-  case Effect.AntiFlyingType:
+  case Effect.LightTypeDamageUp:
+  case Effect.HeavyTypeDamageUp:
+  case Effect.FlyingTypeDamageUp:
   case Effect.AtkUp:
   case Effect.AtkDown:
   case Effect.DefUp:

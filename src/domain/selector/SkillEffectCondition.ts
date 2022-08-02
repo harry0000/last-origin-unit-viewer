@@ -269,13 +269,11 @@ export function matchSkillConditions(
     case OffensiveSkillEffectCondition.IgnoreBarrierDR:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.ignore_barrier_dr);
     case OffensiveSkillEffectCondition.AntiLightUnitType:
-      return checkAllSkillEffectDetails(actives, passives, e => !!e?.anti_light_type);
+      return checkAllSkillEffectDetails(actives, passives, e => !!e?.light_type_damage_up);
     case OffensiveSkillEffectCondition.AntiFlyingUnitType:
-      return checkAllSkillEffectDetails(actives, passives, e =>
-        !!e?.anti_flying_type && (!('base' in e.anti_flying_type) || e.anti_flying_type.base.milliPercentage > 0)
-      );
+      return checkAllSkillEffectDetails(actives, passives, e => !!e?.flying_type_damage_up);
     case OffensiveSkillEffectCondition.AntiHeavyUnitType:
-      return checkAllSkillEffectDetails(actives, passives, e => !!e?.anti_heavy_type);
+      return checkAllSkillEffectDetails(actives, passives, e => !!e?.heavy_type_damage_up);
     case OffensiveSkillEffectCondition.DamageTakenIncrease:
       return checkAllSkillEffect(actives, passives, e =>
         'target' in e && e.target.kind === 'enemy' &&

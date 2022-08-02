@@ -30,10 +30,6 @@ i18n
         switch (format) {
         case 'unit_number':
           return (value + '').padStart(3, '0');
-        case 'signed_number':
-          return typeof value === 'number' && value >= 0 ?
-            `+${value}` :
-            value;
         default:
           return value;
         }

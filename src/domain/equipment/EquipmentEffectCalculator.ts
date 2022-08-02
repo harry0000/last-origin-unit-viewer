@@ -143,9 +143,9 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.AdditionalIceDamage:
       case Effect.AdditionalElectricDamage:
       case Effect.FixedDamage:
-      case Effect.AntiLightType:
-      case Effect.AntiHeavyType:
-      case Effect.AntiFlyingType:
+      case Effect.LightTypeDamageUp:
+      case Effect.HeavyTypeDamageUp:
+      case Effect.FlyingTypeDamageUp:
       case Effect.AtkUp:
       case Effect.AtkDown:
       case Effect.DefUp:
