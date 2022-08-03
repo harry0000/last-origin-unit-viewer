@@ -650,17 +650,17 @@ export const equipmentData = {
       { acc_up: { milliPercentage: { ss: 50000 } }, cri_up: { milliPercentage: { ss: 12000 } } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 12500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 13000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 13500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 14000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 14500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 15000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 15500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 16000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 16500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 17000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 17500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 12500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 13000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 13500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 14000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 14500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 15000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 15500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 16000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 16500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 17000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 17500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }]
     ]
   },
   recon_os: {
@@ -1195,17 +1195,17 @@ export const equipmentData = {
       { cri_up: { milliPercentage: { ss: 20000 } }, acc_up: { milliPercentage: { ss: 50000 } } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  62000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  65000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  68000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  71000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  74000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  77000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  80000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  85000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  90000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  95000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss: 100000 } }, term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  62000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  65000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  68000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  71000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  74000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  77000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  80000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  85000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  90000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  95000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss: 100000 } }, term: 'immediate' } } }]
     ]
   },
   telescopic_sight: {
@@ -1248,17 +1248,17 @@ export const equipmentData = {
       { acc_up: { milliPercentage: { ss: 90000 } } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  50000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  55000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  60000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  65000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  70000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  75000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  80000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  85000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  90000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  95000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss: 100000 } } } } }]
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  50000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  55000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  60000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  65000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  70000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  75000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  80000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  85000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  90000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  95000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss: 100000 } } } } }]
     ]
   },
   output_limit_release_device: {
@@ -1339,17 +1339,17 @@ export const equipmentData = {
     type: 'gear',
     id: 'energy_converter',
     equipment_effects: [
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  7500 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  7500 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  8000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  8000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  8500 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  8500 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  9000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  9000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  9500 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  9500 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 10000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 10000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 12000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 12000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 14000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 14000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 16000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 16000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 18000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 18000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 20000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 20000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  7500 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  7500 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  8000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  8000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  8500 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  8500 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  9000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  9000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  9500 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  9500 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 10000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 10000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 12000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 12000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 14000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 14000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 16000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 16000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 18000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 18000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 20000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 20000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }]
     ]
   },
   ap_pack: {
@@ -1532,17 +1532,17 @@ export const equipmentData = {
       { eva_up: { milliPercentage: { ss: 25000 } } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  62000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  65000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  68000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  71000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  74000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  77000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  80000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  85000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  90000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  95000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss: 100000 } }, term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  62000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  65000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  68000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  71000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  74000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  77000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  80000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  85000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  90000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  95000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss: 100000 } }, term: 'immediate' } } }]
     ]
   },
   armor_plating: {
@@ -1967,17 +1967,17 @@ export const equipmentData = {
       { acc_up: { milliPercentage: 45000 }, cri_up: { milliPercentage: 15000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  50000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  55000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  60000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  65000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  70000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  75000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  80000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  85000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  90000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  95000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage: 100000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  50000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  55000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  60000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  65000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  70000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  75000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  80000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  85000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  90000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  95000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage: 100000 }, term: 'immediate' } } }],
     ]
   },
   high_power_generator: {
@@ -2031,17 +2031,17 @@ export const equipmentData = {
     type: 'gear',
     id: 'precise_observation_gear',
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  50000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  55000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  60000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  65000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  70000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  75000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  80000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  85000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  90000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  95000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage: 100000 }, term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  50000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  55000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  60000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  65000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  70000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  75000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  80000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  85000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  90000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  95000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage: 100000 }, term: 'immediate' } } }]
     ]
   },
   enhanced_ultra_precise_scope: {
@@ -2061,17 +2061,17 @@ export const equipmentData = {
       { acc_up: { milliPercentage: 80000 }, cri_up: { milliPercentage: 25000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  50000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  55000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  60000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  65000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  70000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  75000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  80000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  85000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  90000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  95000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: 100000 }, term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  50000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  55000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  60000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  65000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  70000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  75000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  80000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  85000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  90000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  95000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: 100000 }, term: 'immediate' } } }]
     ]
   },
   enhanced_nitro_ex_3500: {
@@ -2704,17 +2704,17 @@ export const equipmentData = {
       { atk_up: { milliValue: 120000 }, acc_up: { milliPercentage: 30000 }, cri_up: { milliPercentage: 15000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 25000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 29000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 33000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 37000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 41000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 45000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 49000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 53000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 57000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 61000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 65000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 25000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 29000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 33000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 37000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 41000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 45000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 49000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 53000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 57000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 61000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 65000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }]
     ]
   },
   rangers_combat_equipment_set: {
@@ -2770,17 +2770,17 @@ export const equipmentData = {
       { atk_up: { milliValue: 125000 }, cri_up: { milliPercentage: 20000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }]
     ]
   },
   space_booster: {
@@ -2803,17 +2803,17 @@ export const equipmentData = {
       { atk_up: { milliValue: 95000 }, eva_up: { milliPercentage: 105000 }, spd_up: { microValue: 200000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  5000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  6000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  7000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  9000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 10000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 11000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 12000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 13000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 14000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 15000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  5000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  6000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  7000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  9000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 10000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 11000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 12000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 13000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 14000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 15000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }]
     ]
   },
   special_coated_rifle_rounds: {

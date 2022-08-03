@@ -105,7 +105,7 @@ export type SkillEffectDataValue = Readonly<{
       ValueWithAddition<'milliValue'> :
     E extends MicroValueEffectKey ?
       ValueWithAddition<'microValue'> :
-    E extends typeof Effect.EffectRemoval ?
+    E extends typeof Effect['BuffRemoval' | 'DebuffRemoval'] ?
       ({
         effect: Effect
       } | {

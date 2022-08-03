@@ -189,7 +189,8 @@ export function translateSkillEffectDetails(
       ),
       term
     };
-  case Effect.EffectRemoval: {
+  case Effect.BuffRemoval:
+  case Effect.DebuffRemoval: {
     const effects =
       'effect' in entry[1] ?
         t(`effect:effect.name.${entry[1].effect}`) :
@@ -198,8 +199,8 @@ export function translateSkillEffectDetails(
     return {
       detail: getDetail(
         entry[1].tag ?
-          t('effect:effect.description.tagged_effect_removal', { tag: entry[1].tag, effects }) :
-          t('effect:effect.description.effect_removal', { effects }),
+          t(`effect:effect.description.tagged_${entry[0]}`, { tag: entry[1].tag, effects }) :
+          t(`effect:effect.description.${entry[0]}`, { effects }),
         entry[1],
         t
       ),

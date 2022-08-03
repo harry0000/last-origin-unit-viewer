@@ -123,13 +123,14 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
     );
   case Effect.ApUp:
     return t(`effect:effect.description.${entry[0]}`, { value: calcMicroValue(entry[1]) });
-  case Effect.EffectRemoval: {
+  case Effect.BuffRemoval:
+  case Effect.DebuffRemoval: {
     const effects =
       'effect' in entry[1] ?
         t(`effect:effect.name.${entry[1].effect}`) :
         entry[1].effects.map(e => t(`effect:effect.name.${e}`)).join(t('effect:separator'));
 
-    return buildDetail(t('effect:effect.description.effect_removal', { effects }), entry[1], t);
+    return buildDetail(t(`effect:effect.description.${entry[0]}`, { effects }), entry[1], t);
   }
   case Effect.PreventsEffect:
     return buildDetail(t('effect:effect.description.prevents_effect', entry[1]), entry[1], t);

@@ -84,8 +84,10 @@
       "stunned": "行動不能",
       "push_pull": "押し出し/引き寄せ",
       "wet_corrosion_overloaded": "浸水/腐食/過負荷",
-      "remove_buff_debuff": "バフ/デバフ解除",
-      "remove_buff_resist_up_prevents_debuff": "バフ解除耐性Up/デバフ免疫",
+      "remove_buff": "強化効果解除",
+      "remove_debuff": "有害効果解除",
+      "remove_buff_resist_up": "強化効果解除耐性Up",
+      "prevents_debuff": "有害効果免疫",
       "action_count_up": "最大行動回数 +1"
     },
     "core_link_bonus_conditions": {

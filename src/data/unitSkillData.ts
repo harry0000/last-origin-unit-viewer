@@ -353,7 +353,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'critical' }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effect: 'damage_reduction' } } }
+        details: { target: { buff_removal: { effect: 'damage_reduction' } } }
       }, {
         conditions: [{ state: { target: [{ tagged: 'corrosion' }] } }],
         target: { kind: 'enemy' },
@@ -366,7 +366,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'spd_up' }] } }],
         details: {
           self: {
-            effect_removal: { effect: 'spd_up' },
+            buff_removal: { effect: 'spd_up' },
             atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
             acc_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
             cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
@@ -765,7 +765,7 @@ export const unitSkillData: UnitSkillData = {
           target: { kind: 'enemy' },
           details: {
             self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } },
-            target: { effect_removal: { effect: 'damage_reduction' } }
+            target: { buff_removal: { effect: 'damage_reduction' } }
           }
         }]
       }
@@ -1442,7 +1442,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy', conditions: ['light', 'heavy'] },
-        details: { target: { effect_removal: { effect: 'damage_reduction' } } }
+        details: { target: { buff_removal: { effect: 'damage_reduction' } } }
       }]
     }, {
       range: 0,
@@ -1599,7 +1599,7 @@ export const unitSkillData: UnitSkillData = {
           self: {
             eva_up: { base: { milliPercentage: 35000 }, per_lv_up: { milliPercentage: 5000 }, term: 'infinite' },
             ignore_barrier_dr: { term: 'infinite' },
-            effect_removal: { effect: 'column_protect', term: 'immediate' }
+            buff_removal: { effect: 'column_protect', term: 'immediate' }
           }
         }
       }]
@@ -1714,7 +1714,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'hit', state: { target: [{ stack_ge: { tag: 'fire_net_building', value: 2 } }] } }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effect: 'eva_up' } } }
+        details: { target: { buff_removal: { effect: 'eva_up' } } }
       }, {
         conditions: [{ trigger: 'hit', state: { target: [{ stack_ge: { tag: 'fire_net_building', value: 3 } }] } }],
         target: { kind: 'enemy' },
@@ -1764,7 +1764,7 @@ export const unitSkillData: UnitSkillData = {
           target: {
             ap_down: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
             damage_taken_increased: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
-            effect_removal: { effect: 'counterattack', term: 'immediate' }
+            buff_removal: { effect: 'counterattack', term: 'immediate' }
           }
         }
       }]
@@ -1783,7 +1783,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round' }],
         target: { kind: 'ally' },
-        details: { target: { effect_removal: { effects: ['acc_down', 'cri_down'], term: 'immediate' } } }
+        details: { target: { debuff_removal: { effects: ['acc_down', 'cri_down'], term: 'immediate' } } }
       }]
     }, {
       area: 'self',
@@ -1799,7 +1799,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'rifled_mortar' }] } }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effects: ['target_protect', 'row_protect', 'column_protect'] } } }
+        details: { target: { buff_removal: { effects: ['target_protect', 'row_protect', 'column_protect'] } } }
       }]
     }]
   },
@@ -1873,7 +1873,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 25 } } }],
         target: { kind: 'ally' },
-        details: { target: { effect_removal: { effect: 'damage_taken_increased' } } }
+        details: { target: { buff_removal: { effect: 'damage_taken_increased' } } }
       }]
     }, {
       area: 'self',
@@ -1887,7 +1887,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'ammo_supplied' }] } }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effect: 'damage_reduction' } } }
+        details: { target: { buff_removal: { effect: 'damage_reduction' } } }
       }]
     }]
   },
@@ -2766,7 +2766,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'kill' }],
-        details: { self: { effect_removal: { effect: 'eva_down' } } }
+        details: { self: { debuff_removal: { effect: 'eva_down' } } }
       }]
     }, {
       area: 'line_with_backward',
@@ -3677,7 +3677,7 @@ export const unitSkillData: UnitSkillData = {
         details: {
           target: {
             fixed_fire_damage_over_time: { base: { value: 40 }, per_lv_up: { value: 30 }, term: { for_rounds: 3 } },
-            effect_removal: { effect: 'counterattack', term: 'immediate' }
+            buff_removal: { effect: 'counterattack', term: 'immediate' }
           }
         }
       }]
@@ -3835,7 +3835,7 @@ export const unitSkillData: UnitSkillData = {
             acc_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
             cri_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
             spd_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
-            effect_removal: { effect: 'acc_up' }
+            buff_removal: { effect: 'acc_up' }
           }
         }
       }]
@@ -3875,7 +3875,7 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         conditions: [{ trigger: 'start_round' }],
         target: { kind: 'ally' },
-        details: { target: { effect_removal: { effects: ['acc_down', 'eva_down'] } } }
+        details: { target: { debuff_removal: { effects: ['acc_down', 'eva_down'] } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
         target: { kind: 'ally', conditions: ['light', 'heavy'] },
@@ -3999,7 +3999,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'be_hit' }],
-        details: { self: { effect_removal: { tag: 'elation', effects: ['atk_up', 'acc_up', 'eva_up'] } } }
+        details: { self: { buff_removal: { tag: 'elation', effects: ['atk_up', 'acc_up', 'eva_up'] } } }
       }]
     }, {
       area: {
@@ -4154,7 +4154,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'f_armory_deployment' }] } }],
         target: { kind: 'ally' },
-        details: { target: { effect_removal: { effects: ['atk_down', 'cri_down'] } } }
+        details: { target: { debuff_removal: { effects: ['atk_down', 'cri_down'] } } }
       }]
     }, {
       area: 'fixed_all',
@@ -4407,7 +4407,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'target_protect' }] } }],
         details: {
           self: {
-            effect_removal: { effect: 'target_protect', term: 'immediate' },
+            buff_removal: { effect: 'target_protect', term: 'immediate' },
             atk_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 }, term: { for_rounds: 1 } },
             cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
             damage_reduction: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } }
@@ -4605,7 +4605,7 @@ export const unitSkillData: UnitSkillData = {
       },
       effects: [{
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effect: 'damage_reduction', rate: 'rate_up_by_level' } } }
+        details: { target: { buff_removal: { effect: 'damage_reduction', rate: 'rate_up_by_level' } } }
       }]
     }],
     passive: [{
@@ -4654,7 +4654,7 @@ export const unitSkillData: UnitSkillData = {
         }, {
           conditions: [{ state: { self: [{ tagged: 'enhance_output' }] } }],
           target: { kind: 'enemy' },
-          details: { target: { effect_removal: { effects: ['barrier', 'damage_reduction'] } } }
+          details: { target: { buff_removal: { effects: ['barrier', 'damage_reduction'] } } }
         }]
       },
       limiter_unlock:{
@@ -4669,7 +4669,7 @@ export const unitSkillData: UnitSkillData = {
           target: { kind: 'enemy' },
           details: {
             self: { ignore_protect: {} },
-            target: { effect_removal: { effects: ['barrier', 'damage_reduction'] } }
+            target: { buff_removal: { effects: ['barrier', 'damage_reduction'] } }
           }
         }, {
           conditions: [{ trigger: 'critical' }],
@@ -4733,7 +4733,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ state: { target: [{ affected: 'damage_taken_increased' }, { affected: 'def_down' }] } }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effect: 'damage_reduction' } } }
+        details: { target: { buff_removal: { effect: 'damage_reduction' } } }
       }]
     }, {
       damage_deal: {
@@ -4782,7 +4782,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'critical' }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effect: 'def_up' } } }
+        details: { target: { buff_removal: { effect: 'def_up' } } }
       }]
     }, {
       damage_deal: {
@@ -4803,7 +4803,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'critical' }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effects: ['eva_up', 'damage_reduction'] } } }
+        details: { target: { buff_removal: { effects: ['eva_up', 'damage_reduction'] } } }
       }, {
         conditions: [{ trigger: 'use_this_active' }],
         details: { self: { acc_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 30000 } } } }
@@ -5033,7 +5033,7 @@ export const unitSkillData: UnitSkillData = {
         }, {
           conditions: [{ trigger: 'critical' }],
           target: { kind: 'enemy' },
-          details: { target: { effect_removal: { effect: 'counterattack' } } }
+          details: { target: { buff_removal: { effect: 'counterattack' } } }
         }]
       },
       optical_camouflage: {
@@ -5059,7 +5059,7 @@ export const unitSkillData: UnitSkillData = {
           target: { kind: 'enemy' },
           details: {
             self: { additional_damage: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 } } },
-            target: { effect_removal: { effect: 'counterattack' } }
+            target: { buff_removal: { effect: 'counterattack' } }
           }
         }]
       }
@@ -6225,7 +6225,7 @@ export const unitSkillData: UnitSkillData = {
           target: {
             ap_down: { base: { microValue: 500000 }, per_lv_up: { microValue: 25000 }, term: 'immediate' },
             eva_down: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 3 } },
-            effect_removal: { effect: 'spd_up', rate: 'constant', term: 'immediate' }
+            buff_removal: { effect: 'spd_up', rate: 'constant', term: 'immediate' }
           }
         }
       }]
@@ -6250,7 +6250,7 @@ export const unitSkillData: UnitSkillData = {
           target: { kind: 'enemy' },
           details: {
             target: {
-              effect_removal: { effects: ['column_protect', 'row_protect', 'target_protect', 'damage_reduction'] },
+              buff_removal: { effects: ['column_protect', 'row_protect', 'target_protect', 'damage_reduction'] },
               push: { value: 1 }
             }
           }
@@ -6277,7 +6277,7 @@ export const unitSkillData: UnitSkillData = {
         }, {
           conditions: [{ trigger: 'hit' }],
           target: { kind: 'enemy' },
-          details: { target: { effect_removal: { effects: ['column_protect', 'row_protect', 'target_protect', 'damage_reduction'] } } }
+          details: { target: { buff_removal: { effects: ['column_protect', 'row_protect', 'target_protect', 'damage_reduction'] } } }
         }, {
           conditions: [{ trigger: 'hit', state: { target: [{ affected: 'def_down' }] } }],
           target: { kind: 'enemy' },
@@ -6403,7 +6403,7 @@ export const unitSkillData: UnitSkillData = {
         }, {
           conditions: [{ trigger: 'critical' }],
           target: { kind: 'enemy' },
-          details: { target: { effect_removal: { effect: 'barrier' } } }
+          details: { target: { buff_removal: { effect: 'barrier' } } }
         }, {
           conditions: [{ state: { self: [{ affected: 'reconnaissance' }] } }],
           details: { self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } } } }
@@ -6588,7 +6588,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ state: { self: [{ tagged: 'artillery_command' }] } }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effects: ['target_protect', 'row_protect', 'column_protect'], term: 'immediate' } } }
+        details: { target: { buff_removal: { effects: ['target_protect', 'row_protect', 'column_protect'], term: 'immediate' } } }
       }]
     }],
     passive: [{
@@ -6729,7 +6729,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ state: { self: [{ tagged: 'artillery_command' }, { tagged: 'tactical_air_relay' }] } }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effect: 'damage_reduction' } } }
+        details: { target: { buff_removal: { effect: 'damage_reduction' } } }
       }]
     }],
     passive: [{
@@ -7069,7 +7069,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } },
-          target: { effect_removal: { effect: 'minimize_damage', term: 'immediate' } }
+          target: { buff_removal: { effect: 'minimize_damage', term: 'immediate' } }
         }
       }]
     }, {
@@ -7097,7 +7097,7 @@ export const unitSkillData: UnitSkillData = {
           target: {
             damage_taken_increased: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
             acc_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
-            effect_removal: { effect: 'acc_up', term: 'immediate' }
+            buff_removal: { effect: 'acc_up', term: 'immediate' }
           }
         }
       }, {
@@ -7254,7 +7254,7 @@ export const unitSkillData: UnitSkillData = {
             acc_down: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
             marked: { term: { for_rounds: 2 } },
             immovable: { term: { for_rounds: 2 } },
-            effect_removal: { effect: 'counterattack' }
+            buff_removal: { effect: 'counterattack' }
           }
         }
       }, {
@@ -7284,7 +7284,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ stack_ge: { tag: 'where_are_you_looking_at', value: 3 } }] } }],
         target: { kind: 'ally' },
-        details: { target: { effect_removal: { effects: ['eva_down', 'spd_down'] } } }
+        details: { target: { debuff_removal: { effects: ['eva_down', 'spd_down'] } } }
       }]
     }, {
       area: 'self',
@@ -7304,7 +7304,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'attack' }],
         details: {
           self: {
-            effect_removal: { effects: ['eva_down', 'spd_down'] },
+            debuff_removal: { effects: ['eva_down', 'spd_down'] },
             eva_up: { base: { milliPercentage: 53000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 }, max_stack: 2 }
           }
         }
@@ -7518,7 +7518,7 @@ export const unitSkillData: UnitSkillData = {
             atk_up: { base: { milliPercentage: 16000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
             spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } },
             defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } },
-            effect_removal: { effect: 'range_down', term: 'immediate' }
+            debuff_removal: { effect: 'range_down', term: 'immediate' }
           }
         }
       }]
@@ -7565,7 +7565,7 @@ export const unitSkillData: UnitSkillData = {
             marked: { term: { for_rounds: 2 } },
             immovable: { term: { for_rounds: 2 } },
             acc_down: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 }, term: { for_rounds: 2 } },
-            effect_removal: { effect: 'acc_up', term: 'immediate' }
+            buff_removal: { effect: 'acc_up', term: 'immediate' }
           }
         }
       }, {
@@ -7679,7 +7679,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'be_hit' }],
-        details: { self: { effect_removal: { tag: 'overwhelming_cuteness', effect: 'atk_up' } } }
+        details: { self: { buff_removal: { tag: 'overwhelming_cuteness', effect: 'atk_up' } } }
       }]
     }, {
       area: 'self',
@@ -7924,13 +7924,13 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effect: 'def_up' } } }
+        details: { target: { buff_removal: { effect: 'def_up' } } }
       }, {
         conditions: [{ trigger: 'critical' }],
         target: { kind: 'enemy' },
         details: {
           self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } },
-          target: { effect_removal: { effect: 'damage_reduction' } }
+          target: { buff_removal: { effect: 'damage_reduction' } }
         }
       }]
     }, {
@@ -8122,7 +8122,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: {
           target: {
-            effect_removal: { effect: 'def_down', term: 'immediate' },
+            debuff_removal: { effect: 'def_down', term: 'immediate' },
             barrier: { base: { value: 60 }, per_lv_up: { value: 30 }, term: { for_rounds: 1 } }
           }
         }
@@ -8141,7 +8141,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'single',
       effects: [{
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effect: 'damage_reduction' } } }
+        details: { target: { buff_removal: { effect: 'damage_reduction' } } }
       }, {
         conditions: [{ state: { target: [{ affected: 'immovable' }, { affected: 'marked' }] } }],
         target: { kind: 'enemy' },
@@ -8276,7 +8276,7 @@ export const unitSkillData: UnitSkillData = {
         details: {
           target: {
             def_down: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } },
-            effect_removal: { effect: 'def_up' }
+            buff_removal: { effect: 'def_up' }
           }
         }
       }, {
@@ -8284,7 +8284,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } },
-          target: { effect_removal: { effect: 'damage_reduction' } } 
+          target: { buff_removal: { effect: 'damage_reduction' } }
         }
       }]
     }, {
@@ -8988,13 +8988,13 @@ export const unitSkillData: UnitSkillData = {
           target: {
             acc_down: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
             ap_down: { base: { microValue: 1500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
-            effect_removal: { effect: 'acc_up', term: 'immediate' }
+            buff_removal: { effect: 'acc_up', term: 'immediate' }
           }
         }
       }, {
         conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'power_of_pureblood' }] } }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effects: ['atk_up', 'cri_up'], term: 'immediate' } } }
+        details: { target: { buff_removal: { effects: ['atk_up', 'cri_up'], term: 'immediate' } } }
       }]
     }],
     passive: [{
@@ -9322,7 +9322,7 @@ export const unitSkillData: UnitSkillData = {
             acc_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
             eva_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } },
             damage_reduction: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
-            effect_removal: { tag: 'magical_girl_at_centurys_end', effects: ['atk_up', 'cri_up', 'acc_up', 'eva_up', 'damage_reduction'], term: 'immediate' }
+            buff_removal: { tag: 'magical_girl_at_centurys_end', effects: ['atk_up', 'cri_up', 'acc_up', 'eva_up', 'damage_reduction'], term: 'immediate' }
           }
         }
       }, {
@@ -9368,7 +9368,7 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         conditions: [{ state: { target: [{ affected: 'provoked' }] } }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effect: 'damage_reduction' } } }
+        details: { target: { buff_removal: { effect: 'damage_reduction' } } }
       }, {
         conditions: [{ trigger: 'critical' }],
         details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 } } } }
@@ -9673,7 +9673,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } } },
-          target: { effect_removal: { effect: 'def_up' } }
+          target: { buff_removal: { effect: 'def_up' } }
         }
       }]
     }],
@@ -9762,7 +9762,7 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { battle_continuation: { base: { milliPercentage: 91000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', times: 1, cannot_be_dispelled: true } } }
       }, {
         conditions: [{ state: { self: [{ hp_less_or_equal: 90 }] } }],
-        details: { self: { effect_removal: { effect: 'battle_continuation' } } }
+        details: { self: { buff_removal: { effect: 'battle_continuation' } } }
       }]
     }, {
       area: {
@@ -9788,7 +9788,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round' }],
         target: { kind: 'ally', conditions: [{ alias: 'magical_girl', type: 'light' }] },
-        details: { target: { effect_removal: { tag: 'great_overlord_please_be_careful', effects: ['target_protect', 'status_resist_up', 'fire_resist_up', 'ice_resist_up', 'electric_resist_up'] } } }
+        details: { target: { buff_removal: { tag: 'great_overlord_please_be_careful', effects: ['target_protect', 'status_resist_up', 'fire_resist_up', 'ice_resist_up', 'electric_resist_up'] } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 171 } } }],
         details: {
@@ -10139,7 +10139,7 @@ export const unitSkillData: UnitSkillData = {
             ap_up: { base: { microValue: 1500000 }, per_lv_up: { microValue: 75000 }, term: 'immediate' },
             acc_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
             cri_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 2 } },
-            effect_removal: { effect: 'acc_down', term: 'immediate' }
+            debuff_removal: { effect: 'acc_down', term: 'immediate' }
           }
         }
       }]
@@ -10392,7 +10392,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } } },
-          target: { effect_removal: { effect: 'acc_up' } }
+          target: { buff_removal: { effect: 'acc_up' } }
         }
       }]
     }],
@@ -10463,7 +10463,7 @@ export const unitSkillData: UnitSkillData = {
             marked: { term: { for_rounds: 2 } },
             damage_taken_increased: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 2 } },
             fire_resist_down: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 }, term: { for_rounds: 2 } },
-            effect_removal: { effect: 'damage_reduction', term: 'immediate' }
+            buff_removal: { effect: 'damage_reduction', term: 'immediate' }
           }
         }
       }]
@@ -10482,7 +10482,7 @@ export const unitSkillData: UnitSkillData = {
         details: {
           target: {
             acc_down: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
-            effect_removal: { effect: 'acc_up', term: 'immediate' },
+            buff_removal: { effect: 'acc_up', term: 'immediate' },
             silenced: { term: 'immediate' }
           }
         }
@@ -10569,7 +10569,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           target: {
-            effect_removal: { effects: ['def_up', 'damage_reduction'], term: 'immediate' },
+            buff_removal: { effects: ['def_up', 'damage_reduction'], term: 'immediate' },
             damage_taken_increased: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } }
           }
         }
@@ -10643,7 +10643,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } } },
-          target: { effect_removal: { effect: 'damage_reduction' } }
+          target: { buff_removal: { effect: 'damage_reduction' } }
         }
       }]
     }],
@@ -10876,7 +10876,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           target: {
-            effect_removal: { effect: 'counterattack', term: 'immediate' },
+            buff_removal: { effect: 'counterattack', term: 'immediate' },
             marked: { term: { for_rounds: 2 } },
             damage_taken_increased: { base: { milliPercentage: 22000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
           }
@@ -12752,7 +12752,7 @@ export const unitSkillData: UnitSkillData = {
             immovable: { term: { for_rounds: 2 } },
             acc_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 10000 }, term: { for_rounds: 2 } },
             flying_type_damage_down: { base: { milliPercentage: 23000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 } },
-            effect_removal: { effects: ['acc_up', 'flying_type_damage_up'], term: 'immediate' }
+            buff_removal: { effects: ['acc_up', 'flying_type_damage_up'], term: 'immediate' }
           }
         }
       }]
@@ -13096,7 +13096,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           target: {
-            effect_removal: { effect: 'damage_reduction', term: 'immediate' },
+            buff_removal: { effect: 'damage_reduction', term: 'immediate' },
             def_down: { base: { milliPercentage: 17000 }, per_lv_up: { milliPercentage: 7000 }, term: { for_rounds: 3 } }
           }
         }
@@ -13343,7 +13343,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           target: {
-            effect_removal: { effects: ['row_protect', 'column_protect', 'target_protect'], term: 'immediate' },
+            buff_removal: { effects: ['row_protect', 'column_protect', 'target_protect'], term: 'immediate' },
             eva_down: { base: { milliPercentage: 34000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 } },
             range_down: { value: 1, term: { for_rounds: 2 } }
           }
@@ -13850,42 +13850,42 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ state: { self: [{ affected: 'atk_up' }] } }],
         target: { kind: 'ally', conditions: [{ not_alias: 'anger_of_horde' }] },
         details: {
-          self: { effect_removal: { effect: 'atk_up', term: 'immediate' } },
+          self: { buff_removal: { effect: 'atk_up', term: 'immediate' } },
           target: { atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', times: 2 } }
         }
       }, {
         conditions: [{ state: { self: [{ affected: 'acc_up' }] } }],
         target: { kind: 'ally', conditions: [{ not_alias: 'anger_of_horde' }] },
         details: {
-          self: { effect_removal: { effect: 'acc_up', term: 'immediate' } },
+          self: { buff_removal: { effect: 'acc_up', term: 'immediate' } },
           target: { acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', times: 2 } }
         }
       }, {
         conditions: [{ state: { self: [{ affected: 'cri_up' }] } }],
         target: { kind: 'ally', conditions: [{ not_alias: 'anger_of_horde' }] },
         details: {
-          self: { effect_removal: { effect: 'cri_up', term: 'immediate' } },
+          self: { buff_removal: { effect: 'cri_up', term: 'immediate' } },
           target: { cri_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', times: 2 } }
         }
       }, {
         conditions: [{ state: { self: [{ affected: 'atk_up' }] } }],
         target: { kind: 'ally', conditions: ['anger_of_horde'] },
         details: {
-          self: { effect_removal: { effect: 'atk_up', term: 'immediate' } },
+          self: { buff_removal: { effect: 'atk_up', term: 'immediate' } },
           target: { atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } }
         }
       }, {
         conditions: [{ state: { self: [{ affected: 'acc_up' }] } }],
         target: { kind: 'ally', conditions: ['anger_of_horde'] },
         details: {
-          self: { effect_removal: { effect: 'acc_up', term: 'immediate' } },
+          self: { buff_removal: { effect: 'acc_up', term: 'immediate' } },
           target: { acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } }
         }
       }, {
         conditions: [{ state: { self: [{ affected: 'cri_up' }] } }],
         target: { kind: 'ally', conditions: ['anger_of_horde'] },
         details: {
-          self: { effect_removal: { effect: 'cri_up', term: 'immediate' } },
+          self: { buff_removal: { effect: 'cri_up', term: 'immediate' } },
           target: { cri_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } }
         }
       }, {
@@ -13914,7 +13914,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'follow_up_attack' }] } }],
         details: {
           self: {
-            effect_removal: { effect: 'follow_up_attack', term: 'immediate' },
+            buff_removal: { effect: 'follow_up_attack', term: 'immediate' },
             ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' }
           }
         }
@@ -13922,7 +13922,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'action_count_up' }] } }],
         details: {
           self: {
-            effect_removal: { effect: 'action_count_up', term: 'immediate' },
+            buff_removal: { effect: 'action_count_up', term: 'immediate' },
             ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' }
           }
         }
@@ -13930,7 +13930,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'action_count_down' }] } }],
         details: {
           self: {
-            effect_removal: { effect: 'action_count_down', term: 'immediate' },
+            debuff_removal: { effect: 'action_count_down', term: 'immediate' },
             ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' }
           }
         }
@@ -14202,7 +14202,7 @@ export const unitSkillData: UnitSkillData = {
             ignore_barrier_dr: {},
             additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } }
           },
-          target: { effect_removal: { effect: 'counterattack' } }
+          target: { buff_removal: { effect: 'counterattack' } }
         }
       }]
     }],
@@ -14244,7 +14244,7 @@ export const unitSkillData: UnitSkillData = {
             additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } },
             activation_rate_percentage_up: { effect: 'stunned', milliPercentage: 25000 }
           },
-          target: { effect_removal: { effect: 'damage_reduction' } }
+          target: { buff_removal: { effect: 'damage_reduction' } }
         }
       }]
     }, {
@@ -14259,7 +14259,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           target: {
-            effect_removal: { effects: ['row_protect', 'column_protect'] },
+            buff_removal: { effects: ['row_protect', 'column_protect'] },
             push: { value: 1 }
           }
         }
@@ -14296,7 +14296,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'range_up' }] } }],
         details: {
           self: {
-            effect_removal: { effect: 'range_up', term: 'immediate' },
+            buff_removal: { effect: 'range_up', term: 'immediate' },
             atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
             acc_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 2 } },
             cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
@@ -14334,7 +14334,7 @@ export const unitSkillData: UnitSkillData = {
         details: {
           target: {
             def_down: { base: { milliPercentage: 45000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: { 1: 2, 10: 3 } } },
-            effect_removal: { effects: ['def_up', 'damage_reduction'] }
+            buff_removal: { effects: ['def_up', 'damage_reduction'] }
           }
         }
       }]
@@ -14374,7 +14374,7 @@ export const unitSkillData: UnitSkillData = {
         details: {
           target: {
             def_down: { base: { milliPercentage: 43000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 } },
-            effect_removal: { effects: ['target_protect', 'column_protect', 'row_protect'], term: 'immediate' }
+            buff_removal: { effects: ['target_protect', 'column_protect', 'row_protect'], term: 'immediate' }
           }
         }
       }]
@@ -14446,7 +14446,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           self: { additional_damage: { base: { milliPercentage: 48000 }, per_lv_up: { milliPercentage: 3000 } } },
-          target: { effect_removal: { effect: 'counterattack' } }
+          target: { buff_removal: { effect: 'counterattack' } }
         }
       }]
     }, {
@@ -14462,7 +14462,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effect: 'counterattack' } } }
+        details: { target: { buff_removal: { effect: 'counterattack' } } }
       }]
     }],
     passive: [{
@@ -14687,7 +14687,7 @@ export const unitSkillData: UnitSkillData = {
           target: {
             acc_down: { base: { milliPercentage: 35000 }, per_lv_up: { milliPercentage: 1750 }, term: { for_rounds: 2 } },
             ap_down: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 } },
-            effect_removal: { effect: 'acc_up' }
+            buff_removal: { effect: 'acc_up' }
           }
         }
       }, {
@@ -15018,7 +15018,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ state: { self: [{ hp_greater_or_equal: 50 }] } }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effect: 'damage_reduction' } } }
+        details: { target: { buff_removal: { effect: 'damage_reduction' } } }
       }]
     }, {
       damage_deal: {
@@ -15096,7 +15096,7 @@ export const unitSkillData: UnitSkillData = {
             def_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } },
             status_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
             damage_reduction: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
-            effect_removal: { effect: 'target_protect', term: 'immediate' }
+            buff_removal: { effect: 'target_protect', term: 'immediate' }
           }
         }
       }, {
@@ -15104,7 +15104,7 @@ export const unitSkillData: UnitSkillData = {
         details: {
           self: {
             marked: { term: { for_rounds: 2 } },
-            effect_removal: { effect: 'target_protect', term: 'immediate' }
+            buff_removal: { effect: 'target_protect', term: 'immediate' }
           }
         }
       }]
@@ -15118,7 +15118,7 @@ export const unitSkillData: UnitSkillData = {
         details: {
           self: {
             spd_up: { tag: 'last_roar', base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', cannot_be_dispelled: true },
-            effect_removal: { effect: 'battle_continuation', term: 'immediate' }
+            buff_removal: { effect: 'battle_continuation', term: 'immediate' }
           }
         }
       }, {
@@ -15415,7 +15415,7 @@ export const unitSkillData: UnitSkillData = {
           target: {
             marked: { term: { for_rounds: 2 } },
             eva_down: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
-            effect_removal: { effect: 'def_up', term: 'immediate' }
+            buff_removal: { effect: 'def_up', term: 'immediate' }
           }
         }
       }]
@@ -15683,7 +15683,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ state: { target: [{ hp_less_or_equal: 50 }] } }],
         target: { kind: 'enemy' },
-        details: { target: { effect_removal: { effect: 'damage_reduction' } } }
+        details: { target: { buff_removal: { effect: 'damage_reduction' } } }
       }, {
         conditions: [{ state: { target: [{ tagged: 'wet' }] } }],
         target: { kind: 'enemy' },
@@ -16154,7 +16154,7 @@ export const unitSkillData: UnitSkillData = {
           target: {
             damage_multiplier_down: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
             acc_down: { base: { milliPercentage: 55000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 2 } },
-            effect_removal: { effect: 'acc_up', term: 'immediate' }
+            buff_removal: { effect: 'acc_up', term: 'immediate' }
           }
         }
       }]
@@ -16175,7 +16175,7 @@ export const unitSkillData: UnitSkillData = {
         details: {
           target: {
             defense_penetration: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
-            effect_removal: { effects: ['atk_down', 'acc_down', 'cri_down'], term: 'immediate' }
+            debuff_removal: { effects: ['atk_down', 'acc_down', 'cri_down'], term: 'immediate' }
           }
         }
       }]

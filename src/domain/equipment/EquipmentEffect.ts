@@ -68,7 +68,8 @@ export type EquipmentEffectKey =
     'RangeUp' |
     'RangeDown' |
     'BattleContinuation' |
-    'EffectRemoval' |
+    'BuffRemoval' |
+    'DebuffRemoval' |
     'PreventsEffect' |
     'ActivationRatePercentageUp'
   ]
@@ -93,7 +94,7 @@ export type EquipmentEffectValue = Readonly<{
       EquipmentEffectAddition :
     E extends typeof Effect.DamageMultiplierUpByStatus ?
       Readonly<{ status: 'def' }> & MilliPercentageValue & EquipmentEffectAddition :
-    E extends typeof Effect.EffectRemoval ?
+    E extends typeof Effect['BuffRemoval' | 'DebuffRemoval'] ?
       Readonly<{ effect: Effect } | { effects: ReadonlyArray<Effect> }> & EquipmentEffectAddition :
     E extends typeof Effect.PreventsEffect ?
       Readonly<{ effect: Effect }> & EquipmentEffectAddition :

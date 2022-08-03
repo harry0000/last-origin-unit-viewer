@@ -188,7 +188,8 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
             ...toMicroValue(rank, entry[1])
           }
         };
-      case Effect.EffectRemoval: {
+      case Effect.BuffRemoval:
+      case Effect.DebuffRemoval: {
         const value = entry[1];
         return 'effect' in value ?
           { [entry[0]]: { ...calculateAddition(value), effect: value.effect } } :
