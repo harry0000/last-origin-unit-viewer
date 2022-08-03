@@ -8988,12 +8988,13 @@ export const unitSkillData: UnitSkillData = {
           target: {
             acc_down: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
             ap_down: { base: { microValue: 1500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
-            effect_removal: { effect: 'acc_up' }
+            effect_removal: { effect: 'acc_up', term: 'immediate' }
           }
         }
       }, {
-        conditions: [{ state: { self: [{ tagged: 'power_of_pureblood' }] } }],
-        details: { self: { effect_removal: { effects: ['atk_up', 'cri_up'] } } }
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'power_of_pureblood' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { effect_removal: { effects: ['atk_up', 'cri_up'], term: 'immediate' } } }
       }]
     }],
     passive: [{
