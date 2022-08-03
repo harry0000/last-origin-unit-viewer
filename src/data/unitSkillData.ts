@@ -8281,11 +8281,10 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'critical' }],
+        target: { kind: 'enemy' },
         details: {
-          self: {
-            additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } },
-            effect_removal: { effect: 'damage_reduction' }
-          }
+          self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } },
+          target: { effect_removal: { effect: 'damage_reduction' } } 
         }
       }]
     }, {
