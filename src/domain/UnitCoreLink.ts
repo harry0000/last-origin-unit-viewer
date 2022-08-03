@@ -125,7 +125,7 @@ class UnitCoreLink {
   readonly slot4: CoreLinkUnit | undefined;
   readonly slot5: CoreLinkUnit | undefined;
 
-  readonly fullLinkBonus: FullLinkBonus | undefined
+  readonly fullLinkBonus: FullLinkBonus | undefined;
 
   constructor(
     unit: UnitNumber,

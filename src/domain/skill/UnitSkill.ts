@@ -207,7 +207,7 @@ class FormLessUnitSkill extends UnitSkill {
 
 abstract class FormChangeUnitSkill<N extends FormChangeUnitNumbers> extends UnitSkill {
 
-  protected readonly formChangeUnit: FormChangeUnitBasicInfo<N>
+  protected readonly formChangeUnit: FormChangeUnitBasicInfo<N>;
   protected readonly form: UnitFormValue<N>;
 
   protected constructor(
