@@ -1305,6 +1305,74 @@ export const equipmentData = {
   //     role: 'defender'
   //   }
   // },
+  light_firearm_loader: {
+    type: 'gear',
+    id: 'light_firearm_loader',
+    exclusive: {
+      type: 'light',
+      role: 'attacker'
+    },
+    status_effects: [
+      { acc_up: { milliPercentage: { ss: 20000 } }, cri_up: { milliPercentage: { ss:  5000 } } },
+      { acc_up: { milliPercentage: { ss: 22000 } }, cri_up: { milliPercentage: { ss:  6000 } } },
+      { acc_up: { milliPercentage: { ss: 24000 } }, cri_up: { milliPercentage: { ss:  7000 } } },
+      { acc_up: { milliPercentage: { ss: 26000 } }, cri_up: { milliPercentage: { ss:  8000 } } },
+      { acc_up: { milliPercentage: { ss: 28000 } }, cri_up: { milliPercentage: { ss:  9000 } } },
+      { acc_up: { milliPercentage: { ss: 30000 } }, cri_up: { milliPercentage: { ss: 10000 } } },
+      { acc_up: { milliPercentage: { ss: 32000 } }, cri_up: { milliPercentage: { ss: 11000 } } },
+      { acc_up: { milliPercentage: { ss: 34000 } }, cri_up: { milliPercentage: { ss: 12000 } } },
+      { acc_up: { milliPercentage: { ss: 36000 } }, cri_up: { milliPercentage: { ss: 13000 } } },
+      { acc_up: { milliPercentage: { ss: 38000 } }, cri_up: { milliPercentage: { ss: 14000 } } },
+      { acc_up: { milliPercentage: { ss: 40000 } }, cri_up: { milliPercentage: { ss: 15000 } } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  72500 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  75000 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  77500 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  80000 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  82500 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  85000 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  88000 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  91000 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  94000 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  97000 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss: 100000 } } } } }]
+    ]
+  },
+  aerial_firearm_thruster: {
+    type: 'gear',
+    id: 'aerial_firearm_thruster',
+    exclusive: {
+      type: 'flying',
+      role: 'attacker'
+    },
+    status_effects: [
+      { acc_up: { milliPercentage: { ss: 20000 } }, cri_up: { milliPercentage: { ss:  5000 } } },
+      { acc_up: { milliPercentage: { ss: 22000 } }, cri_up: { milliPercentage: { ss:  6000 } } },
+      { acc_up: { milliPercentage: { ss: 24000 } }, cri_up: { milliPercentage: { ss:  7000 } } },
+      { acc_up: { milliPercentage: { ss: 26000 } }, cri_up: { milliPercentage: { ss:  8000 } } },
+      { acc_up: { milliPercentage: { ss: 28000 } }, cri_up: { milliPercentage: { ss:  9000 } } },
+      { acc_up: { milliPercentage: { ss: 30000 } }, cri_up: { milliPercentage: { ss: 10000 } } },
+      { acc_up: { milliPercentage: { ss: 32000 } }, cri_up: { milliPercentage: { ss: 11000 } } },
+      { acc_up: { milliPercentage: { ss: 34000 } }, cri_up: { milliPercentage: { ss: 12000 } } },
+      { acc_up: { milliPercentage: { ss: 36000 } }, cri_up: { milliPercentage: { ss: 13000 } } },
+      { acc_up: { milliPercentage: { ss: 38000 } }, cri_up: { milliPercentage: { ss: 14000 } } },
+      { acc_up: { milliPercentage: { ss: 40000 } }, cri_up: { milliPercentage: { ss: 15000 } } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 25000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 27000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 29000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 31000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 33000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 35000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 37000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 39000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 41000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 43000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 45000 }, term: 'infinite' } } }]
+    ]
+  },
   aqua_module: {
     type: 'gear',
     id: 'aqua_module',

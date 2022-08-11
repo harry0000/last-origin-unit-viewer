@@ -27,6 +27,7 @@ export type IntegerValueEffectKey = typeof Effect[
   'Barrier'
 ]
 export type MilliPercentageEffectKey = typeof Effect[
+  'DamageMultiplierUp' |
   'AdditionalFireDamage' |
   'AdditionalIceDamage' |
   'AdditionalElectricDamage' |

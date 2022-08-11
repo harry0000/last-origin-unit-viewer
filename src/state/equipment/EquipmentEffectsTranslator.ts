@@ -82,6 +82,7 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
     return 'value' in entry[1] ?
       buildDetail(t('effect:effect.description.battle_continuation', { value: entry[1].value }), entry[1], t) :
       buildDetail(t('effect:effect.description.battle_continuation_with_hp_rate', { value: calcMilliPercentageValue(entry[1]) }), entry[1], t);
+  case Effect.DamageMultiplierUp:
   case Effect.AdditionalFireDamage:
   case Effect.AdditionalIceDamage:
   case Effect.AdditionalElectricDamage:

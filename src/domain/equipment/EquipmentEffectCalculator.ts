@@ -139,6 +139,7 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
         return 'value' in entry[1] ?
           { [entry[0]]: { ...calculateAddition(entry[1]), ...toIntegerValue(rank, entry[1]) } } :
           { [entry[0]]: { ...calculateAddition(entry[1]), ...toMilliPercentageValue(rank, entry[1]) } };
+      case Effect.DamageMultiplierUp:
       case Effect.AdditionalFireDamage:
       case Effect.AdditionalIceDamage:
       case Effect.AdditionalElectricDamage:
