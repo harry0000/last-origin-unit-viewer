@@ -6699,8 +6699,10 @@ export const unitSkillData: UnitSkillData = {
       cost: 5,
       area: 'single',
       effects: [{
+        conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
         details: {
+          self: { damage_multiplier_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 2 } },
           target: {
             provoked: { term: { for_rounds: 2 } },
             acc_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
@@ -6710,9 +6712,6 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'critical' }],
         details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
-      }, {
-        conditions: [{ trigger: 'kill' }],
-        details: { self: { damage_multiplier_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 2 } } }
       }]
     }, {
       damage_deal: {
@@ -7170,7 +7169,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'hardpoint_equipment_armament' }] } }],
         target: { kind: 'ally' },
-        details: { target: { atk_value_up_by_self_value: { tag: 'tactical_air_relay', base: { milliPercentage: 1200 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } } } }
+        details: { target: { atk_value_up_by_self_value: { tag: 'tactical_air_relay', base: { milliPercentage: 2200 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'hardpoint_equipment_support' }] } }],
         target: { kind: 'ally' },
