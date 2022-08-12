@@ -134,7 +134,7 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
     return buildDetail(t(`effect:effect.description.${entry[0]}`, { effects }), entry[1], t);
   }
   case Effect.PreventsEffect:
-    return buildDetail(t('effect:effect.description.prevents_effect', entry[1]), entry[1], t);
+    return buildDetail(t('effect:effect.description.prevents_effect', { effects: t(`effect:effect.name.${entry[1].effect}`) }), entry[1], t);
   case Effect.ActivationRatePercentageUp:{
     const { tag, effect } = entry[1];
     const value = calcMilliPercentageValue(entry[1]);

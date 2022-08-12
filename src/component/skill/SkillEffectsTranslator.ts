@@ -80,6 +80,12 @@ function translateTagStackDetail(
   };
 }
 
+function translateEffectNames(value: { effect: Effect } | { effects: ReadonlyArray<Effect> }, t: TFunction): string {
+  return 'effect' in value ?
+    t(`effect:effect.name.${value.effect}`) :
+    value.effects.map(e => t(`effect:effect.name.${e}`)).join(t('effect:separator'));
+}
+
 export function translateSkillEffectDetails(
   entry: SkillEffectDetailsEntry,
   t: TFunction
@@ -191,10 +197,7 @@ export function translateSkillEffectDetails(
     };
   case Effect.BuffRemoval:
   case Effect.DebuffRemoval: {
-    const effects =
-      'effect' in entry[1] ?
-        t(`effect:effect.name.${entry[1].effect}`) :
-        entry[1].effects.map(e => t(`effect:effect.name.${e}`)).join(t('effect:separator'));
+    const effects = translateEffectNames(entry[1], t);
 
     return {
       detail: getDetail(
@@ -210,7 +213,11 @@ export function translateSkillEffectDetails(
   case Effect.PreventsEffect:
     return {
       tag: getTag(entry[1], t),
-      detail: getDetail(t(`effect:effect.description.${entry[0]}`, entry[1]), entry[1], t),
+      detail: getDetail(
+        t(`effect:effect.description.${entry[0]}`, { effects: translateEffectNames(entry[1], t) }),
+        entry[1],
+        t
+      ),
       term
     };
   case Effect.ActivationRatePercentageUp: {

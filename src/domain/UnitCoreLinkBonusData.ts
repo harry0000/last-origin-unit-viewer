@@ -87,7 +87,7 @@ export type UnitCoreLinkBonusData = Readonly<{
     specific_link_bonus: SpecificCoreLinkBonus,
     full_link_bonus: readonly [
       SortieCostBonus,
-      DamageMultiplierBonus | HpUpBonus | AccUpBonus | CriUpBonus ,
+      DamageMultiplierBonus | HpUpBonus | AccUpBonus | CriUpBonus | BuffDebuffLv2UpBonus,
       HpUpBonus | AccUpBonus | CriUpBonus | Range1UpBonus,
       HpUpBonus | EvaUpBonus | AccUpBonus | CriUpBonus | Range1UpBonus | BuffDebuffLv2UpBonus,
       SpdUpBonus

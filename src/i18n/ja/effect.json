@@ -491,7 +491,7 @@
       "tagged_buff_removal": "<$t(effect:tag.{{tag}})>の{{effects}}効果を解除",
       "tagged_debuff_removal": "<$t(effect:tag.{{tag}})>の{{effects}}効果を解除",
       "all_buff_removal_resist_up": "強化効果解除耐性 +{{value}}%",
-      "prevents_effect": "$t(effect:effect.name.{{effect}})効果免疫",
+      "prevents_effect": "{{effects}}効果免疫",
       "activation_rate_percentage_up": "$t(effect:effect.name.{{effect}})の発動率 +{{value}}%",
       "tagged_activation_rate_percentage_up": "<$t(effect:tag.{{tag}})>($t(effect:effect.name.{{effect}}))の発動率 +{{value}}%",
       "absolutely_activated": "<$t(effect:tag.{{tag}})>($t(effect:effect.name.{{effect}}))が必ず適用される",

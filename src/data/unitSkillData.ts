@@ -14494,6 +14494,64 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  209: {
+    no: 209,
+    active: [{
+      damage_deal: {
+        milliPercentage: 10000
+      },
+      range: 4,
+      cost: 7,
+      area: 'line_toward_front_greatly_attenuate',
+      effects: [{
+        target: { kind: 'enemy' },
+        details: {
+          self: { ignore_protect: {} },
+          target: {
+            acc_down: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
+            buff_removal: { effect: 'acc_up', term: 'immediate' }
+          }
+        }
+      }]
+    }, {
+      range: 6,
+      cost: 7,
+      area: 'single',
+      effects: [{
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 }, max_stack: 1 },
+            def_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 }, max_stack: 1 },
+            eva_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 }, max_stack: 1 },
+            spd_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 1 },
+            defense_penetration: { base: { milliPercentage: 25600 }, per_lv_up: { milliPercentage: 1600 }, term: { for_rounds: 2 }, max_stack: 1 }
+          }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'all_forward',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        target: { kind: 'ally' },
+        details: { target: { spd_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: { target: { prevents_effect: { effects: ['eva_down', 'spd_down'], term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        details: { self: { battle_continuation: { base: { milliPercentage: 53000 }, per_lv_up: { milliPercentage: 3000 }, term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { all_debuff_removal: { term: 'immediate' } } }
+      }]
+    }]
+  },
   210: {
     no: 210,
     active: [{
