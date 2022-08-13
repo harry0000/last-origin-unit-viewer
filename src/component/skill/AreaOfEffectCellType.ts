@@ -134,6 +134,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
     select: 6,
     area: ['none', 'none', 'effective', 'effective', 'effective', 'effective', 'none', 'none', 'effective']
   },
+  [SkillAreaType.LineTowardFrontGreatlyAttenuate]: {
+    select: 4,
+    area: ['effective', 'middle', 'weak', 'effective', 'middle', 'weak', 'effective', 'middle', 'weak']
+  },
   [SkillAreaType.SelfAndLeftDirection]: {
     select: 2,
     area: ['none', 'effective', 'none', 'none', 'effective', 'none', 'none', 'effective', 'none']
@@ -309,6 +313,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
   [SkillAreaType.UnderWatcher]: {
     select: 6,
     area: ['effective', 'effective', 'effective', 'effective', 'effective', 'none', 'effective', 'effective', 'effective']
+  },
+  [SkillAreaType.AllForward]: {
+    select: 4,
+    area: ['none', 'effective', 'effective', 'none', 'effective', 'effective', 'none', 'effective', 'effective']
   },
   [SkillAreaType.AllBackward]: {
     select: 6,

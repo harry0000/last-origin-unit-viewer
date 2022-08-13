@@ -65,7 +65,8 @@ export type MilliPercentageEffectKey =
     MilliPercentageEffectDependsOnStatusKey |
     typeof Effect[
       'CooperativeAttack' |
-      'EffectRemoval' |
+      'BuffRemoval' |
+      'DebuffRemoval' |
       'PreventsEffect' |
       'ActivationRatePercentageUp' |
       'AbsolutelyActivated' |

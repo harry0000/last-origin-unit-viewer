@@ -40,6 +40,7 @@ function matchFullLinkBonusCondition(
   switch (fullLinkBonus) {
   case Effect.HpUp:
     return (
+      'hp_up' in coreLink.full_link_bonus[1] ||
       'hp_up' in coreLink.full_link_bonus[2] ||
       'hp_up' in coreLink.full_link_bonus[3]
     );
@@ -51,6 +52,7 @@ function matchFullLinkBonusCondition(
     );
   case Effect.CriUp:
     return (
+      'cri_up' in coreLink.full_link_bonus[1] ||
       'cri_up' in coreLink.full_link_bonus[2] ||
       'cri_up' in coreLink.full_link_bonus[3]
     );
@@ -62,6 +64,9 @@ function matchFullLinkBonusCondition(
       'range_up' in coreLink.full_link_bonus[3]
     );
   case 'buff_debuff_lv_2_up':
-    return 'buff_debuff_lv_up' in coreLink.full_link_bonus[3];
+    return (
+      'buff_debuff_lv_up' in coreLink.full_link_bonus[1] ||
+      'buff_debuff_lv_up' in coreLink.full_link_bonus[3]
+    );
   }
 }

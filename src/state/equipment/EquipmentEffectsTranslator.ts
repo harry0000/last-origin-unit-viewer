@@ -82,13 +82,14 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
     return 'value' in entry[1] ?
       buildDetail(t('effect:effect.description.battle_continuation', { value: entry[1].value }), entry[1], t) :
       buildDetail(t('effect:effect.description.battle_continuation_with_hp_rate', { value: calcMilliPercentageValue(entry[1]) }), entry[1], t);
+  case Effect.DamageMultiplierUp:
   case Effect.AdditionalFireDamage:
   case Effect.AdditionalIceDamage:
   case Effect.AdditionalElectricDamage:
   case Effect.FixedDamage:
-  case Effect.AntiLightType:
-  case Effect.AntiHeavyType:
-  case Effect.AntiFlyingType:
+  case Effect.LightTypeDamageUp:
+  case Effect.HeavyTypeDamageUp:
+  case Effect.FlyingTypeDamageUp:
   case Effect.AtkUp:
   case Effect.AtkDown:
   case Effect.DefUp:
@@ -123,16 +124,17 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
     );
   case Effect.ApUp:
     return t(`effect:effect.description.${entry[0]}`, { value: calcMicroValue(entry[1]) });
-  case Effect.EffectRemoval: {
+  case Effect.BuffRemoval:
+  case Effect.DebuffRemoval: {
     const effects =
       'effect' in entry[1] ?
         t(`effect:effect.name.${entry[1].effect}`) :
         entry[1].effects.map(e => t(`effect:effect.name.${e}`)).join(t('effect:separator'));
 
-    return buildDetail(t('effect:effect.description.effect_removal', { effects }), entry[1], t);
+    return buildDetail(t(`effect:effect.description.${entry[0]}`, { effects }), entry[1], t);
   }
   case Effect.PreventsEffect:
-    return buildDetail(t('effect:effect.description.prevents_effect', entry[1]), entry[1], t);
+    return buildDetail(t('effect:effect.description.prevents_effect', { effects: t(`effect:effect.name.${entry[1].effect}`) }), entry[1], t);
   case Effect.ActivationRatePercentageUp:{
     const { tag, effect } = entry[1];
     const value = calcMilliPercentageValue(entry[1]);

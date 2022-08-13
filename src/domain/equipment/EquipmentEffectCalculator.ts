@@ -139,13 +139,14 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
         return 'value' in entry[1] ?
           { [entry[0]]: { ...calculateAddition(entry[1]), ...toIntegerValue(rank, entry[1]) } } :
           { [entry[0]]: { ...calculateAddition(entry[1]), ...toMilliPercentageValue(rank, entry[1]) } };
+      case Effect.DamageMultiplierUp:
       case Effect.AdditionalFireDamage:
       case Effect.AdditionalIceDamage:
       case Effect.AdditionalElectricDamage:
       case Effect.FixedDamage:
-      case Effect.AntiLightType:
-      case Effect.AntiHeavyType:
-      case Effect.AntiFlyingType:
+      case Effect.LightTypeDamageUp:
+      case Effect.HeavyTypeDamageUp:
+      case Effect.FlyingTypeDamageUp:
       case Effect.AtkUp:
       case Effect.AtkDown:
       case Effect.DefUp:
@@ -188,7 +189,8 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
             ...toMicroValue(rank, entry[1])
           }
         };
-      case Effect.EffectRemoval: {
+      case Effect.BuffRemoval:
+      case Effect.DebuffRemoval: {
         const value = entry[1];
         return 'effect' in value ?
           { [entry[0]]: { ...calculateAddition(value), effect: value.effect } } :

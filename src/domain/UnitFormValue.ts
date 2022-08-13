@@ -112,7 +112,7 @@ class UnitFormValue<N extends FormChangeUnitNumbers> {
   }
 
   readonly #unitNo: N;
-  readonly #form: keyof typeof UnitForms[N]
+  readonly #form: keyof typeof UnitForms[N];
 
   constructor(unitNo: N, form?: keyof typeof UnitForms[N]) {
     this.#unitNo = unitNo;

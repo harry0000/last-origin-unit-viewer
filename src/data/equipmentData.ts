@@ -464,102 +464,102 @@ export const equipmentData = {
     type: 'os',
     id: 'anti_light_os',
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: { ss: 19000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: { ss: 20000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: { ss: 21000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: { ss: 22000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: { ss: 23000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: { ss: 25000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: { ss: 27000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: { ss: 29000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: { ss: 31000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: { ss: 33000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: { ss: 35000 }, term: 'infinite' } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: { ss: 19000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: { ss: 20000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: { ss: 21000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: { ss: 22000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: { ss: 23000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: { ss: 25000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: { ss: 27000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: { ss: 29000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: { ss: 31000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: { ss: 33000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: { ss: 35000 }, term: 'infinite' } } }]
     ]
   },
   anti_air_os: {
     type: 'os',
     id: 'anti_air_os',
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: { ss: 19000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: { ss: 20000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: { ss: 21000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: { ss: 22000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: { ss: 23000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: { ss: 25000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: { ss: 27000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: { ss: 29000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: { ss: 31000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: { ss: 33000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: { ss: 35000 }, term: 'infinite' } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: { ss: 19000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: { ss: 20000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: { ss: 21000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: { ss: 22000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: { ss: 23000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: { ss: 25000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: { ss: 27000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: { ss: 29000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: { ss: 31000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: { ss: 33000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: { ss: 35000 }, term: 'infinite' } } }]
     ]
   },
   anti_heavy_os: {
     type: 'os',
     id: 'anti_heavy_os',
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: { ss: 19000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: { ss: 20000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: { ss: 21000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: { ss: 22000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: { ss: 23000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: { ss: 25000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: { ss: 27000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: { ss: 29000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: { ss: 31000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: { ss: 33000 }, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: { ss: 35000 }, term: 'infinite' } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: { ss: 19000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: { ss: 20000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: { ss: 21000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: { ss: 22000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: { ss: 23000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: { ss: 25000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: { ss: 27000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: { ss: 29000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: { ss: 31000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: { ss: 33000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: { ss: 35000 }, term: 'infinite' } } }]
     ]
   },
   anti_light_flying_os: {
     type: 'os',
     id: 'anti_light_flying_os',
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 14500, term: 'infinite' }, anti_flying_type: { milliPercentage: 14500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 15000, term: 'infinite' }, anti_flying_type: { milliPercentage: 15000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 15500, term: 'infinite' }, anti_flying_type: { milliPercentage: 15500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 16000, term: 'infinite' }, anti_flying_type: { milliPercentage: 16000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 16500, term: 'infinite' }, anti_flying_type: { milliPercentage: 16500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 17000, term: 'infinite' }, anti_flying_type: { milliPercentage: 17000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 17500, term: 'infinite' }, anti_flying_type: { milliPercentage: 17500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 18000, term: 'infinite' }, anti_flying_type: { milliPercentage: 18000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 18500, term: 'infinite' }, anti_flying_type: { milliPercentage: 18500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 19000, term: 'infinite' }, anti_flying_type: { milliPercentage: 19000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 20000, term: 'infinite' }, anti_flying_type: { milliPercentage: 20000, term: 'infinite' } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 14500, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 14500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 15000, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 15000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 15500, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 15500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 16000, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 16000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 16500, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 16500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 17000, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 17000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 17500, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 17500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 18000, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 18000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 18500, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 18500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 19000, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 19000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 20000, term: 'infinite' } } }]
     ]
   },
   anti_flying_heavy_os: {
     type: 'os',
     id: 'anti_flying_heavy_os',
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 14500, term: 'infinite' }, anti_heavy_type: { milliPercentage: 14500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 15000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 15000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 15500, term: 'infinite' }, anti_heavy_type: { milliPercentage: 15500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 16000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 16000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 16500, term: 'infinite' }, anti_heavy_type: { milliPercentage: 16500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 17000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 17000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 17500, term: 'infinite' }, anti_heavy_type: { milliPercentage: 17500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 18000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 18000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 18500, term: 'infinite' }, anti_heavy_type: { milliPercentage: 18500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 19000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 19000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 20000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 20000, term: 'infinite' } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 14500, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 14500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 15000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 15000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 15500, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 15500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 16000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 16000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 16500, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 16500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 17000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 17000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 17500, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 17500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 18000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 18000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 18500, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 18500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 19000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 19000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 20000, term: 'infinite' } } }]
     ]
   },
   anti_heavy_light_os: {
     type: 'os',
     id: 'anti_heavy_light_os',
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 14500, term: 'infinite' }, anti_light_type: { milliPercentage: 14500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 15000, term: 'infinite' }, anti_light_type: { milliPercentage: 15000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 15500, term: 'infinite' }, anti_light_type: { milliPercentage: 15500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 16000, term: 'infinite' }, anti_light_type: { milliPercentage: 16000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 16500, term: 'infinite' }, anti_light_type: { milliPercentage: 16500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 17000, term: 'infinite' }, anti_light_type: { milliPercentage: 17000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 17500, term: 'infinite' }, anti_light_type: { milliPercentage: 17500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 18000, term: 'infinite' }, anti_light_type: { milliPercentage: 18000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 18500, term: 'infinite' }, anti_light_type: { milliPercentage: 18500, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 19000, term: 'infinite' }, anti_light_type: { milliPercentage: 19000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 20000, term: 'infinite' }, anti_light_type: { milliPercentage: 20000, term: 'infinite' } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 14500, term: 'infinite' }, light_type_damage_up: { milliPercentage: 14500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 15000, term: 'infinite' }, light_type_damage_up: { milliPercentage: 15000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 15500, term: 'infinite' }, light_type_damage_up: { milliPercentage: 15500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 16000, term: 'infinite' }, light_type_damage_up: { milliPercentage: 16000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 16500, term: 'infinite' }, light_type_damage_up: { milliPercentage: 16500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 17000, term: 'infinite' }, light_type_damage_up: { milliPercentage: 17000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 17500, term: 'infinite' }, light_type_damage_up: { milliPercentage: 17500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 18000, term: 'infinite' }, light_type_damage_up: { milliPercentage: 18000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 18500, term: 'infinite' }, light_type_damage_up: { milliPercentage: 18500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 19000, term: 'infinite' }, light_type_damage_up: { milliPercentage: 19000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, light_type_damage_up: { milliPercentage: 20000, term: 'infinite' } } }]
     ]
   },
   assault_os: {
@@ -650,17 +650,17 @@ export const equipmentData = {
       { acc_up: { milliPercentage: { ss: 50000 } }, cri_up: { milliPercentage: { ss: 12000 } } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 12500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 13000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 13500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 14000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 14500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 15000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 15500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 16000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 16500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 17000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 17500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'acc_down', term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 12500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 13000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 13500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 14000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 14500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 15000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 15500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 16000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 16500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 17000 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: { ss: 17500 }, term: { for_rounds: 1 } }, spd_down: { milliPercentage: 8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'acc_down', term: 'immediate' } } }]
     ]
   },
   recon_os: {
@@ -1003,17 +1003,17 @@ export const equipmentData = {
       unit: 141
     },
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 14500, term: 'infinite' }, anti_flying_type: { milliPercentage: 14500, term: 'infinite' }, anti_heavy_type: { milliPercentage: 14500, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 15000, term: 'infinite' }, anti_flying_type: { milliPercentage: 15000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 15000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 15500, term: 'infinite' }, anti_flying_type: { milliPercentage: 15500, term: 'infinite' }, anti_heavy_type: { milliPercentage: 15500, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 16000, term: 'infinite' }, anti_flying_type: { milliPercentage: 16000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 16000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 16500, term: 'infinite' }, anti_flying_type: { milliPercentage: 16500, term: 'infinite' }, anti_heavy_type: { milliPercentage: 16500, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 17000, term: 'infinite' }, anti_flying_type: { milliPercentage: 17000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 17000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 17500, term: 'infinite' }, anti_flying_type: { milliPercentage: 17500, term: 'infinite' }, anti_heavy_type: { milliPercentage: 17500, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 18000, term: 'infinite' }, anti_flying_type: { milliPercentage: 18000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 18000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 18500, term: 'infinite' }, anti_flying_type: { milliPercentage: 18500, term: 'infinite' }, anti_heavy_type: { milliPercentage: 18500, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 19000, term: 'infinite' }, anti_flying_type: { milliPercentage: 19000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 19000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 20000, term: 'infinite' }, anti_flying_type: { milliPercentage: 20000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 20000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 14500, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 14500, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 14500, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 15000, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 15000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 15000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 15500, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 15500, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 15500, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 16000, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 16000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 16000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 16500, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 16500, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 16500, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 17000, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 17000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 17000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 17500, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 17500, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 17500, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 18000, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 18000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 18000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 18500, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 18500, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 18500, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 19000, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 19000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 19000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }]
     ]
   },
   runaway_inducement_os: {
@@ -1195,17 +1195,17 @@ export const equipmentData = {
       { cri_up: { milliPercentage: { ss: 20000 } }, acc_up: { milliPercentage: { ss: 50000 } } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  62000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  65000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  68000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  71000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  74000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  77000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  80000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  85000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  90000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  95000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: { ss: 100000 } }, term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  62000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  65000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  68000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  71000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  74000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  77000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  80000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  85000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  90000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss:  95000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: { ss: 100000 } }, term: 'immediate' } } }]
     ]
   },
   telescopic_sight: {
@@ -1248,17 +1248,17 @@ export const equipmentData = {
       { acc_up: { milliPercentage: { ss: 90000 } } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  50000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  55000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  60000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  65000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  70000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  75000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  80000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  85000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  90000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  95000 } } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss: 100000 } } } } }]
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  50000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  55000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  60000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  65000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  70000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  75000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  80000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  85000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  90000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss:  95000 } } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate', rate: { milliPercentage: { ss: 100000 } } } } }]
     ]
   },
   output_limit_release_device: {
@@ -1305,6 +1305,74 @@ export const equipmentData = {
   //     role: 'defender'
   //   }
   // },
+  light_firearm_loader: {
+    type: 'gear',
+    id: 'light_firearm_loader',
+    exclusive: {
+      type: 'light',
+      role: 'attacker'
+    },
+    status_effects: [
+      { acc_up: { milliPercentage: { ss: 20000 } }, cri_up: { milliPercentage: { ss:  5000 } } },
+      { acc_up: { milliPercentage: { ss: 22000 } }, cri_up: { milliPercentage: { ss:  6000 } } },
+      { acc_up: { milliPercentage: { ss: 24000 } }, cri_up: { milliPercentage: { ss:  7000 } } },
+      { acc_up: { milliPercentage: { ss: 26000 } }, cri_up: { milliPercentage: { ss:  8000 } } },
+      { acc_up: { milliPercentage: { ss: 28000 } }, cri_up: { milliPercentage: { ss:  9000 } } },
+      { acc_up: { milliPercentage: { ss: 30000 } }, cri_up: { milliPercentage: { ss: 10000 } } },
+      { acc_up: { milliPercentage: { ss: 32000 } }, cri_up: { milliPercentage: { ss: 11000 } } },
+      { acc_up: { milliPercentage: { ss: 34000 } }, cri_up: { milliPercentage: { ss: 12000 } } },
+      { acc_up: { milliPercentage: { ss: 36000 } }, cri_up: { milliPercentage: { ss: 13000 } } },
+      { acc_up: { milliPercentage: { ss: 38000 } }, cri_up: { milliPercentage: { ss: 14000 } } },
+      { acc_up: { milliPercentage: { ss: 40000 } }, cri_up: { milliPercentage: { ss: 15000 } } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  72500 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  75000 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  77500 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  80000 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  82500 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  85000 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  88000 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  91000 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  94000 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss:  97000 } } } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate', rate: { milliPercentage: { ss: 100000 } } } } }]
+    ]
+  },
+  aerial_firearm_thruster: {
+    type: 'gear',
+    id: 'aerial_firearm_thruster',
+    exclusive: {
+      type: 'flying',
+      role: 'attacker'
+    },
+    status_effects: [
+      { acc_up: { milliPercentage: { ss: 20000 } }, cri_up: { milliPercentage: { ss:  5000 } } },
+      { acc_up: { milliPercentage: { ss: 22000 } }, cri_up: { milliPercentage: { ss:  6000 } } },
+      { acc_up: { milliPercentage: { ss: 24000 } }, cri_up: { milliPercentage: { ss:  7000 } } },
+      { acc_up: { milliPercentage: { ss: 26000 } }, cri_up: { milliPercentage: { ss:  8000 } } },
+      { acc_up: { milliPercentage: { ss: 28000 } }, cri_up: { milliPercentage: { ss:  9000 } } },
+      { acc_up: { milliPercentage: { ss: 30000 } }, cri_up: { milliPercentage: { ss: 10000 } } },
+      { acc_up: { milliPercentage: { ss: 32000 } }, cri_up: { milliPercentage: { ss: 11000 } } },
+      { acc_up: { milliPercentage: { ss: 34000 } }, cri_up: { milliPercentage: { ss: 12000 } } },
+      { acc_up: { milliPercentage: { ss: 36000 } }, cri_up: { milliPercentage: { ss: 13000 } } },
+      { acc_up: { milliPercentage: { ss: 38000 } }, cri_up: { milliPercentage: { ss: 14000 } } },
+      { acc_up: { milliPercentage: { ss: 40000 } }, cri_up: { milliPercentage: { ss: 15000 } } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 25000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 27000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 29000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 31000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 33000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 35000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 37000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 39000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 41000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 43000 }, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: { ss: 45000 }, term: 'infinite' } } }]
+    ]
+  },
   aqua_module: {
     type: 'gear',
     id: 'aqua_module',
@@ -1339,17 +1407,17 @@ export const equipmentData = {
     type: 'gear',
     id: 'energy_converter',
     equipment_effects: [
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  7500 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  7500 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  8000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  8000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  8500 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  8500 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  9000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  9000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  9500 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  9500 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 10000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 10000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 12000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 12000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 14000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 14000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 16000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 16000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 18000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 18000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 20000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 20000 }, term: { for_rounds: 1 } }, effect_removal: { effect: 'barrier', term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  7500 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  7500 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  8000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  8000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  8500 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  8500 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  9000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  9000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss:  9500 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss:  9500 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 10000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 10000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 12000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 12000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 14000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 14000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 16000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 16000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 18000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 18000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round', state: { affected: 'barrier' } }, details: { atk_up: { milliPercentage: { ss: 20000 }, term: { for_rounds: 1 } }, spd_up: { milliPercentage: { ss: 20000 }, term: { for_rounds: 1 } }, buff_removal: { effect: 'barrier', term: 'immediate' } } }]
     ]
   },
   ap_pack: {
@@ -1532,17 +1600,17 @@ export const equipmentData = {
       { eva_up: { milliPercentage: { ss: 25000 } } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  62000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  65000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  68000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  71000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  74000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  77000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  80000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  85000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  90000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  95000 } }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'eva_down', rate: { milliPercentage: { ss: 100000 } }, term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  62000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  65000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  68000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  71000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  74000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  77000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  80000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  85000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  90000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss:  95000 } }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'eva_down', rate: { milliPercentage: { ss: 100000 } }, term: 'immediate' } } }]
     ]
   },
   armor_plating: {
@@ -1967,17 +2035,17 @@ export const equipmentData = {
       { acc_up: { milliPercentage: 45000 }, cri_up: { milliPercentage: 15000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  50000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  55000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  60000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  65000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  70000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  75000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  80000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  85000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  90000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  95000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage: 100000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  50000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  55000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  60000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  65000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  70000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  75000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  80000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  85000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  90000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage:  95000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effects: ['acc_down', 'range_down'], rate: { milliPercentage: 100000 }, term: 'immediate' } } }],
     ]
   },
   high_power_generator: {
@@ -2031,17 +2099,17 @@ export const equipmentData = {
     type: 'gear',
     id: 'precise_observation_gear',
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  50000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  55000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  60000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  65000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  70000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  75000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  80000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  85000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  90000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage:  95000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', rate: { milliPercentage: 100000 }, term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  50000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  55000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  60000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  65000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  70000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  75000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  80000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  85000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  90000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage:  95000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 2, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', rate: { milliPercentage: 100000 }, term: 'immediate' } } }]
     ]
   },
   enhanced_ultra_precise_scope: {
@@ -2061,17 +2129,17 @@ export const equipmentData = {
       { acc_up: { milliPercentage: 80000 }, cri_up: { milliPercentage: 25000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  50000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  55000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  60000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  65000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  70000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  75000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  80000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  85000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  90000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage:  95000 }, term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { effect_removal: { effect: 'acc_down', rate: { milliPercentage: 100000 }, term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  50000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  55000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  60000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  65000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  70000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  75000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  80000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  85000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  90000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage:  95000 }, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { debuff_removal: { effect: 'acc_down', rate: { milliPercentage: 100000 }, term: 'immediate' } } }]
     ]
   },
   enhanced_nitro_ex_3500: {
@@ -2360,17 +2428,17 @@ export const equipmentData = {
       { atk_up: { milliValue: 175000 }, cri_up: { milliPercentage: 20000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 15000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 15000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 18000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 16000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 21000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 17000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 24000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 18000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 27000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 19000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 30000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 20000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 33000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 21000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 36000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 22000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 39000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 23000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 42000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 24000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 45000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 25000, term: 'infinite' } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 15000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 15000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 18000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 16000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 21000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 17000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 24000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 18000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 27000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 19000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 30000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 20000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 33000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 21000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 36000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 22000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 39000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 23000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 42000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 24000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 45000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 25000, term: 'infinite' } } }]
     ]
   },
   blitz_pile_bunker: {
@@ -2552,17 +2620,17 @@ export const equipmentData = {
       { atk_up: { milliValue: 100000 }, acc_up: { milliPercentage: 60000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 15000, term: 'infinite' }, defense_penetration: { milliPercentage: 15000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 15000, term: 'infinite' }, defense_penetration: { milliPercentage: 15000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 16000, term: 'infinite' }, defense_penetration: { milliPercentage: 17000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 17000, term: 'infinite' }, defense_penetration: { milliPercentage: 19000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 18000, term: 'infinite' }, defense_penetration: { milliPercentage: 21000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 19000, term: 'infinite' }, defense_penetration: { milliPercentage: 23000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 20000, term: 'infinite' }, defense_penetration: { milliPercentage: 25000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 21000, term: 'infinite' }, defense_penetration: { milliPercentage: 27000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 22000, term: 'infinite' }, defense_penetration: { milliPercentage: 29000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 23000, term: 'infinite' }, defense_penetration: { milliPercentage: 31000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_flying_type: { milliPercentage: 25000, term: 'infinite' }, defense_penetration: { milliPercentage: 33000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 15000, term: 'infinite' }, defense_penetration: { milliPercentage: 15000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 15000, term: 'infinite' }, defense_penetration: { milliPercentage: 15000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 16000, term: 'infinite' }, defense_penetration: { milliPercentage: 17000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 17000, term: 'infinite' }, defense_penetration: { milliPercentage: 19000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 18000, term: 'infinite' }, defense_penetration: { milliPercentage: 21000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 19000, term: 'infinite' }, defense_penetration: { milliPercentage: 23000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, defense_penetration: { milliPercentage: 25000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 21000, term: 'infinite' }, defense_penetration: { milliPercentage: 27000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 22000, term: 'infinite' }, defense_penetration: { milliPercentage: 29000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 23000, term: 'infinite' }, defense_penetration: { milliPercentage: 31000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { flying_type_damage_up: { milliPercentage: 25000, term: 'infinite' }, defense_penetration: { milliPercentage: 33000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }]
     ]
   },
   f_c_s: {
@@ -2605,17 +2673,17 @@ export const equipmentData = {
       unit: 41
     },
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 20000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 20000, term: 'infinite' }, defense_penetration: { milliPercentage: 20000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 21000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 21000, term: 'infinite' }, defense_penetration: { milliPercentage: 23000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 22000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 22000, term: 'infinite' }, defense_penetration: { milliPercentage: 26000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 23000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 23000, term: 'infinite' }, defense_penetration: { milliPercentage: 29000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 24000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 24000, term: 'infinite' }, defense_penetration: { milliPercentage: 32000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 25000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 25000, term: 'infinite' }, defense_penetration: { milliPercentage: 35000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 26000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 26000, term: 'infinite' }, defense_penetration: { milliPercentage: 38000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 27000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 27000, term: 'infinite' }, defense_penetration: { milliPercentage: 41000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 28000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 28000, term: 'infinite' }, defense_penetration: { milliPercentage: 44000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 29000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 29000, term: 'infinite' }, defense_penetration: { milliPercentage: 47000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 30000, term: 'infinite' }, anti_heavy_type: { milliPercentage: 30000, term: 'infinite' }, defense_penetration: { milliPercentage: 50000, term: 'infinite' } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, defense_penetration: { milliPercentage: 20000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 21000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 21000, term: 'infinite' }, defense_penetration: { milliPercentage: 23000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 22000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 22000, term: 'infinite' }, defense_penetration: { milliPercentage: 26000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 23000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 23000, term: 'infinite' }, defense_penetration: { milliPercentage: 29000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 24000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 24000, term: 'infinite' }, defense_penetration: { milliPercentage: 32000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 25000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 25000, term: 'infinite' }, defense_penetration: { milliPercentage: 35000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 26000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 26000, term: 'infinite' }, defense_penetration: { milliPercentage: 38000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 27000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 27000, term: 'infinite' }, defense_penetration: { milliPercentage: 41000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 28000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 28000, term: 'infinite' }, defense_penetration: { milliPercentage: 44000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 29000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 29000, term: 'infinite' }, defense_penetration: { milliPercentage: 47000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 30000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 30000, term: 'infinite' }, defense_penetration: { milliPercentage: 50000, term: 'infinite' } } }]
     ]
   },
   mark_of_the_dragonslayer: {
@@ -2671,17 +2739,17 @@ export const equipmentData = {
       { atk_up: { milliValue: 90000 }, cri_up: { milliPercentage: 20000 }, spd_up: { microValue: 225000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 15000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 15000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 16000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 17000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 18000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 19000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 20000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 21000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 22000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 23000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_light_type: { milliPercentage: 25000, term: 'infinite' } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 15000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 15000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 16000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 17000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 18000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 19000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 20000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 21000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 22000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 23000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 25000, term: 'infinite' } } }]
     ]
   },
   pest_shredder: {
@@ -2704,17 +2772,17 @@ export const equipmentData = {
       { atk_up: { milliValue: 120000 }, acc_up: { milliPercentage: 30000 }, cri_up: { milliPercentage: 15000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 25000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 29000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 33000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 37000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 41000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 45000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 49000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 53000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 57000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 61000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 65000, term: { for_rounds: 1 } }, effect_removal: { effect: 'atk_down', term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 25000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 29000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 33000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 37000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 41000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 45000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 49000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 53000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 57000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 61000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 65000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }]
     ]
   },
   rangers_combat_equipment_set: {
@@ -2770,17 +2838,17 @@ export const equipmentData = {
       { atk_up: { milliValue: 125000 }, cri_up: { milliPercentage: 20000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, effect_removal: { effect: 'range_down', term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }]
     ]
   },
   space_booster: {
@@ -2803,17 +2871,17 @@ export const equipmentData = {
       { atk_up: { milliValue: 95000 }, eva_up: { milliPercentage: 105000 }, spd_up: { microValue: 200000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  5000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  6000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  7000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  8000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  9000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 10000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 11000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 12000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 13000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 14000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }],
-      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 15000, term: { for_rounds: 1 } }, effect_removal: { effect: 'eva_down', term: 'immediate' } } }]
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  5000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  6000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  7000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  8000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage:  9000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 10000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 11000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 12000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 13000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 14000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { cri_up: { milliPercentage: 15000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'eva_down', term: 'immediate' } } }]
     ]
   },
   special_coated_rifle_rounds: {
@@ -2968,17 +3036,17 @@ export const equipmentData = {
       { atk_up: { milliValue: 90000 }, spd_up: { microValue: 240000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 15000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 16000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 17000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 18000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 19000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 20000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 21000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 22000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 23000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 24000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { anti_heavy_type: { milliPercentage: 25000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 15000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 16000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 17000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 18000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 19000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 21000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 22000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 23000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 24000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 25000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }]
     ]
   },
   smar_stone: {
