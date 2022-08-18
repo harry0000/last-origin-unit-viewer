@@ -128,7 +128,7 @@ export type EquipmentEffectValueData<R extends EquipmentRank> = Readonly<{
 
 // HACK: to avoid "TS2590: Expression produces a union type that is too complex to represent."
 export type EquipmentEffectsData<R extends EquipmentRank> = ReadonlyArray<Readonly<{
-  condition?: ValueOf<EquipmentEffects[number], 'condition'>,
+  condition: ValueOf<EquipmentEffects[number], 'condition'>,
   details: EquipmentEffectValueData<R>
 }>>
 

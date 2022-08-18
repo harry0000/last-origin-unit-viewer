@@ -136,12 +136,12 @@ type EquipmentEffectActivationTrigger = {
 export type EquipmentEffectActivationCondition = Readonly<EquipmentEffectActivationTrigger & { state?: ActivationState }>
 
 export type EffectDetails = Readonly<{
-  condition?: EquipmentEffectActivationCondition,
+  condition: EquipmentEffectActivationCondition,
   details: EquipmentEffectValue
 }>
 
 export type EffectDetailsAsSkill = Readonly<{
-  condition?: EquipmentEffectActivationCondition,
+  condition: EquipmentEffectActivationCondition,
   details: {
     self: EquipmentEffectValue,
     target?: EquipmentEffectValue

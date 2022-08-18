@@ -1,7 +1,6 @@
 import { Effect } from '../Effect';
 import { EquipmentEffectAddition, EffectDetails, EffectDetailsAsSkill, EquipmentEffectValue } from './EquipmentEffect';
 import {
-  EquipmentEffects,
   EquipmentEffectsAsSkill,
   EquipmentEffectsData,
   EquipmentEffectValueData,
@@ -17,7 +16,6 @@ import { toIntegerValue, toMicroValue, toMilliPercentageValue, toMilliValue } fr
 import { equipmentData } from '../../data/equipmentData';
 
 import { Entry, foldObjectEntry, typedEntries } from '../../util/object';
-import { ValueOf } from '../../util/type';
 
 function calculateStatusEffects<R extends EquipmentRank, D extends StatusEffectData<R>>(
   rank: R,
@@ -216,23 +214,13 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
   }, {});
 }
 
-function calculateCondition(
-  effect: {
-    condition?:
-      ValueOf<EquipmentEffects[number], 'condition'> |
-      ValueOf<EquipmentEffectsAsSkill[number], 'condition'>
-  }
-): Pick<Required<EffectDetails>, 'condition'> | Record<string, never> {
-  return effect.condition ? { condition: effect.condition } : {};
-}
-
 function calculateEffects<R extends EquipmentRank, E extends EquipmentEffectsData<R>>(
   rank: R,
   effects: E
 ): ReadonlyArray<EffectDetails> {
   return effects.map(effect => ({
-    details: calculateEffectDetails(rank, effect.details),
-    ...calculateCondition(effect)
+    condition: effect.condition,
+    details: calculateEffectDetails(rank, effect.details)
   }));
 }
 
@@ -263,14 +251,14 @@ function calculateEffectsAsSkill(
   effects: EquipmentEffectsAsSkill
 ): ReadonlyArray<EffectDetailsAsSkill> {
   return effects.map(effect => ({
+    condition: effect.condition,
     details:
       Object.assign(
         { self: calculateEffectDetails(rank, effect.details.self) },
         'target' in effect.details ?
           { target: calculateEffectDetails(rank, effect.details.target) } :
           {}
-      ),
-    ...calculateCondition(effect)
+      )
   }));
 }
 
