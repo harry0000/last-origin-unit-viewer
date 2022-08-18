@@ -305,17 +305,17 @@ export const equipmentData = {
       { acc_up: { milliPercentage: { ss: 40000 } }, eva_up: { milliPercentage: { ss: 18000 } }, spd_up: { microValue: { ss: 120000 } } }
     ],
     equipment_effects: [
-      [{ details: { atk_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_down: { milliPercentage: 8000 } } }],
-      [{ details: { atk_down: { milliPercentage: 8000 } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { atk_down: { milliPercentage: 8000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { atk_down: { milliPercentage: 8000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { atk_down: { milliPercentage: 8000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { atk_down: { milliPercentage: 8000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { atk_down: { milliPercentage: 8000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { atk_down: { milliPercentage: 8000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { atk_down: { milliPercentage: 8000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { atk_down: { milliPercentage: 8000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { atk_down: { milliPercentage: 8000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { atk_down: { milliPercentage: 8000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { atk_down: { milliPercentage: 8000, term: 'infinite' } } }]
     ]
   },
   output_control_chip: {
@@ -1069,17 +1069,17 @@ export const equipmentData = {
       { hp_up: { value: 250   } }
     ],
     equipment_effects: [
-      [{ details: { damage_reduction: { milliPercentage: 15000, status_resist_up: { milliPercentage: 20000 }, counterattack: { milliPercentage:  50000 } } } }],
-      [{ details: { damage_reduction: { milliPercentage: 16000, status_resist_up: { milliPercentage: 21500 }, counterattack: { milliPercentage:  55000 } } } }],
-      [{ details: { damage_reduction: { milliPercentage: 17000, status_resist_up: { milliPercentage: 23000 }, counterattack: { milliPercentage:  60000 } } } }],
-      [{ details: { damage_reduction: { milliPercentage: 18000, status_resist_up: { milliPercentage: 24500 }, counterattack: { milliPercentage:  65000 } } } }],
-      [{ details: { damage_reduction: { milliPercentage: 19000, status_resist_up: { milliPercentage: 26000 }, counterattack: { milliPercentage:  70000 } } } }],
-      [{ details: { damage_reduction: { milliPercentage: 20000, status_resist_up: { milliPercentage: 27500 }, counterattack: { milliPercentage:  75000 } } } }],
-      [{ details: { damage_reduction: { milliPercentage: 22000, status_resist_up: { milliPercentage: 29000 }, counterattack: { milliPercentage:  80000 } } } }],
-      [{ details: { damage_reduction: { milliPercentage: 24000, status_resist_up: { milliPercentage: 30500 }, counterattack: { milliPercentage:  85000 } } } }],
-      [{ details: { damage_reduction: { milliPercentage: 26000, status_resist_up: { milliPercentage: 32000 }, counterattack: { milliPercentage:  90000 } } } }],
-      [{ details: { damage_reduction: { milliPercentage: 28000, status_resist_up: { milliPercentage: 33500 }, counterattack: { milliPercentage:  95000 } } } }],
-      [{ details: { damage_reduction: { milliPercentage: 30000, status_resist_up: { milliPercentage: 35000 }, counterattack: { milliPercentage: 100000 } } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 15000, term: 'infinite' }, status_resist_up: { milliPercentage: 20000, term: 'infinite' }, counterattack: { milliPercentage:  50000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 16000, term: 'infinite' }, status_resist_up: { milliPercentage: 21500, term: 'infinite' }, counterattack: { milliPercentage:  55000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 17000, term: 'infinite' }, status_resist_up: { milliPercentage: 23000, term: 'infinite' }, counterattack: { milliPercentage:  60000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 18000, term: 'infinite' }, status_resist_up: { milliPercentage: 24500, term: 'infinite' }, counterattack: { milliPercentage:  65000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 19000, term: 'infinite' }, status_resist_up: { milliPercentage: 26000, term: 'infinite' }, counterattack: { milliPercentage:  70000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 20000, term: 'infinite' }, status_resist_up: { milliPercentage: 27500, term: 'infinite' }, counterattack: { milliPercentage:  75000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 22000, term: 'infinite' }, status_resist_up: { milliPercentage: 29000, term: 'infinite' }, counterattack: { milliPercentage:  80000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 24000, term: 'infinite' }, status_resist_up: { milliPercentage: 30500, term: 'infinite' }, counterattack: { milliPercentage:  85000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 26000, term: 'infinite' }, status_resist_up: { milliPercentage: 32000, term: 'infinite' }, counterattack: { milliPercentage:  90000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 28000, term: 'infinite' }, status_resist_up: { milliPercentage: 33500, term: 'infinite' }, counterattack: { milliPercentage:  95000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction: { milliPercentage: 30000, term: 'infinite' }, status_resist_up: { milliPercentage: 35000, term: 'infinite' }, counterattack: { milliPercentage: 100000, term: 'infinite' } } }]
     ]
   },
   armor_penetrating_round: {
