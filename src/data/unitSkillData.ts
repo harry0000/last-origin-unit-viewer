@@ -9114,8 +9114,18 @@ export const unitSkillData: UnitSkillData = {
       cost: 4,
       area: 'single',
       effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effect: 'counterattack', term: 'immediate' } } }
+      }, {
         conditions: [{ trigger: 'critical' }],
-        details: { self: { additional_fire_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } } } }
+        details: { self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'attack', state: { self: [{ tagged: 'gold_forged_through_hundred_refinement' }] } }],
+        details: { self: { ap_up: { base: { microValue: 50000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'gold_forged_through_hundred_refinement' }] } }],
+        details: { self: { ap_up: { base: { microValue: 25000 }, per_lv_up: { microValue: 25000 }, term: 'immediate' } } }
       }]
     }, {
       damage_deal: {
@@ -9126,11 +9136,25 @@ export const unitSkillData: UnitSkillData = {
       cost: 5,
       area: 'single',
       effects: [{
-        details: { self: { defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 } } } }
+        details: { self: { defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 }, term: 'immediate' } } }
       }, {
-        conditions: [{ state: { target: [{ affected: 'eva_down' }, { affected: 'immovable' }] } }],
+        conditions: [{ state: { target: [{ grid: 'front_line' }] } }],
         target: { kind: 'enemy' },
-        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 } } } }
+        details: { self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ state: { target: [{ grid: 'mid_line' }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ state: { target: [{ grid: 'back_line' }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'attack', state: { self: [{ tagged: 'gold_forged_through_hundred_refinement' }] } }],
+        details: { self: { ap_up: { base: { microValue: 50000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'gold_forged_through_hundred_refinement' }] } }],
+        details: { self: { ap_up: { base: { microValue: 25000 }, per_lv_up: { microValue: 25000 }, term: 'immediate' } } }
       }]
     }],
     passive: [{
@@ -9139,13 +9163,34 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
-            acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 }, term: { for_rounds: 1 } }
+            atk_up: { tag: 'gold_forged_through_hundred_refinement', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            acc_up: { tag: 'gold_forged_through_hundred_refinement', base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } }
           }
         }
       }, {
         conditions: [{ trigger: 'attack' }],
-        details: { self: { ap_up: { base: { microValue: 50000 }, per_lv_up: { microValue: 50000 } } } }
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 3 },
+            acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', max_stack: 3 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'kill' }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 3 },
+            acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', max_stack: 3 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'be_attacked' }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 3 },
+            acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', max_stack: 3 }
+          }
+        }
       }]
     }]
   },
@@ -9229,11 +9274,11 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'end_wave' }],
         details: { self: { reconnaissance: {} } }
       }, {
-        conditions: [{ trigger: 'start_wave', state: { self: [{ affected: 'reconnaissance' }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'reconnaissance' }] } }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 99 } },
-            def_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 99 } }
+            acc_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } },
+            ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' }
           }
         }
       }]

@@ -3041,12 +3041,12 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 17000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
       [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 18000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
       [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 19000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 21000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 22000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 23000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 24000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 25000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 21000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 22000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 23000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 24000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 25000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }]
     ]
   },
   smar_stone: {
