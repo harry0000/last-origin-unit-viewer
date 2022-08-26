@@ -11,6 +11,7 @@ export const FormChangeUnits = {
   InvincibleDragon: 85,
   Siren: 89,
   Rampart: 114,
+  MightyR: 119,
   Fortress: 222
 } as const;
 
@@ -53,6 +54,10 @@ export const UnitForms = {
     default: 'normal',
     changed: 'offensive_tactics'
   },
+  [FormChangeUnits.MightyR]: {
+    default: 'normal',
+    changed: 'maximum_pump_up'
+  },
   [FormChangeUnits.Fortress]: {
     default: 'mobility_position',
     changed: 'fixed_position'
@@ -74,6 +79,7 @@ export type BulgasariForm        = FormPerUnit<typeof FormChangeUnits.Bulgasari>
 export type InvincibleDragonForm = FormPerUnit<typeof FormChangeUnits.InvincibleDragon>
 export type SirenForm            = FormPerUnit<typeof FormChangeUnits.Siren>
 export type RampartForm          = FormPerUnit<typeof FormChangeUnits.Rampart>
+export type MightyRForm          = FormPerUnit<typeof FormChangeUnits.MightyR>
 export type FortressForm         = FormPerUnit<typeof FormChangeUnits.Fortress>
 
 const formChangeUnitNumbers: ReadonlySet<number> = new Set(Object.values(FormChangeUnits));
@@ -95,6 +101,7 @@ export type FormChangeUnitBasicInfo<N extends FormChangeUnitNumbers> =
     N extends typeof FormChangeUnits.InvincibleDragon ? typeof unitBasicData[typeof FormChangeUnits.InvincibleDragon] :
     N extends typeof FormChangeUnits.Siren            ? typeof unitBasicData[typeof FormChangeUnits.Siren] :
     N extends typeof FormChangeUnits.Rampart          ? typeof unitBasicData[typeof FormChangeUnits.Rampart] :
+    N extends typeof FormChangeUnits.MightyR          ? typeof unitBasicData[typeof FormChangeUnits.MightyR] :
     N extends typeof FormChangeUnits.Fortress         ? typeof unitBasicData[typeof FormChangeUnits.Fortress] :
       never
   ) &

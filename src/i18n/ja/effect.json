@@ -58,6 +58,7 @@
     "interception": "迎撃モード",
     "bombarding": "砲撃モード",
     "offensive_tactics": "攻撃戦術",
+    "maximum_pump_up": "超パンプアップ",
     "mobility_position": "移動可能モード",
     "fixed_position": "固定モード"
   },
@@ -139,7 +140,9 @@
     "lucky_hit": "ラッキーヒット!",
     "power_of_pureblood": "真祖の力？",
     "bulk_up": "バルクアップ",
+    "maximum_pump_up": "超パンプアップ",
     "now_copy_me": "真似してください",
+    "miss_olympia": "ミスオリンピア",
     "gold_forged_through_hundred_refinement": "精金百錬",
     "magical_girl_at_centurys_end": "世紀末魔法少女",
     "hit_vital_spot": "急所を突く！",
@@ -538,6 +541,7 @@
       "around": "対象の周辺",
       "kind": {
         "ally": "味方対象",
+        "ally_except_self": "自分を除く味方対象",
         "ally_grid": "味方空きマス",
         "enemy": "敵対象"
       }

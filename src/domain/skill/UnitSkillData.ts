@@ -7,6 +7,7 @@ import {
   FortressForm,
   InvincibleDragonForm,
   LeonaForm,
+  MightyRForm,
   PhantomForm,
   RampartForm,
   SirenForm
@@ -247,6 +248,21 @@ type RampartSkillData = Readonly<{
   passive: SSRankPassiveSkill
 }>
 
+type MightyRSkillData = Readonly<{
+  no: typeof FormChangeUnits.MightyR,
+  active:
+    readonly [
+      { readonly [key in MightyRForm]: ActiveSkillData },
+      { readonly [key in MightyRForm]: ActiveSkillData }
+    ],
+  passive:
+    readonly [
+      { readonly [key in MightyRForm]: PassiveSkillData },
+      { readonly [key in MightyRForm]: PassiveSkillData },
+      { readonly [key in MightyRForm]: PassiveSkillData }
+    ]
+}>
+
 type FortressSkillData = Readonly<{
   no: typeof FormChangeUnits.Fortress,
   active:
@@ -274,6 +290,7 @@ type UnitSkill<N extends UnitNumber> =
   N extends InvincibleDragonSkillData['no'] ? InvincibleDragonSkillData :
   N extends SirenSkillData['no'] ? SirenSkillData :
   N extends RampartSkillData['no'] ? RampartSkillData :
+  N extends MightyRSkillData['no'] ? MightyRSkillData :
   N extends FortressSkillData['no'] ? FortressSkillData :
   Readonly<{
     no: N,

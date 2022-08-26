@@ -9032,75 +9032,238 @@ export const unitSkillData: UnitSkillData = {
   119: {
     no: 119,
     active: [{
-      damage_deal: {
-        base: { milliPercentage: 117000 },
-        per_lv_up: { milliPercentage: 10000 }
+      normal: {
+        damage_deal: {
+          base: { milliPercentage: 117000 },
+          per_lv_up: { milliPercentage: 10000 }
+        },
+        range: 2,
+        cost: 5,
+        area: 'twin',
+        effects: [{
+          conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'bulk_up' }] } }],
+          details: { self: { additional_damage: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' } } }
+        }]
       },
-      range: 2,
-      cost: 5,
-      area: 'twin',
-      effects: [{
-        conditions: [{ state: { self: [{ tagged: 'bulk_up' }] } }],
-        details: { self: { additional_damage: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 } } } }
-      }]
+      maximum_pump_up: {
+        damage_deal: {
+          base: { milliPercentage: 117000 },
+          per_lv_up: { milliPercentage: 15000 }
+        },
+        range: 2,
+        cost: 5,
+        area: 'twin',
+        effects: [{
+          conditions: [{ trigger: 'hit' }],
+          target: { kind: 'enemy' },
+          details: { self: { damage_taken_increased: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+        }]
+      }
     }, {
-      damage_deal: {
-        base: { milliPercentage: 143000 },
-        per_lv_up: { milliPercentage: 13000 }
+      normal: {
+        damage_deal: {
+          base: { milliPercentage: 143000 },
+          per_lv_up: { milliPercentage: 13000 }
+        },
+        range: 2,
+        cost: 7,
+        area: 'row_slightly_attenuate',
+        effects: [{
+          details: { self: { ignore_protect: {} } }
+        }, {
+          conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'bulk_up' }] } }],
+          target: { kind: 'enemy' },
+          details: {
+            self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: 'immediate' } },
+            target: { ap_down: { base: { microValue: 1500000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } }
+          }
+        }]
       },
-      range: 2,
-      cost: 7,
-      area: 'row_slightly_attenuate',
-      effects: [{
-        details: { self: { ignore_protect: {} } }
-      }, {
-        conditions: [{ state: { self: [{ stack_ge: { tag: 'bulk_up', value: 2 } }] } }],
-        target: { kind: 'enemy' },
-        details: {
-          self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } } },
-          target: { ap_down: { base: { microValue: 1500000 }, per_lv_up: { microValue: 100000 } } }
-        }
-      }, {
-        conditions: [{ state: { self: [{ stack_ge: { tag: 'bulk_up', value: 5 } }] } }],
-        target: { kind: 'enemy' },
-        details: { target: { stunned: {} } }
-      }]
+      maximum_pump_up: {
+        damage_deal: {
+          base: { milliPercentage: 143000 },
+          per_lv_up: { milliPercentage: 13000 }
+        },
+        range: 2,
+        cost: 10,
+        area: 'row_toward_front_with_shock_wave',
+        effects: [{
+          details: { self: { ignore_protect: {} } }
+        }, {
+          conditions: [{ trigger: 'hit' }],
+          target: { kind: 'enemy' },
+          details: { target: { ap_down: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'hit', state: { target: [{ grid: 'front_line' }] } }],
+          target: { kind: 'enemy' },
+          details: { target: { stunned: { term: { for_rounds: 2 } } } }
+        }]
+      }
     }],
     passive: [{
-      area: 'self',
-      effects: [{
-        conditions: [{ trigger: 'hit' }],
-        details: {
-          self: {
-            atk_up: { tag: 'bulk_up', base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 5 }, max_stack: 5 },
-            spd_up: { tag: 'bulk_up', base: { milliPercentage: 1500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 5 }, max_stack: 5 }
+      normal: {
+        area: 'fixed_all',
+        effects: [{
+          conditions: [{ trigger: 'attack' }],
+          details: {
+            self: {
+              atk_up: { tag: 'bulk_up', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', max_stack: 3 },
+              spd_up: { tag: 'bulk_up', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', max_stack: 3 }
+            }
           }
-        }
-      }]
+        }, {
+          conditions: [{ trigger: 'start_round', state: { self: [{ stack_ge: { tag: 'bulk_up', value: 3 } }] } }],
+          details: {
+            self: {
+              form_change: { form: 'maximum_pump_up' },
+              tag_release: { tag: 'bulk_up' }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 4 } } } }],
+          details: { self: { form_change: { form: 'maximum_pump_up' } } }
+        }]
+      },
+      maximum_pump_up: {
+        area: 'fixed_all',
+        effects: [{
+          conditions: [{ trigger: 'start_round' }],
+          details: {
+            self: {
+              atk_up: { tag: 'maximum_pump_up', base: { milliPercentage: 45000 }, per_lv_up: { milliPercentage: 4500 }, term: { for_rounds: 1 } },
+              spd_up: { tag: 'maximum_pump_up', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'start_round' }],
+          target: { kind: 'ally_except_self', conditions: ['bioroid'] },
+          details: {
+            target: {
+              atk_up: { tag: 'now_copy_me', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+              spd_up: { tag: 'now_copy_me', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'hit' }],
+          target: { kind: 'ally_except_self', conditions: ['bioroid'] },
+          details: {
+            target: {
+              atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 }, max_stack: 1 },
+              spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 }, max_stack: 1 }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'miss_olympia' }] } }],
+          target: { kind: 'ally', conditions: ['ags'] },
+          details: {
+            target: {
+              atk_up: { tag: 'now_copy_me', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+              spd_up: { tag: 'now_copy_me', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'miss_olympia' }] } }],
+          target: { kind: 'ally', conditions: ['ags'] },
+          details: {
+            target: {
+              atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 }, max_stack: 1 },
+              spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 }, max_stack: 1 }
+            }
+          }
+        }]
+      }
     }, {
-      area: 'all_adjacent_without_front_line',
-      effects: [{
-        conditions: [{ trigger: 'hit' }],
-        target: { kind: 'ally' },
-        details: {
-          target: {
-            atk_up: { tag: 'now_copy_me', base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 5 }, max_stack: 5 },
-            spd_up: { tag: 'now_copy_me', base: { milliPercentage: 1500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 5 }, max_stack: 5 }
+      normal: {
+        area: 'fixed_all',
+        effects: [{
+          conditions: [{ trigger: 'start_round' }],
+          target: { kind: 'ally', conditions: ['bioroid'] },
+          details: { target: { exp_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+        }, {
+          conditions: [{ trigger: 'start_round' }],
+          target: { kind: 'ally', conditions: ['bioroid'] },
+          scale_factor: { per_stack: { tag: 'bulk_up' } },
+          details: { target: { exp_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+        }, {
+          conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'bulk_up' }] } }],
+          target: { kind: 'ally' },
+          details: {
+            target: {
+              defense_penetration: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+              def_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+            }
           }
-        }
-      }]
+        }]
+      },
+      maximum_pump_up: {
+        area: 'fixed_all',
+        effects: [{
+          conditions: [{ trigger: 'start_round' }],
+          target: { kind: 'ally', conditions: ['bioroid'] },
+          details: { target: { exp_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+        }, {
+          conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'maximum_pump_up' }, { tagged: 'now_copy_me' }] } }],
+          target: { kind: 'ally' },
+          details: {
+            target: {
+              defense_penetration: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+              def_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'miss_olympia' }] } }],
+          target: { kind: 'ally', conditions: ['ags'] },
+          details: { target: { exp_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+        }]
+      }
     }, {
-      area: 'fixed_all',
-      effects: [{
-        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'bulk_up' }, { tagged: 'now_copy_me' }] } }],
-        target: { kind: 'ally' },
-        details: {
-          target: {
-            def_up: { base: { milliPercentage: 16000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            defense_penetration: { base: { milliPercentage: 16000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+      normal: {
+        area: 'fixed_all',
+        effects: [{
+          conditions: [{ trigger: 'start_round' }],
+          details: { self: { status_resist_up: { tag: 'miss_olympia',base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } } } }
+        }, {
+          conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'follow_up_attack', not_tagged: 'bulk_up' }] } }],
+          details: { self: { buff_removal: { effect: 'follow_up_attack', term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'follow_up_attack', tagged: 'bulk_up' }] } }],
+          details: {
+            self: {
+              buff_removal: { effect: 'follow_up_attack', term: 'immediate' },
+              defense_penetration: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+              def_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+            }
           }
-        }
-      }]
+        }, {
+          conditions: [{ trigger: 'start_round' }],
+          target: { kind: 'ally', conditions: ['ags'] },
+          details: { target: { exp_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+        }, {
+          conditions: [{ trigger: 'start_round' }],
+          target: { kind: 'ally', conditions: ['ags'] },
+          scale_factor: { per_stack: { tag: 'bulk_up' } },
+          details: { target: { exp_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+        }]
+      },
+      maximum_pump_up: {
+        area: 'fixed_all',
+        effects: [{
+          conditions: [{ trigger: 'start_round' }],
+          details: { self: { status_resist_up: { tag: 'miss_olympia',base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } } } }
+        }, {
+          conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'follow_up_attack' }], target: [{ tagged: 'maximum_pump_up' }, { tagged: 'now_copy_me' }] } }],
+          target: { kind: 'ally' },
+          details: {
+            target: {
+              defense_penetration: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+              def_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'attack', state: { self: [{ affected: 'follow_up_attack' }] } }],
+          details: { self: { buff_removal: { effect: 'follow_up_attack', term: 'immediate' } } }
+        }]
+      }
     }]
   },
   120: {

@@ -51,6 +51,8 @@ export function buildUnitSkill(unit: UnitBasicInfo): UnitSkill {
       return new SirenUnitSkill(unit);
     case FormChangeUnits.Rampart:
       return new RampartUnitSkill(unit);
+    case FormChangeUnits.MightyR:
+      return new MightyRUnitSkill(unit);
     case FormChangeUnits.Fortress:
       return new FortressUnitSkill(unit);
     }
@@ -571,6 +573,40 @@ class RampartUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Rampar
 
   protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[2];
+  }
+}
+
+class MightyRUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.MightyR> {
+
+  constructor(
+    unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.MightyR>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<typeof FormChangeUnits.MightyR>
+  ) {
+    super(unit, skillLv, form);
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new MightyRUnitSkill(this.formChangeUnit, lv, this.form);
+  }
+
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.MightyR>): FormChangeUnitSkill<typeof FormChangeUnits.MightyR> {
+    return new MightyRUnitSkill(this.formChangeUnit, this.skillLv, form);
+  }
+
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0][this.unitForm()]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0][this.unitForm()];
+  }
+
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[1][this.unitForm()];
+  }
+
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[2][this.unitForm()];
   }
 }
 

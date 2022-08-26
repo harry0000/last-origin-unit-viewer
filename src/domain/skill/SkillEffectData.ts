@@ -143,16 +143,22 @@ export type SkillEffectDataValue = Readonly<{
 
 export const SkillEffectTargetKind = {
   Ally: 'ally',
+  AllyExceptSelf: 'ally_except_self',
   AllyGrid: 'ally_grid', // for summon skill effects
   Enemy: 'enemy'
 } as const;
 export type SkillEffectTargetKind = typeof SkillEffectTargetKind[keyof typeof SkillEffectTargetKind]
 
 export type SkillEffectTarget = Readonly<{
-  kind: typeof SkillEffectTargetKind.Ally,
-  conditions?: ReadonlyArray<
-    UnitNumber | UnitKind | UnitType | UnitRole | UnitTypeAndRole | UnitAlias | UnitNotAlias | UnitAliasAndType | UnitAliasAndRole | UnitAliasExceptUnit
-  >
+  kind: typeof SkillEffectTargetKind['Ally' | 'AllyExceptSelf'],
+  conditions?:
+    ReadonlyArray<
+      UnitNumber |
+      UnitKind | UnitType | UnitRole |
+      UnitTypeAndRole |
+      UnitAlias | UnitNotAlias |
+      UnitAliasAndType | UnitAliasAndRole | UnitAliasExceptUnit
+    >
 } | {
   kind: typeof SkillEffectTargetKind.Enemy,
   conditions?: ReadonlyArray<UnitType | UnitRole>

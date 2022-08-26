@@ -27,6 +27,8 @@ export function extractAllActiveSkills(skill: UnitSkillData[UnitNumber]): Readon
     return [...skill.active.flatMap(as => Object.values(as))];
   case FormChangeUnits.Rampart:
     return [...Object.values(skill.active[0]), skill.active[1]];
+  case FormChangeUnits.MightyR:
+    return [...skill.active.flatMap(as => Object.values(as))];
   case FormChangeUnits.Fortress:
     return [...skill.active.flatMap(as => Object.values(as))];
   default:
@@ -68,6 +70,8 @@ export function extractAllPassiveSkills(skill: UnitSkillData[UnitNumber]): Reado
     ];
   case FormChangeUnits.Rampart:
     return skill.passive;
+  case FormChangeUnits.MightyR:
+    return skill.passive.flatMap(ps => Object.values(ps));
   case FormChangeUnits.Fortress:
     return Object.values(skill.passive[0]);
   default:
