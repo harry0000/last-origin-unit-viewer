@@ -374,7 +374,7 @@
       "ap_down": "APダウン",
       "status_resist_up": "状態異常耐性アップ",
       "status_resist_down": "状態異常耐性ダウン",
-      "exp_up": "取得経験値アップ",
+      "exp_up": "獲得経験値アップ",
       "range_up": "射程距離アップ",
       "range_down": "射程距離ダウン",
       "action_count_up": "最大行動回数アップ",
@@ -463,7 +463,7 @@
       "set_ap": "APを{{value}}に設定",
       "status_resist_up": "状態異常耐性 +{{value}}%",
       "status_resist_down": "状態異常耐性 -{{value}}%",
-      "exp_up": "取得経験値 +{{value}}%",
+      "exp_up": "獲得経験値 +{{value}}%",
       "range_up": "射程距離 +{{value}}",
       "range_down": "射程距離 -{{value}}",
 
