@@ -121,6 +121,7 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.IgnoreProtect:
       case Effect.Reconnaissance:
       case Effect.Marked:
+      case Effect.Silenced:
       case Effect.Stunned:
         return { [entry[0]]: calculateAddition(entry[1]) };
       case Effect.FixedDamageOverTime:

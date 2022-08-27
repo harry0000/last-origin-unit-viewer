@@ -71,6 +71,7 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   case Effect.IgnoreProtect:
   case Effect.Reconnaissance:
   case Effect.Marked:
+  case Effect.Silenced:
   case Effect.Stunned:
     return buildDetail(t(`effect:effect.description.${entry[0]}`), entry[1], t);
   case Effect.FixedDamageOverTime:

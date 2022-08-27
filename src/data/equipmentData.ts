@@ -996,6 +996,26 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { acc_up: { milliPercentage: { sss: 70000, ss: 60000 }, term: { for_rounds: 999 } }, spd_up: { milliPercentage: { sss: 20000, ss: 17500 }, term: { for_rounds: 999 } } } }]
     ]
   },
+  hq1_commander_os: {
+    type: 'os',
+    id: 'hq1_commander_os',
+    exclusive: {
+      unit: 201
+    },
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { eva_up: { milliPercentage: 15000, term: 'infinite' }, damage_reduction: { milliPercentage: 10000, term: 'infinite' }, silenced: { term: 'infinite', times: 1 } } }, { condition: { trigger: 'be_attacked' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { eva_up: { milliPercentage: 17500, term: 'infinite' }, damage_reduction: { milliPercentage: 10500, term: 'infinite' }, silenced: { term: 'infinite', times: 1 } } }, { condition: { trigger: 'be_attacked' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { eva_up: { milliPercentage: 20000, term: 'infinite' }, damage_reduction: { milliPercentage: 11000, term: 'infinite' }, silenced: { term: 'infinite', times: 1 } } }, { condition: { trigger: 'be_attacked' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { eva_up: { milliPercentage: 22500, term: 'infinite' }, damage_reduction: { milliPercentage: 11500, term: 'infinite' }, silenced: { term: 'infinite', times: 1 } } }, { condition: { trigger: 'be_attacked' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { eva_up: { milliPercentage: 25000, term: 'infinite' }, damage_reduction: { milliPercentage: 12000, term: 'infinite' }, silenced: { term: 'infinite', times: 1 } } }, { condition: { trigger: 'be_attacked' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { eva_up: { milliPercentage: 27500, term: 'infinite' }, damage_reduction: { milliPercentage: 12500, term: 'infinite' }, silenced: { term: 'infinite', times: 1 } } }, { condition: { trigger: 'be_attacked' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { eva_up: { milliPercentage: 30000, term: 'infinite' }, damage_reduction: { milliPercentage: 13000, term: 'infinite' }, silenced: { term: 'infinite', times: 1 } } }, { condition: { trigger: 'be_attacked' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { eva_up: { milliPercentage: 32500, term: 'infinite' }, damage_reduction: { milliPercentage: 13500, term: 'infinite' }, silenced: { term: 'infinite', times: 1 } } }, { condition: { trigger: 'be_attacked' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { eva_up: { milliPercentage: 35000, term: 'infinite' }, damage_reduction: { milliPercentage: 14000, term: 'infinite' }, silenced: { term: 'infinite', times: 1 } } }, { condition: { trigger: 'be_attacked' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { eva_up: { milliPercentage: 37500, term: 'infinite' }, damage_reduction: { milliPercentage: 14500, term: 'infinite' }, silenced: { term: 'infinite', times: 1 } } }, { condition: { trigger: 'be_attacked' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { eva_up: { milliPercentage: 40000, term: 'infinite' }, damage_reduction: { milliPercentage: 15000, term: 'infinite' }, silenced: { term: 'infinite', times: 1 } } }, { condition: { trigger: 'be_attacked' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }]
+    ]
+  },
   lrad_enhancement_os: {
     type: 'os',
     id: 'lrad_enhancement_os',

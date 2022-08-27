@@ -14342,8 +14342,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally', conditions: [{ type: 'flying', role: 'attacker' }, { type: 'flying', role: 'supporter' }] },
         details: { target: { target_protect: { term: { for_rounds: 1 } } } }
       }, {
-        // FIXME: add HQ1 Commander OS
-        conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'output_limit_release_device' }, { equipped: 'enhanced_output_limit_release_device' }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'output_limit_release_device' }, { equipped: 'enhanced_output_limit_release_device' }, { equipped: 'hq1_commander_os' }] } }],
         details: {
           self: {
             column_protect: { term: { for_rounds: 1 } },
@@ -14364,8 +14363,7 @@ export const unitSkillData: UnitSkillData = {
           target: { nullify_damage: { term: { for_rounds: 2 }, times: 1 } }
         }
       }, {
-        // FIXME: add HQ1 Commander OS
-        conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'defense_os' }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'defense_os' }, { equipped: 'hq1_commander_os' }] } }],
         details: {
           self: {
             row_protect: { term: { for_rounds: 1 } },
