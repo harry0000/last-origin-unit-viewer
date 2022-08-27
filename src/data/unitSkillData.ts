@@ -1678,8 +1678,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'fixed_all',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
-        // TODO: except self
-        target: { kind: 'ally', conditions: ['light', 'steel_line'] },
+        target: { kind: 'ally_except_self', conditions: ['light', 'steel_line'] },
         details: { target: { target_protect: { term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
@@ -7445,8 +7444,7 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { ap_up: { base: { microValue: 100000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
       }]
     }, {
-      // TODO: change to line_with_front & except self from target of follow_up_attack
-      area: 'cross_adjacent_without_back',
+      area: 'line_with_front',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
         details: {
@@ -7457,7 +7455,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: ['flying', 'squad_21'] },
+        target: { kind: 'ally_except_self', conditions: ['flying', 'squad_21'] },
         details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
       }]
     }]
