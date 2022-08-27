@@ -1,3 +1,4 @@
+import { SkillAreaType } from './SkillAreaOfEffect';
 import { SkillEffectTag } from './SkillEffectTag';
 import { UnitAlias } from '../UnitAlias';
 import { UnitKind, UnitRole, UnitType } from '../UnitBasicInfo';
@@ -32,7 +33,8 @@ export type SkillEffectScaleFactor =
           'CityGuard' |
           'KouheiChurch'
         ] |
-        readonly [typeof UnitAlias.BioroidUnder145cmTall, typeof UnitAlias.SistersOfValhalla],
+        readonly [typeof UnitAlias.BioroidUnder145cmTall, typeof UnitAlias.SistersOfValhalla] |
+        typeof SkillAreaType.CrossAdjacent,
       except?: 'self'
     }
   } | {

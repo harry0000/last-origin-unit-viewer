@@ -2,6 +2,7 @@ import { Effect } from '../Effect';
 import { EffectActivationState } from '../EffectActivationState';
 import { EffectTrigger } from '../EffectTrigger';
 import { EquipmentId } from '../equipment/EquipmentData';
+import { SkillAreaType } from './SkillAreaOfEffect';
 import { SkillEffectTag } from './SkillEffectTag';
 import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
@@ -147,7 +148,8 @@ type NumOfUnitsInSquadState = {
     { unit: typeof UnitKind.AGS, greater_or_equal: 3 } |
     { unit: 'ally', greater_or_equal: 1 | 2 | 4 } |
     { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 } |
-    { unit: typeof UnitType.Heavy, less_or_equal: 1 }
+    { unit: typeof UnitType.Heavy, less_or_equal: 1 } |
+    { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 }
 }
 
 export type ActivationSquadState = InSquadState | NumOfUnitsInSquadState
