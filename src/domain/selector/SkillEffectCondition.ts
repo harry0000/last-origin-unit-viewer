@@ -77,6 +77,7 @@ export const OtherSkillEffectCondition = {
   RemoveDebuff: 'remove_debuff',
   RemoveBuffResistUp: 'remove_buff_resist_up',
   PreventsDebuff: 'prevents_debuff',
+  ExpUp: 'exp_up',
   ActionCountUp: 'action_count_up'
 } as const;
 export type OtherSkillEffectCondition = typeof OtherSkillEffectCondition[keyof typeof OtherSkillEffectCondition]
@@ -306,6 +307,8 @@ export function matchSkillConditions(
       return checkAllSkillEffectDetails(actives, passives, e => !!e.all_buff_removal_resist_up);
     case OtherSkillEffectCondition.PreventsDebuff:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.prevents_effect);
+    case OtherSkillEffectCondition.ExpUp:
+      return checkAllSkillEffectDetails(actives, passives, e => !!e.exp_up);
     case OtherSkillEffectCondition.ActionCountUp:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.action_count_up);
     default: {

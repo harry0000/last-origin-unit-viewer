@@ -235,9 +235,11 @@ const SquadStateView: React.FC<{
         isReadonlyArray(state) ?
           unitStateView(EffectActivationState.InSquad, state.map(s => s.in_squad), unitNumber, t) :
           'num_of_units' in state ?
-            'greater_or_equal' in state.num_of_units ?
-              t('effect:condition.state.num_of_units_ge', state.num_of_units as Record<string, unknown>) :
-              t('effect:condition.state.num_of_units_le', state.num_of_units) :
+            'equal' in state.num_of_units ?
+              t('effect:condition.state.num_of_units_eq', state.num_of_units) :
+              'greater_or_equal' in state.num_of_units ?
+                t('effect:condition.state.num_of_units_ge', state.num_of_units as Record<string, unknown>) :
+                t('effect:condition.state.num_of_units_le', state.num_of_units) :
             'not_in_squad' in state ?
               unitStateView(EffectActivationState.NotInSquad, state.not_in_squad, unitNumber, t) :
               unitStateView(EffectActivationState.InSquad, state.in_squad, unitNumber, t)

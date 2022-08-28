@@ -19,6 +19,7 @@ export const SkillAreaType = {
   Line: 'line',
   RowTowardFront: 'row_toward_front',
   RowTowardFrontWithFrontLine: 'row_toward_front_with_front_line',
+  RowTowardFrontWithShockWave: 'row_toward_front_with_shock_wave',
   RowTowardBack: 'row_toward_back',
   SelfAndRowAdjacent: 'self_and_row_adjacent',
   LineWithFront: 'line_with_front',

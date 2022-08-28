@@ -78,7 +78,10 @@ export type SkillEffectTag =
   'lucky_hit' |
   'power_of_pureblood' |
   'bulk_up' |
+  'maximum_pump_up' |
   'now_copy_me' |
+  'miss_olympia' |
+  'gold_forged_through_hundred_refinement' |
   'magical_girl_at_centurys_end' |
   'hit_vital_spot' |
   'bravery' |

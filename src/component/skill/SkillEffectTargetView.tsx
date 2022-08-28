@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import UnitAliasView from './UnitAliasView';
 
-import { SkillEffectTarget } from '../../domain/skill/SkillEffectData';
+import { SkillEffectTarget, SkillEffectTargetKind } from '../../domain/skill/SkillEffectData';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 import { isUnitAlias } from '../../domain/UnitAlias';
 
@@ -31,7 +31,12 @@ const SkillEffectTargetView: React.FC<{
               return t('effect:with_quotes', { value: t('unit:display', { number: cond }) }) + separator;
             } else if (typeof cond === 'string') {
               return isUnitAlias(cond) ?
-                (<React.Fragment key={cond}><UnitAliasView unitAlias={cond} />{separator}</React.Fragment>) :
+                (
+                  <React.Fragment key={cond}>
+                    <UnitAliasView unitAlias={cond} exceptUnit={target.kind === SkillEffectTargetKind.AllyExceptSelf ? selfUnitNumber : undefined} />
+                    {separator}
+                  </React.Fragment>
+                ) :
                 t(`effect:unit.${cond}`) + separator;
             } else if ('alias' in cond) {
               const unit: string | null =
