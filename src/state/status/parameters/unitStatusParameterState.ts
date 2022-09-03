@@ -16,17 +16,8 @@ import {
 import { UnitBasicInfo, UnitNumber } from '../../../domain/UnitBasicInfo';
 import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../../domain/ValueUnit';
 
+import { EnhanceableStatus, unitLvStatusState } from './UnitLvStatusState';
 import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../../corelink/unitCoreLinkState';
-import {
-  EnhanceableStatus,
-  unitAccEnhancementStatusEffectState,
-  unitAtkEnhancementStatusEffectState,
-  unitCriEnhancementStatusEffectState,
-  unitDefEnhancementStatusEffectState,
-  unitEvaEnhancementStatusEffectState,
-  unitHpEnhancementStatusEffectState,
-  unitRankUpBonusEffectState
-} from './unitLvStatusState';
 import {
   unitBaseAccState,
   unitBaseAtkState,
@@ -56,19 +47,29 @@ import {
   formatResistPercentage
 } from '../../../component/status/parameters/UnitStatusParameterFormatter';
 
+const {
+  hpEnhancementStatusEffectState,
+  atkEnhancementStatusEffectState,
+  defEnhancementStatusEffectState,
+  accEnhancementStatusEffectState,
+  evaEnhancementStatusEffectState,
+  criEnhancementStatusEffectState,
+  rankUpBonusEffectState
+} = unitLvStatusState;
+
 export const unitHpStatusParameterState = selectorFamily<UnitHpStatusParameter, UnitNumber>({
   key: 'unitHpStatusParameterState',
   get: (unit) => ({ get }) => {
     return new UnitHpStatusParameter(
       get(unitBaseHpState(unit)),
-      get(unitHpEnhancementStatusEffectState(unit)),
+      get(hpEnhancementStatusEffectState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
       get(coreLinkBonusEffectsState(unit)),
       get(fullLinkBonusEffectState(unit)),
-      get(unitRankUpBonusEffectState(unit))
+      get(rankUpBonusEffectState(unit))
     );
   }
 });
@@ -78,13 +79,13 @@ export const unitAtkStatusParameterState = selectorFamily<UnitAtkStatusParameter
   get: (unit) => ({ get }) => {
     return new UnitAtkStatusParameter(
       get(unitBaseAtkState(unit)),
-      get(unitAtkEnhancementStatusEffectState(unit)),
+      get(atkEnhancementStatusEffectState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
       get(coreLinkBonusEffectsState(unit)),
-      get(unitRankUpBonusEffectState(unit))
+      get(rankUpBonusEffectState(unit))
     );
   }
 });
@@ -94,13 +95,13 @@ export const unitDefStatusParameterState = selectorFamily<UnitDefStatusParameter
   get: (unit) => ({ get }) => {
     return new UnitDefStatusParameter(
       get(unitBaseDefState(unit)),
-      get(unitDefEnhancementStatusEffectState(unit)),
+      get(defEnhancementStatusEffectState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
       get(coreLinkBonusEffectsState(unit)),
-      get(unitRankUpBonusEffectState(unit))
+      get(rankUpBonusEffectState(unit))
     );
   }
 });
@@ -110,14 +111,14 @@ const unitAccStatusParameterState = selectorFamily<UnitAccStatusParameter, UnitN
   get: (unit) => ({ get }) => {
     return new UnitAccStatusParameter(
       get(unitBaseAccState(unit)),
-      get(unitAccEnhancementStatusEffectState(unit)),
+      get(accEnhancementStatusEffectState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
       get(coreLinkBonusEffectsState(unit)),
       get(fullLinkBonusEffectState(unit)),
-      get(unitRankUpBonusEffectState(unit))
+      get(rankUpBonusEffectState(unit))
     );
   }
 });
@@ -127,14 +128,14 @@ const unitEvaStatusParameterState = selectorFamily<UnitEvaStatusParameter, UnitN
   get: (unit) => ({ get }) => {
     return new UnitEvaStatusParameter(
       get(unitBaseEvaState(unit)),
-      get(unitEvaEnhancementStatusEffectState(unit)),
+      get(evaEnhancementStatusEffectState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
       get(coreLinkBonusEffectsState(unit)),
       get(fullLinkBonusEffectState(unit)),
-      get(unitRankUpBonusEffectState(unit))
+      get(rankUpBonusEffectState(unit))
     );
   }
 });
@@ -144,14 +145,14 @@ const unitCriStatusParameterState = selectorFamily<UnitCriStatusParameter, UnitN
   get: (unit) => ({ get }) => {
     return new UnitCriStatusParameter(
       get(unitBaseCriState(unit)),
-      get(unitCriEnhancementStatusEffectState(unit)),
+      get(criEnhancementStatusEffectState(unit)),
       get(unitChip1EquipmentStatusEffectsState(unit)),
       get(unitChip2EquipmentStatusEffectsState(unit)),
       get(unitOsEquipmentStatusEffectsState(unit)),
       get(unitGearEquipmentStatusEffectsState(unit)),
       get(coreLinkBonusEffectsState(unit)),
       get(fullLinkBonusEffectState(unit)),
-      get(unitRankUpBonusEffectState(unit))
+      get(rankUpBonusEffectState(unit))
     );
   }
 });
@@ -167,7 +168,7 @@ const unitSpdStatusParameterState = selectorFamily<UnitSpdStatusParameter, UnitN
       get(unitGearEquipmentStatusEffectsState(unit)),
       get(coreLinkBonusEffectsState(unit)),
       get(fullLinkBonusEffectState(unit)),
-      get(unitRankUpBonusEffectState(unit))
+      get(rankUpBonusEffectState(unit))
     );
   }
 });

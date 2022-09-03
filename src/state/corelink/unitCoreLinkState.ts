@@ -16,7 +16,7 @@ import UnitCoreLink, { CoreLinkCount, CoreLinkSlotAvailableLv, CoreLinkUnit } fr
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 import { UnitLvValue } from '../../domain/status/UnitLv';
 
-import { unitLvState } from '../status/parameters/unitLvStatusState';
+import { unitLvStatusState } from '../status/parameters/UnitLvStatusState';
 import { unitCoreLinkBonusData } from '../../data/unitCoreLinkBonusData';
 
 import { setOnlySelector, setOnlySelectorFamily } from '../../util/recoil';
@@ -82,7 +82,7 @@ const unitCoreLinkState = selectorFamily<UnitCoreLink, UnitNumber>({
   set: (unit) => ({ get, set }, newValue) => {
     if (newValue instanceof UnitCoreLink) {
       set(_unitCoreLinkAtom(unit), newValue);
-      updateInnerAtoms(get, set)(unit, newValue, get(unitLvState(unit)));
+      updateInnerAtoms(get, set)(unit, newValue, get(unitLvStatusState.lvValueState(unit)));
     }
   }
 });

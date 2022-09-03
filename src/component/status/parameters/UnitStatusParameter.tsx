@@ -9,7 +9,8 @@ import StatusEffectsView from './StatusEffectsView';
 import UnitStatusIcon from './UnitStatusIcon';
 import { appendPercentage } from './UnitStatusParameterFormatter';
 
-import { EnhanceableStatus, useSelectedUnitStatusEnhancedLv } from '../../../state/status/parameters/unitLvStatusState';
+import { EnhanceableStatus } from '../../../state/status/parameters/UnitLvStatusState';
+import { useSelectedUnitStatusEnhancedLv } from '../../../state/status/parameters/UnitLvStatusHook';
 import { useStatusParameter } from '../../../state/status/parameters/unitStatusParameterState';
 
 import './StatusParameter.css';

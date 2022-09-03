@@ -49,7 +49,7 @@ import {
   translateEquipmentEffectAsSkill
 } from './EquipmentEffectsTranslator';
 import { translateEquipmentStatusEffects } from './EquipmentStatusEffectsTlanslator';
-import { unitLvState } from '../status/parameters/unitLvStatusState';
+import { unitLvStatusState } from '../status/parameters/UnitLvStatusState';
 
 import { setOnlySelector, setOnlySelectorFamily, updateSelectorFamily } from '../../util/recoil';
 
@@ -314,7 +314,7 @@ const unitChip1EquipmentState = selectorFamily<UnitChip1Equipment, UnitNumber>({
   set: (unit) => ({ get, set }, newValue) => {
     if (newValue instanceof UnitChip1Equipment) {
       set(_unitChip1EquipmentAtom(unit), newValue);
-      updateChip1InnerAtoms(get, set, unit, newValue, get(unitLvState(unit)));
+      updateChip1InnerAtoms(get, set, unit, newValue, get(unitLvStatusState.lvValueState(unit)));
     }
   }
 });
@@ -325,7 +325,7 @@ const unitChip2EquipmentState = selectorFamily<UnitChip2Equipment, UnitNumber>({
   set: (unit) => ({ get, set }, newValue) => {
     if (newValue instanceof UnitChip2Equipment) {
       set(_unitChip2EquipmentAtom(unit), newValue);
-      updateChip2InnerAtoms(get, set, unit, newValue, get(unitLvState(unit)));
+      updateChip2InnerAtoms(get, set, unit, newValue, get(unitLvStatusState.lvValueState(unit)));
     }
   }
 });
@@ -336,7 +336,7 @@ const unitOsEquipmentState = selectorFamily<UnitOsEquipment, UnitNumber>({
   set: (unit) => ({ get, set }, newValue) => {
     if (newValue instanceof UnitOsEquipment) {
       set(_unitOsEquipmentAtom(unit), newValue);
-      updateOsInnerAtoms(get, set, unit, newValue, get(unitLvState(unit)));
+      updateOsInnerAtoms(get, set, unit, newValue, get(unitLvStatusState.lvValueState(unit)));
     }
   }
 });
@@ -347,7 +347,7 @@ const unitGearEquipmentState = selectorFamily<UnitGearEquipment, UnitNumber>({
   set: (unit) => ({ get, set }, newValue) => {
     if (newValue instanceof UnitGearEquipment) {
       set(_unitGearEquipmentAtom(unit), newValue);
-      updateGearInnerAtoms(get, set, unit, newValue, get(unitLvState(unit)));
+      updateGearInnerAtoms(get, set, unit, newValue, get(unitLvStatusState.lvValueState(unit)));
     }
   }
 });

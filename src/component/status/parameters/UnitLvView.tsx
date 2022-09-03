@@ -13,7 +13,7 @@ import UnitLvModeToggleButton from '../UnitLvModeToggleButton';
 import { UnitNumber } from '../../../domain/UnitBasicInfo';
 import { UnitLvMode, UnitLvValue, UnitMaxLvValue } from '../../../domain/status/UnitLv';
 
-import { useRemainPoints, useUnitLv, useUsedPointReset } from '../../../state/status/parameters/unitLvStatusState';
+import { useRemainPoints, useUnitLv, useUsedPointReset } from '../../../state/status/parameters/UnitLvStatusHook';
 import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
 
 const unitLvStyle: CSSObject = {

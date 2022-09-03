@@ -9,7 +9,7 @@ import UnitRankView from './UnitRankView';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 import { UnitCost } from '../../domain/status/UnitCost';
 import { useSelectedUnit } from '../../state/selector/unitSelectorState';
-import { useUnitCost } from '../../state/status/parameters/unitLvStatusState';
+import { useUnitCost } from '../../state/status/parameters/UnitLvStatusHook';
 
 import { ifNonNullable, ifTruthy } from '../../util/react';
 

@@ -24,7 +24,7 @@ import { unitSkillData } from '../../data/unitSkillData';
 
 import { updateEquipmentSelector } from '../equipment/unitEquipmentState';
 import { updateSkillTab } from '../ui/unitSkillTabState';
-import { useUnitCurrentRank } from '../status/parameters/unitLvStatusState';
+import { useUnitCurrentRank } from '../status/parameters/UnitLvStatusHook';
 
 import { buildUnitTileIconSrcUrl } from '../../service/UnitIconSrcUrlBuilder';
 

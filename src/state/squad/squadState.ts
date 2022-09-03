@@ -27,9 +27,9 @@ import {
 } from '../equipment/unitEquipmentState';
 import { useUnitCoreLinkResolver, useUnitCoreLinkRestore } from '../corelink/unitCoreLinkState';
 import { useUnitDamagedStateResolver, useUnitDamagedStateRestore } from '../status/unitDamagedState';
-import { useUnitLvStatusResolver, useUnitLvStatusRestore } from '../status/parameters/unitLvStatusState';
 import { useUnitSelector } from '../selector/unitSelectorState';
 import { useUnitSkillResolver, useUnitSkillRestore } from '../skill/unitSkillState';
+import { unitLvStatusState } from '../status/parameters/UnitLvStatusState';
 
 import { useNotificationResister } from '../ui/notificationState';
 
@@ -173,7 +173,7 @@ export function useRemoveSquadUnitDrop(): ConnectDropTarget {
 }
 
 function useSquadJson(): () => SquadJsonStructure | undefined {
-  const lvStatusResolver = useUnitLvStatusResolver();
+  const lvStatusResolver = unitLvStatusState.lvStateResolver;
   const chip1EquipmentResolver = useUnitChip1EquipmentResolver();
   const chip2EquipmentResolver = useUnitChip2EquipmentResolver();
   const osEquipmentResolver    = useUnitOsEquipmentResolver();
@@ -283,7 +283,7 @@ export function useSquadRestoreFromUrl(): boolean {
 
   const notify = useNotificationResister();
   const squadRestore = useSetRecoilState(squadAtom);
-  const lvStateRestore = useUnitLvStatusRestore();
+  const lvStateRestore = useRecoilCallback(unitLvStatusState.restoreLvStatusState);
   const chip1Restore = useUnitChip1EquipmentRestore();
   const chip2Restore = useUnitChip2EquipmentRestore();
   const osRestore = useUnitOsEquipmentRestore();

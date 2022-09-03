@@ -3,9 +3,16 @@ import {
   ReadWriteSelectorOptions,
   RecoilState,
   SerializableParam,
+  SetterOrUpdater,
   selector,
   selectorFamily
 } from 'recoil';
+
+export type ValueOrUpdater<T> = Parameters<SetterOrUpdater<T>>[0]
+
+export function isUpdater<T>(arg: ValueOrUpdater<T>): arg is Exclude<ValueOrUpdater<T>, T> {
+  return typeof arg === 'function';
+}
 
 class GetMethodNotImplementedError extends Error {
   constructor(key: string) {

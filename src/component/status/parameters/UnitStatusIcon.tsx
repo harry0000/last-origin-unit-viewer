@@ -4,7 +4,8 @@ import { jsx, Theme } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
 import React from 'react';
 
-import { EnhanceableStatus } from '../../../state/status/parameters/unitLvStatusState';
+import { EnhanceableStatus } from '../../../state/status/parameters/UnitLvStatusState';
+
 import { Image } from 'react-bootstrap';
 import { ImageSizeProps } from '../../common/ImageSizeProps';
 

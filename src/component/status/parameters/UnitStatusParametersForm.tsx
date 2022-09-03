@@ -7,12 +7,12 @@ import { useTranslation } from 'react-i18next';
 import AutoFireButton from '../../common/AutoFireButton';
 import UnitStatusIcon from './UnitStatusIcon';
 
+import { EnhanceableStatus } from '../../../state/status/parameters/UnitLvStatusState';
 import {
-  EnhanceableStatus,
   useSelectedUnitStatusEnhancedLv,
   useStatusParameterDecrement,
   useStatusParameterIncrement
-} from '../../../state/status/parameters/unitLvStatusState';
+} from '../../../state/status/parameters/UnitLvStatusHook';
 
 const UnitStatusParameterLvView: React.FC<{ status: EnhanceableStatus }> = ({ status }) => {
   const { t } = useTranslation();

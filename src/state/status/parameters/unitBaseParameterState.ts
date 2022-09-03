@@ -4,7 +4,7 @@ import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue } from '../.
 import UnitBaseParameter from '../../../domain/status/UnitBaseParameter';
 import { UnitNumber } from '../../../domain/UnitBasicInfo';
 
-import { unitLvState } from './unitLvStatusState';
+import { unitLvStatusState } from './UnitLvStatusState';
 
 const unitBaseParameterState = atomFamily<UnitBaseParameter, UnitNumber>({
   key: 'unitBaseParameterState',
@@ -13,17 +13,17 @@ const unitBaseParameterState = atomFamily<UnitBaseParameter, UnitNumber>({
 
 export const unitBaseHpState = selectorFamily<IntegerValue, UnitNumber>({
   key: 'unitBaseHpState',
-  get: (unit) => ({ get }) => get(unitBaseParameterState(unit)).hp(get(unitLvState(unit)))
+  get: (unit) => ({ get }) => get(unitBaseParameterState(unit)).hp(get(unitLvStatusState.lvValueState(unit)))
 });
 
 export const unitBaseAtkState = selectorFamily<MilliValue, UnitNumber>({
   key: 'unitBaseAtkState',
-  get: (unit) => ({ get }) => get(unitBaseParameterState(unit)).atk(get(unitLvState(unit)))
+  get: (unit) => ({ get }) => get(unitBaseParameterState(unit)).atk(get(unitLvStatusState.lvValueState(unit)))
 });
 
 export const unitBaseDefState = selectorFamily<MilliValue, UnitNumber>({
   key: 'unitBaseDefState',
-  get: (unit) => ({ get }) => get(unitBaseParameterState(unit)).def(get(unitLvState(unit)))
+  get: (unit) => ({ get }) => get(unitBaseParameterState(unit)).def(get(unitLvStatusState.lvValueState(unit)))
 });
 
 export const unitBaseAccState = selectorFamily<MilliPercentageValue, UnitNumber>({

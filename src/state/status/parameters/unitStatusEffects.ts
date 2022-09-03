@@ -3,20 +3,13 @@ import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
 import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../../corelink/unitCoreLinkState';
-import {
-  unitAccEnhancementStatusEffectState,
-  unitAtkEnhancementStatusEffectState,
-  unitCriEnhancementStatusEffectState,
-  unitDefEnhancementStatusEffectState,
-  unitEvaEnhancementStatusEffectState,
-  unitHpEnhancementStatusEffectState,
-  useStatusEnhancedLv
-} from './unitLvStatusState';
+import { useStatusEnhancedLv } from './UnitLvStatusHook';
 import {
   unitAtkStatusParameterState,
   unitDefStatusParameterState,
   unitHpStatusParameterState
 } from './unitStatusParameterState';
+import { unitLvStatusState } from './UnitLvStatusState';
 import {
   useChip1EquipmentEffect,
   useChip2EquipmentEffect,
@@ -30,6 +23,15 @@ import { ChipEquipment, GearEquipment, OsEquipment } from '../../../domain/equip
 import { StatusEffect } from '../../../domain/status/StatusEffect';
 import { UnitBasicInfo, UnitNumber } from '../../../domain/UnitBasicInfo';
 import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../../domain/ValueUnit';
+
+const {
+  hpEnhancementStatusEffectState,
+  atkEnhancementStatusEffectState,
+  defEnhancementStatusEffectState,
+  accEnhancementStatusEffectState,
+  evaEnhancementStatusEffectState,
+  criEnhancementStatusEffectState
+} = unitLvStatusState;
 
 export function useStatusEffects(unit: UnitBasicInfo, parameter: EffectedParameter): ReadonlyArray<StatusEffectPopoverRowProps> {
   const unitNumber = unit.no;
@@ -58,7 +60,7 @@ function enhancementEffects(
   switch (parameter) {
   case 'hp': {
     const lv = useStatusEnhancedLv(parameter, unit);
-    const value = useRecoilValue(unitHpEnhancementStatusEffectState(unit)).hp_up?.value;
+    const value = useRecoilValue(hpEnhancementStatusEffectState(unit)).hp_up?.value;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -69,7 +71,7 @@ function enhancementEffects(
   }
   case 'atk': {
     const lv = useStatusEnhancedLv(parameter, unit);
-    const value = useRecoilValue(unitAtkEnhancementStatusEffectState(unit)).atk_up;
+    const value = useRecoilValue(atkEnhancementStatusEffectState(unit)).atk_up;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -80,7 +82,7 @@ function enhancementEffects(
   }
   case 'def': {
     const lv = useStatusEnhancedLv(parameter, unit);
-    const value = useRecoilValue(unitDefEnhancementStatusEffectState(unit)).def_up;
+    const value = useRecoilValue(defEnhancementStatusEffectState(unit)).def_up;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -91,7 +93,7 @@ function enhancementEffects(
   }
   case 'acc': {
     const lv = useStatusEnhancedLv(parameter, unit);
-    const value = useRecoilValue(unitAccEnhancementStatusEffectState(unit)).acc_up;
+    const value = useRecoilValue(accEnhancementStatusEffectState(unit)).acc_up;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -102,7 +104,7 @@ function enhancementEffects(
   }
   case 'eva': {
     const lv = useStatusEnhancedLv(parameter, unit);
-    const value = useRecoilValue(unitEvaEnhancementStatusEffectState(unit)).eva_up;
+    const value = useRecoilValue(evaEnhancementStatusEffectState(unit)).eva_up;
     return lv && value ?
       [{
         key: 'enhancement',
@@ -113,7 +115,7 @@ function enhancementEffects(
   }
   case 'cri': {
     const lv = useStatusEnhancedLv(parameter, unit);
-    const value = useRecoilValue(unitCriEnhancementStatusEffectState(unit)).cri_up;
+    const value = useRecoilValue(criEnhancementStatusEffectState(unit)).cri_up;
     return lv && value ?
       [{
         key: 'enhancement',
