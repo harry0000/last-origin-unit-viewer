@@ -27,17 +27,8 @@ import { UnitLvMode, UnitLvValue } from '../../../domain/status/UnitLv';
 import UnitLvStatus from '../../../domain/status/UnitLvStatus';
 import { getUnitDefaultRank } from '../../../domain/status/UnitRankState';
 
-import {
-  updateChip1EquipmentDependency,
-  updateChip2EquipmentDependency,
-  updateGearEquipmentDependency,
-  updateOsEquipmentDependency
-} from '../../equipment/unitEquipmentState';
-import {
-  coreLinkCountState,
-  fullLinkBonusEffectState,
-  updateCoreLinkDependency
-} from '../../corelink/unitCoreLinkState';
+import { unitCoreLinkState } from '../../corelink/UnitCoreLinkState';
+import { updateUnitLvValueDependency } from '../../transaction';
 
 import { isUpdater, ValueOrUpdater } from '../../../util/recoil';
 
@@ -131,7 +122,8 @@ class UnitLvStatusState {
   });
 
   #update(unit: UnitNumber, valueOrUpdater: ValueOrUpdater<UnitLvStatus>): (cbi: CallbackInterface) => void {
-    return ({ snapshot, set }) => {
+    return (cbi) => {
+      const { snapshot, set } = cbi;
       const newValue =
         isUpdater(valueOrUpdater) ?
           valueOrUpdater(snapshot.getLoadable(this.#unitLvStatusState(unit)).getValue()) :
@@ -192,12 +184,7 @@ class UnitLvStatusState {
 
       set(this.#unitLvStatusState(unit), newValue);
 
-      // update dependencies
-      set(updateChip1EquipmentDependency(unit), newValue.lv);
-      set(updateChip2EquipmentDependency(unit), newValue.lv);
-      set(updateOsEquipmentDependency(unit), newValue.lv);
-      set(updateGearEquipmentDependency(unit), newValue.lv);
-      set(updateCoreLinkDependency(unit), newValue.lv);
+      updateUnitLvValueDependency(unit, newValue.lv)(cbi);
     };
   }
 
@@ -231,6 +218,10 @@ class UnitLvStatusState {
   readonly unitCostState = selectorFamily<UnitCost, UnitBasicInfo>({
     key: 'unitCostState',
     get: (unit) => ({ get }) => {
+      const {
+        coreLinkCountState,
+        fullLinkBonusEffectState
+      } = unitCoreLinkState;
       const coreLinkCount = get(coreLinkCountState(unit.no));
       const fullLinkBonus = get(fullLinkBonusEffectState(unit.no));
 

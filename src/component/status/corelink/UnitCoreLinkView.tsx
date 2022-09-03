@@ -14,7 +14,7 @@ import { CoreLinkBonus } from '../../../domain/UnitCoreLinkBonusData';
 import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 import { calcMicroValue, calcMilliPercentageValue } from '../../../domain/ValueUnit';
 
-import { useCoreLinkEffect, useCoreLinkRate } from '../../../state/corelink/unitCoreLinkState';
+import { useCoreLinkEffect, useCoreLinkRate } from '../../../state/corelink/UnitCoreLinkHook';
 import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
 
 import '../UnitSlot.css';

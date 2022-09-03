@@ -28,12 +28,16 @@ import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 import { AreaOfEffectCell, AreaOfEffectCells } from '../../component/skill/AreaOfEffectCellType';
 
 import { affectionBonusEffectState } from '../status/unitAffectionBonus';
-import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/unitCoreLinkState';
+import { unitCoreLinkState } from '../corelink/UnitCoreLinkState';
 import { useActiveSkillTab } from '../ui/unitSkillTabState';
 import { useSelectedUnit } from '../selector/unitSelectorState';
 
 import { setOnlySelector } from '../../util/recoil';
 
+const {
+  coreLinkBonusEffectsState,
+  fullLinkBonusEffectState
+} = unitCoreLinkState;
 
 const unitSkillState = atomFamily<UnitSkill, UnitBasicInfo>({
   key: 'unitSkillState',

@@ -10,7 +10,7 @@ import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 import { FullLinkBonus } from '../../../domain/UnitCoreLinkBonusData';
 import { calcMicroValue, calcMilliPercentageValue } from '../../../domain/ValueUnit';
 
-import { useAvailableFullLinkBonus, useFullLinkBonus } from '../../../state/corelink/unitCoreLinkState';
+import { useAvailableFullLinkBonus, useFullLinkBonus } from '../../../state/corelink/UnitCoreLinkHook';
 
 import { ifTruthy } from '../../../util/react';
 

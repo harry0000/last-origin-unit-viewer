@@ -17,7 +17,6 @@ import { UnitBasicInfo, UnitNumber } from '../../../domain/UnitBasicInfo';
 import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../../domain/ValueUnit';
 
 import { EnhanceableStatus, unitLvStatusState } from './UnitLvStatusState';
-import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../../corelink/unitCoreLinkState';
 import {
   unitBaseAccState,
   unitBaseAtkState,
@@ -36,6 +35,7 @@ import {
   unitGearEquipmentStatusEffectsState,
   unitOsEquipmentStatusEffectsState
 } from '../../equipment/unitEquipmentState';
+import { unitCoreLinkState } from '../../corelink/UnitCoreLinkState';
 import { useSelectedUnit } from '../../selector/unitSelectorState';
 
 import { EffectedParameter } from '../../../component/status/parameters/StatusEffectsView';
@@ -56,6 +56,11 @@ const {
   criEnhancementStatusEffectState,
   rankUpBonusEffectState
 } = unitLvStatusState;
+
+const {
+  coreLinkBonusEffectsState,
+  fullLinkBonusEffectState
+} = unitCoreLinkState;
 
 export const unitHpStatusParameterState = selectorFamily<UnitHpStatusParameter, UnitNumber>({
   key: 'unitHpStatusParameterState',

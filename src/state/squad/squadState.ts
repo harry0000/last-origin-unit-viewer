@@ -25,10 +25,10 @@ import {
   useUnitOsEquipmentResolver,
   useUnitOsEquipmentRestore
 } from '../equipment/unitEquipmentState';
-import { useUnitCoreLinkResolver, useUnitCoreLinkRestore } from '../corelink/unitCoreLinkState';
 import { useUnitDamagedStateResolver, useUnitDamagedStateRestore } from '../status/unitDamagedState';
 import { useUnitSelector } from '../selector/unitSelectorState';
 import { useUnitSkillResolver, useUnitSkillRestore } from '../skill/unitSkillState';
+import { unitCoreLinkState } from '../corelink/UnitCoreLinkState';
 import { unitLvStatusState } from '../status/parameters/UnitLvStatusState';
 
 import { useNotificationResister } from '../ui/notificationState';
@@ -94,7 +94,7 @@ export function useUnitDragPreview():
   { display: false } |
   { display: true, itemType: ItemType, item: UnitBasicInfo, style: CSSProperties }
 {
-  const props = usePreview();
+  const props = usePreview<UnitBasicInfo>();
 
   if (!props.display) {
     return props;
@@ -111,7 +111,7 @@ export function useUnitDragPreview():
 
   return {
     display,
-    itemType: itemType as ItemType,
+    itemType,
     item,
     style
   };
@@ -178,7 +178,7 @@ function useSquadJson(): () => SquadJsonStructure | undefined {
   const chip2EquipmentResolver = useUnitChip2EquipmentResolver();
   const osEquipmentResolver    = useUnitOsEquipmentResolver();
   const gearEquipmentResolver  = useUnitGearEquipmentResolver();
-  const coreLinkResolver = useUnitCoreLinkResolver();
+  const coreLinkResolver = unitCoreLinkState.unitCoreLinkResolver;
   const skillResolver = useUnitSkillResolver();
   const affectionResolver = useUnitAffectionStateResolver();
   const damagedResolver = useUnitDamagedStateResolver();
@@ -288,7 +288,7 @@ export function useSquadRestoreFromUrl(): boolean {
   const chip2Restore = useUnitChip2EquipmentRestore();
   const osRestore = useUnitOsEquipmentRestore();
   const gearRestore = useUnitGearEquipmentRestore();
-  const coreLinkRestore = useUnitCoreLinkRestore();
+  const coreLinkRestore = useRecoilCallback(unitCoreLinkState.restoreUnitCoreLink);
   const skillRestore = useUnitSkillRestore();
   const affectionRestore = useUnitAffectionStateRestore();
   const damagedRestore = useUnitDamagedStateRestore();

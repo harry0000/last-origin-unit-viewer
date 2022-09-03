@@ -117,6 +117,41 @@ class UnitCoreLink {
   static get slot5AvailableLv(): CoreLinkSlotAvailableLv { return 90; }
   static emptyBonus(unit: UnitNumber): CoreLinkBonus { return calcBonus(0, unit); }
 
+  static getCoreLinkUnits(
+    unit: UnitNumber
+  ): readonly [
+    CoreLinkUnit,
+    CoreLinkUnit & { rank: typeof UnitRank.SS },
+    CoreLinkUnit & { rank: typeof UnitRank.S },
+    CoreLinkUnit & { rank: typeof UnitRank.A }
+  ] {
+    return [
+      UnitCoreLink.#fitUnit(unit),
+      UnitCoreLink.#rankSSFitUnit(unit),
+      UnitCoreLink.#rankSFitUnit(unit),
+      UnitCoreLink.#rankAFitUnit(unit)
+    ];
+  }
+
+  static #fitUnit(unit: UnitNumber): CoreLinkUnit {
+    return { unit, rate: 100 };
+  }
+
+  static #rankSSFitUnit(unit: UnitNumber): CoreLinkUnit & { rank: typeof UnitRank.SS } {
+    const { type, role } = unitBasicData[unit];
+    return { rank: UnitRank.SS, type, role, rate: 75 };
+  }
+
+  static #rankSFitUnit(unit: UnitNumber): CoreLinkUnit & { rank: typeof UnitRank.S } {
+    const { type, role } = unitBasicData[unit];
+    return { rank: UnitRank.S, type, role, rate: 60 };
+  }
+
+  static #rankAFitUnit(unit: UnitNumber): CoreLinkUnit & { rank: typeof UnitRank.A } {
+    const { type, role } = unitBasicData[unit];
+    return { rank: UnitRank.A, type, role, rate: 45 };
+  }
+
   readonly unit: UnitNumber;
 
   readonly slot1: CoreLinkUnit | undefined;
@@ -145,25 +180,6 @@ class UnitCoreLink {
     this.slot5 = slot5;
 
     this.fullLinkBonus = fullLinkBonus;
-  }
-
-  get fitUnit(): CoreLinkUnit {
-    return { unit: this.unit, rate: 100 };
-  }
-
-  get rankSSFitUnit(): CoreLinkUnit & { rank: typeof UnitRank.SS } {
-    const { type, role } = unitBasicData[this.unit];
-    return { rank: UnitRank.SS, type, role, rate: 75 };
-  }
-
-  get rankSFitUnit(): CoreLinkUnit & { rank: typeof UnitRank.S } {
-    const { type, role } = unitBasicData[this.unit];
-    return { rank: UnitRank.S, type, role, rate: 60 };
-  }
-
-  get rankAFitUnit(): CoreLinkUnit & { rank: typeof UnitRank.A } {
-    const { type, role } = unitBasicData[this.unit];
-    return { rank: UnitRank.A, type, role, rate: 45 };
   }
 
   #validateCoreLinkUnit(coreLinkUnit: CoreLinkUnit): boolean {

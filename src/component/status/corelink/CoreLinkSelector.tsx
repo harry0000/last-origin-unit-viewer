@@ -12,7 +12,8 @@ import CoreLinkUnitView from './CoreLinkUnitView';
 import { CoreLinkUnit } from '../../../domain/UnitCoreLink';
 import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 
-import { CoreLinkSlot, useAvailableCoreLinkUnit, useUnitCoreLink } from '../../../state/corelink/unitCoreLinkState';
+import { CoreLinkSlot } from '../../../state/corelink/UnitCoreLinkState';
+import { useAvailableCoreLinkUnit, useUnitCoreLink } from '../../../state/corelink/UnitCoreLinkHook';
 import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
 
 import { ifNonNullable } from '../../../util/react';

@@ -2,13 +2,13 @@ import { TFunction } from 'i18next';
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
-import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../../corelink/unitCoreLinkState';
 import { useStatusEnhancedLv } from './UnitLvStatusHook';
 import {
   unitAtkStatusParameterState,
   unitDefStatusParameterState,
   unitHpStatusParameterState
 } from './unitStatusParameterState';
+import { unitCoreLinkState } from '../../corelink/UnitCoreLinkState';
 import { unitLvStatusState } from './UnitLvStatusState';
 import {
   useChip1EquipmentEffect,
@@ -32,6 +32,11 @@ const {
   evaEnhancementStatusEffectState,
   criEnhancementStatusEffectState
 } = unitLvStatusState;
+
+const {
+  coreLinkBonusEffectsState,
+  fullLinkBonusEffectState
+} = unitCoreLinkState;
 
 export function useStatusEffects(unit: UnitBasicInfo, parameter: EffectedParameter): ReadonlyArray<StatusEffectPopoverRowProps> {
   const unitNumber = unit.no;
