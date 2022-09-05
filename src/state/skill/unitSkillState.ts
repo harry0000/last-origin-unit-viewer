@@ -30,7 +30,7 @@ import { AreaOfEffectCell, AreaOfEffectCells } from '../../component/skill/AreaO
 import { affectionBonusEffectState } from '../status/unitAffectionBonus';
 import { unitCoreLinkState } from '../corelink/UnitCoreLinkState';
 import { useActiveSkillTab } from '../ui/unitSkillTabState';
-import { useSelectedUnit } from '../selector/unitSelectorState';
+import { useSelectedUnit } from '../selector/UnitSelectorHook';
 
 import { setOnlySelector } from '../../util/recoil';
 

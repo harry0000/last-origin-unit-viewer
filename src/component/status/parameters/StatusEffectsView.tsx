@@ -17,7 +17,7 @@ import { effectValueColor } from '../../common/effectValueColor';
 
 import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 
-import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
+import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
 import { useStatusEffects } from '../../../state/status/parameters/unitStatusEffects';
 import { useStatusEffectsSummary } from '../../../state/status/parameters/unitStatusParameterState';
 

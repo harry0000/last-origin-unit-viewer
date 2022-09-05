@@ -38,7 +38,7 @@ import {
   TranslatedEquipmentEffectAsSkill
 } from '../../../state/equipment/EquipmentEffectsTranslator';
 import { useAvailableEquipment } from '../../../state/equipment/availableEquipment';
-import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
+import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
 
 import { ifNonNullable } from '../../../util/react';
 

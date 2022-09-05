@@ -14,7 +14,7 @@ import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 
 import { CoreLinkSlot } from '../../../state/corelink/UnitCoreLinkState';
 import { useAvailableCoreLinkUnit, useUnitCoreLink } from '../../../state/corelink/UnitCoreLinkHook';
-import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
+import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
 
 import { ifNonNullable } from '../../../util/react';
 

@@ -15,7 +15,7 @@ import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 import { calcMicroValue, calcMilliPercentageValue } from '../../../domain/ValueUnit';
 
 import { useCoreLinkEffect, useCoreLinkRate } from '../../../state/corelink/UnitCoreLinkHook';
-import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
+import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
 
 import '../UnitSlot.css';
 import './UnitCoreLinkView.css';

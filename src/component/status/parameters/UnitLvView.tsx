@@ -14,7 +14,7 @@ import { UnitNumber } from '../../../domain/UnitBasicInfo';
 import { UnitLvMode, UnitLvValue, UnitMaxLvValue } from '../../../domain/status/UnitLv';
 
 import { useRemainPoints, useUnitLv, useUsedPointReset } from '../../../state/status/parameters/UnitLvStatusHook';
-import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
+import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
 
 const unitLvStyle: CSSObject = {
   fontSize: '1.4em',

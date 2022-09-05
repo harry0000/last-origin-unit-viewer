@@ -13,7 +13,7 @@ import {
   useSelectedFullLinkBonusCondition,
   useSelectedRankUpCondition,
   useSelectedSkillEffectConditions
-} from '../../state/selector/unitSelectorState';
+} from '../../state/selector/UnitSelectorHook';
 
 import { ifNonNullable, ifTruthy } from '../../util/react';
 

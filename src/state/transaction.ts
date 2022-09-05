@@ -1,15 +1,26 @@
 import { CallbackInterface } from 'recoil';
 
+import { UnitBasicInfo, UnitNumber } from '../domain/UnitBasicInfo';
 import { UnitLvValue } from '../domain/status/UnitLv';
-import { UnitNumber } from '../domain/UnitBasicInfo';
 
+import { unitCoreLinkState } from './corelink/UnitCoreLinkState';
 import {
   updateChip1EquipmentDependency,
   updateChip2EquipmentDependency,
+  updateEquipmentSelector,
   updateGearEquipmentDependency,
   updateOsEquipmentDependency
 } from './equipment/unitEquipmentState';
-import { unitCoreLinkState } from './corelink/UnitCoreLinkState';
+import { updateSkillTab } from './ui/unitSkillTabState';
+
+export function updateSelectedUnitDependency(
+  selected: UnitBasicInfo | undefined
+): (cbi: CallbackInterface) => void {
+  return ({ set }) => {
+    set(updateSkillTab, selected);
+    set(updateEquipmentSelector, selected);
+  };
+}
 
 export function updateUnitLvValueDependency(
   unit: UnitNumber,

@@ -8,7 +8,7 @@ import UnitRankState, { availableUnitRanks, RankUpAvailableLv } from '../../../d
 
 import { EnhanceableStatus, unitLvStatusState } from './UnitLvStatusState';
 import { useSquad } from '../../squad/squadState';
-import { useSelectedUnit } from '../../selector/unitSelectorState';
+import { useSelectedUnit } from '../../selector/UnitSelectorHook';
 
 export function useUnitCost(unit: UnitBasicInfo): UnitCost {
   return useRecoilValue(unitLvStatusState.unitCostState(unit));

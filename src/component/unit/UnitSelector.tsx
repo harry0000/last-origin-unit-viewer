@@ -8,7 +8,7 @@ import SelectorButton from './SelectorButton';
 import UnitDetailConditionsSelector from './UnitDetailConditionsSelector';
 
 import { UnitRank, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
-import { useUnitRankSelector, useUnitRoleSelector, useUnitTypeSelector } from '../../state/selector/unitSelectorState';
+import { useUnitRankSelector, useUnitRoleSelector, useUnitTypeSelector } from '../../state/selector/UnitSelectorHook';
 
 const UnitRankSelectorButton: React.FC<{ rank: UnitRank }> = ({ rank }) => {
   const { t } = useTranslation();

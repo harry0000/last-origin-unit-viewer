@@ -24,7 +24,7 @@ import {
   useSkillName,
   useSkillRange
 } from '../../state/skill/unitSkillState';
-import { useSelectedUnit } from '../../state/selector/unitSelectorState';
+import { useSelectedUnit } from '../../state/selector/UnitSelectorHook';
 
 import { ifNonNullable, ifTruthy } from '../../util/react';
 

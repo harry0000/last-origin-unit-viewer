@@ -36,7 +36,7 @@ import {
   unitOsEquipmentStatusEffectsState
 } from '../../equipment/unitEquipmentState';
 import { unitCoreLinkState } from '../../corelink/UnitCoreLinkState';
-import { useSelectedUnit } from '../../selector/unitSelectorState';
+import { useSelectedUnit } from '../../selector/UnitSelectorHook';
 
 import { EffectedParameter } from '../../../component/status/parameters/StatusEffectsView';
 import {

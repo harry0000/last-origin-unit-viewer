@@ -3,7 +3,7 @@
 import { jsx } from '@emotion/react';
 import React from 'react';
 
-import { useFilteredUnitList } from '../../state/selector/unitSelectorState';
+import { useFilteredUnitList } from '../../state/selector/UnitSelectorHook';
 
 import UnitCard from './UnitCard';
 

@@ -26,7 +26,7 @@ import {
   useUnitOsEquipmentRestore
 } from '../equipment/unitEquipmentState';
 import { useUnitDamagedStateResolver, useUnitDamagedStateRestore } from '../status/unitDamagedState';
-import { useUnitSelector } from '../selector/unitSelectorState';
+import { useUnitSelector } from '../selector/UnitSelectorHook';
 import { useUnitSkillResolver, useUnitSkillRestore } from '../skill/unitSkillState';
 import { unitCoreLinkState } from '../corelink/UnitCoreLinkState';
 import { unitLvStatusState } from '../status/parameters/UnitLvStatusState';

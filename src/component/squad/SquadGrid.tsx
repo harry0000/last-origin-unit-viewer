@@ -10,7 +10,7 @@ import { TenKeyPosition } from '../../domain/squad/Squad';
 import { UnitBasicInfo, UnitRank } from '../../domain/UnitBasicInfo';
 
 import { useIgnoreSquadUnitDrop, useSquadGrid, useSquadUnitDrag } from '../../state/squad/squadState';
-import { useSquadUnit } from '../../state/selector/unitSelectorState';
+import { useSquadUnit } from '../../state/selector/UnitSelectorHook';
 import { useUnitDamagedState } from '../../state/status/unitDamagedState';
 import { ifTruthy } from '../../util/react';
 import UnitRankIcon from '../common/UnitRankIcon';
@@ -38,7 +38,7 @@ export const UnitTile: React.FC<{
         border: `3px solid ${borderColor}`,
         userSelect: 'none'
       }}
-      onClick={() => selectUnit(unit)}
+      onClick={() => selectUnit()}
       ref={dragRef}
     >
       <Image

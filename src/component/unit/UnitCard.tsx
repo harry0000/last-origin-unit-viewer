@@ -9,7 +9,7 @@ import UnitRankIcon from '../common/UnitRankIcon';
 import type { UnitBasicInfo, UnitRole } from '../../domain/UnitBasicInfo';
 import { UnitRank } from '../../domain/UnitBasicInfo';
 
-import { useUnit } from '../../state/selector/unitSelectorState';
+import { useUnit } from '../../state/selector/UnitSelectorHook';
 import { useUnitDrag } from '../../state/squad/squadState';
 
 import './UnitCard.css';
@@ -40,7 +40,7 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = React.memo(({ unit }) => {
     >
       <div
         className={selected ? 'unit-card selected' : 'unit-card'}
-        onClick={() => selectUnit(unit)}
+        onClick={() => selectUnit()}
         ref={dragRef}
       >
         <Image
