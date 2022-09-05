@@ -18,8 +18,8 @@ import { effectValueColor } from '../../common/effectValueColor';
 import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 
 import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
-import { useStatusEffects } from '../../../state/status/parameters/unitStatusEffects';
-import { useStatusEffectsSummary } from '../../../state/status/parameters/unitStatusParameterState';
+import { useStatusEffects } from '../../../state/status/parameters/UnitStatusEffectsHook';
+import { useStatusEffectsSummary } from '../../../state/status/parameters/UnitStatusParameterHook';
 
 export type EffectedParameter = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri' | 'spd' | 'fireResist' | 'iceResist' | 'electricResist'
 

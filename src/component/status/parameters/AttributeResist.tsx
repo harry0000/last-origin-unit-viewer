@@ -9,7 +9,7 @@ import StatusEffectsView from './StatusEffectsView';
 
 import { DamageAttribute } from '../../../domain/skill/UnitSkillData';
 
-import { useSelectedUnitAttributeResistParameter } from '../../../state/status/parameters/unitStatusParameterState';
+import { useSelectedUnitAttributeResistParameter } from '../../../state/status/parameters/UnitStatusParameterHook';
 
 const AttributeResist: React.FC<{
   attribute: DamageAttribute

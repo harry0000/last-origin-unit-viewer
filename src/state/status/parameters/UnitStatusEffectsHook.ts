@@ -2,27 +2,23 @@ import { TFunction } from 'i18next';
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
-import { useStatusEnhancedLv } from './UnitLvStatusHook';
-import {
-  unitAtkStatusParameterState,
-  unitDefStatusParameterState,
-  unitHpStatusParameterState
-} from './unitStatusParameterState';
+import { ChipEquipment, GearEquipment, OsEquipment } from '../../../domain/equipment/UnitEquipment';
+import { StatusEffect } from '../../../domain/status/StatusEffect';
+import { UnitBasicInfo, UnitNumber } from '../../../domain/UnitBasicInfo';
+import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../../domain/ValueUnit';
+
 import { unitCoreLinkState } from '../../corelink/UnitCoreLinkState';
 import { unitLvStatusState } from './UnitLvStatusState';
+import { unitStatusParameterState } from './UnitStatusParameterState';
 import {
   useChip1EquipmentEffect,
   useChip2EquipmentEffect,
   useGearEquipmentEffect,
   useOsEquipmentEffect
 } from '../../equipment/UnitEquipmentHook';
+import { useStatusEnhancedLv } from './UnitLvStatusHook';
 
 import { EffectedParameter, StatusEffectPopoverRowProps } from '../../../component/status/parameters/StatusEffectsView';
-
-import { ChipEquipment, GearEquipment, OsEquipment } from '../../../domain/equipment/UnitEquipment';
-import { StatusEffect } from '../../../domain/status/StatusEffect';
-import { UnitBasicInfo, UnitNumber } from '../../../domain/UnitBasicInfo';
-import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../../domain/ValueUnit';
 
 const {
   hpEnhancementStatusEffectState,
@@ -32,6 +28,12 @@ const {
   evaEnhancementStatusEffectState,
   criEnhancementStatusEffectState
 } = unitLvStatusState;
+
+const {
+  unitHpStatusParameterState,
+  unitAtkStatusParameterState,
+  unitDefStatusParameterState
+} = unitStatusParameterState;
 
 const {
   coreLinkBonusEffectsState,

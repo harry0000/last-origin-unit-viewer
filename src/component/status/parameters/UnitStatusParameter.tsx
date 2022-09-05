@@ -11,7 +11,7 @@ import { appendPercentage } from './UnitStatusParameterFormatter';
 
 import { EnhanceableStatus } from '../../../state/status/parameters/UnitLvStatusState';
 import { useSelectedUnitStatusEnhancedLv } from '../../../state/status/parameters/UnitLvStatusHook';
-import { useStatusParameter } from '../../../state/status/parameters/unitStatusParameterState';
+import { useStatusParameter } from '../../../state/status/parameters/UnitStatusParameterHook';
 
 import './StatusParameter.css';
 
