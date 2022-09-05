@@ -15,20 +15,11 @@ import { restore, UrlSafeBase64String } from '../../service/UrlParamConverter';
 import { restoreFromJsonObject } from '../../service/SquadJsonRestore';
 
 import { useUnitAffectionStateResolver, useUnitAffectionStateRestore } from '../status/unitAffectionBonus';
-import {
-  useUnitChip1EquipmentResolver,
-  useUnitChip1EquipmentRestore,
-  useUnitChip2EquipmentResolver,
-  useUnitChip2EquipmentRestore,
-  useUnitGearEquipmentResolver,
-  useUnitGearEquipmentRestore,
-  useUnitOsEquipmentResolver,
-  useUnitOsEquipmentRestore
-} from '../equipment/unitEquipmentState';
 import { useUnitDamagedStateResolver, useUnitDamagedStateRestore } from '../status/unitDamagedState';
 import { useUnitSelector } from '../selector/UnitSelectorHook';
 import { useUnitSkillResolver, useUnitSkillRestore } from '../skill/unitSkillState';
 import { unitCoreLinkState } from '../corelink/UnitCoreLinkState';
+import { unitEquipmentState } from '../equipment/UnitEquipmentState';
 import { unitLvStatusState } from '../status/parameters/UnitLvStatusState';
 
 import { useNotificationResister } from '../ui/notificationState';
@@ -174,10 +165,10 @@ export function useRemoveSquadUnitDrop(): ConnectDropTarget {
 
 function useSquadJson(): () => SquadJsonStructure | undefined {
   const lvStatusResolver = unitLvStatusState.lvStateResolver;
-  const chip1EquipmentResolver = useUnitChip1EquipmentResolver();
-  const chip2EquipmentResolver = useUnitChip2EquipmentResolver();
-  const osEquipmentResolver    = useUnitOsEquipmentResolver();
-  const gearEquipmentResolver  = useUnitGearEquipmentResolver();
+  const chip1EquipmentResolver = unitEquipmentState.unitEquipmentResolver('chip1');
+  const chip2EquipmentResolver = unitEquipmentState.unitEquipmentResolver('chip2');
+  const osEquipmentResolver    = unitEquipmentState.unitEquipmentResolver('os');
+  const gearEquipmentResolver  = unitEquipmentState.unitEquipmentResolver('gear');
   const coreLinkResolver = unitCoreLinkState.unitCoreLinkResolver;
   const skillResolver = useUnitSkillResolver();
   const affectionResolver = useUnitAffectionStateResolver();
@@ -284,10 +275,10 @@ export function useSquadRestoreFromUrl(): boolean {
   const notify = useNotificationResister();
   const squadRestore = useSetRecoilState(squadAtom);
   const lvStateRestore = useRecoilCallback(unitLvStatusState.restoreLvStatusState);
-  const chip1Restore = useUnitChip1EquipmentRestore();
-  const chip2Restore = useUnitChip2EquipmentRestore();
-  const osRestore = useUnitOsEquipmentRestore();
-  const gearRestore = useUnitGearEquipmentRestore();
+  const chip1Restore = useRecoilCallback(unitEquipmentState.restoreUnitEquipmentState('chip1'));
+  const chip2Restore = useRecoilCallback(unitEquipmentState.restoreUnitEquipmentState('chip2'));
+  const osRestore = useRecoilCallback(unitEquipmentState.restoreUnitEquipmentState('os'));
+  const gearRestore = useRecoilCallback(unitEquipmentState.restoreUnitEquipmentState('gear'));
   const coreLinkRestore = useRecoilCallback(unitCoreLinkState.restoreUnitCoreLink);
   const skillRestore = useUnitSkillRestore();
   const affectionRestore = useUnitAffectionStateRestore();

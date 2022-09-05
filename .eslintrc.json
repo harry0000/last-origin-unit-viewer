@@ -38,6 +38,10 @@
       "single"
     ],
     "react/prop-types": "off",
+    "react/no-unknown-property": [
+      "error",
+      { "ignore": ["css", "focusable"] }
+    ],
     "semi": [
       "error",
       "always"

@@ -23,8 +23,8 @@ import {
 import { ChipEquipment, GearEquipment, OsEquipment } from '../../../domain/equipment/UnitEquipment';
 import { UnitBasicInfo, UnitNumber } from '../../../domain/UnitBasicInfo';
 
+import { EquipmentSlot } from '../../../state/equipment/UnitEquipmentState';
 import {
-  EquipmentSlot,
   useEquipmentAvailable,
   useEquipmentEffects,
   useEquipmentEffectsAsSkill,
@@ -32,7 +32,7 @@ import {
   useEquipmentRank,
   useEquipmentStatusEffects,
   useUnitEquipment
-} from '../../../state/equipment/unitEquipmentState';
+} from '../../../state/equipment/UnitEquipmentHook';
 import {
   TranslatedEquipmentEffect,
   TranslatedEquipmentEffectAsSkill

@@ -15,7 +15,7 @@ import {
   useChip2EquipmentEffect,
   useGearEquipmentEffect,
   useOsEquipmentEffect
-} from '../../equipment/unitEquipmentState';
+} from '../../equipment/UnitEquipmentHook';
 
 import { EffectedParameter, StatusEffectPopoverRowProps } from '../../../component/status/parameters/StatusEffectsView';
 

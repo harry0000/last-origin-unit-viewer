@@ -10,7 +10,7 @@ import {
 
 export type ValueOrUpdater<T> = Parameters<SetterOrUpdater<T>>[0]
 
-export function isUpdater<T>(arg: ValueOrUpdater<T>): arg is Exclude<ValueOrUpdater<T>, T> {
+export function isUpdater<T>(arg: ValueOrUpdater<T>): arg is (currVal: T) => T {
   return typeof arg === 'function';
 }
 

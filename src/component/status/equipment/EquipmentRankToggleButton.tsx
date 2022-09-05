@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { ButtonGroup, ToggleButton } from 'react-bootstrap';
 import { EquipmentRank } from '../../../domain/equipment/EquipmentData';
-import { useOsEquipmentRankSelector } from '../../../state/equipment/unitEquipmentState';
+import { useOsEquipmentRankSelector } from '../../../state/equipment/UnitEquipmentHook';
 
 import './EquipmentRankToggleButton.css';
 
