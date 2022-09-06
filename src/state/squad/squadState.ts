@@ -14,10 +14,10 @@ import { generateShareUrl, generateTwitterShareUrl, squadUrlParamName } from '..
 import { restore, UrlSafeBase64String } from '../../service/UrlParamConverter';
 import { restoreFromJsonObject } from '../../service/SquadJsonRestore';
 
-import { useUnitAffectionStateResolver, useUnitAffectionStateRestore } from '../status/unitAffectionBonus';
 import { useUnitDamagedStateResolver, useUnitDamagedStateRestore } from '../status/unitDamagedState';
 import { useUnitSelector } from '../selector/UnitSelectorHook';
 import { useUnitSkillResolver, useUnitSkillRestore } from '../skill/unitSkillState';
+import { unitAffectionState } from '../status/UnitAffectionState';
 import { unitCoreLinkState } from '../corelink/UnitCoreLinkState';
 import { unitEquipmentState } from '../equipment/UnitEquipmentState';
 import { unitLvStatusState } from '../status/parameters/UnitLvStatusState';
@@ -171,7 +171,7 @@ function useSquadJson(): () => SquadJsonStructure | undefined {
   const gearEquipmentResolver  = unitEquipmentState.unitEquipmentResolver('gear');
   const coreLinkResolver = unitCoreLinkState.unitCoreLinkResolver;
   const skillResolver = useUnitSkillResolver();
-  const affectionResolver = useUnitAffectionStateResolver();
+  const affectionResolver = unitAffectionState.unitAffectionStateResolver;
   const damagedResolver = useUnitDamagedStateResolver();
 
   return useRecoilCallback(({ snapshot }) => () => {
@@ -281,7 +281,7 @@ export function useSquadRestoreFromUrl(): boolean {
   const gearRestore = useRecoilCallback(unitEquipmentState.restoreUnitEquipmentState('gear'));
   const coreLinkRestore = useRecoilCallback(unitCoreLinkState.restoreUnitCoreLink);
   const skillRestore = useUnitSkillRestore();
-  const affectionRestore = useUnitAffectionStateRestore();
+  const affectionRestore = useRecoilCallback(unitAffectionState.unitAffectionStateRestore);
   const damagedRestore = useUnitDamagedStateRestore();
 
   const history = useHistory();

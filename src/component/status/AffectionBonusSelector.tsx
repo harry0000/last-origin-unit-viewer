@@ -8,7 +8,7 @@ import CircleImageSwitch from '../common/CircleImageSwitch';
 
 import { BioroidUnitNumber, UnitKind } from '../../domain/UnitBasicInfo';
 
-import { useAffectionBonus } from '../../state/status/unitAffectionBonus';
+import { useAffectionBonus } from '../../state/status/UnitAffectionHook';
 import { useSelectedUnit } from '../../state/selector/UnitSelectorHook';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
