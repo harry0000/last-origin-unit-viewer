@@ -5,15 +5,16 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Image } from 'react-bootstrap';
+import UnitRankIcon from '../common/UnitRankIcon';
 
 import { TenKeyPosition } from '../../domain/squad/Squad';
 import { UnitBasicInfo, UnitRank } from '../../domain/UnitBasicInfo';
 
 import { useIgnoreSquadUnitDrop, useSquadGrid, useSquadUnitDrag } from '../../state/squad/squadState';
 import { useSquadUnit } from '../../state/selector/UnitSelectorHook';
-import { useUnitDamagedState } from '../../state/status/unitDamagedState';
+import { useUnitDamagedState } from '../../state/status/UnitDamagedHook';
+
 import { ifTruthy } from '../../util/react';
-import UnitRankIcon from '../common/UnitRankIcon';
 
 export const UnitTile: React.FC<{
   unit: UnitBasicInfo,

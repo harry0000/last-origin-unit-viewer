@@ -8,7 +8,7 @@ import CircleImageSwitch from '../common/CircleImageSwitch';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
 import { useSelectedUnit } from '../../state/selector/UnitSelectorHook';
-import { useUnitDamagedState } from '../../state/status/unitDamagedState';
+import { useUnitDamagedState } from '../../state/status/UnitDamagedHook';
 
 const DamagedStateSwitch: React.FC<{
   disabled?: boolean,

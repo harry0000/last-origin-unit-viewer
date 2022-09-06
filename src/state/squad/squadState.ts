@@ -14,11 +14,11 @@ import { generateShareUrl, generateTwitterShareUrl, squadUrlParamName } from '..
 import { restore, UrlSafeBase64String } from '../../service/UrlParamConverter';
 import { restoreFromJsonObject } from '../../service/SquadJsonRestore';
 
-import { useUnitDamagedStateResolver, useUnitDamagedStateRestore } from '../status/unitDamagedState';
 import { useUnitSelector } from '../selector/UnitSelectorHook';
 import { useUnitSkillResolver, useUnitSkillRestore } from '../skill/unitSkillState';
 import { unitAffectionState } from '../status/UnitAffectionState';
 import { unitCoreLinkState } from '../corelink/UnitCoreLinkState';
+import { unitDamagedState } from '../status/UnitDamagedState';
 import { unitEquipmentState } from '../equipment/UnitEquipmentState';
 import { unitLvStatusState } from '../status/parameters/UnitLvStatusState';
 
@@ -172,7 +172,7 @@ function useSquadJson(): () => SquadJsonStructure | undefined {
   const coreLinkResolver = unitCoreLinkState.unitCoreLinkResolver;
   const skillResolver = useUnitSkillResolver();
   const affectionResolver = unitAffectionState.unitAffectionStateResolver;
-  const damagedResolver = useUnitDamagedStateResolver();
+  const damagedResolver = unitDamagedState.unitDamagedStateResolver;
 
   return useRecoilCallback(({ snapshot }) => () => {
     const squad = snapshot.getLoadable(squadAtom).getValue();
@@ -282,7 +282,7 @@ export function useSquadRestoreFromUrl(): boolean {
   const coreLinkRestore = useRecoilCallback(unitCoreLinkState.restoreUnitCoreLink);
   const skillRestore = useUnitSkillRestore();
   const affectionRestore = useRecoilCallback(unitAffectionState.unitAffectionStateRestore);
-  const damagedRestore = useUnitDamagedStateRestore();
+  const damagedRestore = useRecoilCallback(unitDamagedState.restoreUnitDamagedState);
 
   const history = useHistory();
   const squadParam = new URLSearchParams(useLocation().search).get(squadUrlParamName);
