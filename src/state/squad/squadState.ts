@@ -15,12 +15,12 @@ import { restore, UrlSafeBase64String } from '../../service/UrlParamConverter';
 import { restoreFromJsonObject } from '../../service/SquadJsonRestore';
 
 import { useUnitSelector } from '../selector/UnitSelectorHook';
-import { useUnitSkillResolver, useUnitSkillRestore } from '../skill/unitSkillState';
 import { unitAffectionState } from '../status/UnitAffectionState';
 import { unitCoreLinkState } from '../corelink/UnitCoreLinkState';
 import { unitDamagedState } from '../status/UnitDamagedState';
 import { unitEquipmentState } from '../equipment/UnitEquipmentState';
 import { unitLvStatusState } from '../status/parameters/UnitLvStatusState';
+import { unitSkillState } from '../skill/UnitSkillState';
 
 import { useNotificationResister } from '../ui/notificationState';
 
@@ -170,7 +170,7 @@ function useSquadJson(): () => SquadJsonStructure | undefined {
   const osEquipmentResolver    = unitEquipmentState.unitEquipmentResolver('os');
   const gearEquipmentResolver  = unitEquipmentState.unitEquipmentResolver('gear');
   const coreLinkResolver = unitCoreLinkState.unitCoreLinkResolver;
-  const skillResolver = useUnitSkillResolver();
+  const skillResolver = unitSkillState.unitSkillResolver;
   const affectionResolver = unitAffectionState.unitAffectionStateResolver;
   const damagedResolver = unitDamagedState.unitDamagedStateResolver;
 
@@ -280,7 +280,7 @@ export function useSquadRestoreFromUrl(): boolean {
   const osRestore = useRecoilCallback(unitEquipmentState.restoreUnitEquipmentState('os'));
   const gearRestore = useRecoilCallback(unitEquipmentState.restoreUnitEquipmentState('gear'));
   const coreLinkRestore = useRecoilCallback(unitCoreLinkState.restoreUnitCoreLink);
-  const skillRestore = useUnitSkillRestore();
+  const skillRestore = useRecoilCallback(unitSkillState.restoreUnitSkill);
   const affectionRestore = useRecoilCallback(unitAffectionState.unitAffectionStateRestore);
   const damagedRestore = useRecoilCallback(unitDamagedState.restoreUnitDamagedState);
 

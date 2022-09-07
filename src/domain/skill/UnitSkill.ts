@@ -240,7 +240,11 @@ abstract class FormChangeUnitSkill<N extends FormChangeUnitNumbers> extends Unit
   }
 
   hasFormPassive1Skill(): boolean {
-    return !('area' in unitSkillData[this.unitNumber].passive[0]);
+    const passive = unitSkillData[this.unitNumber].passive;
+    return (
+      !!passive[0] &&
+      !('area' in passive[0])
+    );
   }
 
   hasFormPassive2Skill(): boolean {

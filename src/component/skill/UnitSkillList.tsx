@@ -21,7 +21,7 @@ import {
   usePassive1SkillNav,
   usePassive2SkillNav,
   usePassive3SkillNav
-} from '../../state/skill/unitSkillState';
+} from '../../state/skill/UnitSkillHook';
 import { useSkillTab } from '../../state/ui/unitSkillTabState';
 
 import './SkillNavTab.css';

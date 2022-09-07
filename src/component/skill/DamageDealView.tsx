@@ -11,7 +11,7 @@ import { calcValue } from '../../domain/ValueUnit';
 
 import { AttributeColorStyle } from './AttributeColorStyle';
 
-import { useDamageDeal } from '../../state/skill/unitSkillState';
+import { useDamageDeal } from '../../state/skill/UnitSkillHook';
 
 import { ifNonNullable } from '../../util/react';
 
