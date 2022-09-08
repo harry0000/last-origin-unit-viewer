@@ -3,16 +3,15 @@ import { CallbackInterface } from 'recoil';
 import { UnitBasicInfo, UnitNumber } from '../domain/UnitBasicInfo';
 import { UnitLvValue } from '../domain/status/UnitLv';
 
+import * as unitSkillTabState from './ui/UnitSkillTabState';
 import { unitCoreLinkState } from './corelink/UnitCoreLinkState';
 import { unitEquipmentState } from './equipment/UnitEquipmentState';
-import { updateSkillTab } from './ui/unitSkillTabState';
 
 export function updateSelectedUnitDependency(
   selected: UnitBasicInfo | undefined
 ): (cbi: CallbackInterface) => void {
   return (cbi) => {
-    cbi.set(updateSkillTab, selected);
-
+    unitSkillTabState.updateSelectedUnit(selected)(cbi);
     unitEquipmentState.updateSelectedUnit(selected)(cbi);
   };
 }

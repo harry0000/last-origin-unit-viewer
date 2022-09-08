@@ -22,7 +22,7 @@ import {
   usePassive2SkillNav,
   usePassive3SkillNav
 } from '../../state/skill/UnitSkillHook';
-import { useSkillTab } from '../../state/ui/unitSkillTabState';
+import { useSkillTab } from '../../state/ui/UnitSkillTabState';
 
 import './SkillNavTab.css';
 

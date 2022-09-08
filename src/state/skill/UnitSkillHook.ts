@@ -11,7 +11,7 @@ import { SkillType } from '../../domain/skill/SkillType';
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 
 import { unitSkillState } from './UnitSkillState';
-import { useActiveSkillTab } from '../ui/unitSkillTabState';
+import { useActiveSkillTab } from '../ui/UnitSkillTabState';
 import { useSelectedUnit } from '../selector/UnitSelectorHook';
 
 import { AreaOfEffectCell, AreaOfEffectCells } from '../../component/skill/AreaOfEffectCellType';
