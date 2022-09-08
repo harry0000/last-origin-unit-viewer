@@ -3,7 +3,6 @@ import {
   atomFamily,
   CallbackInterface,
   RecoilState,
-  RecoilValue,
   RecoilValueReadOnly,
   selectorFamily
 } from 'recoil';
@@ -40,7 +39,7 @@ import {
 
 import { unitLvStatusState } from '../status/parameters/UnitLvStatusState';
 
-import { isUpdater, ValueOrUpdater } from '../../util/recoil';
+import { getFromSnapshot, getValue, ValueOrUpdater } from '../../util/recoil';
 
 export type EquipmentSlot = 'chip1' | 'chip2' | 'os' | 'gear'
 
@@ -250,10 +249,10 @@ class UnitEquipmentState {
     valueOrUpdater: ValueOrUpdater<UnitEquipmentType<T>>
   ): (cbi: CallbackInterface) => void {
     return (cbi) => {
-      const { snapshot, set } = cbi;
-      const get = <T>(rv: RecoilValueReadOnly<T>): T => snapshot.getLoadable(rv).getValue();
+      const set = cbi.set;
+      const get = getFromSnapshot(cbi.snapshot);
       const prevValue = get(this.#unitEquipment[slot](unit));
-      const nextValue = isUpdater(valueOrUpdater) ? valueOrUpdater(prevValue) : valueOrUpdater;
+      const nextValue = getValue(valueOrUpdater, () => prevValue);
 
       set(this.#slotAvailable[slot](unit), getSlotAvailable(slot, nextValue, lv));
 
@@ -348,9 +347,10 @@ class UnitEquipmentState {
     this.#effectsAsSkillData({ slot, id });
 
   readonly changeEquipment: ChangeEquipmentHandler = (unit: UnitNumber, slot: EquipmentSlot) => (cbi: CallbackInterface) => {
-    const lv = cbi.snapshot.getLoadable(unitLvStatusState.lvValueState(unit)).getValue();
-    const enhanceLv = cbi.snapshot.getLoadable(this.#selectedEnhanceLv(slot)).getValue();
-    const osRank = cbi.snapshot.getLoadable(this.#selectedOsRank).getValue();
+    const get = getFromSnapshot(cbi.snapshot);
+    const lv = get(unitLvStatusState.lvValueState(unit));
+    const enhanceLv = get(this.#selectedEnhanceLv(slot));
+    const osRank = get(this.#selectedOsRank);
 
     switch (slot) {
     case 'chip1':
@@ -395,14 +395,15 @@ class UnitEquipmentState {
     this.#unitEquipment[slot](unit);
 
   readonly restoreUnitEquipmentState = <T extends EquipmentSlot>(slot: T) => (cbi: CallbackInterface) => (states: ReadonlyArray<UnitEquipmentType<T>>): void => {
+    const get = getFromSnapshot(cbi.snapshot);
     states.forEach(s => {
-      const lv = cbi.snapshot.getLoadable(unitLvStatusState.lvValueState(s.unit)).getValue();
+      const lv = get(unitLvStatusState.lvValueState(s.unit));
       this.#update(s.unit, slot, lv, s)(cbi);
     });
   };
 
   readonly updateSelectedUnit = (unit: UnitBasicInfo | undefined) => (cbi: CallbackInterface): void => {
-    const get = <T>(rv: RecoilValue<T>): T => cbi.snapshot.getLoadable(rv).getValue();
+    const get = getFromSnapshot(cbi.snapshot);
 
     const chip1Lv = (unit && get(this.#unitEquipment['chip1'](unit.no)).chip1?.enhanceLv) ?? DefaultEnhanceLv;
     const chip2Lv = (unit && get(this.#unitEquipment['chip2'](unit.no)).chip2?.enhanceLv) ?? DefaultEnhanceLv;
@@ -420,7 +421,7 @@ class UnitEquipmentState {
   };
 
   readonly updateUnitLvValue = (unit: UnitNumber, lv: UnitLvValue) => (cbi: CallbackInterface): void => {
-    const get = <T>(rv: RecoilValue<T>): T => cbi.snapshot.getLoadable(rv).getValue();
+    const get = getFromSnapshot(cbi.snapshot);
 
     this.#update(unit, 'chip1', lv, get(this.#unitEquipment['chip1'](unit)))(cbi);
     this.#update(unit, 'chip2', lv, get(this.#unitEquipment['chip2'](unit)))(cbi);

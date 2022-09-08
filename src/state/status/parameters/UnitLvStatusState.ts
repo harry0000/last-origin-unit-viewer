@@ -30,7 +30,7 @@ import { getUnitDefaultRank } from '../../../domain/status/UnitRankState';
 import { unitCoreLinkState } from '../../corelink/UnitCoreLinkState';
 import { updateUnitLvValueDependency } from '../../transaction';
 
-import { isUpdater, ValueOrUpdater } from '../../../util/recoil';
+import { getFromSnapshot, getValue, ValueOrUpdater } from '../../../util/recoil';
 
 type Status = 'hp' | 'atk' | 'def' | 'acc' | 'eva' | 'cri'
 
@@ -123,11 +123,9 @@ class UnitLvStatusState {
 
   #update(unit: UnitNumber, valueOrUpdater: ValueOrUpdater<UnitLvStatus>): (cbi: CallbackInterface) => void {
     return (cbi) => {
-      const { snapshot, set } = cbi;
-      const newValue =
-        isUpdater(valueOrUpdater) ?
-          valueOrUpdater(snapshot.getLoadable(this.#unitLvStatusState(unit)).getValue()) :
-          valueOrUpdater;
+      const set = cbi.set;
+      const get = getFromSnapshot(cbi.snapshot);
+      const newValue = getValue(valueOrUpdater, () => get(this.#unitLvStatusState(unit)));
 
       set(this.#lv(unit), newValue.lv);
       set(this.#lvMode(unit), newValue.lvMode);
@@ -165,7 +163,7 @@ class UnitLvStatusState {
       if (isRankUpUnitNumber(unit)) {
         set(this.#rank(unit), newValue.rank);
 
-        const prevEnabled = snapshot.getLoadable(this.#rankUpEnabled(unit)).getValue();
+        const prevEnabled = get(this.#rankUpEnabled(unit));
         const nextEnabled: UnitRankUpEnabled = {
           [UnitRank.A]: newValue.isRankEnabled(UnitRank.A),
           [UnitRank.S]: newValue.isRankEnabled(UnitRank.S),
@@ -175,7 +173,7 @@ class UnitLvStatusState {
           set(this.#rankUpEnabled(unit), nextEnabled);
         }
 
-        const prevBonus = snapshot.getLoadable(this.#rankUpBonus(unit)).getValue();
+        const prevBonus = get(this.#rankUpBonus(unit));
         const nextBonus = newValue.rankUpBonus;
         if (!deepEqual(prevBonus, nextBonus)) {
           set(this.#rankUpBonus(unit), nextBonus);

@@ -8,7 +8,7 @@ import { UnitNumber } from '../../domain/UnitBasicInfo';
 
 import { unitLvStatusState } from '../status/parameters/UnitLvStatusState';
 
-import { isUpdater, ValueOrUpdater } from '../../util/recoil';
+import { getFromSnapshot, getValue, ValueOrUpdater } from '../../util/recoil';
 
 export type CoreLinkSlot = 'slot1' | 'slot2' | 'slot3' | 'slot4' | 'slot5'
 
@@ -67,19 +67,17 @@ class UnitCoreLinkState {
 
   #update(unit: UnitNumber, lv: UnitLvValue, valueOrUpdater: ValueOrUpdater<UnitCoreLink>): (cbi: CallbackInterface) => void {
     return ({ snapshot, set }) => {
-      const newValue =
-        isUpdater(valueOrUpdater) ?
-          valueOrUpdater(snapshot.getLoadable(this.#unitCoreLink(unit)).getValue()) :
-          valueOrUpdater;
+      const get = getFromSnapshot(snapshot);
+      const newValue = getValue(valueOrUpdater, () => get(this.#unitCoreLink(unit)));
 
-      const prevBonus = snapshot.getLoadable(this.#linkBonus(unit)).getValue();
+      const prevBonus = get(this.#linkBonus(unit));
       const linkBonus = newValue.bonusEffects(lv);
       if (!deepEqual(prevBonus, linkBonus)) {
         set(this.#linkBonus(unit), linkBonus);
       }
 
       const updateLinkedUnit = (slot: CoreLinkSlot): void => {
-        const prevLinkedUnit = snapshot.getLoadable(this.#linkedUnit[slot](unit)).getValue();
+        const prevLinkedUnit = get(this.#linkedUnit[slot](unit));
         const newLinkedUnit  = newValue[slot];
 
         if (!deepEqual(prevLinkedUnit, newLinkedUnit)) {
@@ -149,9 +147,9 @@ class UnitCoreLinkState {
   readonly unitCoreLinkResolver = (unit: UnitNumber): RecoilValueReadOnly<UnitCoreLink> => this.#unitCoreLink(unit);
 
   readonly restoreUnitCoreLink = (cbi: CallbackInterface) => (states: ReadonlyArray<UnitCoreLink>): void => {
-    const { snapshot } = cbi;
+    const get = getFromSnapshot(cbi.snapshot);
     states.forEach(s => {
-      const lv = snapshot.getLoadable(unitLvStatusState.lvValueState(s.unit)).getValue();
+      const lv = get(unitLvStatusState.lvValueState(s.unit));
       this.#update(s.unit, lv, s)(cbi);
     });
   };

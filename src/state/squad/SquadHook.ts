@@ -1,4 +1,4 @@
-import { atom, RecoilValue, useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { CSSProperties, RefObject, useEffect, useRef, useState } from 'react';
 import { ConnectDragSource, ConnectDropTarget, useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
@@ -23,6 +23,8 @@ import { unitLvStatusState } from '../status/parameters/UnitLvStatusState';
 import { unitSkillState } from '../skill/UnitSkillState';
 import { useUnitSelector } from '../selector/UnitSelectorHook';
 import { useNotificationResister } from '../ui/notificationState';
+
+import { getFromSnapshot } from '../../util/recoil';
 
 const {
   squadUnitsState,
@@ -180,7 +182,7 @@ function useSquadJson(): () => SquadJsonStructure | undefined {
   const damagedResolver = unitDamagedState.unitDamagedStateResolver;
 
   return useRecoilCallback(({ snapshot }) => () => {
-    const get = <T>(rv: RecoilValue<T>): T => snapshot.getLoadable(rv).getValue();
+    const get = getFromSnapshot(snapshot);
     return convertToJsonObject(
       get(squadResolver),
       (unit) => get(lvStatusResolver(unit)),

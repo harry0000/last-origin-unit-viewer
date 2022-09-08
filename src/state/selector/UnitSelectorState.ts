@@ -20,7 +20,7 @@ import { unitSkillData } from '../../data/unitSkillData';
 
 import { updateSelectedUnitDependency } from '../transaction';
 
-import { isUpdater, ValueOrUpdater } from '../../util/recoil';
+import { getValue, ValueOrUpdater } from '../../util/recoil';
 
 class UnitSelectorState {
   readonly #unitSelector = atom<UnitSelector>({ key: 'unitSelectorState_unitSelector', default: UnitSelector.initialState() });
@@ -40,9 +40,9 @@ class UnitSelectorState {
     valueOrUpdater: ValueOrUpdater<UnitSelector>
   ): (cbi: CallbackInterface) => void {
     return (cbi) => {
-      const { snapshot, set } = cbi;
-      const prevValue = snapshot.getLoadable(this.#unitSelector).getValue();
-      const nextValue = isUpdater(valueOrUpdater) ? valueOrUpdater(prevValue) : valueOrUpdater;
+      const set = cbi.set;
+      const prevValue = cbi.snapshot.getLoadable(this.#unitSelector).getValue();
+      const nextValue = getValue(valueOrUpdater, () => prevValue);
 
       const prevUnit = prevValue.selectedUnit;
       const nextUnit = nextValue.selectedUnit;
