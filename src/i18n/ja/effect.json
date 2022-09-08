@@ -42,6 +42,7 @@
     "d_entertainment": "D-エンターテインメント",
     "magical_girl": "魔法少女",
     "kouhei_church": "コウヘイ教団",
+    "smart_enjoy": "スマートエンジョイ",
     "spartan_series": "スパルタンシリーズ",
     "golden_factory": "ゴールデンファクトリー"
   },
@@ -332,7 +333,7 @@
     "name": {
       "damage_multiplier_up": "スキル威力アップ",
       "damage_multiplier_down": "スキル威力ダウン",
-      "damage_multiplier_up_by_status_proportion": "スキル威力アップ",
+      "damage_multiplier_up_by_status": "スキル威力アップ",
       "additional_damage": "与ダメージアップ",
       "additional_damage_inverse_proportion_targets": "対象の数が少ないほど、与ダメージアップ",
       "enmity": "自分のHPが低いほど、与ダメージアップ",
