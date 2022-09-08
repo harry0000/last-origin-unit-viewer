@@ -13,6 +13,7 @@ import {
   ActivationSelfState,
   ActivationSquadState,
   ActivationTargetState,
+  NumOfUnitsInSquadState,
   SelfSkillEffectActivationCondition,
   SelfSkillEffectActivationState,
   SkillEffectActivationCondition,
@@ -24,6 +25,7 @@ import { Effect } from '../../domain/Effect';
 import { EffectActivationState } from '../../domain/EffectActivationState';
 import { EffectTrigger } from '../../domain/EffectTrigger';
 import { PassiveSkillEffective } from '../../domain/skill/SkillEffective';
+import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
 import { SkillEffect, isTargetSkillEffect } from '../../domain/skill/UnitSkills';
 import { SkillEffectScaleFactor } from '../../domain/skill/SkillEffectScaleFactor';
 import { SkillEffectTarget } from '../../domain/skill/SkillEffectData';
@@ -222,11 +224,23 @@ const SelfAndTargetStateView: React.FC<{
   );
 };
 
+type NumOfCrossAdjacent = NumOfUnitsInSquadState['num_of_units'] & { unit: typeof SkillAreaType.CrossAdjacent }
+
+function isNumOfCrossAdjacent(arg: NumOfUnitsInSquadState['num_of_units']): arg is NumOfCrossAdjacent {
+  return arg.unit === SkillAreaType.CrossAdjacent;
+}
+
 const SquadStateView: React.FC<{
   state: ValueOf<SkillEffectActivationState, 'squad'>,
   unitNumber: UnitNumber
 }> = ({ state, unitNumber }) => {
   const { t } = useTranslation();
+
+  const numOfCrossAdjacent = (state: NumOfCrossAdjacent): string => {
+    return 'equal' in state ?
+      t('effect:condition.state.cross_adjacent_eq', state) :
+      t('effect:condition.state.cross_adjacent_ge', state);
+  };
 
   return (
     <React.Fragment>
@@ -235,8 +249,8 @@ const SquadStateView: React.FC<{
         isReadonlyArray(state) ?
           unitStateView(EffectActivationState.InSquad, state.map(s => s.in_squad), unitNumber, t) :
           'num_of_units' in state ?
-            'equal' in state.num_of_units ?
-              t('effect:condition.state.num_of_units_eq', state.num_of_units) :
+            isNumOfCrossAdjacent(state.num_of_units) ?
+              numOfCrossAdjacent(state.num_of_units) :
               'greater_or_equal' in state.num_of_units ?
                 t('effect:condition.state.num_of_units_ge', state.num_of_units as Record<string, unknown>) :
                 t('effect:condition.state.num_of_units_le', state.num_of_units) :

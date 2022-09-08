@@ -11728,6 +11728,114 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  154: {
+    no: 154,
+    active: [{
+      normal: {
+        damage_deal: {
+          base: { milliPercentage: 128500 },
+          per_lv_up: { milliPercentage: 13500 }
+        },
+        range: 2,
+        cost: 4,
+        area: 'single',
+        effects: [{
+          conditions: [{ trigger: 'follow_up_attack' }, { trigger: 're_attack' }],
+          details: { self: { damage_multiplier_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 }, max_stack: 1 } } }
+        }]
+      },
+      remote_bomb_placement: {
+        damage_deal: {
+          base: { milliPercentage: 110000 },
+          per_lv_up: { milliPercentage: 10000 }
+        },
+        range: 6,
+        cost: 10,
+        area: 'all',
+        effects: [{
+          details: {
+            self: {
+              ignore_protect: { term: 'immediate' },
+              form_change: { form: 'normal', term: 'immediate' }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'follow_up_attack' }, { trigger: 're_attack' }],
+          details: { self: { damage_multiplier_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
+        }]
+      }
+    }, {
+      normal: {
+        damage_deal: {
+          base: { milliPercentage: 1000 },
+          per_lv_up: { milliPercentage: 1000 }
+        },
+        range: 4,
+        cost: 6,
+        area: 'all',
+        effects: [{
+          target: { kind: 'enemy' },
+          details: {
+            self: {
+              ignore_protect: { term: 'immediate' },
+              form_change: { form: 'remote_bomb_placement', term: 'immediate' }
+            },
+            target: { buff_removal: { effect: 'eva_up', term: 'immediate' } }
+          }
+        }]
+      },
+      remote_bomb_placement: {
+        damage_deal: {
+          base: { milliPercentage: 110000 },
+          per_lv_up: { milliPercentage: 10000 }
+        },
+        range: 6,
+        cost: 10,
+        area: 'all',
+        effects: [{
+          details: {
+            self: {
+              ignore_protect: { term: 'immediate' },
+              form_change: { form: 'normal', term: 'immediate' }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'follow_up_attack' }, { trigger: 're_attack' }],
+          details: { self: { damage_multiplier_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
+        }]
+      }
+    }],
+    passive: [{
+      area: 'self',
+      // TODO: Add effects when Empress' Hound units are in squad.
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'kill' }],
+        details: { self: { cri_down: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: -1500 }, term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'target_protect' }] } }],
+        details: { self: { debuff_removal: { effect: 'cri_down', term: 'immediate' } } }
+      }]
+    }, {
+      area: 'cross',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['defender', 'supporter'] },
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'cross_adjacent', greater_or_equal: 2 } } } }],
+        details: { self: { defense_penetration: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'cross_adjacent', equal: 4 } } } }],
+        details: { self: { additional_damage_focusing: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
   161: {
     no: 161,
     active: [{

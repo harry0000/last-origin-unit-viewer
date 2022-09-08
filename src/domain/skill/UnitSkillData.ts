@@ -6,6 +6,7 @@ import {
   FormChangeUnits,
   FortressForm,
   InvincibleDragonForm,
+  JangHwaForm,
   LeonaForm,
   MightyRForm,
   PhantomForm,
@@ -263,6 +264,16 @@ type MightyRSkillData = Readonly<{
     ]
 }>
 
+type JangHwaSkillData = Readonly<{
+  no: typeof FormChangeUnits.JangHwa,
+  active:
+    readonly [
+      { readonly [key in JangHwaForm]: ActiveSkillData },
+      { readonly [key in JangHwaForm]: ActiveSkillData }
+    ],
+  passive: SSRankPassiveSkill
+}>
+
 type FortressSkillData = Readonly<{
   no: typeof FormChangeUnits.Fortress,
   active:
@@ -291,6 +302,7 @@ type UnitSkill<N extends UnitNumber> =
   N extends SirenSkillData['no'] ? SirenSkillData :
   N extends RampartSkillData['no'] ? RampartSkillData :
   N extends MightyRSkillData['no'] ? MightyRSkillData :
+  N extends JangHwaSkillData['no'] ? JangHwaSkillData :
   N extends FortressSkillData['no'] ? FortressSkillData :
   Readonly<{
     no: N,

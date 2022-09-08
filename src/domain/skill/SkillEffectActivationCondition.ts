@@ -143,12 +143,13 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
   [EffectActivationState.InSquad]: T
 }
 
-type NumOfUnitsInSquadState = {
+export type NumOfUnitsInSquadState = {
   [EffectActivationState.NumOfUnits]:
     { unit: typeof UnitKind.AGS, greater_or_equal: 3 } |
     { unit: 'ally', greater_or_equal: 1 | 2 | 4 } |
     { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 } |
     { unit: typeof UnitType.Heavy, less_or_equal: 1 } |
+    { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 2 } |
     { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 }
 }
 
