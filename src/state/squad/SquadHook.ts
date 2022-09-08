@@ -1,8 +1,8 @@
-import { atom, useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, RecoilValue, useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { CSSProperties, RefObject, useEffect, useRef, useState } from 'react';
 import { ConnectDragSource, ConnectDropTarget, useDrag, useDrop } from 'react-dnd';
-import { usePreview } from 'react-dnd-preview';
 import { getEmptyImage } from 'react-dnd-html5-backend';
+import { usePreview } from 'react-dnd-preview';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { Squad, TenKeyPosition } from '../../domain/squad/Squad';
@@ -14,15 +14,25 @@ import { generateShareUrl, generateTwitterShareUrl, squadUrlParamName } from '..
 import { restore, UrlSafeBase64String } from '../../service/UrlParamConverter';
 import { restoreFromJsonObject } from '../../service/SquadJsonRestore';
 
-import { useUnitSelector } from '../selector/UnitSelectorHook';
+import { squadState } from './SquadState';
 import { unitAffectionState } from '../status/UnitAffectionState';
 import { unitCoreLinkState } from '../corelink/UnitCoreLinkState';
 import { unitDamagedState } from '../status/UnitDamagedState';
 import { unitEquipmentState } from '../equipment/UnitEquipmentState';
 import { unitLvStatusState } from '../status/parameters/UnitLvStatusState';
 import { unitSkillState } from '../skill/UnitSkillState';
-
+import { useUnitSelector } from '../selector/UnitSelectorHook';
 import { useNotificationResister } from '../ui/notificationState';
+
+const {
+  squadUnitsState,
+  squadUnitTypeCountState,
+  assignedUnitState,
+  assignUnit,
+  canAssignUnit,
+  removeUnit,
+  getSquadUnitCount
+} = squadState;
 
 export const ItemType = {
   UnitCard: 'unit_card',
@@ -30,19 +40,13 @@ export const ItemType = {
 } as const;
 export type ItemType = typeof ItemType[keyof typeof ItemType]
 
-const squadAtom = atom<Squad>({
-  key: 'squadAtom',
-  default: new Squad()
-});
-
-const squadShareModalShowAtom = atom<boolean>({
-  key: 'squadShareModalShowAtom',
+const squadShareModalShowState = atom<boolean>({
+  key: 'squadShareModalShowState',
   default: false
 });
 
 export function useSquadUnitTypeCount(): Readonly<Record<UnitType, number>> {
-  const squad = useRecoilValue(squadAtom);
-  return squad.unitTypeCount;
+  return useRecoilValue(squadUnitTypeCountState);
 }
 
 export function useUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
@@ -108,9 +112,8 @@ export function useUnitDragPreview():
   };
 }
 
-
-export function useSquad(): Squad {
-  return useRecoilValue(squadAtom);
+export function useSquadUnits(): Squad['units'] {
+  return useRecoilValue(squadUnitsState);
 }
 
 export function useSquadGrid(position: TenKeyPosition): [
@@ -119,21 +122,22 @@ export function useSquadGrid(position: TenKeyPosition): [
   isHoveringUnit: boolean,
   dropRef: ConnectDropTarget
 ] {
-  const [squad, setSquad] = useRecoilState(squadAtom);
+  const assignedUnit = useRecoilValue(assignedUnitState(position));
+  const drop = useRecoilCallback(assignUnit(position));
+  const canDrop = useRecoilCallback(canAssignUnit(position));
   const [props, dropRef] = useDrop(
     () => ({
       accept: [ItemType.UnitCard, ItemType.SquadUnit],
-      drop: (unit: UnitBasicInfo) => setSquad(s => s.assignUnit(unit, position)),
-      canDrop: (unit: UnitBasicInfo) => squad.canAssignUnit(unit, position),
+      drop,
+      canDrop,
       collect: monitor => ({
         canAssignUnit: monitor.canDrop(),
         isHoveringUnit: monitor.isOver()
       })
-    }),
-    [squad]
+    })
   );
 
-  return [squad.unit(position), props.canAssignUnit, props.isHoveringUnit, dropRef];
+  return [assignedUnit, props.canAssignUnit, props.isHoveringUnit, dropRef];
 }
 
 export function useIgnoreSquadUnitDrop(): ConnectDropTarget {
@@ -147,7 +151,7 @@ export function useIgnoreSquadUnitDrop(): ConnectDropTarget {
 }
 
 export function useRemoveSquadUnitDrop(): ConnectDropTarget {
-  const setSquad = useSetRecoilState(squadAtom);
+  const callback = useRecoilCallback(removeUnit);
   const [, dropRef] = useDrop(
     () => ({
       accept: [ItemType.SquadUnit],
@@ -155,7 +159,7 @@ export function useRemoveSquadUnitDrop(): ConnectDropTarget {
         if (monitor.didDrop()) {
           return;
         }
-        setSquad(s => s.removeUnit(unit));
+        callback(unit);
       }
     })
   );
@@ -164,6 +168,7 @@ export function useRemoveSquadUnitDrop(): ConnectDropTarget {
 }
 
 function useSquadJson(): () => SquadJsonStructure | undefined {
+  const squadResolver = squadState.squadResolver;
   const lvStatusResolver = unitLvStatusState.lvStateResolver;
   const chip1EquipmentResolver = unitEquipmentState.unitEquipmentResolver('chip1');
   const chip2EquipmentResolver = unitEquipmentState.unitEquipmentResolver('chip2');
@@ -175,29 +180,29 @@ function useSquadJson(): () => SquadJsonStructure | undefined {
   const damagedResolver = unitDamagedState.unitDamagedStateResolver;
 
   return useRecoilCallback(({ snapshot }) => () => {
-    const squad = snapshot.getLoadable(squadAtom).getValue();
+    const get = <T>(rv: RecoilValue<T>): T => snapshot.getLoadable(rv).getValue();
     return convertToJsonObject(
-      squad,
-      (unit) => snapshot.getLoadable(lvStatusResolver(unit)).getValue(),
-      (unit) => snapshot.getLoadable(chip1EquipmentResolver(unit)).getValue(),
-      (unit) => snapshot.getLoadable(chip2EquipmentResolver(unit)).getValue(),
-      (unit) => snapshot.getLoadable(osEquipmentResolver(unit)).getValue(),
-      (unit) => snapshot.getLoadable(gearEquipmentResolver(unit)).getValue(),
-      (unit) => snapshot.getLoadable(coreLinkResolver(unit)).getValue(),
-      (unit) => snapshot.getLoadable(skillResolver(unit)).getValue(),
-      (unit) => snapshot.getLoadable(affectionResolver(unit)).getValue(),
-      (unit) => snapshot.getLoadable(damagedResolver(unit)).getValue()
+      get(squadResolver),
+      (unit) => get(lvStatusResolver(unit)),
+      (unit) => get(chip1EquipmentResolver(unit)),
+      (unit) => get(chip2EquipmentResolver(unit)),
+      (unit) => get(osEquipmentResolver(unit)),
+      (unit) => get(gearEquipmentResolver(unit)),
+      (unit) => get(coreLinkResolver(unit)),
+      (unit) => get(skillResolver(unit)),
+      (unit) => get(affectionResolver(unit)),
+      (unit) => get(damagedResolver(unit))
     );
   });
 }
 
 export function useSquadShareModalOpener(): () => void {
-  const setModalShow = useSetRecoilState(squadShareModalShowAtom);
+  const setModalShow = useSetRecoilState(squadShareModalShowState);
   const notify = useNotificationResister();
 
-  return useRecoilCallback(({ snapshot }) => () => {
-    const squad = snapshot.getLoadable(squadAtom).getValue();
-    if (squad.unitCount !== 0) {
+  return useRecoilCallback((cbi) => () => {
+    const squadUnitCount = getSquadUnitCount(cbi)();
+    if (squadUnitCount !== 0) {
       setModalShow(true);
     } else {
       notify('squad_is_empty');
@@ -208,7 +213,7 @@ export function useSquadShareModalOpener(): () => void {
 export function useSquadShareModal(): [modalShow: boolean, hideModal: () => void, url: string | undefined] {
   const notify = useNotificationResister();
   const getSquadJson = useSquadJson();
-  const [modalShow, setModalShow] = useRecoilState(squadShareModalShowAtom);
+  const [modalShow, setModalShow] = useRecoilState(squadShareModalShowState);
 
   const [shareUrl, setShareUrl] = useState<string>('');
 
@@ -273,7 +278,7 @@ export function useSquadRestoreFromUrl(): boolean {
   const [restoring, setRestoring] = useState(false);
 
   const notify = useNotificationResister();
-  const squadRestore = useSetRecoilState(squadAtom);
+  const squadRestore = useRecoilCallback(squadState.restoreSquad);
   const lvStateRestore = useRecoilCallback(unitLvStatusState.restoreLvStatusState);
   const chip1Restore = useRecoilCallback(unitEquipmentState.restoreUnitEquipmentState('chip1'));
   const chip2Restore = useRecoilCallback(unitEquipmentState.restoreUnitEquipmentState('chip2'));

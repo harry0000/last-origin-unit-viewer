@@ -12,7 +12,7 @@ import SVGButton from '../common/SVGButton';
 import { UnitCost } from '../../domain/status/UnitCost';
 import { UnitType } from '../../domain/UnitBasicInfo';
 
-import { useSquadShareModalOpener, useSquadUnitTypeCount } from '../../state/squad/squadState';
+import { useSquadShareModalOpener, useSquadUnitTypeCount } from '../../state/squad/SquadHook';
 import { useSquadUnitCostSummary } from '../../state/status/parameters/UnitLvStatusHook';
 
 import './SquadView.css';

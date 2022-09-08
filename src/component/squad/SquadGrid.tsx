@@ -10,7 +10,7 @@ import UnitRankIcon from '../common/UnitRankIcon';
 import { TenKeyPosition } from '../../domain/squad/Squad';
 import { UnitBasicInfo, UnitRank } from '../../domain/UnitBasicInfo';
 
-import { useIgnoreSquadUnitDrop, useSquadGrid, useSquadUnitDrag } from '../../state/squad/squadState';
+import { useIgnoreSquadUnitDrop, useSquadGrid, useSquadUnitDrag } from '../../state/squad/SquadHook';
 import { useSquadUnit } from '../../state/selector/UnitSelectorHook';
 import { useUnitDamagedState } from '../../state/status/UnitDamagedHook';
 

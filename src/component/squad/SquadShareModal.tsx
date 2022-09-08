@@ -9,7 +9,7 @@ import { Copy } from '../icon/FluentIcons';
 import SVGButton from '../common/SVGButton';
 import { ReactComponent as TwitterSocialIcon } from '../icon/TwitterSocialIcon.svg';
 
-import { useSquadShare, useSquadShareModal, useSquadShareToTwitter } from '../../state/squad/squadState';
+import { useSquadShare, useSquadShareModal, useSquadShareToTwitter } from '../../state/squad/SquadHook';
 
 const ShareUrlCopyButton: React.FC<{
   disabled: boolean,

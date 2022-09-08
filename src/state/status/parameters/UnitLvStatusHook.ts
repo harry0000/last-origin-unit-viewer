@@ -7,7 +7,7 @@ import { UnitLvMode, UnitLvValue } from '../../../domain/status/UnitLv';
 import UnitRankState, { availableUnitRanks, RankUpAvailableLv } from '../../../domain/status/UnitRankState';
 
 import { EnhanceableStatus, unitLvStatusState } from './UnitLvStatusState';
-import { useSquad } from '../../squad/squadState';
+import { useSquadUnits } from '../../squad/SquadHook';
 import { useSelectedUnit } from '../../selector/UnitSelectorHook';
 
 export function useUnitCost(unit: UnitBasicInfo): UnitCost {
@@ -15,8 +15,8 @@ export function useUnitCost(unit: UnitBasicInfo): UnitCost {
 }
 
 export function useSquadUnitCostSummary(): UnitCost {
-  const squad = useSquad();
-  return useRecoilValue(unitLvStatusState.squadUnitCostState(squad.units));
+  const squadUnits = useSquadUnits();
+  return useRecoilValue(unitLvStatusState.squadUnitCostState(squadUnits));
 }
 
 export function useUnitLv(unit: UnitNumber): [lvMode: UnitLvMode, lv: UnitLvValue, setLv: (lv: UnitLvValue) => void] {

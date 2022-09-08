@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 
-import { useSquadRestoreFromUrl } from '../../state/squad/squadState';
+import { useSquadRestoreFromUrl } from '../../state/squad/SquadHook';
 import { ifTruthy } from '../../util/react';
 
 const SquadRestore: React.FC = () => {

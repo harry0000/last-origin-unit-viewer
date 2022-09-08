@@ -10,7 +10,7 @@ import type { UnitBasicInfo, UnitRole } from '../../domain/UnitBasicInfo';
 import { UnitRank } from '../../domain/UnitBasicInfo';
 
 import { useUnit } from '../../state/selector/UnitSelectorHook';
-import { useUnitDrag } from '../../state/squad/squadState';
+import { useUnitDrag } from '../../state/squad/SquadHook';
 
 import './UnitCard.css';
 
