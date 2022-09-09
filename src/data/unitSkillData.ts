@@ -1744,6 +1744,10 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ state: { target: [{ affected: 'marked' }, { affected: 'immovable' }] } }],
         target: { kind: 'enemy' },
         details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
+      }, {
+        conditions: [{ trigger: 'attack', state: { self: [{ tagged: 'leave_me_alone' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effect: 'area_damage_dispersion' } } }
       }]
     }, {
       damage_deal: {
@@ -1766,6 +1770,10 @@ export const unitSkillData: UnitSkillData = {
             buff_removal: { effect: 'counterattack', term: 'immediate' }
           }
         }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'leave_me_alone' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effect: 'area_damage_dispersion' } } }
       }]
     }],
     passive: [{
@@ -1799,6 +1807,26 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'rifled_mortar' }] } }],
         target: { kind: 'enemy' },
         details: { target: { buff_removal: { effects: ['target_protect', 'row_protect', 'column_protect'] } } }
+      }]
+    }, {
+      area: 'leave_me_alone',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'cross_adjacent' } } }],
+        target: { kind: 'ally' },
+        details: { target: { spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'steel_line' } } }],
+        target: { kind: 'ally_except_self' },
+        details: {
+          self: { buff_removal: { effect: 'spd_up' } },
+          target: { spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'cross_adjacent', greater_or_equal: 1 } } } }],
+        details: { self: { spd_up: { tag: 'leave_me_alone', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'steel_line' } } }],
+        details: { self: { spd_up: { tag: 'leave_me_alone', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
       }]
     }]
   },
@@ -1887,6 +1915,31 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'ammo_supplied' }] } }],
         target: { kind: 'enemy' },
         details: { target: { buff_removal: { effect: 'damage_reduction' } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: { alias: 'steel_line', role: 'supporter' } } } }],
+        details: { self: { cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'damage_multiplier_up' }] } }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            re_attack: { term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'follow_up_attack' }, { trigger: 're_attack' }],
+        details: {
+          self: {
+            defense_penetration: { base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 400 }, term: 'infinite', max_stack: 5 },
+            damage_multiplier_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: 'infinite', max_stack: 5 }
+          }
+        }
       }]
     }]
   },

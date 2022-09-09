@@ -30,7 +30,7 @@ import { SkillEffect, isTargetSkillEffect } from '../../domain/skill/UnitSkills'
 import { SkillEffectScaleFactor } from '../../domain/skill/SkillEffectScaleFactor';
 import { SkillEffectTarget } from '../../domain/skill/SkillEffectData';
 import { UnitAlias, isUnitAlias, unitNumbersForAlias } from '../../domain/UnitAlias';
-import { UnitNumber } from '../../domain/UnitBasicInfo';
+import { UnitNumber, UnitRole } from '../../domain/UnitBasicInfo';
 
 import SkillEffectConditionViewModel from './SkillEffectConditionViewModel';
 
@@ -124,7 +124,7 @@ function stateValuesView(
 
 function unitStateView(key: typeof EffectActivationState.AffectedBy, unit: ValueOf<ActivationSelfState, typeof EffectActivationState.AffectedBy>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.InSquad, unit: ValueOf<ActivationSquadState, typeof EffectActivationState.InSquad> | ReadonlyArray<UnitNumber>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
-function unitStateView(key: typeof EffectActivationState.NotInSquad, unit: 41, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.NotInSquad, unit: ValueOf<ActivationSquadState, typeof EffectActivationState.NotInSquad> | 41, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.Unit, unit: typeof UnitAlias.SteelLine, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
   key: typeof EffectActivationState['AffectedBy' | 'InSquad' | 'NotInSquad' | 'Unit'],
@@ -134,11 +134,13 @@ function unitStateView(
     { unit: 23, effect: typeof Effect.FollowUpAttack } |
     { unit: 83, effect: typeof Effect.TargetProtect } |
     UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
+    { alias: typeof UnitAlias.SteelLine, role: typeof UnitRole.Supporter } |
     typeof UnitAlias.ElectricActive |
     typeof UnitAlias.SteelLine |
     typeof UnitAlias.SteelLineExcludingOfficerRanks |
     typeof UnitAlias.Horizon |
     typeof UnitAlias.KouheiChurch |
+    typeof SkillAreaType.CrossAdjacent |
     'golden_factory',
   selfUnitNumber: UnitNumber,
   t: TFunction
@@ -159,13 +161,14 @@ function unitStateView(
   } else if (typeof unit === 'string') {
     if (isUnitAlias(unit)) {
       // TODO: Move excepting logic from view.
+      const isSquadCond = key === EffectActivationState.InSquad || key === EffectActivationState.NotInSquad;
       return (
         <React.Fragment>
           {ifTruthy(
-            key === EffectActivationState.InSquad && unitNumbersForAlias[unit].has(selfUnitNumber),
+            isSquadCond && unitNumbersForAlias[unit].has(selfUnitNumber),
             (<span>{t('effect:unit.self')}{t('effect:except_preposition')}</span>)
           )}
-          <UnitAliasView unitAlias={unit} exceptUnit={key === EffectActivationState.InSquad ? selfUnitNumber : undefined} />
+          <UnitAliasView unitAlias={unit} exceptUnit={isSquadCond ? selfUnitNumber : undefined} />
           <span>{t(`effect:condition.state.${key}`, { unit: '' })}</span>
         </React.Fragment>
       );
@@ -173,14 +176,23 @@ function unitStateView(
       return (<span>{t(`effect:condition.state.${key}`, { unit: t(`effect:unit.${unit}`) })}</span>);
     }
   } else if ('alias' in unit) {
-    return (
-      <React.Fragment>
-        {t('effect:with_quotes', { value: t('unit:display', { number: unit.except }) })}
-        {t('effect:except_preposition')}
-        <UnitAliasView unitAlias={unit.alias} exceptUnit={unit.except} />
-        {t(`effect:condition.state.${key}`, { unit: '' })}
-      </React.Fragment>
-    );
+    return 'except' in unit ?
+      (
+        <React.Fragment>
+          {t('effect:with_quotes', { value: t('unit:display', { number: unit.except }) })}
+          {t('effect:except_preposition')}
+          <UnitAliasView unitAlias={unit.alias} exceptUnit={unit.except} />
+          {t(`effect:condition.state.${key}`, { unit: '' })}
+        </React.Fragment>
+      ) :
+      (
+        <React.Fragment>
+          <UnitAliasView unitAlias={unit.alias} />
+          {t('effect:of_preposition')}
+          {t(`effect:unit.${unit.role}`)}
+          {t(`effect:condition.state.${key}`, { unit: '' })}
+        </React.Fragment>
+      );
   } else {
     return (<span>{t('effect:condition.state.affected_effect_by', unit as Record<string, unknown>)}</span>);
   }

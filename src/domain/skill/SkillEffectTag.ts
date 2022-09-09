@@ -22,6 +22,7 @@ export type SkillEffectTag =
   'counterattack_initiation' |
   'fire_net_building' |
   'rifled_mortar' |
+  'leave_me_alone' |
   'ammo_supplied' |
   'charging_in_sir' |
   'ground_control_artillery' |
