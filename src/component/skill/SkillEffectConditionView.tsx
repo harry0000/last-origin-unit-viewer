@@ -13,6 +13,7 @@ import {
   ActivationSelfState,
   ActivationSquadState,
   ActivationTargetState,
+  NumOfUnitsInSquadState,
   SelfSkillEffectActivationCondition,
   SelfSkillEffectActivationState,
   SkillEffectActivationCondition,
@@ -24,11 +25,12 @@ import { Effect } from '../../domain/Effect';
 import { EffectActivationState } from '../../domain/EffectActivationState';
 import { EffectTrigger } from '../../domain/EffectTrigger';
 import { PassiveSkillEffective } from '../../domain/skill/SkillEffective';
+import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
 import { SkillEffect, isTargetSkillEffect } from '../../domain/skill/UnitSkills';
 import { SkillEffectScaleFactor } from '../../domain/skill/SkillEffectScaleFactor';
 import { SkillEffectTarget } from '../../domain/skill/SkillEffectData';
 import { UnitAlias, isUnitAlias, unitNumbersForAlias } from '../../domain/UnitAlias';
-import { UnitNumber } from '../../domain/UnitBasicInfo';
+import { UnitNumber, UnitRole } from '../../domain/UnitBasicInfo';
 
 import SkillEffectConditionViewModel from './SkillEffectConditionViewModel';
 
@@ -122,7 +124,7 @@ function stateValuesView(
 
 function unitStateView(key: typeof EffectActivationState.AffectedBy, unit: ValueOf<ActivationSelfState, typeof EffectActivationState.AffectedBy>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.InSquad, unit: ValueOf<ActivationSquadState, typeof EffectActivationState.InSquad> | ReadonlyArray<UnitNumber>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
-function unitStateView(key: typeof EffectActivationState.NotInSquad, unit: 41, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.NotInSquad, unit: ValueOf<ActivationSquadState, typeof EffectActivationState.NotInSquad> | 41, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.Unit, unit: typeof UnitAlias.SteelLine, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
   key: typeof EffectActivationState['AffectedBy' | 'InSquad' | 'NotInSquad' | 'Unit'],
@@ -132,11 +134,13 @@ function unitStateView(
     { unit: 23, effect: typeof Effect.FollowUpAttack } |
     { unit: 83, effect: typeof Effect.TargetProtect } |
     UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
+    { alias: typeof UnitAlias.SteelLine, role: typeof UnitRole.Supporter } |
     typeof UnitAlias.ElectricActive |
     typeof UnitAlias.SteelLine |
     typeof UnitAlias.SteelLineExcludingOfficerRanks |
     typeof UnitAlias.Horizon |
     typeof UnitAlias.KouheiChurch |
+    typeof SkillAreaType.CrossAdjacent |
     'golden_factory',
   selfUnitNumber: UnitNumber,
   t: TFunction
@@ -157,13 +161,14 @@ function unitStateView(
   } else if (typeof unit === 'string') {
     if (isUnitAlias(unit)) {
       // TODO: Move excepting logic from view.
+      const isSquadCond = key === EffectActivationState.InSquad || key === EffectActivationState.NotInSquad;
       return (
         <React.Fragment>
           {ifTruthy(
-            key === EffectActivationState.InSquad && unitNumbersForAlias[unit].has(selfUnitNumber),
+            isSquadCond && unitNumbersForAlias[unit].has(selfUnitNumber),
             (<span>{t('effect:unit.self')}{t('effect:except_preposition')}</span>)
           )}
-          <UnitAliasView unitAlias={unit} exceptUnit={key === EffectActivationState.InSquad ? selfUnitNumber : undefined} />
+          <UnitAliasView unitAlias={unit} exceptUnit={isSquadCond ? selfUnitNumber : undefined} />
           <span>{t(`effect:condition.state.${key}`, { unit: '' })}</span>
         </React.Fragment>
       );
@@ -171,14 +176,23 @@ function unitStateView(
       return (<span>{t(`effect:condition.state.${key}`, { unit: t(`effect:unit.${unit}`) })}</span>);
     }
   } else if ('alias' in unit) {
-    return (
-      <React.Fragment>
-        {t('effect:with_quotes', { value: t('unit:display', { number: unit.except }) })}
-        {t('effect:except_preposition')}
-        <UnitAliasView unitAlias={unit.alias} exceptUnit={unit.except} />
-        {t(`effect:condition.state.${key}`, { unit: '' })}
-      </React.Fragment>
-    );
+    return 'except' in unit ?
+      (
+        <React.Fragment>
+          {t('effect:with_quotes', { value: t('unit:display', { number: unit.except }) })}
+          {t('effect:except_preposition')}
+          <UnitAliasView unitAlias={unit.alias} exceptUnit={unit.except} />
+          {t(`effect:condition.state.${key}`, { unit: '' })}
+        </React.Fragment>
+      ) :
+      (
+        <React.Fragment>
+          <UnitAliasView unitAlias={unit.alias} />
+          {t('effect:of_preposition')}
+          {t(`effect:unit.${unit.role}`)}
+          {t(`effect:condition.state.${key}`, { unit: '' })}
+        </React.Fragment>
+      );
   } else {
     return (<span>{t('effect:condition.state.affected_effect_by', unit as Record<string, unknown>)}</span>);
   }
@@ -222,11 +236,23 @@ const SelfAndTargetStateView: React.FC<{
   );
 };
 
+type NumOfCrossAdjacent = NumOfUnitsInSquadState['num_of_units'] & { unit: typeof SkillAreaType.CrossAdjacent }
+
+function isNumOfCrossAdjacent(arg: NumOfUnitsInSquadState['num_of_units']): arg is NumOfCrossAdjacent {
+  return arg.unit === SkillAreaType.CrossAdjacent;
+}
+
 const SquadStateView: React.FC<{
   state: ValueOf<SkillEffectActivationState, 'squad'>,
   unitNumber: UnitNumber
 }> = ({ state, unitNumber }) => {
   const { t } = useTranslation();
+
+  const numOfCrossAdjacent = (state: NumOfCrossAdjacent): string => {
+    return 'equal' in state ?
+      t('effect:condition.state.cross_adjacent_eq', state) :
+      t('effect:condition.state.cross_adjacent_ge', state);
+  };
 
   return (
     <React.Fragment>
@@ -235,8 +261,8 @@ const SquadStateView: React.FC<{
         isReadonlyArray(state) ?
           unitStateView(EffectActivationState.InSquad, state.map(s => s.in_squad), unitNumber, t) :
           'num_of_units' in state ?
-            'equal' in state.num_of_units ?
-              t('effect:condition.state.num_of_units_eq', state.num_of_units) :
+            isNumOfCrossAdjacent(state.num_of_units) ?
+              numOfCrossAdjacent(state.num_of_units) :
               'greater_or_equal' in state.num_of_units ?
                 t('effect:condition.state.num_of_units_ge', state.num_of_units as Record<string, unknown>) :
                 t('effect:condition.state.num_of_units_le', state.num_of_units) :

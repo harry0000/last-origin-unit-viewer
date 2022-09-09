@@ -53,6 +53,8 @@ export function buildUnitSkill(unit: UnitBasicInfo): UnitSkill {
       return new RampartUnitSkill(unit);
     case FormChangeUnits.MightyR:
       return new MightyRUnitSkill(unit);
+    case FormChangeUnits.JangHwa:
+      return new JangHwaUnitSkill(unit);
     case FormChangeUnits.Fortress:
       return new FortressUnitSkill(unit);
     }
@@ -607,6 +609,40 @@ class MightyRUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Mighty
 
   protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[2][this.unitForm()];
+  }
+}
+
+class JangHwaUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.JangHwa> {
+
+  constructor(
+    unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.JangHwa>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<typeof FormChangeUnits.JangHwa>
+  ) {
+    super(unit, skillLv, form);
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new JangHwaUnitSkill(this.formChangeUnit, lv, this.form);
+  }
+
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.JangHwa>): FormChangeUnitSkill<typeof FormChangeUnits.JangHwa> {
+    return new JangHwaUnitSkill(this.formChangeUnit, this.skillLv, form);
+  }
+
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0][this.unitForm()]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0];
+  }
+
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[1];
+  }
+
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[2];
   }
 }
 

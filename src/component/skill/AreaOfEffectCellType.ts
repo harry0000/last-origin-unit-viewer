@@ -174,6 +174,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
     select: 6,
     area: ['effective', 'effective', 'effective', 'effective', 'effective', 'effective', 'effective', 'effective', 'effective']
   },
+  [SkillAreaType.LeaveMeAlone]: {
+    select: 4,
+    area: ['none', 'effective', 'effective', 'effective', 'none', 'effective', 'none', 'effective', 'effective']
+  },
   [SkillAreaType.All]: {
     select: 5,
     area: ['effective', 'effective', 'effective', 'effective', 'effective', 'effective', 'effective', 'effective', 'effective']
