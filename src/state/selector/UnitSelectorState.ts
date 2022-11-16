@@ -22,135 +22,131 @@ import { updateSelectedUnitDependency } from '../transaction';
 
 import { getValue, ValueOrUpdater } from '../../util/recoil';
 
-class UnitSelectorState {
-  readonly #unitSelector = atom<UnitSelector>({ key: 'unitSelectorState_unitSelector', default: UnitSelector.initialState() });
-  readonly #selectedUnit = atom<UnitBasicInfo | undefined>({ key: 'unitSelectorState_selectedUnit', default: undefined });
+const _unitSelector = atom<UnitSelector>({ key: 'UnitSelectorState_unitSelector', default: UnitSelector.initialState() });
+const _selectedUnit = atom<UnitBasicInfo | undefined>({ key: 'UnitSelectorState_selectedUnit', default: undefined });
 
-  readonly #unitSelected = atomFamily<boolean, UnitNumber>({ key: 'unitSelectorState_unitSelected', default: false });
+const _unitSelected = atomFamily<boolean, UnitNumber>({ key: 'UnitSelectorState_unitSelected', default: false });
 
-  readonly #conditionSelected = {
-    basicInfo: atomFamily<boolean, UnitRank | UnitType | UnitRole>({ key: 'unitSelectorState_conditionSelected_basicInfo', default: true }),
-    skill:     atomFamily<boolean, ActiveSkillCondition | SkillEffectCondition>({ key: 'unitSelectorState_selectedCondition_skill', default: false }),
-    coreLink:  atomFamily<boolean, CoreLinkBonusCondition | undefined>({ key: 'unitSelectorState_selectedCondition_coreLink', default: (cond) => !cond }),
-    fullLink:  atomFamily<boolean, FullLinkBonusCondition | undefined>({ key: 'unitSelectorState_selectedCondition_fullLink', default: (cond) => !cond }),
-    rankUp:    atomFamily<boolean, RankUpCondition | undefined>({ key: 'unitSelectorState_selectedCondition_rankUp', default: (cond) => !cond })
-  };
+const _conditionSelected = {
+  basicInfo: atomFamily<boolean, UnitRank | UnitType | UnitRole>({ key: 'UnitSelectorState_conditionSelected_basicInfo', default: true }),
+  skill:     atomFamily<boolean, ActiveSkillCondition | SkillEffectCondition>({ key: 'UnitSelectorState_selectedCondition_skill', default: false }),
+  coreLink:  atomFamily<boolean, CoreLinkBonusCondition | undefined>({ key: 'UnitSelectorState_selectedCondition_coreLink', default: (cond) => !cond }),
+  fullLink:  atomFamily<boolean, FullLinkBonusCondition | undefined>({ key: 'UnitSelectorState_selectedCondition_fullLink', default: (cond) => !cond }),
+  rankUp:    atomFamily<boolean, RankUpCondition | undefined>({ key: 'UnitSelectorState_selectedCondition_rankUp', default: (cond) => !cond })
+};
 
-  #update(
-    valueOrUpdater: ValueOrUpdater<UnitSelector>
-  ): (cbi: CallbackInterface) => void {
-    return (cbi) => {
-      const set = cbi.set;
-      const prevValue = cbi.snapshot.getLoadable(this.#unitSelector).getValue();
-      const nextValue = getValue(valueOrUpdater, () => prevValue);
+function _update(valueOrUpdater: ValueOrUpdater<UnitSelector>): (cbi: CallbackInterface) => void {
+  return (cbi) => {
+    const set = cbi.set;
+    const prevValue = cbi.snapshot.getLoadable(_unitSelector).getValue();
+    const nextValue = getValue(valueOrUpdater, () => prevValue);
 
-      const prevUnit = prevValue.selectedUnit;
-      const nextUnit = nextValue.selectedUnit;
-      if (prevUnit !== nextUnit) {
-        if (prevUnit) { set(this.#unitSelected(prevUnit.no), false); }
-        if (nextUnit) { set(this.#unitSelected(nextUnit.no), true); }
-      }
-      set(this.#selectedUnit, nextUnit);
+    const prevUnit = prevValue.selectedUnit;
+    const nextUnit = nextValue.selectedUnit;
+    if (prevUnit !== nextUnit) {
+      if (prevUnit) { set(_unitSelected(prevUnit.no), false); }
+      if (nextUnit) { set(_unitSelected(nextUnit.no), true); }
+    }
+    set(_selectedUnit, nextUnit);
 
-      Object.values(UnitRank).forEach(rank => {
-        set(this.#conditionSelected.basicInfo(rank), nextValue.isRankSelected(rank));
-      });
-      Object.values(UnitType).forEach(type => {
-        set(this.#conditionSelected.basicInfo(type), nextValue.isTypeSelected(type));
-      });
-      Object.values(UnitRole).forEach(role => {
-        set(this.#conditionSelected.basicInfo(role), nextValue.isRoleSelected(role));
-      });
-      Object.values(ActiveSkillCondition).forEach(condition => {
-        set(this.#conditionSelected.skill(condition), nextValue.isActiveSkillConditionSelected(condition));
-      });
-      Object.values(StatusSkillEffectCondition).forEach(condition => {
-        set(this.#conditionSelected.skill(condition), nextValue.isSkillEffectSelected(condition));
-      });
-      Object.values(OffensiveSkillEffectCondition).forEach(condition => {
-        set(this.#conditionSelected.skill(condition), nextValue.isSkillEffectSelected(condition));
-      });
-      Object.values(DefensiveSkillEffectCondition).forEach(condition => {
-        set(this.#conditionSelected.skill(condition), nextValue.isSkillEffectSelected(condition));
-      });
-      Object.values(OtherSkillEffectCondition).forEach(condition => {
-        set(this.#conditionSelected.skill(condition), nextValue.isSkillEffectSelected(condition));
-      });
+    Object.values(UnitRank).forEach(rank => {
+      set(_conditionSelected.basicInfo(rank), nextValue.isRankSelected(rank));
+    });
+    Object.values(UnitType).forEach(type => {
+      set(_conditionSelected.basicInfo(type), nextValue.isTypeSelected(type));
+    });
+    Object.values(UnitRole).forEach(role => {
+      set(_conditionSelected.basicInfo(role), nextValue.isRoleSelected(role));
+    });
+    Object.values(ActiveSkillCondition).forEach(condition => {
+      set(_conditionSelected.skill(condition), nextValue.isActiveSkillConditionSelected(condition));
+    });
+    Object.values(StatusSkillEffectCondition).forEach(condition => {
+      set(_conditionSelected.skill(condition), nextValue.isSkillEffectSelected(condition));
+    });
+    Object.values(OffensiveSkillEffectCondition).forEach(condition => {
+      set(_conditionSelected.skill(condition), nextValue.isSkillEffectSelected(condition));
+    });
+    Object.values(DefensiveSkillEffectCondition).forEach(condition => {
+      set(_conditionSelected.skill(condition), nextValue.isSkillEffectSelected(condition));
+    });
+    Object.values(OtherSkillEffectCondition).forEach(condition => {
+      set(_conditionSelected.skill(condition), nextValue.isSkillEffectSelected(condition));
+    });
 
-      [undefined, ...Object.values(CoreLinkBonusCondition)].forEach(condition => {
-        set(this.#conditionSelected.coreLink(condition), nextValue.coreLinkBonus === condition);
-      });
-      [undefined, ...Object.values(FullLinkBonusCondition)].forEach(condition => {
-        set(this.#conditionSelected.fullLink(condition), nextValue.fullLinkBonus === condition);
-      });
-      [undefined, ...Object.values(RankUpCondition)].forEach(condition => {
-        set(this.#conditionSelected.rankUp(condition), nextValue.rankUpCondition === condition);
-      });
+    [undefined, ...Object.values(CoreLinkBonusCondition)].forEach(condition => {
+      set(_conditionSelected.coreLink(condition), nextValue.coreLinkBonus === condition);
+    });
+    [undefined, ...Object.values(FullLinkBonusCondition)].forEach(condition => {
+      set(_conditionSelected.fullLink(condition), nextValue.fullLinkBonus === condition);
+    });
+    [undefined, ...Object.values(RankUpCondition)].forEach(condition => {
+      set(_conditionSelected.rankUp(condition), nextValue.rankUpCondition === condition);
+    });
 
-      set(this.#unitSelector, nextValue);
+    set(_unitSelector, nextValue);
 
-      updateSelectedUnitDependency(nextValue.selectedUnit)(cbi);
-    };
-  }
-
-  readonly selectedUnitState: RecoilValueReadOnly<UnitBasicInfo | undefined> = this.#selectedUnit;
-
-  readonly unitSelectedState = ({ no }: UnitBasicInfo): RecoilValueReadOnly<boolean> => this.#unitSelected(no);
-
-  readonly rankSelectedState = (rank: UnitRank): RecoilValueReadOnly<boolean> => this.#conditionSelected.basicInfo(rank);
-  readonly typeSelectedState = (type: UnitType): RecoilValueReadOnly<boolean> => this.#conditionSelected.basicInfo(type);
-  readonly roleSelectedState = (role: UnitRole): RecoilValueReadOnly<boolean> => this.#conditionSelected.basicInfo(role);
-
-  readonly activeSkillSelectedState = (cond: ActiveSkillCondition): RecoilValueReadOnly<boolean> => this.#conditionSelected.skill(cond);
-  readonly skillEffectSelectedState = (cond: SkillEffectCondition): RecoilValueReadOnly<boolean> => this.#conditionSelected.skill(cond);
-  readonly coreLinkSelectedState = (cond: CoreLinkBonusCondition | undefined): RecoilValueReadOnly<boolean> => this.#conditionSelected.coreLink(cond);
-  readonly fullLinkSelectedState = (cond: FullLinkBonusCondition | undefined): RecoilValueReadOnly<boolean> => this.#conditionSelected.fullLink(cond);
-  readonly rankUpSelectedState = (cond: RankUpCondition | undefined): RecoilValueReadOnly<boolean> => this.#conditionSelected.rankUp(cond);
-
-  readonly filteredUnitListState = selector<ReadonlyArray<UnitBasicInfo>>({
-    key: 'filteredUnitListState',
-    get: ({ get }) => get(this.#unitSelector).selectUnits(unitBasicData, unitSkillData, unitCoreLinkBonusData, unitRankUpBonusData)
-  });
-
-  readonly toggleUnitRank = (rank: UnitRank) => (cbi: CallbackInterface) => (): void => {
-    this.#update(s => s.toggleRank(rank))(cbi);
-  };
-
-  readonly toggleUnitType = (type: UnitType) => (cbi: CallbackInterface) => (): void => {
-    this.#update(s => s.toggleType(type))(cbi);
-  };
-
-  readonly toggleUnitRole = (role: UnitRole) => (cbi: CallbackInterface) => (): void => {
-    this.#update(s => s.toggleRole(role))(cbi);
-  };
-
-  readonly toggleActiveSkillCondition = (cond: ActiveSkillCondition) => (cbi: CallbackInterface) => (): void => {
-    this.#update(s => s.toggleActiveSkillCondition(cond))(cbi);
-  };
-
-  readonly toggleSkillEffectCondition = (cond: SkillEffectCondition) => (cbi: CallbackInterface) => (): void => {
-    this.#update(s => s.toggleSkillEffectCondition(cond))(cbi);
-  };
-
-  readonly selectCoreLinkBonusCondition = (cond: CoreLinkBonusCondition | undefined) => (cbi: CallbackInterface) => (): void => {
-    this.#update(s => s.selectCoreLinkBonusCondition(cond))(cbi);
-  };
-
-  readonly selectFullLinkBonusCondition = (cond: FullLinkBonusCondition | undefined) => (cbi: CallbackInterface) => (): void => {
-    this.#update(s => s.selectFullLinkBonusCondition(cond))(cbi);
-  };
-
-  readonly selectRankUpCondition = (cond: RankUpCondition | undefined) => (cbi: CallbackInterface) => (): void => {
-    this.#update(s => s.selectRankUpCondition(cond))(cbi);
-  };
-
-  readonly selectUnit = (unit: UnitBasicInfo) => (cbi: CallbackInterface) => (): void => {
-    this.#update(s => s.selectUnit(unit))(cbi);
-  };
-
-  readonly setSelectedUnit = (cbi: CallbackInterface) => (unit: UnitBasicInfo): void => {
-    this.#update(s => s.selectUnit(unit))(cbi);
+    if (nextUnit !== prevUnit) {
+      updateSelectedUnitDependency(nextUnit)(cbi);
+    }
   };
 }
 
-export const unitSelectorState: UnitSelectorState = new UnitSelectorState();
+export const selectedUnitState: RecoilValueReadOnly<UnitBasicInfo | undefined> = _selectedUnit;
+
+export const unitSelectedState = ({ no }: UnitBasicInfo): RecoilValueReadOnly<boolean> => _unitSelected(no);
+
+export const rankSelectedState = (rank: UnitRank): RecoilValueReadOnly<boolean> => _conditionSelected.basicInfo(rank);
+export const typeSelectedState = (type: UnitType): RecoilValueReadOnly<boolean> => _conditionSelected.basicInfo(type);
+export const roleSelectedState = (role: UnitRole): RecoilValueReadOnly<boolean> => _conditionSelected.basicInfo(role);
+
+export const activeSkillSelectedState = (cond: ActiveSkillCondition): RecoilValueReadOnly<boolean> => _conditionSelected.skill(cond);
+export const skillEffectSelectedState = (cond: SkillEffectCondition): RecoilValueReadOnly<boolean> => _conditionSelected.skill(cond);
+export const coreLinkSelectedState = (cond: CoreLinkBonusCondition | undefined): RecoilValueReadOnly<boolean> => _conditionSelected.coreLink(cond);
+export const fullLinkSelectedState = (cond: FullLinkBonusCondition | undefined): RecoilValueReadOnly<boolean> => _conditionSelected.fullLink(cond);
+export const rankUpSelectedState = (cond: RankUpCondition | undefined): RecoilValueReadOnly<boolean> => _conditionSelected.rankUp(cond);
+
+export const filteredUnitListState = selector<ReadonlyArray<UnitBasicInfo>>({
+  key: 'filteredUnitListState',
+  get: ({ get }) => get(_unitSelector).selectUnits(unitBasicData, unitSkillData, unitCoreLinkBonusData, unitRankUpBonusData)
+});
+
+export const toggleUnitRank = (rank: UnitRank) => (cbi: CallbackInterface) => (): void => {
+  _update(s => s.toggleRank(rank))(cbi);
+};
+
+export const toggleUnitType = (type: UnitType) => (cbi: CallbackInterface) => (): void => {
+  _update(s => s.toggleType(type))(cbi);
+};
+
+export const toggleUnitRole = (role: UnitRole) => (cbi: CallbackInterface) => (): void => {
+  _update(s => s.toggleRole(role))(cbi);
+};
+
+export const toggleActiveSkillCondition = (cond: ActiveSkillCondition) => (cbi: CallbackInterface) => (): void => {
+  _update(s => s.toggleActiveSkillCondition(cond))(cbi);
+};
+
+export const toggleSkillEffectCondition = (cond: SkillEffectCondition) => (cbi: CallbackInterface) => (): void => {
+  _update(s => s.toggleSkillEffectCondition(cond))(cbi);
+};
+
+export const selectCoreLinkBonusCondition = (cond: CoreLinkBonusCondition | undefined) => (cbi: CallbackInterface) => (): void => {
+  _update(s => s.selectCoreLinkBonusCondition(cond))(cbi);
+};
+
+export const selectFullLinkBonusCondition = (cond: FullLinkBonusCondition | undefined) => (cbi: CallbackInterface) => (): void => {
+  _update(s => s.selectFullLinkBonusCondition(cond))(cbi);
+};
+
+export const selectRankUpCondition = (cond: RankUpCondition | undefined) => (cbi: CallbackInterface) => (): void => {
+  _update(s => s.selectRankUpCondition(cond))(cbi);
+};
+
+export const selectUnit = (unit: UnitBasicInfo) => (cbi: CallbackInterface) => (): void => {
+  _update(s => s.selectUnit(unit))(cbi);
+};
+
+export const setSelectedUnit = (cbi: CallbackInterface) => (unit: UnitBasicInfo): void => {
+  _update(s => s.selectUnit(unit))(cbi);
+};

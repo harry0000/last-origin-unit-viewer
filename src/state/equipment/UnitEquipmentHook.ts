@@ -20,7 +20,23 @@ import {
 import { StatusEffect } from '../../domain/status/StatusEffect';
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 
-import { EquipmentSlot, unitEquipmentState } from './UnitEquipmentState';
+import {
+  EquipmentSlot,
+  changeEquipment,
+  changeEquipmentEnhanceLv,
+  enhanceLvSelectorState,
+  equipmentEffectsAsSkillDataState,
+  equipmentEffectsDataState,
+  equipmentSlotAvailableLvState,
+  equipmentSlotAvailableState,
+  equipmentState,
+  equipmentStatusEffectsDataState,
+  osRankSelectorState,
+  selectedEquipmentRankState,
+  selectEnhanceLv,
+  selectOsRank,
+  unitEquipmentStatusEffectsState
+} from './UnitEquipmentState';
 import {
   TranslatedEquipmentEffect,
   TranslatedEquipmentEffectAsSkill,
@@ -34,34 +50,34 @@ export function useEquipmentEnhanceLvSelector(
   unit: UnitNumber,
   lv: EquipmentEnhancementLevel
 ): [selected: boolean, selectEnhanceLv: () => void] {
-  const selected = useRecoilValue(unitEquipmentState.enhanceLvSelectorState(slot, lv));
+  const selected = useRecoilValue(enhanceLvSelectorState(slot, lv));
 
-  const updateSelector = useRecoilCallback(unitEquipmentState.selectEnhanceLv(slot, lv));
-  const changeEquipmentEnhanceLv = useRecoilCallback(unitEquipmentState.changeEquipmentEnhanceLv(unit, slot, lv));
+  const updateSelector = useRecoilCallback(selectEnhanceLv(slot, lv));
+  const changeEnhanceLv = useRecoilCallback(changeEquipmentEnhanceLv(unit, slot, lv));
 
   return [
     selected,
     () => {
       updateSelector();
-      changeEquipmentEnhanceLv();
+      changeEnhanceLv();
     }
   ];
 }
 
 export function useOsEquipmentRankSelector(rank: OsEquipmentRank): [selected: boolean, selectRank: () => void] {
   return [
-    useRecoilValue(unitEquipmentState.osRankSelectorState(rank)),
-    useRecoilCallback(unitEquipmentState.selectOsRank(rank))
+    useRecoilValue(osRankSelectorState(rank)),
+    useRecoilCallback(selectOsRank(rank))
   ];
 }
 
 export function useEquipmentRank(slot: EquipmentSlot): EquipmentRank {
-  return useRecoilValue(unitEquipmentState.selectedEquipmentRankState(slot));
+  return useRecoilValue(selectedEquipmentRankState(slot));
 }
 
 export function useEquipmentStatusEffects(slot: EquipmentSlot, id: EquipmentId): string {
   const { t } = useTranslation();
-  const effects = useRecoilValue(unitEquipmentState.equipmentStatusEffectsDataState(slot, id));
+  const effects = useRecoilValue(equipmentStatusEffectsDataState(slot, id));
   const details = translateEquipmentStatusEffects(effects, t);
 
   return details !== '' ? details : t('status.none_equipment_status_effect');
@@ -72,7 +88,7 @@ export function useEquipmentEffects(
   id: EquipmentId
 ): ReadonlyArray<TranslatedEquipmentEffect> | undefined {
   const { t } = useTranslation();
-  const effects = useRecoilValue(unitEquipmentState.equipmentEffectsDataState(slot, id));
+  const effects = useRecoilValue(equipmentEffectsDataState(slot, id));
 
   return effects && translateEquipmentEffect(effects, t);
 }
@@ -82,7 +98,7 @@ export function useEquipmentEffectsAsSkill(
   id: EquipmentId
 ): ReadonlyArray<TranslatedEquipmentEffectAsSkill> | undefined {
   const { t } = useTranslation();
-  const effects = useRecoilValue(unitEquipmentState.equipmentEffectsAsSkillDataState(slot, id));
+  const effects = useRecoilValue(equipmentEffectsAsSkillDataState(slot, id));
 
   return effects && translateEquipmentEffectAsSkill(effects, t);
 }
@@ -114,26 +130,26 @@ export function useUnitEquipment({ no }: UnitBasicInfo, slot: EquipmentSlot): [
   case 'chip1':
     return [
       EquipmentType.Chip,
-      useRecoilValue(unitEquipmentState.equipmentState(no, slot)),
-      useRecoilCallback(unitEquipmentState.changeEquipment(no, slot))
+      useRecoilValue(equipmentState(no, slot)),
+      useRecoilCallback(changeEquipment(no, slot))
     ];
   case 'chip2':
     return [
       EquipmentType.Chip,
-      useRecoilValue(unitEquipmentState.equipmentState(no, slot)),
-      useRecoilCallback(unitEquipmentState.changeEquipment(no, slot))
+      useRecoilValue(equipmentState(no, slot)),
+      useRecoilCallback(changeEquipment(no, slot))
     ];
   case 'os':
     return [
       EquipmentType.Os,
-      useRecoilValue(unitEquipmentState.equipmentState(no, slot)),
-      useRecoilCallback(unitEquipmentState.changeEquipment(no, slot))
+      useRecoilValue(equipmentState(no, slot)),
+      useRecoilCallback(changeEquipment(no, slot))
     ];
   case 'gear':
     return [
       EquipmentType.Gear,
-      useRecoilValue(unitEquipmentState.equipmentState(no, slot)),
-      useRecoilCallback(unitEquipmentState.changeEquipment(no, slot))
+      useRecoilValue(equipmentState(no, slot)),
+      useRecoilCallback(changeEquipment(no, slot))
     ];
   }
 }
@@ -143,35 +159,35 @@ export function useEquipmentAvailable({ no }: UnitBasicInfo, slot: EquipmentSlot
   availableLv: EquipmentSlotAvailableLv
 ] {
   return [
-    useRecoilValue(unitEquipmentState.equipmentSlotAvailableState(no, slot)),
-    useRecoilValue(unitEquipmentState.equipmentSlotAvailableLvState(no, slot))
+    useRecoilValue(equipmentSlotAvailableState(no, slot)),
+    useRecoilValue(equipmentSlotAvailableLvState(no, slot))
   ];
 }
 
 export function useChip1EquipmentEffect({ no }: UnitBasicInfo): [chip1: ChipEquipment | undefined, chip1Effect: StatusEffect] {
   return [
-    useRecoilValue(unitEquipmentState.equipmentState(no, 'chip1')),
-    useRecoilValue(unitEquipmentState.unitEquipmentStatusEffectsState(no, 'chip1'))
+    useRecoilValue(equipmentState(no, 'chip1')),
+    useRecoilValue(unitEquipmentStatusEffectsState(no, 'chip1'))
   ];
 }
 
 export function useChip2EquipmentEffect({ no }: UnitBasicInfo): [chip2: ChipEquipment | undefined, chip2Effect: StatusEffect] {
   return [
-    useRecoilValue(unitEquipmentState.equipmentState(no, 'chip2')),
-    useRecoilValue(unitEquipmentState.unitEquipmentStatusEffectsState(no, 'chip2'))
+    useRecoilValue(equipmentState(no, 'chip2')),
+    useRecoilValue(unitEquipmentStatusEffectsState(no, 'chip2'))
   ];
 }
 
 export function useOsEquipmentEffect({ no }: UnitBasicInfo): [os: OsEquipment | undefined, osEffect: StatusEffect] {
   return [
-    useRecoilValue(unitEquipmentState.equipmentState(no, 'os')),
-    useRecoilValue(unitEquipmentState.unitEquipmentStatusEffectsState(no, 'os'))
+    useRecoilValue(equipmentState(no, 'os')),
+    useRecoilValue(unitEquipmentStatusEffectsState(no, 'os'))
   ];
 }
 
 export function useGearEquipmentEffect({ no }: UnitBasicInfo): [gear: GearEquipment | undefined, gearEffect: StatusEffect] {
   return [
-    useRecoilValue(unitEquipmentState.equipmentState(no, 'gear')),
-    useRecoilValue(unitEquipmentState.unitEquipmentStatusEffectsState(no, 'gear'))
+    useRecoilValue(equipmentState(no, 'gear')),
+    useRecoilValue(unitEquipmentStatusEffectsState(no, 'gear'))
   ];
 }

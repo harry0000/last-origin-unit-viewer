@@ -10,7 +10,20 @@ import { SkillLv } from '../../domain/skill/UnitSkillLvValue';
 import { SkillType } from '../../domain/skill/SkillType';
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 
-import { unitSkillState } from './UnitSkillState';
+import {
+  changeForm,
+  changeSkillLv,
+  formChangeUnitSkillState,
+  isRankUpSkillState,
+  selectedUnitSkillEnabledState,
+  skillFormState,
+  unitActive1SkillState,
+  unitActive2SkillState,
+  unitPassive1SkillState,
+  unitPassive2SkillState,
+  unitPassive3SkillState,
+  unitSkillLvState
+} from './UnitSkillState';
 import { useActiveSkillTab } from '../ui/UnitSkillTabState';
 import { useSelectedUnit } from '../selector/UnitSelectorHook';
 
@@ -23,21 +36,6 @@ const {
   Passive2,
   Passive3
 } = SkillType;
-
-const {
-  unitActive1SkillState,
-  unitActive2SkillState,
-  unitPassive1SkillState,
-  unitPassive2SkillState,
-  unitPassive3SkillState,
-  unitSkillLvState,
-  selectedUnitSkillEnabledState,
-  isRankUpSkillState,
-  skillFormState,
-  formChangeUnitSkillState,
-  changeSkillLv,
-  changeForm
-} = unitSkillState;
 
 export function useUnitForm(): [unitSkill: FormChangeUnitSkill<FormChangeUnitNumbers> | undefined, changeForm: () => void] {
   const selected = useSelectedUnit();

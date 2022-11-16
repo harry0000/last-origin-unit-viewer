@@ -7,9 +7,21 @@ import { StatusEffect } from '../../../domain/status/StatusEffect';
 import { UnitBasicInfo, UnitNumber } from '../../../domain/UnitBasicInfo';
 import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../../domain/ValueUnit';
 
-import { unitCoreLinkState } from '../../corelink/UnitCoreLinkState';
-import { unitLvStatusState } from './UnitLvStatusState';
-import { unitStatusParameterState } from './UnitStatusParameterState';
+import {
+  accEnhancementStatusEffectState,
+  atkEnhancementStatusEffectState,
+  criEnhancementStatusEffectState,
+  defEnhancementStatusEffectState,
+  evaEnhancementStatusEffectState,
+  hpEnhancementStatusEffectState
+} from './UnitLvStatusState';
+import {
+  atkCoreLinkBonusValue,
+  defCoreLinkBonusValue,
+  hpCoreLinkBonusValue,
+  hpFullLinkBonusValue
+} from './UnitStatusParameterState';
+import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../../corelink/UnitCoreLinkState';
 import {
   useChip1EquipmentEffect,
   useChip2EquipmentEffect,
@@ -19,26 +31,6 @@ import {
 import { useStatusEnhancedLv } from './UnitLvStatusHook';
 
 import { EffectedParameter, StatusEffectPopoverRowProps } from '../../../component/status/parameters/StatusEffectsView';
-
-const {
-  hpEnhancementStatusEffectState,
-  atkEnhancementStatusEffectState,
-  defEnhancementStatusEffectState,
-  accEnhancementStatusEffectState,
-  evaEnhancementStatusEffectState,
-  criEnhancementStatusEffectState
-} = unitLvStatusState;
-
-const {
-  unitHpStatusParameterState,
-  unitAtkStatusParameterState,
-  unitDefStatusParameterState
-} = unitStatusParameterState;
-
-const {
-  coreLinkBonusEffectsState,
-  fullLinkBonusEffectState
-} = unitCoreLinkState;
 
 export function useStatusEffects(unit: UnitBasicInfo, parameter: EffectedParameter): ReadonlyArray<StatusEffectPopoverRowProps> {
   const unitNumber = unit.no;
@@ -243,7 +235,7 @@ function coreLinkBonusEffects(
   switch (parameter) {
   case 'hp': {
     const bonus = useRecoilValue(coreLinkBonusEffectsState(unit));
-    const value = useRecoilValue(unitHpStatusParameterState(unit))?.hpCoreLinkBonus.value;
+    const value = useRecoilValue(hpCoreLinkBonusValue(unit)).value;
     return bonus && 'hp_up' in bonus && value ?
       [{
         key: 'core_link_bonus',
@@ -254,8 +246,8 @@ function coreLinkBonusEffects(
   }
   case 'atk': {
     const bonus = useRecoilValue(coreLinkBonusEffectsState(unit));
-    const value = useRecoilValue(unitAtkStatusParameterState(unit))?.atkCoreLinkBonus;
-    return bonus && value?.milliValue ?
+    const value = useRecoilValue(atkCoreLinkBonusValue(unit));
+    return bonus && value.milliValue ?
       [{
         key: 'core_link_bonus',
         affected: t('status.affected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.atk_up) }),
@@ -265,8 +257,8 @@ function coreLinkBonusEffects(
   }
   case 'def': {
     const bonus = useRecoilValue(coreLinkBonusEffectsState(unit));
-    const value = useRecoilValue(unitDefStatusParameterState(unit))?.defCoreLinkBonus;
-    return bonus && 'def_up' in bonus && value?.milliValue ?
+    const value = useRecoilValue(defCoreLinkBonusValue(unit));
+    return bonus && 'def_up' in bonus && value.milliValue ?
       [{
         key: 'core_link_bonus',
         affected: t('status.affected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.def_up) }),
@@ -329,7 +321,7 @@ function fullLinkBonusEffects(
   switch (parameter) {
   case 'hp': {
     const bonus = useRecoilValue(fullLinkBonusEffectState(unit));
-    const value = useRecoilValue(unitHpStatusParameterState(unit))?.hpFullLinkBonus?.value ?? 0;
+    const value = useRecoilValue(hpFullLinkBonusValue(unit)).value;
     return bonus && 'hp_up' in bonus ?
       [{
         key: 'full_link_bonus',

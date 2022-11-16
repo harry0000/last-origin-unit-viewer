@@ -6,6 +6,22 @@ export type MilliPercentageValue                    = Readonly<{ milliPercentage
 export type ValueUnit = keyof IntegerValue | keyof MilliValue | keyof MicroValue | keyof MilliPercentageValue
 export type ValueTypes = IntegerValue | MilliValue | MicroValue | MilliPercentageValue
 
+export function equalIntegerValue<T extends number>(a: IntegerValue<T>, b: IntegerValue<T>): boolean {
+  return a.value === b.value;
+}
+
+export function equalMilliValue(a: MilliValue, b: MilliValue): boolean {
+  return a.milliValue === b.milliValue;
+}
+
+export function equalMicroValue(a: MicroValue, b: MicroValue): boolean {
+  return a.microValue === b.microValue;
+}
+
+export function equalMilliPercentageValue(a: MilliPercentageValue, b: MilliPercentageValue): boolean {
+  return a.milliPercentage === b.milliPercentage;
+}
+
 function multiply(value: number, multiplier: MilliPercentageValue): number {
   return value * multiplier.milliPercentage / 100_000;
 }

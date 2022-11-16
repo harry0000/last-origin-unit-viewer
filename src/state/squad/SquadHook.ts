@@ -14,27 +14,27 @@ import { generateShareUrl, generateTwitterShareUrl, squadUrlParamName } from '..
 import { restore, UrlSafeBase64String } from '../../service/UrlParamConverter';
 import { restoreFromJsonObject } from '../../service/SquadJsonRestore';
 
-import { squadState } from './SquadState';
-import { unitAffectionState } from '../status/UnitAffectionState';
-import { unitCoreLinkState } from '../corelink/UnitCoreLinkState';
-import { unitDamagedState } from '../status/UnitDamagedState';
-import { unitEquipmentState } from '../equipment/UnitEquipmentState';
-import { unitLvStatusState } from '../status/parameters/UnitLvStatusState';
-import { unitSkillState } from '../skill/UnitSkillState';
+import {
+  assignUnit,
+  assignedUnitState,
+  canAssignUnit,
+  getSquadUnitCount,
+  removeUnit,
+  restoreSquad,
+  squadResolver,
+  squadUnitTypeCountState,
+  squadUnitsState
+} from './SquadState';
+import { lvStateResolver, restoreLvStatusState } from '../status/parameters/UnitLvStatusState';
+import { restoreUnitAffectionState, unitAffectionStateResolver } from '../status/UnitAffectionState';
+import { restoreUnitCoreLink, unitCoreLinkResolver } from '../corelink/UnitCoreLinkState';
+import { restoreUnitDamagedState, unitDamagedStateResolver } from '../status/UnitDamagedState';
+import { restoreUnitEquipmentState, unitEquipmentResolver } from '../equipment/UnitEquipmentState';
+import { restoreUnitSkill, unitSkillResolver } from '../skill/UnitSkillState';
+import { useNotificationResister } from '../ui/NotificationState';
 import { useUnitSelector } from '../selector/UnitSelectorHook';
-import { useNotificationResister } from '../ui/notificationState';
 
 import { getFromSnapshot } from '../../util/recoil';
-
-const {
-  squadUnitsState,
-  squadUnitTypeCountState,
-  assignedUnitState,
-  assignUnit,
-  canAssignUnit,
-  removeUnit,
-  getSquadUnitCount
-} = squadState;
 
 export const ItemType = {
   UnitCard: 'unit_card',
@@ -170,30 +170,19 @@ export function useRemoveSquadUnitDrop(): ConnectDropTarget {
 }
 
 function useSquadJson(): () => SquadJsonStructure | undefined {
-  const squadResolver = squadState.squadResolver;
-  const lvStatusResolver = unitLvStatusState.lvStateResolver;
-  const chip1EquipmentResolver = unitEquipmentState.unitEquipmentResolver('chip1');
-  const chip2EquipmentResolver = unitEquipmentState.unitEquipmentResolver('chip2');
-  const osEquipmentResolver    = unitEquipmentState.unitEquipmentResolver('os');
-  const gearEquipmentResolver  = unitEquipmentState.unitEquipmentResolver('gear');
-  const coreLinkResolver = unitCoreLinkState.unitCoreLinkResolver;
-  const skillResolver = unitSkillState.unitSkillResolver;
-  const affectionResolver = unitAffectionState.unitAffectionStateResolver;
-  const damagedResolver = unitDamagedState.unitDamagedStateResolver;
-
   return useRecoilCallback(({ snapshot }) => () => {
     const get = getFromSnapshot(snapshot);
     return convertToJsonObject(
       get(squadResolver),
-      (unit) => get(lvStatusResolver(unit)),
-      (unit) => get(chip1EquipmentResolver(unit)),
-      (unit) => get(chip2EquipmentResolver(unit)),
-      (unit) => get(osEquipmentResolver(unit)),
-      (unit) => get(gearEquipmentResolver(unit)),
-      (unit) => get(coreLinkResolver(unit)),
-      (unit) => get(skillResolver(unit)),
-      (unit) => get(affectionResolver(unit)),
-      (unit) => get(damagedResolver(unit))
+      (unit) => get(lvStateResolver(unit)),
+      (unit) => get(unitEquipmentResolver('chip1')(unit)),
+      (unit) => get(unitEquipmentResolver('chip2')(unit)),
+      (unit) => get(unitEquipmentResolver('os')(unit)),
+      (unit) => get(unitEquipmentResolver('gear')(unit)),
+      (unit) => get(unitCoreLinkResolver(unit)),
+      (unit) => get(unitSkillResolver(unit)),
+      (unit) => get(unitAffectionStateResolver(unit)),
+      (unit) => get(unitDamagedStateResolver(unit))
     );
   });
 }
@@ -280,16 +269,16 @@ export function useSquadRestoreFromUrl(): boolean {
   const [restoring, setRestoring] = useState(false);
 
   const notify = useNotificationResister();
-  const squadRestore = useRecoilCallback(squadState.restoreSquad);
-  const lvStateRestore = useRecoilCallback(unitLvStatusState.restoreLvStatusState);
-  const chip1Restore = useRecoilCallback(unitEquipmentState.restoreUnitEquipmentState('chip1'));
-  const chip2Restore = useRecoilCallback(unitEquipmentState.restoreUnitEquipmentState('chip2'));
-  const osRestore = useRecoilCallback(unitEquipmentState.restoreUnitEquipmentState('os'));
-  const gearRestore = useRecoilCallback(unitEquipmentState.restoreUnitEquipmentState('gear'));
-  const coreLinkRestore = useRecoilCallback(unitCoreLinkState.restoreUnitCoreLink);
-  const skillRestore = useRecoilCallback(unitSkillState.restoreUnitSkill);
-  const affectionRestore = useRecoilCallback(unitAffectionState.unitAffectionStateRestore);
-  const damagedRestore = useRecoilCallback(unitDamagedState.restoreUnitDamagedState);
+  const squadRestore = useRecoilCallback(restoreSquad);
+  const lvStateRestore = useRecoilCallback(restoreLvStatusState);
+  const chip1Restore = useRecoilCallback(restoreUnitEquipmentState('chip1'));
+  const chip2Restore = useRecoilCallback(restoreUnitEquipmentState('chip2'));
+  const osRestore = useRecoilCallback(restoreUnitEquipmentState('os'));
+  const gearRestore = useRecoilCallback(restoreUnitEquipmentState('gear'));
+  const coreLinkRestore = useRecoilCallback(restoreUnitCoreLink);
+  const skillRestore = useRecoilCallback(restoreUnitSkill);
+  const affectionRestore = useRecoilCallback(restoreUnitAffectionState);
+  const damagedRestore = useRecoilCallback(restoreUnitDamagedState);
 
   const history = useHistory();
   const squadParam = new URLSearchParams(useLocation().search).get(squadUrlParamName);

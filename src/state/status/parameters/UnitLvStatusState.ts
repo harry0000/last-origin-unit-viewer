@@ -27,8 +27,8 @@ import { UnitLvMode, UnitLvValue } from '../../../domain/status/UnitLv';
 import UnitLvStatus from '../../../domain/status/UnitLvStatus';
 import { getUnitDefaultRank } from '../../../domain/status/UnitRankState';
 
-import { unitCoreLinkState } from '../../corelink/UnitCoreLinkState';
-import { updateUnitLvValueDependency } from '../../transaction';
+import { coreLinkCountState, fullLinkBonusEffectState } from '../../corelink/UnitCoreLinkState';
+import { updateUnitLvStateDependency } from '../../transaction';
 
 import { getFromSnapshot, getValue, ValueOrUpdater } from '../../../util/recoil';
 
@@ -50,260 +50,255 @@ type UnitRankUpEnabled = Record<Exclude<UnitRank, typeof UnitRank.B>, boolean>
 function createStatusEnhancementLvState<T extends Status>(status: T) {
   return {
     lv: atomFamily<number, UnitNumber>({
-      key: `unitLvStatusState_enhanceLv_${status}_lv`,
+      key: `UnitLvStatusState_enhanceLv_${status}_lv`,
       default: 0
     }),
     canIncrement: atomFamily<boolean, UnitNumber>({
-      key: `unitLvStatusState_enhanceLv_${status}_canIncrement`,
+      key: `UnitLvStatusState_enhanceLv_${status}_canIncrement`,
       default: true
     }),
     canDecrement: atomFamily<boolean, UnitNumber>({
-      key: `unitLvStatusState_enhanceLv_${status}_canDecrement`,
+      key: `UnitLvStatusState_enhanceLv_${status}_canDecrement`,
       default: false
     }),
     statusEffect: atomFamily<StatusEffect<T>, UnitNumber>({
-      key: `unitLvStatusState_enhanceLv_${status}_statusEffect`,
+      key: `UnitLvStatusState_enhanceLv_${status}_statusEffect`,
       default: {} as StatusEffect<T>
     })
   };
 }
 
-class UnitLvStatusState {
-  readonly #unitLvStatusState = atomFamily<UnitLvStatus, UnitNumber>({
-    key: 'unitLvStatusState_unitLvStatusState',
-    default: (unit) => new UnitLvStatus(unit)
-  });
+const _unitLvStatusState = atomFamily<UnitLvStatus, UnitNumber>({
+  key: 'UnitLvStatusState_unitLvStatusState',
+  default: (unit) => new UnitLvStatus(unit)
+});
 
-  readonly #lv             = atomFamily<UnitLvValue, UnitNumber>({ key: 'unitLvStatusState_lv', default: 1 });
-  readonly #lvMode         = atomFamily<UnitLvMode, UnitNumber>({ key: 'unitLvStatusState_lvMode', default: UnitLvMode.Auto });
-  readonly #remainPoints   = atomFamily<number, UnitNumber>({ key: 'unitLvStatusState_remainPoints', default: 300 });
-  readonly #canResetPoints = atomFamily<boolean, UnitNumber>({ key: 'unitLvStatusState_canResetPoints', default: false });
+const _lv             = atomFamily<UnitLvValue, UnitNumber>({ key: 'UnitLvStatusState_lv', default: 1 });
+const _lvMode         = atomFamily<UnitLvMode, UnitNumber>({ key: 'UnitLvStatusState_lvMode', default: UnitLvMode.Auto });
+const _remainPoints   = atomFamily<number, UnitNumber>({ key: 'UnitLvStatusState_remainPoints', default: 300 });
+const _canResetPoints = atomFamily<boolean, UnitNumber>({ key: 'UnitLvStatusState_canResetPoints', default: false });
 
-  readonly #enhanceLv ={
-    hp:  createStatusEnhancementLvState('hp'),
-    atk: createStatusEnhancementLvState('atk'),
-    def: createStatusEnhancementLvState('def'),
-    acc: createStatusEnhancementLvState('acc'),
-    eva: createStatusEnhancementLvState('eva'),
-    cri: createStatusEnhancementLvState('cri')
-  };
+const _enhanceLv ={
+  hp:  createStatusEnhancementLvState('hp'),
+  atk: createStatusEnhancementLvState('atk'),
+  def: createStatusEnhancementLvState('def'),
+  acc: createStatusEnhancementLvState('acc'),
+  eva: createStatusEnhancementLvState('eva'),
+  cri: createStatusEnhancementLvState('cri')
+};
 
-  readonly #rank = atomFamily<UnitRank, RankUpUnitNumber>({
-    key: 'unitLvStatusState_rank',
-    default: (unit) => getUnitDefaultRank(unit)
-  });
-  readonly #rankUpEnabled = atomFamily<UnitRankUpEnabled, RankUpUnitNumber>({
-    key: 'unitLvStatusState_rankUpEnabled',
-    default: (unit) => {
-      const defaultValue = { [UnitRank.A]: false, [UnitRank.S]: false, [UnitRank.SS]: false };
-      const defaultRank = getUnitDefaultRank(unit);
-      if (defaultRank !== UnitRank.B) {
-        defaultValue[defaultRank] = true;
-      }
-
-      return defaultValue;
+const _rank = atomFamily<UnitRank, RankUpUnitNumber>({
+  key: 'UnitLvStatusState_rank',
+  default: (unit) => getUnitDefaultRank(unit)
+});
+const _rankUpEnabled = atomFamily<UnitRankUpEnabled, RankUpUnitNumber>({
+  key: 'UnitLvStatusState_rankUpEnabled',
+  default: (unit) => {
+    const defaultValue = { [UnitRank.A]: false, [UnitRank.S]: false, [UnitRank.SS]: false };
+    const defaultRank = getUnitDefaultRank(unit);
+    if (defaultRank !== UnitRank.B) {
+      defaultValue[defaultRank] = true;
     }
-  });
-  readonly #rankUpBonus = atomFamily<UnitRankUpBonus | undefined, RankUpUnitNumber>({ key: 'unitLvStatusState_rankUpBonus', default: undefined });
 
-  readonly #selectedUnitStatusEnhancedLv = selectorFamily<number, { status: Status, selected: UnitNumber | undefined }>({
-    key: 'unitLvStatusState_selectedUnitStatusEnhancedLv',
-    get: ({ status, selected }) => ({ get }) => selected ? get(this.#enhanceLv[status].lv(selected)) : 0
-  });
-
-  readonly #selectedUnitStatusIncrementDisabled = selectorFamily<boolean, { status: Status, selected: UnitNumber | undefined }>({
-    key: 'unitLvStatusState_selectedUnitStatusIncrementDisabled',
-    get: ({ status, selected }) => ({ get }) => !(selected && get(this.#enhanceLv[status].canIncrement(selected)))
-  });
-
-  readonly #selectedUnitStatusDecrementDisabled = selectorFamily<boolean, { status: Status, selected: UnitNumber | undefined }>({
-    key: 'unitLvStatusState_selectedUnitStatusDecrementDisabled',
-    get: ({ status, selected }) => ({ get }) => !(selected && get(this.#enhanceLv[status].canDecrement(selected)))
-  });
-
-  #update(unit: UnitNumber, valueOrUpdater: ValueOrUpdater<UnitLvStatus>): (cbi: CallbackInterface) => void {
-    return (cbi) => {
-      const set = cbi.set;
-      const get = getFromSnapshot(cbi.snapshot);
-      const newValue = getValue(valueOrUpdater, () => get(this.#unitLvStatusState(unit)));
-
-      set(this.#lv(unit), newValue.lv);
-      set(this.#lvMode(unit), newValue.lvMode);
-      set(this.#remainPoints(unit), newValue.remainPoints);
-      set(this.#canResetPoints(unit), newValue.usedPoints > 0);
-
-      set(this.#enhanceLv.hp.lv(unit), newValue.hpLv);
-      set(this.#enhanceLv.atk.lv(unit), newValue.atkLv);
-      set(this.#enhanceLv.def.lv(unit), newValue.defLv);
-      set(this.#enhanceLv.acc.lv(unit), newValue.accLv);
-      set(this.#enhanceLv.eva.lv(unit), newValue.evaLv);
-      set(this.#enhanceLv.cri.lv(unit), newValue.criLv);
-
-      set(this.#enhanceLv.hp.canIncrement(unit), newValue.enableUpHpLv);
-      set(this.#enhanceLv.atk.canIncrement(unit), newValue.enableUpAtkLv);
-      set(this.#enhanceLv.def.canIncrement(unit), newValue.enableUpDefLv);
-      set(this.#enhanceLv.acc.canIncrement(unit), newValue.enableUpAccLv);
-      set(this.#enhanceLv.eva.canIncrement(unit), newValue.enableUpEvaLv);
-      set(this.#enhanceLv.cri.canIncrement(unit), newValue.enableUpCriLv);
-
-      set(this.#enhanceLv.hp.canDecrement(unit), newValue.enableDownHpLv);
-      set(this.#enhanceLv.atk.canDecrement(unit), newValue.enableDownAtkLv);
-      set(this.#enhanceLv.def.canDecrement(unit), newValue.enableDownDefLv);
-      set(this.#enhanceLv.acc.canDecrement(unit), newValue.enableDownAccLv);
-      set(this.#enhanceLv.eva.canDecrement(unit), newValue.enableDownEvaLv);
-      set(this.#enhanceLv.cri.canDecrement(unit), newValue.enableDownCriLv);
-
-      set(this.#enhanceLv.hp.statusEffect(unit), newValue.hpStatusEffect);
-      set(this.#enhanceLv.atk.statusEffect(unit), newValue.atkStatusEffect);
-      set(this.#enhanceLv.def.statusEffect(unit), newValue.defStatusEffect);
-      set(this.#enhanceLv.acc.statusEffect(unit), newValue.accStatusEffect);
-      set(this.#enhanceLv.eva.statusEffect(unit), newValue.evaStatusEffect);
-      set(this.#enhanceLv.cri.statusEffect(unit), newValue.criStatusEffect);
-
-      if (isRankUpUnitNumber(unit)) {
-        set(this.#rank(unit), newValue.rank);
-
-        const prevEnabled = get(this.#rankUpEnabled(unit));
-        const nextEnabled: UnitRankUpEnabled = {
-          [UnitRank.A]: newValue.isRankEnabled(UnitRank.A),
-          [UnitRank.S]: newValue.isRankEnabled(UnitRank.S),
-          [UnitRank.SS]: newValue.isRankEnabled(UnitRank.SS)
-        };
-        if (!deepEqual(prevEnabled, nextEnabled)) {
-          set(this.#rankUpEnabled(unit), nextEnabled);
-        }
-
-        const prevBonus = get(this.#rankUpBonus(unit));
-        const nextBonus = newValue.rankUpBonus;
-        if (!deepEqual(prevBonus, nextBonus)) {
-          set(this.#rankUpBonus(unit), nextBonus);
-        }
-      }
-
-      set(this.#unitLvStatusState(unit), newValue);
-
-      updateUnitLvValueDependency(unit, newValue.lv)(cbi);
-    };
+    return defaultValue;
   }
+});
+const _rankUpBonus = atomFamily<UnitRankUpBonus | undefined, RankUpUnitNumber>({ key: 'UnitLvStatusState_rankUpBonus', default: undefined });
 
-  readonly lvValueState = (unit: UnitNumber): RecoilValueReadOnly<UnitLvValue> => this.#lv(unit);
-  readonly lvModeState = (unit: UnitNumber): RecoilValueReadOnly<UnitLvMode> => this.#lvMode(unit);
-  readonly remainPointsState = (unit: UnitNumber): RecoilValueReadOnly<number> => this.#remainPoints(unit);
-  readonly canResetPointsState = (unit: UnitNumber): RecoilValueReadOnly<boolean> => this.#canResetPoints(unit);
+const _selectedUnitStatusEnhancedLv = selectorFamily<number, { status: Status, selected: UnitNumber | undefined }>({
+  key: 'UnitLvStatusState_selectedUnitStatusEnhancedLv',
+  get: ({ status, selected }) => ({ get }) => selected ? get(_enhanceLv[status].lv(selected)) : 0
+});
 
-  readonly hpEnhancementStatusEffectState = (unit: UnitNumber): RecoilValueReadOnly<HpEnhancementStatusEffect> => this.#enhanceLv.hp.statusEffect(unit);
-  readonly atkEnhancementStatusEffectState = (unit: UnitNumber): RecoilValueReadOnly<AtkEnhancementStatusEffect> => this.#enhanceLv.atk.statusEffect(unit);
-  readonly defEnhancementStatusEffectState = (unit: UnitNumber): RecoilValueReadOnly<DefEnhancementStatusEffect> => this.#enhanceLv.def.statusEffect(unit);
-  readonly accEnhancementStatusEffectState = (unit: UnitNumber): RecoilValueReadOnly<AccEnhancementStatusEffect> => this.#enhanceLv.acc.statusEffect(unit);
-  readonly evaEnhancementStatusEffectState = (unit: UnitNumber): RecoilValueReadOnly<EvaEnhancementStatusEffect> => this.#enhanceLv.eva.statusEffect(unit);
-  readonly criEnhancementStatusEffectState = (unit: UnitNumber): RecoilValueReadOnly<CriEnhancementStatusEffect> => this.#enhanceLv.cri.statusEffect(unit);
+const _selectedUnitStatusIncrementDisabled = selectorFamily<boolean, { status: Status, selected: UnitNumber | undefined }>({
+  key: 'UnitLvStatusState_selectedUnitStatusIncrementDisabled',
+  get: ({ status, selected }) => ({ get }) => !(selected && get(_enhanceLv[status].canIncrement(selected)))
+});
 
-  readonly rankUpBonusEffectState = selectorFamily<UnitRankUpBonus | undefined, UnitNumber>({
-    key: 'rankUpBonusEffectState',
-    get: (unit) => ({ get }) => isRankUpUnitNumber(unit) ? get(this.#rankUpBonus(unit)) : undefined
-  });
+const _selectedUnitStatusDecrementDisabled = selectorFamily<boolean, { status: Status, selected: UnitNumber | undefined }>({
+  key: 'UnitLvStatusState_selectedUnitStatusDecrementDisabled',
+  get: ({ status, selected }) => ({ get }) => !(selected && get(_enhanceLv[status].canDecrement(selected)))
+});
 
-  readonly unitRank = (unit: RankUpUnitNumber): RecoilValueReadOnly<UnitRank> => this.#rank(unit);
-  readonly unitRankUpEnabled = (unit: RankUpUnitNumber): RecoilValueReadOnly<UnitRankUpEnabled> => this.#rankUpEnabled(unit);
+function _update(unit: UnitNumber, valueOrUpdater: ValueOrUpdater<UnitLvStatus>): (cbi: CallbackInterface) => void {
+  return (cbi) => {
+    const set = cbi.set;
+    const get = getFromSnapshot(cbi.snapshot);
+    const prevValue = get(_unitLvStatusState(unit));
+    const nextValue = getValue(valueOrUpdater, () => prevValue);
 
-  readonly currentRankState = (<N extends UnitNumber>() =>
-    selectorFamily<AvailableUnitRank<N>, N>({
-      key: 'currentRankState',
-      get: (unit) => ({ get }) => isRankUpUnitNumber(unit) ? get(this.#rank(unit)) : getUnitDefaultRank(unit)
-    })
-  )();
+    set(_lv(unit), nextValue.lv);
+    set(_lvMode(unit), nextValue.lvMode);
+    set(_remainPoints(unit), nextValue.remainPoints);
+    set(_canResetPoints(unit), nextValue.usedPoints > 0);
 
-  readonly unitCostState = selectorFamily<UnitCost, UnitBasicInfo>({
-    key: 'unitCostState',
-    get: (unit) => ({ get }) => {
-      const {
-        coreLinkCountState,
-        fullLinkBonusEffectState
-      } = unitCoreLinkState;
-      const coreLinkCount = get(coreLinkCountState(unit.no));
-      const fullLinkBonus = get(fullLinkBonusEffectState(unit.no));
+    set(_enhanceLv.hp.lv(unit), nextValue.hpLv);
+    set(_enhanceLv.atk.lv(unit), nextValue.atkLv);
+    set(_enhanceLv.def.lv(unit), nextValue.defLv);
+    set(_enhanceLv.acc.lv(unit), nextValue.accLv);
+    set(_enhanceLv.eva.lv(unit), nextValue.evaLv);
+    set(_enhanceLv.cri.lv(unit), nextValue.criLv);
 
-      return isRankUpUnitBasicInfo(unit) ?
-        calculateRankUpUnitCost(unit, get(this.currentRankState(unit.no)), coreLinkCount, fullLinkBonus) :
-        calculateUnitCost(unit, coreLinkCount, fullLinkBonus);
-    }
-  });
+    set(_enhanceLv.hp.canIncrement(unit), nextValue.enableUpHpLv);
+    set(_enhanceLv.atk.canIncrement(unit), nextValue.enableUpAtkLv);
+    set(_enhanceLv.def.canIncrement(unit), nextValue.enableUpDefLv);
+    set(_enhanceLv.acc.canIncrement(unit), nextValue.enableUpAccLv);
+    set(_enhanceLv.eva.canIncrement(unit), nextValue.enableUpEvaLv);
+    set(_enhanceLv.cri.canIncrement(unit), nextValue.enableUpCriLv);
 
-  readonly squadUnitCostState = selectorFamily<UnitCost, ReadonlyArray<{ unit: UnitBasicInfo }>>({
-    key: 'squadUnitCostState',
-    get: (squadUnits) => ({ get }) => {
-      return summaryUnitCosts(...squadUnits.map(({ unit }) => get(this.unitCostState(unit))));
-    }
-  });
+    set(_enhanceLv.hp.canDecrement(unit), nextValue.enableDownHpLv);
+    set(_enhanceLv.atk.canDecrement(unit), nextValue.enableDownAtkLv);
+    set(_enhanceLv.def.canDecrement(unit), nextValue.enableDownDefLv);
+    set(_enhanceLv.acc.canDecrement(unit), nextValue.enableDownAccLv);
+    set(_enhanceLv.eva.canDecrement(unit), nextValue.enableDownEvaLv);
+    set(_enhanceLv.cri.canDecrement(unit), nextValue.enableDownCriLv);
 
-  readonly statusEnhancedLvState = (status: Status, selected: UnitNumber | undefined): RecoilValueReadOnly<number> =>
-    this.#selectedUnitStatusEnhancedLv({ status, selected });
+    set(_enhanceLv.hp.statusEffect(unit), nextValue.hpStatusEffect);
+    set(_enhanceLv.atk.statusEffect(unit), nextValue.atkStatusEffect);
+    set(_enhanceLv.def.statusEffect(unit), nextValue.defStatusEffect);
+    set(_enhanceLv.acc.statusEffect(unit), nextValue.accStatusEffect);
+    set(_enhanceLv.eva.statusEffect(unit), nextValue.evaStatusEffect);
+    set(_enhanceLv.cri.statusEffect(unit), nextValue.criStatusEffect);
 
-  readonly statusIncrementDisabledState = (status: Status, selected: UnitNumber | undefined): RecoilValueReadOnly<boolean> =>
-    this.#selectedUnitStatusIncrementDisabled({ status, selected });
+    if (isRankUpUnitNumber(unit)) {
+      set(_rank(unit), nextValue.rank);
 
-  readonly statusDecrementDisabledState = (status: Status, selected: UnitNumber | undefined): RecoilValueReadOnly<boolean> =>
-    this.#selectedUnitStatusDecrementDisabled({ status, selected });
+      const prevEnabled = get(_rankUpEnabled(unit));
+      const nextEnabled: UnitRankUpEnabled = {
+        [UnitRank.A]: nextValue.isRankEnabled(UnitRank.A),
+        [UnitRank.S]: nextValue.isRankEnabled(UnitRank.S),
+        [UnitRank.SS]: nextValue.isRankEnabled(UnitRank.SS)
+      };
+      if (!deepEqual(prevEnabled, nextEnabled)) {
+        set(_rankUpEnabled(unit), nextEnabled);
+      }
 
-  readonly setLv = (unit: UnitNumber) => (cbi: CallbackInterface) => (lv: UnitLvValue): void => {
-    this.#update(unit, s => s.setUnitLv(lv))(cbi);
-  };
-
-  readonly toggleLvMode = (unit: UnitNumber) => (cbi: CallbackInterface) => (): void => {
-    this.#update(unit, s => s.toggleLvMode())(cbi);
-  };
-
-  readonly resetRemainPoints = (unit: UnitNumber) => (cbi: CallbackInterface) => (): void => {
-    this.#update(unit, s => s.resetParameterPoints())(cbi);
-  };
-
-  readonly incrementStatusLv = (status: Status, selected: UnitNumber | undefined) => (cbi: CallbackInterface) => (): void => {
-    if (!selected) {
-      return;
-    }
-
-    this.#update(
-      selected,
-      s => {
-        switch (status) {
-        case 'hp':  return s.upHpLv();
-        case 'atk': return s.upAtkLv();
-        case 'def': return s.upDefLv();
-        case 'acc': return s.upAccLv();
-        case 'eva': return s.upEvaLv();
-        case 'cri': return s.upCriLv();
-        }
-      })(cbi);
-  };
-
-  readonly decrementStatusLv = (status: Status, selected: UnitNumber | undefined) => (cbi: CallbackInterface) => (): void => {
-    if (!selected) {
-      return;
+      const prevBonus = get(_rankUpBonus(unit));
+      const nextBonus = nextValue.rankUpBonus;
+      if (!deepEqual(prevBonus, nextBonus)) {
+        set(_rankUpBonus(unit), nextBonus);
+      }
     }
 
-    this.#update(
-      selected,
-      s => {
-        switch (status) {
-        case 'hp':  return s.downHpLv();
-        case 'atk': return s.downAtkLv();
-        case 'def': return s.downDefLv();
-        case 'acc': return s.downAccLv();
-        case 'eva': return s.downEvaLv();
-        case 'cri': return s.downCriLv();
-        }
-      })(cbi);
-  };
+    set(_unitLvStatusState(unit), nextValue);
 
-  readonly setRank = (unit: UnitNumber) => (cbi: CallbackInterface) => (rank: UnitRank): void => {
-    this.#update(unit, s => s.changeRank(rank))(cbi);
-  };
-
-  readonly lvStateResolver = (unit: UnitNumber): RecoilValueReadOnly<UnitLvStatus> => this.#unitLvStatusState(unit);
-
-  readonly restoreLvStatusState = (cbi: CallbackInterface) => (states: ReadonlyArray<UnitLvStatus>): void => {
-    states.forEach(s => { this.#update(s.unit, s)(cbi); });
+    if (nextValue !== prevValue) {
+      updateUnitLvStateDependency(nextValue)(cbi);
+    }
   };
 }
 
-export const unitLvStatusState: UnitLvStatusState = new UnitLvStatusState();
+export const lvValueState = (unit: UnitNumber): RecoilValueReadOnly<UnitLvValue> => _lv(unit);
+export const lvModeState = (unit: UnitNumber): RecoilValueReadOnly<UnitLvMode> => _lvMode(unit);
+export const remainPointsState = (unit: UnitNumber): RecoilValueReadOnly<number> => _remainPoints(unit);
+export const canResetPointsState = (unit: UnitNumber): RecoilValueReadOnly<boolean> => _canResetPoints(unit);
+
+export const hpEnhancementStatusEffectState = (unit: UnitNumber): RecoilValueReadOnly<HpEnhancementStatusEffect> => _enhanceLv.hp.statusEffect(unit);
+export const atkEnhancementStatusEffectState = (unit: UnitNumber): RecoilValueReadOnly<AtkEnhancementStatusEffect> => _enhanceLv.atk.statusEffect(unit);
+export const defEnhancementStatusEffectState = (unit: UnitNumber): RecoilValueReadOnly<DefEnhancementStatusEffect> => _enhanceLv.def.statusEffect(unit);
+export const accEnhancementStatusEffectState = (unit: UnitNumber): RecoilValueReadOnly<AccEnhancementStatusEffect> => _enhanceLv.acc.statusEffect(unit);
+export const evaEnhancementStatusEffectState = (unit: UnitNumber): RecoilValueReadOnly<EvaEnhancementStatusEffect> => _enhanceLv.eva.statusEffect(unit);
+export const criEnhancementStatusEffectState = (unit: UnitNumber): RecoilValueReadOnly<CriEnhancementStatusEffect> => _enhanceLv.cri.statusEffect(unit);
+
+export const rankUpBonusEffectState = selectorFamily<UnitRankUpBonus | undefined, UnitNumber>({
+  key: 'rankUpBonusEffectState',
+  get: (unit) => ({ get }) => isRankUpUnitNumber(unit) ? get(_rankUpBonus(unit)) : undefined
+});
+
+export const unitRank = (unit: RankUpUnitNumber): RecoilValueReadOnly<UnitRank> => _rank(unit);
+export const unitRankUpEnabled = (unit: RankUpUnitNumber): RecoilValueReadOnly<UnitRankUpEnabled> => _rankUpEnabled(unit);
+
+export const currentRankState = (<N extends UnitNumber>() =>
+  selectorFamily<AvailableUnitRank<N>, N>({
+    key: 'currentRankState',
+    get: (unit) => ({ get }) => isRankUpUnitNumber(unit) ? get(_rank(unit)) : getUnitDefaultRank(unit)
+  })
+)();
+
+export const unitCostState = selectorFamily<UnitCost, UnitBasicInfo>({
+  key: 'unitCostState',
+  get: (unit) => ({ get }) => {
+    const coreLinkCount = get(coreLinkCountState(unit.no));
+    const fullLinkBonus = get(fullLinkBonusEffectState(unit.no));
+
+    return isRankUpUnitBasicInfo(unit) ?
+      calculateRankUpUnitCost(unit, get(currentRankState(unit.no)), coreLinkCount, fullLinkBonus) :
+      calculateUnitCost(unit, coreLinkCount, fullLinkBonus);
+  }
+});
+
+export const squadUnitCostState = selectorFamily<UnitCost, ReadonlyArray<{ unit: UnitBasicInfo }>>({
+  key: 'squadUnitCostState',
+  get: (squadUnits) => ({ get }) => {
+    return summaryUnitCosts(...squadUnits.map(({ unit }) => get(unitCostState(unit))));
+  }
+});
+
+export const statusEnhancedLvState = (status: Status, selected: UnitNumber | undefined): RecoilValueReadOnly<number> =>
+  _selectedUnitStatusEnhancedLv({ status, selected });
+
+export const statusIncrementDisabledState = (status: Status, selected: UnitNumber | undefined): RecoilValueReadOnly<boolean> =>
+  _selectedUnitStatusIncrementDisabled({ status, selected });
+
+export const statusDecrementDisabledState = (status: Status, selected: UnitNumber | undefined): RecoilValueReadOnly<boolean> =>
+  _selectedUnitStatusDecrementDisabled({ status, selected });
+
+export const setLv = (unit: UnitNumber) => (cbi: CallbackInterface) => (lv: UnitLvValue): void => {
+  _update(unit, s => s.setUnitLv(lv))(cbi);
+};
+
+export const toggleLvMode = (unit: UnitNumber) => (cbi: CallbackInterface) => (): void => {
+  _update(unit, s => s.toggleLvMode())(cbi);
+};
+
+export const resetRemainPoints = (unit: UnitNumber) => (cbi: CallbackInterface) => (): void => {
+  _update(unit, s => s.resetParameterPoints())(cbi);
+};
+
+export const incrementStatusLv = (status: Status, selected: UnitNumber | undefined) => (cbi: CallbackInterface) => (): void => {
+  if (!selected) {
+    return;
+  }
+
+  _update(
+    selected,
+    s => {
+      switch (status) {
+      case 'hp':  return s.upHpLv();
+      case 'atk': return s.upAtkLv();
+      case 'def': return s.upDefLv();
+      case 'acc': return s.upAccLv();
+      case 'eva': return s.upEvaLv();
+      case 'cri': return s.upCriLv();
+      }
+    })(cbi);
+};
+
+export const decrementStatusLv = (status: Status, selected: UnitNumber | undefined) => (cbi: CallbackInterface) => (): void => {
+  if (!selected) {
+    return;
+  }
+
+  _update(
+    selected,
+    s => {
+      switch (status) {
+      case 'hp':  return s.downHpLv();
+      case 'atk': return s.downAtkLv();
+      case 'def': return s.downDefLv();
+      case 'acc': return s.downAccLv();
+      case 'eva': return s.downEvaLv();
+      case 'cri': return s.downCriLv();
+      }
+    })(cbi);
+};
+
+export const setRank = (unit: UnitNumber) => (cbi: CallbackInterface) => (rank: UnitRank): void => {
+  _update(unit, s => s.changeRank(rank))(cbi);
+};
+
+export const lvStateResolver = (unit: UnitNumber): RecoilValueReadOnly<UnitLvStatus> => _unitLvStatusState(unit);
+
+export const restoreLvStatusState = (cbi: CallbackInterface) => (states: ReadonlyArray<UnitLvStatus>): void => {
+  states.forEach(s => { _update(s.unit, s)(cbi); });
+};

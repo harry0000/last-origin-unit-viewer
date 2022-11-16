@@ -4,12 +4,22 @@ import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 import UnitCoreLink, { CoreLinkSlotAvailableLv, CoreLinkUnit } from '../../domain/UnitCoreLink';
 
-import { CoreLinkSlot, unitCoreLinkState } from './UnitCoreLinkState';
+import {
+  CoreLinkSlot,
+  coreLinkBonusEffectsState,
+  coreLinkRateState,
+  coreLinkSlotAvailableState,
+  fullLinkAvailableState,
+  linkSlot,
+  linkedUnitState,
+  selectFullLinkBonus,
+  selectedFullLinkBonus
+} from './UnitCoreLinkState';
 
 import { unitCoreLinkBonusData } from '../../data/unitCoreLinkBonusData';
 
 export function useCoreLinkRate({ no }: UnitBasicInfo): number {
-  return useRecoilValue(unitCoreLinkState.coreLinkRateState(no));
+  return useRecoilValue(coreLinkRateState(no));
 }
 
 export function useAvailableCoreLinkUnit({ no }: UnitBasicInfo): ReturnType<typeof UnitCoreLink.getCoreLinkUnits> {
@@ -22,11 +32,6 @@ export function useUnitCoreLink({ no }: UnitBasicInfo, slot: CoreLinkSlot): [
   available: boolean,
   availableLv: CoreLinkSlotAvailableLv
 ] {
-  const {
-    linkedUnitState,
-    coreLinkSlotAvailableState,
-    linkSlot
-  } = unitCoreLinkState;
   const linkedUnit = useRecoilValue(linkedUnitState(no, slot));
   const available = useRecoilValue(coreLinkSlotAvailableState(no, slot));
   const callback = useRecoilCallback(linkSlot(no, slot));
@@ -41,7 +46,7 @@ export function useUnitCoreLink({ no }: UnitBasicInfo, slot: CoreLinkSlot): [
 }
 
 export function useCoreLinkEffect({ no }: UnitBasicInfo): CoreLinkBonus {
-  return useRecoilValue(unitCoreLinkState.coreLinkBonusEffectsState(no));
+  return useRecoilValue(coreLinkBonusEffectsState(no));
 }
 
 export function useAvailableFullLinkBonus({ no }: UnitBasicInfo): ReadonlyArray<FullLinkBonus> {
@@ -54,8 +59,8 @@ export function useFullLinkBonus({ no }: UnitBasicInfo): [
   available: boolean
 ] {
   return [
-    useRecoilValue(unitCoreLinkState.selectedFullLinkBonus(no)),
-    useRecoilCallback(unitCoreLinkState.selectFullLinkBonus(no)),
-    useRecoilValue(unitCoreLinkState.fullLinkAvailableState(no))
+    useRecoilValue(selectedFullLinkBonus(no)),
+    useRecoilCallback(selectFullLinkBonus(no)),
+    useRecoilValue(fullLinkAvailableState(no))
   ];
 }

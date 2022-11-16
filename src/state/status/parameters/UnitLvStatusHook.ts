@@ -6,78 +6,98 @@ import { UnitCost } from '../../../domain/status/UnitCost';
 import { UnitLvMode, UnitLvValue } from '../../../domain/status/UnitLv';
 import UnitRankState, { availableUnitRanks, RankUpAvailableLv } from '../../../domain/status/UnitRankState';
 
-import { EnhanceableStatus, unitLvStatusState } from './UnitLvStatusState';
+import {
+  EnhanceableStatus,
+  canResetPointsState,
+  currentRankState,
+  decrementStatusLv,
+  incrementStatusLv,
+  lvModeState,
+  lvValueState,
+  remainPointsState,
+  resetRemainPoints,
+  setLv,
+  setRank,
+  squadUnitCostState,
+  statusDecrementDisabledState,
+  statusEnhancedLvState,
+  statusIncrementDisabledState,
+  toggleLvMode,
+  unitCostState,
+  unitRank,
+  unitRankUpEnabled
+} from './UnitLvStatusState';
 import { useSquadUnits } from '../../squad/SquadHook';
 import { useSelectedUnit } from '../../selector/UnitSelectorHook';
 
 export function useUnitCost(unit: UnitBasicInfo): UnitCost {
-  return useRecoilValue(unitLvStatusState.unitCostState(unit));
+  return useRecoilValue(unitCostState(unit));
 }
 
 export function useSquadUnitCostSummary(): UnitCost {
   const squadUnits = useSquadUnits();
-  return useRecoilValue(unitLvStatusState.squadUnitCostState(squadUnits));
+  return useRecoilValue(squadUnitCostState(squadUnits));
 }
 
-export function useUnitLv(unit: UnitNumber): [lvMode: UnitLvMode, lv: UnitLvValue, setLv: (lv: UnitLvValue) => void] {
-  const lv = useRecoilValue(unitLvStatusState.lvValueState(unit));
-  const lvMode = useRecoilValue(unitLvStatusState.lvModeState(unit));
-  const setLv = useRecoilCallback(unitLvStatusState.setLv(unit));
+export function useUnitLv(unit: UnitNumber): [lvMode: UnitLvMode, lv: UnitLvValue, selectLv: (lv: UnitLvValue) => void] {
+  const lv = useRecoilValue(lvValueState(unit));
+  const lvMode = useRecoilValue(lvModeState(unit));
+  const selectLv = useRecoilCallback(setLv(unit));
 
-  return [lvMode, lv, setLv];
+  return [lvMode, lv, selectLv];
 }
 
 export function useUnitLvMode(unit: UnitNumber): [lvMode: UnitLvMode, toggleLvMode: () => void] {
-  const lvMode = useRecoilValue(unitLvStatusState.lvModeState(unit));
-  const toggle = useRecoilCallback(unitLvStatusState.toggleLvMode(unit));
+  const lvMode = useRecoilValue(lvModeState(unit));
+  const toggle = useRecoilCallback(toggleLvMode(unit));
 
   return [lvMode, toggle];
 }
 
 export function useRemainPoints(unit: UnitNumber): number {
-  return useRecoilValue(unitLvStatusState.remainPointsState(unit));
+  return useRecoilValue(remainPointsState(unit));
 }
 
 export function useUsedPointReset(unit: UnitNumber): [disable: boolean, reset: () => void] {
-  const canReset = useRecoilValue(unitLvStatusState.canResetPointsState(unit));
-  const reset = useRecoilCallback(unitLvStatusState.resetRemainPoints(unit));
+  const canReset = useRecoilValue(canResetPointsState(unit));
+  const reset = useRecoilCallback(resetRemainPoints(unit));
 
   return [!canReset, reset];
 }
 
 export function useStatusEnhancedLv(status: EnhanceableStatus, unit: UnitNumber): number {
-  return useRecoilValue(unitLvStatusState.statusEnhancedLvState(status, unit));
+  return useRecoilValue(statusEnhancedLvState(status, unit));
 }
 
 export function useSelectedUnitStatusEnhancedLv(status: EnhanceableStatus): number {
   const selected = useSelectedUnit()?.no;
-  return useRecoilValue(unitLvStatusState.statusEnhancedLvState(status, selected));
+  return useRecoilValue(statusEnhancedLvState(status, selected));
 }
 
 export function useStatusParameterIncrement(status: EnhanceableStatus): [incrementDisabled: boolean, increment: () => void] {
   const selected = useSelectedUnit()?.no;
   return [
-    useRecoilValue(unitLvStatusState.statusIncrementDisabledState(status, selected)),
-    useRecoilCallback(unitLvStatusState.incrementStatusLv(status, selected))
+    useRecoilValue(statusIncrementDisabledState(status, selected)),
+    useRecoilCallback(incrementStatusLv(status, selected))
   ];
 }
 
 export function useStatusParameterDecrement(status: EnhanceableStatus): [decrementDisabled: boolean, decrement: () => void] {
   const selected = useSelectedUnit()?.no;
   return [
-    useRecoilValue(unitLvStatusState.statusDecrementDisabledState(status, selected)),
-    useRecoilCallback(unitLvStatusState.decrementStatusLv(status, selected))
+    useRecoilValue(statusDecrementDisabledState(status, selected)),
+    useRecoilCallback(decrementStatusLv(status, selected))
   ];
 }
 
 export function useUnitRank(unit: RankUpUnitNumber): [
   currentRank: UnitRank,
-  setRank: (rank: UnitRank) => void,
+  selectRank: (rank: UnitRank) => void,
   rankItems: ReadonlyArray<{ rank: UnitRank, availableLv?: RankUpAvailableLv, disabled: boolean }>
 ] {
-  const currentRank = useRecoilValue(unitLvStatusState.unitRank(unit));
-  const rankEnabled = useRecoilValue(unitLvStatusState.unitRankUpEnabled(unit));
-  const setRank = useRecoilCallback(unitLvStatusState.setRank(unit));
+  const currentRank = useRecoilValue(unitRank(unit));
+  const rankEnabled = useRecoilValue(unitRankUpEnabled(unit));
+  const selectRank = useRecoilCallback(setRank(unit));
 
   const rankItems = availableUnitRanks(unit).map(rank => {
     const availableLv = rank !== UnitRank.B ? UnitRankState.rankUpAvailableLv(rank) : undefined;
@@ -91,11 +111,11 @@ export function useUnitRank(unit: RankUpUnitNumber): [
 
   return [
     currentRank,
-    setRank,
+    selectRank,
     rankItems
   ];
 }
 
 export function useUnitCurrentRank<N extends UnitNumber>(unit: N): AvailableUnitRank<N> {
-  return useRecoilValue(unitLvStatusState.currentRankState(unit));
+  return useRecoilValue(currentRankState(unit));
 }

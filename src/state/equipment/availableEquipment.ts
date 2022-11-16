@@ -16,7 +16,7 @@ import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 
 import { equipmentData } from '../../data/equipmentData';
 
-import { EquipmentSlot, unitEquipmentState } from './UnitEquipmentState';
+import { EquipmentSlot, selectedEquipmentRankState } from './UnitEquipmentState';
 
 function pickEquipment(unit: UnitNumber, rank?: EquipmentRank) {
   return function<T extends EquipmentData>(equipment: T) {
@@ -36,7 +36,7 @@ const availableChipEquipmentState = selectorFamily<ReadonlyArray<Chip>, UnitNumb
 const availableOsEquipmentState = selectorFamily<ReadonlyArray<Os>, UnitNumber>({
   key: 'availableOsEquipmentState',
   get: (unit) => ({ get }) => {
-    const rank = get(unitEquipmentState.selectedEquipmentRankState('os'));
+    const rank = get(selectedEquipmentRankState('os'));
     return get(osEquipment).filter(pickEquipment(unit, rank));
   }
 });

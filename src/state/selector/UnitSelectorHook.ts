@@ -16,34 +16,32 @@ import {
 import { RankUpCondition } from '../../domain/selector/RankUpCondition';
 import { UnitBasicInfo, UnitRank, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
 
-import { unitSelectorState } from './UnitSelectorState';
-import { useUnitCurrentRank } from '../status/parameters/UnitLvStatusHook';
-
-import { buildUnitTileIconSrcUrl } from '../../service/UnitIconSrcUrlBuilder';
-
-const {
-  selectedUnitState,
-  unitSelectedState,
-  rankSelectedState,
-  typeSelectedState,
-  roleSelectedState,
+import {
   activeSkillSelectedState,
-  skillEffectSelectedState,
   coreLinkSelectedState,
-  fullLinkSelectedState,
-  rankUpSelectedState,
   filteredUnitListState,
-  toggleUnitRank,
-  toggleUnitType,
-  toggleUnitRole,
-  toggleActiveSkillCondition,
-  toggleSkillEffectCondition,
+  fullLinkSelectedState,
+  rankSelectedState,
+  rankUpSelectedState,
+  roleSelectedState,
   selectCoreLinkBonusCondition,
   selectFullLinkBonusCondition,
   selectRankUpCondition,
   selectUnit,
-  setSelectedUnit
-} = unitSelectorState;
+  selectedUnitState,
+  setSelectedUnit,
+  skillEffectSelectedState,
+  toggleActiveSkillCondition,
+  toggleSkillEffectCondition,
+  toggleUnitRank,
+  toggleUnitRole,
+  toggleUnitType,
+  typeSelectedState,
+  unitSelectedState
+} from './UnitSelectorState';
+import { useUnitCurrentRank } from '../status/parameters/UnitLvStatusHook';
+
+import { buildUnitTileIconSrcUrl } from '../../service/UnitIconSrcUrlBuilder';
 
 export function useUnitRankSelector(rank: UnitRank): [selected: boolean, toggle: () => void] {
   return [
