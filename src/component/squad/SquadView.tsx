@@ -50,8 +50,9 @@ const SquadCostSummaryView: React.FC = () => {
 };
 
 const SquadUnitTypeSummaryView: React.FC = () => {
-  const CountView = ({ type, count }: { type: UnitType, count: number }) => {
+  const CountView = ({ type }: { type: UnitType }) => {
     const { t } = useTranslation();
+    const count = useSquadUnitTypeCount(type);
     return (
       <div>
         <Image
@@ -67,13 +68,11 @@ const SquadUnitTypeSummaryView: React.FC = () => {
     );
   };
 
-  const { light, flying, heavy } = useSquadUnitTypeCount();
-
   return (
     <div className="type-summary">
-      <CountView type={UnitType.Light} count={light} />
-      <CountView type={UnitType.Flying} count={flying} />
-      <CountView type={UnitType.Heavy} count={heavy} />
+      <CountView type={UnitType.Light} />
+      <CountView type={UnitType.Flying} />
+      <CountView type={UnitType.Heavy} />
     </div>
   );
 };

@@ -47,8 +47,8 @@ const squadShareModalShowState = atom<boolean>({
   default: false
 });
 
-export function useSquadUnitTypeCount(): Readonly<Record<UnitType, number>> {
-  return useRecoilValue(squadUnitTypeCountState);
+export function useSquadUnitTypeCount(type: UnitType): number {
+  return useRecoilValue(squadUnitTypeCountState(type));
 }
 
 export function useUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
@@ -291,7 +291,6 @@ export function useSquadRestoreFromUrl(): boolean {
         const json = restore(squadParam as UrlSafeBase64String);
         const restored = restoreFromJsonObject(json);
         if (restored) {
-          squadRestore(restored.squad);
           lvStateRestore(restored.lvStatus);
           chip1Restore(restored.chip1Equipment);
           chip2Restore(restored.chip2Equipment);
@@ -302,6 +301,7 @@ export function useSquadRestoreFromUrl(): boolean {
           affectionRestore(restored.affection);
           damagedRestore(restored.damaged);
 
+          squadRestore(restored.squad);
           selectUnit(restored.squad.units[0]?.unit);
 
           notify('restore_squad_units');
