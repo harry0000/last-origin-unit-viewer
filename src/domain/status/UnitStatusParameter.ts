@@ -19,9 +19,9 @@ import {
   MicroValue,
   MilliPercentageValue,
   MilliValue,
-  ValueTypes,
   multiplyMilliValue,
   multiplyValue,
+  reverseSign,
   sumMicroValues,
   sumMilliPercentageValues,
   sumMilliValues,
@@ -68,18 +68,6 @@ export function calculateUnitBaseDef(unit: UnitNumber, lv: UnitLvValue): MilliVa
   return calculateParam('milliValue', unitStatusData[unit].def, lv);
 }
 
-function reverseSign(value: ValueTypes): ValueTypes {
-  if ('milliValue' in value) {
-    return { milliValue: -value.milliValue };
-  } else if ('microValue' in value) {
-    return { microValue: -value.microValue };
-  } else if ('milliPercentage' in value) {
-    return { milliPercentage: -value.milliPercentage };
-  }
-
-  return { value: -value.value };
-}
-
 function pickValues(...keys: IntegerValueStatusEffectKey[]): (...effects: StatusEffect[]) => IntegerValue[]
 function pickValues(...keys: MilliValueStatusEffectKey[]): (...effects: StatusEffect[]) => MilliValue[]
 function pickValues(...keys: MicroValueStatusEffectKey[]): (...effects: StatusEffect[]) => MicroValue[]
@@ -95,16 +83,16 @@ function pickValues(...keys: StatusEffectKey[]): (...effects: StatusEffect[]) =>
         const v = e[key];
         if (v) {
           switch (key) {
-          case 'hp_down':
-          case 'atk_down':
-          case 'def_down':
-          case 'acc_down':
-          case 'eva_down':
-          case 'cri_down':
-          case 'spd_down':
-          case 'fire_resist_down':
-          case 'ice_resist_down':
-          case 'electric_resist_down':
+          case Effect.HpDown:
+          case Effect.AtkDown:
+          case Effect.DefDown:
+          case Effect.AccDown:
+          case Effect.EvaDown:
+          case Effect.CriDown:
+          case Effect.SpdDown:
+          case Effect.FireResistDown:
+          case Effect.IceResistDown:
+          case Effect.ElectricResistDown:
             values.push(reverseSign(v));
             break;
           default:
@@ -144,8 +132,8 @@ export class UnitHpStatusParameter {
     const hpAddition         = sumValues(...pickValues(Effect.HpUp, Effect.HpDown)(hpEnhancement, chip1, chip2, os, gear));
     const hp                 = sumValues(baseHp, rankUpBonusSummary, hpAddition);
 
-    this.hpCoreLinkBonus = 'hp_up' in coreLinkBonus ? multiplyValue(hp, coreLinkBonus.hp_up) : { value: 0 };
-    this.hpFullLinkBonus = 'hp_up' in _fullLinkBonus ? multiplyValue(hp, _fullLinkBonus.hp_up) : { value: 0 };
+    this.hpCoreLinkBonus = Effect.HpUp in coreLinkBonus ? multiplyValue(hp, coreLinkBonus.hp_up) : { value: 0 };
+    this.hpFullLinkBonus = Effect.HpUp in _fullLinkBonus ? multiplyValue(hp, _fullLinkBonus.hp_up) : { value: 0 };
 
     this.hpEffectValue = sumValues(hpAddition, this.hpCoreLinkBonus, this.hpFullLinkBonus);
 
@@ -175,7 +163,7 @@ export class UnitAtkStatusParameter {
     const atkAddition        = sumMilliValues(...pickValues(Effect.AtkUp, Effect.AtkDown)(atkEnhancement, chip1, chip2, os, gear));
     const atk                = sumMilliValues(baseAtk, rankUpBonusSummary, atkAddition);
 
-    this.atkCoreLinkBonus = 'atk_up' in coreLinkBonus ? multiplyMilliValue(atk, coreLinkBonus.atk_up) : { milliValue: 0 };
+    this.atkCoreLinkBonus = Effect.AtkUp in coreLinkBonus ? multiplyMilliValue(atk, coreLinkBonus.atk_up) : { milliValue: 0 };
     this.atkEffectValue = sumMilliValues(atkAddition, this.atkCoreLinkBonus);
 
     this.atk = sumMilliValues(atk, this.atkCoreLinkBonus);
@@ -204,7 +192,7 @@ export class UnitDefStatusParameter {
     const defAddition        = sumMilliValues(...pickValues(Effect.DefUp, Effect.DefDown)(defEnhancement, chip1, chip2, os, gear));
     const def                = sumMilliValues(baseDef, rankUpBonusSummary, defAddition);
 
-    this.defCoreLinkBonus = 'def_up' in coreLinkBonus ? multiplyMilliValue(def, coreLinkBonus.def_up) : { milliValue: 0 };
+    this.defCoreLinkBonus = Effect.DefUp in coreLinkBonus ? multiplyMilliValue(def, coreLinkBonus.def_up) : { milliValue: 0 };
     this.defEffectValue = sumMilliValues(defAddition, this.defCoreLinkBonus);
 
     this.def = sumMilliValues(def, this.defCoreLinkBonus);
@@ -232,8 +220,8 @@ export class UnitAccStatusParameter {
 
     this.accEffectValue = sumMilliPercentageValues(
       ...pickValues(Effect.AccUp, Effect.AccDown)(accEnhancement, chip1, chip2, os, gear),
-      ...('acc_up' in coreLinkBonus ? [coreLinkBonus.acc_up] : []),
-      ...('acc_up' in _fullLinkBonus ? [_fullLinkBonus.acc_up] : [])
+      ...(Effect.AccUp in coreLinkBonus ? [coreLinkBonus.acc_up] : []),
+      ...(Effect.AccUp in _fullLinkBonus ? [_fullLinkBonus.acc_up] : [])
     );
 
     this.acc = sumMilliPercentageValues(unitStatusData[unit].acc, rankUpBonusSummary, this.accEffectValue);
@@ -261,8 +249,8 @@ export class UnitEvaStatusParameter {
 
     this.evaEffectValue = sumMilliPercentageValues(
       ...pickValues(Effect.EvaUp, Effect.EvaDown)(evaEnhancement, chip1, chip2, os, gear),
-      ...('eva_up' in coreLinkBonus ? [coreLinkBonus.eva_up] : []),
-      ...('eva_up' in _fullLinkBonus ? [_fullLinkBonus.eva_up] : [])
+      ...(Effect.EvaUp in coreLinkBonus ? [coreLinkBonus.eva_up] : []),
+      ...(Effect.EvaUp in _fullLinkBonus ? [_fullLinkBonus.eva_up] : [])
     );
     this.eva = sumMilliPercentageValues(unitStatusData[unit].eva, rankUpBonusSummary, this.evaEffectValue);
   }
@@ -289,8 +277,8 @@ export class UnitCriStatusParameter {
 
     this.criEffectValue = sumMilliPercentageValues(
       ...pickValues(Effect.CriUp, Effect.CriDown)(criEnhancement, chip1, chip2, os, gear),
-      ...('cri_up' in coreLinkBonus ? [coreLinkBonus.cri_up] : []),
-      ...('cri_up' in _fullLinkBonus ? [_fullLinkBonus.cri_up] : [])
+      ...(Effect.CriUp in coreLinkBonus ? [coreLinkBonus.cri_up] : []),
+      ...(Effect.CriUp in _fullLinkBonus ? [_fullLinkBonus.cri_up] : [])
     );
     this.cri = sumMilliPercentageValues(unitStatusData[unit].cri, rankUpBonusSummary, this.criEffectValue);
   }
@@ -316,8 +304,8 @@ export class UnitSpdStatusParameter {
 
     this.spdEffectValue = sumMicroValues(
       ...pickValues(Effect.SpdUp, Effect.SpdDown)(chip1, chip2, os, gear),
-      ...('spd_up' in coreLinkBonus ? [coreLinkBonus.spd_up] : []),
-      ...('spd_up' in _fullLinkBonus ? [_fullLinkBonus.spd_up] : [])
+      ...(Effect.SpdUp in coreLinkBonus ? [coreLinkBonus.spd_up] : []),
+      ...(Effect.SpdUp in _fullLinkBonus ? [_fullLinkBonus.spd_up] : [])
     );
     this.spd = sumMicroValues(unitStatusData[unit].spd, rankUpBonusSummary, this.spdEffectValue);
   }

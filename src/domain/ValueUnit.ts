@@ -6,6 +6,18 @@ export type MilliPercentageValue                    = Readonly<{ milliPercentage
 export type ValueUnit = keyof IntegerValue | keyof MilliValue | keyof MicroValue | keyof MilliPercentageValue
 export type ValueTypes = IntegerValue | MilliValue | MicroValue | MilliPercentageValue
 
+export function reverseSign(value: ValueTypes): ValueTypes {
+  if ('milliValue' in value) {
+    return { milliValue: -value.milliValue };
+  } else if ('microValue' in value) {
+    return { microValue: -value.microValue };
+  } else if ('milliPercentage' in value) {
+    return { milliPercentage: -value.milliPercentage };
+  }
+
+  return { value: -value.value };
+}
+
 export function equalIntegerValue<T extends number>(a: IntegerValue<T>, b: IntegerValue<T>): boolean {
   return a.value === b.value;
 }
