@@ -417,6 +417,13 @@ function calculateEffectValue(
         status: entry[1].status
       }
     };
+  case Effect.AtkValueUpByUnitValue:
+    return {
+      [entry[0]]: {
+        ...calculateMilliPercentageEffectValue(entry[1], lv, effectLv),
+        unit: entry[1].unit
+      }
+    };
   case Effect.DefDown:
   case Effect.AccDown:
   case Effect.CriDown:

@@ -449,7 +449,7 @@
 
       "atk_value_up": "攻撃力 +{{value}}",
       "def_value_up": "防御力 +{{value}}",
-      "atk_value_up_by_self_value": "$t(effect:unit.self)の攻撃力の +{{value}}% だけ攻撃力アップ",
+      "atk_value_up_by_unit_value": "$t(effect:quote)$t(unit:display, { \"number\": {{unit}} })$t(effect:unquote)の攻撃力の +{{value}}% だけ攻撃力アップ",
 
       "atk_up": "攻撃力 +{{value}}%",
       "atk_down": "攻撃力 -{{value}}%",

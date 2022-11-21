@@ -7303,7 +7303,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'hardpoint_equipment_armament' }] } }],
         target: { kind: 'ally' },
-        details: { target: { atk_value_up_by_self_value: { tag: 'tactical_air_relay', base: { milliPercentage: 2200 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } } } }
+        details: { target: { atk_value_up_by_unit_value: { tag: 'tactical_air_relay', unit: 90, base: { milliPercentage: 2200 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'hardpoint_equipment_support' }] } }],
         target: { kind: 'ally' },

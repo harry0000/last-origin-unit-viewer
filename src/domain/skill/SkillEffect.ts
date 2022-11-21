@@ -64,6 +64,7 @@ export type MilliPercentageEffectKey =
     MicroValueEffectKey |
     MilliPercentageEffectDependsOnStatusKey |
     typeof Effect[
+      'AtkValueUpByUnitValue' |
       'CooperativeAttack' |
       'BuffRemoval' |
       'DebuffRemoval' |
