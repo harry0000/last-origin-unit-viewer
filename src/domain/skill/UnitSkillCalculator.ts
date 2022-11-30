@@ -406,7 +406,6 @@ function calculateEffectValue(
       [entry[0]]: {
         ...calculateAddition(entry[1], lv),
         tag: entry[1].tag,
-        effect: entry[1].effect,
         value: entry[1].value
       }
     };

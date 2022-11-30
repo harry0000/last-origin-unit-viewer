@@ -7,7 +7,7 @@ import { FormChangeUnitSkill } from '../../domain/skill/UnitSkill';
 import { SkillApCostValue, SkillRangeValue } from '../../domain/skill/UnitSkillData';
 import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
 import { SkillLv } from '../../domain/skill/UnitSkillLvValue';
-import { SkillType } from '../../domain/skill/SkillType';
+import { SkillType, extractNo } from '../../domain/skill/SkillType';
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 
 import {
@@ -87,7 +87,7 @@ export function usePassive3SkillNav(): [eventKey: typeof Passive3, active: boole
 export function useSkillName(skillType: SkillType, unit: UnitBasicInfo): string | undefined {
   const { t } = useTranslation();
   const form = useRecoilValue(skillFormState(unit, skillType));
-  const no = skillType.substr(-1, 1);
+  const no = extractNo(skillType);
   const interpolation = { unit: unit.no, no, form };
 
   switch (skillType) {

@@ -1,9 +1,9 @@
 import { Effect } from '../Effect';
 
+export type StatusEffectOnly = typeof Effect['HpUp' | 'HpDown']
 export type EquipmentEffectOnly =
+  StatusEffectOnly |
   typeof Effect[
-    'HpUp' |
-    'HpDown' |
     'RangeDownActive1' |
     'RangeUpActive2'
   ]

@@ -4,8 +4,8 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ElectricResist, FireResist, IceResist } from './AttributeResist';
-import StatusEffectsView from './StatusEffectsView';
+import { UnitElectricResist, UnitFireResist, UnitIceResist } from './AttributeResist';
+import { UnitStatusEffectsView } from './StatusEffectsView';
 import UnitStatusIcon from './UnitStatusIcon';
 import { appendPercentage } from './UnitStatusParameterFormatter';
 
@@ -45,7 +45,7 @@ const StatusParameterCol: React.FC<{ status: EnhanceableStatus | 'spd' }> = ({ s
         </div>
         <div className="status-parameter-value">
           <StatusParameterValueView status={status} />
-          <StatusEffectsView className="effects" parameter={status} />
+          <UnitStatusEffectsView className="effects" parameter={status} />
         </div>
       </div>
     </div>
@@ -71,9 +71,9 @@ const UnitStatusParameter: React.FC = () => {
         <StatusParameterCol status="eva" />
       </div>
       <div className="attribute-resist-row">
-        <FireResist />
-        <IceResist />
-        <ElectricResist />
+        <UnitFireResist />
+        <UnitIceResist />
+        <UnitElectricResist />
       </div>
     </div>
   );

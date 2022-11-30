@@ -577,6 +577,10 @@
   "unquote": "」",
   "with_quotes": "$t(effect:quote){{value}}$t(effect:unquote)",
 
+  "tag_quote": "<",
+  "tag_unquote": ">",
+  "with_tag_quotes": "$t(effect:tag_quote){{value}}$t(effect:tag_unquote)",
+
   "separator": "、",
   "and_separator": "と",
 

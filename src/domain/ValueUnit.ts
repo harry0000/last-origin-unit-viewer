@@ -6,16 +6,32 @@ export type MilliPercentageValue                    = Readonly<{ milliPercentage
 export type ValueUnit = keyof IntegerValue | keyof MilliValue | keyof MicroValue | keyof MilliPercentageValue
 export type ValueTypes = IntegerValue | MilliValue | MicroValue | MilliPercentageValue
 
+export function reverseIntegerValueSign({ value }: IntegerValue): IntegerValue {
+  return { value: -value };
+}
+
+export function reverseMilliValueSign({ milliValue }: MilliValue): MilliValue {
+  return { milliValue: -milliValue };
+}
+
+export function reverseMicroValueSign({ microValue }: MicroValue): MicroValue {
+  return { microValue: -microValue };
+}
+
+export function reverseMilliPercentageValueSign({ milliPercentage }: MilliPercentageValue): MilliPercentageValue {
+  return { milliPercentage: -milliPercentage };
+}
+
 export function reverseSign(value: ValueTypes): ValueTypes {
   if ('milliValue' in value) {
-    return { milliValue: -value.milliValue };
+    return reverseMilliValueSign(value);
   } else if ('microValue' in value) {
-    return { microValue: -value.microValue };
+    return reverseMicroValueSign(value);
   } else if ('milliPercentage' in value) {
-    return { milliPercentage: -value.milliPercentage };
+    return reverseMilliPercentageValueSign(value);
   }
 
-  return { value: -value.value };
+  return reverseIntegerValueSign(value);
 }
 
 export function equalIntegerValue<T extends number>(a: IntegerValue<T>, b: IntegerValue<T>): boolean {
@@ -38,16 +54,36 @@ function multiply(value: number, multiplier: MilliPercentageValue): number {
   return value * multiplier.milliPercentage / 100_000;
 }
 
-export function multiplyValue(value: IntegerValue, multiplier: MilliPercentageValue): IntegerValue {
-  return { value: Math.round(multiply(value.value, multiplier)) };
+export function multiplyValue({ value }: IntegerValue, multiplier: MilliPercentageValue): IntegerValue {
+  return { value: Math.round(multiply(value, multiplier)) };
 }
 
-export function multiplyMilliValue(value: MilliValue, multiplier: MilliPercentageValue): MilliValue {
-  return { milliValue: multiply(value.milliValue, multiplier) };
+export function multiplyMilliValue({ milliValue }: MilliValue, multiplier: MilliPercentageValue): MilliValue {
+  return { milliValue: multiply(milliValue, multiplier) };
 }
 
-export function multiplyMicroValue(value: MicroValue, multiplier: MilliPercentageValue): MicroValue {
-  return { microValue: multiply(value.microValue, multiplier) };
+export function multiplyMicroValue({ microValue }: MicroValue, multiplier: MilliPercentageValue): MicroValue {
+  return { microValue: multiply(microValue, multiplier) };
+}
+
+function product(v: number, n: number): number {
+  return v * n;
+}
+
+export function productValue({ value }: IntegerValue, n: number): IntegerValue {
+  return { value: product(value, n) };
+}
+
+export function productMilliValue({ milliValue }: MilliValue, n: number): MilliValue {
+  return { milliValue: product(milliValue, n) };
+}
+
+export function productMicroValue({ microValue }: MicroValue, n: number): MicroValue {
+  return { microValue: product(microValue, n) };
+}
+
+export function productMilliPercentageValue({ milliPercentage }: MilliPercentageValue, n: number): MilliPercentageValue {
+  return { milliPercentage: product(milliPercentage, n) };
 }
 
 export function sumValues(...values: IntegerValue[]): IntegerValue {
@@ -102,14 +138,14 @@ export function calcValue(value: ValueTypes): number {
   return value.value;
 }
 
-export function calcMilliValue(value: MilliValue): number {
-  return value.milliValue / 1000;
+export function calcMilliValue({ milliValue }: MilliValue): number {
+  return milliValue / 1000;
 }
 
-export function calcMilliPercentageValue(value: MilliPercentageValue): number {
-  return value.milliPercentage / 1000;
+export function calcMilliPercentageValue({ milliPercentage }: MilliPercentageValue): number {
+  return milliPercentage / 1000;
 }
 
-export function calcMicroValue(value: MicroValue): number {
-  return value.microValue / 1_000_000;
+export function calcMicroValue({ microValue }: MicroValue): number {
+  return microValue / 1_000_000;
 }

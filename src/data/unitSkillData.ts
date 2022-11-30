@@ -9823,7 +9823,8 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_wave' }],
         scale_factor: { per_units: { type: 'all' } },
-        details: { self: { atk_up: { tag: 'duel_preparation', base: { milliPercentage: 2500 }, per_lv_up: { milliPercentage: 250 }, term: 'infinite', cannot_be_dispelled: true } } }
+        // FIXME: Add cannot_be_dispelled attribute
+        details: { self: { atk_up: { tag: 'duel_preparation', base: { milliPercentage: 2500 }, per_lv_up: { milliPercentage: 250 }, term: 'infinite'/*, cannot_be_dispelled: true*/ } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ stack_ge: { tag: 'duel_preparation', value: 3 } }] } }],
         details: { self: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }

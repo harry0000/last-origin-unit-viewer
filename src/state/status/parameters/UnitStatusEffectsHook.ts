@@ -16,10 +16,10 @@ import {
   hpEnhancementStatusEffectState
 } from './UnitLvStatusState';
 import {
-  atkCoreLinkBonusValue,
-  defCoreLinkBonusValue,
-  hpCoreLinkBonusValue,
-  hpFullLinkBonusValue
+  atkCoreLinkBonusValueState,
+  defCoreLinkBonusValueState,
+  hpCoreLinkBonusValueState,
+  hpFullLinkBonusValueState
 } from './UnitStatusParameterState';
 import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../../corelink/UnitCoreLinkState';
 import {
@@ -30,9 +30,9 @@ import {
 } from '../../equipment/UnitEquipmentHook';
 import { useStatusEnhancedLv } from './UnitLvStatusHook';
 
-import { EffectedParameter, StatusEffectPopoverRowProps } from '../../../component/status/parameters/StatusEffectsView';
+import { AffectableStatus, StatusEffectPopoverRowProps } from '../../../component/status/parameters/StatusEffectsView';
 
-export function useStatusEffects(unit: UnitBasicInfo, parameter: EffectedParameter): ReadonlyArray<StatusEffectPopoverRowProps> {
+export function useStatusEffects(unit: UnitBasicInfo, parameter: AffectableStatus): ReadonlyArray<StatusEffectPopoverRowProps> {
   const unitNumber = unit.no;
   const { t } = useTranslation();
   const [chip1, chip1Effect] = useChip1EquipmentEffect(unit);
@@ -53,7 +53,7 @@ export function useStatusEffects(unit: UnitBasicInfo, parameter: EffectedParamet
 
 function enhancementEffects(
   unit: UnitNumber,
-  parameter: EffectedParameter,
+  parameter: AffectableStatus,
   t: TFunction
 ): ReadonlyArray<StatusEffectPopoverRowProps> {
   switch (parameter) {
@@ -132,7 +132,7 @@ function enhancementEffects(
 }
 
 function equipmentEffects(
-  parameter: EffectedParameter,
+  parameter: AffectableStatus,
   effects: StatusEffect | undefined,
   equipment: ChipEquipment | OsEquipment | GearEquipment | undefined,
   slot: 'chip1' | 'chip2' | 'os' | 'gear',
@@ -229,13 +229,13 @@ function equipmentEffects(
 
 function coreLinkBonusEffects(
   unit: UnitNumber,
-  parameter: EffectedParameter,
+  parameter: AffectableStatus,
   t: TFunction
 ): ReadonlyArray<StatusEffectPopoverRowProps> {
   switch (parameter) {
   case 'hp': {
     const bonus = useRecoilValue(coreLinkBonusEffectsState(unit));
-    const value = useRecoilValue(hpCoreLinkBonusValue(unit)).value;
+    const value = useRecoilValue(hpCoreLinkBonusValueState(unit)).value;
     return bonus && 'hp_up' in bonus && value ?
       [{
         key: 'core_link_bonus',
@@ -246,7 +246,7 @@ function coreLinkBonusEffects(
   }
   case 'atk': {
     const bonus = useRecoilValue(coreLinkBonusEffectsState(unit));
-    const value = useRecoilValue(atkCoreLinkBonusValue(unit));
+    const value = useRecoilValue(atkCoreLinkBonusValueState(unit));
     return bonus && value.milliValue ?
       [{
         key: 'core_link_bonus',
@@ -257,7 +257,7 @@ function coreLinkBonusEffects(
   }
   case 'def': {
     const bonus = useRecoilValue(coreLinkBonusEffectsState(unit));
-    const value = useRecoilValue(defCoreLinkBonusValue(unit));
+    const value = useRecoilValue(defCoreLinkBonusValueState(unit));
     return bonus && 'def_up' in bonus && value.milliValue ?
       [{
         key: 'core_link_bonus',
@@ -315,13 +315,13 @@ function coreLinkBonusEffects(
 
 function fullLinkBonusEffects(
   unit: UnitNumber,
-  parameter: EffectedParameter,
+  parameter: AffectableStatus,
   t: TFunction
 ): ReadonlyArray<StatusEffectPopoverRowProps> {
   switch (parameter) {
   case 'hp': {
     const bonus = useRecoilValue(fullLinkBonusEffectState(unit));
-    const value = useRecoilValue(hpFullLinkBonusValue(unit)).value;
+    const value = useRecoilValue(hpFullLinkBonusValueState(unit)).value;
     return bonus && 'hp_up' in bonus ?
       [{
         key: 'full_link_bonus',

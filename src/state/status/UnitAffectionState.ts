@@ -3,6 +3,10 @@ import { atomFamily, CallbackInterface, selectorFamily } from 'recoil';
 import UnitAffection, { AffectionBonus } from '../../domain/UnitAffection';
 import { BioroidUnitNumber, UnitBasicInfo, UnitKind } from '../../domain/UnitBasicInfo';
 
+import { updateUnitAffectionDependency } from '../transaction';
+
+import { getFromSnapshot } from '../../util/recoil';
+
 const _unitAffection = atomFamily<UnitAffection, BioroidUnitNumber>({
   key: 'UnitAffectionState_unitAffection',
   default: unit => new UnitAffection(unit)
@@ -22,8 +26,12 @@ export const affectionBonusEffectState = selectorFamily<AffectionBonus | undefin
   }
 });
 
-export const toggleAffectionEnabled = (unit: BioroidUnitNumber) => ({ set }: CallbackInterface) => (): void => {
-  set(_unitAffection(unit), s => s.toggleAffectionBonusEnable());
+export const toggleAffectionEnabled = (unit: BioroidUnitNumber) => (cbi: CallbackInterface) => (): void => {
+  const { set, snapshot } = cbi;
+  const nextValue = getFromSnapshot(snapshot)(_unitAffection(unit)).toggleAffectionBonusEnable();
+
+  set(_unitAffection(unit), nextValue);
+  updateUnitAffectionDependency(nextValue)(cbi);
 };
 
 export const unitAffectionStateResolver = selectorFamily<UnitAffection | undefined, UnitBasicInfo>({
@@ -35,6 +43,10 @@ export const unitAffectionStateResolver = selectorFamily<UnitAffection | undefin
   }
 });
 
-export const restoreUnitAffectionState = ({ set }: CallbackInterface) => (states: ReadonlyArray<UnitAffection>): void => {
-  states.forEach(s => set(_unitAffection(s.unit), s));
+export const restoreUnitAffectionState = (cbi: CallbackInterface) => (states: ReadonlyArray<UnitAffection>): void => {
+  const { set } = cbi;
+  states.forEach(s => {
+    set(_unitAffection(s.unit), s);
+    updateUnitAffectionDependency(s)(cbi);
+  });
 };

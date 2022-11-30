@@ -4,6 +4,8 @@ import deepEqual from 'fast-deep-equal';
 import { Squad, TenKeyPosition } from '../../domain/squad/Squad';
 import { UnitBasicInfo, UnitType } from '../../domain/UnitBasicInfo';
 
+import { updateSquadDependency } from '../transaction';
+
 import { getFromSnapshot, getValue, ValueOrUpdater } from '../../util/recoil';
 import { typedEntries } from '../../util/object';
 
@@ -36,6 +38,8 @@ function _update(valueOrUpdater: ValueOrUpdater<Squad>): (cbi: CallbackInterface
     });
 
     set(_squad, nextValue);
+
+    updateSquadDependency(nextValue)(cbi);
   };
 }
 

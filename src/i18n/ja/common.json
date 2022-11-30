@@ -129,6 +129,10 @@
     "unit_detail_tab": {
       "status": "ステータス",
       "skill": "スキル詳細"
+    },
+    "unit_status_tab": {
+      "in_orca": "オルカ内",
+      "in_squad": "分隊内 (戦闘開始時)"
     }
   },
   "unit": {
@@ -185,7 +189,37 @@
       "core_link_multiplier_bonus": "リンクボーナス (+ {{value}} %)",
       "full_link_bonus": "フルリンクボーナス",
       "full_link_multiplier_bonus": "フルリンクボーナス (+ {{value}} %)",
-      "equipment": "$t(equipment:{{id}}) Lv. {{lv}}"
+      "equipment": "$t(equipment:{{id}}) Lv. {{lv}}",
+      "rate_summary": "%効果 合計 ({{summary}} %)",
+      "initial_ap": "AP効果 合計",
+      "spd": "行動力 (x {{apTickCount}})"
+    },
+    "effect": {
+      "rate": {
+        "percentage": "{{value}} %",
+        "rate_up_by_level":  "一定確率",
+        "constant": "一定確率",
+        "rarely": "低確率"
+      },
+      "scaled": {
+        "tag_stack": "<$t(effect:tag.{{tag}})>: {{value}}",
+        "ally": "味方: {{value}}",
+        "enemy": "敵: {{value}}",
+        "target_ally": "味方対象: {{value}}",
+        "target_enemy": "敵対象: {{value}}",
+        "all_units": "味方/敵: {{value}}"
+      },
+      "term": {
+        "for_rounds": "残り {{rounds}} ラウンド",
+        "infinite": "永久",
+        "immediate": "即時"
+      },
+      "source": {
+        "ally": "$t(unit:display, { \"number\": {{no}} })",
+        "skill": "{{type}}「{{name}}」 Lv.{{lv}}",
+        "equipment": "$t(equipment.rank.{{rank}}) $t(equipment:{{id}}) +{{lv}}"
+      },
+      "cannot_be_dispelled": "解除不可"
     },
     "core_link": "コアリンク",
     "core_link_slot1": "コアリンクスロット1",
@@ -237,7 +271,21 @@
       "middle": "50%",
       "weak": "25%"
     },
-    "rank_up": "ランクアップスキル"
+    "rank_up": "ランクアップスキル",
+    "type": {
+      "active1": "アクティブスキル 1",
+      "active2": "アクティブスキル 2",
+      "passive1": "パッシブスキル 1",
+      "passive2": "パッシブスキル 2",
+      "passive3": "パッシブスキル 3"
+    },
+    "effect": {
+      "type": {
+        "buff": "バフ (強化効果)",
+        "debuff": "デバフ (有害な効果)",
+        "general": "一般効果"
+      }
+    }
   },
   "damaged_state": "中破状態",
   "form_change": "モードチェンジ",

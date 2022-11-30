@@ -10,6 +10,7 @@ const PopoverListContentRow: React.FC<{ css?: Interpolation<Theme>, children: Re
   return (
     <div
       css={{
+        display: 'flex',
         color: '#ccc',
         fontSize: '0.9em',
         fontWeight: 'bold',

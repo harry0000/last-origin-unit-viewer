@@ -1,11 +1,11 @@
 import { Effect } from '../Effect';
 import { EffectActivationState } from '../EffectActivationState';
+import { EffectAdditionData, EquipmentDataValue, EquipmentRank } from './EquipmentData';
 import { EffectTrigger } from '../EffectTrigger';
 import { GridState } from '../skill/SkillEffectActivationCondition';
 import { IntegerValue, MicroValue, MilliPercentageValue } from '../ValueUnit';
 import { SkillEffectTag } from '../skill/SkillEffectTag';
 import { UnitKind } from '../UnitBasicInfo';
-import { EffectAdditionData, EquipmentDataValue, EquipmentRank } from './EquipmentData';
 
 export type NoValueEffectKey = typeof Effect[
   'RangeDownActive1' |
@@ -116,25 +116,27 @@ export type EquipmentEffectValue = Readonly<{
     never
 }>
 
-type ActivationState = Readonly<{
+export type EquipmentEffectActivationState = Readonly<{
   [EffectActivationState.Grid]?: typeof GridState.BackLine,
   [EffectActivationState.HpGreaterOrEqual]?: 25,
-  [EffectActivationState.Affected]?: Effect,
-  [EffectActivationState.Tagged]?: SkillEffectTag,
+  [EffectActivationState.Affected]?: typeof Effect['Reconnaissance' | 'Barrier'],
+  [EffectActivationState.Tagged]?: 'wet',
   [EffectActivationState.Unit]?: UnitKind
 }>
 
-type EquipmentEffectActivationTrigger = {
+type EquipmentEffectActivationTrigger = Readonly<{
   trigger: typeof EffectTrigger.StartRound,
   round?: { at: 1 }
-} | {
+}> | Readonly<{
   trigger: typeof EffectTrigger.HitActive2,
   unit: 205
-} | {
+}> | Readonly<{
   trigger: Exclude<EffectTrigger, typeof EffectTrigger['StartRound' | 'HitActive2']>
-}
+}>
 
-export type EquipmentEffectActivationCondition = Readonly<EquipmentEffectActivationTrigger & { state?: ActivationState }>
+export type EquipmentEffectActivationCondition =
+  EquipmentEffectActivationTrigger &
+  Readonly<{ state?: EquipmentEffectActivationState }>
 
 export type EffectDetails = Readonly<{
   condition: EquipmentEffectActivationCondition,
@@ -148,3 +150,10 @@ export type EffectDetailsAsSkill = Readonly<{
     target?: EquipmentEffectValue
   }
 }>
+
+export type EquipmentEffect = Readonly<Partial<{
+  equipment_effects: ReadonlyArray<EffectDetails>,
+  effects: ReadonlyArray<EffectDetailsAsSkill>
+}>>
+
+export const emptyEquipmentEffect: EquipmentEffect = {};

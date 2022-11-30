@@ -19,6 +19,8 @@ import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
 import { affectionBonusEffectState } from '../status/UnitAffectionState';
 import { coreLinkBonusEffectsState, fullLinkBonusEffectState } from '../corelink/UnitCoreLinkState';
+import { updateUnitSkillDependency } from '../transaction';
+import { getFromSnapshot, getValue, ValueOrUpdater } from '../../util/recoil';
 
 type PassiveSkillType = Exclude<SkillType, 'active1' | 'active2'>
 
@@ -160,8 +162,19 @@ export const formChangeUnitSkillState = selectorFamily<FormChangeUnitSkill<FormC
 export const skillFormState = (unit: UnitBasicInfo, type: SkillType): RecoilValueReadOnly<UnitForms | undefined> =>
   _skillForm({ unit, type });
 
-export const changeSkillLv = (unit: UnitBasicInfo, type: SkillType) => ({ set }: CallbackInterface) => (lv: SkillLv): void => {
-  set(_skill(unit), s => {
+function _update(unit: UnitBasicInfo, valueOrUpdater: ValueOrUpdater<UnitSkill>): (cbi: CallbackInterface) => void {
+  return (cbi) => {
+    const get = getFromSnapshot(cbi.snapshot);
+    const nextValue = getValue(valueOrUpdater, () => get(_skill(unit)));
+
+    cbi.set(_skill(unit), nextValue);
+
+    updateUnitSkillDependency(nextValue)(cbi);
+  };
+}
+
+export const changeSkillLv = (unit: UnitBasicInfo, type: SkillType) => (cbi: CallbackInterface) => (lv: SkillLv): void => {
+  _update(unit, s => {
     switch (type) {
     case SkillType.Active1:  return s.changeActive1SkillLv(lv);
     case SkillType.Active2:  return s.changeActive2SkillLv(lv);
@@ -169,18 +182,18 @@ export const changeSkillLv = (unit: UnitBasicInfo, type: SkillType) => ({ set }:
     case SkillType.Passive2: return s.changePassive2SkillLv(lv);
     case SkillType.Passive3: return s.changePassive3SkillLv(lv);
     }
-  });
+  })(cbi);
 };
 
-export const changeForm = (unit: UnitBasicInfo | undefined) => ({ set }: CallbackInterface) => (): void => {
+export const changeForm = (unit: UnitBasicInfo | undefined) => (cbi: CallbackInterface) => (): void => {
   if (unit) {
-    set(_skill(unit), s => isFormChangeUnitSkill(s) ? s.changeForm() : s);
+    _update(unit, s => isFormChangeUnitSkill(s) ? s.changeForm() : s)(cbi);
   }
 };
 
 export const unitSkillResolver = (unit: UnitBasicInfo): RecoilValueReadOnly<UnitSkill> =>
   _skill(unit);
 
-export const restoreUnitSkill = ({ set }: CallbackInterface) => (states: ReadonlyArray<UnitSkill>): void => {
-  states.forEach(s => set(_skill(s.unit), s));
+export const restoreUnitSkill = (cbi: CallbackInterface) => (states: ReadonlyArray<UnitSkill>): void => {
+  states.forEach(s => _update(s.unit, s)(cbi));
 };

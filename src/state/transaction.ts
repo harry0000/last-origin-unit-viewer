@@ -1,5 +1,7 @@
 import { CallbackInterface } from 'recoil';
 
+import { Squad } from '../domain/squad/Squad';
+import UnitAffection from '../domain/UnitAffection';
 import { UnitBasicInfo } from '../domain/UnitBasicInfo';
 import {
   UnitChip1Equipment,
@@ -8,7 +10,9 @@ import {
   UnitOsEquipment
 } from '../domain/equipment/UnitEquipment';
 import UnitCoreLink from '../domain/UnitCoreLink';
+import UnitDamagedState from '../domain/UnitDamagedState';
 import UnitLvStatus from '../domain/status/UnitLvStatus';
+import { UnitSkill } from '../domain/skill/UnitSkill';
 
 import { EquipmentSlot, EquipmentUpdateCallbackArgs } from './equipment/UnitEquipmentState';
 import * as UnitCoreLinkState from './corelink/UnitCoreLinkState';
@@ -64,5 +68,37 @@ export function updateUnitCoreLinkDependency(
 ): (cbi: CallbackInterface) => void {
   return (cbi) => {
     UnitStatusParameterState.updateUnitCoreLinkState(unitCoreLink)(cbi);
+  };
+}
+
+export function updateSquadDependency(
+  squad: Squad
+): (cbi: CallbackInterface) => void {
+  return (cbi) => {
+    UnitStatusParameterState.updateSquadState(squad)(cbi);
+  };
+}
+
+export function updateUnitSkillDependency(
+  unitSkill: UnitSkill
+): (cbi: CallbackInterface) => void {
+  return (cbi) => {
+    UnitStatusParameterState.updateUnitSkillState(unitSkill)(cbi);
+  };
+}
+
+export function updateUnitAffectionDependency(
+  affection: UnitAffection
+): (cbi: CallbackInterface) => void {
+  return (cbi) => {
+    UnitStatusParameterState.updateUnitAffectionState(affection)(cbi);
+  };
+}
+
+export function updateUnitDamagedDependency(
+  damaged: UnitDamagedState
+): (cbi: CallbackInterface) => void {
+  return (cbi) => {
+    UnitStatusParameterState.updateUnitDamagedState(damaged)(cbi);
   };
 }

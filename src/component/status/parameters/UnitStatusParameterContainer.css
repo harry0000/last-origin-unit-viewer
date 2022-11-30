@@ -1,0 +1,17 @@
+.nav-tabs.unit-status-parameter-details {
+  border-bottom: 2px solid #fc0;
+}
+
+.nav-tabs.unit-status-parameter-details .nav-link {
+  color: #888;
+  font-weight: bold;
+  margin-bottom: -2px;
+  border: 2px solid transparent;
+}
+
+.nav-tabs.unit-status-parameter-details .nav-link.active {
+  color: #eee;
+  background-color: transparent;
+  border-color: #ffcc00 #ffcc00 #0a101e;
+  border-width: 2px;
+}

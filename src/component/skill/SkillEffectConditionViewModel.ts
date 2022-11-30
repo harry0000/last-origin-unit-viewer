@@ -1,7 +1,8 @@
 import { PassiveSkillEffective } from '../../domain/skill/SkillEffective';
 import { SkillEffect } from '../../domain/skill/UnitSkills';
 import { SkillEffectScaleFactor } from '../../domain/skill/SkillEffectScaleFactor';
-import { isTargetSkillEffectData, SkillEffectTarget, SkillEffectTargetKind } from '../../domain/skill/SkillEffectData';
+import { SkillEffectTarget, SkillEffectTargetKind } from '../../domain/skill/SkillEffectTarget';
+import { isTargetSkillEffectData } from '../../domain/skill/SkillEffectData';
 
 type SkillEffectTargets =
   { self?: true } |
