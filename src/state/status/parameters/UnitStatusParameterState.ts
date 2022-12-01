@@ -33,6 +33,7 @@ import {
   calcMicroValue
 } from '../../../domain/ValueUnit';
 import { Squad } from '../../../domain/squad/Squad';
+import { SquadUnitActionOrder } from '../../../domain/squad/SquadUnitActionOrder';
 import { SquadUnitStatusCalculator } from '../../../domain/status/SquadUnitStatusParameter';
 import {
   UnitAccStatusParameter,
@@ -689,6 +690,11 @@ export const selectedUnitDamagedState = selectorFamily<boolean | undefined, Unit
 });
 
 export const squadApTickCountState: RecoilValueReadOnly<number> = _inSquad.apTickCount;
+
+export const squadUnitActionOrder = selector<SquadUnitActionOrder>({
+  key: 'squadUnitActionOrder',
+  get: ({ get }) => new SquadUnitActionOrder(get(squadResolver), (unit) => get(_inSquad.ap(unit)))
+});
 
 function map<T, U>(value: T | undefined, f: (value: T) => U): U | undefined {
   return value && f(value);

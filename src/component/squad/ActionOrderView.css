@@ -1,0 +1,65 @@
+.action-order-container {
+  display: flex;
+  flex-direction: column;
+
+  width: fit-content;
+}
+
+.action-order-container > .unit-row {
+  display: flex;
+  flex-direction: row-reverse;
+
+  box-shadow: 0 -4px 0 0 #aaa inset;
+}
+
+.action-order-container > .ap-row {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.action-order-container > :is(.unit-row, .ap-row) {
+  padding: 0 10px;
+}
+
+.action-order-container > :is(.unit-row, .ap-row) > :not(:first-of-type) {
+  margin-right: 8px;
+}
+
+.action-order-container > :is(.unit-row, .ap-row) > .divider {
+  width: 8px;
+  border-left: 8px #aaa solid;
+}
+
+.action-order-container > .unit-row > .unit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 52px;
+  width: 52px;
+
+  border-radius: 6px;
+  border: 2px #fc0 solid;
+
+  background-color: #000;
+}
+
+.action-order-container > .ap-row > .ap-value {
+  width: 52px;
+
+  color: rgba(0, 255, 204, 0.9);
+  font-weight: bold;
+  text-align: center;
+
+  overflow: hidden;
+}
+
+.action-order-container > .unit-row > .divider {
+  height: 15px;
+  align-self: flex-end;
+}
+
+.action-order-container > .ap-row > .divider {
+  height: 10px;
+  align-self: flex-start;
+}

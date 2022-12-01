@@ -160,6 +160,7 @@
   },
   "lv": "Lv.",
   "squad": {
+    "empty_unit": "戦闘員未配置",
     "share_squad": "分隊編成を共有",
     "share_squad_modal_title": "分隊編成URL",
     "copy_url_to_clipboard": "分隊編成URLをコピー",

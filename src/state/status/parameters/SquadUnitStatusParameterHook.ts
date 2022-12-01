@@ -1,6 +1,8 @@
 import { useRecoilValue } from 'recoil';
 
 import { DamageAttribute } from '../../../domain/skill/UnitSkillData';
+import { MicroValue, calcMicroValue } from '../../../domain/ValueUnit';
+import { UnitNumber } from '../../../domain/UnitBasicInfo';
 
 import { EnhanceableStatus } from './UnitLvStatusState';
 import {
@@ -20,6 +22,7 @@ import {
   squadUnitCriState,
   selectedUnitCurrentHpState,
   selectedUnitDamagedState,
+  squadUnitActionOrder,
   squadUnitDefEffectsState,
   squadUnitDefRateEffectValueState,
   squadUnitDefState,
@@ -51,6 +54,7 @@ import {
 } from '../../../component/status/parameters/StatusEffectsSummaryViewModel';
 import {
   appendPercentage,
+  buildNumberFormatter,
   formatApValue,
   formatMilliPercentage,
   formatMilliValue,
@@ -155,4 +159,22 @@ export function useSquadUnitDamagedState(): boolean | undefined {
 
 export function useSquadUnitApplyingEffects(): ReadonlyArray<SquadUnitApplyingEffectViewModel> {
   return useRecoilValue(battleEffectsState).map(e => new SquadUnitApplyingEffectViewModel(e));
+}
+
+type SquadUnitApValues = readonly [
+  readyToActionUnits: ReadonlyArray<{ unit: UnitNumber, ap: string }>,
+  notReadyToActionUnits: ReadonlyArray<{ unit: UnitNumber, ap: string }>
+]
+
+export function useSquadUnitActionOrder(): SquadUnitApValues {
+  const order = useRecoilValue(squadUnitActionOrder);
+
+  const formatter = buildNumberFormatter({ maximumFractionDigits: 2 });
+  const format = (microValue: MicroValue): string => formatter.format(calcMicroValue(microValue));
+  const mapToValues = ({ unit, ap }: { unit: UnitNumber, ap: MicroValue }) => ({ unit, ap: format(ap) });
+
+  return [
+    order.readyToActionUnits.map(mapToValues),
+    order.notReadyToActionUnits.map(mapToValues)
+  ];
 }

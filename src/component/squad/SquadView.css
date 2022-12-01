@@ -9,6 +9,13 @@
   justify-content: center;
 }
 
+.action-order {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 15px;
+}
+
 .squad-summary {
   display: flex;
   justify-content: space-evenly;

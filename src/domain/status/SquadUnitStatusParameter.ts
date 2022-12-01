@@ -32,10 +32,8 @@ import {
   sumMilliPercentageValues,
   sumMilliValues
 } from '../ValueUnit';
+import { ReadyToAction, readyToAction } from '../squad/SquadUnitActionOrder';
 import { UnitNumber } from '../UnitBasicInfo';
-
-const ReadyToActionApMicroValue = 10_000_000 as const;
-type ReadyToAction = boolean
 
 class SquadUnitStatus {
   readonly unit: UnitNumber;
@@ -282,7 +280,7 @@ class SquadUnitStatus {
 
   tickApAdding(): ReadyToAction {
     this.#ap = sumMicroValues(this.#ap, this.spd);
-    return this.#ap.microValue >= ReadyToActionApMicroValue;
+    return readyToAction(this.#ap);
   }
 }
 

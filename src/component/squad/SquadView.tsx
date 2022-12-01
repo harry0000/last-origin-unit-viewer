@@ -4,6 +4,7 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import ActionOrderView from './ActionOrderView';
 import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { ShareAndroid } from '../icon/FluentIcons';
 import SquadGrid from './SquadGrid';
@@ -110,6 +111,9 @@ const SquadView: React.FC<{ className: string }> = ({ className }) => {
       </div>
       <div className="squad-grid">
         <SquadGrid />
+      </div>
+      <div className="action-order">
+        <ActionOrderView />
       </div>
       <React.Suspense fallback={React.Fragment}>
         <SquadShareModal />
