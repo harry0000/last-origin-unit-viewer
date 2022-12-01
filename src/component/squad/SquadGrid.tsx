@@ -37,7 +37,8 @@ export const UnitTile: React.FC<{
         position: 'relative',
         borderRadius: 8,
         border: `3px solid ${borderColor}`,
-        userSelect: 'none'
+        userSelect: 'none',
+        cursor: 'pointer'
       }}
       onClick={() => selectUnit()}
       ref={dragRef}

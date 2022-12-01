@@ -31,6 +31,7 @@ import { restoreUnitCoreLink, unitCoreLinkResolver } from '../corelink/UnitCoreL
 import { restoreUnitDamagedState, unitDamagedStateResolver } from '../status/UnitDamagedState';
 import { restoreUnitEquipmentState, unitEquipmentResolver } from '../equipment/UnitEquipmentState';
 import { restoreUnitSkill, unitSkillResolver } from '../skill/UnitSkillState';
+import { selectUnit } from '../selector/UnitSelectorState';
 import { useNotificationResister } from '../ui/NotificationState';
 import { useUnitSelector } from '../selector/UnitSelectorHook';
 
@@ -52,10 +53,14 @@ export function useSquadUnitTypeCount(type: UnitType): number {
 }
 
 export function useUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
+  const select = useRecoilCallback(selectUnit(unit));
   const [, dragRef, previewRef] = useDrag(
     () => ({
       type: ItemType.UnitCard,
-      item: unit
+      item: () => {
+        select();
+        return unit;
+      }
     }),
     [unit]
   );
@@ -70,10 +75,14 @@ export function useUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
 }
 
 export function useSquadUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
+  const select = useRecoilCallback(selectUnit(unit));
   const [, dragRef, previewRef] = useDrag(
     () => ({
       type: ItemType.SquadUnit,
-      item: unit
+      item: () => {
+        select();
+        return unit;
+      }
     }),
     [unit]
   );
