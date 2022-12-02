@@ -6,7 +6,7 @@ import React from 'react';
 import UnitCard from '../unit/UnitCard';
 import { UnitTile } from './SquadGrid';
 
-import { ItemType, useUnitDragPreview } from '../../state/squad/squadState';
+import { ItemType, useUnitDragPreview } from '../../state/squad/SquadHook';
 
 const UnitDragPreview: React.FC = () => {
   const props = useUnitDragPreview();

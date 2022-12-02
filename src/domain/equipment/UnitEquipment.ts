@@ -18,9 +18,10 @@ import {
 import { emptyStatusEffect, StatusEffect } from '../status/StatusEffect';
 import { UnitLvValue } from '../status/UnitLv';
 import { UnitNumber } from '../UnitBasicInfo';
-import { calculateStatusEffect } from './EquipmentEffectCalculator';
+import { calculateEffect, calculateEffectAsSkill, calculateStatusEffect } from './EquipmentEffectCalculator';
 
 import { unitEquipmentSlotData } from '../../data/unitEquipmentSlotData';
+import { emptyEquipmentEffect, EquipmentEffect } from './EquipmentEffect';
 
 export type EquipmentSlotAvailableLv = typeof unitEquipmentSlotData[UnitNumber][keyof typeof unitEquipmentSlotData[UnitNumber]]
 
@@ -97,6 +98,17 @@ export class UnitChip1Equipment {
       calculateStatusEffect(this.chip1.id, this.chip1.rank, this.chip1.enhanceLv) :
       emptyStatusEffect;
   }
+
+  chip1Effects(lv: UnitLvValue): EquipmentEffect {
+    if (this.isChip1Available(lv) && this.chip1) {
+      const equipment_effects = calculateEffect(this.chip1.id, this.chip1.rank, this.chip1.enhanceLv);
+      const effects = calculateEffectAsSkill(this.chip1.id, this.chip1.rank, this.chip1.enhanceLv);
+
+      return { equipment_effects, effects };
+    } else {
+      return emptyEquipmentEffect;
+    }
+  }
 }
 
 export class UnitChip2Equipment {
@@ -152,6 +164,17 @@ export class UnitChip2Equipment {
     return this.isChip2Available(lv) && this.chip2 ?
       calculateStatusEffect(this.chip2.id, this.chip2.rank, this.chip2.enhanceLv) :
       emptyStatusEffect;
+  }
+
+  chip2Effects(lv: UnitLvValue): EquipmentEffect {
+    if (this.isChip2Available(lv) && this.chip2) {
+      const equipment_effects = calculateEffect(this.chip2.id, this.chip2.rank, this.chip2.enhanceLv);
+      const effects = calculateEffectAsSkill(this.chip2.id, this.chip2.rank, this.chip2.enhanceLv);
+
+      return { equipment_effects, effects };
+    } else {
+      return emptyEquipmentEffect;
+    }
   }
 }
 
@@ -211,6 +234,17 @@ export class UnitOsEquipment {
       calculateStatusEffect(this.os.id, this.os.rank, this.os.enhanceLv) :
       emptyStatusEffect;
   }
+
+  osEffects(lv: UnitLvValue): EquipmentEffect {
+    if (this.isOsAvailable(lv) && this.os) {
+      const equipment_effects = calculateEffect(this.os.id, this.os.rank, this.os.enhanceLv);
+      const effects = calculateEffectAsSkill(this.os.id, this.os.rank, this.os.enhanceLv);
+
+      return { equipment_effects, effects };
+    } else {
+      return emptyEquipmentEffect;
+    }
+  }
 }
 
 export class UnitGearEquipment {
@@ -266,5 +300,16 @@ export class UnitGearEquipment {
     return this.isGearAvailable(lv) && this.gear ?
       calculateStatusEffect(this.gear.id, this.gear.rank, this.gear.enhanceLv) :
       emptyStatusEffect;
+  }
+
+  gearEffects(lv: UnitLvValue): EquipmentEffect {
+    if (this.isGearAvailable(lv) && this.gear) {
+      const equipment_effects = calculateEffect(this.gear.id, this.gear.rank, this.gear.enhanceLv);
+      const effects = calculateEffectAsSkill(this.gear.id, this.gear.rank, this.gear.enhanceLv);
+
+      return { equipment_effects, effects };
+    } else {
+      return emptyEquipmentEffect;
+    }
   }
 }

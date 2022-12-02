@@ -1,0 +1,139 @@
+.hp-value,
+.hp-bar {
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.hp-bar {
+  margin-top: 5px;
+  height: 50%;
+  width: min(100%, 17em);
+
+  border-radius: 2px;
+  background:
+    linear-gradient(90deg, transparent 23%, #ffcc00 23%, #ffcc00 27%, transparent 27%),
+    linear-gradient(90deg, #c33 0%, #c33 100%),
+    no-repeat;
+}
+
+.hp-bar.nope {
+  background:
+    linear-gradient(90deg, transparent 23%, #ffcc00 23%, #ffcc00 27%, transparent 27%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 100%),
+    no-repeat;
+}
+
+.hp-bar.damaged {
+  background:
+    linear-gradient(90deg, transparent 23%, #ffcc00 23%, #ffcc00 27%, transparent 27%),
+    linear-gradient(90deg, #c33 0%, #c33 23%, transparent 23%, transparent 27%, rgba(255, 255, 255, 0.15) 27%, rgba(255, 255, 255, 0.15) 100%),
+    no-repeat;
+}
+
+.ap-label {
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+
+  color: #0cf;
+  font-weight: bold;
+}
+
+.status-parameter-value.ap-value {
+  font-weight: bold;
+}
+
+.effect-list-in-squad {
+  margin-top: 5px;
+
+  border: 2px solid rgba(255, 255, 255, .2);
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: fit-content;
+  min-height: 100px;
+  max-height: 200px;
+  max-width: min(560px, 100%);
+
+}
+
+.effect-list-in-squad::-webkit-scrollbar {
+  width: 15px;
+}
+
+.effect-row-in-squad {
+  display: flex;
+
+  padding: 4px;
+}
+
+.effect-list-in-squad > .effect-row-in-squad:nth-child(2n - 1) {
+  background-color: rgba(28, 48, 66, .5);
+}
+
+.effect-row-in-squad > .effect-label,
+.effect-row-in-squad > .effect-value {
+  color: #ccc;
+  font-weight: bold;
+}
+
+.effect-row-in-squad > .effect-label {
+  flex-shrink: 0;
+  margin-left: 3px;
+
+  font-size: 0.8em;
+  line-height: 24px;
+}
+
+.effect-row-in-squad > .effect-value {
+  flex-grow: 1;
+
+  font-size: 0.85em;
+  line-height: 24px;
+}
+
+.effect-row-in-squad > .effect-term {
+  flex-shrink: 0;
+  align-self: stretch;
+
+  color: #aaa;
+  font-weight: bold;
+  font-size: 0.6em;
+  line-height: 24px;
+
+  margin-left: 5px;
+}
+
+.effect-row-in-squad > .effect-source {
+  display: flex;
+  align-items: center;
+
+  margin-left: 5px;
+  padding: 2px;
+
+  cursor: help;
+}
+
+.popover.skill-effect-details {
+  max-width: none;
+}
+
+.popover.skill-effect-details > .popover-body {
+  padding: 2px;
+}
+
+.popover.skill-effect-details > .popover-body > .skill-effect-details-body {
+  padding: 5px 8px;
+  border-radius: 3px;
+
+  color: #ccc;
+  font-size: 0.9em;
+  font-weight: bold;
+  background-color: #0a101e;
+}
+
+.skill-effect-details-body > .skill-effect-type {
+  margin-top: 10px;
+}

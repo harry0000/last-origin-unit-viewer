@@ -36,7 +36,7 @@ import {
   useFullLinkBonusConditionSelector,
   useRankUpConditionSelector,
   useSkillEffectConditionSelector
-} from '../../state/selector/unitSelectorState';
+} from '../../state/selector/UnitSelectorHook';
 
 import { ifTruthy } from '../../util/react';
 

@@ -1,40 +1,26 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import StatusEffectsView from './StatusEffectsView';
-import { formatResistPercentage } from './UnitStatusParameterFormatter';
+import { SquadUnitStatusEffectsView, UnitStatusEffectsView } from './StatusEffectsView';
 
 import { DamageAttribute } from '../../../domain/skill/UnitSkillData';
-import { MilliPercentageValue } from '../../../domain/ValueUnit';
-import { UnitNumber } from '../../../domain/UnitBasicInfo';
 
-import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
-import {
-  useUnitElectricResistParameter,
-  useUnitFireResistParameter,
-  useUnitIceResistParameter
-} from '../../../state/status/parameters/unitStatusParameterState';
+import { useAttributeResistParameter } from '../../../state/status/parameters/UnitStatusParameterHook';
+import { useSquadUnitAttributeResistParameter } from '../../../state/status/parameters/SquadUnitStatusParameterHook';
+
+const AttributeResistEffectStyle = { color: '#888', fontSize: '0.9em', fontWeight: 'bold' } as const;
 
 const AttributeResist: React.FC<{
   attribute: DamageAttribute,
-  value?: MilliPercentageValue
-}> = ({ attribute, value }) => {
+  value: string,
+  children: ReactNode
+}> = ({ attribute, value, children }) => {
   const { t } = useTranslation();
   const alt = t(`status.${attribute}_resist`);
-  const parameter = (() => {
-    switch (attribute) {
-    case 'fire':
-      return 'fireResist';
-    case 'ice':
-      return 'iceResist';
-    case 'electric':
-      return 'electricResist';
-    }
-  })();
 
   return (
     <div css={{ display: 'flex', flexDirection: 'column' }}>
@@ -52,58 +38,60 @@ const AttributeResist: React.FC<{
           />
         </OverlayTrigger>
         <div css={{ display: 'inline-block', width: '4.2em', textAlign: 'right', fontWeight: 'bold' }}>
-          <span>{formatResistPercentage(value)}</span>
+          <span>{value}</span>
         </div>
       </div>
-      <StatusEffectsView css={{ color: '#888', fontSize: '0.9em', fontWeight: 'bold' }} parameter={parameter} />
+      {children}
     </div>
   );
 };
 
-export const FireResist: React.FC = () => {
-  const selected = useSelectedUnit();
-  const View = ({ value }: { value?: MilliPercentageValue }) => (
-    <AttributeResist attribute={DamageAttribute.Fire} value={value} />
+const UnitAttributeResist: React.FC<{
+  attribute: DamageAttribute
+}> = ({ attribute }) => {
+  const parameter = `${attribute}Resist` as const;
+  const value = useAttributeResistParameter(attribute);
+
+  return (
+    <AttributeResist attribute={attribute} value={value}>
+      <UnitStatusEffectsView css={AttributeResistEffectStyle} parameter={parameter} />
+    </AttributeResist>
   );
-
-  const UnitFireResistView: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
-    const value = useUnitFireResistParameter(unit);
-    return (<View value={value} />);
-  };
-
-  return selected ?
-    (<UnitFireResistView unit={selected.no} />) :
-    (<View />);
 };
 
-export const IceResist: React.FC = () => {
-  const selected = useSelectedUnit();
-  const View = ({ value }: { value?: MilliPercentageValue }) => (
-    <AttributeResist attribute={DamageAttribute.Ice} value={value} />
-  );
-
-  const UnitIceResistView: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
-    const value = useUnitIceResistParameter(unit);
-    return (<View value={value} />);
-  };
-
-  return selected ?
-    (<UnitIceResistView unit={selected.no} />) :
-    (<View />);
+export const UnitFireResist: React.FC = () => {
+  return (<UnitAttributeResist attribute={DamageAttribute.Fire} />);
 };
 
-export const ElectricResist: React.FC = () => {
-  const selected = useSelectedUnit();
-  const View = ({ value }: { value?: MilliPercentageValue }) => (
-    <AttributeResist attribute={DamageAttribute.Electric} value={value} />
+export const UnitIceResist: React.FC = () => {
+  return (<UnitAttributeResist attribute={DamageAttribute.Ice} />);
+};
+
+export const UnitElectricResist: React.FC = () => {
+  return (<UnitAttributeResist attribute={DamageAttribute.Electric} />);
+};
+
+const SquadUnitAttributeResist: React.FC<{
+  attribute: DamageAttribute
+}> = ({ attribute }) => {
+  const parameter = `${attribute}Resist` as const;
+  const value = useSquadUnitAttributeResistParameter(attribute);
+
+  return (
+    <AttributeResist attribute={attribute} value={value}>
+      <SquadUnitStatusEffectsView css={AttributeResistEffectStyle} parameter={parameter} />
+    </AttributeResist>
   );
+};
 
-  const UnitElectricResistView: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
-    const value = useUnitElectricResistParameter(unit);
-    return (<View value={value} />);
-  };
+export const SquadUnitFireResist: React.FC = () => {
+  return (<SquadUnitAttributeResist attribute={DamageAttribute.Fire} />);
+};
 
-  return selected ?
-    (<UnitElectricResistView unit={selected.no} />) :
-    (<View />);
+export const SquadUnitIceResist: React.FC = () => {
+  return (<SquadUnitAttributeResist attribute={DamageAttribute.Ice} />);
+};
+
+export const SquadUnitElectricResist: React.FC = () => {
+  return (<SquadUnitAttributeResist attribute={DamageAttribute.Electric} />);
 };

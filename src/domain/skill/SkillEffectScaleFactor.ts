@@ -3,7 +3,11 @@ import { SkillEffectTag } from './SkillEffectTag';
 import { UnitAlias } from '../UnitAlias';
 import { UnitKind, UnitRole, UnitType } from '../UnitBasicInfo';
 
-export type VariationType = 'proportional' | 'inversely_proportional'
+export const VariationType = {
+  Proportional: 'proportional',
+  InverselyProportional: 'inversely_proportional'
+} as const;
+export type VariationType = typeof VariationType[keyof typeof VariationType]
 
 export type SkillEffectScaleFactor =
   {
@@ -44,3 +48,9 @@ export type SkillEffectScaleFactor =
       unit?: UnitType
     }
   }
+
+export function getVariationType(factor: SkillEffectScaleFactor): VariationType {
+  return 'per_units' in factor && factor.per_units.type === 'enemy' ?
+    factor.per_units.variation :
+    VariationType.Proportional;
+}

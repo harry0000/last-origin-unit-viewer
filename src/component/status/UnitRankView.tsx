@@ -13,8 +13,8 @@ import { RankUpAvailableLv } from '../../domain/status/UnitRankState';
 import { RankUpUnitNumber, isRankUpUnitNumber } from '../../domain/status/UnitRankUpBonusData';
 import { UnitRank, UnitRole } from '../../domain/UnitBasicInfo';
 
-import { useSelectedUnit } from '../../state/selector/unitSelectorState';
-import { useUnitRank } from '../../state/status/parameters/unitLvStatusState';
+import { useSelectedUnit } from '../../state/selector/UnitSelectorHook';
+import { useUnitRank } from '../../state/status/parameters/UnitLvStatusHook';
 
 import { ifNonNullable, ifTruthy } from '../../util/react';
 

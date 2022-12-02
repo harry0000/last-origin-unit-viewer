@@ -271,6 +271,16 @@ export function translateSkillEffectDetails(
       ),
       term
     };
+  case Effect.AtkValueUpByUnitValue:
+    return {
+      tag: getTag(entry[1], t),
+      detail: getDetail(
+        t(`effect:effect.description.${entry[0]}`, { unit: entry[1].unit, value: calcMilliPercentageValue(entry[1]) }),
+        entry[1],
+        t
+      ),
+      term
+    };
   case Effect.DefDown:
   case Effect.AccDown:
   case Effect.CriDown:

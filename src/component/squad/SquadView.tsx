@@ -4,6 +4,7 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import ActionOrderView from './ActionOrderView';
 import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { ShareAndroid } from '../icon/FluentIcons';
 import SquadGrid from './SquadGrid';
@@ -12,8 +13,8 @@ import SVGButton from '../common/SVGButton';
 import { UnitCost } from '../../domain/status/UnitCost';
 import { UnitType } from '../../domain/UnitBasicInfo';
 
-import { useSquadShareModalOpener, useSquadUnitTypeCount } from '../../state/squad/squadState';
-import { useSquadUnitCostSummary } from '../../state/status/parameters/unitLvStatusState';
+import { useSquadShareModalOpener, useSquadUnitTypeCount } from '../../state/squad/SquadHook';
+import { useSquadUnitCostSummary } from '../../state/status/parameters/UnitLvStatusHook';
 
 import './SquadView.css';
 
@@ -50,8 +51,9 @@ const SquadCostSummaryView: React.FC = () => {
 };
 
 const SquadUnitTypeSummaryView: React.FC = () => {
-  const CountView = ({ type, count }: { type: UnitType, count: number }) => {
+  const CountView = ({ type }: { type: UnitType }) => {
     const { t } = useTranslation();
+    const count = useSquadUnitTypeCount(type);
     return (
       <div>
         <Image
@@ -67,13 +69,11 @@ const SquadUnitTypeSummaryView: React.FC = () => {
     );
   };
 
-  const { light, flying, heavy } = useSquadUnitTypeCount();
-
   return (
     <div className="type-summary">
-      <CountView type={UnitType.Light} count={light} />
-      <CountView type={UnitType.Flying} count={flying} />
-      <CountView type={UnitType.Heavy} count={heavy} />
+      <CountView type={UnitType.Light} />
+      <CountView type={UnitType.Flying} />
+      <CountView type={UnitType.Heavy} />
     </div>
   );
 };
@@ -111,6 +111,9 @@ const SquadView: React.FC<{ className: string }> = ({ className }) => {
       </div>
       <div className="squad-grid">
         <SquadGrid />
+      </div>
+      <div className="action-order">
+        <ActionOrderView />
       </div>
       <React.Suspense fallback={React.Fragment}>
         <SquadShareModal />

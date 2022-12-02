@@ -1,0 +1,81 @@
+.status-parameter-container {
+  color: #ccc;
+  width: 100%;
+  padding: 5px 0 3px;
+}
+
+.status-parameter-container .status-parameter-row {
+  display: flex;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.status-parameter-container .status-parameter-row > div:first-of-type {
+  padding-right: 5px;
+}
+
+.status-parameter-container .status-parameter-row > div:nth-of-type(2) {
+  padding-left: 5px;
+}
+
+.status-parameter-row .status-parameter-col {
+  display: flex;
+  width: 50%;
+}
+
+.status-parameter-body {
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.status-parameter-body .status-parameter-label {
+  font-size: 12px;
+  line-height: 12px;
+  color: #888;
+}
+
+.status-parameter-body .status-parameter-label > div {
+  display: inline-block;
+}
+
+.status-parameter-body .status-parameter-label > div.lv {
+  margin-left: 5px;
+  padding: 1px 3px;
+  border-radius: 3px;
+  font-size: 10px;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.status-parameter-body .status-parameter-value {
+  font-size: 18px;
+  line-height: 18px;
+  margin-top: 4px;
+}
+
+@media (max-width: 480px) {
+  .status-parameter-body .status-parameter-value > div {
+    width: fit-content;
+    display: flex;
+  }
+}
+
+@media (min-width: 480px) {
+  .status-parameter-body .status-parameter-value > div {
+    width: min(50%, 6em);
+    display: inline-flex;
+  }
+}
+
+.status-parameter-body .status-parameter-value > div.effects {
+  color: #888;
+  font-size: 0.9em;
+}
+
+.attribute-resist-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}

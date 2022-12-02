@@ -28,7 +28,7 @@ import { PassiveSkillEffective } from '../../domain/skill/SkillEffective';
 import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
 import { SkillEffect, isTargetSkillEffect } from '../../domain/skill/UnitSkills';
 import { SkillEffectScaleFactor } from '../../domain/skill/SkillEffectScaleFactor';
-import { SkillEffectTarget } from '../../domain/skill/SkillEffectData';
+import { SkillEffectTarget } from '../../domain/skill/SkillEffectTarget';
 import { UnitAlias, isUnitAlias, unitNumbersForAlias } from '../../domain/UnitAlias';
 import { UnitNumber, UnitRole } from '../../domain/UnitBasicInfo';
 

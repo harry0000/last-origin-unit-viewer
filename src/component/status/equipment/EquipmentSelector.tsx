@@ -23,8 +23,8 @@ import {
 import { ChipEquipment, GearEquipment, OsEquipment } from '../../../domain/equipment/UnitEquipment';
 import { UnitBasicInfo, UnitNumber } from '../../../domain/UnitBasicInfo';
 
+import { EquipmentSlot } from '../../../state/equipment/UnitEquipmentState';
 import {
-  EquipmentSlot,
   useEquipmentAvailable,
   useEquipmentEffects,
   useEquipmentEffectsAsSkill,
@@ -32,13 +32,13 @@ import {
   useEquipmentRank,
   useEquipmentStatusEffects,
   useUnitEquipment
-} from '../../../state/equipment/unitEquipmentState';
+} from '../../../state/equipment/UnitEquipmentHook';
 import {
   TranslatedEquipmentEffect,
   TranslatedEquipmentEffectAsSkill
 } from '../../../state/equipment/EquipmentEffectsTranslator';
 import { useAvailableEquipment } from '../../../state/equipment/availableEquipment';
-import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
+import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
 
 import { ifNonNullable } from '../../../util/react';
 

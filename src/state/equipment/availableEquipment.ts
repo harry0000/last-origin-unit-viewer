@@ -16,7 +16,7 @@ import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 
 import { equipmentData } from '../../data/equipmentData';
 
-import { EquipmentSlot, selectedEquipmentRankState } from './unitEquipmentState';
+import { EquipmentSlot, selectedEquipmentRankState } from './UnitEquipmentState';
 
 function pickEquipment(unit: UnitNumber, rank?: EquipmentRank) {
   return function<T extends EquipmentData>(equipment: T) {

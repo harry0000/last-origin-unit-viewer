@@ -160,14 +160,16 @@ function restoreGear(unit: UnitNumber, json: GearEquipmentJsonStructure | []): U
 }
 
 function restoreCoreLink(unit: UnitNumber, [slot1, slot2, slot3, slot4, slot5, fullLink]: UnitCoreLinkJsonStructure): UnitCoreLink | undefined {
+  const linkUnits = UnitCoreLink.getCoreLinkUnits(unit);
   let coreLink = new UnitCoreLink(unit);
 
   function getUnit(rate: CoreLinkUnit['rate']): CoreLinkUnit {
     switch (rate) {
-    case 100: return coreLink.fitUnit;
-    case 75: return coreLink.rankSSFitUnit;
-    case 60: return coreLink.rankSFitUnit;
-    case 45: return coreLink.rankAFitUnit;
+    case 100: return linkUnits[0];
+    case 75:  return linkUnits[1];
+    case 60:  return linkUnits[2];
+    case 45:  return linkUnits[3];
+    default:  return {} as never;
     }
   }
 

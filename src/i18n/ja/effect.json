@@ -125,7 +125,7 @@
     "neri_wins": "ネリの勝ち～！",
     "ho_ho": "ほほう？",
     "anti_air_formation": "対空フォーメーション！",
-    "arrogance_and_anger": "傲慢と憤怒",
+    "arrogance_and_anger": "傲慢と憤怒！",
     "artillery_command": "砲撃指揮",
     "reloading": "再装填",
     "hardpoint_equipment_armament": "H.P.E$t(effect:tag_separator)武装",
@@ -449,7 +449,7 @@
 
       "atk_value_up": "攻撃力 +{{value}}",
       "def_value_up": "防御力 +{{value}}",
-      "atk_value_up_by_self_value": "$t(effect:unit.self)の攻撃力の +{{value}}% だけ攻撃力アップ",
+      "atk_value_up_by_unit_value": "$t(effect:quote)$t(unit:display, { \"number\": {{unit}} })$t(effect:unquote)の攻撃力の +{{value}}% だけ攻撃力アップ",
 
       "atk_up": "攻撃力 +{{value}}%",
       "atk_down": "攻撃力 -{{value}}%",
@@ -576,6 +576,10 @@
   "quote": "「",
   "unquote": "」",
   "with_quotes": "$t(effect:quote){{value}}$t(effect:unquote)",
+
+  "tag_quote": "<",
+  "tag_unquote": ">",
+  "with_tag_quotes": "$t(effect:tag_quote){{value}}$t(effect:tag_unquote)",
 
   "separator": "、",
   "and_separator": "と",

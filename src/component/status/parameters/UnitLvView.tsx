@@ -13,8 +13,8 @@ import UnitLvModeToggleButton from '../UnitLvModeToggleButton';
 import { UnitNumber } from '../../../domain/UnitBasicInfo';
 import { UnitLvMode, UnitLvValue, UnitMaxLvValue } from '../../../domain/status/UnitLv';
 
-import { useRemainPoints, useUnitLv, useUsedPointReset } from '../../../state/status/parameters/unitLvStatusState';
-import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
+import { useRemainPoints, useUnitLv, useUsedPointReset } from '../../../state/status/parameters/UnitLvStatusHook';
+import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
 
 const unitLvStyle: CSSObject = {
   fontSize: '1.4em',
@@ -126,8 +126,8 @@ const UnitLvView: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <div>
-      <div css={{ display: 'flex' }}>
+    <div css={{ color: '#ccc' }}>
+      <div css={{ display: 'flex', alignItems: 'center' }}>
         <div css={unitLvStyle}>
           <span css={{ marginRight: 5 }}>{t('lv')}</span>
           <UnitLvValueView />

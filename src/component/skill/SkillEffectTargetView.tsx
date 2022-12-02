@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import UnitAliasView from './UnitAliasView';
 
-import { SkillEffectTarget, SkillEffectTargetKind } from '../../domain/skill/SkillEffectData';
+import { SkillEffectTarget, SkillEffectTargetKind } from '../../domain/skill/SkillEffectTarget';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 import { isUnitAlias } from '../../domain/UnitAlias';
 

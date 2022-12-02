@@ -21,24 +21,51 @@ import {
   MilliValue,
   multiplyMilliValue,
   multiplyValue,
+  reverseSign,
   sumMicroValues,
   sumMilliPercentageValues,
   sumMilliValues,
-  sumValues,
-  ValueTypes
+  sumValues
 } from '../ValueUnit';
+import { ParameterPerLevel } from './UnitStatusData';
+import { UnitLvValue } from './UnitLv';
+import { UnitNumber } from '../UnitBasicInfo';
 import { UnitRankUpBonus } from './UnitRankUpBonusData';
 
-function reverseSign(value: ValueTypes): ValueTypes {
-  if ('milliValue' in value) {
-    return { milliValue: -value.milliValue };
-  } else if ('microValue' in value) {
-    return { microValue: -value.microValue };
-  } else if ('milliPercentage' in value) {
-    return { milliPercentage: -value.milliPercentage };
-  }
+import { unitStatusData } from '../../data/unitStatusData';
 
-  return { value: -value.value };
+type IntegerValueParameterPerLevel = ParameterPerLevel<keyof IntegerValue>
+type MilliValueParameterPerLevel = ParameterPerLevel<keyof MilliValue>
+
+function calculateParam(...args: [unit: keyof IntegerValue, data: IntegerValueParameterPerLevel, lv: UnitLvValue]): IntegerValue
+function calculateParam(...args: [unit: keyof MilliValue,   data: MilliValueParameterPerLevel,   lv: UnitLvValue]): MilliValue
+function calculateParam(
+  ...args:
+    [unit: keyof IntegerValue, data: IntegerValueParameterPerLevel, lv: UnitLvValue] |
+    [unit: keyof MilliValue,   data: MilliValueParameterPerLevel,   lv: UnitLvValue]
+): IntegerValue | MilliValue {
+  const isInteger = args[0] === 'value';
+  const [, , lv] = args;
+
+  const base = isInteger ? args[1][1].value : args[1][1].milliValue;
+  const perLv = '90' in args[1] ?
+    ((isInteger ? args[1][90].value  : args[1][90].milliValue)  - base) / 89 :
+    ((isInteger ? args[1][100].value : args[1][100].milliValue) - base) / 99;
+
+  const calculated = base + Math.round(perLv * (lv - 1));
+  return isInteger ? { value: calculated } : { milliValue: calculated };
+}
+
+export function calculateUnitBaseHp(unit: UnitNumber, lv: UnitLvValue): IntegerValue {
+  return calculateParam('value', unitStatusData[unit].hp, lv);
+}
+
+export function calculateUnitBaseAtk(unit: UnitNumber, lv: UnitLvValue): MilliValue {
+  return calculateParam('milliValue', unitStatusData[unit].atk, lv);
+}
+
+export function calculateUnitBaseDef(unit: UnitNumber, lv: UnitLvValue): MilliValue {
+  return calculateParam('milliValue', unitStatusData[unit].def, lv);
 }
 
 function pickValues(...keys: IntegerValueStatusEffectKey[]): (...effects: StatusEffect[]) => IntegerValue[]
@@ -56,16 +83,16 @@ function pickValues(...keys: StatusEffectKey[]): (...effects: StatusEffect[]) =>
         const v = e[key];
         if (v) {
           switch (key) {
-          case 'hp_down':
-          case 'atk_down':
-          case 'def_down':
-          case 'acc_down':
-          case 'eva_down':
-          case 'cri_down':
-          case 'spd_down':
-          case 'fire_resist_down':
-          case 'ice_resist_down':
-          case 'electric_resist_down':
+          case Effect.HpDown:
+          case Effect.AtkDown:
+          case Effect.DefDown:
+          case Effect.AccDown:
+          case Effect.EvaDown:
+          case Effect.CriDown:
+          case Effect.SpdDown:
+          case Effect.FireResistDown:
+          case Effect.IceResistDown:
+          case Effect.ElectricResistDown:
             values.push(reverseSign(v));
             break;
           default:
@@ -87,7 +114,8 @@ export class UnitHpStatusParameter {
   readonly hpFullLinkBonus: IntegerValue;
 
   constructor(
-    baseHp: IntegerValue,
+    unit: UnitNumber,
+    lv: UnitLvValue,
     hpEnhancement: HpEnhancementStatusEffect,
     chip1: StatusEffect,
     chip2: StatusEffect,
@@ -99,12 +127,13 @@ export class UnitHpStatusParameter {
   ) {
     const _fullLinkBonus: FullLinkBonus | Record<string, never> = fullLinkBonus ?? {};
 
+    const baseHp             = calculateUnitBaseHp(unit, lv);
     const rankUpBonusSummary = sumValues(...pickValues(Effect.HpUp)(...Object.values(rankUpBonus ?? {})));
     const hpAddition         = sumValues(...pickValues(Effect.HpUp, Effect.HpDown)(hpEnhancement, chip1, chip2, os, gear));
     const hp                 = sumValues(baseHp, rankUpBonusSummary, hpAddition);
 
-    this.hpCoreLinkBonus = 'hp_up' in coreLinkBonus ? multiplyValue(hp, coreLinkBonus.hp_up) : { value: 0 };
-    this.hpFullLinkBonus = 'hp_up' in _fullLinkBonus ? multiplyValue(hp, _fullLinkBonus.hp_up) : { value: 0 };
+    this.hpCoreLinkBonus = Effect.HpUp in coreLinkBonus ? multiplyValue(hp, coreLinkBonus.hp_up) : { value: 0 };
+    this.hpFullLinkBonus = Effect.HpUp in _fullLinkBonus ? multiplyValue(hp, _fullLinkBonus.hp_up) : { value: 0 };
 
     this.hpEffectValue = sumValues(hpAddition, this.hpCoreLinkBonus, this.hpFullLinkBonus);
 
@@ -119,7 +148,8 @@ export class UnitAtkStatusParameter {
   readonly atkCoreLinkBonus: MilliValue;
 
   constructor(
-    baseAtk: MilliValue,
+    unit: UnitNumber,
+    lv: UnitLvValue,
     atkEnhancement: AtkEnhancementStatusEffect,
     chip1: StatusEffect,
     chip2: StatusEffect,
@@ -128,11 +158,12 @@ export class UnitAtkStatusParameter {
     coreLinkBonus: CoreLinkBonus | Record<string, never>,
     rankUpBonus: UnitRankUpBonus | undefined
   ) {
+    const baseAtk            = calculateUnitBaseAtk(unit, lv);
     const rankUpBonusSummary = sumMilliValues(...pickValues(Effect.AtkUp)(...Object.values(rankUpBonus ?? {})));
     const atkAddition        = sumMilliValues(...pickValues(Effect.AtkUp, Effect.AtkDown)(atkEnhancement, chip1, chip2, os, gear));
     const atk                = sumMilliValues(baseAtk, rankUpBonusSummary, atkAddition);
 
-    this.atkCoreLinkBonus = 'atk_up' in coreLinkBonus ? multiplyMilliValue(atk, coreLinkBonus.atk_up) : { milliValue: 0 };
+    this.atkCoreLinkBonus = Effect.AtkUp in coreLinkBonus ? multiplyMilliValue(atk, coreLinkBonus.atk_up) : { milliValue: 0 };
     this.atkEffectValue = sumMilliValues(atkAddition, this.atkCoreLinkBonus);
 
     this.atk = sumMilliValues(atk, this.atkCoreLinkBonus);
@@ -146,7 +177,8 @@ export class UnitDefStatusParameter {
   readonly defCoreLinkBonus: MilliValue;
 
   constructor(
-    baseDef: MilliValue,
+    unit: UnitNumber,
+    lv: UnitLvValue,
     defEnhancement: DefEnhancementStatusEffect,
     chip1: StatusEffect,
     chip2: StatusEffect,
@@ -155,11 +187,12 @@ export class UnitDefStatusParameter {
     coreLinkBonus: CoreLinkBonus | Record<string, never>,
     rankUpBonus: UnitRankUpBonus | undefined
   ) {
+    const baseDef            = calculateUnitBaseDef(unit, lv);
     const rankUpBonusSummary = sumMilliValues(...pickValues(Effect.DefUp)(...Object.values(rankUpBonus ?? {})));
     const defAddition        = sumMilliValues(...pickValues(Effect.DefUp, Effect.DefDown)(defEnhancement, chip1, chip2, os, gear));
     const def                = sumMilliValues(baseDef, rankUpBonusSummary, defAddition);
 
-    this.defCoreLinkBonus = 'def_up' in coreLinkBonus ? multiplyMilliValue(def, coreLinkBonus.def_up) : { milliValue: 0 };
+    this.defCoreLinkBonus = Effect.DefUp in coreLinkBonus ? multiplyMilliValue(def, coreLinkBonus.def_up) : { milliValue: 0 };
     this.defEffectValue = sumMilliValues(defAddition, this.defCoreLinkBonus);
 
     this.def = sumMilliValues(def, this.defCoreLinkBonus);
@@ -172,7 +205,7 @@ export class UnitAccStatusParameter {
   readonly accEffectValue: MilliPercentageValue;
 
   constructor(
-    baseAcc: MilliPercentageValue,
+    unit: UnitNumber,
     accEnhancement: AccEnhancementStatusEffect,
     chip1: StatusEffect,
     chip2: StatusEffect,
@@ -187,11 +220,11 @@ export class UnitAccStatusParameter {
 
     this.accEffectValue = sumMilliPercentageValues(
       ...pickValues(Effect.AccUp, Effect.AccDown)(accEnhancement, chip1, chip2, os, gear),
-      ...('acc_up' in coreLinkBonus ? [coreLinkBonus.acc_up] : []),
-      ...('acc_up' in _fullLinkBonus ? [_fullLinkBonus.acc_up] : [])
+      ...(Effect.AccUp in coreLinkBonus ? [coreLinkBonus.acc_up] : []),
+      ...(Effect.AccUp in _fullLinkBonus ? [_fullLinkBonus.acc_up] : [])
     );
 
-    this.acc = sumMilliPercentageValues(baseAcc, rankUpBonusSummary, this.accEffectValue);
+    this.acc = sumMilliPercentageValues(unitStatusData[unit].acc, rankUpBonusSummary, this.accEffectValue);
   }
 }
 
@@ -201,7 +234,7 @@ export class UnitEvaStatusParameter {
   readonly evaEffectValue: MilliPercentageValue;
 
   constructor(
-    baseEva: MilliPercentageValue,
+    unit: UnitNumber,
     evaEnhancement: EvaEnhancementStatusEffect,
     chip1: StatusEffect,
     chip2: StatusEffect,
@@ -216,10 +249,10 @@ export class UnitEvaStatusParameter {
 
     this.evaEffectValue = sumMilliPercentageValues(
       ...pickValues(Effect.EvaUp, Effect.EvaDown)(evaEnhancement, chip1, chip2, os, gear),
-      ...('eva_up' in coreLinkBonus ? [coreLinkBonus.eva_up] : []),
-      ...('eva_up' in _fullLinkBonus ? [_fullLinkBonus.eva_up] : [])
+      ...(Effect.EvaUp in coreLinkBonus ? [coreLinkBonus.eva_up] : []),
+      ...(Effect.EvaUp in _fullLinkBonus ? [_fullLinkBonus.eva_up] : [])
     );
-    this.eva = sumMilliPercentageValues(baseEva, rankUpBonusSummary, this.evaEffectValue);
+    this.eva = sumMilliPercentageValues(unitStatusData[unit].eva, rankUpBonusSummary, this.evaEffectValue);
   }
 }
 
@@ -229,7 +262,7 @@ export class UnitCriStatusParameter {
   readonly criEffectValue: MilliPercentageValue;
 
   constructor(
-    baseCri: MilliPercentageValue,
+    unit: UnitNumber,
     criEnhancement: CriEnhancementStatusEffect,
     chip1: StatusEffect,
     chip2: StatusEffect,
@@ -244,10 +277,10 @@ export class UnitCriStatusParameter {
 
     this.criEffectValue = sumMilliPercentageValues(
       ...pickValues(Effect.CriUp, Effect.CriDown)(criEnhancement, chip1, chip2, os, gear),
-      ...('cri_up' in coreLinkBonus ? [coreLinkBonus.cri_up] : []),
-      ...('cri_up' in _fullLinkBonus ? [_fullLinkBonus.cri_up] : [])
+      ...(Effect.CriUp in coreLinkBonus ? [coreLinkBonus.cri_up] : []),
+      ...(Effect.CriUp in _fullLinkBonus ? [_fullLinkBonus.cri_up] : [])
     );
-    this.cri = sumMilliPercentageValues(baseCri, rankUpBonusSummary, this.criEffectValue);
+    this.cri = sumMilliPercentageValues(unitStatusData[unit].cri, rankUpBonusSummary, this.criEffectValue);
   }
 }
 
@@ -257,7 +290,7 @@ export class UnitSpdStatusParameter {
   readonly spdEffectValue: MicroValue;
 
   constructor(
-    baseSpd: MicroValue,
+    unit: UnitNumber,
     chip1: StatusEffect,
     chip2: StatusEffect,
     os: StatusEffect,
@@ -271,10 +304,10 @@ export class UnitSpdStatusParameter {
 
     this.spdEffectValue = sumMicroValues(
       ...pickValues(Effect.SpdUp, Effect.SpdDown)(chip1, chip2, os, gear),
-      ...('spd_up' in coreLinkBonus ? [coreLinkBonus.spd_up] : []),
-      ...('spd_up' in _fullLinkBonus ? [_fullLinkBonus.spd_up] : [])
+      ...(Effect.SpdUp in coreLinkBonus ? [coreLinkBonus.spd_up] : []),
+      ...(Effect.SpdUp in _fullLinkBonus ? [_fullLinkBonus.spd_up] : [])
     );
-    this.spd = sumMicroValues(baseSpd, rankUpBonusSummary, this.spdEffectValue);
+    this.spd = sumMicroValues(unitStatusData[unit].spd, rankUpBonusSummary, this.spdEffectValue);
   }
 }
 
@@ -297,37 +330,19 @@ abstract class UnitAttributeResistStatusParameter {
 }
 
 export class UnitFireResistStatusParameter extends UnitAttributeResistStatusParameter {
-  constructor(
-    baseFireResist: MilliPercentageValue,
-    chip1: StatusEffect,
-    chip2: StatusEffect,
-    os: StatusEffect,
-    gear: StatusEffect
-  ) {
-    super([Effect.FireResistUp, Effect.FireResistDown], baseFireResist, chip1, chip2, os, gear);
+  constructor(unit: UnitNumber, chip1: StatusEffect, chip2: StatusEffect, os: StatusEffect, gear: StatusEffect) {
+    super([Effect.FireResistUp, Effect.FireResistDown], unitStatusData[unit].fireResist, chip1, chip2, os, gear);
   }
 }
 
 export class UnitIceResistStatusParameter extends UnitAttributeResistStatusParameter {
-  constructor(
-    baseIceResist: MilliPercentageValue,
-    chip1: StatusEffect,
-    chip2: StatusEffect,
-    os: StatusEffect,
-    gear: StatusEffect
-  ) {
-    super([Effect.IceResistUp, Effect.IceResistDown], baseIceResist, chip1, chip2, os, gear);
+  constructor(unit: UnitNumber, chip1: StatusEffect, chip2: StatusEffect, os: StatusEffect, gear: StatusEffect) {
+    super([Effect.IceResistUp, Effect.IceResistDown], unitStatusData[unit].iceResist, chip1, chip2, os, gear);
   }
 }
 
 export class UnitElectricResistStatusParameter extends UnitAttributeResistStatusParameter {
-  constructor(
-    baseElectricResist: MilliPercentageValue,
-    chip1: StatusEffect,
-    chip2: StatusEffect,
-    os: StatusEffect,
-    gear: StatusEffect
-  ) {
-    super([Effect.ElectricResistUp, Effect.ElectricResistDown], baseElectricResist, chip1, chip2, os, gear);
+  constructor(unit: UnitNumber, chip1: StatusEffect, chip2: StatusEffect, os: StatusEffect, gear: StatusEffect) {
+    super([Effect.ElectricResistUp, Effect.ElectricResistDown], unitStatusData[unit].electricResist, chip1, chip2, os, gear);
   }
 }

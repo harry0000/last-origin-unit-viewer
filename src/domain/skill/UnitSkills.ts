@@ -30,7 +30,7 @@ import { SkillAreaType } from './SkillAreaOfEffect';
 import { SkillEffectActivationRate } from './SkillEffectActivationRate';
 import { SkillEffectScaleFactor } from './SkillEffectScaleFactor';
 import { SkillEffectTag, SkillEffectTagStackValue } from './SkillEffectTag';
-import { SkillEffectTarget } from './SkillEffectData';
+import { SkillEffectTarget } from './SkillEffectTarget';
 import { SkillEffectTerm, SkillEffectTermRoundsValue } from './SkillEffectTerm';
 import { SkillEffectTimesValue } from './SkillEffectTimesValue';
 import { UnitForms } from '../UnitFormValue';
@@ -54,8 +54,10 @@ type ValueWithAddition<T extends ValueUnit> =
 
 type TagStackEffectValue = { tag: SkillEffectTag } & Omit<SkillEffectAddition, 'tag'>
 
+export type SkillEffectKey = Exclude<Effect, EquipmentEffectOnly>
+
 export type SkillEffectValue = Readonly<{
-  [E in Exclude<Effect, EquipmentEffectOnly>]?:
+  [E in SkillEffectKey]?:
     E extends NoValueEffectKey ?
       SkillEffectAddition :
     E extends typeof Effect.CooperativeAttack ?
@@ -94,11 +96,12 @@ export type SkillEffectValue = Readonly<{
     E extends typeof Effect.TagUnstack ?
       {
         tag: SkillEffectTag,
-        effect?: Effect,
-        value: number
+        value: 1
       } & Omit<SkillEffectAddition, 'tag'> :
     E extends typeof Effect['FormChange' | 'FormRelease'] ?
       { form: UnitForms } & SkillEffectAddition :
+    E extends typeof Effect['AtkValueUpByUnitValue'] ?
+      ValueWithAddition<'milliPercentage'> & { unit: 90 } :
     E extends typeof Effect['DamageMultiplierUpByStatus'] ?
       ValueWithAddition<'milliPercentage'> & { status: 'eva' } :
     E extends MultipleMilliPercentageEffectKey ?
@@ -113,19 +116,17 @@ export type AroundSkillEffectValue = Readonly<{
   [Effect.FixedDamage]?: ValueWithAddition<'milliPercentage'>
 }>
 
+export type Conditions<T> = readonly [T] | readonly [T, T]
+
 export type SelfSkillEffect = Readonly<{
-  conditions?:
-    readonly [SelfSkillEffectActivationCondition] |
-    readonly [SelfSkillEffectActivationCondition, SelfSkillEffectActivationCondition],
+  conditions?: Conditions<SelfSkillEffectActivationCondition>,
   effective?: PassiveSkillEffective,
   scale_factor?: SkillEffectScaleFactor,
   details: { readonly self: SkillEffectValue }
 }>
 
-type TargetSkillEffect = Readonly<{
-  conditions?:
-    readonly [TargetSkillEffectActivationCondition] |
-    readonly [TargetSkillEffectActivationCondition, TargetSkillEffectActivationCondition],
+export type TargetSkillEffect = Readonly<{
+  conditions?: Conditions<TargetSkillEffectActivationCondition>,
   effective?: PassiveSkillEffective,
   scale_factor?: SkillEffectScaleFactor,
   target: SkillEffectTarget,
@@ -135,7 +136,7 @@ type TargetSkillEffect = Readonly<{
   }
 }>
 
-type AroundSkillEffect = Readonly<{
+export type AroundSkillEffect = Readonly<{
   conditions: readonly [SkillEffectActivationTrigger],
   details: { readonly around: AroundSkillEffectValue }
 }>

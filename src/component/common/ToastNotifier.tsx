@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Toast } from 'react-bootstrap';
 
-import { NotificationLevel, useNotification } from '../../state/ui/notificationState';
+import { NotificationLevel, useNotification } from '../../state/ui/NotificationState';
 
 const iconColors: Readonly<{ [key in NotificationLevel]: string }> = {
   info: '#007aff',

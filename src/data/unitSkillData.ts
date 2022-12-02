@@ -1548,7 +1548,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'self',
       effects: [{
         conditions: [{ trigger: 'start_wave' }],
-        details: { self: { battle_continuation: { base: { value: 50 }, per_lv_up: { value: 50 }, term: 'infinite', times: 1 } } }
+        details: { self: { battle_continuation: { base: { value: 50 }, per_lv_up: { value: 50 }, term: 'infinite', times: 1, cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'battle_continuation' }] } }],
         details: { self: { column_protect: { term: { for_rounds: 1 } } } }
@@ -6911,9 +6911,9 @@ export const unitSkillData: UnitSkillData = {
         details: {
           self: { eva_up: { base: { milliPercentage: 17500 }, per_lv_up: { milliPercentage: 2500 }, term: 'infinite', max_stack: 2 } },
           target: {
-            atk_up: { base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
-            cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
-            spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
+            atk_up: { tag: 'arrogance_and_anger', base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            cri_up: { tag: 'arrogance_and_anger', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            spd_up: { tag: 'arrogance_and_anger', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
           }
         }
       }]
@@ -7303,7 +7303,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'hardpoint_equipment_armament' }] } }],
         target: { kind: 'ally' },
-        details: { target: { atk_value_up_by_self_value: { tag: 'tactical_air_relay', base: { milliPercentage: 2200 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } } } }
+        details: { target: { atk_value_up_by_unit_value: { tag: 'tactical_air_relay', unit: 90, base: { milliPercentage: 2200 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'hardpoint_equipment_support' }] } }],
         target: { kind: 'ally' },
@@ -9823,7 +9823,8 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_wave' }],
         scale_factor: { per_units: { type: 'all' } },
-        details: { self: { atk_up: { tag: 'duel_preparation', base: { milliPercentage: 2500 }, per_lv_up: { milliPercentage: 250 }, term: 'infinite', cannot_be_dispelled: true } } }
+        // FIXME: Add cannot_be_dispelled attribute
+        details: { self: { atk_up: { tag: 'duel_preparation', base: { milliPercentage: 2500 }, per_lv_up: { milliPercentage: 250 }, term: 'infinite'/*, cannot_be_dispelled: true*/ } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ stack_ge: { tag: 'duel_preparation', value: 3 } }] } }],
         details: { self: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }

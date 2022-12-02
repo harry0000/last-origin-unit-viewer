@@ -10,7 +10,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import { SkillType } from '../../domain/skill/SkillType';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
-import { useSkillArea } from '../../state/skill/unitSkillState';
+import { useSkillArea } from '../../state/skill/UnitSkillHook';
 
 import { ifNonNullable } from '../../util/react';
 

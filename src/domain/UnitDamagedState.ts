@@ -1,4 +1,5 @@
 import { UnitNumber } from './UnitBasicInfo';
+import { IntegerValue, multiplyValue } from './ValueUnit';
 
 class UnitDamagedState {
 
@@ -15,6 +16,10 @@ class UnitDamagedState {
 
   get currentHpRate(): 25 | 100 {
     return this.isDamaged ? 25 : 100;
+  }
+
+  currentHpValue(maxHpValue: IntegerValue): IntegerValue {
+    return multiplyValue(maxHpValue, { milliPercentage: this.currentHpRate * 1_000 });
   }
 
   toggleDamagedState(): UnitDamagedState {

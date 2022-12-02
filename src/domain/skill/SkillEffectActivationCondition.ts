@@ -7,7 +7,6 @@ import { SkillEffectTag } from './SkillEffectTag';
 import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
 import { UnitKind, UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
-import { UnitStatusData } from '../status/UnitStatusData';
 
 export type UnitNotAlias = {
   not_alias: typeof UnitAlias['AngerOfHorde' | 'KouheiChurch']
@@ -69,17 +68,75 @@ type NotAffectedActivationState =
       readonly [typeof Effect.BattleContinuation]
   }>
 
+const AffectedSkillEffect = [
+  Effect.AtkUp,
+  Effect.AtkDown,
+  Effect.DefUp,
+  Effect.DefDown,
+  Effect.AccUp,
+  Effect.AccDown,
+  Effect.EvaUp,
+  Effect.EvaDown,
+  Effect.CriUp,
+  Effect.CriDown,
+  Effect.SpdUp,
+  Effect.SpdDown,
+  Effect.FireResistUp,
+  Effect.FireResistDown,
+  Effect.IceResistUp,
+  Effect.IceResistDown,
+  Effect.ElectricResistUp,
+  Effect.ElectricResistDown,
+  Effect.StatusResistUp,
+  Effect.RangeUp,
+  Effect.LightTypeDamageUp,
+  Effect.HeavyTypeDamageUp,
+  Effect.FixedDamageOverTime,
+  Effect.FixedFireDamageOverTime,
+  Effect.ActionCountUp,
+  Effect.ActionCountDown,
+  Effect.DamageMultiplierUp,
+  Effect.DefensePenetration,
+  Effect.DamageTakenIncreased,
+  Effect.DamageReduction,
+  Effect.MinimizeDamage,
+  Effect.Barrier,
+  Effect.TargetProtect,
+  Effect.FollowUpAttack,
+  Effect.IgnoreBarrierDr,
+  Effect.Marked,
+  Effect.Provoked,
+  Effect.Immovable
+] as const;
+export type AffectedSkillEffect = typeof AffectedSkillEffect extends ReadonlyArray<infer T> ? T : never;
+
+const affectedSkillEffectSet: ReadonlySet<Effect> = new Set(AffectedSkillEffect);
+export function isAffectedSkillEffect(arg: Effect): arg is AffectedSkillEffect {
+  return affectedSkillEffectSet.has(arg);
+}
+
+const AffectedAnyTypeEffect = [
+  Effect.BattleContinuation,
+  Effect.TagStack,
+  Effect.ColumnProtect,
+  Effect.RowProtect,
+  Effect.Reconnaissance
+] as const;
+export type AffectedAnyTypeEffect = typeof AffectedAnyTypeEffect extends ReadonlyArray<infer T> ? T : never;
+
+const affectedAnyTypeEffect: ReadonlySet<Effect> = new Set(AffectedAnyTypeEffect);
+export function isAffectedAnyTypeEffect(arg: Effect): arg is AffectedAnyTypeEffect {
+  return affectedAnyTypeEffect.has(arg);
+}
+
+export type AffectedEffect = AffectedSkillEffect | AffectedAnyTypeEffect
+
 type ActivationState =
   {
     [key in HPRateEffectActivationStateKey]?: number
   } &
   {
-    [key in StatusEffectActivationStateKey]?: {
-      status: Exclude<keyof UnitStatusData[UnitNumber], 'hp'>
-    }
-  } &
-  {
-    [EffectActivationState.Affected]?: Effect
+    [EffectActivationState.Affected]?: AffectedEffect
   } &
   {
     [EffectActivationState.Tagged]?: SkillEffectTag
@@ -87,23 +144,23 @@ type ActivationState =
   {
     [EffectActivationState.TaggedAffected]?: {
       tag: SkillEffectTag,
-      effects: ReadonlyArray<Effect>
+      effects: ReadonlyArray<AffectedEffect>
     }
   } &
   {
     [EffectActivationState.StackGe]?: {
       tag: SkillEffectTag,
-      effect?: Effect,
+      effect?: AffectedEffect,
       value: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 9
     }
-  } &
-  {
-    [EffectActivationState.Grid]?: GridState
   } |
   AffectedByActivationState
 
 export type ActivationSelfState =
   ActivationState &
+  {
+    [EffectActivationState.Grid]?: GridState
+  }  &
   {
     [EffectActivationState.NotTagged]?: SkillEffectTag
   } &
@@ -118,8 +175,8 @@ export type ActivationSelfState =
   } &
   {
     [EffectActivationState.StatusGreaterOrEqualThan]?: {
-      status: keyof UnitStatusData[UnitNumber],
-      than: keyof UnitStatusData[UnitNumber],
+      status: 'atk' | 'def',
+      than: 'atk' | 'def',
       value: number
     }
   }
@@ -128,6 +185,11 @@ export type ActivationTargetState =
   ActivationState &
   {
     [EffectActivationState.Grid]?: Exclude<GridState, typeof GridState.AreaOfEffect>
+  } &
+  {
+    [key in StatusEffectActivationStateKey]?: {
+      status: 'atk' | 'def' | 'acc' | 'eva' | 'cri' | 'spd'
+    }
   } &
   {
     [EffectActivationState.Unit]?: typeof UnitAlias.SteelLine

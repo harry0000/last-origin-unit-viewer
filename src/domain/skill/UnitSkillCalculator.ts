@@ -205,12 +205,12 @@ function calculateAddition(
   lv: SkillLv
 ): SkillEffectValue[NoValueEffectKey] {
   return {
-    tag: addition.tag,
-    max_stack: addition.max_stack,
-    term: calculateTerm(addition.term, lv),
-    rate: calculateRate(addition.rate, lv),
-    times: calculateTimes(addition.times, lv),
-    cannot_be_dispelled: addition.cannot_be_dispelled
+    ...(addition.tag ? { tag: addition.tag } : {}),
+    ...(addition.max_stack ? { max_stack: addition.max_stack } : {}),
+    ...(addition.term ? { term: calculateTerm(addition.term, lv) } : {}),
+    ...(addition.rate ? { rate: calculateRate(addition.rate, lv) } : {}),
+    ...(addition.times ? { times: calculateTimes(addition.times, lv) } : {}),
+    ...(addition.cannot_be_dispelled ? { cannot_be_dispelled: addition.cannot_be_dispelled } : {})
   };
 }
 
@@ -406,7 +406,6 @@ function calculateEffectValue(
       [entry[0]]: {
         ...calculateAddition(entry[1], lv),
         tag: entry[1].tag,
-        effect: entry[1].effect,
         value: entry[1].value
       }
     };
@@ -415,6 +414,13 @@ function calculateEffectValue(
       [entry[0]]: {
         ...calculateMilliPercentageEffectValue(entry[1], lv, effectLv),
         status: entry[1].status
+      }
+    };
+  case Effect.AtkValueUpByUnitValue:
+    return {
+      [entry[0]]: {
+        ...calculateMilliPercentageEffectValue(entry[1], lv, effectLv),
+        unit: entry[1].unit
       }
     };
   case Effect.DefDown:
@@ -477,8 +483,9 @@ function calculateEffect(
     const target = calculateEffectDataValue(data.details.target, lv, effectLv);
     return self || target ?
       {
-        conditions: data.conditions,
-        scale_factor: data.scale_factor,
+        ...(data.conditions ? { conditions: data.conditions } : {}),
+        ...(data.effective ? { effective: data.effective } : {}),
+        ...(data.scale_factor ? { scale_factor: data.scale_factor } : {}),
         target: data.target,
         details: Object.assign(
           self ? { self } : {},
@@ -489,9 +496,9 @@ function calculateEffect(
   } else {
     const self = calculateEffectDataValue(data.details.self, lv, effectLv);
     return self && {
-      conditions: data.conditions,
-      effective: data.effective,
-      scale_factor: data.scale_factor,
+      ...(data.conditions ? { conditions: data.conditions } : {}),
+      ...(data.effective ? { effective: data.effective } : {}),
+      ...(data.scale_factor ? { scale_factor: data.scale_factor } : {}),
       details: { self }
     };
   }

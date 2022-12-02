@@ -182,7 +182,7 @@ export function matchSkillConditions(
     switch (condition) {
     case StatusSkillEffectCondition.AtkUp:
       return checkAllSkillEffectDetails(actives, passives, e =>
-        !!e.atk_up || !!e.atk_value_up || !!e.atk_value_up_by_self_value
+        !!e.atk_up || !!e.atk_value_up || !!e.atk_value_up_by_unit_value
       );
     case StatusSkillEffectCondition.AtkDown:
       return checkAllEnemyTargetSkillEffect(actives, passives, e => !!e.atk_down);

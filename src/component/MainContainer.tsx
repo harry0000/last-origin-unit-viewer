@@ -13,7 +13,7 @@ import UnitDragPreview from './squad/UnitDragPreview';
 import UnitList from './unit/UnitList';
 import UnitSelector from './unit/UnitSelector';
 
-import { useRemoveSquadUnitDrop } from '../state/squad/squadState';
+import { useRemoveSquadUnitDrop } from '../state/squad/SquadHook';
 
 import './MainContainer.css';
 

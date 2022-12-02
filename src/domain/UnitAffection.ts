@@ -1,6 +1,5 @@
-import { IntegerValue } from './ValueUnit';
 import { BioroidUnitNumber } from './UnitBasicInfo';
-
+import { IntegerValue } from './ValueUnit';
 
 export type AffectionBonus = Readonly<{
   buff_debuff_lv_up: { [key in keyof IntegerValue]: 1 }

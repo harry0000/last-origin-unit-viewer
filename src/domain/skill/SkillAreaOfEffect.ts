@@ -1,3 +1,5 @@
+const FixedAreaPrefix = 'fixed_' as const;
+
 export const SkillAreaType = {
   Self: 'self' ,
   Single: 'single',
@@ -81,12 +83,18 @@ export const SkillAreaType = {
   AllAdjacentWithoutBackLine: 'all_adjacent_without_back_line',
   AllAdjacentWithoutFrontLineWithBackward: 'all_adjacent_without_front_line_with_backward',
   AllAdjacent: 'all_adjacent',
-  FixedFrontLine: 'fixed_front_line',
-  FixedBackLine: 'fixed_back_line',
-  FixedMiddleRow: 'fixed_middle_row',
-  FixedCross: 'fixed_cross',
-  FixedDiagonal: 'fixed_diagonal',
-  FixedAllAdjacentWithoutFront: 'fixed_all_adjacent_without_front',
-  FixedAll: 'fixed_all',
+  FixedFrontLine: `${FixedAreaPrefix}front_line`,
+  FixedBackLine: `${FixedAreaPrefix}back_line`,
+  FixedMiddleRow: `${FixedAreaPrefix}middle_row`,
+  FixedCross: `${FixedAreaPrefix}cross`,
+  FixedDiagonal: `${FixedAreaPrefix}diagonal`,
+  FixedAllAdjacentWithoutFront: `${FixedAreaPrefix}all_adjacent_without_front`,
+  FixedAll: `${FixedAreaPrefix}all`
 } as const;
 export type SkillAreaType = typeof SkillAreaType[keyof typeof SkillAreaType]
+
+export type FixedSkillAreaType<T extends SkillAreaType = SkillAreaType> = T extends `${typeof FixedAreaPrefix}${string}` ? T : never
+
+export function isFixedSkillAreaType(arg: SkillAreaType): arg is FixedSkillAreaType {
+  return arg.startsWith(FixedAreaPrefix);
+}

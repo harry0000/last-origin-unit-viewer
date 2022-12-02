@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next';
 import CircleImageSwitch from '../common/CircleImageSwitch';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
-import { useSelectedUnit } from '../../state/selector/unitSelectorState';
-import { useUnitDamagedState } from '../../state/status/unitDamagedState';
+import { useSelectedUnit } from '../../state/selector/UnitSelectorHook';
+import { useUnitDamagedState } from '../../state/status/UnitDamagedHook';
 
 const DamagedStateSwitch: React.FC<{
   disabled?: boolean,

@@ -26,7 +26,7 @@ export const Effect = {
   FlyingTypeDamageDown: 'flying_type_damage_down',
   AtkValueUp: 'atk_value_up',
   DefValueUp: 'def_value_up',
-  AtkValueUpBySelfValue: 'atk_value_up_by_self_value',
+  AtkValueUpByUnitValue: 'atk_value_up_by_unit_value',
   HpUp: 'hp_up',
   HpDown: 'hp_down',
   AtkUp: 'atk_up',

@@ -69,16 +69,18 @@ export function isFormChangeUnitSkill<N extends FormChangeUnitNumbers>(arg: Unit
 
 abstract class UnitSkill {
 
-  readonly unit: UnitBasicInfo;
+  readonly #unit: UnitBasicInfo;
   readonly skillLv: UnitSkillLvValue;
 
   protected constructor(
     unit: UnitBasicInfo,
     skillLv?: UnitSkillLvValue
   ) {
-    this.unit    = unit;
+    this.#unit   = unit;
     this.skillLv = skillLv ?? new UnitSkillLvValue(unit);
   }
+
+  abstract get unit(): UnitBasicInfo
 
   protected abstract updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill
 
@@ -145,9 +147,9 @@ abstract class UnitSkill {
   get hasPassive2Skill(): boolean { return !!this.passive2SkillData; }
   get hasPassive3Skill(): boolean { return !!this.passive3SkillData; }
 
-  get isPassive1RankUpSkill(): boolean { return UnitRankComparator.a.greaterThan(this.unit.rank); }
-  get isPassive2RankUpSkill(): boolean { return UnitRankComparator.s.greaterThan(this.unit.rank); }
-  get isPassive3RankUpSkill(): boolean { return UnitRankComparator.ss.greaterThan(this.unit.rank); }
+  get isPassive1RankUpSkill(): boolean { return UnitRankComparator.a.greaterThan(this.#unit.rank); }
+  get isPassive2RankUpSkill(): boolean { return UnitRankComparator.s.greaterThan(this.#unit.rank); }
+  get isPassive3RankUpSkill(): boolean { return UnitRankComparator.ss.greaterThan(this.#unit.rank); }
 
   changeActive1SkillLv(lv: SkillLv): UnitSkill {
     return this.updateSkillLvValue(this.skillLv.setActive1Lv(lv));
@@ -189,6 +191,10 @@ class FormLessUnitSkill extends UnitSkill {
     this.#unit = unit;
   }
 
+  override get unit(): FormLessUnitBasicInfo {
+    return this.#unit;
+  }
+
   protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
     return new FormLessUnitSkill(this.#unit, lv);
   }
@@ -225,6 +231,10 @@ abstract class FormChangeUnitSkill<N extends FormChangeUnitNumbers> extends Unit
     this.form = form ?? UnitFormValue.build(unit);
   }
 
+  override get unit(): FormChangeUnitBasicInfo<N> {
+    return this.formChangeUnit;
+  }
+
   protected abstract updateUnitFormValue(form: UnitFormValue<N>): FormChangeUnitSkill<N>
 
   protected get unitNumber(): N {
@@ -240,7 +250,11 @@ abstract class FormChangeUnitSkill<N extends FormChangeUnitNumbers> extends Unit
   }
 
   hasFormPassive1Skill(): boolean {
-    return !('area' in unitSkillData[this.unitNumber].passive[0]);
+    const passive = unitSkillData[this.unitNumber].passive;
+    return (
+      !!passive[0] &&
+      !('area' in passive[0])
+    );
   }
 
   hasFormPassive2Skill(): boolean {

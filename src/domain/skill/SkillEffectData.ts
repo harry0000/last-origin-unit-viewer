@@ -1,6 +1,5 @@
 import { Effect } from '../Effect';
 import {
-  EquipmentEffectOnly,
   IntegerValueEffectKey,
   MicroValueEffectKey,
   MilliPercentageEffectKey,
@@ -15,21 +14,17 @@ import { PassiveSkillEffective } from './SkillEffective';
 import {
   SelfSkillEffectActivationCondition,
   SkillEffectActivationTrigger,
-  TargetSkillEffectActivationCondition,
-  UnitAliasAndRole,
-  UnitAliasAndType,
-  UnitAliasExceptUnit,
-  UnitNotAlias,
-  UnitTypeAndRole
+  TargetSkillEffectActivationCondition
 } from './SkillEffectActivationCondition';
 import { SkillEffectActivationRate } from './SkillEffectActivationRate';
+import { Conditions, SkillEffectKey } from './UnitSkills';
 import { SkillEffectScaleFactor } from './SkillEffectScaleFactor';
 import { SkillEffectTag, SkillEffectTagStackValue } from './SkillEffectTag';
+import { SkillEffectTarget } from './SkillEffectTarget';
 import { SkillEffectTerm, SkillEffectTermRoundsValue } from './SkillEffectTerm';
 import { SkillEffectTimesValue } from './SkillEffectTimesValue';
-import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
-import { UnitKind, UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
+import { UnitNumber } from '../UnitBasicInfo';
 
 import { isRecord } from '../../util/object';
 
@@ -83,7 +78,7 @@ type ValueWithAddition<T extends ValueUnit> =
 type TagStackEffectDataValue = { tag: SkillEffectTag } & Omit<SkillEffectAddition, 'tag'>
 
 export type SkillEffectDataValue = Readonly<{
-  [E in Exclude<Effect, EquipmentEffectOnly>]?:
+  [E in SkillEffectKey]?:
     E extends NoValueEffectKey ?
       SkillEffectAddition :
     E extends typeof Effect.CooperativeAttack ?
@@ -126,11 +121,12 @@ export type SkillEffectDataValue = Readonly<{
     E extends typeof Effect.TagUnstack ?
       {
         tag: SkillEffectTag,
-        effect?: Effect,
-        value: number
+        value: 1
       } & Omit<SkillEffectAddition, 'tag'> :
     E extends typeof Effect['FormChange' | 'FormRelease'] ?
       { form: UnitForms } & SkillEffectAddition :
+    E extends typeof Effect['AtkValueUpByUnitValue'] ?
+      ValueWithAddition<'milliPercentage'> & { unit: 90 } :
     E extends typeof Effect['DamageMultiplierUpByStatus'] ?
       ValueWithAddition<'milliPercentage'> & { status: 'eva' } :
     E extends MultipleMilliPercentageEffectKey ?
@@ -141,48 +137,19 @@ export type SkillEffectDataValue = Readonly<{
       never
 }>
 
-export const SkillEffectTargetKind = {
-  Ally: 'ally',
-  AllyExceptSelf: 'ally_except_self',
-  AllyGrid: 'ally_grid', // for summon skill effects
-  Enemy: 'enemy'
-} as const;
-export type SkillEffectTargetKind = typeof SkillEffectTargetKind[keyof typeof SkillEffectTargetKind]
-
-export type SkillEffectTarget = Readonly<{
-  kind: typeof SkillEffectTargetKind['Ally' | 'AllyExceptSelf'],
-  conditions?:
-    ReadonlyArray<
-      UnitNumber |
-      UnitKind | UnitType | UnitRole |
-      UnitTypeAndRole |
-      UnitAlias | UnitNotAlias |
-      UnitAliasAndType | UnitAliasAndRole | UnitAliasExceptUnit
-    >
-} | {
-  kind: typeof SkillEffectTargetKind.Enemy,
-  conditions?: ReadonlyArray<UnitType | UnitRole>
-} | {
-  kind: typeof SkillEffectTargetKind.AllyGrid
-}>
-
 export type AroundSkillEffectDataValue = Readonly<{
   [Effect.FixedDamage]?: ValueWithAddition<'milliPercentage'>
 }>
 
 type SelfSkillEffect = Readonly<{
-  conditions?:
-    readonly [SelfSkillEffectActivationCondition] |
-    readonly [SelfSkillEffectActivationCondition, SelfSkillEffectActivationCondition],
+  conditions?: Conditions<SelfSkillEffectActivationCondition>,
   effective?: PassiveSkillEffective,
   scale_factor?: SkillEffectScaleFactor,
   details: { readonly self: SkillEffectDataValue }
 }>
 
 type TargetSkillEffect = Readonly<{
-  conditions?:
-    readonly [TargetSkillEffectActivationCondition] |
-    readonly [TargetSkillEffectActivationCondition, TargetSkillEffectActivationCondition],
+  conditions?: Conditions<TargetSkillEffectActivationCondition>,
   effective?: PassiveSkillEffective,
   scale_factor?: SkillEffectScaleFactor,
   target: SkillEffectTarget,

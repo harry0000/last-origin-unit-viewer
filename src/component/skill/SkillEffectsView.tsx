@@ -11,7 +11,7 @@ import { SkillEffect } from '../../domain/skill/UnitSkills';
 import { SkillType } from '../../domain/skill/SkillType';
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 
-import { useSkillEffects } from '../../state/skill/unitSkillState';
+import { useSkillEffects } from '../../state/skill/UnitSkillHook';
 
 import { ifNonNullable } from '../../util/react';
 

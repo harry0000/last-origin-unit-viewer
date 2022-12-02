@@ -9,7 +9,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { SkillType } from '../../domain/skill/SkillType';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
-import { useEffectsAsEquipmentDescription } from '../../state/skill/unitSkillState';
+import { useEffectsAsEquipmentDescription } from '../../state/skill/UnitSkillHook';
 
 import { ifTruthy } from '../../util/react';
 

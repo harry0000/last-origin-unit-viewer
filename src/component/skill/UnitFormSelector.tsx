@@ -8,7 +8,7 @@ import { ArrowSync } from '../icon/FluentIcons';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SVGButton from '../common/SVGButton';
 
-import { useUnitForm } from '../../state/skill/unitSkillState';
+import { useUnitForm } from '../../state/skill/UnitSkillHook';
 
 import { ifNonNullable } from '../../util/react';
 

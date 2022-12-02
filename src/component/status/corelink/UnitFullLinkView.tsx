@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Dropdown } from 'react-bootstrap';
 
-import { useSelectedUnit } from '../../../state/selector/unitSelectorState';
+import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
 
 import './FullLinkBonusDropdown.css';
 

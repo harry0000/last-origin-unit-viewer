@@ -1,4 +1,4 @@
-import { UnitBasicInfo, UnitType } from '../UnitBasicInfo';
+import { UnitBasicInfo, UnitNumber, UnitType } from '../UnitBasicInfo';
 
 import { notFalsy, Sequence } from '../../util/type';
 
@@ -115,5 +115,9 @@ export class Squad {
     return index !== -1 ?
       this.#assignUnitToIndex(undefined, index) :
       this;
+  }
+
+  existsUnit(unit: UnitNumber): boolean {
+    return this.#units.some(u => u?.no === unit);
   }
 }
