@@ -16065,6 +16065,66 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  230: {
+    no: 230,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 90000 },
+        per_lv_up: { milliPercentage: 10000 },
+        attribute: 'electric'
+      },
+      range: 3,
+      cost: 4,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { ap_down: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ status_greater_than_self: { status: 'spd' } }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { ap_down: { base: { microValue: 1500000 }, per_lv_up: { microValue: 150000 }, term: 'immediate' } } }
+      }]
+    }, {
+      range: 1,
+      cost: 7,
+      area: 'line_with_backward',
+      effects: [{
+        target: { kind: 'ally' },
+        details: {
+          self: {
+            row_protect: { term: { for_rounds: 2 } },
+            nullify_damage: { term: { for_rounds: 2 }, times: 1 }
+          },
+          target: { area_damage_dispersion: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } } }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            column_protect: { term: { for_rounds: 1 } },
+            damage_reduction: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'cross',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            barrier: { base: { value: 50 }, per_lv_up: { value: 5 }, term: { for_rounds: 1 } },
+            area_damage_dispersion: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }]
+  },
   231: {
     no: 231,
     active: [{
