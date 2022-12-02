@@ -2329,6 +2329,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up_by_status: { status: 'def', milliPercentage: 4000, term: 'infinite' } } }]
     ]
   },
+  super_heavy_composite_armor: {
+    type: 'gear',
+    id: 'super_heavy_composite_armor',
+    exclusive: {
+      role: 'defender'
+    },
+    status_effects: [
+      { hp_up: { value:  200 }, def_up: { milliValue:  30000 } },
+      { hp_up: { value:  250 }, def_up: { milliValue:  40000 } },
+      { hp_up: { value:  300 }, def_up: { milliValue:  50000 } },
+      { hp_up: { value:  350 }, def_up: { milliValue:  60000 } },
+      { hp_up: { value:  400 }, def_up: { milliValue:  70000 } },
+      { hp_up: { value:  450 }, def_up: { milliValue:  80000 } },
+      { hp_up: { value:  500 }, def_up: { milliValue: 100000 } },
+      { hp_up: { value:  600 }, def_up: { milliValue: 110000 } },
+      { hp_up: { value:  700 }, def_up: { milliValue: 120000 } },
+      { hp_up: { value:  800 }, def_up: { milliValue: 130000 } },
+      { hp_up: { value: 1000 }, def_up: { milliValue: 150000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_round' }, details: { immovable: { term: { for_rounds: 1 } }, prevents_effect: { effects: ['push', 'pull'], term: { for_rounds: 1 } }, spd_down: { milliPercentage: 30000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { immovable: { term: { for_rounds: 1 } }, prevents_effect: { effects: ['push', 'pull'], term: { for_rounds: 1 } }, spd_down: { milliPercentage: 28500, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { immovable: { term: { for_rounds: 1 } }, prevents_effect: { effects: ['push', 'pull'], term: { for_rounds: 1 } }, spd_down: { milliPercentage: 27000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { immovable: { term: { for_rounds: 1 } }, prevents_effect: { effects: ['push', 'pull'], term: { for_rounds: 1 } }, spd_down: { milliPercentage: 25500, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { immovable: { term: { for_rounds: 1 } }, prevents_effect: { effects: ['push', 'pull'], term: { for_rounds: 1 } }, spd_down: { milliPercentage: 24000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { immovable: { term: { for_rounds: 1 } }, prevents_effect: { effects: ['push', 'pull'], term: { for_rounds: 1 } }, spd_down: { milliPercentage: 22500, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { immovable: { term: { for_rounds: 1 } }, prevents_effect: { effects: ['push', 'pull'], term: { for_rounds: 1 } }, spd_down: { milliPercentage: 21000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { immovable: { term: { for_rounds: 1 } }, prevents_effect: { effects: ['push', 'pull'], term: { for_rounds: 1 } }, spd_down: { milliPercentage: 19500, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { immovable: { term: { for_rounds: 1 } }, prevents_effect: { effects: ['push', 'pull'], term: { for_rounds: 1 } }, spd_down: { milliPercentage: 18000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { immovable: { term: { for_rounds: 1 } }, prevents_effect: { effects: ['push', 'pull'], term: { for_rounds: 1 } }, spd_down: { milliPercentage: 16500, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { immovable: { term: { for_rounds: 1 } }, prevents_effect: { effects: ['push', 'pull'], term: { for_rounds: 1 } }, spd_down: { milliPercentage: 15000, term: { for_rounds: 1 } } } }]
+    ]
+  },
   '40mm_du_rounds': {
     type: 'gear',
     id: '40mm_du_rounds',

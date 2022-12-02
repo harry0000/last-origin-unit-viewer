@@ -20,6 +20,7 @@ export type NoValueEffectKey = typeof Effect[
   'IgnoreProtect' |
   'Reconnaissance' |
   'Marked' |
+  'Immovable' |
   'Silenced' |
   'Stunned'
 ]
@@ -96,10 +97,8 @@ export type EquipmentEffectValue = Readonly<{
       EquipmentEffectAddition :
     E extends typeof Effect.DamageMultiplierUpByStatus ?
       Readonly<{ status: 'def' }> & MilliPercentageValue & EquipmentEffectAddition :
-    E extends typeof Effect['BuffRemoval' | 'DebuffRemoval'] ?
+    E extends typeof Effect['BuffRemoval' | 'DebuffRemoval' | 'PreventsEffect'] ?
       Readonly<{ effect: Effect } | { effects: ReadonlyArray<Effect> }> & EquipmentEffectAddition :
-    E extends typeof Effect.PreventsEffect ?
-      Readonly<{ effect: Effect }> & EquipmentEffectAddition :
     E extends typeof Effect.ActivationRatePercentageUp ?
       Readonly<{ effect: Effect, tag: SkillEffectTag }> & MilliPercentageValue & EquipmentEffectAddition :
     E extends typeof Effect['RangeUp' | 'RangeDown']?
