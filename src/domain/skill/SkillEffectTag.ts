@@ -101,6 +101,8 @@ export type SkillEffectTag =
   'night_of_blood_queen' |
   'clear_and_serene' |
   'foresight' |
+  'separation_anxiety' |
+  'energy_focusing' |
   'mimesis' |
   'pre_cooking' |
   'best_desserts' |

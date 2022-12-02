@@ -77,6 +77,7 @@ const relativeCoordinate: Record<Exclude<SkillAreaType, FixedSkillAreaType>, Rea
   [SkillAreaType.CircleSmallExplosion]: [[0, 0], [-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1]],
   [SkillAreaType.CircleStrongExplosion]: [[0, 0], [-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1]],
   [SkillAreaType.AllStrongExplosion]: [[0, 0], [-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1]],
+  [SkillAreaType.AllRoundFire]: [[0, 0], [-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1]],
   [SkillAreaType.Front]: [[1, 0]],
   [SkillAreaType.Back]: [[-1, 0]],
   [SkillAreaType.Left]: [[0, -1]],

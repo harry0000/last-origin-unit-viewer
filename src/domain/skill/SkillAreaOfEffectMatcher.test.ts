@@ -253,6 +253,10 @@ describe('calcTargetPositions()', () => {
       expect(calcTargetPositions(SkillAreaType.AllStrongExplosion, 5)).toEqual(new Set([7, 8, 9, 4, 5, 6, 1, 2, 3]));
     });
 
+    test('AllRoundFire', () => {
+      expect(calcTargetPositions(SkillAreaType.AllRoundFire, 5)).toEqual(new Set([7, 8, 9, 4, 5, 6, 1, 2, 3]));
+    });
+
     test('Front', () => {
       expect(calcTargetPositions(SkillAreaType.Front, 5)).toEqual(new Set([6]));
     });

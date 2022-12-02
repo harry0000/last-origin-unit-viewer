@@ -1340,6 +1340,26 @@
         "3": "熱い気勢"
       }
     },
+    "152": {
+      "active": {
+        "1": {
+          "close_range_response_mode": "拡散射撃",
+          "long_range_sniper_mode": "フォーカスショット"
+        },
+        "2": {
+          "close_range_response_mode": "全方位射撃",
+          "long_range_sniper_mode": "リフレクトショット"
+        }
+      },
+      "passive": {
+        "1": "分離不安症",
+        "2": {
+          "close_range_response_mode": "近距離対応モード",
+          "long_range_sniper_mode": "長距離狙撃モード"
+        },
+        "3": "リフレクトフィールド展開"
+      }
+    },
     "154": {
       "active": {
         "1": {

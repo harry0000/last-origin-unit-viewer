@@ -11,7 +11,8 @@ import {
   MightyRForm,
   PhantomForm,
   RampartForm,
-  SirenForm
+  SirenForm,
+  UllrForm
 } from '../UnitFormValue';
 import { ActiveSkillEffective } from './SkillEffective';
 import { AvailableMaxUnitRank } from '../status/UnitRankUpBonusData';
@@ -264,6 +265,21 @@ type MightyRSkillData = Readonly<{
     ]
 }>
 
+type UllrSkillData = Readonly<{
+  no: typeof FormChangeUnits.Ullr,
+  active:
+    readonly [
+      { readonly [key in UllrForm]: ActiveSkillData },
+      { readonly [key in UllrForm]: ActiveSkillData }
+    ],
+  passive:
+    readonly [
+      PassiveSkillData,
+      { readonly [key in UllrForm]: PassiveSkillData },
+      PassiveSkillData
+    ]
+}>
+
 type JangHwaSkillData = Readonly<{
   no: typeof FormChangeUnits.JangHwa,
   active:
@@ -302,6 +318,7 @@ type UnitSkill<N extends UnitNumber> =
   N extends SirenSkillData['no'] ? SirenSkillData :
   N extends RampartSkillData['no'] ? RampartSkillData :
   N extends MightyRSkillData['no'] ? MightyRSkillData :
+  N extends UllrSkillData['no'] ? UllrSkillData :
   N extends JangHwaSkillData['no'] ? JangHwaSkillData :
   N extends FortressSkillData['no'] ? FortressSkillData :
   Readonly<{

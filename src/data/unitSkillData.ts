@@ -11782,6 +11782,189 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  152: {
+    no: 152,
+    active: [{
+      close_range_response_mode: {
+        damage_deal: {
+          base: { milliPercentage: 150000 },
+          per_lv_up: { milliPercentage: 20000 }
+        },
+        range: 3,
+        cost: 8,
+        area: 'line',
+        effects: [{
+          details: {
+            self: {
+              light_type_damage_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' },
+              flying_type_damage_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' }
+            }
+          }
+        }, {
+          conditions: [{ state: { target: [{ affected: 'immovable' }, { affected: 'eva_down' }] } }],
+          target: { kind: 'enemy' },
+          details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+        }]
+      },
+      long_range_sniper_mode: {
+        damage_deal: {
+          base: { milliPercentage: 210000 },
+          per_lv_up: { milliPercentage: 30000 }
+        },
+        range: 6,
+        cost: 9,
+        area: 'row_greatly_attenuate',
+        effects: [{
+          details: {
+            self: {
+              ignore_protect: { term: 'immediate' },
+              defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: 'immediate' }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'critical' }],
+          target: { kind: 'enemy' },
+          details: {
+            self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } },
+            target: { buff_removal: { effect: 'counterattack', term: 'immediate' } }
+          }
+        }]
+      }
+    }, {
+      close_range_response_mode: {
+        damage_deal: {
+          base: { milliPercentage: 115000 },
+          per_lv_up: { milliPercentage: 15000 }
+        },
+        range: 4,
+        cost: 10,
+        area: 'all_round_fire',
+        effects: [{
+          conditions: [{ trigger: 'attack' }],
+          target: { kind: 'enemy' },
+          details: {
+            self: { ignore_protect: { term: 'immediate' } },
+            target: { buff_removal: { effect: 'eva_up', term: 'immediate' } }
+          }
+        }, {
+          conditions: [{ trigger: 'critical' }],
+          details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'hit', state: { target: [{ affected: 'immovable' }, { affected: 'eva_down' }] } }],
+          target: { kind: 'enemy' },
+          details: { target: { damage_taken_increased: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
+        }]
+      },
+      long_range_sniper_mode: {
+        damage_deal: {
+          base: { milliPercentage: 175000 },
+          per_lv_up: { milliPercentage: 25000 }
+        },
+        range: 6,
+        cost: 7,
+        area: 'single',
+        effects: [{
+          details: { self: { ignore_protect: { term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'hit', state: { target: [{ affected: 'marked' }, { affected: 'eva_down' }] } }],
+          target: { kind: 'enemy' },
+          details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } }, }
+        }, {
+          conditions: [{ trigger: 'critical' }],
+          target: { kind: 'enemy' },
+          details: {
+            self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } },
+            target: { buff_removal: { effects: ['counterattack', 'damage_reduction'], term: 'immediate' } }
+          }
+        }]
+      }
+    }],
+    passive: [{
+      area: 'cross',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { per_units: { type: 'squad', unit: 'cross_adjacent' } },
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            cri_up: { milliPercentage: 5000, term: { for_rounds: 1 } },
+            defense_penetration: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'cross_adjacent' } } }],
+        details: {
+          self: {
+            ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' },
+            acc_down: { milliPercentage: 160000, term: { for_rounds: 1 }, cannot_be_dispelled: true },
+            buff_removal: { effect: 'acc_up', term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally_except_self', conditions: ['strikers', 'experimental_units'] },
+        details: { target: { follow_up_attack: { tag: 'separation_anxiety', term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'follow_up_attack' }],
+        target: { kind: 'ally_except_self', conditions: ['strikers', 'experimental_units'] },
+        details: { target: { buff_removal: { tag: 'separation_anxiety',  effect: 'follow_up_attack', term: 'immediate' } } }
+      }]
+    }, {
+      close_range_response_mode: {
+        area: 'self',
+        effects: [{
+          conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }, { grid: 'mid_line' }] } }],
+          details: {
+            self: {
+              spd_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+              ignore_barrier_dr: { term: { for_rounds: 1 } }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
+          details: { self: { form_change: { form: 'long_range_sniper_mode', term: 'immediate' } } }
+        }]
+      },
+      long_range_sniper_mode: {
+        area: 'self',
+        effects: [{
+          conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
+          details: {
+            self: {
+              acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', max_stack: 5 },
+              defense_penetration: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } },
+              debuff_removal: { effects: ['acc_down', 'cri_down'], term: 'immediate' }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }, { grid: 'mid_line' }] } }],
+          details: { self: { form_change: { form: 'close_range_response_mode', term: 'immediate' } } }
+        }]
+      }
+    }, {
+      area: 'cross',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        target: { kind: 'ally_except_self', conditions: ['strikers', 'experimental_units'] },
+        details: { target: { nullify_damage: { term: 'infinite', times: 1, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            minimize_damage_less_than_value: { base: { value: 100 }, per_lv_up: { value: 125 }, term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
+            all_buff_removal_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'be_hit' }],
+        details: { self: { damage_multiplier_up: { tag: 'energy_focusing', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', max_stack: 3 } } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        details: { self: { tag_release: { tag: 'energy_focusing', term: 'immediate' } } }
+      }]
+    }]
+  },
   154: {
     no: 154,
     active: [{

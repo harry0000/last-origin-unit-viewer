@@ -238,6 +238,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
     select: 5,
     area: ['middle', 'high', 'middle', 'high', 'effective', 'high', 'middle', 'high', 'middle']
   },
+  [SkillAreaType.AllRoundFire]: {
+    select: 5,
+    area: ['high', 'effective', 'high', 'effective', 'middle', 'effective', 'high', 'effective', 'high']
+  },
   [SkillAreaType.Front]: {
     select: 5,
     area: ['none', 'none', 'none', 'none', 'none', 'effective', 'none', 'none', 'none']

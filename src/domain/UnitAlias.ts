@@ -15,6 +15,7 @@ export const UnitAlias = {
   DoomBringer: 'doom_bringer',
   AACannonier: 'aa_cannonier',
   ArmoredMaiden: 'armored_maiden',
+  ExperimentalUnits: 'experimental_units',
   MongooseTeam: 'mongoose_team',
   Horizon: 'horizon',
   TomosFriends: 'tomos_friends',
@@ -22,6 +23,7 @@ export const UnitAlias = {
   DEntertainment: 'd_entertainment',
   MagicalGirl: 'magical_girl',
   KouheiChurch: 'kouhei_church',
+  Strikers: 'strikers',
   SmartEnjoy: 'smart_enjoy',
   SpartanSeries: 'spartan_series'
 } as const;
@@ -42,6 +44,7 @@ export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> 
   [UnitAlias.DoomBringer]: new Set([51, 52, 53, 54, 55, 56, 182]),
   [UnitAlias.AACannonier]: new Set([60, 67, 68, 69, 70]),
   [UnitAlias.ArmoredMaiden]: new Set([61, 62, 65, 66]),
+  [UnitAlias.ExperimentalUnits]: new Set([68, 149, 152]),
   [UnitAlias.MongooseTeam]: new Set([80, 81, 82, 83, 84]),
   [UnitAlias.Horizon]: new Set([85, 87, 88, 89, 90]),
   [UnitAlias.TomosFriends]: new Set([25, 43, 81, 125]),
@@ -49,6 +52,7 @@ export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> 
   [UnitAlias.DEntertainment]: new Set([121, 123, 124, 125, 127, 128, 129, 171, 174, 178]),
   [UnitAlias.MagicalGirl]: new Set([123, 127]),
   [UnitAlias.KouheiChurch]: new Set([126, 138, 139, 140, 236]),
+  [UnitAlias.Strikers]: new Set([149, 151, 152]),
   [UnitAlias.SmartEnjoy]: new Set([205, 206]),
   [UnitAlias.SpartanSeries]: new Set([215, 216, 217])
 } as const;

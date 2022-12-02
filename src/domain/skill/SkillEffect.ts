@@ -47,6 +47,7 @@ export type IntegerValueEffectKey =
     'FixedFireDamageOverTime' |
     'FixedIceDamageOverTime' |
     'FixedElectricDamageOverTime' |
+    'MinimizeDamageLessThanValue' |
     'Barrier'
   ]
 export type MilliValueEffectKey = typeof Effect['AtkValueUp' | 'DefValueUp']

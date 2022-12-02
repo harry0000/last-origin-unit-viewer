@@ -151,6 +151,7 @@ export function translateSkillEffectDetails(
   case Effect.FixedFireDamageOverTime:
   case Effect.FixedIceDamageOverTime:
   case Effect.FixedElectricDamageOverTime:
+  case Effect.MinimizeDamageLessThanValue:
   case Effect.Barrier:
     return {
       tag: getTag(entry[1], t),

@@ -362,6 +362,7 @@ function calculateEffectValue(
   case Effect.FixedFireDamageOverTime:
   case Effect.FixedIceDamageOverTime:
   case Effect.FixedElectricDamageOverTime:
+  case Effect.MinimizeDamageLessThanValue:
   case Effect.Barrier:
     return { [entry[0]]: calculateIntegerValueEffectValue(entry[1], lv, effectLv) };
   case Effect.BattleContinuation:

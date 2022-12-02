@@ -28,6 +28,7 @@ export function buildEffectIconSrcUrl(effect: Effect): string | undefined {
   case Effect.RangeUpActive2:
     return buildIconSrcUrl(Effect.RangeUp);
   case Effect.MinimizeDamage:
+  case Effect.MinimizeDamageLessThanValue:
     return buildIconSrcUrl(Effect.DamageReduction);
   case Effect.AreaDamageDispersion:
     return buildIconSrcUrl(Effect.DefUp);

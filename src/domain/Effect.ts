@@ -58,6 +58,7 @@ export const Effect = {
   DamageTakenIncreased: 'damage_taken_increased',
   DamageReduction: 'damage_reduction',
   MinimizeDamage: 'minimize_damage',
+  MinimizeDamageLessThanValue: 'minimize_damage_less_than_value',
   NullifyDamage: 'nullify_damage',
   AreaDamageDispersion: 'area_damage_dispersion',
   Barrier: 'barrier',
