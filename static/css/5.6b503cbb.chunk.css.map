@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/component/skill/RankUpSkillBadge.css"],"names":[],"mappings":"AAAA,qBACI,UAAW,CACX,qBACJ","file":"5.6b503cbb.chunk.css","sourcesContent":[".badge-rank-up-skill {\n    color: #000;\n    background-color: #0af;\n}\n"]}
