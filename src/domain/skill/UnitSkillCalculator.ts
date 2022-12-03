@@ -456,16 +456,22 @@ function calculateAroundEffectDataValue(
   lv: SkillLv,
   effectLv: SkillEffectLv
 ): AroundSkillEffectValue {
-  return (
-    data?.fixed_damage ?
-      {
-        fixed_damage: {
-          ...calculateDataValue('milliPercentage', data.fixed_damage, effectLv),
-          ...calculateAddition(data.fixed_damage, lv)
-        }
-      } :
-      {}
-  );
+  return ({
+    fixed_damage: {
+      ...calculateDataValue('milliPercentage', data.fixed_damage, effectLv),
+      ...calculateAddition(data.fixed_damage, lv)
+    },
+    ...(
+      'def_down' in data && data.def_down ?
+        {
+          def_down: {
+            ...calculateDataValue('milliPercentage', data.def_down, effectLv),
+            ...calculateAddition(data.def_down, lv)
+          }
+        } :
+        {}
+    )
+  });
 }
 
 function calculateEffect(

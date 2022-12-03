@@ -153,6 +153,10 @@ describe('calcTargetPositions()', () => {
       expect(calcTargetPositions(SkillAreaType.LineWithBackward, 6)).toEqual(new Set([9, 4, 5, 6, 3]));
     });
 
+    test('LineTowardFrontWavelets', () => {
+      expect(calcTargetPositions(SkillAreaType.LineTowardFrontWavelets, 4)).toEqual(new Set([7, 8, 9, 4, 5, 6, 1, 2, 3]));
+    });
+
     test('LineTowardFrontGreatlyAttenuate', () => {
       expect(calcTargetPositions(SkillAreaType.LineTowardFrontGreatlyAttenuate, 4)).toEqual(new Set([7, 8, 9, 4, 5, 6, 1, 2, 3]));
     });
@@ -239,6 +243,10 @@ describe('calcTargetPositions()', () => {
 
     test('CrossStrongExplosion', () => {
       expect(calcTargetPositions(SkillAreaType.CrossStrongExplosion, 5)).toEqual(new Set([8, 4, 5, 6, 2]));
+    });
+
+    test('CircleTinyExplosion', () => {
+      expect(calcTargetPositions(SkillAreaType.CircleTinyExplosion, 5)).toEqual(new Set([7, 8, 9, 4, 5, 6, 1, 2, 3]));
     });
 
     test('CircleSmallExplosion', () => {

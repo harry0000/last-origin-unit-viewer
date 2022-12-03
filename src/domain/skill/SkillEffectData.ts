@@ -138,7 +138,9 @@ export type SkillEffectDataValue = Readonly<{
 }>
 
 export type AroundSkillEffectDataValue = Readonly<{
-  [Effect.FixedDamage]?: ValueWithAddition<'milliPercentage'>
+  [Effect.FixedDamage]: ValueWithAddition<'milliPercentage'>
+} & {
+  [Effect.DefDown]?: ValueWithAddition<'milliPercentage'>,
 }>
 
 type SelfSkillEffect = Readonly<{

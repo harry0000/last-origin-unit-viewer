@@ -5,6 +5,7 @@ export const AreaOfEffectCellType = {
   Effective: 'effective',
   High: 'high',
   Middle: 'middle',
+  Low: 'low',
   Weak: 'weak',
   None: 'none'
 } as const;
@@ -138,9 +139,13 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
     select: 6,
     area: ['none', 'none', 'effective', 'effective', 'effective', 'effective', 'none', 'none', 'effective']
   },
+  [SkillAreaType.LineTowardFrontWavelets]: {
+    select: 4,
+    area: ['effective', 'low', 'weak', 'effective', 'low', 'weak', 'effective', 'low', 'weak']
+  },
   [SkillAreaType.LineTowardFrontGreatlyAttenuate]: {
     select: 4,
-    area: ['effective', 'middle', 'weak', 'effective', 'middle', 'weak', 'effective', 'middle', 'weak']
+    area: ['effective', 'middle', 'low', 'effective', 'middle', 'low', 'effective', 'middle', 'low']
   },
   [SkillAreaType.SelfAndLeftDirection]: {
     select: 2,
@@ -184,7 +189,7 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
   },
   [SkillAreaType.RowGreatlyAttenuate]: {
     select: 4,
-    area: ['none', 'none', 'none', 'effective', 'middle', 'weak', 'none', 'none', 'none']
+    area: ['none', 'none', 'none', 'effective', 'middle', 'low', 'none', 'none', 'none']
   },
   [SkillAreaType.RowSlightlyAttenuate]: {
     select: 4,
@@ -208,7 +213,7 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
   },
   [SkillAreaType.FanShapeGreatlyAttenuate]: {
     select: 4,
-    area: ['none', 'middle', 'weak', 'effective', 'middle', 'weak', 'none', 'middle', 'weak']
+    area: ['none', 'middle', 'low', 'effective', 'middle', 'low', 'none', 'middle', 'low']
   },
   [SkillAreaType.FanShapeSlightlyAttenuate]: {
     select: 4,
@@ -220,15 +225,19 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
   },
   [SkillAreaType.CrossSmallExplosion]: {
     select: 5,
-    area: ['none', 'weak', 'none', 'weak', 'effective', 'weak', 'none', 'weak', 'none']
+    area: ['none', 'low', 'none', 'low', 'effective', 'low', 'none', 'low', 'none']
   },
   [SkillAreaType.CrossStrongExplosion]: {
     select: 5,
     area: ['none', 'high', 'none', 'high', 'effective', 'high', 'none', 'high', 'none']
   },
-  [SkillAreaType.CircleSmallExplosion]: {
+  [SkillAreaType.CircleTinyExplosion]: {
     select: 5,
     area: ['weak', 'weak', 'weak', 'weak', 'effective', 'weak', 'weak', 'weak', 'weak']
+  },
+  [SkillAreaType.CircleSmallExplosion]: {
+    select: 5,
+    area: ['low', 'low', 'low', 'low', 'effective', 'low', 'low', 'low', 'low']
   },
   [SkillAreaType.CircleStrongExplosion]: {
     select: 5,
