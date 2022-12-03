@@ -444,7 +444,9 @@ function matchNotAffected(
 ): boolean {
   const effects = pickEffects(affected);
 
-  return effects.has(state[0]) && (!state[1] || effects.has(state[1]));
+  // HACK: to avoid "TS2349: This expression is not callable."
+  const conds: ReadonlyArray<typeof state[number]> = state;
+  return conds.every(e => !effects.has(e));
 }
 
 function matchAffected(
