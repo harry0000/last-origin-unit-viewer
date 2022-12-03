@@ -81,4 +81,12 @@ export type MilliPercentageEffectKey =
     ]
   >
 
-export type MultipleMilliPercentageEffectKey = typeof Effect['DefDown' | 'AccDown' | 'CriDown' | 'EvaUp' | 'StatusResistUp']
+export type MultipleMilliPercentageEffectKey =
+  typeof Effect[
+    'DamageMultiplierDown' |
+    'DefDown' |
+    'AccDown' |
+    'CriDown' |
+    'EvaUp' |
+    'StatusResistUp'
+  ]

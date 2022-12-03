@@ -7,6 +7,7 @@ function buildIconSrcUrl(effect: Effect): string {
 export function buildEffectIconSrcUrl(effect: Effect): string | undefined {
   switch (effect) {
   case Effect.DamageMultiplierUpByStatus:
+  case Effect.DamageMultiplierReductionByStatus:
     return buildIconSrcUrl(Effect.DamageMultiplierUp);
   case Effect.AdditionalDamageFocusing:
     return buildIconSrcUrl(Effect.AtkUp);

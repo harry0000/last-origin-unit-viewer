@@ -2,6 +2,7 @@ export const Effect = {
   DamageMultiplierUp: 'damage_multiplier_up',
   DamageMultiplierDown: 'damage_multiplier_down',
   DamageMultiplierUpByStatus: 'damage_multiplier_up_by_status',
+  DamageMultiplierReductionByStatus: 'damage_multiplier_reduction_by_status',
   AdditionalDamage: 'additional_damage',
   AdditionalDamageFocusing: 'additional_damage_focusing',
   Enmity: 'enmity',

@@ -2569,6 +2569,84 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  30: {
+    no: 30,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 110000 },
+        per_lv_up: { milliPercentage: 10000 }
+      },
+      range: 4,
+      cost: 6,
+      area: 'line',
+      effects: [{
+        conditions: [{ trigger: 'attack' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            damage_multiplier_down: [
+              { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+              { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+            ],
+            acc_down: [
+              { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+              { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+            ]
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        details: { self: { additional_damage: { base: { milliPercentage: 100000 }, per_lv_up: { milliPercentage: 5000 }, rate: 'rarely' } } }
+      }]
+    }, {
+      range: 0,
+      cost: 9,
+      area: {
+        1: 'cross',
+        10: 'all'
+      },
+      effects: [{
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            eva_up: [
+              { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 1 },
+              { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 }, max_stack: 1 },
+              { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 }, max_stack: 1 }
+            ],
+            damage_multiplier_reduction_by_status: { status: 'eva', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 }, max_stack: 1 }
+          }
+        }
+      }, {
+        conditions: [{ state: { target: [{ status_less_than_self: { status: 'eva' } }] } }],
+        target: { kind: 'ally' },
+        details: { target: { debuff_removal: { effect: 'marked', term: 'immediate' } } }
+      }, {
+        conditions: [{ state: { target: [{ status_greater_than_self: { status: 'eva' } }] } }],
+        target: { kind: 'ally' },
+        details: { target: { marked: { term: { for_rounds: 3 }, max_stack: 1 } } }
+      }]
+    }],
+    passive: [{
+      area: {
+        1: 'cross',
+        10: 'fixed_all'
+      },
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            eva_up: { base: { milliPercentage: 45000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            damage_reduction: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ not_affected: ['marked'] }] } }],
+        target: { kind: 'ally', conditions: ['attacker', 'supporter'] },
+        details: { target: { target_protect: { term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
   31: {
     no: 31,
     active: [{

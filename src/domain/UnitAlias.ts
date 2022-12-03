@@ -35,7 +35,7 @@ export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> 
   [UnitAlias.ArtilleryTypeActive]: new Set([22, 51, 202]),
   [UnitAlias.Squad21]: new Set([2, 3, 85, 92, 118, 121, 187]),
   [UnitAlias.CompanionSeries]: new Set([16, 17, 18, 19, 183]),
-  [UnitAlias.SteelLine]: new Set([21, 22, 23, 24, 25, 26, 27, 28, 29]),
+  [UnitAlias.SteelLine]: new Set([21, 22, 23, 24, 25, 26, 27, 28, 29, 30]),
   [UnitAlias.SteelLineExcludingOfficerRanks]: new Set([22, 23, 24, 25, 26, 27, 28]),
   [UnitAlias.SistersOfValhalla]: new Set([31, 32, 33, 34, 35, 36, 37, 177]),
   [UnitAlias.AngerOfHorde]: new Set([40, 41, 42, 43, 44, 192, 193, 194]),

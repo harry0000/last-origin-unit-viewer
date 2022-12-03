@@ -344,6 +344,7 @@
       "damage_multiplier_up": "スキル威力アップ",
       "damage_multiplier_down": "スキル威力ダウン",
       "damage_multiplier_up_by_status": "スキル威力アップ",
+      "damage_multiplier_reduction_by_status": "スキル威力減衰",
       "additional_damage": "与ダメージアップ",
       "additional_damage_inverse_proportion_targets": "対象の数が少ないほど、与ダメージアップ",
       "enmity": "自分のHPが低いほど、与ダメージアップ",
@@ -429,6 +430,7 @@
       "damage_multiplier_up": "スキル威力 +{{value}}%",
       "damage_multiplier_down": "スキル威力 -{{value}}%",
       "damage_multiplier_up_by_status": "$t(common:status.{{status}})の +{{value}}% だけスキル威力アップ",
+      "damage_multiplier_reduction_by_status": "$t(common:status.{{status}})の +{{value}}% だけスキル威力減衰",
 
       "additional_damage": "与ダメージ +{{value}}%",
       "additional_damage_focusing": "対象の数が少ないほど、与ダメージ +{{value}}%",
