@@ -357,6 +357,7 @@ function calculateEffectValue(
     };
   case Effect.RangeUp:
   case Effect.RangeDown:
+  case Effect.RangeUpActive2:
     return { [entry[0]]: calculateRangeUpDownEffectValue(entry[1], lv) };
   case Effect.FixedDamageOverTime:
   case Effect.FixedFireDamageOverTime:

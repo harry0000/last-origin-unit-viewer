@@ -60,7 +60,6 @@ function buildDetail(body: string, value: EquipmentEffectAddition, t: TFunction)
 function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): string {
   switch (entry[0]) {
   case Effect.RangeDownActive1:
-  case Effect.RangeUpActive2:
   case Effect.ActionCountUp:
   case Effect.MinimizeDamage:
   case Effect.AllDebuffRemoval:
@@ -79,6 +78,7 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   case Effect.Barrier:
   case Effect.RangeUp:
   case Effect.RangeDown:
+  case Effect.RangeUpActive2:
     return buildDetail(t(`effect:effect.description.${entry[0]}`, { value: entry[1].value }), entry[1], t);
   case Effect.BattleContinuation:
     return 'value' in entry[1] ?

@@ -117,7 +117,10 @@
     "bombardment_squadron_command": "爆撃編隊指揮",
     "stealth_mode": "ステルスモード",
     "elation": "意気揚々",
+    "slow_but_deadly": "Slow, But Deadly準備",
+    "load_capacity_increased": "積載量増加",
     "f_armory_deployment": "F.アーモリー展開",
+    "scoop_discovery": "特ダネ発見？",
     "enhance_output": "出力強化",
     "scrap_collect": "残骸収集",
     "electromagnatic_consonance": "電磁気共鳴",
@@ -365,6 +368,7 @@
       "fixed_electric_damage_over_time": "電気持続固定ダメージ",
       "light_type_damage_up": "対軽装型与ダメージアップ",
       "heavy_type_damage_up": "対重装型与ダメージアップ",
+      "heavy_type_damage_down": "対重装型与ダメージダウン",
       "flying_type_damage_up": "対機動型与ダメージアップ",
       "flying_type_damage_down": "対機動型与ダメージダウン",
       "atk_value_up": "攻撃力アップ",
@@ -453,6 +457,7 @@
 
       "light_type_damage_up": "対軽装型与ダメージ +{{value}}%",
       "heavy_type_damage_up": "対重装型与ダメージ +{{value}}%",
+      "heavy_type_damage_down": "対重装型与ダメージ -{{value}}%",
       "flying_type_damage_up": "対機動型与ダメージ +{{value}}%",
       "flying_type_damage_down": "対機動型与ダメージ -{{value}}%",
 
@@ -482,7 +487,7 @@
       "range_down": "射程距離 -{{value}}",
 
       "range_down_active_1": "スキル1の射程距離 -1",
-      "range_up_active_2": "スキル2の射程距離 +1",
+      "range_up_active_2": "スキル2の射程距離 +{{value}}",
       "action_count_up": "最大行動回数 +1",
       "action_count_down": "最大行動回数 -1",
 

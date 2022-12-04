@@ -2233,17 +2233,17 @@ export const equipmentData = {
       { acc_up: { milliPercentage: 45000 } }
     ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { term: { for_rounds: 1 } } } }],
-      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { term: { for_rounds: 1 } } } }]
+      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { range_down_active_1: { term: { for_rounds: 1 } }, range_up_active_2: { value: 1, term: { for_rounds: 1 } } } }]
     ]
   },
   prototype_telescopic_sight: {

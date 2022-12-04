@@ -110,7 +110,6 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
     function calculate(): EquipmentEffectValue {
       switch (entry[0]) {
       case Effect.RangeDownActive1:
-      case Effect.RangeUpActive2:
       case Effect.ActionCountUp:
       case Effect.MinimizeDamage:
       case Effect.AllDebuffRemoval:
@@ -129,6 +128,7 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.Barrier:
       case Effect.RangeUp:
       case Effect.RangeDown:
+      case Effect.RangeUpActive2:
         return {
           [entry[0]]: {
             ...calculateAddition(entry[1]),

@@ -4247,7 +4247,15 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         conditions: [{ state: { target: [{ affected: 'marked' }, { affected: 'immovable' }] } }],
         target: { kind: 'enemy' },
-        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 } } } }
+        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'slow_but_deadly' }] } }],
+        details: {
+          self: {
+            heavy_type_damage_down: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: -3000 }, term: 'immediate' },
+            flying_type_damage_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 3000 }, term: 'immediate' }
+          }
+        }
       }]
     }, {
       damage_deal: {
@@ -4262,14 +4270,22 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ state: { target: [{ affected: 'marked' }, { affected: 'immovable' }] } }],
         target: { kind: 'enemy' },
-        details: { self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } } } }
+        details: { self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'slow_but_deadly' }] } }],
+        details: {
+          self: {
+            flying_type_damage_down: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: -3000 }, term: 'immediate' },
+            heavy_type_damage_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 3000 }, term: 'immediate' }
+          }
+        }
       }]
     }],
     passive: [{
       area: 'self',
       effects: [{
         conditions: [{ trigger: 'start_wave' }],
-        details: { self: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 } } } }
+        details: { self: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
         details: {
@@ -4288,6 +4304,36 @@ export const unitSkillData: UnitSkillData = {
             heavy_type_damage_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
           }
         }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { tag_stack: { tag: 'slow_but_deadly', term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'idle' }],
+        details: { self: { spd_down: { tag: 'load_capacity_increased', base: { milliPercentage: 70000 }, per_lv_up: { milliPercentage: -3000 }, term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'load_capacity_increased' }] } }],
+        details: {
+          self: {
+            set_ap: { base: { microValue: 12000000 }, per_lv_up: { microValue: 400000 }, term: 'immediate' },
+            range_up_active_2: { value: 4, term: 'infinite' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'use_active_2', state: { self: [{ tagged: 'load_capacity_increased' }] } }],
+        details: { self: { ignore_def: { term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'use_active_2', state: { self: [{ tagged: 'load_capacity_increased' }] } }],
+        target: { kind: 'enemy', conditions: ['heavy'] },
+        details: { target: { buff_removal: { effect: 'damage_reduction', term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        details: { self: { buff_removal: { tag: 'load_capacity_increased', effect: 'spd_down' } } }
       }]
     }]
   },
@@ -4785,6 +4831,37 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'end_wave' }],
         details: { self: { spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { self: [{ tagged: 'scoop_discovery' }] } }],
+        details: { self: { spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite' } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } },
+            range_up: { value: 1, term: { for_rounds: 1 } },
+            defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_wave' }],
+        details: { self: { acc_up: { base: { milliPercentage: 100000 }, per_lv_up: { milliPercentage: 50000 }, term: 'infinite', times: { 1: 1, 10: 2 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { atk_up: { tag: 'scoop_discovery', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'cross_adjacent', greater_or_equal: 2 } } } }],
+        details: { self: { re_attack: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effect: 'damage_reduction', term: 'immediate' } } }
       }]
     }]
   },

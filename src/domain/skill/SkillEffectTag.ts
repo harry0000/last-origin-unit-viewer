@@ -48,7 +48,10 @@ export type SkillEffectTag =
   'bombardment_squadron_command' |
   'stealth_mode' |
   'elation' |
+  'slow_but_deadly' |
+  'load_capacity_increased' |
   'f_armory_deployment' |
+  'scoop_discovery' |
   'enhance_output' |
   'scrap_collect' |
   'electromagnatic_consonance' |

@@ -147,6 +147,7 @@ export function translateSkillEffectDetails(
   case Effect.Pull:
   case Effect.RangeUp:
   case Effect.RangeDown:
+  case Effect.RangeUpActive2:
   case Effect.FixedDamageOverTime:
   case Effect.FixedFireDamageOverTime:
   case Effect.FixedIceDamageOverTime:

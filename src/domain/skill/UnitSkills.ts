@@ -65,7 +65,7 @@ export type SkillEffectValue = Readonly<{
     E extends PushPullEffectKey ?
       IntegerValue<1 | 2> & SkillEffectAddition :
     E extends RangeUpDownEffectKey ?
-      IntegerValue<1 | 2 | 3> & SkillEffectAddition :
+      IntegerValue<1 | 2 | 3 | 4> & SkillEffectAddition :
     E extends IntegerValueEffectKey ?
       ValueWithAddition<'value'> :
     E extends MilliValueEffectKey ?

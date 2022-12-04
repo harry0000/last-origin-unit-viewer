@@ -9,7 +9,6 @@ import { UnitKind } from '../UnitBasicInfo';
 
 export type NoValueEffectKey = typeof Effect[
   'RangeDownActive1' |
-  'RangeUpActive2' |
   'ActionCountUp' |
   'MinimizeDamage' |
   'AllDebuffRemoval' |
@@ -26,6 +25,7 @@ export type NoValueEffectKey = typeof Effect[
 ]
 export type IntegerValueEffectKey = typeof Effect[
   'FixedDamageOverTime' |
+  'RangeUpActive2' |
   'Barrier'
 ]
 export type MilliPercentageEffectKey = typeof Effect[
