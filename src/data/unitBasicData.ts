@@ -328,6 +328,13 @@ export const unitBasicData = {
     type: 'flying',
     role: 'attacker'
   },
+  57: {
+    no: 57,
+    kind: 'bioroid',
+    rank: 's',
+    type: 'flying',
+    role: 'attacker'
+  },
   60: {
     no: 60,
     kind: 'bioroid',
@@ -813,6 +820,13 @@ export const unitBasicData = {
   },
   154: {
     no: 154,
+    kind: 'bioroid',
+    rank: 'ss',
+    type: 'light',
+    role: 'attacker'
+  },
+  155: {
+    no: 155,
     kind: 'bioroid',
     rank: 'ss',
     type: 'light',

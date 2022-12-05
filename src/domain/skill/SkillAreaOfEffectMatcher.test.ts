@@ -125,6 +125,10 @@ describe('calcTargetPositions()', () => {
       expect(calcTargetPositions(SkillAreaType.RowTowardBack, 6)).toEqual(new Set([6, 5, 4]));
     });
 
+    test('RowsOnBothSidesTowardFront', () => {
+      expect(calcTargetPositions(SkillAreaType.RowsOnBothSidesTowardFront, 4)).toEqual(new Set([7, 8, 9, 1, 2, 3]));
+    });
+
     test('SelfAndRowAdjacent', () => {
       expect(calcTargetPositions(SkillAreaType.SelfAndRowAdjacent, 5)).toEqual(new Set([4, 5, 6]));
     });

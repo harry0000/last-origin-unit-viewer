@@ -538,12 +538,9 @@ export function matchSquadState(
       return squad.some(matcher);
     }
   } else if (EffectActivationState.NotInSquad in cond) {
-    const matcher = getSquadUnitMatcher(cond.not_in_squad, source.position);
+    const matcher = exceptSourceUnit(getSquadUnitMatcher(cond.not_in_squad, source.position));
 
-    return squad.every(target =>
-      target.unit.no === source.unit.no ||
-      !matcher(target)
-    );
+    return squad.every(target => !matcher(target));
   } else if (EffectActivationState.NumOfUnits in cond) {
     const num_of_units = cond.num_of_units;
     const target = num_of_units.unit;
@@ -557,7 +554,15 @@ export function matchSquadState(
         'less_or_equal' in num_of_units ? count <= num_of_units.less_or_equal :
           num_of_units.greater_or_equal <= count
     );
+  } else if (cond.length === 2) {
+    const matcher = exceptSourceUnit(getSquadUnitMatcher(cond[0].not_in_squad, source.position));
+
+    return (
+      squad.every(target => !matcher(target)) ||
+      squad.some(getSquadUnitMatcher(cond[1].in_squad, source.position))
+    );
   } else {
+    // HACK: to avoid "TS2349: This expression is not callable."
     const nums: ReadonlyArray<{ [EffectActivationState.InSquad]: UnitNumber }> = cond;
     return nums.every(({ in_squad }) => squad.some(getSquadUnitMatcher(in_squad, source.position)));
   }

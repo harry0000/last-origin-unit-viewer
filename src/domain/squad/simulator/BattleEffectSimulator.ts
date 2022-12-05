@@ -531,6 +531,7 @@ class BattleEffectSimulator {
         'until' in cond.round && cond.round.until >=  this.#round
       );
     default:
+      // HACK: currently, ignore `round: 'odd' | 'even'`
       return false;
     }
   }

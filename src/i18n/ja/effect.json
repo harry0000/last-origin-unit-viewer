@@ -44,6 +44,7 @@
     "magical_girl": "魔法少女",
     "kouhei_church": "コウヘイ教団",
     "strikers": "ストライカーズ",
+    "empress_hound": "エンプレシスハウンド",
     "smart_enjoy": "スマートエンジョイ",
     "spartan_series": "スパルタンシリーズ",
     "golden_factory": "ゴールデンファクトリー"
@@ -213,7 +214,9 @@
       "round": {
         "at": "{{round}}ラウンド目開始時",
         "from": "{{round}}ラウンド目以降、ラウンド開始時",
-        "until": "{{round}}ラウンド目まで、ラウンド開始時"
+        "until": "{{round}}ラウンド目まで、ラウンド開始時",
+        "odd":  "奇数ラウンドに",
+        "even": "偶数ラウンドに"
       },
       "idle": "待機時",
       "kill": "自分が敵を倒した時",
@@ -222,6 +225,7 @@
       "enemy_killed": "敵が倒された時",
       "use_any_active": "スキル使用時",
       "use_this_active": "このスキル使用時",
+      "use_active_1": "[$t(skill:active, { \"unit\": {{unit}}, \"no\": 1 })]使用時",
       "use_active_2": "[$t(skill:active, { \"unit\": {{unit}}, \"no\": 2 })]使用時",
       "attack": "攻撃時",
       "attacked": "攻撃後",

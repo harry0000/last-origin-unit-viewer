@@ -22,21 +22,28 @@ class SkillEffectConditionViewModel {
   }
 
   get enemyTargetConditions(): EnemyTargetConditions | undefined {
-    const needEnemyConditions = !this.#effect.conditions && !('target' in this.#effect.details);
+    const hasNoTargetCondition =
+      !this.#effect.conditions ||
+      this.#effect.conditions.every(cond => !('state' in cond) || !('target' in cond.state));
+    const hasNoTargetEffect = !('target' in this.#effect.details);
 
-    return (
-      needEnemyConditions &&
+    // Neither condition view nor targets of effect view shows the target condition.
+    const needToShowTargetCondition = hasNoTargetCondition && hasNoTargetEffect;
+
+    if (
+      needToShowTargetCondition &&
       isTargetSkillEffectData(this.#effect) &&
-      this.#effect.target.kind === SkillEffectTargetKind.Enemy &&
-      'conditions' in this.#effect.target &&
-      this.#effect.target.conditions ?
-        { kind: this.#effect.target.kind, conditions: this.#effect.target.conditions } :
-        undefined
-    );
+      this.#effect.target.kind === SkillEffectTargetKind.Enemy
+    ) {
+      const { kind, conditions } = this.#effect.target;
+      return conditions && { kind, conditions };
+    }
+
+    return undefined;
   }
 
-  get onlyAdditional(): boolean {
-    return !this.#effect.conditions && !this.enemyTargetConditions;
+  get hasAnyConditions(): boolean {
+    return !!this.#effect.conditions || !!this.enemyTargetConditions;
   }
 
   get hasMultipleConditions(): boolean {

@@ -199,7 +199,14 @@ export type ActivationTargetState =
 
 type InSquadStateUnit =
   UnitNumber |
-  typeof UnitAlias['ElectricActive' | 'SteelLine' | 'SteelLineExcludingOfficerRanks' | 'Horizon' | 'KouheiChurch'] |
+  typeof UnitAlias[
+    'ElectricActive' |
+    'SteelLine' |
+    'SteelLineExcludingOfficerRanks' |
+    'Horizon' |
+    'KouheiChurch' |
+    'EmpressHound'
+  ] |
   Readonly<{ alias: typeof UnitAlias.SteelLine, role: typeof UnitRole.Supporter }> |
   'golden_factory'
 
@@ -207,10 +214,13 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
   [EffectActivationState.InSquad]: T
 }
 
-type NotInSquadState = {
-  [EffectActivationState.NotInSquad]:
-    typeof UnitAlias.SteelLine |
-    typeof SkillAreaType.CrossAdjacent
+type NotInSquadStateUnit =
+  typeof UnitRole.Attacker |
+  typeof UnitAlias.SteelLine |
+  typeof SkillAreaType.CrossAdjacent
+
+type NotInSquadState<T extends NotInSquadStateUnit = NotInSquadStateUnit> = {
+  [EffectActivationState.NotInSquad]: T
 }
 
 export type NumOfUnitsInSquadState = {
@@ -241,6 +251,7 @@ export type SelfSkillEffectActivationState =
   {
     squad:
       ActivationSquadState |
+      readonly [NotInSquadState<typeof UnitRole.Attacker>, InSquadState<typeof UnitAlias.EmpressHound>] |
       readonly [InSquadState<87>, InSquadState<89>, InSquadState<90>] |
       readonly [InSquadState<138>, InSquadState<140>, InSquadState<236>]
   } |
@@ -267,7 +278,13 @@ export type SkillEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
   round?: { at: 1 | 2 | 3 | 4 } | { from: 2 | 3 | 5 } | { until: 1 | 2 | 3 | 4 }
 } | {
-  trigger: Exclude<EffectTrigger, typeof EffectTrigger.StartRound>
+  trigger: typeof EffectTrigger.HitActive1,
+  round?: 'odd'
+} | {
+  trigger: typeof EffectTrigger.HitActive2,
+  round?: 'even'
+} | {
+  trigger: Exclude<EffectTrigger, typeof EffectTrigger['StartRound' | 'HitActive1' | 'HitActive2']>
 }
 
 export type SelfSkillEffectActivationCondition =

@@ -45,6 +45,7 @@ const relativeCoordinate: Record<Exclude<SkillAreaType, FixedSkillAreaType>, Rea
   [SkillAreaType.RowTowardFrontWithFrontLine]: [[0, 0], [1, 0], [2, 0], [2, -1], [2, 1]],
   [SkillAreaType.RowTowardFrontWithShockWave]: [[0, 0], [0, -1], [1, -1], [2, -1], [1, 0], [2, 0], [0, 1], [1, 1], [2, 1]],
   [SkillAreaType.RowTowardBack]: [[0, 0], [-1, 0], [-2, 0]],
+  [SkillAreaType.RowsOnBothSidesTowardFront]: [[0, -1], [1, -1], [2, -1], [0, 1], [1, 1], [2, 1]],
   [SkillAreaType.SelfAndRowAdjacent]: [[0, 0], [1, 0], [-1, 0]],
   [SkillAreaType.LineWithFront]: [[0, 0], [0, -1], [0, 1], [1, 0]],
   [SkillAreaType.LineWithFrontLine]: [[0, 0], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]],
