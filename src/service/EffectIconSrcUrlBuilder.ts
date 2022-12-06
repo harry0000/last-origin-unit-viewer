@@ -43,6 +43,7 @@ export function buildEffectIconSrcUrl(effect: Effect): string | undefined {
     return buildIconSrcUrl(Effect.FollowUpAttack);
   case Effect.AttackHit:
     return buildIconSrcUrl(Effect.AccUp);
+  case Effect.CriReductionByStatus:
   case Effect.AttackCritical:
     return buildIconSrcUrl(Effect.CriUp);
   case Effect.IgnoreDef:

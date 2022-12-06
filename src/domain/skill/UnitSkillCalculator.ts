@@ -413,6 +413,7 @@ function calculateEffectValue(
     };
   case Effect.DamageMultiplierUpByStatus:
   case Effect.DamageMultiplierReductionByStatus:
+  case Effect.CriReductionByStatus:
     return {
       [entry[0]]: {
         ...calculateMilliPercentageEffectValue(entry[1], lv, effectLv),

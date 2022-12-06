@@ -282,6 +282,7 @@ class RankUpUnitCostResolver<N extends  RankUpUnitNumber> {
       case 115: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 128: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 202: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
+      case 204: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 215: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 216: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 217: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];

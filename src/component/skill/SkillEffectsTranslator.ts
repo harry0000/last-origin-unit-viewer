@@ -265,6 +265,7 @@ export function translateSkillEffectDetails(
     };
   case Effect.DamageMultiplierUpByStatus:
   case Effect.DamageMultiplierReductionByStatus:
+  case Effect.CriReductionByStatus:
     return {
       tag: getTag(entry[1], t),
       detail: getDetail(

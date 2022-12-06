@@ -104,6 +104,8 @@ export type SkillEffectValue = Readonly<{
       ValueWithAddition<'milliPercentage'> & { unit: 90 } :
     E extends typeof Effect['DamageMultiplierUpByStatus' | 'DamageMultiplierReductionByStatus'] ?
       ValueWithAddition<'milliPercentage'> & { status: 'eva' } :
+    E extends typeof Effect['CriReductionByStatus'] ?
+      ValueWithAddition<'milliPercentage'> & { status: 'def' } :
     E extends MultipleMilliPercentageEffectKey ?
       ValueWithAddition<'milliPercentage'> |
       ReadonlyArray<ValueWithAddition<'milliPercentage'>> :

@@ -403,6 +403,7 @@
       "defense_penetration_resist_up_by_self_hp_rate": "現在HPに比例して防御貫通耐性アップ",
       "damage_taken_increased": "被ダメージアップ",
       "damage_reduction": "被ダメージダウン",
+      "cri_reduction_by_status": "攻撃者のクリティカル率ダウン",
       "minimize_damage": "被ダメージ最小化",
       "minimize_damage_less_than_value": "一定威力未満の被ダメージ最小化",
       "nullify_damage": "被ダメージ無効化",
@@ -500,6 +501,7 @@
 
       "damage_taken_increased": "被ダメージ +{{value}}%",
       "damage_reduction": "被ダメージ -{{value}}%",
+      "cri_reduction_by_status": "$t(common:status.{{status}})の +{{value}}% だけ攻撃者のクリティカル率ダウン",
       "minimize_damage": "被ダメージ最小化",
       "minimize_damage_less_than_value": "威力+{{value}}未満の被ダメージ最小化",
       "nullify_damage": "被ダメージ無効化",

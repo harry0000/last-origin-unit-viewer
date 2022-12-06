@@ -59,6 +59,7 @@ export const Effect = {
   DefensePenetrationResistUpBySelfHpRate: 'defense_penetration_resist_up_by_self_hp_rate',
   DamageTakenIncreased: 'damage_taken_increased',
   DamageReduction: 'damage_reduction',
+  CriReductionByStatus: 'cri_reduction_by_status',
   MinimizeDamage: 'minimize_damage',
   MinimizeDamageLessThanValue: 'minimize_damage_less_than_value',
   NullifyDamage: 'nullify_damage',
