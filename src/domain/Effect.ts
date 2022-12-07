@@ -108,4 +108,3 @@ export const Effect = {
   GoldenFactoryConstruction: 'golden_factory_construction'
 } as const;
 export type Effect = typeof Effect[keyof typeof Effect]
-
