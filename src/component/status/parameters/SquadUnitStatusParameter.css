@@ -96,7 +96,6 @@
 
 .effect-row-in-squad > .effect-term {
   flex-shrink: 0;
-  align-self: stretch;
 
   color: #aaa;
   font-weight: bold;
@@ -108,7 +107,6 @@
 
 .effect-row-in-squad > .effect-source {
   display: flex;
-  align-items: center;
 
   margin-left: 5px;
   padding: 2px;
