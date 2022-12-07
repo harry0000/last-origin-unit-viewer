@@ -373,6 +373,9 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
   [SkillAreaType.FixedBackLine]: {
     area: ['effective', 'none', 'none', 'effective', 'none', 'none', 'effective', 'none', 'none']
   },
+  [SkillAreaType.FixedMidAndBackLine]: {
+    area: ['effective', 'effective', 'none', 'effective', 'effective', 'none', 'effective', 'effective', 'none']
+  },
   [SkillAreaType.FixedMiddleRow]: {
     area: ['none', 'none', 'none', 'effective', 'effective', 'effective', 'none', 'none', 'none']
   },

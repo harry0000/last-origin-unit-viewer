@@ -56,7 +56,7 @@ export function extractAllPassiveSkills(skill: UnitSkillData[UnitNumber]): Reado
     ];
   case FormChangeUnits.BloodyPanther:
     return [
-      skill.passive[0],
+      ...Object.values(skill.passive[0]),
       skill.passive[1],
       ...Object.values(skill.passive[2])
     ];

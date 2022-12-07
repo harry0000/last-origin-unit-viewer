@@ -19,6 +19,7 @@ import {
   SkillEffectActivationCondition,
   SkillEffectActivationState,
   TargetSkillEffectActivationCondition,
+  UnitAliasAndRole,
   UnitAliasExceptUnit
 } from '../../domain/skill/SkillEffectActivationCondition';
 import { Effect } from '../../domain/Effect';
@@ -83,21 +84,13 @@ function stateValuesView(
         )}
       </span>
     );
-  case EffectActivationState.StackGe:
+  case EffectActivationState.Stack:
     if ('effect' in entry[1]) {
-      return t(
-        'effect:condition.state.tag_effect_stack_ge',
-        {
-          tag: entry[1].tag,
-          effect: entry[1].effect,
-          value: entry[1].value
-        }
-      );
+      return t('effect:condition.state.tag_effect_stack_ge', entry[1]);
+    } else if ('equal' in entry[1]) {
+      return t('effect:condition.state.tag_stack_eq', entry[1]);
     } else {
-      return t(
-        'effect:condition.state.tag_stack_ge',
-        { tag: entry[1].tag, value: entry[1].value }
-      );
+      return t('effect:condition.state.tag_stack_ge', entry[1]);
     }
   case EffectActivationState.Form:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { form: entry[1] })}</span>);
@@ -134,7 +127,7 @@ function unitStateView(
     { unit: 23, effect: typeof Effect.FollowUpAttack } |
     { unit: 83, effect: typeof Effect.TargetProtect } |
     UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
-    { alias: typeof UnitAlias.SteelLine, role: typeof UnitRole.Supporter } |
+    UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter> |
     typeof UnitAlias.ElectricActive |
     typeof UnitAlias.SteelLine |
     typeof UnitAlias.SteelLineExcludingOfficerRanks |

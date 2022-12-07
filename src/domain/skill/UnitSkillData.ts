@@ -174,7 +174,7 @@ type BloodyPantherSkillData = Readonly<{
     ],
   passive:
     readonly [
-      PassiveSkillData,
+      { readonly [key in BloodyPantherForm]: PassiveSkillData },
       PassiveSkillData,
       { readonly [key in BloodyPantherForm]: PassiveSkillData }
     ]

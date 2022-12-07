@@ -25,9 +25,9 @@ export type UnitAliasAndType = {
   type: typeof UnitType.Light
 }
 
-export type UnitAliasAndRole = {
-  alias: UnitAlias,
-  role: UnitRole
+export type UnitAliasAndRole<A extends UnitAlias = UnitAlias, R extends UnitRole = UnitRole> = {
+  alias: A,
+  role: R
 }
 
 export type UnitAliasExceptUnit<
@@ -42,7 +42,8 @@ export const GridState = {
   FrontLine: 'front_line',
   MidLine: 'mid_line',
   BackLine: 'back_line',
-  AreaOfEffect: 'area_of_effect'
+  AreaOfEffect: 'area_of_effect',
+  SameLine: 'same_line'
 } as const;
 export type GridState = typeof GridState[keyof typeof GridState]
 
@@ -150,18 +151,23 @@ type ActivationState =
     }
   } &
   {
-    [EffectActivationState.StackGe]?: {
+    [EffectActivationState.Stack]?: {
       tag: SkillEffectTag,
-      effect?: AffectedEffect,
-      value: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 9
-    }
+      effect: AffectedEffect,
+      greater_or_equal: 3 | 5
+    } | ({
+      tag: SkillEffectTag,
+    } & (
+      { equal: 1 | 2 | 3 } |
+      { greater_or_equal: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 9 }
+    ))
   } |
   AffectedByActivationState
 
 export type ActivationSelfState =
   ActivationState &
   {
-    [EffectActivationState.Grid]?: GridState
+    [EffectActivationState.Grid]?: Exclude<GridState, typeof GridState.SameLine>
   }  &
   {
     [EffectActivationState.NotTagged]?: SkillEffectTag
@@ -208,7 +214,7 @@ type InSquadStateUnit =
     'KouheiChurch' |
     'EmpressHound'
   ] |
-  Readonly<{ alias: typeof UnitAlias.SteelLine, role: typeof UnitRole.Supporter }> |
+  Readonly<UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter>> |
   'golden_factory'
 
 type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
@@ -218,7 +224,8 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 type NotInSquadStateUnit =
   typeof UnitRole.Attacker |
   typeof UnitAlias.SteelLine |
-  typeof SkillAreaType.CrossAdjacent
+  typeof SkillAreaType.CrossAdjacent |
+  Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>>
 
 type NotInSquadState<T extends NotInSquadStateUnit = NotInSquadStateUnit> = {
   [EffectActivationState.NotInSquad]: T

@@ -89,6 +89,7 @@ export const SkillAreaType = {
   AllAdjacent: 'all_adjacent',
   FixedFrontLine: `${FixedAreaPrefix}front_line`,
   FixedBackLine: `${FixedAreaPrefix}back_line`,
+  FixedMidAndBackLine: `${FixedAreaPrefix}mid_and_back_line`,
   FixedMiddleRow: `${FixedAreaPrefix}middle_row`,
   FixedCross: `${FixedAreaPrefix}cross`,
   FixedDiagonal: `${FixedAreaPrefix}diagonal`,

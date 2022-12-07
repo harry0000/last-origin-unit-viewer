@@ -378,7 +378,7 @@ class BloodyPantherUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.
   protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
 
   protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
-    return unitSkillData[this.unitNumber].passive[0];
+    return unitSkillData[this.unitNumber].passive[0][this.unitForm()];
   }
 
   protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {

@@ -121,6 +121,7 @@
     "slow_but_deadly": "Slow, But Deadly準備",
     "load_capacity_increased": "積載量増加",
     "f_armory_deployment": "F.アーモリー展開",
+    "shock_absorption": "衝撃吸収",
     "scoop_discovery": "特ダネ発見？",
     "enhance_output": "出力強化",
     "scrap_collect": "残骸収集",
@@ -262,8 +263,9 @@
       "tagged": "<$t(effect:tag.{{tag}})>状態である",
       "not_tagged": "<$t(effect:tag.{{tag}})>状態でない",
       "tagged_affected": "<$t(effect:tag.{{tag}})$t(effect:tag_separator){{effect}}>状態である",
-      "tag_stack_ge": "<$t(effect:tag.{{tag}})> {{value}}以上である",
-      "tag_effect_stack_ge": "<$t(effect:tag.{{tag}})>($t(effect:effect.name.{{effect}})) {{value}}以上である",
+      "tag_stack_eq": "<$t(effect:tag.{{tag}})> {{equal}}スタックである",
+      "tag_stack_ge": "<$t(effect:tag.{{tag}})> {{greater_or_equal}}スタック以上である",
+      "tag_effect_stack_ge": "<$t(effect:tag.{{tag}})>($t(effect:effect.name.{{effect}})) {{greater_or_equal}}スタック以上である",
       "form": "<$t(effect:form.{{form}})>である",
       "equipped": "$t(effect:quote){{equipment}}$t(effect:unquote)を装備している",
       "not_equipped": "{{equipments}}を装備していない",
@@ -285,7 +287,8 @@
       "front_line": "前列",
       "mid_line": "中列",
       "back_line": "後列",
-      "area_of_effect": "スキル効果範囲内"
+      "area_of_effect": "スキル効果範囲内",
+      "same_line": "同じ列"
     },
     "target": {
       "self": "$t(effect:unit.self)が",
@@ -295,7 +298,7 @@
     }
   },
   "scale_factor" : {
-    "per_stack": "<$t(effect:tag.{{tag}})> 1つにつき",
+    "per_stack": "<$t(effect:tag.{{tag}})> 1スタックにつき",
     "per_units": "味方/敵の数に比例して",
     "num_of_allies": "の人数に応じて",
     "proportional": "の数に比例して",
@@ -513,7 +516,7 @@
       "form_change": "<$t(effect:form.{{form}})>へ移行",
       "form_release": "<$t(effect:form.{{form}})>を解除",
       "tag_stack": "<$t(effect:tag.{{tag}})>を付与",
-      "tag_unstack": "<$t(effect:tag.{{tag}})>を{{value}}つ消費",
+      "tag_unstack": "<$t(effect:tag.{{tag}})>を{{value}}スタック消費",
       "tag_release": "<$t(effect:tag.{{tag}})>状態を解除",
       "all_buff_blocking": "強化効果不可状態",
       "all_buff_removal": "強化効果を解除",

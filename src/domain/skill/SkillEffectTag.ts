@@ -51,6 +51,7 @@ export type SkillEffectTag =
   'slow_but_deadly' |
   'load_capacity_increased' |
   'f_armory_deployment' |
+  'shock_absorption' |
   'scoop_discovery' |
   'enhance_output' |
   'scrap_collect' |
