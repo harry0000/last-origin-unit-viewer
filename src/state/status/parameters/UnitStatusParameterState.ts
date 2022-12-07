@@ -693,7 +693,12 @@ export const squadApTickCountState: RecoilValueReadOnly<number> = _inSquad.apTic
 
 export const squadUnitActionOrder = selector<SquadUnitActionOrder>({
   key: 'squadUnitActionOrder',
-  get: ({ get }) => new SquadUnitActionOrder(get(squadResolver), (unit) => get(_inSquad.ap(unit)))
+  get: ({ get }) =>
+    new SquadUnitActionOrder(
+      get(squadResolver),
+      (unit) => get(_inSquad.ap(unit)),
+      (unit) => get(_inSquad.spd(unit))
+    )
 });
 
 function map<T, U>(value: T | undefined, f: (value: T) => U): U | undefined {
