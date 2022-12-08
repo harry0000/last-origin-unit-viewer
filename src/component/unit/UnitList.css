@@ -1,5 +1,5 @@
 .unit-list {
-  height: 335px;
+  height: 276px;
   padding: 10px 5px 5px;
   overflow-y: scroll;
   scrollbar-color: #ffcc00 #514E55;
@@ -22,8 +22,8 @@
 
 .unit-list .unit-grid {
   display: grid;
-  grid-gap: 10px;
-  grid-template-columns: repeat(auto-fill, 100px);
-  grid-template-rows: repeat(auto-fill, 100px);
+  grid-gap: 12px;
+  grid-template-columns: repeat(auto-fill, 80px);
+  grid-template-rows: repeat(auto-fill, 80px);
   justify-content: space-evenly;
 }
