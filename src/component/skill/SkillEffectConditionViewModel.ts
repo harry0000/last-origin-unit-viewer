@@ -1,5 +1,5 @@
 import { PassiveSkillEffective } from '../../domain/skill/SkillEffective';
-import { SkillEffect } from '../../domain/skill/UnitSkills';
+import { SkillEffect, hasTargetSkillEffect, hasSelfSkillEffect } from '../../domain/skill/UnitSkills';
 import { SkillEffectScaleFactor } from '../../domain/skill/SkillEffectScaleFactor';
 import { SkillEffectTarget, SkillEffectTargetKind } from '../../domain/skill/SkillEffectTarget';
 import { isTargetSkillEffectData } from '../../domain/skill/SkillEffectData';
@@ -25,7 +25,7 @@ class SkillEffectConditionViewModel {
     const hasNoTargetCondition =
       !this.#effect.conditions ||
       this.#effect.conditions.every(cond => !('state' in cond) || !('target' in cond.state));
-    const hasNoTargetEffect = !('target' in this.#effect.details);
+    const hasNoTargetEffect = !hasTargetSkillEffect(this.#effect.details);
 
     // Neither condition view nor targets of effect view shows the target condition.
     const needToShowTargetCondition = hasNoTargetCondition && hasNoTargetEffect;
@@ -59,8 +59,8 @@ class SkillEffectConditionViewModel {
   }
 
   get effectTargets(): SkillEffectTargets {
-    const hasSelfEffect   = 'self' in this.#effect.details;
-    const hasTargetEffect = 'target' in this.#effect.details;
+    const hasSelfEffect   = hasSelfSkillEffect(this.#effect.details);
+    const hasTargetEffect = hasSelfSkillEffect(this.#effect.details);
 
     if (hasTargetEffect && isTargetSkillEffectData(this.#effect)) {
       // target details already shown by condition state

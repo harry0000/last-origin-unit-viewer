@@ -159,6 +159,16 @@ export function isAroundSkillEffect(arg: SkillEffect): arg is AroundSkillEffect 
 
 export type SkillEffect = SelfSkillEffect | TargetSkillEffect | AroundSkillEffect
 
+export type SkillEffectDetails = SkillEffect['details']
+
+export function hasSelfSkillEffect(arg: SkillEffectDetails): arg is { readonly self: SkillEffectValue } {
+  return 'self' in arg;
+}
+
+export function hasTargetSkillEffect(arg: SkillEffectDetails): arg is { readonly target: SkillEffectValue } {
+  return 'target' in arg;
+}
+
 export type DamageDeal = {
   milliPercentage: number,
   attribute?: DamageAttribute,
