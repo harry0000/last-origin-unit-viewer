@@ -60,7 +60,6 @@ function buildDetail(body: string, value: EquipmentEffectAddition, t: TFunction)
 function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): string {
   switch (entry[0]) {
   case Effect.RangeDownActive1:
-  case Effect.RangeUpActive2:
   case Effect.ActionCountUp:
   case Effect.MinimizeDamage:
   case Effect.AllDebuffRemoval:
@@ -71,6 +70,7 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   case Effect.IgnoreProtect:
   case Effect.Reconnaissance:
   case Effect.Marked:
+  case Effect.Immovable:
   case Effect.Silenced:
   case Effect.Stunned:
     return buildDetail(t(`effect:effect.description.${entry[0]}`), entry[1], t);
@@ -78,6 +78,7 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   case Effect.Barrier:
   case Effect.RangeUp:
   case Effect.RangeDown:
+  case Effect.RangeUpActive2:
     return buildDetail(t(`effect:effect.description.${entry[0]}`, { value: entry[1].value }), entry[1], t);
   case Effect.BattleContinuation:
     return 'value' in entry[1] ?
@@ -126,7 +127,8 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   case Effect.ApUp:
     return t(`effect:effect.description.${entry[0]}`, { value: calcMicroValue(entry[1]) });
   case Effect.BuffRemoval:
-  case Effect.DebuffRemoval: {
+  case Effect.DebuffRemoval:
+  case Effect.PreventsEffect: {
     const effects =
       'effect' in entry[1] ?
         t(`effect:effect.name.${entry[1].effect}`) :
@@ -134,8 +136,6 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
 
     return buildDetail(t(`effect:effect.description.${entry[0]}`, { effects }), entry[1], t);
   }
-  case Effect.PreventsEffect:
-    return buildDetail(t('effect:effect.description.prevents_effect', { effects: t(`effect:effect.name.${entry[1].effect}`) }), entry[1], t);
   case Effect.ActivationRatePercentageUp:{
     const { tag, effect } = entry[1];
     const value = calcMilliPercentageValue(entry[1]);

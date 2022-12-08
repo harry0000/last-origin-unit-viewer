@@ -75,14 +75,10 @@ export function useUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
 }
 
 export function useSquadUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
-  const select = useRecoilCallback(selectUnit(unit));
   const [, dragRef, previewRef] = useDrag(
     () => ({
       type: ItemType.SquadUnit,
-      item: () => {
-        select();
-        return unit;
-      }
+      item: unit
     }),
     [unit]
   );

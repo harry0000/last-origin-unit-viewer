@@ -87,7 +87,7 @@ export type SkillEffectDataValue = Readonly<{
       IntegerValue<1 | 2> & SkillEffectAddition :
     E extends RangeUpDownEffectKey ?
       (
-        IntegerValue<1 | 2 | 3> |
+        IntegerValue<1 | 2 | 3 | 4> |
         { value: { 1: 1, 10:  2 } }
       ) & SkillEffectAddition :
     E extends typeof Effect.BattleContinuation ?
@@ -127,8 +127,10 @@ export type SkillEffectDataValue = Readonly<{
       { form: UnitForms } & SkillEffectAddition :
     E extends typeof Effect['AtkValueUpByUnitValue'] ?
       ValueWithAddition<'milliPercentage'> & { unit: 90 } :
-    E extends typeof Effect['DamageMultiplierUpByStatus'] ?
+    E extends typeof Effect['DamageMultiplierUpByStatus' | 'DamageMultiplierReductionByStatus'] ?
       ValueWithAddition<'milliPercentage'> & { status: 'eva' } :
+    E extends typeof Effect['CriReductionByStatus'] ?
+      ValueWithAddition<'milliPercentage'> & { status: 'def' } :
     E extends MultipleMilliPercentageEffectKey ?
       ValueWithAddition<'milliPercentage'> |
       ReadonlyArray<ValueWithAddition<'milliPercentage'>> :
@@ -138,7 +140,9 @@ export type SkillEffectDataValue = Readonly<{
 }>
 
 export type AroundSkillEffectDataValue = Readonly<{
-  [Effect.FixedDamage]?: ValueWithAddition<'milliPercentage'>
+  [Effect.FixedDamage]: ValueWithAddition<'milliPercentage'>
+} & {
+  [Effect.DefDown]?: ValueWithAddition<'milliPercentage'>,
 }>
 
 type SelfSkillEffect = Readonly<{

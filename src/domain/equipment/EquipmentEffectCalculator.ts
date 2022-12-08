@@ -110,7 +110,6 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
     function calculate(): EquipmentEffectValue {
       switch (entry[0]) {
       case Effect.RangeDownActive1:
-      case Effect.RangeUpActive2:
       case Effect.ActionCountUp:
       case Effect.MinimizeDamage:
       case Effect.AllDebuffRemoval:
@@ -121,6 +120,7 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.IgnoreProtect:
       case Effect.Reconnaissance:
       case Effect.Marked:
+      case Effect.Immovable:
       case Effect.Silenced:
       case Effect.Stunned:
         return { [entry[0]]: calculateAddition(entry[1]) };
@@ -128,6 +128,7 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.Barrier:
       case Effect.RangeUp:
       case Effect.RangeDown:
+      case Effect.RangeUpActive2:
         return {
           [entry[0]]: {
             ...calculateAddition(entry[1]),
@@ -189,14 +190,13 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
           }
         };
       case Effect.BuffRemoval:
-      case Effect.DebuffRemoval: {
+      case Effect.DebuffRemoval:
+      case Effect.PreventsEffect: {
         const value = entry[1];
         return 'effect' in value ?
           { [entry[0]]: { ...calculateAddition(value), effect: value.effect } } :
           { [entry[0]]: { ...calculateAddition(value), effects: value.effects } };
       }
-      case Effect.PreventsEffect:
-        return { [entry[0]]: { ...calculateAddition(entry[1]), effect: entry[1].effect } };
       case Effect.ActivationRatePercentageUp: {
         const { effect, tag } = entry[1];
         return {

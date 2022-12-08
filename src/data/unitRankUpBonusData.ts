@@ -73,6 +73,17 @@ export const unitRankUpBonusData = {
       spd_up: { microValue: 50000 }
     }
   },
+  18: {
+    ss: {
+      hp_up: { value: 319 },
+      atk_up: { milliValue: 63000 },
+      def_up: { milliValue: 84000 },
+      cri_up: { milliPercentage: 5000 },
+      acc_up: { milliPercentage: 5000 },
+      eva_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 50000 }
+    }
+  },
   22: {
     s: {
       hp_up: { value: 135 },
@@ -345,7 +356,39 @@ export const unitRankUpBonusData = {
       spd_up: { microValue: 50000 }
     }
   },
+  56: {
+    s: {
+      hp_up: { value: 100 },
+      atk_up: { milliValue: 50000 },
+      cri_up: { milliPercentage: 5000 },
+      acc_up: { milliPercentage: 7000 }
+    },
+    ss: {
+      hp_up: { value: 100 },
+      atk_up: { milliValue: 50000 },
+      cri_up: { milliPercentage: 5000 },
+      acc_up: { milliPercentage: 8000 },
+    }
+  },
   65: {
+    s: {
+      hp_up: { value: 120 },
+      atk_up: { milliValue: 55000 },
+      def_up: { milliValue: 20000 },
+      cri_up: { milliPercentage: 3000 },
+      acc_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 30000 }
+    },
+    ss: {
+      hp_up: { value: 120 },
+      atk_up: { milliValue: 55000 },
+      def_up: { milliValue: 20000 },
+      cri_up: { milliPercentage: 3000 },
+      acc_up: { milliPercentage: 7000 },
+      spd_up: { microValue: 20000 }
+    }
+  },
+  66: {
     s: {
       hp_up: { value: 120 },
       atk_up: { milliValue: 55000 },
@@ -822,6 +865,34 @@ export const unitRankUpBonusData = {
       cri_up: { milliPercentage: 3000 },
       acc_up: { milliPercentage: 5000 },
       spd_up: { microValue: 30000 }
+    }
+  },
+  204: {
+    a: {
+      hp_up: { value: 65 },
+      atk_up: { milliValue: 15000 },
+      def_up: { milliValue: 6000 },
+      cri_up: { milliPercentage: 1500 },
+      acc_up: { milliPercentage: 3000 },
+      spd_up: { microValue: 20000 }
+    },
+    s: {
+      hp_up: { value: 98 },
+      atk_up: { milliValue: 23000 },
+      def_up: { milliValue: 9000 },
+      cri_up: { milliPercentage: 1000 },
+      acc_up: { milliPercentage: 3000 },
+      eva_up: { milliPercentage: 3000 },
+      spd_up: { microValue: 10000 }
+    },
+    ss: {
+      hp_up: { value: 245 },
+      atk_up: { milliValue: 57000 },
+      def_up: { milliValue: 23000 },
+      cri_up: { milliPercentage: 2500 },
+      acc_up: { milliPercentage: 4000 },
+      eva_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 20000 }
     }
   },
   215: {

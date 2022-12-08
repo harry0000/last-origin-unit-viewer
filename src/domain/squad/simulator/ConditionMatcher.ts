@@ -1,5 +1,6 @@
 import {
   ActivationSelfState,
+  ActivationSquadState,
   ActivationTargetState,
   AffectedEffect,
   GridState,
@@ -19,7 +20,7 @@ import { UnitBasicInfo, UnitKind, UnitNumber, UnitRole, UnitType } from '../../U
 import { calcTargetPositions } from '../../skill/SkillAreaOfEffectMatcher';
 import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../ValueUnit';
 import { isFormChangeUnitSkill } from '../../skill/UnitSkill';
-import { isUnitAlias, UnitAlias, unitNumbersForAlias } from '../../UnitAlias';
+import { isUnitAlias, unitNumbersForAlias } from '../../UnitAlias';
 
 import { isReadonlyArray, ValueOf } from '../../../util/type';
 
@@ -30,7 +31,7 @@ type DependencyState = typeof EffectActivationState[
   'Tagged' |
   'NotTagged' |
   'TaggedAffected' |
-  'StackGe'
+  'Stack'
 ]
 
 export function hasNoDependencyState<T extends ActivationSelfState | ActivationTargetState | EquipmentEffectActivationState>(
@@ -43,7 +44,7 @@ export function hasNoDependencyState<T extends ActivationSelfState | ActivationT
     !(EffectActivationState.Tagged in arg) &&
     !(EffectActivationState.NotTagged in arg) &&
     !(EffectActivationState.TaggedAffected in arg) &&
-    !(EffectActivationState.StackGe in arg)
+    !(EffectActivationState.Stack in arg)
   );
 }
 
@@ -109,8 +110,16 @@ export function matchTarget(
 type FactorScaledCount = NonNullable<BattleEffect['scaled']>['value']
 type FactorUnitCondition = Extract<SkillEffectScaleFactor, { per_units: { type: 'squad' } }>['per_units']['unit']
 
+type InSquadCondition         = ValueOf<ActivationSquadState, typeof EffectActivationState.InSquad>
+type NotInSquadCondition      = ValueOf<ActivationSquadState, typeof EffectActivationState.NotInSquad>
+type NumOfUnitsSquadCondition = ValueOf<ActivationSquadState, typeof EffectActivationState.NumOfUnits>['unit']
+
 function getSquadUnitMatcher(
-  cond: FactorUnitCondition | UnitNumber | UnitKind | UnitType | UnitRole | UnitAlias,
+  cond:
+    FactorUnitCondition |
+    Exclude<InSquadCondition, 'golden_factory'> |
+    NotInSquadCondition |
+    Exclude<NumOfUnitsSquadCondition, 'ally'>,
   sourcePosition: TenKeyPosition
 ): (state: UnitOriginState) => boolean {
   if (!cond) {
@@ -122,28 +131,34 @@ function getSquadUnitMatcher(
     return (target) => set.has(target.unit.no);
   } else if (typeof cond === 'number') {
     return (target) => target.unit.no === cond;
-  } else if (cond === SkillAreaType.CrossAdjacent) {
-    const targetPos = calcTargetPositions(cond, sourcePosition);
-    return (target) => targetPos.has(target.position);
-  } else if (isUnitAlias(cond)) {
-    const set = unitNumbersForAlias[cond];
-    return (target) => set.has(target.unit.no);
+  } else if (typeof cond === 'string') {
+    if (isUnitAlias(cond)) {
+      const set = unitNumbersForAlias[cond];
+      return (target) => set.has(target.unit.no);
+    } else {
+      switch (cond) {
+      case UnitKind.Bioroid:
+      case UnitKind.AGS:
+      case UnitType.Light:
+      case UnitType.Heavy:
+      case UnitType.Flying:
+      case UnitRole.Attacker:
+      case UnitRole.Defender:
+      case UnitRole.Supporter:
+        return (target) => matchUnitBasicInfo(cond, target.unit);
+      case SkillAreaType.CrossAdjacent: {
+        const targetPos = calcTargetPositions(cond, sourcePosition);
+        return (target) => targetPos.has(target.position);
+      }
+      default: {
+        const _exhaustiveCheck: never = cond;
+        return _exhaustiveCheck;
+      }
+      }
+    }
   } else {
-    switch (cond) {
-    case UnitKind.Bioroid:
-    case UnitKind.AGS:
-    case UnitType.Light:
-    case UnitType.Heavy:
-    case UnitType.Flying:
-    case UnitRole.Attacker:
-    case UnitRole.Defender:
-    case UnitRole.Supporter:
-      return (target) => matchUnitBasicInfo(cond, target.unit);
-    default: {
-      const _exhaustiveCheck: never = cond;
-      return _exhaustiveCheck;
-    }
-    }
+    const set = unitNumbersForAlias[cond.alias];
+    return (target) => set.has(target.unit.no) && matchUnitBasicInfo(cond.role, target.unit);
   }
 }
 
@@ -206,16 +221,23 @@ function matchUnitBasicInfo(
   }
 }
 
+function onSameLine(
+  source: TenKeyPosition,
+  target: TenKeyPosition
+): boolean {
+  return source % 3 === target % 3;
+}
+
 const FrontLine: ReadonlySet<TenKeyPosition> = new Set([3, 6, 9]);
 const MidLine:   ReadonlySet<TenKeyPosition> = new Set([2, 5, 8]);
 const BackLine:  ReadonlySet<TenKeyPosition> = new Set([1, 4, 7]);
 
 function onGridPosition(
-  grid: Exclude<GridState, typeof GridState.AreaOfEffect>,
+  grid: Exclude<GridState, typeof GridState['AreaOfEffect' | 'SameLine']>,
   position: TenKeyPosition
 ): boolean;
 function onGridPosition(
-  grid: GridState,
+  grid: Exclude<GridState, typeof GridState.SameLine>,
   position: TenKeyPosition,
   area: ReadonlySet<TenKeyPosition>
 ): boolean;
@@ -224,8 +246,8 @@ function onGridPosition(...[
   position,
   area
 ]:
-  [Exclude<GridState, typeof GridState.AreaOfEffect>, TenKeyPosition] |
-  [GridState, TenKeyPosition, ReadonlySet<TenKeyPosition>]
+  [Exclude<GridState, typeof GridState['AreaOfEffect' | 'SameLine']>, TenKeyPosition] |
+  [Exclude<GridState, typeof GridState.SameLine>, TenKeyPosition, ReadonlySet<TenKeyPosition>]
 ): boolean {
   switch (grid) {
   case GridState.FrontLine:
@@ -350,7 +372,10 @@ function matchStaticActivationTargetState(
   const { Grid, StatusGreaterThanSelf, StatusLessThanSelf, Unit } = EffectActivationState;
   return (
     matchCommonStaticActivationState(state, target) &&
-    (!(Grid in state) || !!state.grid && onGridPosition(state.grid, target.position)) &&
+    (
+      !(Grid in state) ||
+      !!state.grid && (state.grid === GridState.SameLine ? onSameLine(source.position, target.position) : onGridPosition(state.grid, target.position))
+    ) &&
     (
       !(StatusGreaterThanSelf in state) ||
       !!state.status_greater_than_self && compareTargetStatus(StatusGreaterThanSelf, state.status_greater_than_self.status, source, target)
@@ -419,7 +444,9 @@ function matchNotAffected(
 ): boolean {
   const effects = pickEffects(affected);
 
-  return effects.has(state[0]) && (!state[1] || effects.has(state[1]));
+  // HACK: to avoid "TS2349: This expression is not callable."
+  const conds: ReadonlyArray<typeof state[number]> = state;
+  return conds.every(e => !effects.has(e));
 }
 
 function matchAffected(
@@ -449,19 +476,20 @@ function matchTagStack(
   state: {
     tag: SkillEffectTag,
     effect?: AffectedEffect,
-    value: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 9
-  },
+  } & (
+    { equal: 1 | 2 | 3 } |
+    { greater_or_equal: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 9 }
+  ),
   affected: ReadonlyArray<BattleEffect>
 ): boolean {
   const taggedEffects = pickTaggedEffects(state.tag, affected);
-
-  return (
-    taggedEffects.size > 0 && (
-      state.effect ?
-        (taggedEffects.get(state.effect) ?? 0) >= state.value :
-        taggedEffects.values().next().value >= state.value
-    )
+  const stacked = taggedEffects.size && (
+    state.effect ? (taggedEffects.get(state.effect) ?? 0) : taggedEffects.values().next().value
   );
+
+  return 'equal' in state ?
+    stacked === state.equal :
+    stacked >= state.greater_or_equal;
 }
 
 function matchAffectedBy(
@@ -491,14 +519,14 @@ export function matchAffectedState(
   state: ReadonlyArray<ActivationSelfState> | ReadonlyArray<ActivationTargetState>,
   affected: ReadonlyArray<BattleEffect>
 ): boolean {
-  const { Affected, Tagged, TaggedAffected, StackGe, AffectedBy, NotAffected } = EffectActivationState;
+  const { Affected, Tagged, TaggedAffected, Stack, AffectedBy, NotAffected } = EffectActivationState;
 
   return state.some(s =>
     (!(NotAffected in s)    || !!s.not_affected    && matchNotAffected(s.not_affected, affected)) &&
     (!(Affected in s)       || !!s.affected        && matchAffected(s.affected, affected)) &&
     (!(Tagged in s)         || !!s.tagged          && matchTagged(s.tagged, affected)) &&
     (!(TaggedAffected in s) || !!s.tagged_affected && matchTaggedAffected(s.tagged_affected, affected)) &&
-    (!(StackGe in s)        || !!s.stack_ge        && matchTagStack(s.stack_ge, affected)) &&
+    (!(Stack in s)          || !!s.stack           && matchTagStack(s.stack, affected)) &&
     (!(AffectedBy in s)     || !!s.affected_by     && matchAffectedBy(s.affected_by, affected))
   );
 }
@@ -538,12 +566,9 @@ export function matchSquadState(
       return squad.some(matcher);
     }
   } else if (EffectActivationState.NotInSquad in cond) {
-    const matcher = getSquadUnitMatcher(cond.not_in_squad, source.position);
+    const matcher = exceptSourceUnit(getSquadUnitMatcher(cond.not_in_squad, source.position));
 
-    return squad.every(target =>
-      target.unit.no === source.unit.no ||
-      !matcher(target)
-    );
+    return squad.every(target => !matcher(target));
   } else if (EffectActivationState.NumOfUnits in cond) {
     const num_of_units = cond.num_of_units;
     const target = num_of_units.unit;
@@ -557,7 +582,15 @@ export function matchSquadState(
         'less_or_equal' in num_of_units ? count <= num_of_units.less_or_equal :
           num_of_units.greater_or_equal <= count
     );
+  } else if (cond.length === 2) {
+    const matcher = exceptSourceUnit(getSquadUnitMatcher(cond[0].not_in_squad, source.position));
+
+    return (
+      squad.every(target => !matcher(target)) ||
+      squad.some(getSquadUnitMatcher(cond[1].in_squad, source.position))
+    );
   } else {
+    // HACK: to avoid "TS2349: This expression is not callable."
     const nums: ReadonlyArray<{ [EffectActivationState.InSquad]: UnitNumber }> = cond;
     return nums.every(({ in_squad }) => squad.some(getSquadUnitMatcher(in_squad, source.position)));
   }

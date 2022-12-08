@@ -522,7 +522,7 @@ class BattleEffectSimulator {
 
     switch (cond.trigger) {
     case EffectTrigger.StartWave:
-      return this.#wave === 1;
+      return true; // this.#round === 1;
     case EffectTrigger.StartRound:
       return (
         !cond.round ||
@@ -531,6 +531,7 @@ class BattleEffectSimulator {
         'until' in cond.round && cond.round.until >=  this.#round
       );
     default:
+      // HACK: currently, ignore `round: 'odd' | 'even'`
       return false;
     }
   }

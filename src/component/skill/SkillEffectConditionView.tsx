@@ -19,6 +19,7 @@ import {
   SkillEffectActivationCondition,
   SkillEffectActivationState,
   TargetSkillEffectActivationCondition,
+  UnitAliasAndRole,
   UnitAliasExceptUnit
 } from '../../domain/skill/SkillEffectActivationCondition';
 import { Effect } from '../../domain/Effect';
@@ -83,21 +84,13 @@ function stateValuesView(
         )}
       </span>
     );
-  case EffectActivationState.StackGe:
+  case EffectActivationState.Stack:
     if ('effect' in entry[1]) {
-      return t(
-        'effect:condition.state.tag_effect_stack_ge',
-        {
-          tag: entry[1].tag,
-          effect: entry[1].effect,
-          value: entry[1].value
-        }
-      );
+      return t('effect:condition.state.tag_effect_stack_ge', entry[1]);
+    } else if ('equal' in entry[1]) {
+      return t('effect:condition.state.tag_stack_eq', entry[1]);
     } else {
-      return t(
-        'effect:condition.state.tag_stack_ge',
-        { tag: entry[1].tag, value: entry[1].value }
-      );
+      return t('effect:condition.state.tag_stack_ge', entry[1]);
     }
   case EffectActivationState.Form:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { form: entry[1] })}</span>);
@@ -134,13 +127,15 @@ function unitStateView(
     { unit: 23, effect: typeof Effect.FollowUpAttack } |
     { unit: 83, effect: typeof Effect.TargetProtect } |
     UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
-    { alias: typeof UnitAlias.SteelLine, role: typeof UnitRole.Supporter } |
+    UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter> |
     typeof UnitAlias.ElectricActive |
     typeof UnitAlias.SteelLine |
     typeof UnitAlias.SteelLineExcludingOfficerRanks |
     typeof UnitAlias.Horizon |
     typeof UnitAlias.KouheiChurch |
+    typeof UnitAlias.EmpressHound |
     typeof SkillAreaType.CrossAdjacent |
+    typeof UnitRole.Attacker |
     'golden_factory',
   selfUnitNumber: UnitNumber,
   t: TFunction
@@ -159,9 +154,9 @@ function unitStateView(
       <span>{t(`effect:condition.state.${key}`, { unit: units })}</span>
     );
   } else if (typeof unit === 'string') {
+    // TODO: Move excepting logic from view.
+    const isSquadCond = key === EffectActivationState.InSquad || key === EffectActivationState.NotInSquad;
     if (isUnitAlias(unit)) {
-      // TODO: Move excepting logic from view.
-      const isSquadCond = key === EffectActivationState.InSquad || key === EffectActivationState.NotInSquad;
       return (
         <React.Fragment>
           {ifTruthy(
@@ -173,7 +168,15 @@ function unitStateView(
         </React.Fragment>
       );
     } else {
-      return (<span>{t(`effect:condition.state.${key}`, { unit: t(`effect:unit.${unit}`) })}</span>);
+      return (
+        <React.Fragment>
+          {ifTruthy(
+            isSquadCond && unit === UnitRole.Attacker,
+            (<span>{t('effect:unit.self')}{t('effect:except_preposition')}</span>)
+          )}
+          <span>{t(`effect:condition.state.${key}`, { unit: t(`effect:unit.${unit}`) })}</span>
+        </React.Fragment>
+      );
     }
   } else if ('alias' in unit) {
     return 'except' in unit ?
@@ -259,7 +262,13 @@ const SquadStateView: React.FC<{
       {t('effect:condition.target.squad')}
       {
         isReadonlyArray(state) ?
-          unitStateView(EffectActivationState.InSquad, state.map(s => s.in_squad), unitNumber, t) :
+          state.length === 2 ?
+            (<React.Fragment>
+              {unitStateView(EffectActivationState.NotInSquad, state[0].not_in_squad, unitNumber, t)}
+              <span>{t('effect:or_symbolic_separator')}</span>
+              {unitStateView(EffectActivationState.InSquad, state[1].in_squad, unitNumber, t)}
+            </React.Fragment>) :
+            unitStateView(EffectActivationState.InSquad, state.map(s => s.in_squad), unitNumber, t) :
           'num_of_units' in state ?
             isNumOfCrossAdjacent(state.num_of_units) ?
               numOfCrossAdjacent(state.num_of_units) :
@@ -317,10 +326,20 @@ const TriggerView: React.FC<{
           t('effect:condition.trigger.round.from', { round: condition.round.from }) :
           t('effect:condition.trigger.round.until', { round: condition.round.until }) :
       t('effect:condition.trigger.start_round');
+  case EffectTrigger.UseActive1:
   case EffectTrigger.UseActive2:
   case EffectTrigger.HitActive1:
   case EffectTrigger.HitActive2:
-    return t(`effect:condition.trigger.${condition.trigger}`, { unit: unitNumber });
+    return (
+      <React.Fragment>
+        {
+          [
+            ...('round' in condition ? [t(`effect:condition.trigger.round.${condition.round}`)] : []),
+            t(`effect:condition.trigger.${condition.trigger}`, { unit: unitNumber })
+          ].join('')
+        }
+      </React.Fragment>
+    );
   case EffectTrigger.SeizeOpportunity:
     return (
       <React.Fragment>
@@ -438,7 +457,7 @@ const ConditionRow: React.FC<{
   );
 };
 
-const EnemyConditionRow: React.FC<{
+const EnemyCondition: React.FC<{
   target: NonNullable<SkillEffectConditionViewModel['enemyTargetConditions']>
 }> = ({ target }) => {
   const { t } = useTranslation();
@@ -543,17 +562,29 @@ const SkillEffectConditionView: React.FC<{
   const OrConjunction = () => (<div css={{ fontSize: '0.7em' }}>{t('effect:or_conjunction')}</div>);
   const Conditions = () => {
     if (isTargetSkillEffect(effect)) {
-      return effect.conditions ?
-        effect.conditions.length === 1 ?
-          (<ConditionRow condition={effect.conditions[0]} target={effect.target} unitNumber={unitNumber} />) :
-          (
+      const conditions =
+        effect.conditions ?
+          effect.conditions.length === 1 ?
+            (<ConditionRow condition={effect.conditions[0]} target={effect.target} unitNumber={unitNumber} />) :
+            (
+              <React.Fragment>
+                <ConditionRow condition={effect.conditions[0]} target={effect.target} unitNumber={unitNumber} />
+                <OrConjunction />
+                <ConditionRow condition={effect.conditions[1]} target={effect.target} unitNumber={unitNumber} />
+              </React.Fragment>
+            ) :
+          null;
+      return (
+        <React.Fragment>
+          {conditions}
+          {ifNonNullable(model.enemyTargetConditions, enemyTarget => (
             <React.Fragment>
-              <ConditionRow condition={effect.conditions[0]} target={effect.target} unitNumber={unitNumber} />
-              <OrConjunction />
-              <ConditionRow condition={effect.conditions[1]} target={effect.target} unitNumber={unitNumber} />
+              {ifTruthy(!!conditions, t('effect:separator'))}
+              <EnemyCondition target={enemyTarget} />
             </React.Fragment>
-          ) :
-        ifNonNullable(model.enemyTargetConditions, conditions => (<EnemyConditionRow target={conditions} />));
+          ))}
+        </React.Fragment>
+      );
     } else {
       return ifNonNullable(
         effect.conditions,
@@ -572,11 +603,11 @@ const SkillEffectConditionView: React.FC<{
   };
   const Additional = ({ children }: { children: ReactNode }) => {
     return (
-      model.onlyAdditional ?
-        (<span>{children}</span>) :
+      model.hasAnyConditions ?
         model.hasMultipleConditions ?
           (<div css={{ marginTop: 5 }}>{children}</div>) :
-          (<span>{t('effect:separator')}{children}</span>)
+          (<span>{t('effect:separator')}{children}</span>) :
+        (<span>{children}</span>)
     );
   };
 

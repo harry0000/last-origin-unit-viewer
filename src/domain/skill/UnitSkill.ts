@@ -53,6 +53,8 @@ export function buildUnitSkill(unit: UnitBasicInfo): UnitSkill {
       return new RampartUnitSkill(unit);
     case FormChangeUnits.MightyR:
       return new MightyRUnitSkill(unit);
+    case FormChangeUnits.Ullr:
+      return new UllrUnitSkill(unit);
     case FormChangeUnits.JangHwa:
       return new JangHwaUnitSkill(unit);
     case FormChangeUnits.Fortress:
@@ -376,7 +378,7 @@ class BloodyPantherUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.
   protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
 
   protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
-    return unitSkillData[this.unitNumber].passive[0];
+    return unitSkillData[this.unitNumber].passive[0][this.unitForm()];
   }
 
   protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
@@ -623,6 +625,40 @@ class MightyRUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Mighty
 
   protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[2][this.unitForm()];
+  }
+}
+
+class UllrUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Ullr> {
+
+  constructor(
+    unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Ullr>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<typeof FormChangeUnits.Ullr>
+  ) {
+    super(unit, skillLv, form);
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new UllrUnitSkill(this.formChangeUnit, lv, this.form);
+  }
+
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Ullr>): FormChangeUnitSkill<typeof FormChangeUnits.Ullr> {
+    return new UllrUnitSkill(this.formChangeUnit, this.skillLv, form);
+  }
+
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0][this.unitForm()]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0];
+  }
+
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[1][this.unitForm()];
+  }
+
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[2];
   }
 }
 

@@ -7,6 +7,7 @@ function buildIconSrcUrl(effect: Effect): string {
 export function buildEffectIconSrcUrl(effect: Effect): string | undefined {
   switch (effect) {
   case Effect.DamageMultiplierUpByStatus:
+  case Effect.DamageMultiplierReductionByStatus:
     return buildIconSrcUrl(Effect.DamageMultiplierUp);
   case Effect.AdditionalDamageFocusing:
     return buildIconSrcUrl(Effect.AtkUp);
@@ -28,6 +29,7 @@ export function buildEffectIconSrcUrl(effect: Effect): string | undefined {
   case Effect.RangeUpActive2:
     return buildIconSrcUrl(Effect.RangeUp);
   case Effect.MinimizeDamage:
+  case Effect.MinimizeDamageLessThanValue:
     return buildIconSrcUrl(Effect.DamageReduction);
   case Effect.AreaDamageDispersion:
     return buildIconSrcUrl(Effect.DefUp);
@@ -41,6 +43,7 @@ export function buildEffectIconSrcUrl(effect: Effect): string | undefined {
     return buildIconSrcUrl(Effect.FollowUpAttack);
   case Effect.AttackHit:
     return buildIconSrcUrl(Effect.AccUp);
+  case Effect.CriReductionByStatus:
   case Effect.AttackCritical:
     return buildIconSrcUrl(Effect.CriUp);
   case Effect.IgnoreDef:

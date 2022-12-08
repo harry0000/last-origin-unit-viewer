@@ -6,7 +6,8 @@ import { partition } from '../../util/array';
 type SquadUnitApValue = {
   unit: UnitNumber,
   position: TenKeyPosition,
-  ap: MicroValue
+  ap: MicroValue,
+  spd: MicroValue
 }
 
 const PositionPriority: { [K in TenKeyPosition]: number } = {
@@ -22,7 +23,9 @@ const PositionPriority: { [K in TenKeyPosition]: number } = {
 };
 
 function descendingOrder(a: SquadUnitApValue, b: SquadUnitApValue): number {
-  return b.ap.microValue - a.ap.microValue || PositionPriority[b.position] - PositionPriority[a.position];
+  return b.ap.microValue - a.ap.microValue ||
+    b.spd.microValue - a.spd.microValue ||
+    PositionPriority[b.position] - PositionPriority[a.position];
 }
 
 const ReadyToActionApMicroValue = 10_000_000 as const;
@@ -40,10 +43,13 @@ export class SquadUnitActionOrder {
 
   constructor(
     squad: Squad,
-    apRepository: (unit: UnitNumber) => MicroValue | undefined
+    apRepository: (unit: UnitNumber) => MicroValue | undefined,
+    spdRepository: (unit: UnitNumber) => MicroValue | undefined
   ) {
     const units = squad.units.map(({ unit: { no }, position }) => ({
-      unit: no, position, ap: apRepository(no) ?? { microValue: 0 }
+      unit: no, position,
+      ap: apRepository(no) ?? { microValue: 0 },
+      spd: spdRepository(no) ?? { microValue: 0 }
     })).sort(descendingOrder);
 
     const [ready, notReady] = partition(units, ({ ap }) => readyToAction(ap));

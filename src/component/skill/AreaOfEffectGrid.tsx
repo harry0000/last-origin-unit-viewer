@@ -18,7 +18,8 @@ const cellColorStyle: { [key in AreaOfEffectCellType]: string } = {
   [AreaOfEffectCellType.Effective]: '#d0191d',
   [AreaOfEffectCellType.High]:      '#ff8f03',
   [AreaOfEffectCellType.Middle]:    '#ba5a03',
-  [AreaOfEffectCellType.Weak]:      '#763316',
+  [AreaOfEffectCellType.Low]:       '#763316',
+  [AreaOfEffectCellType.Weak]:      '#6b3f31',
   [AreaOfEffectCellType.None]:      '#4b4b4d'
 } as const;
 
@@ -63,6 +64,7 @@ const AreaOfEffectCell: React.FC<{ selected: boolean, type: AreaOfEffectCellType
       {
         type === AreaOfEffectCellType.High ||
         type === AreaOfEffectCellType.Middle ||
+        type === AreaOfEffectCellType.Low ||
         type === AreaOfEffectCellType.Weak ?
           (<OverlayTrigger
             {...rest}

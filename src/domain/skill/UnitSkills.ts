@@ -65,7 +65,7 @@ export type SkillEffectValue = Readonly<{
     E extends PushPullEffectKey ?
       IntegerValue<1 | 2> & SkillEffectAddition :
     E extends RangeUpDownEffectKey ?
-      IntegerValue<1 | 2 | 3> & SkillEffectAddition :
+      IntegerValue<1 | 2 | 3 | 4> & SkillEffectAddition :
     E extends IntegerValueEffectKey ?
       ValueWithAddition<'value'> :
     E extends MilliValueEffectKey ?
@@ -102,8 +102,10 @@ export type SkillEffectValue = Readonly<{
       { form: UnitForms } & SkillEffectAddition :
     E extends typeof Effect['AtkValueUpByUnitValue'] ?
       ValueWithAddition<'milliPercentage'> & { unit: 90 } :
-    E extends typeof Effect['DamageMultiplierUpByStatus'] ?
+    E extends typeof Effect['DamageMultiplierUpByStatus' | 'DamageMultiplierReductionByStatus'] ?
       ValueWithAddition<'milliPercentage'> & { status: 'eva' } :
+    E extends typeof Effect['CriReductionByStatus'] ?
+      ValueWithAddition<'milliPercentage'> & { status: 'def' } :
     E extends MultipleMilliPercentageEffectKey ?
       ValueWithAddition<'milliPercentage'> |
       ReadonlyArray<ValueWithAddition<'milliPercentage'>> :
@@ -113,7 +115,9 @@ export type SkillEffectValue = Readonly<{
 }>
 
 export type AroundSkillEffectValue = Readonly<{
-  [Effect.FixedDamage]?: ValueWithAddition<'milliPercentage'>
+  [Effect.FixedDamage]: ValueWithAddition<'milliPercentage'>
+} & {
+  [Effect.DefDown]?: ValueWithAddition<'milliPercentage'>,
 }>
 
 export type Conditions<T> = readonly [T] | readonly [T, T]

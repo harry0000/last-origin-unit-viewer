@@ -9,6 +9,7 @@ export const EffectTrigger = {
   EnemyKilled: 'enemy_killed',
   UseAnyActive: 'use_any_active',
   UseThisActive: 'use_this_active',
+  UseActive1: 'use_active_1',
   UseActive2: 'use_active_2',
   Attack: 'attack',
   Attacked: 'attacked',

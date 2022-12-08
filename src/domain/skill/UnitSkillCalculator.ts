@@ -357,11 +357,13 @@ function calculateEffectValue(
     };
   case Effect.RangeUp:
   case Effect.RangeDown:
+  case Effect.RangeUpActive2:
     return { [entry[0]]: calculateRangeUpDownEffectValue(entry[1], lv) };
   case Effect.FixedDamageOverTime:
   case Effect.FixedFireDamageOverTime:
   case Effect.FixedIceDamageOverTime:
   case Effect.FixedElectricDamageOverTime:
+  case Effect.MinimizeDamageLessThanValue:
   case Effect.Barrier:
     return { [entry[0]]: calculateIntegerValueEffectValue(entry[1], lv, effectLv) };
   case Effect.BattleContinuation:
@@ -410,6 +412,8 @@ function calculateEffectValue(
       }
     };
   case Effect.DamageMultiplierUpByStatus:
+  case Effect.DamageMultiplierReductionByStatus:
+  case Effect.CriReductionByStatus:
     return {
       [entry[0]]: {
         ...calculateMilliPercentageEffectValue(entry[1], lv, effectLv),
@@ -423,6 +427,7 @@ function calculateEffectValue(
         unit: entry[1].unit
       }
     };
+  case Effect.DamageMultiplierDown:
   case Effect.DefDown:
   case Effect.AccDown:
   case Effect.CriDown:
@@ -455,16 +460,22 @@ function calculateAroundEffectDataValue(
   lv: SkillLv,
   effectLv: SkillEffectLv
 ): AroundSkillEffectValue {
-  return (
-    data?.fixed_damage ?
-      {
-        fixed_damage: {
-          ...calculateDataValue('milliPercentage', data.fixed_damage, effectLv),
-          ...calculateAddition(data.fixed_damage, lv)
-        }
-      } :
-      {}
-  );
+  return ({
+    fixed_damage: {
+      ...calculateDataValue('milliPercentage', data.fixed_damage, effectLv),
+      ...calculateAddition(data.fixed_damage, lv)
+    },
+    ...(
+      'def_down' in data && data.def_down ?
+        {
+          def_down: {
+            ...calculateDataValue('milliPercentage', data.def_down, effectLv),
+            ...calculateAddition(data.def_down, lv)
+          }
+        } :
+        {}
+    )
+  });
 }
 
 function calculateEffect(

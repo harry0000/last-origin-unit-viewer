@@ -48,7 +48,11 @@ export type SkillEffectTag =
   'bombardment_squadron_command' |
   'stealth_mode' |
   'elation' |
+  'slow_but_deadly' |
+  'load_capacity_increased' |
   'f_armory_deployment' |
+  'shock_absorption' |
+  'scoop_discovery' |
   'enhance_output' |
   'scrap_collect' |
   'electromagnatic_consonance' |
@@ -101,6 +105,8 @@ export type SkillEffectTag =
   'night_of_blood_queen' |
   'clear_and_serene' |
   'foresight' |
+  'separation_anxiety' |
+  'energy_focusing' |
   'mimesis' |
   'pre_cooking' |
   'best_desserts' |

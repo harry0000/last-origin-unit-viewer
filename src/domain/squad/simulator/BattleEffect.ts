@@ -163,6 +163,7 @@ function buildSkillBattleEffect(
   const isMultipleValueEntry = (arg: typeof entry): arg is readonly [effect: MultipleValueSkillEffectKey, value: NonNullable<SkillEffectValue[MultipleValueSkillEffectKey]>] => {
     switch (arg[0]) {
     case Effect.TagRelease:
+    case Effect.DamageMultiplierDown:
     case Effect.DefDown:
     case Effect.AccDown:
     case Effect.CriDown:

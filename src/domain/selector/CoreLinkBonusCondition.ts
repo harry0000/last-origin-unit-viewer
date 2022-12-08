@@ -33,40 +33,16 @@ export function matchCoreLinkBonusConditions(
   );
 }
 
+const commonFullLinkBonusIndexes = [1, 2, 3] as const;
+
 function matchFullLinkBonusCondition(
   coreLink: UnitCoreLinkBonusData[UnitNumber],
   fullLinkBonus: FullLinkBonusCondition
 ): boolean {
   switch (fullLinkBonus) {
-  case Effect.HpUp:
-    return (
-      'hp_up' in coreLink.full_link_bonus[1] ||
-      'hp_up' in coreLink.full_link_bonus[2] ||
-      'hp_up' in coreLink.full_link_bonus[3]
-    );
-  case Effect.AccUp:
-    return (
-      'acc_up' in coreLink.full_link_bonus[1] ||
-      'acc_up' in coreLink.full_link_bonus[2] ||
-      'acc_up' in coreLink.full_link_bonus[3]
-    );
-  case Effect.CriUp:
-    return (
-      'cri_up' in coreLink.full_link_bonus[1] ||
-      'cri_up' in coreLink.full_link_bonus[2] ||
-      'cri_up' in coreLink.full_link_bonus[3]
-    );
   case Effect.EvaUp:
     return 'eva_up' in coreLink.full_link_bonus[3];
-  case Effect.RangeUp:
-    return (
-      'range_up' in coreLink.full_link_bonus[2] ||
-      'range_up' in coreLink.full_link_bonus[3]
-    );
-  case 'buff_debuff_lv_2_up':
-    return (
-      'buff_debuff_lv_up' in coreLink.full_link_bonus[1] ||
-      'buff_debuff_lv_up' in coreLink.full_link_bonus[3]
-    );
+  default:
+    return commonFullLinkBonusIndexes.some(i => fullLinkBonus in coreLink.full_link_bonus[i]);
   }
 }

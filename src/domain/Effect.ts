@@ -2,6 +2,7 @@ export const Effect = {
   DamageMultiplierUp: 'damage_multiplier_up',
   DamageMultiplierDown: 'damage_multiplier_down',
   DamageMultiplierUpByStatus: 'damage_multiplier_up_by_status',
+  DamageMultiplierReductionByStatus: 'damage_multiplier_reduction_by_status',
   AdditionalDamage: 'additional_damage',
   AdditionalDamageFocusing: 'additional_damage_focusing',
   Enmity: 'enmity',
@@ -22,6 +23,7 @@ export const Effect = {
   FixedElectricDamageOverTime: 'fixed_electric_damage_over_time',
   LightTypeDamageUp: 'light_type_damage_up',
   HeavyTypeDamageUp: 'heavy_type_damage_up',
+  HeavyTypeDamageDown: 'heavy_type_damage_down',
   FlyingTypeDamageUp: 'flying_type_damage_up',
   FlyingTypeDamageDown: 'flying_type_damage_down',
   AtkValueUp: 'atk_value_up',
@@ -57,7 +59,9 @@ export const Effect = {
   DefensePenetrationResistUpBySelfHpRate: 'defense_penetration_resist_up_by_self_hp_rate',
   DamageTakenIncreased: 'damage_taken_increased',
   DamageReduction: 'damage_reduction',
+  CriReductionByStatus: 'cri_reduction_by_status',
   MinimizeDamage: 'minimize_damage',
+  MinimizeDamageLessThanValue: 'minimize_damage_less_than_value',
   NullifyDamage: 'nullify_damage',
   AreaDamageDispersion: 'area_damage_dispersion',
   Barrier: 'barrier',
@@ -104,4 +108,3 @@ export const Effect = {
   GoldenFactoryConstruction: 'golden_factory_construction'
 } as const;
 export type Effect = typeof Effect[keyof typeof Effect]
-

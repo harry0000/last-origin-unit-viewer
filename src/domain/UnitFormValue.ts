@@ -12,6 +12,7 @@ export const FormChangeUnits = {
   Siren: 89,
   Rampart: 114,
   MightyR: 119,
+  Ullr: 152,
   JangHwa: 154,
   Fortress: 222
 } as const;
@@ -59,6 +60,10 @@ export const UnitForms = {
     default: 'normal',
     changed: 'maximum_pump_up'
   },
+  [FormChangeUnits.Ullr]: {
+    default: 'close_range_response_mode',
+    changed: 'long_range_sniper_mode'
+  },
   [FormChangeUnits.JangHwa]: {
     default: 'normal',
     changed: 'remote_bomb_placement'
@@ -85,6 +90,7 @@ export type InvincibleDragonForm = FormPerUnit<typeof FormChangeUnits.Invincible
 export type SirenForm            = FormPerUnit<typeof FormChangeUnits.Siren>
 export type RampartForm          = FormPerUnit<typeof FormChangeUnits.Rampart>
 export type MightyRForm          = FormPerUnit<typeof FormChangeUnits.MightyR>
+export type UllrForm             = FormPerUnit<typeof FormChangeUnits.Ullr>
 export type JangHwaForm          = FormPerUnit<typeof FormChangeUnits.JangHwa>
 export type FortressForm         = FormPerUnit<typeof FormChangeUnits.Fortress>
 
@@ -102,6 +108,7 @@ export type FormChangeUnitBasicInfo<N extends FormChangeUnitNumbers> =
     N extends typeof FormChangeUnits.Siren            ? typeof unitBasicData[typeof FormChangeUnits.Siren] :
     N extends typeof FormChangeUnits.Rampart          ? typeof unitBasicData[typeof FormChangeUnits.Rampart] :
     N extends typeof FormChangeUnits.MightyR          ? typeof unitBasicData[typeof FormChangeUnits.MightyR] :
+    N extends typeof FormChangeUnits.Ullr             ? typeof unitBasicData[typeof FormChangeUnits.Ullr] :
     N extends typeof FormChangeUnits.JangHwa          ? typeof unitBasicData[typeof FormChangeUnits.JangHwa] :
     N extends typeof FormChangeUnits.Fortress         ? typeof unitBasicData[typeof FormChangeUnits.Fortress] :
       never

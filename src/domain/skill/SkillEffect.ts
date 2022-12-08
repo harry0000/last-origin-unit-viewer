@@ -3,10 +3,7 @@ import { Effect } from '../Effect';
 export type StatusEffectOnly = typeof Effect['HpUp' | 'HpDown']
 export type EquipmentEffectOnly =
   StatusEffectOnly |
-  typeof Effect[
-    'RangeDownActive1' |
-    'RangeUpActive2'
-  ]
+  typeof Effect['RangeDownActive1']
 export type NoValueEffectKey =
   typeof Effect[
     'ActionCountUp' |
@@ -40,13 +37,14 @@ export type NoValueEffectKey =
     'GoldenFactoryConstruction'
   ]
 export type PushPullEffectKey = typeof Effect['Pull' | 'Push']
-export type RangeUpDownEffectKey = typeof Effect['RangeUp' | 'RangeDown']
+export type RangeUpDownEffectKey = typeof Effect['RangeUp' | 'RangeDown' | 'RangeUpActive2']
 export type IntegerValueEffectKey =
   typeof Effect[
     'FixedDamageOverTime' |
     'FixedFireDamageOverTime' |
     'FixedIceDamageOverTime' |
     'FixedElectricDamageOverTime' |
+    'MinimizeDamageLessThanValue' |
     'Barrier'
   ]
 export type MilliValueEffectKey = typeof Effect['AtkValueUp' | 'DefValueUp']
@@ -80,4 +78,12 @@ export type MilliPercentageEffectKey =
     ]
   >
 
-export type MultipleMilliPercentageEffectKey = typeof Effect['DefDown' | 'AccDown' | 'CriDown' | 'EvaUp' | 'StatusResistUp']
+export type MultipleMilliPercentageEffectKey =
+  typeof Effect[
+    'DamageMultiplierDown' |
+    'DefDown' |
+    'AccDown' |
+    'CriDown' |
+    'EvaUp' |
+    'StatusResistUp'
+  ]

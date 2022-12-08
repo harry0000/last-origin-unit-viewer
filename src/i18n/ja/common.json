@@ -270,7 +270,8 @@
     "effective_rate": {
       "high": "75%",
       "middle": "50%",
-      "weak": "25%"
+      "low": "25%",
+      "weak": "10%"
     },
     "rank_up": "ランクアップスキル",
     "type": {

@@ -25,9 +25,9 @@ export type UnitAliasAndType = {
   type: typeof UnitType.Light
 }
 
-export type UnitAliasAndRole = {
-  alias: UnitAlias,
-  role: UnitRole
+export type UnitAliasAndRole<A extends UnitAlias = UnitAlias, R extends UnitRole = UnitRole> = {
+  alias: A,
+  role: R
 }
 
 export type UnitAliasExceptUnit<
@@ -42,7 +42,8 @@ export const GridState = {
   FrontLine: 'front_line',
   MidLine: 'mid_line',
   BackLine: 'back_line',
-  AreaOfEffect: 'area_of_effect'
+  AreaOfEffect: 'area_of_effect',
+  SameLine: 'same_line'
 } as const;
 export type GridState = typeof GridState[keyof typeof GridState]
 
@@ -65,7 +66,8 @@ type NotAffectedActivationState =
   Readonly<{
     [EffectActivationState.NotAffected]?:
       readonly [typeof Effect.DefUp, typeof Effect.DamageReduction] |
-      readonly [typeof Effect.BattleContinuation]
+      readonly [typeof Effect.BattleContinuation] |
+      readonly [typeof Effect.Marked]
   }>
 
 const AffectedSkillEffect = [
@@ -104,7 +106,7 @@ const AffectedSkillEffect = [
   Effect.TargetProtect,
   Effect.FollowUpAttack,
   Effect.IgnoreBarrierDr,
-  Effect.Marked,
+  Effect.IgnoreProtect,
   Effect.Provoked,
   Effect.Immovable
 ] as const;
@@ -120,7 +122,8 @@ const AffectedAnyTypeEffect = [
   Effect.TagStack,
   Effect.ColumnProtect,
   Effect.RowProtect,
-  Effect.Reconnaissance
+  Effect.Reconnaissance,
+  Effect.Marked
 ] as const;
 export type AffectedAnyTypeEffect = typeof AffectedAnyTypeEffect extends ReadonlyArray<infer T> ? T : never;
 
@@ -148,18 +151,23 @@ type ActivationState =
     }
   } &
   {
-    [EffectActivationState.StackGe]?: {
+    [EffectActivationState.Stack]?: {
       tag: SkillEffectTag,
-      effect?: AffectedEffect,
-      value: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 9
-    }
+      effect: AffectedEffect,
+      greater_or_equal: 3 | 5
+    } | ({
+      tag: SkillEffectTag,
+    } & (
+      { equal: 1 | 2 | 3 } |
+      { greater_or_equal: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 9 }
+    ))
   } |
   AffectedByActivationState
 
 export type ActivationSelfState =
   ActivationState &
   {
-    [EffectActivationState.Grid]?: GridState
+    [EffectActivationState.Grid]?: Exclude<GridState, typeof GridState.SameLine>
   }  &
   {
     [EffectActivationState.NotTagged]?: SkillEffectTag
@@ -198,27 +206,38 @@ export type ActivationTargetState =
 
 type InSquadStateUnit =
   UnitNumber |
-  typeof UnitAlias['ElectricActive' | 'SteelLine' | 'SteelLineExcludingOfficerRanks' | 'Horizon' | 'KouheiChurch'] |
-  Readonly<{ alias: typeof UnitAlias.SteelLine, role: typeof UnitRole.Supporter }> |
+  typeof UnitAlias[
+    'ElectricActive' |
+    'SteelLine' |
+    'SteelLineExcludingOfficerRanks' |
+    'Horizon' |
+    'KouheiChurch' |
+    'EmpressHound'
+  ] |
+  Readonly<UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter>> |
   'golden_factory'
 
 type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
   [EffectActivationState.InSquad]: T
 }
 
-type NotInSquadState = {
-  [EffectActivationState.NotInSquad]:
-    typeof UnitAlias.SteelLine |
-    typeof SkillAreaType.CrossAdjacent
+type NotInSquadStateUnit =
+  typeof UnitRole.Attacker |
+  typeof UnitAlias.SteelLine |
+  typeof SkillAreaType.CrossAdjacent |
+  Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>>
+
+type NotInSquadState<T extends NotInSquadStateUnit = NotInSquadStateUnit> = {
+  [EffectActivationState.NotInSquad]: T
 }
 
 export type NumOfUnitsInSquadState = {
   [EffectActivationState.NumOfUnits]:
-    { unit: typeof UnitKind.AGS, greater_or_equal: 3 } |
+    { unit: UnitKind, greater_or_equal: 3 } |
     { unit: 'ally', greater_or_equal: 1 | 2 | 4 } |
     { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 } |
     { unit: typeof UnitType.Heavy, less_or_equal: 1 } |
-    { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 } |
+    { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 }
 }
 
@@ -240,6 +259,7 @@ export type SelfSkillEffectActivationState =
   {
     squad:
       ActivationSquadState |
+      readonly [NotInSquadState<typeof UnitRole.Attacker>, InSquadState<typeof UnitAlias.EmpressHound>] |
       readonly [InSquadState<87>, InSquadState<89>, InSquadState<90>] |
       readonly [InSquadState<138>, InSquadState<140>, InSquadState<236>]
   } |
@@ -266,7 +286,13 @@ export type SkillEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
   round?: { at: 1 | 2 | 3 | 4 } | { from: 2 | 3 | 5 } | { until: 1 | 2 | 3 | 4 }
 } | {
-  trigger: Exclude<EffectTrigger, typeof EffectTrigger.StartRound>
+  trigger: typeof EffectTrigger.HitActive1,
+  round?: 'odd'
+} | {
+  trigger: typeof EffectTrigger.HitActive2,
+  round?: 'even'
+} | {
+  trigger: Exclude<EffectTrigger, typeof EffectTrigger['StartRound' | 'HitActive1' | 'HitActive2']>
 }
 
 export type SelfSkillEffectActivationCondition =

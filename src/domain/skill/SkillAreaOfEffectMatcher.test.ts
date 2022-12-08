@@ -13,6 +13,10 @@ describe('calcTargetPositions()', () => {
       expect(calcTargetPositions(SkillAreaType.FixedBackLine, 5)).toEqual(new Set([7, 4, 1]));
     });
 
+    test('FixedMidAndBackLine', () => {
+      expect(calcTargetPositions(SkillAreaType.FixedMidAndBackLine, 5)).toEqual(new Set([7, 8, 4, 5, 1, 2]));
+    });
+
     test('FixedMiddleRow', () => {
       expect(calcTargetPositions(SkillAreaType.FixedMiddleRow, 5)).toEqual(new Set([4, 5, 6]));
     });
@@ -125,6 +129,10 @@ describe('calcTargetPositions()', () => {
       expect(calcTargetPositions(SkillAreaType.RowTowardBack, 6)).toEqual(new Set([6, 5, 4]));
     });
 
+    test('RowsOnBothSidesTowardFront', () => {
+      expect(calcTargetPositions(SkillAreaType.RowsOnBothSidesTowardFront, 4)).toEqual(new Set([7, 8, 9, 1, 2, 3]));
+    });
+
     test('SelfAndRowAdjacent', () => {
       expect(calcTargetPositions(SkillAreaType.SelfAndRowAdjacent, 5)).toEqual(new Set([4, 5, 6]));
     });
@@ -151,6 +159,10 @@ describe('calcTargetPositions()', () => {
 
     test('LineWithBackward', () => {
       expect(calcTargetPositions(SkillAreaType.LineWithBackward, 6)).toEqual(new Set([9, 4, 5, 6, 3]));
+    });
+
+    test('LineTowardFrontWavelets', () => {
+      expect(calcTargetPositions(SkillAreaType.LineTowardFrontWavelets, 4)).toEqual(new Set([7, 8, 9, 4, 5, 6, 1, 2, 3]));
     });
 
     test('LineTowardFrontGreatlyAttenuate', () => {
@@ -241,6 +253,10 @@ describe('calcTargetPositions()', () => {
       expect(calcTargetPositions(SkillAreaType.CrossStrongExplosion, 5)).toEqual(new Set([8, 4, 5, 6, 2]));
     });
 
+    test('CircleTinyExplosion', () => {
+      expect(calcTargetPositions(SkillAreaType.CircleTinyExplosion, 5)).toEqual(new Set([7, 8, 9, 4, 5, 6, 1, 2, 3]));
+    });
+
     test('CircleSmallExplosion', () => {
       expect(calcTargetPositions(SkillAreaType.CircleSmallExplosion, 5)).toEqual(new Set([7, 8, 9, 4, 5, 6, 1, 2, 3]));
     });
@@ -251,6 +267,10 @@ describe('calcTargetPositions()', () => {
 
     test('AllStrongExplosion', () => {
       expect(calcTargetPositions(SkillAreaType.AllStrongExplosion, 5)).toEqual(new Set([7, 8, 9, 4, 5, 6, 1, 2, 3]));
+    });
+
+    test('AllRoundFire', () => {
+      expect(calcTargetPositions(SkillAreaType.AllRoundFire, 5)).toEqual(new Set([7, 8, 9, 4, 5, 6, 1, 2, 3]));
     });
 
     test('Front', () => {

@@ -36,12 +36,15 @@
     "doom_bringer": "ドゥームブリンガー",
     "aa_cannonier": "AAキャノニア",
     "armored_maiden": "アーマードメイデン",
+    "experimental_units": "X-系実験機",
     "horizon": "ホライゾン",
     "tomos_friends": "トモの友達",
     "city_guard": "シティーガード",
     "d_entertainment": "D-エンターテインメント",
     "magical_girl": "魔法少女",
     "kouhei_church": "コウヘイ教団",
+    "strikers": "ストライカーズ",
+    "empress_hound": "エンプレシスハウンド",
     "smart_enjoy": "スマートエンジョイ",
     "spartan_series": "スパルタンシリーズ",
     "golden_factory": "ゴールデンファクトリー"
@@ -61,6 +64,8 @@
     "bombarding": "砲撃モード",
     "offensive_tactics": "攻撃戦術",
     "maximum_pump_up": "超パンプアップ",
+    "close_range_response_mode": "近距離対応モード",
+    "long_range_sniper_mode": "長距離狙撃モード",
     "remote_bomb_placement": "遠隔爆弾設置",
     "mobility_position": "移動可能モード",
     "fixed_position": "固定モード"
@@ -113,7 +118,11 @@
     "bombardment_squadron_command": "爆撃編隊指揮",
     "stealth_mode": "ステルスモード",
     "elation": "意気揚々",
+    "slow_but_deadly": "Slow, But Deadly準備",
+    "load_capacity_increased": "積載量増加",
     "f_armory_deployment": "F.アーモリー展開",
+    "shock_absorption": "衝撃吸収",
+    "scoop_discovery": "特ダネ発見？",
     "enhance_output": "出力強化",
     "scrap_collect": "残骸収集",
     "electromagnatic_consonance": "電磁気共鳴",
@@ -166,6 +175,8 @@
     "night_of_blood_queen": "血の女王の夜",
     "clear_and_serene": "明鏡止水",
     "foresight": "敵看破",
+    "separation_anxiety": "分離不安症",
+    "energy_focusing": "エネルギー集束",
     "mimesis": "擬態",
     "pre_cooking": "下準備",
     "best_desserts": "会心のデザート",
@@ -204,7 +215,9 @@
       "round": {
         "at": "{{round}}ラウンド目開始時",
         "from": "{{round}}ラウンド目以降、ラウンド開始時",
-        "until": "{{round}}ラウンド目まで、ラウンド開始時"
+        "until": "{{round}}ラウンド目まで、ラウンド開始時",
+        "odd":  "奇数ラウンドに",
+        "even": "偶数ラウンドに"
       },
       "idle": "待機時",
       "kill": "自分が敵を倒した時",
@@ -213,6 +226,7 @@
       "enemy_killed": "敵が倒された時",
       "use_any_active": "スキル使用時",
       "use_this_active": "このスキル使用時",
+      "use_active_1": "[$t(skill:active, { \"unit\": {{unit}}, \"no\": 1 })]使用時",
       "use_active_2": "[$t(skill:active, { \"unit\": {{unit}}, \"no\": 2 })]使用時",
       "attack": "攻撃時",
       "attacked": "攻撃後",
@@ -249,8 +263,9 @@
       "tagged": "<$t(effect:tag.{{tag}})>状態である",
       "not_tagged": "<$t(effect:tag.{{tag}})>状態でない",
       "tagged_affected": "<$t(effect:tag.{{tag}})$t(effect:tag_separator){{effect}}>状態である",
-      "tag_stack_ge": "<$t(effect:tag.{{tag}})> {{value}}以上である",
-      "tag_effect_stack_ge": "<$t(effect:tag.{{tag}})>($t(effect:effect.name.{{effect}})) {{value}}以上である",
+      "tag_stack_eq": "<$t(effect:tag.{{tag}})> {{equal}}スタックである",
+      "tag_stack_ge": "<$t(effect:tag.{{tag}})> {{greater_or_equal}}スタック以上である",
+      "tag_effect_stack_ge": "<$t(effect:tag.{{tag}})>($t(effect:effect.name.{{effect}})) {{greater_or_equal}}スタック以上である",
       "form": "<$t(effect:form.{{form}})>である",
       "equipped": "$t(effect:quote){{equipment}}$t(effect:unquote)を装備している",
       "not_equipped": "{{equipments}}を装備していない",
@@ -272,7 +287,8 @@
       "front_line": "前列",
       "mid_line": "中列",
       "back_line": "後列",
-      "area_of_effect": "スキル効果範囲内"
+      "area_of_effect": "スキル効果範囲内",
+      "same_line": "同じ列"
     },
     "target": {
       "self": "$t(effect:unit.self)が",
@@ -282,7 +298,7 @@
     }
   },
   "scale_factor" : {
-    "per_stack": "<$t(effect:tag.{{tag}})> 1つにつき",
+    "per_stack": "<$t(effect:tag.{{tag}})> 1スタックにつき",
     "per_units": "味方/敵の数に比例して",
     "num_of_allies": "の人数に応じて",
     "proportional": "の数に比例して",
@@ -338,6 +354,7 @@
       "damage_multiplier_up": "スキル威力アップ",
       "damage_multiplier_down": "スキル威力ダウン",
       "damage_multiplier_up_by_status": "スキル威力アップ",
+      "damage_multiplier_reduction_by_status": "スキル威力減衰",
       "additional_damage": "与ダメージアップ",
       "additional_damage_inverse_proportion_targets": "対象の数が少ないほど、与ダメージアップ",
       "enmity": "自分のHPが低いほど、与ダメージアップ",
@@ -358,6 +375,7 @@
       "fixed_electric_damage_over_time": "電気持続固定ダメージ",
       "light_type_damage_up": "対軽装型与ダメージアップ",
       "heavy_type_damage_up": "対重装型与ダメージアップ",
+      "heavy_type_damage_down": "対重装型与ダメージダウン",
       "flying_type_damage_up": "対機動型与ダメージアップ",
       "flying_type_damage_down": "対機動型与ダメージダウン",
       "atk_value_up": "攻撃力アップ",
@@ -388,7 +406,9 @@
       "defense_penetration_resist_up_by_self_hp_rate": "現在HPに比例して防御貫通耐性アップ",
       "damage_taken_increased": "被ダメージアップ",
       "damage_reduction": "被ダメージダウン",
+      "cri_reduction_by_status": "攻撃者のクリティカル率ダウン",
       "minimize_damage": "被ダメージ最小化",
+      "minimize_damage_less_than_value": "一定威力未満の被ダメージ最小化",
       "nullify_damage": "被ダメージ無効化",
       "area_damage_dispersion": "範囲ダメージ分散",
       "barrier": "バリア",
@@ -422,6 +442,7 @@
       "damage_multiplier_up": "スキル威力 +{{value}}%",
       "damage_multiplier_down": "スキル威力 -{{value}}%",
       "damage_multiplier_up_by_status": "$t(common:status.{{status}})の +{{value}}% だけスキル威力アップ",
+      "damage_multiplier_reduction_by_status": "$t(common:status.{{status}})の +{{value}}% だけスキル威力減衰",
 
       "additional_damage": "与ダメージ +{{value}}%",
       "additional_damage_focusing": "対象の数が少ないほど、与ダメージ +{{value}}%",
@@ -444,6 +465,7 @@
 
       "light_type_damage_up": "対軽装型与ダメージ +{{value}}%",
       "heavy_type_damage_up": "対重装型与ダメージ +{{value}}%",
+      "heavy_type_damage_down": "対重装型与ダメージ -{{value}}%",
       "flying_type_damage_up": "対機動型与ダメージ +{{value}}%",
       "flying_type_damage_down": "対機動型与ダメージ -{{value}}%",
 
@@ -473,7 +495,7 @@
       "range_down": "射程距離 -{{value}}",
 
       "range_down_active_1": "スキル1の射程距離 -1",
-      "range_up_active_2": "スキル2の射程距離 +1",
+      "range_up_active_2": "スキル2の射程距離 +{{value}}",
       "action_count_up": "最大行動回数 +1",
       "action_count_down": "最大行動回数 -1",
 
@@ -482,7 +504,9 @@
 
       "damage_taken_increased": "被ダメージ +{{value}}%",
       "damage_reduction": "被ダメージ -{{value}}%",
+      "cri_reduction_by_status": "$t(common:status.{{status}})の +{{value}}% だけ攻撃者のクリティカル率ダウン",
       "minimize_damage": "被ダメージ最小化",
+      "minimize_damage_less_than_value": "威力+{{value}}未満の被ダメージ最小化",
       "nullify_damage": "被ダメージ無効化",
       "area_damage_dispersion": "範囲ダメージ分散 +{{value}}%",
 
@@ -492,7 +516,7 @@
       "form_change": "<$t(effect:form.{{form}})>へ移行",
       "form_release": "<$t(effect:form.{{form}})>を解除",
       "tag_stack": "<$t(effect:tag.{{tag}})>を付与",
-      "tag_unstack": "<$t(effect:tag.{{tag}})>を{{value}}つ消費",
+      "tag_unstack": "<$t(effect:tag.{{tag}})>を{{value}}スタック消費",
       "tag_release": "<$t(effect:tag.{{tag}})>状態を解除",
       "all_buff_blocking": "強化効果不可状態",
       "all_buff_removal": "強化効果を解除",

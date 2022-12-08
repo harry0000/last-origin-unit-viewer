@@ -147,10 +147,12 @@ export function translateSkillEffectDetails(
   case Effect.Pull:
   case Effect.RangeUp:
   case Effect.RangeDown:
+  case Effect.RangeUpActive2:
   case Effect.FixedDamageOverTime:
   case Effect.FixedFireDamageOverTime:
   case Effect.FixedIceDamageOverTime:
   case Effect.FixedElectricDamageOverTime:
+  case Effect.MinimizeDamageLessThanValue:
   case Effect.Barrier:
     return {
       tag: getTag(entry[1], t),
@@ -262,6 +264,8 @@ export function translateSkillEffectDetails(
       term
     };
   case Effect.DamageMultiplierUpByStatus:
+  case Effect.DamageMultiplierReductionByStatus:
+  case Effect.CriReductionByStatus:
     return {
       tag: getTag(entry[1], t),
       detail: getDetail(
@@ -281,6 +285,7 @@ export function translateSkillEffectDetails(
       ),
       term
     };
+  case Effect.DamageMultiplierDown:
   case Effect.DefDown:
   case Effect.AccDown:
   case Effect.CriDown:

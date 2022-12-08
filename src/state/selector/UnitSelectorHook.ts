@@ -185,7 +185,6 @@ export function useSquadUnit(unit: UnitBasicInfo): [
   const { t } = useTranslation();
   const rank = useUnitCurrentRank(unit.no);
 
-
   return [
     t('unit:display', { number: unit.no }),
     rank,
