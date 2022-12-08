@@ -238,25 +238,12 @@ class BattleEffectSimulator {
   }
 
   #pickEquipmentEffects(unit: UnitOriginState): ReadonlyArray<ApplicableAllEquipmentEffect> {
-    const extract = (
-      equipment: UnitChip1Equipment | UnitChip2Equipment | UnitOsEquipment | UnitGearEquipment
-    ): [EquipmentEffect, ApplicableAllEquipmentEffect['affected_by'] | undefined] => {
-      if (equipment instanceof UnitChip1Equipment) {
-        return [equipment.chip1Effects(unit.lv), buildAffectedBy('chip1', equipment.chip1)];
-      } else if (equipment instanceof UnitChip2Equipment) {
-        return [equipment.chip2Effects(unit.lv), buildAffectedBy('chip2', equipment.chip2)];
-      } else if (equipment instanceof UnitOsEquipment) {
-        return [equipment.osEffects(unit.lv), buildAffectedBy('os', equipment.os)];
-      } else {
-        return [equipment.gearEffects(unit.lv), buildAffectedBy('gear', equipment.gear)];
-      }
-    };
-
     const pickEffects = (
-      equipment: UnitChip1Equipment | UnitChip2Equipment | UnitOsEquipment | UnitGearEquipment
+      slot: EquipmentSlot,
+      unit: UnitOriginState
     ): ReadonlyArray<ApplicableAllEquipmentEffect> => {
-      const [effect, affected_by] = extract(equipment);
-      if (!affected_by || !effect.equipment_effects?.length && !effect.effects?.length) {
+      const [effect, affected_by] = extractEquipmentEffect(slot, unit);
+      if (!affected_by) {
         return [];
       }
 
@@ -271,10 +258,10 @@ class BattleEffectSimulator {
     };
 
     return [
-      ...pickEffects(unit.chip1),
-      ...pickEffects(unit.chip2),
-      ...pickEffects(unit.os),
-      ...pickEffects(unit.gear)
+      ...pickEffects('chip1', unit),
+      ...pickEffects('chip2', unit),
+      ...pickEffects('os', unit),
+      ...pickEffects('gear', unit)
     ];
   }
 
@@ -576,6 +563,18 @@ function extractSkillEffects(
     const skill = unit.skill.passive3Skill(unit.fullLinkBonus, unit.affectionBonus);
     return skill && UnitRankComparator[unit.rank].greaterThan(UnitRank.S) ? extract(skill) : [];
   }
+  }
+}
+
+function extractEquipmentEffect(
+  slot: EquipmentSlot,
+  unit: UnitOriginState
+): [EquipmentEffect, ApplicableAllEquipmentEffect['affected_by'] | undefined] {
+  switch (slot) {
+  case 'chip1': return [unit[slot].chip1Effects(unit.lv), buildAffectedBy('chip1', unit[slot].chip1)];
+  case 'chip2': return [unit[slot].chip2Effects(unit.lv), buildAffectedBy('chip2', unit[slot].chip2)];
+  case 'os':    return [unit[slot].osEffects(unit.lv),    buildAffectedBy('os', unit[slot].os)];
+  case 'gear':  return [unit[slot].gearEffects(unit.lv),  buildAffectedBy('gear', unit[slot].gear)];
   }
 }
 
