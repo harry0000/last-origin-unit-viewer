@@ -5,10 +5,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Tab, Tabs } from 'react-bootstrap';
-import SquadUnitStatusParameter from './SquadUnitStatusParameter';
 import UnitStatusParameter from './UnitStatusParameter';
 
 import './UnitStatusParameterContainer.css';
+
+const SquadUnitStatusParameter = React.lazy(() => import('./SquadUnitStatusParameter'));
 
 const UnitStatusParameterContainer: React.FC = () => {
   const { t } = useTranslation();
@@ -31,7 +32,9 @@ const UnitStatusParameterContainer: React.FC = () => {
         eventKey="in_squad"
         title={t('form.unit_status_tab.in_squad')}
       >
-        <SquadUnitStatusParameter />
+        <React.Suspense fallback={React.Fragment}>
+          <SquadUnitStatusParameter />
+        </React.Suspense>
       </Tab>
     </Tabs>
   );

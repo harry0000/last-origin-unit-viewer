@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 import { Nav, Tab } from 'react-bootstrap';
 import UnitBasicInfoView from '../status/UnitBasicInfoView';
-import UnitSkillList from '../skill/UnitSkillList';
 import UnitStatus from '../status/UnitStatus';
 
 import './UnitDetailView.css';
@@ -36,6 +35,8 @@ const UnitDetailTabItem: React.FC<{
   );
 };
 
+const UnitSkillList = React.lazy(() => import('../skill/UnitSkillList'));
+
 const UnitDetailView: React.FC<{ className: string }> = ({ className }) => {
   return (
     <div className={className}>
@@ -53,7 +54,7 @@ const UnitDetailView: React.FC<{ className: string }> = ({ className }) => {
         </Nav>
         <Tab.Content className="unit-detail">
           <Tab.Pane eventKey="status"><UnitStatus /></Tab.Pane>
-          <Tab.Pane eventKey="skill"><UnitSkillList /></Tab.Pane>
+          <Tab.Pane eventKey="skill"><React.Suspense fallback={React.Fragment}><UnitSkillList /></React.Suspense></Tab.Pane>
         </Tab.Content>
       </Tab.Container>
     </div>
