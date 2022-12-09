@@ -15,7 +15,7 @@ import './ActionOrderView.css';
 
 const apPlaceHolder = buildNumberFormatter({ minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(0);
 
-const UnitIcon: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
+const UnitIcon: React.FC<{ unit: UnitNumber }> =  React.memo(({ unit }) => {
   const { t } = useTranslation();
 
   return (
@@ -30,7 +30,7 @@ const UnitIcon: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
       />
     </div>
   );
-};
+});
 
 const UnitIconPlaceHolder: React.FC = () => {
   const { t } = useTranslation();
