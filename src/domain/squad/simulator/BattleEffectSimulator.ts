@@ -1,3 +1,5 @@
+import deepEqual from 'fast-deep-equal';
+
 import { ActiveSkillType, PassiveSkillType, SkillType } from '../../skill/SkillType';
 import { AffectionBonus } from '../../UnitAffection';
 import {
@@ -238,10 +240,7 @@ class BattleEffectSimulator {
   }
 
   #pickEquipmentEffects(unit: UnitOriginState): ReadonlyArray<ApplicableAllEquipmentEffect> {
-    const pickEffects = (
-      slot: EquipmentSlot,
-      unit: UnitOriginState
-    ): ReadonlyArray<ApplicableAllEquipmentEffect> => {
+    const pickEffects = (slot: EquipmentSlot): ReadonlyArray<ApplicableAllEquipmentEffect> => {
       const [effect, affected_by] = extractEquipmentEffect(slot, unit);
       if (!affected_by) {
         return [];
@@ -257,11 +256,32 @@ class BattleEffectSimulator {
       ];
     };
 
+    const pickChipEffects = (): ReadonlyArray<ApplicableAllEquipmentEffect> => {
+      const c1 = unit.chip1.chip1;
+      const c2 = unit.chip2.chip2;
+
+      if (c1?.id === c2?.id) {
+        // remove duplicate effect.
+        if (c1?.enhanceLv === c2?.enhanceLv) {
+          return [...pickEffects('chip1')];
+        } else {
+          const c1Effects = pickEffects('chip1');
+          const c2Effects = pickEffects('chip2');
+
+          return [
+            ...c1Effects,
+            ...c2Effects.filter(({ effect: { details } }, i) => !deepEqual(details, c1Effects[i]?.effect?.details))
+          ];
+        }
+      } else {
+        return [...pickEffects('chip1'), ...pickEffects('chip2')];
+      }
+    };
+
     return [
-      ...pickEffects('chip1', unit),
-      ...pickEffects('chip2', unit),
-      ...pickEffects('os', unit),
-      ...pickEffects('gear', unit)
+      ...pickChipEffects(),
+      ...pickEffects('os'),
+      ...pickEffects('gear')
     ];
   }
 
