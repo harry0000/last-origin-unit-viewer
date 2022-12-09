@@ -11,6 +11,7 @@ import {
   PassiveSkillIcon
 } from '../icon/SkillIcons';
 import { Nav, Tab } from 'react-bootstrap';
+import SkillPane from './SkillPane';
 import UnitFormSelector from './UnitFormSelector';
 
 import { SkillType } from '../../domain/skill/SkillType';
@@ -106,8 +107,6 @@ const Passive3SkillNavItem: React.FC = () => {
   );
 };
 
-const SkillPane = React.lazy(() => import('./SkillPane'));
-
 const UnitSkillList: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
   const [activeTab, setActiveTab] = useSkillTab();
 
@@ -127,11 +126,11 @@ const UnitSkillList: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
           <Passive3SkillNavItem />
         </Nav>
         <Tab.Content css={{ minHeight: 300 }}>
-          <React.Suspense fallback={React.Fragment}><SkillPane eventKey="active1" /></React.Suspense>
-          <React.Suspense fallback={React.Fragment}><SkillPane eventKey="active2" /></React.Suspense>
-          <React.Suspense fallback={React.Fragment}><SkillPane eventKey="passive1" /></React.Suspense>
-          <React.Suspense fallback={React.Fragment}><SkillPane eventKey="passive2" /></React.Suspense>
-          <React.Suspense fallback={React.Fragment}><SkillPane eventKey="passive3" /></React.Suspense>
+          <SkillPane eventKey="active1" />
+          <SkillPane eventKey="active2" />
+          <SkillPane eventKey="passive1" />
+          <SkillPane eventKey="passive2" />
+          <SkillPane eventKey="passive3" />
         </Tab.Content>
       </Tab.Container>
     </div>

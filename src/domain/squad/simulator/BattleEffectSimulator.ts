@@ -1,3 +1,5 @@
+import deepEqual from 'fast-deep-equal';
+
 import { ActiveSkillType, PassiveSkillType, SkillType } from '../../skill/SkillType';
 import { AffectionBonus } from '../../UnitAffection';
 import {
@@ -35,10 +37,14 @@ import { MicroValue, MilliPercentageValue, MilliValue } from '../../ValueUnit';
 import {
   PassiveSkill,
   PassiveSkillAsEquipmentEffect,
-  SkillEffect
+  SkillEffect,
+  SkillEffectDetails,
+  hasSelfSkillEffect,
+  hasTargetSkillEffect
 } from '../../skill/UnitSkills';
 import { SkillEffectActivationCondition } from '../../skill/SkillEffectActivationCondition';
 import { SkillEffectType } from '../../skill/SkillEffectType';
+import { SourceOfEffect } from './SourceOfEffect';
 import { Squad, TenKeyPosition } from '../Squad';
 import { UnitBasicInfo, UnitNumber, UnitRank, UnitRankComparator, UnitRole, UnitType } from '../../UnitBasicInfo';
 import UnitDamagedState from '../../UnitDamagedState';
@@ -121,7 +127,7 @@ class BattleEffectSimulator {
     return new BattleEffectSimulator(units);
   }
 
-  readonly #wave = 1;
+  // readonly #wave = 1;
   readonly #round = 1;
 
   readonly #units: ReadonlyArray<UnitOriginState>;
@@ -134,9 +140,7 @@ class BattleEffectSimulator {
   run(): ReadonlyArray<[UnitNumber, ReadonlyArray<BattleEffect>]> {
     const effectsPerUnit = this.#pickApplicableEffects(this.#units);
 
-    const stateFullEffects = this.#applyNoStateEffects(effectsPerUnit);
-
-    const hasDependencyStateEffects = this.#applyStaticStateEffects(stateFullEffects);
+    const hasDependencyStateEffects = this.#applyStaticStateEffects(effectsPerUnit);
 
     this.#applyHasDependencyStateEffects(hasDependencyStateEffects);
 
@@ -236,25 +240,9 @@ class BattleEffectSimulator {
   }
 
   #pickEquipmentEffects(unit: UnitOriginState): ReadonlyArray<ApplicableAllEquipmentEffect> {
-    const extract = (
-      equipment: UnitChip1Equipment | UnitChip2Equipment | UnitOsEquipment | UnitGearEquipment
-    ): [EquipmentEffect, ApplicableAllEquipmentEffect['affected_by'] | undefined] => {
-      if (equipment instanceof UnitChip1Equipment) {
-        return [equipment.chip1Effects(unit.lv), buildAffectedBy('chip1', equipment.chip1)];
-      } else if (equipment instanceof UnitChip2Equipment) {
-        return [equipment.chip2Effects(unit.lv), buildAffectedBy('chip2', equipment.chip2)];
-      } else if (equipment instanceof UnitOsEquipment) {
-        return [equipment.osEffects(unit.lv), buildAffectedBy('os', equipment.os)];
-      } else {
-        return [equipment.gearEffects(unit.lv), buildAffectedBy('gear', equipment.gear)];
-      }
-    };
-
-    const pickEffects = (
-      equipment: UnitChip1Equipment | UnitChip2Equipment | UnitOsEquipment | UnitGearEquipment
-    ): ReadonlyArray<ApplicableAllEquipmentEffect> => {
-      const [effect, affected_by] = extract(equipment);
-      if (!affected_by || !effect.equipment_effects?.length && !effect.effects?.length) {
+    const pickEffects = (slot: EquipmentSlot): ReadonlyArray<ApplicableAllEquipmentEffect> => {
+      const [effect, affected_by] = extractEquipmentEffect(slot, unit);
+      if (!affected_by) {
         return [];
       }
 
@@ -268,133 +256,107 @@ class BattleEffectSimulator {
       ];
     };
 
+    const pickChipEffects = (): ReadonlyArray<ApplicableAllEquipmentEffect> => {
+      const c1 = unit.chip1.chip1;
+      const c2 = unit.chip2.chip2;
+
+      if (c1?.id === c2?.id) {
+        // remove duplicate effect.
+        if (c1?.enhanceLv === c2?.enhanceLv) {
+          return [...pickEffects('chip1')];
+        } else {
+          const c1Effects = pickEffects('chip1');
+          const c2Effects = pickEffects('chip2');
+
+          return [
+            ...c1Effects,
+            ...c2Effects.filter(({ effect: { details } }, i) => !deepEqual(details, c1Effects[i]?.effect?.details))
+          ];
+        }
+      } else {
+        return [...pickEffects('chip1'), ...pickEffects('chip2')];
+      }
+    };
+
     return [
-      ...pickEffects(unit.chip1),
-      ...pickEffects(unit.chip2),
-      ...pickEffects(unit.os),
-      ...pickEffects(unit.gear)
+      ...pickChipEffects(),
+      ...pickEffects('os'),
+      ...pickEffects('gear')
     ];
   }
 
-  #applyNoStateEffects(squadUnits: ReadonlyArray<UnitEffectsState>): ReadonlyArray<UnitStateFullEffectsState> {
+  #applyStaticStateEffects(squadUnits: ReadonlyArray<UnitEffectsState>): ReadonlyArray<UnitStateFullEffectsState> {
     return squadUnits.map<UnitStateFullEffectsState>(unit => {
-      const applySkillEffect = (arg: ApplicableAllSkillEffect): arg is ApplicableStateFullSkillEffect => {
+      const pickRestSkillEffect = (arg: ApplicableAllSkillEffect): arg is ApplicableStateFullSkillEffect => {
         const scaled = this.#calculateScaled(arg.effect, unit.unit, unit.position);
         if (scaled && scaled.value === 0) {
           return false;
         }
 
-        const isStateFull = isStateFullConditionEffect(arg);
-        if (!isStateFull) {
+        if (isStateFullConditionEffect(arg)) {
           const { effect, targets, type, affected_by } = arg;
-          if ('self' in effect.details && effect.details.self) {
-            unit.appliedEffects.applySkillEffects(effect.details.self, type, affected_by, scaled);
-          }
-          if (isAllyUnitTargetSkillEffect(effect)) {
-            squadUnits
-              .filter(target => targets.has(target.position) && Matcher.matchTarget(target.unit, unit.unit, effect.target))
-              .forEach(target => {
-                effect.details.target &&
-                target.appliedEffects.applySkillEffects(effect.details.target, type, affected_by, scaled);
-              });
-          }
-        }
 
-        return isStateFull;
-      };
+          let hasDependency = false;
+          let appliedEffect = false;
+          effect.conditions.forEach(({ state }) => {
+            const hasNoDependency =
+              (!('self'   in state) || state.self.every(Matcher.hasNoDependencyState)) &&
+              (!('target' in state) || state.target.every(Matcher.hasNoDependencyState));
+            if (!hasNoDependency) {
+              hasDependency = true;
+              return;
+            }
 
-      const applyEquipmentEffect = (arg: ApplicableAllEquipmentEffect): arg is ApplicableStateFullEquipmentEffect => {
-        const { effect, type, affected_by } = arg;
-        const hasState = !!effect.condition.state;
+            if (
+              !appliedEffect &&
+              Matcher.matchStaticSelfState(state, unit, targets) &&
+              Matcher.matchSquadState(state, unit, this.#units) &&
+              Matcher.matchEnemyState(state, this.#enemies)
+            ) {
+              if (isAllyUnitTargetSkillEffect(effect)) {
+                const hasNoTargetState = !('target' in state);
+                const targetUnits =
+                  squadUnits
+                    .filter(target =>
+                      targets.has(target.position) &&
+                      Matcher.matchStaticTargetState(state, unit, target) &&
+                      Matcher.matchTarget(target.unit, unit.unit, effect.target)
+                    );
+                const matchedAnyUnit = targetUnits.length > 0;
 
-        if (!hasState) {
-          // HACK: Currently, equipment does not have effects on allied targets. (ignore effects on 'target')
-          unit.appliedEffects.applyEquipmentEffects(
-            'self' in effect.details ? effect.details.self : effect.details,
-            type,
-            affected_by
-          );
-        }
-
-        return hasState;
-      };
-
-      const applicableSkillEffects = unit.applicableSkillEffects.filter(applySkillEffect);
-      const applicableEquipmentEffects = unit.applicableEquipmentEffects.filter(applyEquipmentEffect);
-
-      return { ...unit, applicableSkillEffects, applicableEquipmentEffects };
-    });
-  }
-
-  #applyStaticStateEffects(squadUnits: ReadonlyArray<UnitStateFullEffectsState>): ReadonlyArray<UnitStateFullEffectsState> {
-    return squadUnits.map<UnitStateFullEffectsState>(unit => {
-      const pickRestSkillEffect = ({ effect, targets, type, affected_by }: ApplicableStateFullSkillEffect): boolean => {
-        const scaled = this.#calculateScaled(effect, unit.unit, unit.position);
-        if (scaled && scaled.value === 0) {
-          return false;
-        }
-
-        let hasDependency = false;
-        let appliedEffect = false;
-        effect.conditions.forEach(({ state }) => {
-          const hasNoDependency =
-            (!('self'   in state) || state.self.every(Matcher.hasNoDependencyState)) &&
-            (!('target' in state) || state.target.every(Matcher.hasNoDependencyState));
-          if (!hasNoDependency) {
-            hasDependency = true;
-            return;
-          }
-
-          if (
-            !appliedEffect &&
-            Matcher.matchStaticSelfState(state, unit, targets) &&
-            Matcher.matchSquadState(state, unit, this.#units) &&
-            Matcher.matchEnemyState(state, this.#enemies)
-          ) {
-            if (isAllyUnitTargetSkillEffect(effect)) {
-              const hasNoTargetState = !('target' in state);
-              const targetUnits =
-                squadUnits
-                  .filter(target =>
-                    targets.has(target.position) &&
-                    Matcher.matchStaticTargetState(state, unit, target) &&
-                    Matcher.matchTarget(target.unit, unit.unit, effect.target)
-                  );
-              const matchedAnyUnit = targetUnits.length > 0;
-
-              if (hasNoTargetState || matchedAnyUnit) {
-                if ('self' in effect.details && effect.details.self) {
+                if (hasNoTargetState || matchedAnyUnit) {
                   appliedEffect = true;
-                  unit.appliedEffects.applySkillEffects(effect.details.self, type, affected_by, scaled);
+                  applyEffects(effect.details, unit, targetUnits, type, affected_by, scaled);
                 }
-
-                targetUnits.forEach(target => {
-                  appliedEffect = true;
-
-                  effect.details.target &&
-                  target.appliedEffects.applySkillEffects(effect.details.target, type, affected_by, scaled);
-                });
-              }
-            } else {
-              if ('self' in effect.details && effect.details.self) {
+              } else {
                 appliedEffect = true;
-                unit.appliedEffects.applySkillEffects(effect.details.self, type, affected_by, scaled);
+                applyEffects(effect.details, unit, [], type, affected_by, scaled);
               }
             }
-          }
-        });
+          });
 
-        return hasDependency && !appliedEffect;
+          return hasDependency && !appliedEffect;
+        } else {
+          const { effect, targets, type, affected_by } = arg;
+          const targetUnits = isAllyUnitTargetSkillEffect(effect) ?
+            squadUnits.filter(target => targets.has(target.position) && Matcher.matchTarget(target.unit, unit.unit, effect.target)) :
+            [];
+
+          applyEffects(effect.details, unit, targetUnits, type, affected_by, scaled);
+
+          return false;
+        }
       };
 
-      const pickRestEquipmentEffect = ({ effect, type, affected_by }: ApplicableStateFullEquipmentEffect): boolean => {
+      const pickRestEquipmentEffect = (arg: ApplicableAllEquipmentEffect): arg is ApplicableStateFullEquipmentEffect => {
+        const { effect, type, affected_by } = arg;
         const state = effect.condition.state;
-        const hasNoDependency = Matcher.hasNoDependencyState(state);
+        const hasNoDependency = !state || Matcher.hasNoDependencyState(state);
         if (!hasNoDependency) {
           return true;
         }
 
-        if (Matcher.matchStaticEquipmentState(state, unit)) {
+        if (!state || Matcher.matchStaticEquipmentState(state, unit)) {
           // HACK: Currently, equipment does not have effects on allied targets. (ignore effects on 'target')
           unit.appliedEffects.applyEquipmentEffects(
             'self' in effect.details ? effect.details.self : effect.details,
@@ -621,6 +583,37 @@ function extractSkillEffects(
     const skill = unit.skill.passive3Skill(unit.fullLinkBonus, unit.affectionBonus);
     return skill && UnitRankComparator[unit.rank].greaterThan(UnitRank.S) ? extract(skill) : [];
   }
+  }
+}
+
+function extractEquipmentEffect(
+  slot: EquipmentSlot,
+  unit: UnitOriginState
+): [EquipmentEffect, ApplicableAllEquipmentEffect['affected_by'] | undefined] {
+  switch (slot) {
+  case 'chip1': return [unit[slot].chip1Effects(unit.lv), buildAffectedBy('chip1', unit[slot].chip1)];
+  case 'chip2': return [unit[slot].chip2Effects(unit.lv), buildAffectedBy('chip2', unit[slot].chip2)];
+  case 'os':    return [unit[slot].osEffects(unit.lv),    buildAffectedBy('os', unit[slot].os)];
+  case 'gear':  return [unit[slot].gearEffects(unit.lv),  buildAffectedBy('gear', unit[slot].gear)];
+  }
+}
+
+function applyEffects(
+  details: SkillEffectDetails,
+  source: UnitEffectsState,
+  targets: ReadonlyArray<UnitEffectsState>,
+  type: SkillEffectType,
+  affected_by: SourceOfEffect,
+  scaled: BattleEffect['scaled']
+): void {
+  if (hasSelfSkillEffect(details)) {
+    source.appliedEffects.applySkillEffects(details.self, type, affected_by, scaled);
+  }
+
+  if (hasTargetSkillEffect(details)) {
+    targets.forEach(target => {
+      target.appliedEffects.applySkillEffects(details.target, type, affected_by, scaled);
+    });
   }
 }
 

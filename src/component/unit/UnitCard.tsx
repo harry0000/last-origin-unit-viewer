@@ -16,7 +16,7 @@ import './UnitCard.css';
 
 const Badge: React.FC<{ rank: UnitRank, role: UnitRole }> = React.memo(({ rank, role }) => {
   const isRankSS = rank === UnitRank.SS;
-  const [height, width] = isRankSS ? [45, 52] : [40, 40];
+  const [height, width] = isRankSS ? [36, 40] : [32, 32];
 
   return (
     <UnitRankIcon
@@ -46,8 +46,8 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = React.memo(({ unit }) => {
         <Image
           rounded
           draggable="false"
-          height={100}
-          width={100}
+          height={80}
+          width={80}
           alt={unitName}
           src={`${process.env.PUBLIC_URL}/unit_icon/${unit.no}.webp`}
         />
