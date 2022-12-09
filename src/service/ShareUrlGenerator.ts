@@ -11,7 +11,7 @@ const appSiteUrl = `https://harry0000.github.io${process.env.PUBLIC_URL}`;
  */
 const twitterShareUrl = [
   'https://twitter.com/intent/tweet',
-  '?hashtags=LastOrigin%2C%E3%83%A9%E3%82%B9%E3%83%88%E3%82%AA%E3%83%AA%E3%82%B8%E3%83%B3',
+  '?hashtags=LastOrigin%2C%E3%83%A9%E3%82%B9%E3%83%88%E3%82%AA%E3%83%AA%E3%82%B8%E3%83%B3%2C%E3%83%A9%E3%82%B9%E3%82%AA%E3%83%AA',
   `&original_referer=${encodeURIComponent(appSiteUrl)}%2F`,
   '&ref_src=twsrc%5Etfw',
   '&tw_p=tweetbutton'
