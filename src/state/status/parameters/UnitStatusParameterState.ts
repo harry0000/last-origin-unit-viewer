@@ -439,49 +439,49 @@ function _updateSquadUnitStatus(
     units.forEach(unitStatus => {
       const unit = unitStatus.unit;
 
-      set(_inSquad.battleEffects(unit), unitStatus.battleEffects);
+      setIfNotDeepEqual(cbi, _inSquad.battleEffects(unit), unitStatus.battleEffects);
 
-      set(_inSquad.atk(unit), unitStatus.atk);
-      set(_inSquad.def(unit), unitStatus.def);
-      set(_inSquad.acc(unit), unitStatus.acc);
-      set(_inSquad.eva(unit), unitStatus.eva);
-      set(_inSquad.cri(unit), unitStatus.cri);
-      set(_inSquad.spd(unit), unitStatus.spd);
-      set(_inSquad.ap(unit), unitStatus.ap);
+      setIfNotDeepEqual(cbi, _inSquad.atk(unit), unitStatus.atk);
+      setIfNotDeepEqual(cbi, _inSquad.def(unit), unitStatus.def);
+      setIfNotDeepEqual(cbi, _inSquad.acc(unit), unitStatus.acc);
+      setIfNotDeepEqual(cbi, _inSquad.eva(unit), unitStatus.eva);
+      setIfNotDeepEqual(cbi, _inSquad.cri(unit), unitStatus.cri);
+      setIfNotDeepEqual(cbi, _inSquad.spd(unit), unitStatus.spd);
+      setIfNotDeepEqual(cbi, _inSquad.ap(unit), unitStatus.ap);
 
-      set(_inSquad.fireResist(unit), unitStatus.fireResist);
-      set(_inSquad.iceResist(unit), unitStatus.iceResist);
-      set(_inSquad.electricResist(unit), unitStatus.electricResist);
+      setIfNotDeepEqual(cbi, _inSquad.fireResist(unit), unitStatus.fireResist);
+      setIfNotDeepEqual(cbi, _inSquad.iceResist(unit), unitStatus.iceResist);
+      setIfNotDeepEqual(cbi, _inSquad.electricResist(unit), unitStatus.electricResist);
 
-      set(_inSquad.atkEffectValue(unit), unitStatus.atkEffectsSummary);
-      set(_inSquad.defEffectValue(unit), unitStatus.defEffectsSummary);
-      set(_inSquad.accEffectValue(unit), unitStatus.accEffectsSummary);
-      set(_inSquad.evaEffectValue(unit), unitStatus.evaEffectsSummary);
-      set(_inSquad.criEffectValue(unit), unitStatus.criEffectsSummary);
-      set(_inSquad.spdEffectValue(unit), unitStatus.spdEffectsSummary);
+      setIfNotDeepEqual(cbi, _inSquad.atkEffectValue(unit), unitStatus.atkEffectsSummary);
+      setIfNotDeepEqual(cbi, _inSquad.defEffectValue(unit), unitStatus.defEffectsSummary);
+      setIfNotDeepEqual(cbi, _inSquad.accEffectValue(unit), unitStatus.accEffectsSummary);
+      setIfNotDeepEqual(cbi, _inSquad.evaEffectValue(unit), unitStatus.evaEffectsSummary);
+      setIfNotDeepEqual(cbi, _inSquad.criEffectValue(unit), unitStatus.criEffectsSummary);
+      setIfNotDeepEqual(cbi, _inSquad.spdEffectValue(unit), unitStatus.spdEffectsSummary);
 
-      set(_inSquad.fireResistEffectValue(unit), unitStatus.fireResistEffectsSummary);
-      set(_inSquad.iceResistEffectValue(unit), unitStatus.iceResistEffectsSummary);
-      set(_inSquad.electricResistEffectValue(unit), unitStatus.electricResistEffectsSummary);
+      setIfNotDeepEqual(cbi, _inSquad.fireResistEffectValue(unit), unitStatus.fireResistEffectsSummary);
+      setIfNotDeepEqual(cbi, _inSquad.iceResistEffectValue(unit), unitStatus.iceResistEffectsSummary);
+      setIfNotDeepEqual(cbi, _inSquad.electricResistEffectValue(unit), unitStatus.electricResistEffectsSummary);
 
-      set(_inSquad.atkEffects(unit), unitStatus.atkEffects);
-      set(_inSquad.defEffects(unit), unitStatus.defEffects);
-      set(_inSquad.accEffects(unit), unitStatus.accEffects);
-      set(_inSquad.evaEffects(unit), unitStatus.evaEffects);
-      set(_inSquad.criEffects(unit), unitStatus.criEffects);
-      set(_inSquad.spdEffects(unit), unitStatus.spdEffects);
-      set(_inSquad.apEffects(unit), unitStatus.apEffects);
+      setIfNotDeepEqual(cbi, _inSquad.atkEffects(unit), unitStatus.atkEffects);
+      setIfNotDeepEqual(cbi, _inSquad.defEffects(unit), unitStatus.defEffects);
+      setIfNotDeepEqual(cbi, _inSquad.accEffects(unit), unitStatus.accEffects);
+      setIfNotDeepEqual(cbi, _inSquad.evaEffects(unit), unitStatus.evaEffects);
+      setIfNotDeepEqual(cbi, _inSquad.criEffects(unit), unitStatus.criEffects);
+      setIfNotDeepEqual(cbi, _inSquad.spdEffects(unit), unitStatus.spdEffects);
+      setIfNotDeepEqual(cbi, _inSquad.apEffects(unit), unitStatus.apEffects);
 
-      set(_inSquad.fireResistEffects(unit), unitStatus.fireResistEffects);
-      set(_inSquad.iceResistEffects(unit), unitStatus.iceResistEffects);
-      set(_inSquad.electricResistEffects(unit), unitStatus.electricResistEffects);
+      setIfNotDeepEqual(cbi, _inSquad.fireResistEffects(unit), unitStatus.fireResistEffects);
+      setIfNotDeepEqual(cbi, _inSquad.iceResistEffects(unit), unitStatus.iceResistEffects);
+      setIfNotDeepEqual(cbi, _inSquad.electricResistEffects(unit), unitStatus.electricResistEffects);
 
-      set(_inSquad.atkRateEffectValue(unit), unitStatus.atkRateEffectValue);
-      set(_inSquad.defRateEffectValue(unit), unitStatus.defRateEffectValue);
+      setIfNotDeepEqual(cbi, _inSquad.atkRateEffectValue(unit), unitStatus.atkRateEffectValue);
+      setIfNotDeepEqual(cbi, _inSquad.defRateEffectValue(unit), unitStatus.defRateEffectValue);
 
-      set(_inSquad.atkValueUpEffects(unit), unitStatus.atkValueUpEffects);
-      set(_inSquad.defValueUpEffects(unit), unitStatus.defValueUpEffects);
-      set(_inSquad.atkValueUpByUnitEffects(unit), unitStatus.atkValueUpByUnitEffects);
+      setIfNotDeepEqual(cbi, _inSquad.atkValueUpEffects(unit), unitStatus.atkValueUpEffects);
+      setIfNotDeepEqual(cbi, _inSquad.defValueUpEffects(unit), unitStatus.defValueUpEffects);
+      setIfNotDeepEqual(cbi, _inSquad.atkValueUpByUnitEffects(unit), unitStatus.atkValueUpByUnitEffects);
     });
   };
 }
