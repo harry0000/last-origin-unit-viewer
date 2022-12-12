@@ -1169,7 +1169,8 @@ export const equipmentData = {
     type: 'gear',
     id: 'heavy_sight',
     exclusive: {
-      type: 'heavy'
+      type: 'heavy',
+      role: 'attacker'
     },
     status_effects: [
       { acc_up: { milliPercentage: { ss: 20000 } }, cri_up: { milliPercentage: { ss:  5000 } } },
