@@ -18,9 +18,9 @@ import { equipmentData } from '../../data/equipmentData';
 
 import { EquipmentSlot, selectedEquipmentRankState } from './UnitEquipmentState';
 
-function pickEquipment(unit: UnitNumber, rank?: EquipmentRank) {
+function pickEquipment(unit: UnitNumber, rank: EquipmentRank) {
   return function<T extends EquipmentData>(equipment: T) {
-    return matchExclusive(unit, equipment) && (!rank || availableRank(equipment, rank));
+    return matchExclusive(unit, equipment) && availableRank(equipment, rank);
   };
 }
 
@@ -28,9 +28,12 @@ const chipEquipment = constSelector<ReadonlyArray<Chip>>(Object.values(equipment
 const osEquipment   = constSelector<ReadonlyArray<Os>>(Object.values(equipmentData).filter(isOsEquipment));
 const gearEquipment = constSelector<ReadonlyArray<Gear>>(Object.values(equipmentData).filter(isGearEquipment));
 
-const availableChipEquipmentState = selectorFamily<ReadonlyArray<Chip>, UnitNumber>({
+const availableChipEquipmentState = selectorFamily<ReadonlyArray<Chip>, [unit: UnitNumber, slot: 'chip1' | 'chip2']>({
   key: 'availableChipEquipmentState',
-  get: (unit) => ({ get }) => get(chipEquipment).filter(pickEquipment(unit))
+  get: ([unit, slot]) => ({ get }) => {
+    const rank = get(selectedEquipmentRankState(slot));
+    return get(chipEquipment).filter(pickEquipment(unit, rank));
+  }
 });
 
 const availableOsEquipmentState = selectorFamily<ReadonlyArray<Os>, UnitNumber>({
@@ -43,7 +46,10 @@ const availableOsEquipmentState = selectorFamily<ReadonlyArray<Os>, UnitNumber>(
 
 const availableGearEquipmentState = selectorFamily<ReadonlyArray<Gear>, UnitNumber>({
   key: 'availableGearEquipmentState',
-  get: (unit) => ({ get }) => get(gearEquipment).filter(pickEquipment(unit))
+  get: (unit) => ({ get }) => {
+    const rank = get(selectedEquipmentRankState('gear'));
+    return get(gearEquipment).filter(pickEquipment(unit, rank));
+  }
 });
 
 export function useAvailableEquipment(unit: UnitBasicInfo, slot: 'chip1' | 'chip2'): ReadonlyArray<Chip>
@@ -53,7 +59,7 @@ export function useAvailableEquipment(unit: UnitBasicInfo, slot: EquipmentSlot):
   switch (slot) {
   case 'chip1':
   case 'chip2':
-    return useRecoilValue(availableChipEquipmentState(unit.no));
+    return useRecoilValue(availableChipEquipmentState([unit.no, slot]));
   case 'os':
     return useRecoilValue(availableOsEquipmentState(unit.no));
   case 'gear':

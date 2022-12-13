@@ -10,12 +10,17 @@ import deepEqual from 'fast-deep-equal';
 
 import {
   Chip,
+  ChipEquipmentRank,
+  ChipEquipmentRanks,
   EquipmentEnhancementLevel,
   EquipmentId,
   EquipmentRank,
   Gear,
+  GearEquipmentRank,
+  GearEquipmentRanks,
   Os,
-  OsEquipmentRank
+  OsEquipmentRank,
+  OsEquipmentRanks
 } from '../../domain/equipment/EquipmentData';
 import {
   ChipEquipment,
@@ -64,6 +69,19 @@ type EquipmentType<T extends EquipmentSlot> = {
   os:    Os,
   gear:  Gear
 }[T]
+
+export type EquipmentSlotRank<T extends EquipmentSlot> = {
+  chip1: ChipEquipmentRank,
+  chip2: ChipEquipmentRank,
+  os:    OsEquipmentRank,
+  gear:  GearEquipmentRank
+}[T]
+
+export type EquipmentStateArgs =
+  [slot: 'chip1', rank: EquipmentSlotRank<'chip1'>] |
+  [slot: 'chip2', rank: EquipmentSlotRank<'chip2'>] |
+  [slot: 'os',    rank: EquipmentSlotRank<'os'>] |
+  [slot: 'gear',  rank: EquipmentSlotRank<'gear'>]
 
 type ChangeEquipmentHandler = {
   <T extends EquipmentSlot>(unit: UnitNumber, slot: T): (cbi: CallbackInterface) =>
@@ -193,13 +211,30 @@ const _enhanceLvSelector = {
   gear:  createEnhanceLvSelector('gear')
 };
 
-const _selectedOsRank = atom<OsEquipmentRank>({
-  key: 'UnitEquipmentState_selectedOsRank',
-  default: EquipmentRank.SS
+const _selectedRank = {
+  chip1: atom<ChipEquipmentRank>({ key: 'UnitEquipmentState_selectedRank_chip1', default: EquipmentRank.SS }),
+  chip2: atom<ChipEquipmentRank>({ key: 'UnitEquipmentState_selectedRank_chip2', default: EquipmentRank.SS }),
+  os: atom<OsEquipmentRank>({ key: 'UnitEquipmentState_selectedRank_os', default: EquipmentRank.SS }),
+  gear: atom<GearEquipmentRank>({ key: 'UnitEquipmentState_selectedRank_gear', default: EquipmentRank.SS })
+} as const;
+
+const _chip1RankSelector = atomFamily<boolean, ChipEquipmentRank>({
+  key: 'UnitEquipmentState_chip1RankSelector',
+  default: (rank) => rank === EquipmentRank.SS
+});
+
+const _chip2RankSelector = atomFamily<boolean, ChipEquipmentRank>({
+  key: 'UnitEquipmentState_chip2RankSelector',
+  default: (rank) => rank === EquipmentRank.SS
 });
 
 const _osRankSelector = atomFamily<boolean, OsEquipmentRank>({
   key: 'UnitEquipmentState_osRankSelector',
+  default: (rank) => rank === EquipmentRank.SS
+});
+
+const _gearRankSelector = atomFamily<boolean, GearEquipmentRank>({
+  key: 'UnitEquipmentState_gearRankSelector',
   default: (rank) => rank === EquipmentRank.SS
 });
 
@@ -220,7 +255,7 @@ const _statusEffectsData = selectorFamily<StatusEffect, { slot: EquipmentSlot, i
   get: ({ slot, id }) => ({ get }) =>
     calculateStatusEffect(
       id,
-      slot === 'os' ? get(_selectedOsRank) : EquipmentRank.SS,
+      get(_selectedRank[slot]),
       get(_selectedEnhanceLv(slot))
     )
 });
@@ -230,7 +265,7 @@ const _effectsData = selectorFamily<ReadonlyArray<EffectDetails> | undefined, { 
   get: ({ slot, id }) => ({ get }) =>
     calculateEffect(
       id,
-      slot === 'os' ? get(_selectedOsRank) : EquipmentRank.SS,
+      get(_selectedRank[slot]),
       get(_selectedEnhanceLv(slot))
     )
 });
@@ -240,7 +275,7 @@ const _effectsAsSkillData = selectorFamily<ReadonlyArray<EffectDetailsAsSkill> |
   get: ({ slot, id }) => ({ get }) =>
     calculateEffectAsSkill(
       id,
-      slot === 'os' ? get(_selectedOsRank) : EquipmentRank.SS,
+      get(_selectedRank[slot]),
       get(_selectedEnhanceLv(slot))
     )
 });
@@ -330,19 +365,16 @@ export const unitEquipmentStatusEffectsState = (unit: UnitNumber, slot: Equipmen
 export const enhanceLvSelectorState = (slot: EquipmentSlot, lv: EquipmentEnhancementLevel): RecoilValueReadOnly<boolean> =>
   _enhanceLvSelector[slot](lv);
 
-export const osRankSelectorState = (rank: OsEquipmentRank): RecoilValueReadOnly<boolean> => _osRankSelector(rank);
-
-export const selectedEquipmentRankState = selectorFamily<EquipmentRank, EquipmentSlot>({
-  key: 'selectedEquipmentRankState',
-  get: (slot) => ({ get }) => {
-    switch (slot) {
-    case 'os':
-      return get(_selectedOsRank);
-    default:
-      return EquipmentRank.SS;
-    }
+export const rankSelectorState = (...[slot, rank]: EquipmentStateArgs): RecoilValueReadOnly<boolean> => {
+  switch (slot) {
+  case 'chip1': return _chip1RankSelector(rank);
+  case 'chip2': return _chip2RankSelector(rank);
+  case 'os':    return _osRankSelector(rank);
+  case 'gear':  return _gearRankSelector(rank);
   }
-});
+};
+
+export const selectedEquipmentRankState = (slot: EquipmentSlot): RecoilValueReadOnly<EquipmentRank> => _selectedRank[slot];
 
 export const equipmentStatusEffectsDataState = (slot: EquipmentSlot, id: EquipmentId): RecoilValueReadOnly<StatusEffect> =>
   _statusEffectsData({ slot, id });
@@ -357,24 +389,23 @@ export const changeEquipment: ChangeEquipmentHandler = (unit: UnitNumber, slot: 
   const get = getFromSnapshot(cbi.snapshot);
   const lv = get(lvValueState(unit));
   const enhanceLv = get(_selectedEnhanceLv(slot));
-  const osRank = get(_selectedOsRank);
 
   switch (slot) {
   case 'chip1':
     return (equipment: EquipmentType<typeof slot> | undefined) => {
-      _update(unit, 'chip1', lv, s => equipment ? s.equipChip1(equipment, enhanceLv) : s.removeChip1())(cbi);
+      _update(unit, 'chip1', lv, s => equipment ? s.equipChip1(equipment, get(_selectedRank[slot]), enhanceLv) : s.removeChip1())(cbi);
     };
   case 'chip2':
     return (equipment: EquipmentType<typeof slot> | undefined) => {
-      _update(unit, 'chip2', lv, s => equipment ? s.equipChip2(equipment, enhanceLv) : s.removeChip2())(cbi);
+      _update(unit, 'chip2', lv, s => equipment ? s.equipChip2(equipment, get(_selectedRank[slot]), enhanceLv) : s.removeChip2())(cbi);
     };
   case 'os':
     return (equipment: EquipmentType<typeof slot> | undefined) => {
-      _update(unit, 'os', lv, s => equipment ? s.equipOs(equipment, osRank, enhanceLv) : s.removeOs())(cbi);
+      _update(unit, 'os', lv, s => equipment ? s.equipOs(equipment, get(_selectedRank[slot]), enhanceLv) : s.removeOs())(cbi);
     };
   case 'gear':
     return (equipment: EquipmentType<typeof slot> | undefined) => {
-      _update(unit, 'gear', lv, s => equipment ? s.equipGear(equipment, enhanceLv) : s.removeGear())(cbi);
+      _update(unit, 'gear', lv, s => equipment ? s.equipGear(equipment, get(_selectedRank[slot]), enhanceLv) : s.removeGear())(cbi);
     };
   }
 };
@@ -391,11 +422,25 @@ export const selectEnhanceLv = (slot: EquipmentSlot, enhanceLv: EquipmentEnhance
   });
 };
 
-export const selectOsRank = (osRank: OsEquipmentRank) => ({ set }: CallbackInterface) => (): void => {
-  set(_selectedOsRank, osRank);
-  [EquipmentRank.SSS, EquipmentRank.SS].forEach(rank => {
-    set(_osRankSelector(rank), rank === osRank);
-  });
+export const selectRank = (...[slot, rank]: EquipmentStateArgs) => ({ set }: CallbackInterface) => (): void => {
+  switch (slot) {
+  case 'chip1':
+    set(_selectedRank[slot], rank);
+    ChipEquipmentRanks.forEach(r => { set(_chip1RankSelector(r), r === rank); });
+    break;
+  case 'chip2':
+    set(_selectedRank[slot], rank);
+    ChipEquipmentRanks.forEach(r => { set(_chip2RankSelector(r), r === rank); });
+    break;
+  case 'os':
+    set(_selectedRank[slot], rank);
+    OsEquipmentRanks.forEach(r => { set(_osRankSelector(r), r === rank); });
+    break;
+  case 'gear':
+    set(_selectedRank[slot], rank);
+    GearEquipmentRanks.forEach(r => { set(_gearRankSelector(r), r === rank); });
+    break;
+  }
 };
 
 export const unitEquipmentResolver = <T extends EquipmentSlot>(slot: T) => (unit: UnitNumber): RecoilValueReadOnly<UnitEquipmentType<T>> =>
@@ -417,14 +462,20 @@ export const updateSelectedUnit = (unit: UnitBasicInfo | undefined) => (cbi: Cal
   const osLv    = (unit && get(_unitEquipment['os'](unit.no)).os?.enhanceLv)       ?? DefaultEnhanceLv;
   const gearLv  = (unit && get(_unitEquipment['gear'](unit.no)).gear?.enhanceLv)   ?? DefaultEnhanceLv;
 
-  const osRank = (unit && get(_unitEquipment['os'](unit.no)).os?.rank) ?? EquipmentRank.SS;
-
   selectEnhanceLv('chip1', chip1Lv)(cbi)();
   selectEnhanceLv('chip2', chip2Lv)(cbi)();
   selectEnhanceLv('os', osLv)(cbi)();
   selectEnhanceLv('gear', gearLv)(cbi)();
 
-  selectOsRank(osRank)(cbi)();
+  const chip1Rank = (unit && get(_unitEquipment['chip1'](unit.no)).chip1?.rank) ?? EquipmentRank.SS;
+  const chip2Rank = (unit && get(_unitEquipment['chip2'](unit.no)).chip2?.rank) ?? EquipmentRank.SS;
+  const osRank    = (unit && get(_unitEquipment['os'](unit.no)).os?.rank)       ?? EquipmentRank.SS;
+  const gearRank  = (unit && get(_unitEquipment['gear'](unit.no)).gear?.rank)   ?? EquipmentRank.SS;
+
+  selectRank('chip1', chip1Rank)(cbi)();
+  selectRank('chip2', chip2Rank)(cbi)();
+  selectRank('os',    osRank)(cbi)();
+  selectRank('gear',  gearRank)(cbi)();
 };
 
 export const updateUnitLvValue = (unit: UnitNumber, lv: UnitLvValue) => (cbi: CallbackInterface): void => {

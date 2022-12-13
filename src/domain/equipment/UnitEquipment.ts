@@ -40,10 +40,6 @@ export type ChipEquipment = EquipmentAttribute<ChipId>
 export type OsEquipment   = EquipmentAttribute<OsId>
 export type GearEquipment = EquipmentAttribute<GearId>
 
-const defaultEquipmentRank = {
-  rank: EquipmentRank.SS
-} as const;
-
 export class UnitChip1Equipment {
 
   readonly unit: UnitNumber;
@@ -57,16 +53,18 @@ export class UnitChip1Equipment {
     this.chip1 = chip1;
   }
 
-  equipChip1(chip: Chip, enhanceLv: EquipmentEnhancementLevel): UnitChip1Equipment {
+  equipChip1(chip: Chip, rank: EquipmentRank, enhanceLv: EquipmentEnhancementLevel): UnitChip1Equipment {
     if (
       (
-        chip.id !== this.chip1?.id ||
+        chip.id   !== this.chip1?.id ||
+        rank      !== this.chip1?.rank ||
         enhanceLv !== this.chip1?.enhanceLv
       ) &&
       chip.type === EquipmentType.Chip &&
+      availableRank(chip, rank) &&
       matchExclusive(this.unit, chip)
     ) {
-      const newChip = { ...defaultEquipmentRank, id: chip.id, enhanceLv };
+      const newChip = { id: chip.id, rank, enhanceLv };
       return new UnitChip1Equipment(this.unit, newChip);
     }
     return this;
@@ -124,16 +122,18 @@ export class UnitChip2Equipment {
     this.chip2 = chip2;
   }
 
-  equipChip2(chip: Chip, enhanceLv: EquipmentEnhancementLevel): UnitChip2Equipment {
+  equipChip2(chip: Chip, rank: EquipmentRank, enhanceLv: EquipmentEnhancementLevel): UnitChip2Equipment {
     if (
       (
-        chip.id !== this.chip2?.id ||
+        chip.id   !== this.chip2?.id ||
+        rank      !== this.chip2?.rank ||
         enhanceLv !== this.chip2?.enhanceLv
       ) &&
       chip.type === EquipmentType.Chip &&
+      availableRank(chip, rank) &&
       matchExclusive(this.unit, chip)
     ) {
-      const newChip = { ...defaultEquipmentRank, id: chip.id, enhanceLv };
+      const newChip = { id: chip.id, rank, enhanceLv };
       return new UnitChip2Equipment(this.unit, newChip);
     }
     return this;
@@ -260,16 +260,18 @@ export class UnitGearEquipment {
     this.gear = gear;
   }
 
-  equipGear(gear: Gear, enhanceLv: EquipmentEnhancementLevel): UnitGearEquipment {
+  equipGear(gear: Gear, rank: EquipmentRank, enhanceLv: EquipmentEnhancementLevel): UnitGearEquipment {
     if (
       (
-        gear.id !== this.gear?.id ||
+        gear.id   !== this.gear?.id ||
+        rank      !== this.gear?.rank ||
         enhanceLv !== this.gear?.enhanceLv
       ) &&
       gear.type === EquipmentType.Gear &&
+      availableRank(gear, rank) &&
       matchExclusive(this.unit, gear)
     ) {
-      const newGear = { ...defaultEquipmentRank, id: gear.id, enhanceLv };
+      const newGear = { id: gear.id, rank, enhanceLv };
       return new UnitGearEquipment(this.unit, newGear);
     }
     return this;

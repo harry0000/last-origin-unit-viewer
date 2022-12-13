@@ -97,7 +97,7 @@ function restoreChip1(unit: UnitNumber, json: ChipEquipmentJsonStructure | []): 
   }
 
   const [id, rank, lv] = json;
-  const chip1 = new UnitChip1Equipment(unit).equipChip1(equipmentData[id], lv);
+  const chip1 = new UnitChip1Equipment(unit).equipChip1(equipmentData[id], rank, lv);
 
   return (
     chip1.chip1?.id === id &&
@@ -114,7 +114,7 @@ function restoreChip2(unit: UnitNumber, json: ChipEquipmentJsonStructure | []): 
   }
 
   const [id, rank, lv] = json;
-  const chip2 = new UnitChip2Equipment(unit).equipChip2(equipmentData[id], lv);
+  const chip2 = new UnitChip2Equipment(unit).equipChip2(equipmentData[id], rank, lv);
 
   return (
     chip2.chip2?.id === id &&
@@ -148,7 +148,7 @@ function restoreGear(unit: UnitNumber, json: GearEquipmentJsonStructure | []): U
   }
 
   const [id, rank, lv] = json;
-  const gear = new UnitGearEquipment(unit).equipGear(equipmentData[id], lv);
+  const gear = new UnitGearEquipment(unit).equipGear(equipmentData[id], rank, lv);
 
   return (
     gear.gear?.id === id &&

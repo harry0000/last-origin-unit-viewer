@@ -30,16 +30,20 @@ export type EquipmentType = typeof EquipmentType[keyof typeof EquipmentType]
 
 export const EquipmentRank = {
   SSS: 'sss',
-  SS: 'ss'
-  // S: 's',
-  // A: 'a',
-  // B: 'b'
+  SS: 'ss',
+  S: 's',
+  A: 'a',
+  B: 'b'
 } as const;
 export type EquipmentRank = typeof EquipmentRank[keyof typeof EquipmentRank]
 
-export type ChipEquipmentRank = typeof EquipmentRank.SS
+export type ChipEquipmentRank = Exclude<EquipmentRank, typeof EquipmentRank.SSS>
 export type OsEquipmentRank   = EquipmentRank
-export type GearEquipmentRank = typeof EquipmentRank.SS
+export type GearEquipmentRank = Exclude<EquipmentRank, typeof EquipmentRank.SSS>
+
+export const ChipEquipmentRanks = [EquipmentRank.SS, EquipmentRank.S, EquipmentRank.A, EquipmentRank.B] as const;
+export const OsEquipmentRanks   = [EquipmentRank.SSS, EquipmentRank.SS, EquipmentRank.S, EquipmentRank.A, EquipmentRank.B] as const;
+export const GearEquipmentRanks = ChipEquipmentRanks;
 
 export type EquipmentEnhancementLevel = 0 | Sequence<10>
 
@@ -93,34 +97,34 @@ type IntegerValue<R extends EquipmentRank, V extends number = number> = Readonly
 type MicroValue<R extends EquipmentRank>                              = Readonly<{ microValue: EquipmentDataValue<R, number> }>
 type MilliPercentageValue<R extends EquipmentRank>                    = Readonly<{ milliPercentage: EquipmentDataValue<R, number> }>
 
-export type EffectAdditionData = Readonly<
+export type EffectAdditionData<R extends EquipmentRank = EquipmentRank> = Readonly<
   { max_stack?: 3 } &
   { term?: 'immediate' | 'infinite' | { readonly for_rounds: 1 | 2 | 3 | 99 | 999 } } &
-  { rate?: 'constant' | MilliPercentageValue<typeof EquipmentRank.SS> } &
-  { times?: EquipmentDataValue<typeof EquipmentRank.SS, 1 | 2 | 3 | 4> }
+  { rate?: 'constant' | MilliPercentageValue<R> } &
+  { times?: EquipmentDataValue<R, 1 | 2 | 3 | 4> }
 >
 
 export type EquipmentEffectValueData<R extends EquipmentRank> = Readonly<{
   [E in EquipmentEffectKey]?:
     E extends NoValueEffectKey ?
-      EffectAdditionData :
+      EffectAdditionData<R> :
     E extends typeof Effect.DamageMultiplierUpByStatus ?
-      Readonly<{ status: 'def' }> & MilliPercentageValue<R> & EffectAdditionData :
+      Readonly<{ status: 'def' }> & MilliPercentageValue<R> & EffectAdditionData<R> :
     E extends typeof Effect['BuffRemoval' | 'DebuffRemoval' | 'PreventsEffect'] ?
-      Readonly<{ effect: Effect } | { effects: ReadonlyArray<Effect> }> & EffectAdditionData :
+      Readonly<{ effect: Effect } | { effects: ReadonlyArray<Effect> }> & EffectAdditionData<R> :
     E extends typeof Effect.ActivationRatePercentageUp ?
-      Readonly<{ effect: Effect, tag: SkillEffectTag }> & MilliPercentageValue<R> & EffectAdditionData :
+      Readonly<{ effect: Effect, tag: SkillEffectTag }> & MilliPercentageValue<R> & EffectAdditionData<R> :
     E extends typeof Effect['RangeUp' | 'RangeDown']?
-      IntegerValue<R, 1 | 2> & EffectAdditionData :
+      IntegerValue<R, 1 | 2> & EffectAdditionData<R> :
     E extends typeof Effect.BattleContinuation ?
-      IntegerValue<R> & EffectAdditionData |
-      MilliPercentageValue<R> & EffectAdditionData :
+      IntegerValue<R> & EffectAdditionData<R> |
+      MilliPercentageValue<R> & EffectAdditionData<R> :
     E extends IntegerValueEffectKey ?
-      IntegerValue<R> & EffectAdditionData :
+      IntegerValue<R> & EffectAdditionData<R> :
     E extends MicroValueEffectKey?
-      MicroValue<R> & EffectAdditionData :
+      MicroValue<R> & EffectAdditionData<R> :
     E extends MilliPercentageEffectKey ?
-      MilliPercentageValue<R> & EffectAdditionData :
+      MilliPercentageValue<R> & EffectAdditionData<R> :
       never
 }>
 
@@ -130,17 +134,32 @@ export type EquipmentEffectsData<R extends EquipmentRank> = ReadonlyArray<Readon
   details: EquipmentEffectValueData<R>
 }>>
 
-export function availableRankSSS<E extends EquipmentData>(arg: E): arg is Extract<E, { max_rank: typeof EquipmentRank.SSS }> {
-  return 'max_rank' in arg && arg.max_rank === EquipmentRank.SSS;
-}
-
+export function availableRank<E extends EquipmentData>(
+  equipment: E,
+  rank: typeof EquipmentRank.SSS
+): equipment is Extract<E, { max_rank: typeof EquipmentRank.SSS }>;
+export function availableRank<E extends EquipmentData>(
+  equipment: E,
+  rank: typeof EquipmentRank.SS
+): true;
+export function availableRank<E extends EquipmentData, R extends Exclude<EquipmentRank, typeof EquipmentRank['SSS' | 'SS']>>(
+  equipment: E,
+  rank: R
+): equipment is Extract<E, { max_rank: typeof EquipmentRank.SS }>;
+export function availableRank(equipment: Chip, rank: EquipmentRank): rank is ChipEquipmentRank;
+export function availableRank(equipment: Os,   rank: EquipmentRank): rank is OsEquipmentRank;
+export function availableRank(equipment: Gear, rank: EquipmentRank): rank is GearEquipmentRank;
+export function availableRank(equipment: EquipmentData, rank: EquipmentRank): boolean;
 export function availableRank(equipment: EquipmentData, rank: EquipmentRank): boolean {
   switch (rank) {
   case EquipmentRank.SSS:
-    return availableRankSSS(equipment);
+    return 'max_rank' in equipment && equipment.max_rank === EquipmentRank.SSS;
   case EquipmentRank.SS:
-  default:
     return true;
+  case EquipmentRank.S:
+  case EquipmentRank.A:
+  case EquipmentRank.B:
+    return 'max_rank' in equipment && equipment.max_rank === EquipmentRank.SS;
   }
 }
 
