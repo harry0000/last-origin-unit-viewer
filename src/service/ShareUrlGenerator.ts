@@ -4,18 +4,14 @@ import { SquadJsonStructure } from './SquadJsonStructure';
 
 export const squadUrlParamName = 'sq';
 
-const appSiteUrl = `https://harry0000.github.io${process.env.PUBLIC_URL}`;
+const appSiteUrl = new URL(process.env.PUBLIC_URL + '/', 'https://harry0000.github.io').toString();
 
-/**
- * @see https://publish.twitter.com/
- */
-const twitterShareUrl = [
-  'https://twitter.com/intent/tweet',
-  '?hashtags=LastOrigin%2C%E3%83%A9%E3%82%B9%E3%83%88%E3%82%AA%E3%83%AA%E3%82%B8%E3%83%B3%2C%E3%83%A9%E3%82%B9%E3%82%AA%E3%83%AA',
-  `&original_referer=${encodeURIComponent(appSiteUrl)}%2F`,
-  '&ref_src=twsrc%5Etfw',
-  '&tw_p=tweetbutton'
-].join('');
+const defaultTwitterShareParams = {
+  hashtags: 'LastOrigin,ラストオリジン,ラスオリ',
+  original_referer: appSiteUrl,
+  ref_src: 'twsrc^tfw',
+  tw_p: 'tweetbutton'
+};
 
 type ShortLinksResponse = {
   shortLink: string,
@@ -26,19 +22,28 @@ function isShortLinksResponse(arg: unknown): arg is ShortLinksResponse {
   return isRecord(arg) && 'shortLink' in arg && 'previewLink' in arg;
 }
 
+function buildFirebaseEndpoint(key: string): string {
+  return new URL('/v1/shortLinks', 'https://firebasedynamiclinks.googleapis.com') + '?' + new URLSearchParams({ key });
+}
+
+function buildLongDynamicLink(param: UrlSafeBase64String): string {
+  const link = appSiteUrl + '?' + new URLSearchParams({ [squadUrlParamName]: param });
+  return new URL('https://losquad.page.link') + '?' + new URLSearchParams({ link });
+}
+
 function fetchShortShareUrl(param: UrlSafeBase64String): Promise<string> {
   if (!process.env.REACT_APP_FIREBASE_WEB_API_KEY) {
     return Promise.reject(new Error('Firebase web API key is undefined.'));
   }
 
   return fetch(
-    `https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=${process.env.REACT_APP_FIREBASE_WEB_API_KEY}`,
+    buildFirebaseEndpoint(process.env.REACT_APP_FIREBASE_WEB_API_KEY),
     {
       method: 'POST',
       mode: 'cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        longDynamicLink: `https://losquad.page.link/?link=${appSiteUrl}/?${squadUrlParamName}=${param}`,
+        longDynamicLink: buildLongDynamicLink(param),
         suffix: { option: 'SHORT' }
       })
     }
@@ -46,7 +51,7 @@ function fetchShortShareUrl(param: UrlSafeBase64String): Promise<string> {
     .then(res => res.json())
     .then(json => {
       if (!isShortLinksResponse(json)) {
-        throw new Error(`Unexpected response from Firebase Dynamic Links API. json: ${json}`);
+        throw new Error(`Unexpected response from Firebase Dynamic Links API. json: ${JSON.stringify(json)}`);
       }
       return json.shortLink;
     });
@@ -57,6 +62,11 @@ export function generateShareUrl(squadJson: SquadJsonStructure): Promise<string>
   return fetchShortShareUrl(param);
 }
 
+/**
+ * @see https://publish.twitter.com/
+ */
 export function generateTwitterShareUrl(url: string): string {
-  return `${twitterShareUrl}&url=${encodeURIComponent(url)}`;
+  return new URL('/intent/tweet', 'https://twitter.com') +
+    '?' +
+    new URLSearchParams({ ...defaultTwitterShareParams, url });
 }
