@@ -1,92 +1,38 @@
 export const equipmentData = {
-  accuracy_chip: {
+  hp_chip: {
     type: 'chip',
-    id: 'accuracy_chip',
+    id: 'hp_chip',
     max_rank: 'ss',
     status_effects: [
-      { acc_up: { milliPercentage: { ss: 35000, s: 25000, a: 20000, b: 15000 } } },
-      { acc_up: { milliPercentage: { ss: 38500, s: 27500, a: 22000, b: 16500 } } },
-      { acc_up: { milliPercentage: { ss: 42000, s: 30000, a: 24000, b: 18000 } } },
-      { acc_up: { milliPercentage: { ss: 45500, s: 32500, a: 26000, b: 19500 } } },
-      { acc_up: { milliPercentage: { ss: 49000, s: 35000, a: 28000, b: 21000 } } },
-      { acc_up: { milliPercentage: { ss: 52500, s: 37500, a: 30000, b: 22500 } } },
-      { acc_up: { milliPercentage: { ss: 56000, s: 40000, a: 32000, b: 24000 } } },
-      { acc_up: { milliPercentage: { ss: 59500, s: 42500, a: 34000, b: 25500 } } },
-      { acc_up: { milliPercentage: { ss: 63000, s: 45000, a: 36000, b: 27000 } } },
-      { acc_up: { milliPercentage: { ss: 66500, s: 47500, a: 38000, b: 28500 } } },
-      { acc_up: { milliPercentage: { ss: 70000, s: 50000, a: 40000, b: 30000 } } }
+      { hp_up: { value: { ss: 200, s: 160, a: 120, b:  80 } } },
+      { hp_up: { value: { ss: 240, s: 192, a: 144, b:  96 } } },
+      { hp_up: { value: { ss: 280, s: 224, a: 168, b: 112 } } },
+      { hp_up: { value: { ss: 320, s: 256, a: 192, b: 128 } } },
+      { hp_up: { value: { ss: 360, s: 288, a: 216, b: 144 } } },
+      { hp_up: { value: { ss: 400, s: 320, a: 240, b: 160 } } },
+      { hp_up: { value: { ss: 440, s: 352, a: 264, b: 176 } } },
+      { hp_up: { value: { ss: 480, s: 384, a: 288, b: 192 } } },
+      { hp_up: { value: { ss: 520, s: 416, a: 312, b: 208 } } },
+      { hp_up: { value: { ss: 560, s: 448, a: 336, b: 224 } } },
+      { hp_up: { value: { ss: 600, s: 480, a: 360, b: 240 } } }
     ]
   },
-  accuracy_chip_beta: {
+  hp_chip_beta: {
     type: 'chip',
-    id: 'accuracy_chip_beta',
+    id: 'hp_chip_beta',
     max_rank: 'ss',
     status_effects: [
-      { acc_up: { milliPercentage: { ss: 42000, s: 30000, a: 24000, b: 18000 } }, def_down: { milliValue: 27000 } },
-      { acc_up: { milliPercentage: { ss: 46200, s: 33000, a: 26400, b: 19800 } }, def_down: { milliValue: 29700 } },
-      { acc_up: { milliPercentage: { ss: 50400, s: 36000, a: 28800, b: 21600 } }, def_down: { milliValue: 32400 } },
-      { acc_up: { milliPercentage: { ss: 54600, s: 39000, a: 31200, b: 23400 } }, def_down: { milliValue: 35100 } },
-      { acc_up: { milliPercentage: { ss: 58800, s: 42000, a: 33600, b: 25200 } }, def_down: { milliValue: 37800 } },
-      { acc_up: { milliPercentage: { ss: 63000, s: 45000, a: 36000, b: 27000 } }, def_down: { milliValue: 40500 } },
-      { acc_up: { milliPercentage: { ss: 67200, s: 48000, a: 38400, b: 28800 } }, def_down: { milliValue: 43200 } },
-      { acc_up: { milliPercentage: { ss: 71400, s: 51000, a: 40800, b: 30600 } }, def_down: { milliValue: 45900 } },
-      { acc_up: { milliPercentage: { ss: 75600, s: 54000, a: 43200, b: 32400 } }, def_down: { milliValue: 48600 } },
-      { acc_up: { milliPercentage: { ss: 79800, s: 57000, a: 45600, b: 34200 } }, def_down: { milliValue: 51300 } },
-      { acc_up: { milliPercentage: { ss: 84000, s: 60000, a: 48000, b: 36000 } }, def_down: { milliValue: 54000 } }
-    ]
-  },
-  action_chip: {
-    type: 'chip',
-    id: 'action_chip',
-    max_rank: 'ss',
-    status_effects: [
-      { spd_up: { microValue: { ss: 150000, s: 140000, a: 120000, b: 100000 } } },
-      { spd_up: { microValue: { ss: 157500, s: 147000, a: 126000, b: 105000 } } },
-      { spd_up: { microValue: { ss: 165000, s: 154000, a: 132000, b: 110000 } } },
-      { spd_up: { microValue: { ss: 172500, s: 161000, a: 138000, b: 115000 } } },
-      { spd_up: { microValue: { ss: 180000, s: 168000, a: 144000, b: 120000 } } },
-      { spd_up: { microValue: { ss: 187500, s: 175000, a: 150000, b: 125000 } } },
-      { spd_up: { microValue: { ss: 195000, s: 182000, a: 156000, b: 130000 } } },
-      { spd_up: { microValue: { ss: 202500, s: 189000, a: 162000, b: 135000 } } },
-      { spd_up: { microValue: { ss: 210000, s: 196000, a: 168000, b: 140000 } } },
-      { spd_up: { microValue: { ss: 217500, s: 203000, a: 174000, b: 145000 } } },
-      { spd_up: { microValue: { ss: 225000, s: 210000, a: 180000, b: 150000 } } }
-    ]
-  },
-  action_chip_beta: {
-    type: 'chip',
-    id: 'action_chip_beta',
-    max_rank: 'ss',
-    status_effects: [
-      { spd_up: { microValue: { ss: 180000, s: 168000, a: 144000, b: 120000 } }, eva_down: { milliPercentage:  6000 } },
-      { spd_up: { microValue: { ss: 189000, s: 176400, a: 151200, b: 126000 } }, eva_down: { milliPercentage:  6600 } },
-      { spd_up: { microValue: { ss: 198000, s: 184800, a: 158400, b: 132000 } }, eva_down: { milliPercentage:  7200 } },
-      { spd_up: { microValue: { ss: 207000, s: 193200, a: 165600, b: 138000 } }, eva_down: { milliPercentage:  7800 } },
-      { spd_up: { microValue: { ss: 216000, s: 201600, a: 172800, b: 144000 } }, eva_down: { milliPercentage:  8400 } },
-      { spd_up: { microValue: { ss: 225000, s: 210000, a: 180000, b: 150000 } }, eva_down: { milliPercentage:  9000 } },
-      { spd_up: { microValue: { ss: 234000, s: 218400, a: 187200, b: 156000 } }, eva_down: { milliPercentage:  9600 } },
-      { spd_up: { microValue: { ss: 243000, s: 226800, a: 194400, b: 162000 } }, eva_down: { milliPercentage: 10200 } },
-      { spd_up: { microValue: { ss: 252000, s: 235200, a: 201600, b: 168000 } }, eva_down: { milliPercentage: 10800 } },
-      { spd_up: { microValue: { ss: 261000, s: 243600, a: 208800, b: 174000 } }, eva_down: { milliPercentage: 11400 } },
-      { spd_up: { microValue: { ss: 270000, s: 252000, a: 216000, b: 180000 } }, eva_down: { milliPercentage: 12000 } }
-    ]
-  },
-  assault_chip: {
-    type: 'chip',
-    id: 'assault_chip',
-    max_rank: 'ss',
-    status_effects: [
-      { atk_up: { milliValue: { ss:  65000, s:  55000, a: 45000, b: 40000 } }, acc_down: { milliPercentage: 30000 } },
-      { atk_up: { milliValue: { ss:  71500, s:  60500, a: 49500, b: 44000 } }, acc_down: { milliPercentage: 33000 } },
-      { atk_up: { milliValue: { ss:  78000, s:  66000, a: 54000, b: 48000 } }, acc_down: { milliPercentage: 36000 } },
-      { atk_up: { milliValue: { ss:  84500, s:  71500, a: 58500, b: 52000 } }, acc_down: { milliPercentage: 39000 } },
-      { atk_up: { milliValue: { ss:  91000, s:  77000, a: 63000, b: 56000 } }, acc_down: { milliPercentage: 42000 } },
-      { atk_up: { milliValue: { ss:  97500, s:  82500, a: 67500, b: 60000 } }, acc_down: { milliPercentage: 45000 } },
-      { atk_up: { milliValue: { ss: 104000, s:  88000, a: 72000, b: 64000 } }, acc_down: { milliPercentage: 48000 } },
-      { atk_up: { milliValue: { ss: 110500, s:  93500, a: 76500, b: 68000 } }, acc_down: { milliPercentage: 51000 } },
-      { atk_up: { milliValue: { ss: 117000, s:  99000, a: 81000, b: 72000 } }, acc_down: { milliPercentage: 54000 } },
-      { atk_up: { milliValue: { ss: 123500, s: 104500, a: 85500, b: 76000 } }, acc_down: { milliPercentage: 57000 } },
-      { atk_up: { milliValue: { ss: 130000, s: 110000, a: 90000, b: 80000 } }, acc_down: { milliPercentage: 60000 } }
+      { hp_up: { value: { ss: 240, s: 192,   a: 144,   b:  96   } }, atk_down: { milliValue: 25000 } },
+      { hp_up: { value: { ss: 288, s: 230.4, a: 172.8, b: 115.2 } }, atk_down: { milliValue: 27500 } },
+      { hp_up: { value: { ss: 336, s: 268.8, a: 201.6, b: 134.4 } }, atk_down: { milliValue: 30000 } },
+      { hp_up: { value: { ss: 384, s: 307.2, a: 230.4, b: 153.6 } }, atk_down: { milliValue: 32500 } },
+      { hp_up: { value: { ss: 432, s: 345.6, a: 259.2, b: 172.8 } }, atk_down: { milliValue: 35000 } },
+      { hp_up: { value: { ss: 480, s: 384,   a: 288,   b: 192   } }, atk_down: { milliValue: 37500 } },
+      { hp_up: { value: { ss: 528, s: 422.4, a: 316.8, b: 211.2 } }, atk_down: { milliValue: 40000 } },
+      { hp_up: { value: { ss: 576, s: 460.8, a: 345.6, b: 230.4 } }, atk_down: { milliValue: 42500 } },
+      { hp_up: { value: { ss: 624, s: 499.2, a: 374.4, b: 249.6 } }, atk_down: { milliValue: 45000 } },
+      { hp_up: { value: { ss: 672, s: 537.6, a: 403.2, b: 268.8 } }, atk_down: { milliValue: 47500 } },
+      { hp_up: { value: { ss: 720, s: 576,   a: 432,   b: 288   } }, atk_down: { milliValue: 50000 } }
     ]
   },
   attack_chip: {
@@ -125,21 +71,40 @@ export const equipmentData = {
       { atk_up: { milliValue: { ss: 120000, s: 96000, a: 72000, b: 48000 } }, eva_down: { milliPercentage: 12000 } }
     ]
   },
-  enhanced_output_chip: {
+  defense_chip: {
     type: 'chip',
-    id: 'enhanced_output_chip',
+    id: 'defense_chip',
+    max_rank: 'ss',
     status_effects: [
-      { atk_up: { milliValue: 30000 }, spd_up: { microValue:  50000 } },
-      { atk_up: { milliValue: 36000 }, spd_up: { microValue:  55000 } },
-      { atk_up: { milliValue: 42000 }, spd_up: { microValue:  60000 } },
-      { atk_up: { milliValue: 48000 }, spd_up: { microValue:  65000 } },
-      { atk_up: { milliValue: 54000 }, spd_up: { microValue:  70000 } },
-      { atk_up: { milliValue: 60000 }, spd_up: { microValue:  75000 } },
-      { atk_up: { milliValue: 66000 }, spd_up: { microValue:  80000 } },
-      { atk_up: { milliValue: 72000 }, spd_up: { microValue:  85000 } },
-      { atk_up: { milliValue: 78000 }, spd_up: { microValue:  90000 } },
-      { atk_up: { milliValue: 84000 }, spd_up: { microValue:  95000 } },
-      { atk_up: { milliValue: 90000 }, spd_up: { microValue: 100000 } }
+      { def_up: { milliValue: { ss:  36000, s: 30000, a: 24000, b: 16000 } } },
+      { def_up: { milliValue: { ss:  43200, s: 36000, a: 28800, b: 19200 } } },
+      { def_up: { milliValue: { ss:  50400, s: 42000, a: 33600, b: 22400 } } },
+      { def_up: { milliValue: { ss:  57600, s: 48000, a: 38400, b: 25600 } } },
+      { def_up: { milliValue: { ss:  64800, s: 54000, a: 43200, b: 28800 } } },
+      { def_up: { milliValue: { ss:  72000, s: 60000, a: 48000, b: 32000 } } },
+      { def_up: { milliValue: { ss:  79200, s: 66000, a: 52800, b: 35200 } } },
+      { def_up: { milliValue: { ss:  86400, s: 72000, a: 57600, b: 38400 } } },
+      { def_up: { milliValue: { ss:  93600, s: 78000, a: 62400, b: 41600 } } },
+      { def_up: { milliValue: { ss: 100800, s: 84000, a: 67200, b: 44800 } } },
+      { def_up: { milliValue: { ss: 108000, s: 90000, a: 72000, b: 48000 } } }
+    ]
+  },
+  defense_chip_beta: {
+    type: 'chip',
+    id: 'defense_chip_beta',
+    max_rank: 'ss',
+    status_effects: [
+      { def_up: { milliValue: { ss:  65000, s:  54000, a: 43000, b: 30000 } }, atk_down: { milliValue: 25000 } },
+      { def_up: { milliValue: { ss:  71500, s:  59400, a: 47300, b: 33000 } }, atk_down: { milliValue: 27500 } },
+      { def_up: { milliValue: { ss:  78000, s:  64800, a: 51600, b: 36000 } }, atk_down: { milliValue: 30000 } },
+      { def_up: { milliValue: { ss:  84500, s:  70200, a: 55900, b: 39000 } }, atk_down: { milliValue: 32500 } },
+      { def_up: { milliValue: { ss:  91000, s:  75600, a: 60200, b: 42000 } }, atk_down: { milliValue: 35000 } },
+      { def_up: { milliValue: { ss:  97500, s:  81000, a: 64500, b: 45000 } }, atk_down: { milliValue: 37500 } },
+      { def_up: { milliValue: { ss: 104000, s:  86400, a: 68800, b: 48000 } }, atk_down: { milliValue: 40000 } },
+      { def_up: { milliValue: { ss: 110500, s:  91800, a: 73100, b: 51000 } }, atk_down: { milliValue: 42500 } },
+      { def_up: { milliValue: { ss: 117000, s:  97200, a: 77400, b: 54000 } }, atk_down: { milliValue: 45000 } },
+      { def_up: { milliValue: { ss: 123500, s: 102600, a: 81700, b: 57000 } }, atk_down: { milliValue: 47500 } },
+      { def_up: { milliValue: { ss: 130000, s: 108000, a: 86000, b: 60000 } }, atk_down: { milliValue: 50000 } }
     ]
   },
   critical_chip: {
@@ -178,57 +143,40 @@ export const equipmentData = {
       { cri_up: { milliPercentage: { ss: 33600, s: 25200, a: 21000, b: 16800 } }, def_down: { milliValue: 54000 } }
     ]
   },
-  enhanced_analysis_chip: {
+  accuracy_chip: {
     type: 'chip',
-    id: 'enhanced_analysis_chip',
-    status_effects: [
-      { cri_up: { milliPercentage:  5000 }, acc_up: { milliPercentage: 10000 } },
-      { cri_up: { milliPercentage:  5250 }, acc_up: { milliPercentage: 10500 } },
-      { cri_up: { milliPercentage:  5500 }, acc_up: { milliPercentage: 11000 } },
-      { cri_up: { milliPercentage:  6000 }, acc_up: { milliPercentage: 12000 } },
-      { cri_up: { milliPercentage:  6750 }, acc_up: { milliPercentage: 13500 } },
-      { cri_up: { milliPercentage:  7750 }, acc_up: { milliPercentage: 15500 } },
-      { cri_up: { milliPercentage:  8500 }, acc_up: { milliPercentage: 17000 } },
-      { cri_up: { milliPercentage: 10000 }, acc_up: { milliPercentage: 20000 } },
-      { cri_up: { milliPercentage: 12000 }, acc_up: { milliPercentage: 24000 } },
-      { cri_up: { milliPercentage: 15000 }, acc_up: { milliPercentage: 28000 } },
-      { cri_up: { milliPercentage: 20000 }, acc_up: { milliPercentage: 35000 } }
-    ]
-  },
-  defense_chip: {
-    type: 'chip',
-    id: 'defense_chip',
+    id: 'accuracy_chip',
     max_rank: 'ss',
     status_effects: [
-      { def_up: { milliValue: { ss:  36000, s: 30000, a: 24000, b: 16000 } } },
-      { def_up: { milliValue: { ss:  43200, s: 36000, a: 28800, b: 19200 } } },
-      { def_up: { milliValue: { ss:  50400, s: 42000, a: 33600, b: 22400 } } },
-      { def_up: { milliValue: { ss:  57600, s: 48000, a: 38400, b: 25600 } } },
-      { def_up: { milliValue: { ss:  64800, s: 54000, a: 43200, b: 28800 } } },
-      { def_up: { milliValue: { ss:  72000, s: 60000, a: 48000, b: 32000 } } },
-      { def_up: { milliValue: { ss:  79200, s: 66000, a: 52800, b: 35200 } } },
-      { def_up: { milliValue: { ss:  86400, s: 72000, a: 57600, b: 38400 } } },
-      { def_up: { milliValue: { ss:  93600, s: 78000, a: 62400, b: 41600 } } },
-      { def_up: { milliValue: { ss: 100800, s: 84000, a: 67200, b: 44800 } } },
-      { def_up: { milliValue: { ss: 108000, s: 90000, a: 72000, b: 48000 } } }
+      { acc_up: { milliPercentage: { ss: 35000, s: 25000, a: 20000, b: 15000 } } },
+      { acc_up: { milliPercentage: { ss: 38500, s: 27500, a: 22000, b: 16500 } } },
+      { acc_up: { milliPercentage: { ss: 42000, s: 30000, a: 24000, b: 18000 } } },
+      { acc_up: { milliPercentage: { ss: 45500, s: 32500, a: 26000, b: 19500 } } },
+      { acc_up: { milliPercentage: { ss: 49000, s: 35000, a: 28000, b: 21000 } } },
+      { acc_up: { milliPercentage: { ss: 52500, s: 37500, a: 30000, b: 22500 } } },
+      { acc_up: { milliPercentage: { ss: 56000, s: 40000, a: 32000, b: 24000 } } },
+      { acc_up: { milliPercentage: { ss: 59500, s: 42500, a: 34000, b: 25500 } } },
+      { acc_up: { milliPercentage: { ss: 63000, s: 45000, a: 36000, b: 27000 } } },
+      { acc_up: { milliPercentage: { ss: 66500, s: 47500, a: 38000, b: 28500 } } },
+      { acc_up: { milliPercentage: { ss: 70000, s: 50000, a: 40000, b: 30000 } } }
     ]
   },
-  defense_chip_beta: {
+  accuracy_chip_beta: {
     type: 'chip',
-    id: 'defense_chip_beta',
+    id: 'accuracy_chip_beta',
     max_rank: 'ss',
     status_effects: [
-      { def_up: { milliValue: { ss:  65000, s:  54000, a: 43000, b: 30000 } }, atk_down: { milliValue: 25000 } },
-      { def_up: { milliValue: { ss:  71500, s:  59400, a: 47300, b: 33000 } }, atk_down: { milliValue: 27500 } },
-      { def_up: { milliValue: { ss:  78000, s:  64800, a: 51600, b: 36000 } }, atk_down: { milliValue: 30000 } },
-      { def_up: { milliValue: { ss:  84500, s:  70200, a: 55900, b: 39000 } }, atk_down: { milliValue: 32500 } },
-      { def_up: { milliValue: { ss:  91000, s:  75600, a: 60200, b: 42000 } }, atk_down: { milliValue: 35000 } },
-      { def_up: { milliValue: { ss:  97500, s:  81000, a: 64500, b: 45000 } }, atk_down: { milliValue: 37500 } },
-      { def_up: { milliValue: { ss: 104000, s:  86400, a: 68800, b: 48000 } }, atk_down: { milliValue: 40000 } },
-      { def_up: { milliValue: { ss: 110500, s:  91800, a: 73100, b: 51000 } }, atk_down: { milliValue: 42500 } },
-      { def_up: { milliValue: { ss: 117000, s:  97200, a: 77400, b: 54000 } }, atk_down: { milliValue: 45000 } },
-      { def_up: { milliValue: { ss: 123500, s: 102600, a: 81700, b: 57000 } }, atk_down: { milliValue: 47500 } },
-      { def_up: { milliValue: { ss: 130000, s: 108000, a: 86000, b: 60000 } }, atk_down: { milliValue: 50000 } }
+      { acc_up: { milliPercentage: { ss: 42000, s: 30000, a: 24000, b: 18000 } }, def_down: { milliValue: 27000 } },
+      { acc_up: { milliPercentage: { ss: 46200, s: 33000, a: 26400, b: 19800 } }, def_down: { milliValue: 29700 } },
+      { acc_up: { milliPercentage: { ss: 50400, s: 36000, a: 28800, b: 21600 } }, def_down: { milliValue: 32400 } },
+      { acc_up: { milliPercentage: { ss: 54600, s: 39000, a: 31200, b: 23400 } }, def_down: { milliValue: 35100 } },
+      { acc_up: { milliPercentage: { ss: 58800, s: 42000, a: 33600, b: 25200 } }, def_down: { milliValue: 37800 } },
+      { acc_up: { milliPercentage: { ss: 63000, s: 45000, a: 36000, b: 27000 } }, def_down: { milliValue: 40500 } },
+      { acc_up: { milliPercentage: { ss: 67200, s: 48000, a: 38400, b: 28800 } }, def_down: { milliValue: 43200 } },
+      { acc_up: { milliPercentage: { ss: 71400, s: 51000, a: 40800, b: 30600 } }, def_down: { milliValue: 45900 } },
+      { acc_up: { milliPercentage: { ss: 75600, s: 54000, a: 43200, b: 32400 } }, def_down: { milliValue: 48600 } },
+      { acc_up: { milliPercentage: { ss: 79800, s: 57000, a: 45600, b: 34200 } }, def_down: { milliValue: 51300 } },
+      { acc_up: { milliPercentage: { ss: 84000, s: 60000, a: 48000, b: 36000 } }, def_down: { milliValue: 54000 } }
     ]
   },
   evasion_chip: {
@@ -267,40 +215,94 @@ export const equipmentData = {
       { eva_up: { milliPercentage: { ss: 27000, s: 18000, a: 14400, b: 10800 } }, atk_down: { milliValue: 50000 } }
     ]
   },
-  hp_chip: {
+  action_chip: {
     type: 'chip',
-    id: 'hp_chip',
+    id: 'action_chip',
     max_rank: 'ss',
     status_effects: [
-      { hp_up: { value: { ss: 200, s: 160, a: 120, b:  80 } } },
-      { hp_up: { value: { ss: 240, s: 192, a: 144, b:  96 } } },
-      { hp_up: { value: { ss: 280, s: 224, a: 168, b: 112 } } },
-      { hp_up: { value: { ss: 320, s: 256, a: 192, b: 128 } } },
-      { hp_up: { value: { ss: 360, s: 288, a: 216, b: 144 } } },
-      { hp_up: { value: { ss: 400, s: 320, a: 240, b: 160 } } },
-      { hp_up: { value: { ss: 440, s: 352, a: 264, b: 176 } } },
-      { hp_up: { value: { ss: 480, s: 384, a: 288, b: 192 } } },
-      { hp_up: { value: { ss: 520, s: 416, a: 312, b: 208 } } },
-      { hp_up: { value: { ss: 560, s: 448, a: 336, b: 224 } } },
-      { hp_up: { value: { ss: 600, s: 480, a: 360, b: 240 } } }
+      { spd_up: { microValue: { ss: 150000, s: 140000, a: 120000, b: 100000 } } },
+      { spd_up: { microValue: { ss: 157500, s: 147000, a: 126000, b: 105000 } } },
+      { spd_up: { microValue: { ss: 165000, s: 154000, a: 132000, b: 110000 } } },
+      { spd_up: { microValue: { ss: 172500, s: 161000, a: 138000, b: 115000 } } },
+      { spd_up: { microValue: { ss: 180000, s: 168000, a: 144000, b: 120000 } } },
+      { spd_up: { microValue: { ss: 187500, s: 175000, a: 150000, b: 125000 } } },
+      { spd_up: { microValue: { ss: 195000, s: 182000, a: 156000, b: 130000 } } },
+      { spd_up: { microValue: { ss: 202500, s: 189000, a: 162000, b: 135000 } } },
+      { spd_up: { microValue: { ss: 210000, s: 196000, a: 168000, b: 140000 } } },
+      { spd_up: { microValue: { ss: 217500, s: 203000, a: 174000, b: 145000 } } },
+      { spd_up: { microValue: { ss: 225000, s: 210000, a: 180000, b: 150000 } } }
     ]
   },
-  hp_chip_beta: {
+  action_chip_beta: {
     type: 'chip',
-    id: 'hp_chip_beta',
+    id: 'action_chip_beta',
     max_rank: 'ss',
     status_effects: [
-      { hp_up: { value: { ss: 240, s: 192,   a: 144,   b:  96   } }, atk_down: { milliValue: 25000 } },
-      { hp_up: { value: { ss: 288, s: 230.4, a: 172.8, b: 115.2 } }, atk_down: { milliValue: 27500 } },
-      { hp_up: { value: { ss: 336, s: 268.8, a: 201.6, b: 134.4 } }, atk_down: { milliValue: 30000 } },
-      { hp_up: { value: { ss: 384, s: 307.2, a: 230.4, b: 153.6 } }, atk_down: { milliValue: 32500 } },
-      { hp_up: { value: { ss: 432, s: 345.6, a: 259.2, b: 172.8 } }, atk_down: { milliValue: 35000 } },
-      { hp_up: { value: { ss: 480, s: 384,   a: 288,   b: 192   } }, atk_down: { milliValue: 37500 } },
-      { hp_up: { value: { ss: 528, s: 422.4, a: 316.8, b: 211.2 } }, atk_down: { milliValue: 40000 } },
-      { hp_up: { value: { ss: 576, s: 460.8, a: 345.6, b: 230.4 } }, atk_down: { milliValue: 42500 } },
-      { hp_up: { value: { ss: 624, s: 499.2, a: 374.4, b: 249.6 } }, atk_down: { milliValue: 45000 } },
-      { hp_up: { value: { ss: 672, s: 537.6, a: 403.2, b: 268.8 } }, atk_down: { milliValue: 47500 } },
-      { hp_up: { value: { ss: 720, s: 576,   a: 432,   b: 288   } }, atk_down: { milliValue: 50000 } }
+      { spd_up: { microValue: { ss: 180000, s: 168000, a: 144000, b: 120000 } }, eva_down: { milliPercentage:  6000 } },
+      { spd_up: { microValue: { ss: 189000, s: 176400, a: 151200, b: 126000 } }, eva_down: { milliPercentage:  6600 } },
+      { spd_up: { microValue: { ss: 198000, s: 184800, a: 158400, b: 132000 } }, eva_down: { milliPercentage:  7200 } },
+      { spd_up: { microValue: { ss: 207000, s: 193200, a: 165600, b: 138000 } }, eva_down: { milliPercentage:  7800 } },
+      { spd_up: { microValue: { ss: 216000, s: 201600, a: 172800, b: 144000 } }, eva_down: { milliPercentage:  8400 } },
+      { spd_up: { microValue: { ss: 225000, s: 210000, a: 180000, b: 150000 } }, eva_down: { milliPercentage:  9000 } },
+      { spd_up: { microValue: { ss: 234000, s: 218400, a: 187200, b: 156000 } }, eva_down: { milliPercentage:  9600 } },
+      { spd_up: { microValue: { ss: 243000, s: 226800, a: 194400, b: 162000 } }, eva_down: { milliPercentage: 10200 } },
+      { spd_up: { microValue: { ss: 252000, s: 235200, a: 201600, b: 168000 } }, eva_down: { milliPercentage: 10800 } },
+      { spd_up: { microValue: { ss: 261000, s: 243600, a: 208800, b: 174000 } }, eva_down: { milliPercentage: 11400 } },
+      { spd_up: { microValue: { ss: 270000, s: 252000, a: 216000, b: 180000 } }, eva_down: { milliPercentage: 12000 } }
+    ]
+  },
+  stabilization_chip: {
+    type: 'chip',
+    id: 'stabilization_chip',
+    max_rank: 'ss',
+    status_effects: [
+      { atk_up: { milliValue: { ss: 28000, s: 22000, a: 16000, b: 12000 } }, cri_up: { milliPercentage: { ss:  6000, s:  5000, a: 4000, b: 3000 } }, spd_down: { microValue: 100000 } },
+      { atk_up: { milliValue: { ss: 33600, s: 26400, a: 19200, b: 14400 } }, cri_up: { milliPercentage: { ss:  6600, s:  5500, a: 4400, b: 3300 } }, spd_down: { microValue: 100000 } },
+      { atk_up: { milliValue: { ss: 39200, s: 30800, a: 22400, b: 16800 } }, cri_up: { milliPercentage: { ss:  7200, s:  6000, a: 4800, b: 3600 } }, spd_down: { microValue: 100000 } },
+      { atk_up: { milliValue: { ss: 44800, s: 35200, a: 25600, b: 19200 } }, cri_up: { milliPercentage: { ss:  7800, s:  6500, a: 5200, b: 3900 } }, spd_down: { microValue: 100000 } },
+      { atk_up: { milliValue: { ss: 50400, s: 39600, a: 28800, b: 21600 } }, cri_up: { milliPercentage: { ss:  8400, s:  7000, a: 5600, b: 4200 } }, spd_down: { microValue: 100000 } },
+      { atk_up: { milliValue: { ss: 56000, s: 44000, a: 32000, b: 24000 } }, cri_up: { milliPercentage: { ss:  9000, s:  7500, a: 6000, b: 4500 } }, spd_down: { microValue: 100000 } },
+      { atk_up: { milliValue: { ss: 61600, s: 48400, a: 35200, b: 26400 } }, cri_up: { milliPercentage: { ss:  9600, s:  8000, a: 6400, b: 4800 } }, spd_down: { microValue: 100000 } },
+      { atk_up: { milliValue: { ss: 67200, s: 52800, a: 38400, b: 28800 } }, cri_up: { milliPercentage: { ss: 10200, s:  8500, a: 6800, b: 5100 } }, spd_down: { microValue: 100000 } },
+      { atk_up: { milliValue: { ss: 72800, s: 57200, a: 41600, b: 31200 } }, cri_up: { milliPercentage: { ss: 10800, s:  9000, a: 7200, b: 5400 } }, spd_down: { microValue: 100000 } },
+      { atk_up: { milliValue: { ss: 78400, s: 61600, a: 44800, b: 33600 } }, cri_up: { milliPercentage: { ss: 11400, s:  9500, a: 7600, b: 5700 } }, spd_down: { microValue: 100000 } },
+      { atk_up: { milliValue: { ss: 84000, s: 66000, a: 48000, b: 36000 } }, cri_up: { milliPercentage: { ss: 12000, s: 10000, a: 8000, b: 6000 } }, spd_down: { microValue: 100000 } }
+    ]
+  },
+  assault_chip: {
+    type: 'chip',
+    id: 'assault_chip',
+    max_rank: 'ss',
+    status_effects: [
+      { atk_up: { milliValue: { ss:  65000, s:  55000, a: 45000, b: 40000 } }, acc_down: { milliPercentage: 30000 } },
+      { atk_up: { milliValue: { ss:  71500, s:  60500, a: 49500, b: 44000 } }, acc_down: { milliPercentage: 33000 } },
+      { atk_up: { milliValue: { ss:  78000, s:  66000, a: 54000, b: 48000 } }, acc_down: { milliPercentage: 36000 } },
+      { atk_up: { milliValue: { ss:  84500, s:  71500, a: 58500, b: 52000 } }, acc_down: { milliPercentage: 39000 } },
+      { atk_up: { milliValue: { ss:  91000, s:  77000, a: 63000, b: 56000 } }, acc_down: { milliPercentage: 42000 } },
+      { atk_up: { milliValue: { ss:  97500, s:  82500, a: 67500, b: 60000 } }, acc_down: { milliPercentage: 45000 } },
+      { atk_up: { milliValue: { ss: 104000, s:  88000, a: 72000, b: 64000 } }, acc_down: { milliPercentage: 48000 } },
+      { atk_up: { milliValue: { ss: 110500, s:  93500, a: 76500, b: 68000 } }, acc_down: { milliPercentage: 51000 } },
+      { atk_up: { milliValue: { ss: 117000, s:  99000, a: 81000, b: 72000 } }, acc_down: { milliPercentage: 54000 } },
+      { atk_up: { milliValue: { ss: 123500, s: 104500, a: 85500, b: 76000 } }, acc_down: { milliPercentage: 57000 } },
+      { atk_up: { milliValue: { ss: 130000, s: 110000, a: 90000, b: 80000 } }, acc_down: { milliPercentage: 60000 } }
+    ]
+  },
+  output_control_chip: {
+    type: 'chip',
+    id: 'output_control_chip',
+    max_rank: 'ss',
+    status_effects: [
+      { atk_up: { milliValue: { ss:  50000, s:  40000, a: 30000, b: 20000 } }, cri_down: { milliPercentage: 12000 } },
+      { atk_up: { milliValue: { ss:  60000, s:  48000, a: 36000, b: 24000 } }, cri_down: { milliPercentage: 12000 } },
+      { atk_up: { milliValue: { ss:  70000, s:  56000, a: 42000, b: 28000 } }, cri_down: { milliPercentage: 12000 } },
+      { atk_up: { milliValue: { ss:  80000, s:  64000, a: 48000, b: 32000 } }, cri_down: { milliPercentage: 12000 } },
+      { atk_up: { milliValue: { ss:  90000, s:  72000, a: 54000, b: 36000 } }, cri_down: { milliPercentage: 12000 } },
+      { atk_up: { milliValue: { ss: 100000, s:  80000, a: 60000, b: 40000 } }, cri_down: { milliPercentage: 12000 } },
+      { atk_up: { milliValue: { ss: 110000, s:  88000, a: 66000, b: 44000 } }, cri_down: { milliPercentage: 12000 } },
+      { atk_up: { milliValue: { ss: 120000, s:  96000, a: 72000, b: 48000 } }, cri_down: { milliPercentage: 12000 } },
+      { atk_up: { milliValue: { ss: 130000, s: 104000, a: 78000, b: 52000 } }, cri_down: { milliPercentage: 12000 } },
+      { atk_up: { milliValue: { ss: 140000, s: 112000, a: 84000, b: 56000 } }, cri_down: { milliPercentage: 12000 } },
+      { atk_up: { milliValue: { ss: 150000, s: 120000, a: 90000, b: 60000 } }, cri_down: { milliPercentage: 12000 } }
     ]
   },
   lightweight_chip: {
@@ -332,42 +334,6 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { atk_down: { milliPercentage: 8000, term: 'infinite' } } }],
       [{ condition: { trigger: 'start_wave' }, details: { atk_down: { milliPercentage: 8000, term: 'infinite' } } }],
       [{ condition: { trigger: 'start_wave' }, details: { atk_down: { milliPercentage: 8000, term: 'infinite' } } }]
-    ]
-  },
-  output_control_chip: {
-    type: 'chip',
-    id: 'output_control_chip',
-    max_rank: 'ss',
-    status_effects: [
-      { atk_up: { milliValue: { ss:  50000, s:  40000, a: 30000, b: 20000 } }, cri_down: { milliPercentage: 12000 } },
-      { atk_up: { milliValue: { ss:  60000, s:  48000, a: 36000, b: 24000 } }, cri_down: { milliPercentage: 12000 } },
-      { atk_up: { milliValue: { ss:  70000, s:  56000, a: 42000, b: 28000 } }, cri_down: { milliPercentage: 12000 } },
-      { atk_up: { milliValue: { ss:  80000, s:  64000, a: 48000, b: 32000 } }, cri_down: { milliPercentage: 12000 } },
-      { atk_up: { milliValue: { ss:  90000, s:  72000, a: 54000, b: 36000 } }, cri_down: { milliPercentage: 12000 } },
-      { atk_up: { milliValue: { ss: 100000, s:  80000, a: 60000, b: 40000 } }, cri_down: { milliPercentage: 12000 } },
-      { atk_up: { milliValue: { ss: 110000, s:  88000, a: 66000, b: 44000 } }, cri_down: { milliPercentage: 12000 } },
-      { atk_up: { milliValue: { ss: 120000, s:  96000, a: 72000, b: 48000 } }, cri_down: { milliPercentage: 12000 } },
-      { atk_up: { milliValue: { ss: 130000, s: 104000, a: 78000, b: 52000 } }, cri_down: { milliPercentage: 12000 } },
-      { atk_up: { milliValue: { ss: 140000, s: 112000, a: 84000, b: 56000 } }, cri_down: { milliPercentage: 12000 } },
-      { atk_up: { milliValue: { ss: 150000, s: 120000, a: 90000, b: 60000 } }, cri_down: { milliPercentage: 12000 } }
-    ]
-  },
-  stabilization_chip: {
-    type: 'chip',
-    id: 'stabilization_chip',
-    max_rank: 'ss',
-    status_effects: [
-      { atk_up: { milliValue: { ss: 28000, s: 22000, a: 16000, b: 12000 } }, cri_up: { milliPercentage: { ss:  6000, s:  5000, a: 4000, b: 3000 } }, spd_down: { microValue: 100000 } },
-      { atk_up: { milliValue: { ss: 33600, s: 26400, a: 19200, b: 14400 } }, cri_up: { milliPercentage: { ss:  6600, s:  5500, a: 4400, b: 3300 } }, spd_down: { microValue: 100000 } },
-      { atk_up: { milliValue: { ss: 39200, s: 30800, a: 22400, b: 16800 } }, cri_up: { milliPercentage: { ss:  7200, s:  6000, a: 4800, b: 3600 } }, spd_down: { microValue: 100000 } },
-      { atk_up: { milliValue: { ss: 44800, s: 35200, a: 25600, b: 19200 } }, cri_up: { milliPercentage: { ss:  7800, s:  6500, a: 5200, b: 3900 } }, spd_down: { microValue: 100000 } },
-      { atk_up: { milliValue: { ss: 50400, s: 39600, a: 28800, b: 21600 } }, cri_up: { milliPercentage: { ss:  8400, s:  7000, a: 5600, b: 4200 } }, spd_down: { microValue: 100000 } },
-      { atk_up: { milliValue: { ss: 56000, s: 44000, a: 32000, b: 24000 } }, cri_up: { milliPercentage: { ss:  9000, s:  7500, a: 6000, b: 4500 } }, spd_down: { microValue: 100000 } },
-      { atk_up: { milliValue: { ss: 61600, s: 48400, a: 35200, b: 26400 } }, cri_up: { milliPercentage: { ss:  9600, s:  8000, a: 6400, b: 4800 } }, spd_down: { microValue: 100000 } },
-      { atk_up: { milliValue: { ss: 67200, s: 52800, a: 38400, b: 28800 } }, cri_up: { milliPercentage: { ss: 10200, s:  8500, a: 6800, b: 5100 } }, spd_down: { microValue: 100000 } },
-      { atk_up: { milliValue: { ss: 72800, s: 57200, a: 41600, b: 31200 } }, cri_up: { milliPercentage: { ss: 10800, s:  9000, a: 7200, b: 5400 } }, spd_down: { microValue: 100000 } },
-      { atk_up: { milliValue: { ss: 78400, s: 61600, a: 44800, b: 33600 } }, cri_up: { milliPercentage: { ss: 11400, s:  9500, a: 7600, b: 5700 } }, spd_down: { microValue: 100000 } },
-      { atk_up: { milliValue: { ss: 84000, s: 66000, a: 48000, b: 36000 } }, cri_up: { milliPercentage: { ss: 12000, s: 10000, a: 8000, b: 6000 } }, spd_down: { microValue: 100000 } }
     ]
   },
   vaccine_chip: {
@@ -404,6 +370,40 @@ export const equipmentData = {
       [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 6800, s: 5200, a: 4200, b: 3600 }, max_stack: 3 } } }],
       [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 7400, s: 5600, a: 4400, b: 3800 }, max_stack: 3 } } }],
       [{ condition: { trigger: 'attack' }, details: { exp_up: { milliPercentage: { ss: 8000, s: 6000, a: 4800, b: 4000 }, max_stack: 3 } } }]
+    ]
+  },
+  enhanced_output_chip: {
+    type: 'chip',
+    id: 'enhanced_output_chip',
+    status_effects: [
+      { atk_up: { milliValue: 30000 }, spd_up: { microValue:  50000 } },
+      { atk_up: { milliValue: 36000 }, spd_up: { microValue:  55000 } },
+      { atk_up: { milliValue: 42000 }, spd_up: { microValue:  60000 } },
+      { atk_up: { milliValue: 48000 }, spd_up: { microValue:  65000 } },
+      { atk_up: { milliValue: 54000 }, spd_up: { microValue:  70000 } },
+      { atk_up: { milliValue: 60000 }, spd_up: { microValue:  75000 } },
+      { atk_up: { milliValue: 66000 }, spd_up: { microValue:  80000 } },
+      { atk_up: { milliValue: 72000 }, spd_up: { microValue:  85000 } },
+      { atk_up: { milliValue: 78000 }, spd_up: { microValue:  90000 } },
+      { atk_up: { milliValue: 84000 }, spd_up: { microValue:  95000 } },
+      { atk_up: { milliValue: 90000 }, spd_up: { microValue: 100000 } }
+    ]
+  },
+  enhanced_analysis_chip: {
+    type: 'chip',
+    id: 'enhanced_analysis_chip',
+    status_effects: [
+      { cri_up: { milliPercentage:  5000 }, acc_up: { milliPercentage: 10000 } },
+      { cri_up: { milliPercentage:  5250 }, acc_up: { milliPercentage: 10500 } },
+      { cri_up: { milliPercentage:  5500 }, acc_up: { milliPercentage: 11000 } },
+      { cri_up: { milliPercentage:  6000 }, acc_up: { milliPercentage: 12000 } },
+      { cri_up: { milliPercentage:  6750 }, acc_up: { milliPercentage: 13500 } },
+      { cri_up: { milliPercentage:  7750 }, acc_up: { milliPercentage: 15500 } },
+      { cri_up: { milliPercentage:  8500 }, acc_up: { milliPercentage: 17000 } },
+      { cri_up: { milliPercentage: 10000 }, acc_up: { milliPercentage: 20000 } },
+      { cri_up: { milliPercentage: 12000 }, acc_up: { milliPercentage: 24000 } },
+      { cri_up: { milliPercentage: 15000 }, acc_up: { milliPercentage: 28000 } },
+      { cri_up: { milliPercentage: 20000 }, acc_up: { milliPercentage: 35000 } }
     ]
   },
   atflir_reinforcement_chip: {
