@@ -385,6 +385,9 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
   [SkillAreaType.FixedDiagonal]: {
     area: ['effective', 'none', 'effective', 'none', 'effective', 'none', 'effective', 'none', 'effective']
   },
+  [SkillAreaType.FixedFleetFormation]: {
+    area: ['effective', 'none', 'effective', 'effective', 'effective', 'none', 'effective', 'none', 'effective']
+  },
   [SkillAreaType.FixedAllAdjacentWithoutFront]: {
     area: ['effective', 'effective', 'effective', 'effective', 'none', 'none', 'effective', 'effective', 'effective']
   },

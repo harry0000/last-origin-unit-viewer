@@ -10,6 +10,7 @@ const fixedPositionTargets: Record<FixedSkillAreaType, ReadonlySet<TenKeyPositio
   [SkillAreaType.FixedMiddleRow]:               new Set([4, 5, 6]),
   [SkillAreaType.FixedCross]:                   new Set([2, 4, 5, 6, 8]),
   [SkillAreaType.FixedDiagonal]:                new Set([1, 3, 5, 7, 9]),
+  [SkillAreaType.FixedFleetFormation]:          new Set([1, 3, 4, 5, 7, 9]),
   [SkillAreaType.FixedAllAdjacentWithoutFront]: new Set([1, 2, 3, 4, 7, 8, 9]),
   [SkillAreaType.FixedAll]:                     new Set([1, 2, 3, 4, 5, 6, 7, 8, 9])
 };
