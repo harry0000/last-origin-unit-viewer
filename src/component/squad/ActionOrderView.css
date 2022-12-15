@@ -3,6 +3,8 @@
   flex-direction: column;
 
   width: fit-content;
+
+  user-select: none;
 }
 
 .action-order-container > .unit-row {
