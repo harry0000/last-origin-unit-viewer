@@ -8482,6 +8482,26 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: { self: { defense_penetration: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 }, times: 1 } } }
       }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_wave' }],
+        details: {
+          self: {
+            ap_up: { base: { microValue: 2000000 }, per_lv_up: { microValue: 200000 }, term: 'immediate' },
+            spd_down: { milliPercentage: 10000, term: 'infinite', cannot_be_dispelled: true },
+            prevents_effect: { effects: ['spd_down', 'ap_down'], term: 'infinite', cannot_be_dispelled: true }
+          }
+        }
+      }]
     }]
   },
   106: {
