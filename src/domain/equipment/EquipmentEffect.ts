@@ -120,7 +120,8 @@ export type EquipmentEffectActivationState = Readonly<{
   [EffectActivationState.HpGreaterOrEqual]?: 25,
   [EffectActivationState.Affected]?: typeof Effect['Reconnaissance' | 'Barrier'],
   [EffectActivationState.Tagged]?: 'wet',
-  [EffectActivationState.Unit]?: UnitKind
+  [EffectActivationState.Unit]?: UnitKind,
+  [EffectActivationState.StatusLessThanSelf]?: { status: 'def' },
 }>
 
 type EquipmentEffectActivationTrigger = Readonly<{
@@ -139,6 +140,7 @@ export type EquipmentEffectActivationCondition =
 
 export type EffectDetails = Readonly<{
   condition: EquipmentEffectActivationCondition,
+  target?: { kind: 'enemy' },
   details: EquipmentEffectValue
 }>
 

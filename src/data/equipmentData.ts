@@ -820,6 +820,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { atk_up: { milliPercentage: 20000, term: { for_rounds: 999 } }, spd_up:   { milliPercentage:  5000, term: { for_rounds: 999 } }, ignore_protect: { term: { for_rounds: 2 } } } }]
     ]
   },
+  w_r_i_i_os: {
+    type: 'os',
+    id: 'w_r_i_i_os',
+    exclusive: {
+      role: 'defender'
+    },
+    status_effects: [
+      { hp_up: { value: 150 }, def_up: { milliValue: 100000 } },
+      { hp_up: { value: 165 }, def_up: { milliValue: 110000 } },
+      { hp_up: { value: 180 }, def_up: { milliValue: 120000 } },
+      { hp_up: { value: 195 }, def_up: { milliValue: 130000 } },
+      { hp_up: { value: 210 }, def_up: { milliValue: 140000 } },
+      { hp_up: { value: 225 }, def_up: { milliValue: 150000 } },
+      { hp_up: { value: 240 }, def_up: { milliValue: 160000 } },
+      { hp_up: { value: 255 }, def_up: { milliValue: 170000 } },
+      { hp_up: { value: 270 }, def_up: { milliValue: 180000 } },
+      { hp_up: { value: 285 }, def_up: { milliValue: 190000 } },
+      { hp_up: { value: 300 }, def_up: { milliValue: 200000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'be_attacked', state: { status_less_than_self: { status: 'def' } } }, target: { kind: 'enemy' }, details: { atk_down: { milliPercentage: 10000, term: 'infinite', times: 1, max_stack: 1 } } }],
+      [{ condition: { trigger: 'be_attacked', state: { status_less_than_self: { status: 'def' } } }, target: { kind: 'enemy' }, details: { atk_down: { milliPercentage: 13000, term: 'infinite', times: 1, max_stack: 1 } } }],
+      [{ condition: { trigger: 'be_attacked', state: { status_less_than_self: { status: 'def' } } }, target: { kind: 'enemy' }, details: { atk_down: { milliPercentage: 16000, term: 'infinite', times: 1, max_stack: 1 } } }],
+      [{ condition: { trigger: 'be_attacked', state: { status_less_than_self: { status: 'def' } } }, target: { kind: 'enemy' }, details: { atk_down: { milliPercentage: 19000, term: 'infinite', times: 1, max_stack: 1 } } }],
+      [{ condition: { trigger: 'be_attacked', state: { status_less_than_self: { status: 'def' } } }, target: { kind: 'enemy' }, details: { atk_down: { milliPercentage: 22000, term: 'infinite', times: 1, max_stack: 1 } } }],
+      [{ condition: { trigger: 'be_attacked', state: { status_less_than_self: { status: 'def' } } }, target: { kind: 'enemy' }, details: { atk_down: { milliPercentage: 25000, term: 'infinite', times: 1, max_stack: 1 } } }],
+      [{ condition: { trigger: 'be_attacked', state: { status_less_than_self: { status: 'def' } } }, target: { kind: 'enemy' }, details: { atk_down: { milliPercentage: 28000, term: 'infinite', times: 1, max_stack: 1 } } }],
+      [{ condition: { trigger: 'be_attacked', state: { status_less_than_self: { status: 'def' } } }, target: { kind: 'enemy' }, details: { atk_down: { milliPercentage: 31000, term: 'infinite', times: 1, max_stack: 1 } } }],
+      [{ condition: { trigger: 'be_attacked', state: { status_less_than_self: { status: 'def' } } }, target: { kind: 'enemy' }, details: { atk_down: { milliPercentage: 34000, term: 'infinite', times: 1, max_stack: 1 } } }],
+      [{ condition: { trigger: 'be_attacked', state: { status_less_than_self: { status: 'def' } } }, target: { kind: 'enemy' }, details: { atk_down: { milliPercentage: 37000, term: 'infinite', times: 1, max_stack: 1 } } }],
+      [{ condition: { trigger: 'be_attacked', state: { status_less_than_self: { status: 'def' } } }, target: { kind: 'enemy' }, details: { atk_down: { milliPercentage: 40000, term: 'infinite', times: 1, max_stack: 1 } } }]
+    ]
+  },
   light_attacker_optimization_os: {
     type: 'os',
     id: 'light_attacker_optimization_os',

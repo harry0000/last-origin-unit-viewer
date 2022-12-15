@@ -60,6 +60,7 @@
   "precision_os": "精密型戦闘システム",
   "recon_os": "戦況分析システム",
   "standard_os": "標準型戦闘システム",
+  "w_r_i_i_os": "W.R.I.Iシステム",
   "light_attacker_optimization_os": "軽装型攻撃最適化システム",
   "light_defender_optimization_os": "軽装型保護最適化システム",
   "light_supporter_optimization_os": "軽装型支援最適化システム",

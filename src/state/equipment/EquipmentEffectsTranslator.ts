@@ -14,7 +14,6 @@ import { EffectTrigger } from '../../domain/EffectTrigger';
 import { calcMicroValue, calcMilliPercentageValue } from '../../domain/ValueUnit';
 
 import { Entry, typedEntries } from '../../util/object';
-import { notFalsy } from '../../util/type';
 
 export type TranslatedEquipmentEffect = {
   condition?: string,
@@ -46,13 +45,17 @@ function buildDetail(body: string, value: EquipmentEffectAddition, t: TFunction)
         `${t('effect:rate.percentage', { value: calcMilliPercentageValue(value.rate) })}${t('effect:separator')}` :
       '';
   const additions = [
-    'times' in value && value.times ?
-      t('effect:times', { count: value.times }) : undefined,
-    'max_stack' in value && value.max_stack ?
-      t('effect:max_stack', { count: value.max_stack }) :
-      undefined
-  ].filter(notFalsy)
-    .join(t('effect:separator'));
+    ...('times' in value && value.times ?
+      [t('effect:times', { count: value.times })] :
+      []
+    ),
+    ...('max_stack' in value && value.max_stack ?
+      (value.max_stack === 1 ?
+        [t('effect:does_not_stack')] :
+        [t('effect:max_stack', { count: value.max_stack })]) :
+      []
+    )
+  ].join(t('effect:separator'));
 
   return `${rate}${body}${additions ? ` (${additions})` : '' }`;
 }
@@ -169,11 +172,15 @@ function translateTrigger(condition: EquipmentEffectActivationCondition, t: TFun
   }
 }
 
-function translateCondition(condition: EquipmentEffectActivationCondition, t: TFunction): string {
-  const trigger = translateTrigger(condition, t);
-  const state = 'state' in condition && condition.state ?
-    Object
-      .entries(condition.state)
+function translateCondition(details: EffectDetails | EffectDetailsAsSkill, t: TFunction): { condition: string } | Record<string, never> {
+  if (!('condition' in details)) {
+    return {};
+  }
+
+  const trigger = translateTrigger(details.condition, t);
+  const hasTarget = 'target' in details && details.target;
+  const state = 'state' in details.condition && details.condition.state ?
+    typedEntries(details.condition.state)
       .map(entry => {
         switch (entry[0]) {
         case EffectActivationState.Grid:
@@ -186,12 +193,23 @@ function translateCondition(condition: EquipmentEffectActivationCondition, t: TF
           return t('effect:condition.state.tagged', { tag: entry[1] });
         case EffectActivationState.Unit:
           return t('effect:condition.state.unit', { unit: t(`effect:unit.${entry[1]}`) });
+        case EffectActivationState.StatusLessThanSelf:
+          return (
+            (hasTarget ? t(`effect:condition.target.${details.target.kind}`) : '') +
+            t('effect:condition.state.status_less_than_self', entry[1])
+          );
         }
       })
       .join(t('effect:and_symbolic_separator')) :
     '';
 
-  return `${trigger}${trigger && state ? t('effect:separator') : ''}${state}${state ? t('effect:case') : ''}`;
+  const separator = trigger && state ? t('effect:separator') : '';
+  const toTarget = state && hasTarget ?
+    t('effect:separator') + t('effect:effect.target.target') + t('effect:to_preposition') + t('effect:below_effects') :
+    '';
+
+  const condition = `${trigger}${separator}${state}${state ? t('effect:case') : ''}${toTarget}`;
+  return { condition };
 }
 
 function translateDetails(details: EquipmentEffectValue, t: TFunction): TranslatedEquipmentEffect['details'] {
@@ -211,7 +229,7 @@ export function translateEquipmentEffect(
   return effects.map(e => {
     return {
       details: translateDetails(e.details, t),
-      ...('condition' in e && e.condition ? { condition: translateCondition(e.condition, t) } : {})
+      ...translateCondition(e, t)
     };
   });
 }
@@ -230,7 +248,7 @@ export function translateEquipmentEffectAsSkill(
             {}
         )
       },
-      ...('condition' in e && e.condition ? { condition: translateCondition(e.condition, t) } : {})
+      ...translateCondition(e, t)
     };
   });
 }

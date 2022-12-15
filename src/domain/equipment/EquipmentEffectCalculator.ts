@@ -229,6 +229,7 @@ function calculateEffects<R extends EquipmentRank, E extends EquipmentEffectsDat
 ): ReadonlyArray<EffectDetails> {
   return effects.map(effect => ({
     condition: effect.condition,
+    ...(effect.target ? { target: effect.target } : {}),
     details: calculateEffectDetails(rank, effect.details)
   }));
 }

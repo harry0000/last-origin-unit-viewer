@@ -98,7 +98,7 @@ type MicroValue<R extends EquipmentRank>                              = Readonly
 type MilliPercentageValue<R extends EquipmentRank>                    = Readonly<{ milliPercentage: EquipmentDataValue<R, number> }>
 
 export type EffectAdditionData<R extends EquipmentRank = EquipmentRank> = Readonly<
-  { max_stack?: 3 } &
+  { max_stack?: 1 | 3 } &
   { term?: 'immediate' | 'infinite' | { readonly for_rounds: 1 | 2 | 3 | 99 | 999 } } &
   { rate?: 'constant' | MilliPercentageValue<R> } &
   { times?: EquipmentDataValue<R, 1 | 2 | 3 | 4> }
@@ -131,6 +131,7 @@ export type EquipmentEffectValueData<R extends EquipmentRank> = Readonly<{
 // HACK: to avoid "TS2590: Expression produces a union type that is too complex to represent."
 export type EquipmentEffectsData<R extends EquipmentRank> = ReadonlyArray<Readonly<{
   condition: ValueOf<EquipmentEffects[number], 'condition'>,
+  target?: { kind: 'enemy' },
   details: EquipmentEffectValueData<R>
 }>>
 
