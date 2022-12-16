@@ -29,6 +29,10 @@ describe('calcTargetPositions()', () => {
       expect(calcTargetPositions(SkillAreaType.FixedDiagonal, 5)).toEqual(new Set([7, 9, 5, 1, 3]));
     });
 
+    test('FixedFleetFormation', () => {
+      expect(calcTargetPositions(SkillAreaType.FixedFleetFormation, 5)).toEqual(new Set([7, 9, 4, 5, 1, 3]));
+    });
+
     test('FixedAllAdjacentWithoutFront', () => {
       expect(calcTargetPositions(SkillAreaType.FixedAllAdjacentWithoutFront, 5)).toEqual(new Set([7, 8, 9, 4, 1, 2, 3]));
     });

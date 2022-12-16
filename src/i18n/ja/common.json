@@ -190,7 +190,7 @@
       "core_link_multiplier_bonus": "リンクボーナス (+ {{value}} %)",
       "full_link_bonus": "フルリンクボーナス",
       "full_link_multiplier_bonus": "フルリンクボーナス (+ {{value}} %)",
-      "equipment": "$t(equipment:{{id}}) Lv. {{lv}}",
+      "equipment": "$t(equipment.rank.{{rank}}) $t(equipment:{{id}}) Lv. {{lv}}",
       "rate_summary": "%効果 合計 ({{summary}} %)",
       "initial_ap": "AP効果 合計",
       "spd": "行動力 (x {{apTickCount}})"

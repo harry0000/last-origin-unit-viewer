@@ -13,12 +13,14 @@ import SlotUnavailableOverlay from '../SlotUnavailableOverlay';
 
 import {
   Chip,
+  ChipEquipmentRanks,
   EquipmentEnhancementLevel,
   EquipmentId,
-  EquipmentRank,
   EquipmentType,
   Gear,
-  Os
+  GearEquipmentRanks,
+  Os,
+  OsEquipmentRanks
 } from '../../../domain/equipment/EquipmentData';
 import { ChipEquipment, GearEquipment, OsEquipment } from '../../../domain/equipment/UnitEquipment';
 import { UnitBasicInfo, UnitNumber } from '../../../domain/UnitBasicInfo';
@@ -93,15 +95,27 @@ const EquipmentEnhancementLvSelector: React.FC<{ slot: EquipmentSlot, unit: Unit
 };
 
 const EquipmentRankSelector: React.FC<{ slot: EquipmentSlot }> = ({ slot }) => {
-  if (slot !== 'os') {
-    return null;
-  }
+  const rankToggleButtons = () => {
+    switch (slot) {
+    case 'chip1':
+    case 'chip2':
+      return ChipEquipmentRanks.map(rank => (
+        <EquipmentRankToggleButton key={rank} slot={slot} rank={rank} />
+      ));
+    case 'os':
+      return OsEquipmentRanks.map(rank => (
+        <EquipmentRankToggleButton key={rank} slot={slot} rank={rank} />
+      ));
+    case 'gear':
+      return GearEquipmentRanks.map(rank => (
+        <EquipmentRankToggleButton key={rank} slot={slot} rank={rank} />
+      ));
+    }
+  };
 
   return (
     <div className="equipment-rank">
-      {([EquipmentRank.SSS, EquipmentRank.SS]).map(rank => (
-        <EquipmentRankToggleButton key={rank} rank={rank} />
-      ))}
+      {rankToggleButtons()}
     </div>
   );
 };

@@ -47,6 +47,7 @@
     "empress_hound": "エンプレシスハウンド",
     "smart_enjoy": "スマートエンジョイ",
     "spartan_series": "スパルタンシリーズ",
+    "mermaid": "マーメイド",
     "golden_factory": "ゴールデンファクトリー"
   },
   "form": {
@@ -205,7 +206,11 @@
     "last_roar": "最後の咆哮",
     "hunt_preparation": "狩りの準備$t(effect:tag_separator)待機",
     "heat_absorption": "熱気吸収",
-    "bridle_of_sins": "原罪のしがらみ"
+    "bridle_of_sins": "原罪のしがらみ",
+    "assault_formation":  "突撃陣形",
+    "flanking_formation": "迂回陣形",
+    "command_sharing": "指揮共有",
+    "radar_detection": "レーダー捕捉"
   },
   "condition": {
     "trigger": {
@@ -275,6 +280,7 @@
       "unit": "{{unit}}である",
       "cross_adjacent_eq": "$t(effect:unit.cross_adjacent)が{{equal}}体いる",
       "cross_adjacent_ge": "$t(effect:unit.cross_adjacent)が{{greater_or_equal}}体以上いる",
+      "num_of_units_eq": "$t(effect:unit.self)を除く$t(effect:unit.{{unit}})が{{equal}}体いる",
       "num_of_units_ge": "$t(effect:unit.self)を除く$t(effect:unit.{{unit}})が{{greater_or_equal}}体以上いる",
       "num_of_units_le": "$t(effect:unit.self)を除く$t(effect:unit.{{unit}})が{{less_or_equal}}体以下である",
       "num_of_enemies": "{{greater_or_equal}}～{{less_or_equal}}体である",

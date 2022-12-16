@@ -60,17 +60,21 @@ class SkillEffectConditionViewModel {
 
   get effectTargets(): SkillEffectTargets {
     const hasSelfEffect   = hasSelfSkillEffect(this.#effect.details);
-    const hasTargetEffect = hasSelfSkillEffect(this.#effect.details);
+    const hasTargetEffect = hasTargetSkillEffect(this.#effect.details);
 
-    if (hasTargetEffect && isTargetSkillEffectData(this.#effect)) {
+    if (
+      hasTargetEffect &&
+      // for type casting
+      isTargetSkillEffectData(this.#effect)
+    ) {
       // target details already shown by condition state
-      const needNotDetails = this.#effect.conditions?.some(cond => 'state' in cond && 'target' in cond.state);
+      const needNoDetails = this.#effect.conditions?.some(cond => 'state' in cond && 'target' in cond.state);
 
       return Object.assign(
         hasSelfEffect ? { self: true } as const : {},
         {
           target: true,
-          ...(needNotDetails ? {} : this.#effect.target)
+          ...(needNoDetails ? {} : this.#effect.target)
         }
       );
     } else {

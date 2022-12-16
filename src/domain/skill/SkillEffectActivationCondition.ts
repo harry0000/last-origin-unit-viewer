@@ -66,7 +66,10 @@ type NotAffectedActivationState =
   Readonly<{
     [EffectActivationState.NotAffected]?:
       readonly [typeof Effect.DefUp, typeof Effect.DamageReduction] |
+      readonly [typeof Effect.SpdUp] |
+      readonly [typeof Effect.DamageReduction] |
       readonly [typeof Effect.BattleContinuation] |
+      readonly [typeof Effect.RowProtect] |
       readonly [typeof Effect.Marked]
   }>
 
@@ -222,6 +225,7 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 }
 
 type NotInSquadStateUnit =
+  252 |
   typeof UnitRole.Attacker |
   typeof UnitAlias.SteelLine |
   typeof SkillAreaType.CrossAdjacent |
@@ -236,8 +240,9 @@ export type NumOfUnitsInSquadState = {
     { unit: UnitKind, greater_or_equal: 3 } |
     { unit: 'ally', greater_or_equal: 1 | 2 | 4 } |
     { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 } |
-    { unit: typeof UnitType.Heavy, less_or_equal: 1 } |
+    { unit: typeof UnitType['Flying' | 'Heavy'], less_or_equal: 1 | 2 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
+    { unit: typeof UnitRole.Attacker, equal: 1 | 2 | 3 | 4 } |
     { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 }
 }
 

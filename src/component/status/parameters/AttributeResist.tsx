@@ -21,6 +21,7 @@ const AttributeResist: React.FC<{
 }> = ({ attribute, value, children }) => {
   const { t } = useTranslation();
   const alt = t(`status.${attribute}_resist`);
+  const src = `${process.env.PUBLIC_URL}/icon/attribute_resist_${attribute}.webp`;
 
   return (
     <div css={{ display: 'flex', flexDirection: 'column' }}>
@@ -34,7 +35,8 @@ const AttributeResist: React.FC<{
             height={24}
             width={24}
             alt={alt}
-            src={`${process.env.PUBLIC_URL}/icon/attribute_${attribute}.webp`}
+            src={src}
+            srcSet={`${src} 40w`}
           />
         </OverlayTrigger>
         <div css={{ display: 'inline-block', width: '4.2em', textAlign: 'right', fontWeight: 'bold' }}>

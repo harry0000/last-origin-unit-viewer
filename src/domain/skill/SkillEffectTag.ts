@@ -135,4 +135,8 @@ export type SkillEffectTag =
   'last_roar' |
   'hunt_preparation' |
   'heat_absorption' |
-  'bridle_of_sins'
+  'bridle_of_sins' |
+  'assault_formation' |
+  'flanking_formation' |
+  'command_sharing' |
+  'radar_detection'

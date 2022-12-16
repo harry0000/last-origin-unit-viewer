@@ -217,9 +217,10 @@ function equipmentEffects(
   }
 
   if (value) {
+    const { id, rank, enhanceLv } = equipment;
     return [{
       key: `equipment-${slot}`,
-      affected: t('status.affected.equipment', { id: equipment.id, lv: equipment.enhanceLv }),
+      affected: t('status.affected.equipment', { id, rank, lv: enhanceLv }),
       value
     }];
   } else {

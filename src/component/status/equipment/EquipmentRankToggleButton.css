@@ -41,6 +41,21 @@
   background-color: var(--lo-squad-equipment-rank-ss-color);
 }
 
+.btn-equipment-rank.s:not(:disabled):not(.disabled).active {
+  color: #444;
+  background-color: var(--lo-squad-equipment-rank-s-color);
+}
+
+.btn-equipment-rank.a:not(:disabled):not(.disabled).active {
+  color: #444;
+  background-color: var(--lo-squad-equipment-rank-a-color);
+}
+
+.btn-equipment-rank.b:not(:disabled):not(.disabled).active {
+  color: #444;
+  background-color: var(--lo-squad-equipment-rank-b-color);
+}
+
 .btn-equipment-rank:not(:disabled):not(.disabled) {
   color: #e0e0e0;
   background-color: #514E55;

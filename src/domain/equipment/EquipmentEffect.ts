@@ -79,12 +79,12 @@ export type EquipmentEffectKey =
 
 type EquipmentEffectRateValue =
   EffectAdditionData extends { rate?: infer R } ?
-    R extends { milliPercentage: EquipmentDataValue<typeof EquipmentRank.SS, number> } ?
+    R extends { milliPercentage: EquipmentDataValue<EquipmentRank, number> } ?
       MilliPercentageValue :
       R :
     never
 type EquipmentEffectTimesValue =
-  EffectAdditionData extends { times?: EquipmentDataValue<typeof EquipmentRank.SS, infer T> } ? T : never
+  EffectAdditionData extends { times?: EquipmentDataValue<EquipmentRank, infer T> } ? T : never
 
 export type EquipmentEffectAddition =
   Omit<EffectAdditionData, 'rate' | 'times'> &
@@ -120,7 +120,8 @@ export type EquipmentEffectActivationState = Readonly<{
   [EffectActivationState.HpGreaterOrEqual]?: 25,
   [EffectActivationState.Affected]?: typeof Effect['Reconnaissance' | 'Barrier'],
   [EffectActivationState.Tagged]?: 'wet',
-  [EffectActivationState.Unit]?: UnitKind
+  [EffectActivationState.Unit]?: UnitKind,
+  [EffectActivationState.StatusLessThanSelf]?: { status: 'def' },
 }>
 
 type EquipmentEffectActivationTrigger = Readonly<{
@@ -139,6 +140,7 @@ export type EquipmentEffectActivationCondition =
 
 export type EffectDetails = Readonly<{
   condition: EquipmentEffectActivationCondition,
+  target?: { kind: 'enemy' },
   details: EquipmentEffectValue
 }>
 

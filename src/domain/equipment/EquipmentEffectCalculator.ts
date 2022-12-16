@@ -8,7 +8,7 @@ import {
   EquipmentId,
   EquipmentRank,
   StatusEffectData,
-  availableRankSSS
+  availableRank
 } from './EquipmentData';
 import { StatusEffect, emptyStatusEffect } from '../status/StatusEffect';
 import { toIntegerValue, toMicroValue, toMilliPercentageValue, toMilliValue } from './EquipmentEffectValue';
@@ -67,16 +67,24 @@ export function calculateStatusEffect(
     return emptyStatusEffect;
   }
 
-  return equipmentRank === EquipmentRank.SS ?
-    calculateStatusEffects(EquipmentRank.SS, equipment.status_effects[enhanceLv]) :
-    availableRankSSS(equipment) ?
+  switch (equipmentRank) {
+  case EquipmentRank.SSS:
+    return availableRank(equipment, equipmentRank) ?
       calculateStatusEffects(EquipmentRank.SSS, equipment.status_effects[enhanceLv]) :
       emptyStatusEffect;
+  case EquipmentRank.SS:
+    return calculateStatusEffects(EquipmentRank.SS, equipment.status_effects[enhanceLv]);
+  default:
+    return availableRank(equipment, equipmentRank) ?
+      calculateStatusEffects(equipmentRank, equipment.status_effects[enhanceLv]) :
+      emptyStatusEffect;
+  }
 }
 
 // Currently, SSS rank equipment does not have any additional data.
-function calculateAddition(
-  data: Entry<EquipmentEffectValueData<typeof EquipmentRank.SS>>[1]
+function calculateAddition<R extends EquipmentRank>(
+  rank: R,
+  data: Entry<EquipmentEffectValueData<R>>[1]
 ): EquipmentEffectAddition {
   return foldObjectEntry(data, entry => {
     switch (entry[0]) {
@@ -87,13 +95,13 @@ function calculateAddition(
     case 'rate': {
       const value = entry[1];
       return {
-        [entry[0]]: value === 'constant' ? value : toMilliPercentageValue(EquipmentRank.SS, value)
+        [entry[0]]: value === 'constant' ? value : toMilliPercentageValue(rank, value)
       };
     }
     case 'times': {
       const value = entry[1];
       return {
-        [entry[0]]: typeof value === 'number' ? value : value.ss
+        [entry[0]]: typeof value === 'number' ? value : value[rank]
       };
     }
     default:
@@ -123,7 +131,7 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.Immovable:
       case Effect.Silenced:
       case Effect.Stunned:
-        return { [entry[0]]: calculateAddition(entry[1]) };
+        return { [entry[0]]: calculateAddition(rank, entry[1]) };
       case Effect.FixedDamageOverTime:
       case Effect.Barrier:
       case Effect.RangeUp:
@@ -131,14 +139,14 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.RangeUpActive2:
         return {
           [entry[0]]: {
-            ...calculateAddition(entry[1]),
+            ...calculateAddition(rank, entry[1]),
             ...toIntegerValue(rank, entry[1])
           }
         };
       case Effect.BattleContinuation:
         return 'value' in entry[1] ?
-          { [entry[0]]: { ...calculateAddition(entry[1]), ...toIntegerValue(rank, entry[1]) } } :
-          { [entry[0]]: { ...calculateAddition(entry[1]), ...toMilliPercentageValue(rank, entry[1]) } };
+          { [entry[0]]: { ...calculateAddition(rank, entry[1]), ...toIntegerValue(rank, entry[1]) } } :
+          { [entry[0]]: { ...calculateAddition(rank, entry[1]), ...toMilliPercentageValue(rank, entry[1]) } };
       case Effect.DamageMultiplierUp:
       case Effect.AdditionalFireDamage:
       case Effect.AdditionalIceDamage:
@@ -170,14 +178,14 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.Counterattack:
         return {
           [entry[0]]: {
-            ...calculateAddition(entry[1]),
+            ...calculateAddition(rank, entry[1]),
             ...toMilliPercentageValue(rank, entry[1])
           }
         };
       case Effect.DamageMultiplierUpByStatus:
         return {
           [entry[0]]: {
-            ...calculateAddition(entry[1]),
+            ...calculateAddition(rank, entry[1]),
             ...toMilliPercentageValue(rank, entry[1]),
             status: entry[1].status
           }
@@ -185,7 +193,7 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.ApUp:
         return {
           [entry[0]]: {
-            ...calculateAddition(entry[1]),
+            ...calculateAddition(rank, entry[1]),
             ...toMicroValue(rank, entry[1])
           }
         };
@@ -194,14 +202,14 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.PreventsEffect: {
         const value = entry[1];
         return 'effect' in value ?
-          { [entry[0]]: { ...calculateAddition(value), effect: value.effect } } :
-          { [entry[0]]: { ...calculateAddition(value), effects: value.effects } };
+          { [entry[0]]: { ...calculateAddition(rank, value), effect: value.effect } } :
+          { [entry[0]]: { ...calculateAddition(rank, value), effects: value.effects } };
       }
       case Effect.ActivationRatePercentageUp: {
         const { effect, tag } = entry[1];
         return {
           [entry[0]]: {
-            ...calculateAddition(entry[1]),
+            ...calculateAddition(rank, entry[1]),
             ...toMilliPercentageValue(rank, entry[1]),
             effect,
             tag
@@ -221,6 +229,7 @@ function calculateEffects<R extends EquipmentRank, E extends EquipmentEffectsDat
 ): ReadonlyArray<EffectDetails> {
   return effects.map(effect => ({
     condition: effect.condition,
+    ...(effect.target ? { target: effect.target } : {}),
     details: calculateEffectDetails(rank, effect.details)
   }));
 }
@@ -236,19 +245,25 @@ export function calculateEffect(
     return undefined;
   }
 
-  if (equipmentRank === EquipmentRank.SS) {
+  switch (equipmentRank) {
+  case EquipmentRank.SSS:
+    return availableRank(equipment, equipmentRank) ?
+      calculateEffects(equipmentRank, equipment.equipment_effects[enhanceLv]) :
+      undefined;
+  case EquipmentRank.SS: {
     // HACK: to avoid "TS2590: Expression produces a union type that is too complex to represent."
     const effects: EquipmentEffectsData<typeof EquipmentRank.SS> = equipment.equipment_effects[enhanceLv];
     return calculateEffects(EquipmentRank.SS, effects);
-  } else {
-    return availableRankSSS(equipment) ?
-      calculateEffects(EquipmentRank.SSS, equipment.equipment_effects[enhanceLv]) :
+  }
+  default:
+    return availableRank(equipment, equipmentRank) ?
+      calculateEffects(equipmentRank, equipment.equipment_effects[enhanceLv]) :
       undefined;
   }
 }
 
 function calculateEffectsAsSkill(
-  rank: typeof EquipmentRank.SS,
+  rank: Exclude<EquipmentRank, typeof EquipmentRank.SSS>,
   effects: EquipmentEffectsAsSkill
 ): ReadonlyArray<EffectDetailsAsSkill> {
   return effects.map(effect => ({
@@ -274,13 +289,19 @@ export function calculateEffectAsSkill(
     return undefined;
   }
 
+  switch (equipmentRank) {
   // Currently, SSS rank equipment which has effects as skill does not exist.
-  //
-  // return equipmentRank === EquipmentRank.SS ?
-  //   calculateEffectsAsSkill(EquipmentRank.SS, equipment.effects[enhanceLv]) :
-  //   availableRankSSS(equipment) ?
-  //     calculateEffectsAsSkill(EquipmentRank.SSS, equipment.effects[enhanceLv]) :
-  //     undefined;
-
-  return calculateEffectsAsSkill(EquipmentRank.SS, equipment.effects[enhanceLv]);
+  case EquipmentRank.SSS:
+    // return availableRank(equipment, equipmentRank) ?
+    //   calculateEffectsAsSkill(equipmentRank, equipment.effects[enhanceLv]) :
+    //   undefined;
+    return undefined;
+  case EquipmentRank.SS: {
+    return calculateEffectsAsSkill(EquipmentRank.SS, equipment.effects[enhanceLv]);
+  }
+  default:
+    return availableRank(equipment, equipmentRank) ?
+      calculateEffectsAsSkill(equipmentRank, equipment.effects[enhanceLv]) :
+      undefined;
+  }
 }

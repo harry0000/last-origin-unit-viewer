@@ -93,6 +93,7 @@ export const SkillAreaType = {
   FixedMiddleRow: `${FixedAreaPrefix}middle_row`,
   FixedCross: `${FixedAreaPrefix}cross`,
   FixedDiagonal: `${FixedAreaPrefix}diagonal`,
+  FixedFleetFormation: `${FixedAreaPrefix}fleet_formation`,
   FixedAllAdjacentWithoutFront: `${FixedAreaPrefix}all_adjacent_without_front`,
   FixedAll: `${FixedAreaPrefix}all`
 } as const;

@@ -8,8 +8,7 @@ import {
   EquipmentRank,
   EquipmentType,
   Gear,
-  Os,
-  OsEquipmentRank
+  Os
 } from '../../domain/equipment/EquipmentData';
 import {
   ChipEquipment,
@@ -22,6 +21,8 @@ import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 
 import {
   EquipmentSlot,
+  EquipmentSlotRank,
+  EquipmentStateArgs,
   changeEquipment,
   changeEquipmentEnhanceLv,
   enhanceLvSelectorState,
@@ -31,10 +32,10 @@ import {
   equipmentSlotAvailableState,
   equipmentState,
   equipmentStatusEffectsDataState,
-  osRankSelectorState,
+  rankSelectorState,
   selectedEquipmentRankState,
   selectEnhanceLv,
-  selectOsRank,
+  selectRank,
   unitEquipmentStatusEffectsState
 } from './UnitEquipmentState';
 import {
@@ -64,10 +65,14 @@ export function useEquipmentEnhanceLvSelector(
   ];
 }
 
-export function useOsEquipmentRankSelector(rank: OsEquipmentRank): [selected: boolean, selectRank: () => void] {
+export function useEquipmentRankSelector<S extends EquipmentSlot>(
+  slot: S,
+  rank: EquipmentSlotRank<S>
+): [selected: boolean, selectRank: () => void];
+export function useEquipmentRankSelector(...args: EquipmentStateArgs): [selected: boolean, selectRank: () => void] {
   return [
-    useRecoilValue(osRankSelectorState(rank)),
-    useRecoilCallback(selectOsRank(rank))
+    useRecoilValue(rankSelectorState(...args)),
+    useRecoilCallback(selectRank(...args))
   ];
 }
 

@@ -103,7 +103,7 @@ const UnitStatusEffectsPopoverView: React.FC<{
         placement='bottom'
         overlay={popover}
       >
-        <span css={{ '& > *': { textDecoration: 'underline' } }}>{children}</span>
+        <span css={{ '& > *': { cursor: 'help', textDecoration: 'underline' } }}>{children}</span>
       </OverlayTrigger>
     );
   };
@@ -163,7 +163,7 @@ const SquadUnitStatusEffectsPopoverView: React.FC<{
         placement='bottom'
         overlay={popover}
       >
-        <span css={{ '& > *': { textDecoration: 'underline' } }}>{children}</span>
+        <span css={{ '& > *': { cursor: 'help', textDecoration: 'underline' } }}>{children}</span>
       </OverlayTrigger>
     );
   };
@@ -259,7 +259,7 @@ export const SquadUnitApEffectsPopoverView: React.FC<{ children: ReactNode }> = 
         placement='bottom'
         overlay={popover}
       >
-        <span css={{ '& > *': { textDecoration: 'underline' } }}>{children}</span>
+        <span css={{ '& > *': { cursor: 'help', textDecoration: 'underline' } }}>{children}</span>
       </OverlayTrigger>
     );
   };
