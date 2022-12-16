@@ -1553,18 +1553,18 @@ export const equipmentData = {
       { acc_up: { milliPercentage: 47500 }, spd_up: { microValue: 285000 } },
       { acc_up: { milliPercentage: 50000 }, spd_up: { microValue: 300000 } }
     ],
-    effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }]
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }]
     ]
   },
   recycling_module: {
@@ -1951,31 +1951,18 @@ export const equipmentData = {
       { acc_up: { milliPercentage: 14000 }, eva_up: { milliPercentage: 14000 } },
       { acc_up: { milliPercentage: 15000 }, eva_up: { milliPercentage: 15000 } }
     ],
-    effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }]
-    ],
     equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage:  5000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage:  6000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage:  7000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage:  8000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage:  9000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 10000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 11000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 12000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 13000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 14000, term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 15000, term: 'infinite' } } }]
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage:  5000, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage:  6000, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage:  7000, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage:  8000, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage:  9000, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 10000, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 11000, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 12000, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 13000, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 14000, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 15000, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }]
     ]
   },
   nitro_ex_3000: {
@@ -2689,18 +2676,18 @@ export const equipmentData = {
       { acc_up: { milliPercentage: 58000 }, eva_up: { milliPercentage: 34800 } },
       { acc_up: { milliPercentage: 70000 }, eva_up: { milliPercentage: 42000 } }
     ],
-    effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { self: { reconnaissance: { term: 'infinite' } } } }]
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }]
     ]
   },
   dust_storm: {
