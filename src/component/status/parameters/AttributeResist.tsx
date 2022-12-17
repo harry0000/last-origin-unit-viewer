@@ -32,8 +32,8 @@ const AttributeResist: React.FC<{
         >
           <Image
             draggable="false"
-            height={24}
-            width={24}
+            height={16}
+            width={16}
             alt={alt}
             src={src}
             srcSet={`${src} 40w`}
