@@ -29,11 +29,11 @@
   margin-left: 8px;
   width: 100%;
   font-weight: bold;
+  line-height: 1;
 }
 
 .status-parameter-body .status-parameter-label {
   font-size: 12px;
-  line-height: 12px;
   color: #888;
 }
 
@@ -51,7 +51,6 @@
 
 .status-parameter-body .status-parameter-value {
   font-size: 18px;
-  line-height: 18px;
   margin-top: 4px;
 }
 
