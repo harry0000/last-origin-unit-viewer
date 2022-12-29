@@ -2574,7 +2574,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 21 } } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'steel_line_officer_ranks' } } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 375 }, term: { for_rounds: 1 } },

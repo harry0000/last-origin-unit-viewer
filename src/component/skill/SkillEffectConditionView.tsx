@@ -130,6 +130,7 @@ function unitStateView(
     UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter> |
     typeof UnitAlias.ElectricActive |
     typeof UnitAlias.SteelLine |
+    typeof UnitAlias.SteelLineOfficerRanks |
     typeof UnitAlias.SteelLineExcludingOfficerRanks |
     typeof UnitAlias.Horizon |
     typeof UnitAlias.KouheiChurch |

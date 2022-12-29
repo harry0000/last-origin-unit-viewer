@@ -213,6 +213,7 @@ type InSquadStateUnit =
   typeof UnitAlias[
     'ElectricActive' |
     'SteelLine' |
+    'SteelLineOfficerRanks' |
     'SteelLineExcludingOfficerRanks' |
     'Horizon' |
     'KouheiChurch' |
