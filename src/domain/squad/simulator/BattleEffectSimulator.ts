@@ -486,14 +486,14 @@ class BattleEffectSimulator {
     case EffectTrigger.StartWave:
       return true; // this.#round === 1;
     case EffectTrigger.StartRound:
-      return (
-        !cond.round ||
-        'at'    in cond.round && cond.round.at    === this.#round ||
-        'from'  in cond.round && cond.round.from  <=  this.#round ||
-        'until' in cond.round && cond.round.until >=  this.#round
+      return !cond.round || (
+        typeof cond.round === 'string' ?
+          this.#round % 2 === (cond.round === 'odd' ? 1 : 0) :
+          'at'    in cond.round && cond.round.at    === this.#round ||
+          'from'  in cond.round && cond.round.from  <=  this.#round ||
+          'until' in cond.round && cond.round.until >=  this.#round
       );
     default:
-      // HACK: currently, ignore `round: 'odd' | 'even'`
       return false;
     }
   }

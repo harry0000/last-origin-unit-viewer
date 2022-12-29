@@ -163,7 +163,9 @@ function translateTrigger(condition: EquipmentEffectActivationCondition, t: TFun
   switch (condition.trigger) {
   case EffectTrigger.StartRound:
     return condition.round ?
-      t('effect:condition.trigger.round.at', { round: condition.round.at }) :
+      typeof condition.round === 'string' ?
+        t(`effect:condition.trigger.start_${condition.round}_round`) :
+        t('effect:condition.trigger.round.at', { round: condition.round.at }) :
       t('effect:condition.trigger.start_round');
   case EffectTrigger.HitActive2:
     return t(`effect:condition.trigger.${condition.trigger}`, { unit: condition.unit });

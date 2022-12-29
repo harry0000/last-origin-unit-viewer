@@ -224,6 +224,8 @@
       "start_wave": "戦闘開始時",
       "end_wave": "戦闘終了後(次の戦闘開始時)",
       "start_round": "ラウンド開始時",
+      "start_odd_round": "奇数ラウンド開始時",
+      "start_even_round": "偶数ラウンド開始時",
       "round": {
         "at": "{{round}}ラウンド目開始時",
         "from": "{{round}}ラウンド目以降、ラウンド開始時",
