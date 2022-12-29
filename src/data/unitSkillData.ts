@@ -1767,7 +1767,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'attack', state: { self: [{ tagged: 'leave_me_alone' }] } }],
         target: { kind: 'enemy' },
-        details: { target: { buff_removal: { effect: 'area_damage_dispersion' } } }
+        details: { target: { buff_removal: { effect: 'area_damage_dispersion_up' } } }
       }]
     }, {
       damage_deal: {
@@ -1793,7 +1793,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'leave_me_alone' }] } }],
         target: { kind: 'enemy' },
-        details: { target: { buff_removal: { effect: 'area_damage_dispersion' } } }
+        details: { target: { buff_removal: { effect: 'area_damage_dispersion_up' } } }
       }]
     }],
     passive: [{
@@ -3216,7 +3216,7 @@ export const unitSkillData: UnitSkillData = {
         details: {
           target: {
             damage_reduction: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 1 },
-            area_damage_dispersion: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 3 }, max_stack: 1 }
+            area_damage_dispersion_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 3 }, max_stack: 1 }
           }
         }
       }]
@@ -15129,6 +15129,76 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  200: {
+    no: 200,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 160000 },
+        per_lv_up: { milliPercentage: 10000 }
+      },
+      range: 6,
+      cost: 5,
+      area: 'line_middle_explosion',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            atk_down: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            def_down: { base: { milliPercentage: 16000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'output_limit_release' }] } }],
+        details: { self: { ignore_barrier_dr: { term: 'immediate' } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 230000 },
+        per_lv_up: { milliPercentage: 10000 }
+      },
+      range: 6,
+      cost: 10,
+      area: 'all_strong_explosion',
+      effects: [{
+        details: { self: { ignore_protect: { term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ status_less_than_self: { status: 'atk' } }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 22000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        details: { self: { prevents_effect: { effects: ['ap_down', 'provoked'], term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 16000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } },
+            defense_penetration: { base: { milliPercentage: 16000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } }
+          }
+        }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { spd_up: { tag: 'output_increase', base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite' } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { self: [{ stack: { tag: 'output_increase', greater_or_equal: 3 } }] } }],
+        details: { self: { action_count_up: { tag: 'output_limit_release', term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'hit_active_1', state: { self: [{ tagged: 'output_limit_release' }] } }],
+        details: { self: { cooperative_attack: { unit: 200, active: 2, term: 'immediate' } } }
+      }]
+    }]
+  },
   201: {
     no: 201,
     active: [{
@@ -15456,7 +15526,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         scale_factor: { per_units: { type: 'squad', unit: 'bioroid' } },
         target: { kind: 'ally' },
-        details: { target: { area_damage_dispersion: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+        details: { target: { area_damage_dispersion_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'bioroid', greater_or_equal: 3 } } } }],
         target: { kind: 'ally' },
@@ -16868,7 +16938,7 @@ export const unitSkillData: UnitSkillData = {
             row_protect: { term: { for_rounds: 2 } },
             nullify_damage: { term: { for_rounds: 2 }, times: 1 }
           },
-          target: { area_damage_dispersion: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } } }
+          target: { area_damage_dispersion_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } } }
         }
       }]
     }],
@@ -16891,7 +16961,7 @@ export const unitSkillData: UnitSkillData = {
         details: {
           target: {
             barrier: { base: { value: 50 }, per_lv_up: { value: 5 }, term: { for_rounds: 1 } },
-            area_damage_dispersion: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } }
+            area_damage_dispersion_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } }
           }
         }
       }]
@@ -17619,6 +17689,142 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         target: { kind: 'ally', conditions: ['supporter', 'defender'] },
         details: { target: { row_protect: { term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
+  239: {
+    no: 239,
+    active: [{
+      falcon_form: {
+        damage_deal: {
+          base: { milliPercentage: 165000 },
+          per_lv_up: { milliPercentage: 15000 }
+        },
+        range: 5,
+        cost: 7,
+        area: 'fan_shape_without_front',
+        effects: [{
+          conditions: [{ trigger: 'hit' }],
+          target: { kind: 'enemy' },
+          details: { target: { def_down: { base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } } } }
+        }, {
+          conditions: [{ trigger: 'critical' }],
+          details: { self: { additional_damage: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' } } }
+        }]
+      },
+      human_form: {
+        damage_deal: {
+          base: { milliPercentage: 165000 },
+          per_lv_up: { milliPercentage: 15000 }
+        },
+        range: 4,
+        cost: 8,
+        area: 'circle_middle_explosion',
+        effects: [{
+          conditions: [{ trigger: 'hit' }],
+          target: { kind: 'enemy' },
+          details: { target: { eva_down: { base: { milliPercentage: 16500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 3 } } } }
+        }, {
+          conditions: [{ trigger: 'hit', state: { target: [{ affected: 'row_protect' }, { affected: 'column_protect' }] } }],
+          target: { kind: 'enemy' },
+          details: { self: { additional_damage: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 }, term: 'immediate' } } }
+        }]
+      }
+    }, {
+      falcon_form: {
+        damage_deal: {
+          base: { milliPercentage: 170000 },
+          per_lv_up: { milliPercentage: 20000 }
+        },
+        range: 5,
+        cost: 6,
+        area: 'single',
+        effects: [{
+          details: {
+            self: {
+              ignore_barrier_dr: { term: 'immediate' },
+              damage_multiplier_up_by_status: { status: 'eva', base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' }
+            }
+          }
+        }]
+      },
+      human_form: {
+        damage_deal: {
+          base: { milliPercentage: 165000 },
+          per_lv_up: { milliPercentage: 15000 }
+        },
+        range: 6,
+        cost: 10,
+        area: 'row_toward_front_with_shock_wave',
+        effects: [{
+          details: {
+            self: {
+              ignore_protect: { term: 'immediate' },
+              defense_penetration: { base: { milliPercentage: 45000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' },
+              form_change: { form: 'falcon_form', term: 'immediate' },
+              tag_release: { tag: 'form_change_preparation', term: 'immediate' }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'hit' }],
+          target: { kind: 'enemy' },
+          details: { target: { buff_removal: { effect: 'barrier', term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'hit' }],
+          scale_factor: { per_units: { type: 'enemy', variation: 'proportional' } },
+          target: { kind: 'enemy' },
+          details: { target: { area_damage_dispersion_down: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+        }]
+      }
+    }],
+    passive: [{
+      falcon_form: {
+        area: 'self',
+        effects: [{
+          conditions: [{ trigger: 'start_wave' }],
+          details: { self: { tag_stack: { tag: 'form_change_preparation', term: 'infinite', cannot_be_dispelled: true } } }
+        }, {
+          conditions: [{ trigger: 'idle', state: { self: [{ tagged: 'form_change_preparation' }] } }],
+          details: { self: { form_change: { form: 'human_form', term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'start_round' }],
+          details: {
+            self: {
+              cri_up: { tag: 'falcon_form', base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 5 },
+              eva_up: { tag: 'falcon_form', base: { milliPercentage: 16500 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', max_stack: 5 }
+            }
+          }
+        }]
+      },
+      human_form: {
+        area: 'self',
+        effects: [{
+          conditions: [{ trigger: 'start_round' }],
+          details: { self: { additional_damage_focusing: { tag: 'human_form', base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 5 } } }
+        }]
+      }
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 22000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            damage_multiplier_up_by_status: { status: 'eva', base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { per_stack: { tag: 'falcon_form', effect: 'eva_up' } },
+        details: { self: { ap_up: { base: { microValue: 550000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { per_stack: { tag: 'human_form', effect: 'additional_damage_focusing' } },
+        details: { self: { atk_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
       }]
     }]
   },

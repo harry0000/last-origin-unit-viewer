@@ -59,6 +59,8 @@ export function buildUnitSkill(unit: UnitBasicInfo): UnitSkill {
       return new JangHwaUnitSkill(unit);
     case FormChangeUnits.Fortress:
       return new FortressUnitSkill(unit);
+    case FormChangeUnits.Peregrinus:
+      return new PeregrinusUnitSkill(unit);
     }
   } else {
     return new FormLessUnitSkill(unit);
@@ -727,6 +729,42 @@ class FortressUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Fortr
 
   protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return undefined;
+  }
+}
+
+class PeregrinusUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Peregrinus> {
+
+  constructor(
+    unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Peregrinus>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<typeof FormChangeUnits.Peregrinus>
+  ) {
+    super(unit, skillLv, form);
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new PeregrinusUnitSkill(this.formChangeUnit, lv, this.form);
+  }
+
+  protected updateUnitFormValue(
+    form: UnitFormValue<typeof FormChangeUnits.Peregrinus>
+  ): FormChangeUnitSkill<typeof FormChangeUnits.Peregrinus> {
+    return new PeregrinusUnitSkill(this.formChangeUnit, this.skillLv, form);
+  }
+
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0][this.unitForm()]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0][this.unitForm()];
+  }
+
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[1];
+  }
+
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[2];
   }
 }
 

@@ -1,3 +1,4 @@
+import { AffectedSkillEffect } from './SkillEffectActivationCondition';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import { SkillEffectTag } from './SkillEffectTag';
 import { UnitAlias } from '../UnitAlias';
@@ -12,7 +13,8 @@ export type VariationType = typeof VariationType[keyof typeof VariationType]
 export type SkillEffectScaleFactor =
   {
     per_stack: {
-      tag: SkillEffectTag
+      tag: SkillEffectTag,
+      effect?: AffectedSkillEffect
     }
   } | {
     per_units: {

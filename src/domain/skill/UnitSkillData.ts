@@ -9,6 +9,7 @@ import {
   JangHwaForm,
   LeonaForm,
   MightyRForm,
+  PeregrinusForm,
   PhantomForm,
   RampartForm,
   SirenForm,
@@ -314,6 +315,21 @@ type FortressSkillData = Readonly<{
     ]
 }>
 
+type PeregrinusSkillData = Readonly<{
+  no: typeof FormChangeUnits.Peregrinus,
+  active:
+    readonly [
+      { readonly [key in PeregrinusForm]: ActiveSkillData },
+      { readonly [key in PeregrinusForm]: ActiveSkillData }
+    ],
+  passive:
+    readonly [
+      { readonly [key in PeregrinusForm]: PassiveSkillData },
+      PassiveSkillData,
+      PassiveSkillData
+    ]
+}>
+
 type UnitSkill<N extends UnitNumber> =
   N extends BlackLilithSkillData['no'] ? BlackLilithSkillData :
   N extends PhoenixSkillData['no'] ? PhoenixSkillData :
@@ -333,6 +349,7 @@ type UnitSkill<N extends UnitNumber> =
   N extends UllrSkillData['no'] ? UllrSkillData :
   N extends JangHwaSkillData['no'] ? JangHwaSkillData :
   N extends FortressSkillData['no'] ? FortressSkillData :
+  N extends PeregrinusSkillData['no'] ? PeregrinusSkillData :
   Readonly<{
     no: N,
     active:

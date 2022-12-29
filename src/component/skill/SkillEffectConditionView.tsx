@@ -491,7 +491,10 @@ const EffectScaleFactorView: React.FC<{
     scaleFactor,
     v => {
       if ('per_stack' in v) {
-        return (<span>{t('effect:scale_factor.per_stack', { tag: v.per_stack.tag })}</span>);
+        const key = 'effect' in v.per_stack ?
+          'effect:scale_factor.per_stack_effect' :
+          'effect:scale_factor.per_stack';
+        return (<span>{t(key, v.per_stack)}</span>);
       } else  {
         switch (v.per_units.type) {
         case 'all':

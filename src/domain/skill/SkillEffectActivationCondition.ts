@@ -96,6 +96,7 @@ const AffectedSkillEffect = [
   Effect.RangeUp,
   Effect.LightTypeDamageUp,
   Effect.HeavyTypeDamageUp,
+  Effect.AdditionalDamageFocusing,
   Effect.FixedDamageOverTime,
   Effect.FixedFireDamageOverTime,
   Effect.ActionCountUp,
