@@ -210,6 +210,8 @@ export type ActivationTargetState =
 
 type InSquadStateUnit =
   UnitNumber |
+  typeof UnitType['Light' | 'Heavy'] |
+  typeof UnitRole['Attacker' | 'Supporter'] |
   typeof UnitAlias[
     'ElectricActive' |
     'SteelLine' |

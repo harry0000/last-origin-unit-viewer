@@ -2665,6 +2665,71 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally', conditions: ['attacker', 'supporter'] },
         details: { target: { target_protect: { term: { for_rounds: 1 } } } }
       }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'light' } } }],
+        target: { kind: 'ally' },
+        details: {
+          self: { spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } } },
+          target: { defense_penetration: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'heavy' } } }],
+        target: { kind: 'ally' },
+        details: {
+          self: { spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } } },
+          target: { defense_penetration: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'attacker' } } }],
+        target: { kind: 'ally' },
+        details: {
+          self: { spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } } },
+          target: { acc_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'supporter' } } }],
+        target: { kind: 'ally' },
+        details: {
+          self: { spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } } },
+          target: { acc_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            status_resist_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            damage_reduction: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ status_less_than_self: { status: 'eva' } }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            status_resist_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            damage_reduction: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'defender', greater_or_equal: 1 } } } }],
+        target: { kind: 'ally' },
+        details: { self: { ignore_protect: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { per_units: { type: 'squad', unit: 'steel_line_officer_ranks', except: 'self' } },
+        target: { kind: 'ally' },
+        details: { target: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { per_units: { type: 'squad', unit: 'steel_line_excluding_officer_ranks' } },
+        target: { kind: 'ally' },
+        details: { target: { atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }]
     }]
   },
   31: {

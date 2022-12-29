@@ -31,7 +31,7 @@ import { SkillEffect, isTargetSkillEffect } from '../../domain/skill/UnitSkills'
 import { SkillEffectScaleFactor } from '../../domain/skill/SkillEffectScaleFactor';
 import { SkillEffectTarget } from '../../domain/skill/SkillEffectTarget';
 import { UnitAlias, isUnitAlias, unitNumbersForAlias } from '../../domain/UnitAlias';
-import { UnitNumber, UnitRole } from '../../domain/UnitBasicInfo';
+import { UnitNumber, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
 
 import SkillEffectConditionViewModel from './SkillEffectConditionViewModel';
 
@@ -136,7 +136,8 @@ function unitStateView(
     typeof UnitAlias.KouheiChurch |
     typeof UnitAlias.EmpressHound |
     typeof SkillAreaType.CrossAdjacent |
-    typeof UnitRole.Attacker |
+    typeof UnitType['Light' | 'Heavy'] |
+    typeof UnitRole['Attacker' | 'Supporter'] |
     'golden_factory',
   selfUnitNumber: UnitNumber,
   t: TFunction
@@ -169,10 +170,11 @@ function unitStateView(
         </React.Fragment>
       );
     } else {
+      const isTypeOrRole = unit !== 'cross_adjacent' && unit !== 'golden_factory';
       return (
         <React.Fragment>
           {ifTruthy(
-            isSquadCond && unit === UnitRole.Attacker,
+            isSquadCond && isTypeOrRole,
             (<span>{t('effect:unit.self')}{t('effect:except_preposition')}</span>)
           )}
           <span>{t(`effect:condition.state.${key}`, { unit: t(`effect:unit.${unit}`) })}</span>

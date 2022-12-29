@@ -31,6 +31,8 @@ export type SkillEffectScaleFactor =
           'BioroidUnder145cmTall' |
           'ElectricActive' |
           'SteelLine' |
+          'SteelLineOfficerRanks' |
+          'SteelLineExcludingOfficerRanks' |
           'SistersOfValhalla' |
           'AngerOfHorde' |
           'MongooseTeam' |
