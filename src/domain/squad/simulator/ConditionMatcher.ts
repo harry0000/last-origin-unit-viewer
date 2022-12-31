@@ -504,11 +504,16 @@ function matchAffectedBy(
         affected_by.type === 'ally' &&
         affected_by.no !== state.except &&
         unitNumbersForAlias[state.alias].has(affected_by.no);
-    } else {
+    } else if ('unit' in state) {
       return ({ effect, affected_by }) =>
         effect === state.effect &&
         affected_by.type === 'ally' &&
         affected_by.no === state.unit;
+    } else {
+      return ({ effect, affected_by }) =>
+        effect === state.effect &&
+        affected_by.type === 'equipment' &&
+        affected_by.id === state.equipment;
     }
   })();
 

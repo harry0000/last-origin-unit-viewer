@@ -59,7 +59,8 @@ type AffectedByActivationState =
       9 | 54 | 55 | 133 | 135 |
       UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
       { unit: 23, effect: typeof Effect.FollowUpAttack } |
-      { unit: 83, effect: typeof Effect.TargetProtect }
+      { unit: 83, effect: typeof Effect.TargetProtect } |
+      { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp }
   }>
 
 type NotAffectedActivationState =
@@ -122,6 +123,7 @@ export function isAffectedSkillEffect(arg: Effect): arg is AffectedSkillEffect {
 }
 
 const AffectedAnyTypeEffect = [
+  Effect.MinimumIceResistUp,
   Effect.BattleContinuation,
   Effect.TagStack,
   Effect.ColumnProtect,

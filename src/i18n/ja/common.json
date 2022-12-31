@@ -184,6 +184,7 @@
     "fire_resist": "火炎属性耐性",
     "ice_resist": "冷気属性耐性",
     "electric_resist": "電気属性耐性",
+    "minimum_ice_resist_up": "冷気属性耐性下限",
     "affected": {
       "enhancement": "強化Lv. {{lv}}",
       "core_link_bonus": "リンクボーナス",

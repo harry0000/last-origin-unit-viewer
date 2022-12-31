@@ -1896,6 +1896,36 @@ export const equipmentData = {
       { electric_resist_up: { milliPercentage: { ss: 70000, s: 60000, a: 50000, b: 40000 } } }
     ]
   },
+  hot_pack: {
+    type: 'gear',
+    id: 'hot_pack',
+    status_effects: [
+      { ice_resist_up: { milliPercentage: 25000 } },
+      { ice_resist_up: { milliPercentage: 27500 } },
+      { ice_resist_up: { milliPercentage: 30000 } },
+      { ice_resist_up: { milliPercentage: 32500 } },
+      { ice_resist_up: { milliPercentage: 35000 } },
+      { ice_resist_up: { milliPercentage: 37500 } },
+      { ice_resist_up: { milliPercentage: 40000 } },
+      { ice_resist_up: { milliPercentage: 42500 } },
+      { ice_resist_up: { milliPercentage: 45000 } },
+      { ice_resist_up: { milliPercentage: 47500 } },
+      { ice_resist_up: { milliPercentage: 50000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 10000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 12000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 14000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 16000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 18000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 20000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 22000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 24000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 26000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 28000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 30000, term: { for_rounds: 3 } } } }]
+    ]
+  },
   stimpack: {
     type: 'gear',
     id: 'stimpack',

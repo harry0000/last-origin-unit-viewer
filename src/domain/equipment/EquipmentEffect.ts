@@ -52,6 +52,7 @@ export type MilliPercentageEffectKey = typeof Effect[
   'IceResistDown' |
   'ElectricResistUp' |
   'ElectricResistDown' |
+  'MinimumIceResistUp' |
   'StatusResistUp' |
   'ExpUp' |
   'DefensePenetration' |

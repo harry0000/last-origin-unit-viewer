@@ -16,6 +16,7 @@ export const Effect = {
   IceResistDown: 'ice_resist_down',
   ElectricResistUp: 'electric_resist_up',
   ElectricResistDown: 'electric_resist_down',
+  MinimumIceResistUp: 'minimum_ice_resist_up',
   FixedDamage: 'fixed_damage',
   FixedDamageOverTime: 'fixed_damage_over_time',
   FixedFireDamageOverTime: 'fixed_fire_damage_over_time',

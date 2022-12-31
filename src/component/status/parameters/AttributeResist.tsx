@@ -5,7 +5,10 @@ import React, { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { SquadUnitStatusEffectsView, UnitStatusEffectsView } from './StatusEffectsView';
+import {
+  SquadUnitAttributeResistEffectsView,
+  UnitStatusEffectsView
+} from './StatusEffectsView';
 
 import { DamageAttribute } from '../../../domain/skill/UnitSkillData';
 
@@ -81,7 +84,7 @@ const SquadUnitAttributeResist: React.FC<{
 
   return (
     <AttributeResist attribute={attribute} value={value}>
-      <SquadUnitStatusEffectsView css={AttributeResistEffectStyle} parameter={parameter} />
+      <SquadUnitAttributeResistEffectsView css={AttributeResistEffectStyle} parameter={parameter} />
     </AttributeResist>
   );
 };

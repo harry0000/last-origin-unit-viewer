@@ -110,6 +110,7 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   case Effect.IceResistDown:
   case Effect.ElectricResistUp:
   case Effect.ElectricResistDown:
+  case Effect.MinimumIceResistUp:
   case Effect.StatusResistUp:
   case Effect.ExpUp:
   case Effect.DefensePenetration:

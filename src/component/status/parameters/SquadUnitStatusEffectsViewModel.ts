@@ -11,6 +11,7 @@ import {
   EvaBattleEffect,
   FireResistBattleEffect,
   IceResistBattleEffect,
+  MinimumIceResistUpBattleEffect,
   SpdBattleEffect
 } from '../../../domain/squad/simulator/BattleEffect';
 import { Effect } from '../../../domain/Effect';
@@ -59,7 +60,8 @@ type PercentageStatusBattleEffect =
   SpdBattleEffect |
   FireResistBattleEffect |
   IceResistBattleEffect |
-  ElectricResistBattleEffect
+  ElectricResistBattleEffect |
+  MinimumIceResistUpBattleEffect
 
 type ValueStatusBattleEffect =
   AtkValueUpBattleEffect |
@@ -208,10 +210,7 @@ export class SquadUnitStatusEffectsViewModel {
       [status: 'acc', rateEffects: ReadonlyArray<AccBattleEffect>] |
       [status: 'eva', rateEffects: ReadonlyArray<EvaBattleEffect>] |
       [status: 'cri', rateEffects: ReadonlyArray<CriBattleEffect>] |
-      [status: 'spd', rateEffects: ReadonlyArray<SpdBattleEffect>, rateEffectSummary: MicroValue | undefined] |
-      [status: 'fireResist', rateEffects: ReadonlyArray<FireResistBattleEffect>] |
-      [status: 'iceResist', rateEffects: ReadonlyArray<IceResistBattleEffect>] |
-      [status: 'electricResist', rateEffects: ReadonlyArray<ElectricResistBattleEffect>]
+      [status: 'spd', rateEffects: ReadonlyArray<SpdBattleEffect>, rateEffectSummary: MicroValue | undefined]
   ): SquadUnitStatusEffectsViewModel {
     switch (args[0]) {
     case 'atk':
@@ -230,9 +229,6 @@ export class SquadUnitStatusEffectsViewModel {
     case 'acc':
     case 'eva':
     case 'cri':
-    case 'fireResist':
-    case 'iceResist':
-    case 'electricResist':
       return new SquadUnitStatusEffectsViewModel(args[1]);
     case 'spd':
       return new SquadUnitStatusEffectsViewModel(
@@ -297,6 +293,61 @@ export class SquadUnitStatusEffectsViewModel {
       this.valueUpEffects.length !== 0 ||
       this.valueUpByUnitEffects.length !== 0
     );
+  }
+}
+
+function getAttributeStatusKey(status: 'fireResist' | 'iceResist' | 'electricResist'): string {
+  switch (status) {
+  case 'fireResist':     return 'fire_resist';
+  case 'iceResist':      return 'ice_resist';
+  case 'electricResist': return 'electric_resist';
+  }
+}
+
+export class SquadUnitAttributeResistEffectsViewModel {
+
+  static build(
+    ...[status, rateEffects, minimumRateUpEffects]:
+      [status: 'fireResist',     rateEffects: ReadonlyArray<FireResistBattleEffect>] |
+      [status: 'iceResist',      rateEffects: ReadonlyArray<IceResistBattleEffect>, minimumRateUpEffects: ReadonlyArray<MinimumIceResistUpBattleEffect>] |
+      [status: 'electricResist', rateEffects: ReadonlyArray<ElectricResistBattleEffect>]
+  ): SquadUnitAttributeResistEffectsViewModel {
+    switch (status) {
+    case 'fireResist':
+    case 'electricResist':
+      return new SquadUnitAttributeResistEffectsViewModel(status, rateEffects);
+    case 'iceResist':
+      return new SquadUnitAttributeResistEffectsViewModel(status, rateEffects, minimumRateUpEffects);
+    }
+  }
+
+  readonly statusKey: string;
+  readonly reteEffects: ReadonlyArray<SquadUnitStatusEffectDetails>;
+  readonly minimumReteUpEffects: ReadonlyArray<SquadUnitStatusEffectDetails>;
+
+  private constructor(
+    status: 'fireResist' | 'iceResist' | 'electricResist',
+    reteBattleEffects: ReadonlyArray<PercentageStatusBattleEffect>,
+    minimumRateUpEffects: ReadonlyArray<MinimumIceResistUpBattleEffect> = []
+  ) {
+    this.statusKey = getAttributeStatusKey(status);
+    this.reteEffects = reteBattleEffects.map(buildBattleEffectProps);
+    this.minimumReteUpEffects = minimumRateUpEffects.map(buildBattleEffectProps);
+  }
+
+  get hasEffects(): boolean {
+    return (
+      this.reteEffects.length !== 0 ||
+      this.minimumReteUpEffects.length !== 0
+    );
+  }
+
+  get needReteEffectsLabel(): boolean {
+    return this.reteEffects.length !== 0 && this.needMinimumReteUpLabel;
+  }
+
+  get needMinimumReteUpLabel(): boolean {
+    return this.minimumReteUpEffects.length !== 0;
   }
 }
 

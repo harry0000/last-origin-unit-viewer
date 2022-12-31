@@ -12592,6 +12592,14 @@ export const unitSkillData: UnitSkillData = {
             spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
           }
         }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected_by: { equipment: 'hot_pack', effect: 'minimum_ice_resist_up' } }] } }],
+        details: {
+          self: {
+            atk_up: { milliPercentage: 5000, term: { for_rounds: 1 } },
+            spd_up: { milliPercentage: 5000, term: { for_rounds: 1 } }
+          }
+        }
       }]
     }]
   },
