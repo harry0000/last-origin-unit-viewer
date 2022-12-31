@@ -7,6 +7,8 @@ import { UnitNumber } from '../../../domain/UnitBasicInfo';
 import { EnhanceableStatus } from './UnitLvStatusState';
 import {
   battleEffectsState,
+  selectedUnitCurrentHpState,
+  selectedUnitDamagedState,
   selectedUnitHpState,
   squadApTickCountState,
   squadUnitAccEffectsState,
@@ -20,8 +22,6 @@ import {
   squadUnitAtkValueUpEffectsState,
   squadUnitCriEffectsState,
   squadUnitCriState,
-  selectedUnitCurrentHpState,
-  selectedUnitDamagedState,
   squadUnitActionOrder,
   squadUnitDefEffectsState,
   squadUnitDefRateEffectValueState,
