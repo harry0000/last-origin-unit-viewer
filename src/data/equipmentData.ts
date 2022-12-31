@@ -853,6 +853,96 @@ export const equipmentData = {
       [{ condition: { trigger: 'be_attacked', state: { status_less_than_self: { status: 'def' } } }, target: { kind: 'enemy' }, details: { atk_down: { milliPercentage: 40000, term: 'infinite', times: 1, max_stack: 1 } } }]
     ]
   },
+  battlefield_reboot_os_alpha: {
+    type: 'os',
+    id: 'battlefield_reboot_os_alpha',
+    status_effects: [
+      { def_up: { milliValue: 100000 }, acc_up: { milliPercentage: 10000 }, cri_up: { milliPercentage:  5000 } },
+      { def_up: { milliValue: 110000 }, acc_up: { milliPercentage: 11000 }, cri_up: { milliPercentage:  5500 } },
+      { def_up: { milliValue: 120000 }, acc_up: { milliPercentage: 12000 }, cri_up: { milliPercentage:  6000 } },
+      { def_up: { milliValue: 130000 }, acc_up: { milliPercentage: 13000 }, cri_up: { milliPercentage:  6500 } },
+      { def_up: { milliValue: 140000 }, acc_up: { milliPercentage: 14000 }, cri_up: { milliPercentage:  7000 } },
+      { def_up: { milliValue: 150000 }, acc_up: { milliPercentage: 15000 }, cri_up: { milliPercentage:  7500 } },
+      { def_up: { milliValue: 160000 }, acc_up: { milliPercentage: 16000 }, cri_up: { milliPercentage:  8000 } },
+      { def_up: { milliValue: 170000 }, acc_up: { milliPercentage: 17000 }, cri_up: { milliPercentage:  8500 } },
+      { def_up: { milliValue: 180000 }, acc_up: { milliPercentage: 18000 }, cri_up: { milliPercentage:  9000 } },
+      { def_up: { milliValue: 190000 }, acc_up: { milliPercentage: 19000 }, cri_up: { milliPercentage:  9500 } },
+      { def_up: { milliValue: 200000 }, acc_up: { milliPercentage: 20000 }, cri_up: { milliPercentage: 10000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave', state: { hp_greater_or_equal: 100 } }, details: { silenced: { term: { for_rounds: 1 } }, fixed_damage_over_time: { value: 10, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_wave', state: { hp_greater_or_equal: 100 } }, details: { silenced: { term: { for_rounds: 1 } }, fixed_damage_over_time: { value: 10, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_wave', state: { hp_greater_or_equal: 100 } }, details: { silenced: { term: { for_rounds: 1 } }, fixed_damage_over_time: { value: 10, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_wave', state: { hp_greater_or_equal: 100 } }, details: { silenced: { term: { for_rounds: 1 } }, fixed_damage_over_time: { value: 10, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_wave', state: { hp_greater_or_equal: 100 } }, details: { silenced: { term: { for_rounds: 1 } }, fixed_damage_over_time: { value: 10, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_wave', state: { hp_greater_or_equal: 100 } }, details: { silenced: { term: { for_rounds: 1 } }, fixed_damage_over_time: { value: 10, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_wave', state: { hp_greater_or_equal: 100 } }, details: { silenced: { term: { for_rounds: 1 } }, fixed_damage_over_time: { value: 10, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_wave', state: { hp_greater_or_equal: 100 } }, details: { silenced: { term: { for_rounds: 1 } }, fixed_damage_over_time: { value: 10, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_wave', state: { hp_greater_or_equal: 100 } }, details: { silenced: { term: { for_rounds: 1 } }, fixed_damage_over_time: { value: 10, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_wave', state: { hp_greater_or_equal: 100 } }, details: { silenced: { term: { for_rounds: 1 } }, fixed_damage_over_time: { value: 10, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_wave', state: { hp_greater_or_equal: 100 } }, details: { silenced: { term: { for_rounds: 1 } }, fixed_damage_over_time: { value: 10, term: { for_rounds: 1 } } } }]
+    ]
+  },
+  battlefield_reboot_os_beta: {
+    type: 'os',
+    id: 'battlefield_reboot_os_beta',
+    status_effects: [
+      { def_up: { milliValue: 120000 }, acc_up: { milliPercentage: 12000 }, cri_up: { milliPercentage:  6000 } },
+      { def_up: { milliValue: 132000 }, acc_up: { milliPercentage: 13200 }, cri_up: { milliPercentage:  6600 } },
+      { def_up: { milliValue: 144000 }, acc_up: { milliPercentage: 14400 }, cri_up: { milliPercentage:  7200 } },
+      { def_up: { milliValue: 156000 }, acc_up: { milliPercentage: 15600 }, cri_up: { milliPercentage:  7800 } },
+      { def_up: { milliValue: 168000 }, acc_up: { milliPercentage: 16800 }, cri_up: { milliPercentage:  8400 } },
+      { def_up: { milliValue: 180000 }, acc_up: { milliPercentage: 18000 }, cri_up: { milliPercentage:  9000 } },
+      { def_up: { milliValue: 192000 }, acc_up: { milliPercentage: 19200 }, cri_up: { milliPercentage:  9600 } },
+      { def_up: { milliValue: 204000 }, acc_up: { milliPercentage: 20400 }, cri_up: { milliPercentage: 10200 } },
+      { def_up: { milliValue: 216000 }, acc_up: { milliPercentage: 21600 }, cri_up: { milliPercentage: 10800 } },
+      { def_up: { milliValue: 228000 }, acc_up: { milliPercentage: 22800 }, cri_up: { milliPercentage: 11400 } },
+      { def_up: { milliValue: 240000 }, acc_up: { milliPercentage: 24000 }, cri_up: { milliPercentage: 12000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_round', round: 'even' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'even' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'even' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'even' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'even' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'even' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'even' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'even' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'even' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'even' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'even' }, details: { silenced: { term: { for_rounds: 1 } } } }]
+    ]
+  },
+  battlefield_reboot_os_gamma: {
+    type: 'os',
+    id: 'battlefield_reboot_os_gamma',
+    status_effects: [
+      { def_up: { milliValue: 120000 }, acc_up: { milliPercentage: 12000 }, cri_up: { milliPercentage:  6000 } },
+      { def_up: { milliValue: 132000 }, acc_up: { milliPercentage: 13200 }, cri_up: { milliPercentage:  6600 } },
+      { def_up: { milliValue: 144000 }, acc_up: { milliPercentage: 14400 }, cri_up: { milliPercentage:  7200 } },
+      { def_up: { milliValue: 156000 }, acc_up: { milliPercentage: 15600 }, cri_up: { milliPercentage:  7800 } },
+      { def_up: { milliValue: 168000 }, acc_up: { milliPercentage: 16800 }, cri_up: { milliPercentage:  8400 } },
+      { def_up: { milliValue: 180000 }, acc_up: { milliPercentage: 18000 }, cri_up: { milliPercentage:  9000 } },
+      { def_up: { milliValue: 192000 }, acc_up: { milliPercentage: 19200 }, cri_up: { milliPercentage:  9600 } },
+      { def_up: { milliValue: 204000 }, acc_up: { milliPercentage: 20400 }, cri_up: { milliPercentage: 10200 } },
+      { def_up: { milliValue: 216000 }, acc_up: { milliPercentage: 21600 }, cri_up: { milliPercentage: 10800 } },
+      { def_up: { milliValue: 228000 }, acc_up: { milliPercentage: 22800 }, cri_up: { milliPercentage: 11400 } },
+      { def_up: { milliValue: 240000 }, acc_up: { milliPercentage: 24000 }, cri_up: { milliPercentage: 12000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { silenced: { term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { silenced: { term: { for_rounds: 1 } } } }]
+    ]
+  },
   light_attacker_optimization_os: {
     type: 'os',
     id: 'light_attacker_optimization_os',
@@ -1804,6 +1894,36 @@ export const equipmentData = {
       { electric_resist_up: { milliPercentage: { ss: 63000, s: 54000, a: 45000, b: 36000 } } },
       { electric_resist_up: { milliPercentage: { ss: 66500, s: 57000, a: 47500, b: 38000 } } },
       { electric_resist_up: { milliPercentage: { ss: 70000, s: 60000, a: 50000, b: 40000 } } }
+    ]
+  },
+  hot_pack: {
+    type: 'gear',
+    id: 'hot_pack',
+    status_effects: [
+      { ice_resist_up: { milliPercentage: 25000 } },
+      { ice_resist_up: { milliPercentage: 27500 } },
+      { ice_resist_up: { milliPercentage: 30000 } },
+      { ice_resist_up: { milliPercentage: 32500 } },
+      { ice_resist_up: { milliPercentage: 35000 } },
+      { ice_resist_up: { milliPercentage: 37500 } },
+      { ice_resist_up: { milliPercentage: 40000 } },
+      { ice_resist_up: { milliPercentage: 42500 } },
+      { ice_resist_up: { milliPercentage: 45000 } },
+      { ice_resist_up: { milliPercentage: 47500 } },
+      { ice_resist_up: { milliPercentage: 50000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 10000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 12000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 14000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 16000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 18000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 20000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 22000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 24000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 26000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 28000, term: { for_rounds: 3 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimum_ice_resist_up: { milliPercentage: 30000, term: { for_rounds: 3 } } } }]
     ]
   },
   stimpack: {

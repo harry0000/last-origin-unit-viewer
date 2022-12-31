@@ -20,6 +20,7 @@ import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
 import {
   useSquadUnitApEffects,
+  useSquadUnitAttributeResistEffects,
   useSquadUnitStatusEffects,
   useSquadUnitStatusEffectsSummary
 } from '../../../state/status/parameters/SquadUnitStatusParameterHook';
@@ -131,7 +132,7 @@ const SquadUnitStatusEffectPopoverRow: React.FC<SquadUnitStatusEffectDetails> = 
 };
 
 const SquadUnitStatusEffectsPopoverView: React.FC<{
-  parameter: Exclude<AffectableStatus, 'hp'>,
+  parameter: Exclude<AffectableStatus, 'hp' | 'fireResist' | 'iceResist' | 'electricResist'>,
   children: ReactNode
 }> = ({ parameter, children }) => {
   const { t } = useTranslation();
@@ -154,6 +155,52 @@ const SquadUnitStatusEffectsPopoverView: React.FC<{
           ))}
           {effects.valueUpEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
           {effects.valueUpByUnitEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
+        </PopoverListContent>
+      </Popover>
+    );
+
+    return (
+      <OverlayTrigger
+        placement='bottom'
+        overlay={popover}
+      >
+        <span css={{ '& > *': { cursor: 'help', textDecoration: 'underline' } }}>{children}</span>
+      </OverlayTrigger>
+    );
+  };
+
+  return effects.hasEffects ?
+    (<EffectsOverlay>{children}</EffectsOverlay>) :
+    (<span>{children}</span>);
+};
+
+const SquadUnitAttributeResistEffectsPopoverView: React.FC<{
+  parameter: 'fireResist' | 'iceResist' | 'electricResist',
+  children: ReactNode
+}> = ({ parameter, children }) => {
+  const { t } = useTranslation();
+  const effects = useSquadUnitAttributeResistEffects(parameter);
+
+  const EffectsOverlay = ({ children }: { children: ReactNode }) => {
+    const popover = (
+      <Popover id={`popover-squad-unit-${parameter}-status-effects`} css={{ maxWidth: 'none' }}>
+        <PopoverListContent>
+          {ifTruthy(effects.needReteEffectsLabel, (
+            <PopoverListContent.Row css={{ backgroundColor: 'transparent' }}>
+              <EffectsPopoverRowLabel>
+                {t(`status.${effects.statusKey}`)}
+              </EffectsPopoverRowLabel>
+            </PopoverListContent.Row>
+          ))}
+          {effects.reteEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
+          {ifTruthy(effects.needMinimumReteUpLabel, (
+            <PopoverListContent.Row css={{ backgroundColor: 'transparent' }}>
+              <EffectsPopoverRowLabel>
+                {t(`status.minimum_${effects.statusKey}_up`)}
+              </EffectsPopoverRowLabel>
+            </PopoverListContent.Row>
+          ))}
+          {effects.minimumReteUpEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
         </PopoverListContent>
       </Popover>
     );
@@ -212,13 +259,27 @@ export const UnitStatusEffectsView: React.FC<{
 export const SquadUnitStatusEffectsView: React.FC<{
   css?: Interpolation<Theme>,
   className?: string,
-  parameter: Exclude<AffectableStatus, 'hp'>
+  parameter: Exclude<AffectableStatus, 'hp' | 'fireResist' | 'iceResist' | 'electricResist'>
 }> = ({ parameter, ...rest }) => {
   return (
     <StatusEffectsViewContainer {...rest}>
       <SquadUnitStatusEffectsPopoverView parameter={parameter}>
         <SquadUnitStatusEffectSummaryView parameter={parameter} />
       </SquadUnitStatusEffectsPopoverView>
+    </StatusEffectsViewContainer>
+  );
+};
+
+export const SquadUnitAttributeResistEffectsView: React.FC<{
+  css?: Interpolation<Theme>,
+  className?: string,
+  parameter: 'fireResist' | 'iceResist' | 'electricResist'
+}> = ({ parameter, ...rest }) => {
+  return (
+    <StatusEffectsViewContainer {...rest}>
+      <SquadUnitAttributeResistEffectsPopoverView parameter={parameter}>
+        <SquadUnitStatusEffectSummaryView parameter={parameter} />
+      </SquadUnitAttributeResistEffectsPopoverView>
     </StatusEffectsViewContainer>
   );
 };

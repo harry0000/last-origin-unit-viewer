@@ -31,8 +31,10 @@ export function buildEffectIconSrcUrl(effect: Effect): string | undefined {
   case Effect.MinimizeDamage:
   case Effect.MinimizeDamageLessThanValue:
     return buildIconSrcUrl(Effect.DamageReduction);
-  case Effect.AreaDamageDispersion:
+  case Effect.AreaDamageDispersionUp:
     return buildIconSrcUrl(Effect.DefUp);
+  case Effect.AreaDamageDispersionDown:
+    return buildIconSrcUrl(Effect.DefDown);
   case Effect.BuffRemoval:
     return buildIconSrcUrl(Effect.AllBuffRemoval);
   case Effect.DebuffRemoval:

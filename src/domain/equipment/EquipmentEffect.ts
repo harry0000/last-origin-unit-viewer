@@ -52,6 +52,7 @@ export type MilliPercentageEffectKey = typeof Effect[
   'IceResistDown' |
   'ElectricResistUp' |
   'ElectricResistDown' |
+  'MinimumIceResistUp' |
   'StatusResistUp' |
   'ExpUp' |
   'DefensePenetration' |
@@ -117,7 +118,7 @@ export type EquipmentEffectValue = Readonly<{
 
 export type EquipmentEffectActivationState = Readonly<{
   [EffectActivationState.Grid]?: typeof GridState.BackLine,
-  [EffectActivationState.HpGreaterOrEqual]?: 25,
+  [EffectActivationState.HpGreaterOrEqual]?: 25 | 100,
   [EffectActivationState.Affected]?: typeof Effect['Reconnaissance' | 'Barrier'],
   [EffectActivationState.Tagged]?: 'wet',
   [EffectActivationState.Unit]?: UnitKind,
@@ -126,7 +127,7 @@ export type EquipmentEffectActivationState = Readonly<{
 
 type EquipmentEffectActivationTrigger = Readonly<{
   trigger: typeof EffectTrigger.StartRound,
-  round?: { at: 1 }
+  round?: { at: 1 } | 'odd' | 'even'
 }> | Readonly<{
   trigger: typeof EffectTrigger.HitActive2,
   unit: 205

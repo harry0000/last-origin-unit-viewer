@@ -243,6 +243,10 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
     select: 5,
     area: ['low', 'low', 'low', 'low', 'effective', 'low', 'low', 'low', 'low']
   },
+  [SkillAreaType.CircleMiddleExplosion]: {
+    select: 5,
+    area: ['middle', 'middle', 'middle', 'middle', 'effective', 'middle', 'middle', 'middle', 'middle']
+  },
   [SkillAreaType.CircleStrongExplosion]: {
     select: 5,
     area: ['high', 'high', 'high', 'high', 'effective', 'high', 'high', 'high', 'high']

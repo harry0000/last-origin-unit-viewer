@@ -56,6 +56,7 @@ export const SkillAreaType = {
   CrossStrongExplosion: 'cross_strong_explosion',
   CircleTinyExplosion: 'circle_tiny_explosion',
   CircleSmallExplosion: 'circle_small_explosion',
+  CircleMiddleExplosion: 'circle_middle_explosion',
   CircleStrongExplosion: 'circle_strong_explosion',
   AllStrongExplosion: 'all_strong_explosion',
   AllRoundFire: 'all_round_fire',

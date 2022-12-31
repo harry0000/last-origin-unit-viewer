@@ -14,6 +14,7 @@ import {
   EvaBattleEffect,
   FireResistBattleEffect,
   IceResistBattleEffect,
+  MinimumIceResistUpBattleEffect,
   SpdBattleEffect
 } from '../../../domain/squad/simulator/BattleEffect';
 import UnitAffection, { AffectionBonus } from '../../../domain/UnitAffection';
@@ -270,6 +271,8 @@ const _inSquad = {
   iceResistEffects: atomFamily<ReadonlyArray<IceResistBattleEffect>, UnitNumber>({ key: 'UnitsStatusParameterState_inSquad_iceResistEffects', default: [] }),
   electricResistEffects: atomFamily<ReadonlyArray<ElectricResistBattleEffect>, UnitNumber>({ key: 'UnitsStatusParameterState_inSquad_electricResistEffects', default: [] }),
 
+  minimumIceResistUpEffects: atomFamily<ReadonlyArray<MinimumIceResistUpBattleEffect>, UnitNumber>({ key: 'UnitsStatusParameterState_inSquad_minimumIceResistUpEffects', default: [] }),
+
   atkRateEffectValue: atomFamily<MilliValue | undefined, UnitNumber>({ key: 'UnitsStatusParameterState_inSquad_atkRateEffectValue', default: undefined }),
   defRateEffectValue: atomFamily<MilliValue | undefined, UnitNumber>({ key: 'UnitsStatusParameterState_inSquad_defRateEffectValue', default: undefined }),
 
@@ -460,8 +463,8 @@ function _updateSquadUnitStatus(
       setIfNotDeepEqual(cbi, _inSquad.criEffectValue(unit), unitStatus.criEffectsSummary);
       setIfNotDeepEqual(cbi, _inSquad.spdEffectValue(unit), unitStatus.spdEffectsSummary);
 
-      setIfNotDeepEqual(cbi, _inSquad.fireResistEffectValue(unit), unitStatus.fireResistEffectsSummary);
-      setIfNotDeepEqual(cbi, _inSquad.iceResistEffectValue(unit), unitStatus.iceResistEffectsSummary);
+      setIfNotDeepEqual(cbi, _inSquad.fireResistEffectValue(unit),     unitStatus.fireResistEffectsSummary);
+      setIfNotDeepEqual(cbi, _inSquad.iceResistEffectValue(unit),      unitStatus.iceResistEffectsSummary);
       setIfNotDeepEqual(cbi, _inSquad.electricResistEffectValue(unit), unitStatus.electricResistEffectsSummary);
 
       setIfNotDeepEqual(cbi, _inSquad.atkEffects(unit), unitStatus.atkEffects);
@@ -475,6 +478,8 @@ function _updateSquadUnitStatus(
       setIfNotDeepEqual(cbi, _inSquad.fireResistEffects(unit), unitStatus.fireResistEffects);
       setIfNotDeepEqual(cbi, _inSquad.iceResistEffects(unit), unitStatus.iceResistEffects);
       setIfNotDeepEqual(cbi, _inSquad.electricResistEffects(unit), unitStatus.electricResistEffects);
+
+      setIfNotDeepEqual(cbi, _inSquad.minimumIceResistUpEffects(unit), unitStatus.minimumIceResistEffects);
 
       setIfNotDeepEqual(cbi, _inSquad.atkRateEffectValue(unit), unitStatus.atkRateEffectValue);
       setIfNotDeepEqual(cbi, _inSquad.defRateEffectValue(unit), unitStatus.defRateEffectValue);
@@ -525,6 +530,8 @@ function _resetRemovedUnitsState(removedUnits: ReadonlySet<UnitNumber>): (cbi: C
       reset(_inSquad.fireResistEffects(removed));
       reset(_inSquad.iceResistEffects(removed));
       reset(_inSquad.electricResistEffects(removed));
+
+      reset(_inSquad.minimumIceResistUpEffects(removed));
 
       reset(_inSquad.atkRateEffectValue(removed));
       reset(_inSquad.defRateEffectValue(removed));
@@ -666,6 +673,8 @@ export const squadUnitAtkValueUpByUnitEffectsState = wrapSquadUnitSelector('squa
 export const squadUnitFireResistEffectsState = wrapSquadUnitSelector('squadUnitFireResistEffectsState', _inSquad.fireResistEffects, []);
 export const squadUnitIceResistEffectsState = wrapSquadUnitSelector('squadUnitIceResistEffectsState', _inSquad.iceResistEffects, []);
 export const squadUnitElectricResistEffectsState = wrapSquadUnitSelector('squadUnitElectricResistEffectsState', _inSquad.electricResistEffects, []);
+
+export const squadUnitMinimumIceResistUpEffectsState = wrapSquadUnitSelector('squadUnitMinimumIceResistUpEffectsState', _inSquad.minimumIceResistUpEffects, []);
 
 export const squadUnitAtkRateEffectValueState = wrapSquadUnitSelector('squadUnitAtkRateEffectValueState', _inSquad.atkRateEffectValue);
 export const squadUnitDefRateEffectValueState = wrapSquadUnitSelector('squadUnitDefRateEffectValueState', _inSquad.defRateEffectValue);

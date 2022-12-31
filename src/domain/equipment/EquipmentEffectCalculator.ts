@@ -170,6 +170,7 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.IceResistDown:
       case Effect.ElectricResistUp:
       case Effect.ElectricResistDown:
+      case Effect.MinimumIceResistUp:
       case Effect.StatusResistUp:
       case Effect.ExpUp:
       case Effect.DefensePenetration:

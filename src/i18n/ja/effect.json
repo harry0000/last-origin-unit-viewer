@@ -27,6 +27,7 @@
     "squad_21": "21分隊",
     "companion_series": "コンパニオンシリーズ",
     "steel_line": "スチールライン",
+    "steel_line_officer_ranks": "将校階級のスチールライン",
     "steel_line_excluding_officer_ranks": "下士官/兵士階級のスチールライン",
     "sisters_of_valhalla": "シスターズオブヴァルハラ",
     "mongoose_team": "マングースチーム",
@@ -69,7 +70,9 @@
     "long_range_sniper_mode": "長距離狙撃モード",
     "remote_bomb_placement": "遠隔爆弾設置",
     "mobility_position": "移動可能モード",
-    "fixed_position": "固定モード"
+    "fixed_position": "固定モード",
+    "falcon_form": "ファルコンフォーム",
+    "human_form": "ヒューマンフォーム"
   },
   "tag": {
     "ignite": "点火",
@@ -197,6 +200,7 @@
     "tenderizer": "テンダーライズ",
     "caffeine_charged": "カフェインチャージ",
     "nicotine_charged": "ニコチンチャージ",
+    "output_limit_release": "出力制限解除",
     "smooth": "ツルツル～",
     "tactical_data_link": "戦術データリンク",
     "passive_radar": "パッシブレーダー",
@@ -207,6 +211,9 @@
     "hunt_preparation": "狩りの準備$t(effect:tag_separator)待機",
     "heat_absorption": "熱気吸収",
     "bridle_of_sins": "原罪のしがらみ",
+    "form_change_preparation": "モード転換準備",
+    "falcon_form":  "ファルコンフォーム",
+    "human_form": "ヒューマンフォーム",
     "assault_formation":  "突撃陣形",
     "flanking_formation": "迂回陣形",
     "command_sharing": "指揮共有",
@@ -217,6 +224,8 @@
       "start_wave": "戦闘開始時",
       "end_wave": "戦闘終了後(次の戦闘開始時)",
       "start_round": "ラウンド開始時",
+      "start_odd_round": "奇数ラウンド開始時",
+      "start_even_round": "偶数ラウンド開始時",
       "round": {
         "at": "{{round}}ラウンド目開始時",
         "from": "{{round}}ラウンド目以降、ラウンド開始時",
@@ -287,7 +296,8 @@
       "num_of_enemies_eq": "{{equal}}体である",
       "num_of_enemies_ge": "{{greater_or_equal}}体以上いる",
       "affected_by": "{{unit}}のスキル効果を受けている",
-      "affected_effect_by": "$t(effect:quote)$t(unit:display, { \"number\": {{unit}} })$t(effect:unquote)から$t(effect:effect.name.{{effect}})の効果を受けている"
+      "affected_effect_by": "$t(effect:quote)$t(unit:display, { \"number\": {{unit}} })$t(effect:unquote)から$t(effect:effect.name.{{effect}})の効果を受けている",
+      "affected_equipment_effect_by": "$t(effect:quote)$t(equipment:{{equipment}})$t(effect:unquote)の$t(effect:effect.name.{{effect}})の効果を受けている"
     },
     "grid": {
       "front_line": "前列",
@@ -305,6 +315,7 @@
   },
   "scale_factor" : {
     "per_stack": "<$t(effect:tag.{{tag}})> 1スタックにつき",
+    "per_stack_effect": "<$t(effect:tag.{{tag}})>($t(effect:effect.name.{{effect}})) 1スタックにつき",
     "per_units": "味方/敵の数に比例して",
     "num_of_allies": "の人数に応じて",
     "proportional": "の数に比例して",
@@ -362,6 +373,7 @@
       "damage_multiplier_up_by_status": "スキル威力アップ",
       "damage_multiplier_reduction_by_status": "スキル威力減衰",
       "additional_damage": "与ダメージアップ",
+      "additional_damage_focusing": "範囲ダメージ集中",
       "additional_damage_inverse_proportion_targets": "対象の数が少ないほど、与ダメージアップ",
       "enmity": "自分のHPが低いほど、与ダメージアップ",
       "merciless": "対象のHPが低いほど、与ダメージアップ",
@@ -374,6 +386,7 @@
       "ice_resist_down": "冷気属性耐性ダウン",
       "electric_resist_up": "電気属性耐性アップ",
       "electric_resist_down": "電気属性耐性ダウン",
+      "minimum_ice_resist_up": "冷気属性耐性下限アップ",
       "fixed_damage": "固定ダメージ",
       "fixed_damage_over_time": "持続固定ダメージ",
       "fixed_fire_damage_over_time": "火炎持続固定ダメージ",
@@ -416,7 +429,8 @@
       "minimize_damage": "被ダメージ最小化",
       "minimize_damage_less_than_value": "一定威力未満の被ダメージ最小化",
       "nullify_damage": "被ダメージ無効化",
-      "area_damage_dispersion": "範囲ダメージ分散",
+      "area_damage_dispersion_up": "範囲ダメージ分散",
+      "area_damage_dispersion_down": "範囲ダメージ分散ダウン",
       "barrier": "バリア",
       "battle_continuation": "戦闘続行",
       "all_buff_blocking": "強化効果不可状態",
@@ -463,6 +477,7 @@
       "ice_resist_down": "冷気属性耐性 -{{value}}%",
       "electric_resist_up": "電気属性耐性 +{{value}}%",
       "electric_resist_down": "電気属性耐性 -{{value}}%",
+      "minimum_ice_resist_up": "冷気属性耐性下限 +{{value}}%",
       "fixed_damage": "攻撃力の{{value}}%の固定ダメージ",
       "fixed_damage_over_time": "{{value}}の持続固定ダメージ",
       "fixed_fire_damage_over_time": "{{value}}の火炎持続固定ダメージ",
@@ -514,7 +529,8 @@
       "minimize_damage": "被ダメージ最小化",
       "minimize_damage_less_than_value": "威力+{{value}}未満の被ダメージ最小化",
       "nullify_damage": "被ダメージ無効化",
-      "area_damage_dispersion": "範囲ダメージ分散 +{{value}}%",
+      "area_damage_dispersion_up": "範囲ダメージ分散 +{{value}}%",
+      "area_damage_dispersion_down": "範囲ダメージ分散 -{{value}}%",
 
       "barrier": "バリア +{{value}}",
       "battle_continuation": "HP{{value}}で戦闘続行を付与",

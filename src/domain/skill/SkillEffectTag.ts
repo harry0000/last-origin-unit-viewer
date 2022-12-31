@@ -126,6 +126,7 @@ export type SkillEffectTag =
   'tenderizer' |
   'caffeine_charged' |
   'nicotine_charged' |
+  'output_limit_release' |
   'smooth' |
   'tactical_data_link' |
   'passive_radar' |
@@ -136,6 +137,9 @@ export type SkillEffectTag =
   'hunt_preparation' |
   'heat_absorption' |
   'bridle_of_sins' |
+  'form_change_preparation' |
+  'falcon_form' |
+  'human_form' |
   'assault_formation' |
   'flanking_formation' |
   'command_sharing' |

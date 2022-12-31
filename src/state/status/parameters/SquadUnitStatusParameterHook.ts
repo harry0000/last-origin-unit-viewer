@@ -7,6 +7,8 @@ import { UnitNumber } from '../../../domain/UnitBasicInfo';
 import { EnhanceableStatus } from './UnitLvStatusState';
 import {
   battleEffectsState,
+  selectedUnitCurrentHpState,
+  selectedUnitDamagedState,
   selectedUnitHpState,
   squadApTickCountState,
   squadUnitAccEffectsState,
@@ -20,8 +22,6 @@ import {
   squadUnitAtkValueUpEffectsState,
   squadUnitCriEffectsState,
   squadUnitCriState,
-  selectedUnitCurrentHpState,
-  selectedUnitDamagedState,
   squadUnitActionOrder,
   squadUnitDefEffectsState,
   squadUnitDefRateEffectValueState,
@@ -35,6 +35,7 @@ import {
   squadUnitFireResistState,
   squadUnitIceResistEffectsState,
   squadUnitIceResistState,
+  squadUnitMinimumIceResistUpEffectsState,
   squadUnitSpdEffectsState,
   squadUnitSpdEffectValueState,
   squadUnitSpdState,
@@ -46,6 +47,7 @@ import { AffectableStatus } from '../../../component/status/parameters/StatusEff
 import {
   SquadUnitApEffectsViewModel,
   SquadUnitApplyingEffectViewModel,
+  SquadUnitAttributeResistEffectsViewModel,
   SquadUnitStatusEffectsViewModel
 } from '../../../component/status/parameters/SquadUnitStatusEffectsViewModel';
 import {
@@ -106,7 +108,7 @@ export function useSquadUnitStatusEffectsSummary(
 }
 
 export function useSquadUnitStatusEffects(
-  status: Exclude<AffectableStatus, 'hp'>
+  status: Exclude<AffectableStatus, 'hp' | 'fireResist' | 'iceResist' | 'electricResist'>
 ): SquadUnitStatusEffectsViewModel {
   switch (status) {
   case 'atk':
@@ -133,9 +135,23 @@ export function useSquadUnitStatusEffects(
       useRecoilValue(squadUnitSpdEffectsState),
       useRecoilValue(squadUnitSpdEffectValueState)
     );
-  case 'fireResist':     return SquadUnitStatusEffectsViewModel.build(status, useRecoilValue(squadUnitFireResistEffectsState));
-  case 'iceResist':      return SquadUnitStatusEffectsViewModel.build(status, useRecoilValue(squadUnitIceResistEffectsState));
-  case 'electricResist': return SquadUnitStatusEffectsViewModel.build(status, useRecoilValue(squadUnitElectricResistEffectsState));
+  }
+}
+
+export function useSquadUnitAttributeResistEffects(
+  status: 'fireResist' | 'iceResist' | 'electricResist'
+): SquadUnitAttributeResistEffectsViewModel {
+  switch (status) {
+  case 'fireResist':
+    return SquadUnitAttributeResistEffectsViewModel.build(status, useRecoilValue(squadUnitFireResistEffectsState));
+  case 'iceResist':
+    return SquadUnitAttributeResistEffectsViewModel.build(
+      status,
+      useRecoilValue(squadUnitIceResistEffectsState),
+      useRecoilValue(squadUnitMinimumIceResistUpEffectsState)
+    );
+  case 'electricResist':
+    return SquadUnitAttributeResistEffectsViewModel.build(status, useRecoilValue(squadUnitElectricResistEffectsState));
   }
 }
 

@@ -12,6 +12,7 @@ import {
   EvaBattleEffect,
   FireResistBattleEffect,
   IceResistBattleEffect,
+  MinimumIceResistUpBattleEffect,
   SpdBattleEffect,
   isStatusBattleEffect
 } from '../squad/simulator/BattleEffect';
@@ -49,6 +50,7 @@ class SquadUnitStatus {
   readonly fireResistEffects: ReadonlyArray<FireResistBattleEffect>;
   readonly iceResistEffects: ReadonlyArray<IceResistBattleEffect>;
   readonly electricResistEffects: ReadonlyArray<ElectricResistBattleEffect>;
+  readonly minimumIceResistEffects: ReadonlyArray<MinimumIceResistUpBattleEffect>;
 
   readonly apEffects: ReadonlyArray<ApBattleEffect>;
 
@@ -120,6 +122,9 @@ class SquadUnitStatus {
     const iceResistEffectValues: Array<MilliPercentageValue> = [];
     const electricResistEffectValues: Array<MilliPercentageValue> = [];
 
+    const minimumIceResistEffects: Array<MinimumIceResistUpBattleEffect> = [];
+    const minimumIceResistEffectValues: Array<MilliPercentageValue> = [];
+
     const atkValueUpEffects: Array<AtkValueUpBattleEffect> = [];
     const atkValueUpByUnitEffects: Array<AtkValueUpByUnitBattleEffect> = [];
     const defValueUpEffects: Array<DefValueUpBattleEffect> = [];
@@ -181,6 +186,9 @@ class SquadUnitStatus {
       } else if (isStatusBattleEffect(Effect.ElectricResistDown, effect)) {
         electricResistEffects.push(effect);
         electricResistEffectValues.push(reverseMilliPercentageValueSign(effect.value));
+      } else if (isStatusBattleEffect(Effect.MinimumIceResistUp, effect)) {
+        minimumIceResistEffects.push(effect);
+        minimumIceResistEffectValues.push(effect.value);
       } else if (isStatusBattleEffect(Effect.AtkValueUp, effect)) {
         // Atk values are calculated later
         atkValueUpEffects.push(effect);
@@ -221,6 +229,8 @@ class SquadUnitStatus {
     this.iceResistEffects = iceResistEffects;
     this.electricResistEffects = electricResistEffects;
 
+    this.minimumIceResistEffects = minimumIceResistEffects;
+
     this.atkValueUpEffects = atkValueUpEffects;
     this.defValueUpEffects = defValueUpEffects;
 
@@ -232,18 +242,33 @@ class SquadUnitStatus {
     this.evaEffectsSummary = sumMilliPercentageValues(...evaEffectValues);
     this.criEffectsSummary = sumMilliPercentageValues(...criEffectValues);
     this.spdEffectsSummary = multiplyMicroValue(spd, sumMilliPercentageValues(...spdEffectValues));
-    this.fireResistEffectsSummary = sumMilliPercentageValues(...fireResistEffectValues);
-    this.iceResistEffectsSummary = sumMilliPercentageValues(...iceResistEffectValues);
-    this.electricResistEffectsSummary = sumMilliPercentageValues(...electricResistEffectValues);
 
     this.def = sumMilliValues(def, this.defEffectsSummary);
     this.acc = sumMilliPercentageValues(acc, this.accEffectsSummary);
     this.eva = sumMilliPercentageValues(eva, this.evaEffectsSummary);
     this.cri = sumMilliPercentageValues(cri, this.criEffectsSummary);
     this.spd = sumMicroValues(spd, this.spdEffectsSummary);
+
+    this.fireResistEffectsSummary = sumMilliPercentageValues(...fireResistEffectValues);
+    this.electricResistEffectsSummary = sumMilliPercentageValues(...electricResistEffectValues);
+
     this.fireResist     = sumMilliPercentageValues(fireResist,     this.fireResistEffectsSummary);
-    this.iceResist      = sumMilliPercentageValues(iceResist,      this.iceResistEffectsSummary);
     this.electricResist = sumMilliPercentageValues(electricResist, this.electricResistEffectsSummary);
+
+    const iceResistEffectsSummary = sumMilliPercentageValues(...iceResistEffectValues);
+    const iceResistSummary = sumMilliPercentageValues(iceResist, iceResistEffectsSummary);
+    const minimumIceResistEffectsSummary = sumMilliPercentageValues(...minimumIceResistEffectValues);
+
+    if (
+      this.minimumIceResistEffects.length === 0 ||
+      iceResistSummary.milliPercentage >= minimumIceResistEffectsSummary.milliPercentage
+    ) {
+      this.iceResistEffectsSummary = iceResistEffectsSummary;
+      this.iceResist = iceResistSummary;
+    } else {
+      this.iceResistEffectsSummary = minimumIceResistEffectsSummary;
+      this.iceResist = minimumIceResistEffectsSummary;
+    }
 
     this.#atk = atk;
     this.#atkValueUpByUnitEffects = atkValueUpByUnitEffects.map(effect => ({ effect, value: { milliValue: 0 } }));

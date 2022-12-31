@@ -22,6 +22,7 @@ jobs:
       - name: Build
         env:
           REACT_APP_FIREBASE_WEB_API_KEY: ${{ secrets.FIREBASE_WEB_API_KEY }}
+          REACT_APP_GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID }}
         run: npm run build
 
       - name: Deploy

@@ -3256,6 +3256,27 @@ export const unitStatusData: UnitStatusData = {
     iceResist: { milliPercentage: 0 },
     electricResist: { milliPercentage: 0 }
   },
+  200: {
+    hp: {
+      1: { value: 340 },
+      90: { value: 3900 }
+    },
+    atk: {
+      1: { milliValue: 62000 },
+      90: { milliValue: 1130000 }
+    },
+    def: {
+      1: { milliValue: 34000 },
+      90: { milliValue: 390000 }
+    },
+    acc: { milliPercentage: 120000 },
+    eva: { milliPercentage: 0 },
+    cri: { milliPercentage: 10000 },
+    spd: { microValue: 3350000 },
+    fireResist: { milliPercentage: 0 },
+    iceResist: { milliPercentage: 0 },
+    electricResist: { milliPercentage: 0 }
+  },
   201: {
     hp: {
       1: { value: 294 },
@@ -3840,6 +3861,27 @@ export const unitStatusData: UnitStatusData = {
     eva: { milliPercentage: 10000 },
     cri: { milliPercentage: 10000 },
     spd: { microValue: 4000000 },
+    fireResist: { milliPercentage: 0 },
+    iceResist: { milliPercentage: 0 },
+    electricResist: { milliPercentage: 0 }
+  },
+  239: {
+    hp: {
+      1: { value: 200 },
+      90: { value: 2158 }
+    },
+    atk: {
+      1: { milliValue: 80000 },
+      90: { milliValue: 970000 }
+    },
+    def: {
+      1: { milliValue: 10000 },
+      90: { milliValue: 91000 }
+    },
+    acc: { milliPercentage: 110000 },
+    eva: { milliPercentage: 55000 },
+    cri: { milliPercentage: 10000 },
+    spd: { microValue: 4750000 },
     fireResist: { milliPercentage: 0 },
     iceResist: { milliPercentage: 0 },
     electricResist: { milliPercentage: 0 }

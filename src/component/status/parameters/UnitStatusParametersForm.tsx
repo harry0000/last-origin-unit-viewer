@@ -99,8 +99,8 @@ const row: CSSObject = {
   '& > div': {
     width: '50%'
   },
-  '& > div:first-of-type': { paddingRight: 5 },
-  '& > div:last-of-type': { paddingLeft: 5 },
+  '& > div:first-of-type': { paddingRight: 8 },
+  '& > div:last-of-type': { paddingLeft: 8 },
 };
 
 const UnitStatusParametersForm: React.FC = () => {

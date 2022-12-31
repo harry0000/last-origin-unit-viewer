@@ -59,7 +59,8 @@ type AffectedByActivationState =
       9 | 54 | 55 | 133 | 135 |
       UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
       { unit: 23, effect: typeof Effect.FollowUpAttack } |
-      { unit: 83, effect: typeof Effect.TargetProtect }
+      { unit: 83, effect: typeof Effect.TargetProtect } |
+      { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp }
   }>
 
 type NotAffectedActivationState =
@@ -96,6 +97,7 @@ const AffectedSkillEffect = [
   Effect.RangeUp,
   Effect.LightTypeDamageUp,
   Effect.HeavyTypeDamageUp,
+  Effect.AdditionalDamageFocusing,
   Effect.FixedDamageOverTime,
   Effect.FixedFireDamageOverTime,
   Effect.ActionCountUp,
@@ -121,6 +123,7 @@ export function isAffectedSkillEffect(arg: Effect): arg is AffectedSkillEffect {
 }
 
 const AffectedAnyTypeEffect = [
+  Effect.MinimumIceResistUp,
   Effect.BattleContinuation,
   Effect.TagStack,
   Effect.ColumnProtect,
@@ -209,9 +212,12 @@ export type ActivationTargetState =
 
 type InSquadStateUnit =
   UnitNumber |
+  typeof UnitType['Light' | 'Heavy'] |
+  typeof UnitRole['Attacker' | 'Supporter'] |
   typeof UnitAlias[
     'ElectricActive' |
     'SteelLine' |
+    'SteelLineOfficerRanks' |
     'SteelLineExcludingOfficerRanks' |
     'Horizon' |
     'KouheiChurch' |

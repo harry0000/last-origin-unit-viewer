@@ -45,6 +45,7 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = React.memo(({ unit }) => {
       >
         <Image
           rounded
+          loading="lazy"
           draggable="false"
           height={80}
           width={80}

@@ -14,7 +14,8 @@ export const FormChangeUnits = {
   MightyR: 119,
   Ullr: 152,
   JangHwa: 154,
-  Fortress: 222
+  Fortress: 222,
+  Peregrinus: 239
 } as const;
 
 const NormalForm = 'normal';
@@ -71,6 +72,10 @@ export const UnitForms = {
   [FormChangeUnits.Fortress]: {
     default: 'mobility_position',
     changed: 'fixed_position'
+  },
+  [FormChangeUnits.Peregrinus]: {
+    default: 'falcon_form',
+    changed: 'human_form'
   }
 } as const;
 export type UnitForms =
@@ -93,6 +98,7 @@ export type MightyRForm          = FormPerUnit<typeof FormChangeUnits.MightyR>
 export type UllrForm             = FormPerUnit<typeof FormChangeUnits.Ullr>
 export type JangHwaForm          = FormPerUnit<typeof FormChangeUnits.JangHwa>
 export type FortressForm         = FormPerUnit<typeof FormChangeUnits.Fortress>
+export type PeregrinusForm       = FormPerUnit<typeof FormChangeUnits.Peregrinus>
 
 export type FormLessUnitBasicInfo = typeof unitBasicData[Exclude<UnitNumber, FormChangeUnitNumbers>]
 
@@ -111,6 +117,7 @@ export type FormChangeUnitBasicInfo<N extends FormChangeUnitNumbers> =
     N extends typeof FormChangeUnits.Ullr             ? typeof unitBasicData[typeof FormChangeUnits.Ullr] :
     N extends typeof FormChangeUnits.JangHwa          ? typeof unitBasicData[typeof FormChangeUnits.JangHwa] :
     N extends typeof FormChangeUnits.Fortress         ? typeof unitBasicData[typeof FormChangeUnits.Fortress] :
+    N extends typeof FormChangeUnits.Peregrinus       ? typeof unitBasicData[typeof FormChangeUnits.Peregrinus] :
       never
   ) &
   // HACK: for UnitFormValue.build()

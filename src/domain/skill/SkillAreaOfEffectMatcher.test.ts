@@ -265,6 +265,10 @@ describe('calcTargetPositions()', () => {
       expect(calcTargetPositions(SkillAreaType.CircleSmallExplosion, 5)).toEqual(new Set([7, 8, 9, 4, 5, 6, 1, 2, 3]));
     });
 
+    test('CircleMiddleExplosion', () => {
+      expect(calcTargetPositions(SkillAreaType.CircleMiddleExplosion, 5)).toEqual(new Set([7, 8, 9, 4, 5, 6, 1, 2, 3]));
+    });
+
     test('CircleStrongExplosion', () => {
       expect(calcTargetPositions(SkillAreaType.CircleStrongExplosion, 5)).toEqual(new Set([7, 8, 9, 4, 5, 6, 1, 2, 3]));
     });
