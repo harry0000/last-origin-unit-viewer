@@ -44,8 +44,13 @@ export const ItemType = {
 export type ItemType = typeof ItemType[keyof typeof ItemType]
 
 const squadShareModalShowState = atom<boolean>({
-  key: 'squadShareModalShowState',
+  key: 'SquadHook_squadShareModalShowState',
   default: false
+});
+
+const squadShareUrlState = atom<string>({
+  key: 'SquadHook_squadShareUrlState',
+  default: ''
 });
 
 export function useSquadUnitTypeCount(type: UnitType): number {
@@ -193,28 +198,17 @@ function useSquadJson(): () => SquadJsonStructure | undefined {
 }
 
 export function useSquadShareModalOpener(): () => void {
-  const setModalShow = useSetRecoilState(squadShareModalShowState);
+  const getSquadJson = useSquadJson();
   const notify = useNotificationResister();
+
+  const setModalShow = useSetRecoilState(squadShareModalShowState);
+  const setShareUrl = useSetRecoilState(squadShareUrlState);
 
   return useRecoilCallback((cbi) => () => {
     const squadUnitCount = getSquadUnitCount(cbi)();
     if (squadUnitCount !== 0) {
       setModalShow(true);
-    } else {
-      notify('squad_is_empty');
-    }
-  });
-}
 
-export function useSquadShareModal(): [modalShow: boolean, hideModal: () => void, url: string | undefined] {
-  const notify = useNotificationResister();
-  const getSquadJson = useSquadJson();
-  const [modalShow, setModalShow] = useRecoilState(squadShareModalShowState);
-
-  const [shareUrl, setShareUrl] = useState<string>('');
-
-  useEffect(() => {
-    if (modalShow) {
       const squadJson = getSquadJson();
       if (squadJson) {
         generateShareUrl(squadJson)
@@ -228,13 +222,21 @@ export function useSquadShareModal(): [modalShow: boolean, hideModal: () => void
           });
       }
     } else {
-      setShareUrl('');
+      notify('squad_is_empty');
     }
-  }, [modalShow]);
+  });
+}
+
+export function useSquadShareModal(): [modalShow: boolean, hideModal: () => void, url: string | undefined] {
+  const [modalShow, setModalShow] = useRecoilState(squadShareModalShowState);
+  const [shareUrl, setShareUrl] = useRecoilState(squadShareUrlState);
 
   return [
     modalShow,
-    () => { setModalShow(false); },
+    () => {
+      setModalShow(false);
+      setShareUrl('');
+    },
     shareUrl
   ];
 }

@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Image } from 'react-bootstrap';
 
 import './CircleImageSwitch.css';
@@ -19,12 +19,14 @@ const CircleImageSwitch: React.FC<{
   const [active, setActive] = useState(selected);
   const [focus, setFocus] = useState(false);
 
-  useEffect(() => {
+  const [prevDisabled, setPrevDisabled] = useState(disabled);
+  if (disabled != prevDisabled) {
+    setPrevDisabled(disabled);
     if (disabled) {
       setActive(false);
       setFocus(false);
     }
-  }, [disabled]);
+  }
 
   return (
     <div className="circle-image-check" {...rest}>

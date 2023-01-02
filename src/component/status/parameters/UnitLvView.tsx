@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { CSSObject, jsx } from '@emotion/react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ArrowReset } from '../../icon/FluentIcons';
@@ -86,17 +86,13 @@ const ResetPointsButton: React.FC = () => {
 
   const Button: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
     const [disabled, reset] = useUsedPointReset(unit);
-
     const [show, setShow] = useState(false);
-    useEffect(() => {
-      setShow(false);
-    }, [disabled]);
 
     return (
       <OverlayTrigger
         placement="auto"
-        show={show}
-        onToggle={nextShow => setShow(nextShow)}
+        show={show && !disabled}
+        onToggle={nextShow => setShow(nextShow && !disabled)}
         overlay={<Tooltip id="tooltip-reset-status-parameter-points">{t('status.reset_points')}</Tooltip>}
       >
         <SVGButton
@@ -104,7 +100,10 @@ const ResetPointsButton: React.FC = () => {
           variant="danger"
           svg={<ArrowReset />}
           disabled={disabled}
-          onClick={reset}
+          onClick={() => {
+            reset();
+            setShow(false);
+          }}
         />
       </OverlayTrigger>
     );
