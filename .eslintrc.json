@@ -6,6 +6,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
@@ -42,6 +43,7 @@
       "error",
       { "ignore": ["css", "focusable"] }
     ],
+    "react-hooks/rules-of-hooks": "off",
     "semi": [
       "error",
       "always"

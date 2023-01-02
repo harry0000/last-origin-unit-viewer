@@ -10,8 +10,8 @@ import { UnitBasicInfo, UnitType } from '../../domain/UnitBasicInfo';
 
 import { SquadJsonStructure } from '../../service/SquadJsonStructure';
 import { convertToJsonObject } from '../../service/SquadJsonConverter';
-import { generateShareUrl, generateTwitterShareUrl, squadUrlParamName } from '../../service/ShareUrlGenerator';
-import { restore, UrlSafeBase64String } from '../../service/UrlParamConverter';
+import { generateShareUrl, generateTwitterShareUrl, getSquadParam } from '../../service/ShareUrlGenerator';
+import { restore } from '../../service/UrlParamConverter';
 import { restoreFromJsonObject } from '../../service/SquadJsonRestore';
 
 import {
@@ -74,7 +74,7 @@ export function useUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
   // https://github.com/react-dnd/react-dnd/issues/2612#issuecomment-646756506
   useEffect(() => {
     previewRef(getEmptyImage(), { captureDraggingState: true });
-  }, []);
+  }, [previewRef]);
 
   return dragRef;
 }
@@ -92,7 +92,7 @@ export function useSquadUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
   // https://github.com/react-dnd/react-dnd/issues/2612#issuecomment-646756506
   useEffect(() => {
     previewRef(getEmptyImage(), { captureDraggingState: true });
-  }, []);
+  }, [previewRef]);
 
   return dragRef;
 }
@@ -288,14 +288,15 @@ export function useSquadRestoreFromUrl(): boolean {
   const damagedRestore = useRecoilCallback(restoreUnitDamagedState);
 
   const history = useHistory();
-  const squadParam = new URLSearchParams(useLocation().search).get(squadUrlParamName);
+  const location = useLocation();
 
   useEffect(() => {
+    const squadParam = getSquadParam(location);
     if (squadParam) {
       setRestoring(true);
 
       try {
-        const json = restore(squadParam as UrlSafeBase64String);
+        const json = restore(squadParam);
         const restored = restoreFromJsonObject(json);
         if (restored) {
           lvStateRestore(restored.lvStatus);
@@ -321,7 +322,22 @@ export function useSquadRestoreFromUrl(): boolean {
       setRestoring(false);
       history.replace(`${process.env.PUBLIC_URL}/`);
     }
-  }, [history, squadParam]);
+  }, [
+    history,
+    location,
+    notify,
+    selectUnit,
+    squadRestore,
+    lvStateRestore,
+    chip1Restore,
+    chip2Restore,
+    osRestore,
+    gearRestore,
+    coreLinkRestore,
+    skillRestore,
+    affectionRestore,
+    damagedRestore
+  ]);
 
   return restoring;
 }

@@ -1,8 +1,10 @@
+import { Location } from 'history';
+
 import { convert, UrlSafeBase64String } from './UrlParamConverter';
 import { isRecord } from '../util/object';
 import { SquadJsonStructure } from './SquadJsonStructure';
 
-export const squadUrlParamName = 'sq';
+const squadUrlParamName = 'sq';
 
 const appSiteUrl = new URL(process.env.PUBLIC_URL + '/', 'https://harry0000.github.io').toString();
 
@@ -55,6 +57,11 @@ function fetchShortShareUrl(param: UrlSafeBase64String): Promise<string> {
       }
       return json.shortLink;
     });
+}
+
+export function getSquadParam(location: Location): UrlSafeBase64String | null {
+  const param = new URLSearchParams(location.search).get(squadUrlParamName);
+  return param as ReturnType<typeof getSquadParam>;
 }
 
 export function generateShareUrl(squadJson: SquadJsonStructure): Promise<string> {
