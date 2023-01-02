@@ -99,9 +99,9 @@ const SquadShareButton: React.FC = () => {
   );
 };
 
-const SquadView: React.FC<{ className: string }> = ({ className }) => {
+const SquadView: React.FC = () => {
   return (
-    <div className={className}>
+    <div>
       <div className="squad-summary">
         <SquadCostSummaryView />
         <SquadUnitTypeSummaryView />
