@@ -1,6 +1,7 @@
 import { useRecoilCallback, useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
+import { ActiveSkillAreaOfEffectCondition } from '../../domain/selector/ActiveSkillAreaOfEffectCondition';
 import { ActiveSkillCondition } from '../../domain/selector/ActiveSkillCondition';
 import {
   CoreLinkBonusCondition,
@@ -17,6 +18,7 @@ import { RankUpCondition } from '../../domain/selector/RankUpCondition';
 import { UnitBasicInfo, UnitRank, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
 
 import {
+  activeSkillAreaSelectedState,
   activeSkillSelectedState,
   coreLinkSelectedState,
   filteredUnitListState,
@@ -24,6 +26,7 @@ import {
   rankSelectedState,
   rankUpSelectedState,
   roleSelectedState,
+  selectActiveSkillAreaCondition,
   selectCoreLinkBonusCondition,
   selectFullLinkBonusCondition,
   selectRankUpCondition,
@@ -42,6 +45,7 @@ import {
 import { useUnitCurrentRank } from '../status/parameters/UnitLvStatusHook';
 
 import { buildUnitTileIconSrcUrl } from '../../service/UnitIconSrcUrlBuilder';
+import { notFalsy } from '../../util/type';
 
 export function useUnitRankSelector(rank: UnitRank): [selected: boolean, toggle: () => void] {
   return [
@@ -80,6 +84,16 @@ export function useSelectedActiveSkillConditions(): ReadonlyArray<ActiveSkillCon
   );
 }
 
+export function useSelectedActiveSkillAreaCondition(): ActiveSkillAreaOfEffectCondition | undefined {
+  return Object
+    .values(ActiveSkillAreaOfEffectCondition)
+    .map(condition => {
+      const selected = useRecoilValue(activeSkillAreaSelectedState(condition));
+      return selected ? condition : undefined;
+    })
+    .find(notFalsy);
+}
+
 export function useSelectedSkillEffectConditions(): ReadonlyArray<SkillEffectCondition> {
   return [
     ...Object.values(StatusSkillEffectCondition),
@@ -96,7 +110,7 @@ export function useSelectedCoreLinkBonusCondition(): CoreLinkBonusCondition | un
       const selected = useRecoilValue(coreLinkSelectedState(condition));
       return selected ? condition : undefined;
     })
-    .find(condition => !!condition);
+    .find(notFalsy);
 }
 
 export function useSelectedFullLinkBonusCondition(): FullLinkBonusCondition | undefined {
@@ -106,7 +120,7 @@ export function useSelectedFullLinkBonusCondition(): FullLinkBonusCondition | un
       const selected = useRecoilValue(fullLinkSelectedState(condition));
       return selected ? condition : undefined;
     })
-    .find(condition => !!condition);
+    .find(notFalsy);
 }
 
 export function useSelectedRankUpCondition(): RankUpCondition | undefined {
@@ -116,7 +130,7 @@ export function useSelectedRankUpCondition(): RankUpCondition | undefined {
       const selected = useRecoilValue(rankUpSelectedState(condition));
       return selected ? condition : undefined;
     })
-    .find(condition => !!condition);
+    .find(notFalsy);
 }
 
 export function useCoreLinkBonusConditionSelector(condition: CoreLinkBonusCondition | undefined): [selected: boolean, select: () => void] {
@@ -144,6 +158,13 @@ export function useActiveSkillConditionSelector(condition: ActiveSkillCondition)
   return [
     useRecoilValue(activeSkillSelectedState(condition)),
     useRecoilCallback(toggleActiveSkillCondition(condition))
+  ];
+}
+
+export function useActiveSkillAreaConditionSelector(condition: ActiveSkillAreaOfEffectCondition | undefined): [selected: boolean, select: () => void] {
+  return [
+    useRecoilValue(activeSkillAreaSelectedState(condition)),
+    useRecoilCallback(selectActiveSkillAreaCondition(condition))
   ];
 }
 

@@ -8,6 +8,7 @@ import { Badge } from 'react-bootstrap';
 
 import {
   useConditionEmptyBadge,
+  useSelectedActiveSkillAreaCondition,
   useSelectedActiveSkillConditions,
   useSelectedCoreLinkBonusCondition,
   useSelectedFullLinkBonusCondition,
@@ -40,7 +41,7 @@ const ConditionEmptyBadges: React.FC = () => {
 
   return ifTruthy(
     show,
-    <UnitSelectorDetailConditionBadge>{t('form.empty_condition')}</UnitSelectorDetailConditionBadge>
+    <UnitSelectorDetailConditionBadge>{t('filter.badge.empty')}</UnitSelectorDetailConditionBadge>
   );
 };
 
@@ -50,12 +51,26 @@ const ActiveSkillConditionBadges: React.FC = () => {
 
   return (
     <React.Fragment>
-      {conditions.map(cond => (
-        <UnitSelectorDetailConditionBadge key={cond}>
-          {t(`form.active_skill_conditions.${cond}`)}
+      {conditions.map(condition => (
+        <UnitSelectorDetailConditionBadge key={condition}>
+          {t('filter.badge.active_skill', { condition })}
         </UnitSelectorDetailConditionBadge>
       ))}
     </React.Fragment>
+  );
+};
+
+const ActiveSkillAreaConditionBadge: React.FC = () => {
+  const { t } = useTranslation();
+  const areaCondition = useSelectedActiveSkillAreaCondition();
+
+  return ifNonNullable(
+    areaCondition,
+    condition => (
+      <UnitSelectorDetailConditionBadge>
+        {t('filter.badge.active_skill_area', { condition })}
+      </UnitSelectorDetailConditionBadge>
+    )
   );
 };
 
@@ -65,9 +80,9 @@ const SkillEffectConditionBadges: React.FC = () => {
 
   return (
     <React.Fragment>
-      {conditions.map(cond => (
-        <UnitSelectorDetailConditionBadge key={cond}>
-          {t(`form.skill_effect_conditions.${cond}`)}
+      {conditions.map(condition => (
+        <UnitSelectorDetailConditionBadge key={condition}>
+          {t('filter.badge.skill_effect', { condition })}
         </UnitSelectorDetailConditionBadge>
       ))}
     </React.Fragment>
@@ -76,13 +91,13 @@ const SkillEffectConditionBadges: React.FC = () => {
 
 const CoreLinkBonusConditionBadge: React.FC = () => {
   const { t } = useTranslation();
-  const condition = useSelectedCoreLinkBonusCondition();
+  const coreLinkBonusCondition = useSelectedCoreLinkBonusCondition();
 
   return ifNonNullable(
-    condition,
-    cond => (
+    coreLinkBonusCondition,
+    condition => (
       <UnitSelectorDetailConditionBadge>
-        {t('status.core_link_bonus')}&nbsp;:&nbsp;{t(`form.core_link_bonus_conditions.${cond}`)}
+        {t('filter.badge.core_link_bonus', { condition })}
       </UnitSelectorDetailConditionBadge>
     )
   );
@@ -90,13 +105,13 @@ const CoreLinkBonusConditionBadge: React.FC = () => {
 
 const FullLinkBonusConditionBadge: React.FC = () => {
   const { t } = useTranslation();
-  const condition = useSelectedFullLinkBonusCondition();
+  const fullLinkBonusCondition = useSelectedFullLinkBonusCondition();
 
   return ifNonNullable(
-    condition,
-    cond => (
+    fullLinkBonusCondition,
+    condition => (
       <UnitSelectorDetailConditionBadge>
-        {t('status.full_link_bonus')}&nbsp;:&nbsp;{t(`form.full_link_bonus_conditions.${cond}`)}
+        {t('filter.badge.full_link_bonus', { condition })}
       </UnitSelectorDetailConditionBadge>
     )
   );
@@ -104,19 +119,20 @@ const FullLinkBonusConditionBadge: React.FC = () => {
 
 const RankUpConditionBadge: React.FC = () => {
   const { t } = useTranslation();
-  const condition = useSelectedRankUpCondition();
+  const rankUpCondition = useSelectedRankUpCondition();
 
   return ifNonNullable(
-    condition,
-    cond => (
+    rankUpCondition,
+    condition => (
       <UnitSelectorDetailConditionBadge>
-        {t(`form.rank_up_conditions.${cond}`)}
+        {t('filter.badge.rank_up', { condition })}
       </UnitSelectorDetailConditionBadge>
     )
   );
 };
 
 export {
+  ActiveSkillAreaConditionBadge,
   ActiveSkillConditionBadges,
   ConditionEmptyBadges,
   SkillEffectConditionBadges,
