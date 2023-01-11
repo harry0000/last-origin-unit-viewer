@@ -310,6 +310,7 @@
     }
   },
   "damaged_state": "中破状態",
+  "affection_state": "誓約状態",
   "form_change": "モードチェンジ",
   "empty": "―",
   "notification": {

@@ -7,9 +7,10 @@ import { useTranslation } from 'react-i18next';
 import { Image } from 'react-bootstrap';
 import UnitRankIcon from '../common/UnitRankIcon';
 
+import { BioroidUnitNumber, UnitBasicInfo, UnitKind, UnitRank } from '../../domain/UnitBasicInfo';
 import { TenKeyPosition } from '../../domain/squad/Squad';
-import { UnitBasicInfo, UnitRank } from '../../domain/UnitBasicInfo';
 
+import { useAffectionBonus } from '../../state/status/UnitAffectionHook';
 import { useIgnoreSquadUnitDrop, useSquadGrid, useSquadUnitDrag } from '../../state/squad/SquadHook';
 import { useSquadUnit } from '../../state/selector/UnitSelectorHook';
 import { useUnitDamagedState } from '../../state/status/UnitDamagedHook';
@@ -37,6 +38,36 @@ const DamagedOverlay: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
       />)
     )
   );
+};
+
+const AffectionOverlay: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
+  const AffectionIcon = ({ unit }: { unit: BioroidUnitNumber }) => {
+    const { t } = useTranslation();
+    const [affection] = useAffectionBonus(unit);
+
+    return (
+      ifTruthy(
+        affection,
+        (<Image
+          css={{
+            position: 'absolute',
+            left: 0,
+            bottom: 0,
+            filter: 'drop-shadow(-1px -1px 1px rgba(255, 204, 0, 0.8)) drop-shadow(2px 1px 1px rgba(255, 204, 0, 0.8))'
+          }}
+          draggable="false"
+          height={24}
+          width={24}
+          alt={t('affection_state')}
+          src={`${process.env.PUBLIC_URL}/icon/wedding_ring.webp`}
+        />)
+      )
+    );
+  };
+
+  return unit.kind === UnitKind.Bioroid ?
+    (<AffectionIcon unit={unit.no} />) :
+    null;
 };
 
 export const UnitTile: React.FC<{
@@ -83,6 +114,7 @@ export const UnitTile: React.FC<{
         rank={rank}
         role={unit.role}
       />
+      <AffectionOverlay unit={unit} />
       <DamagedOverlay unit={unit} />
     </div>
   );
