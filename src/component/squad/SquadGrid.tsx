@@ -16,13 +16,34 @@ import { useUnitDamagedState } from '../../state/status/UnitDamagedHook';
 
 import { ifTruthy } from '../../util/react';
 
+const DamagedOverlay: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
+  const { t } = useTranslation();
+  const [damaged] = useUnitDamagedState(unit);
+
+  return (
+    ifTruthy(
+      damaged,
+      (<Image
+        css={{
+          position: 'absolute',
+          right: 1,
+          bottom: 1
+        }}
+        draggable="false"
+        height={24}
+        width={24}
+        alt={t('damaged_state')}
+        src={`${process.env.PUBLIC_URL}/icon/need_repair.webp`}
+      />)
+    )
+  );
+};
+
 export const UnitTile: React.FC<{
   unit: UnitBasicInfo,
   isHoveringUnit: boolean
 }> = ({ unit, isHoveringUnit }) => {
-  const { t } = useTranslation();
   const dragRef = useSquadUnitDrag(unit);
-  const [damaged] = useUnitDamagedState(unit);
   const [unitName, rank, iconSrc, selected, selectUnit] = useSquadUnit(unit);
 
   const borderColor = isHoveringUnit ?
@@ -40,7 +61,7 @@ export const UnitTile: React.FC<{
         userSelect: 'none',
         cursor: 'pointer'
       }}
-      onClick={() => selectUnit()}
+      onClick={selectUnit}
       ref={dragRef}
     >
       <Image
@@ -62,21 +83,7 @@ export const UnitTile: React.FC<{
         rank={rank}
         role={unit.role}
       />
-      {ifTruthy(
-        damaged,
-        (<Image
-          css={{
-            position: 'absolute',
-            right: 0,
-            bottom: 0
-          }}
-          draggable="false"
-          height={32}
-          width={32}
-          alt={t('damaged_state')}
-          src={`${process.env.PUBLIC_URL}/icon/need_repair.webp`}
-        />)
-      )}
+      <DamagedOverlay unit={unit} />
     </div>
   );
 };
