@@ -9555,8 +9555,8 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy' },
         details: {
           target: {
-            acc_down: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
-            ap_down: { base: { microValue: 1500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
+            acc_down: { tag: 'cyclops_eternal_beam', base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
+            ap_down: { tag: 'cyclops_eternal_beam', base: { microValue: 1500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
             buff_removal: { effect: 'acc_up', term: 'immediate' }
           }
         }
@@ -17898,6 +17898,176 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         scale_factor: { per_stack: { tag: 'human_form', effect: 'additional_damage_focusing' } },
         details: { self: { atk_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
+  240: {
+    no: 240,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 60000 },
+        per_lv_up: { milliPercentage: 20000 }
+      },
+      range: 3,
+      cost: 5,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            def_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true },
+            status_resist_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'power_of_true_blood_death_eye' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            def_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true },
+            status_resist_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'power_of_true_blood_fate_control' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            def_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true },
+            status_resist_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'power_of_true_blood_deathless' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            def_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true },
+            status_resist_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ hp_greater_or_equal: 40 }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          self: { additional_damage: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' } },
+          target: { buff_removal: { effects: ['counterattack', 'minimize_damage'], term: 'immediate' } }
+        }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 45000 },
+        per_lv_up: { milliPercentage: 15000 }
+      },
+      range: 5,
+      cost: 10,
+      area: {
+        1: 'fan_shape',
+        10: 'all'
+      },
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effect: 'counterattack', term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'power_of_true_blood_death_eye' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_reduction_down: { tag: 'eternal_true_bloods_flash', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'power_of_true_blood_fate_control' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_reduction_down: { tag: 'eternal_true_bloods_flash', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'power_of_true_blood_deathless' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_reduction_down: { tag: 'eternal_true_bloods_flash', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_affected: ['follow_up_attack'] }] } }],
+        details: { self: { cri_up: { tag: 'power_of_true_blood_death_eye', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_affected: ['follow_up_attack', 'target_protect'] }] } }],
+        details: { self: { ignore_protect: { tag: 'power_of_true_blood_fate_control', term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'kill' }],
+        details: { self: { battle_continuation: { tag: 'power_of_true_blood_deathless', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 4000 }, term: 'infinite', max_stack: 3 } } }
+      }]
+    }, {
+      area: 'diagonal',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'power_of_true_blood_death_eye' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'power_of_true_blood_fate_control' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'power_of_true_blood_deathless' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'power_of_pureblood' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } },
+            defense_penetration: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'revive' }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 200000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      equipment_effects: [{
+        conditions: [{
+          trigger: 'hit',
+          state: {
+            self: [
+              { tagged: ['power_of_true_blood_death_eye',    'power_of_true_blood_fate_control'] },
+              { tagged: ['power_of_true_blood_fate_control', 'power_of_true_blood_deathless'] },
+              { tagged: ['power_of_true_blood_death_eye',    'power_of_true_blood_deathless'] }
+            ]
+          }
+        }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            buff_removal: { effects: ['follow_up_attack', 'target_protect'], term: 'immediate' },
+            damage_taken_increased: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'eternal_true_bloods_flash' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_taken_increased: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: ['eternal_true_bloods_flash', 'cyclops_eternal_beam'] }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { action_count_down: { term: { for_rounds: 1 } } } }
       }]
     }]
   },

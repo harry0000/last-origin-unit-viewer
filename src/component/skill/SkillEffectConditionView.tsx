@@ -69,7 +69,12 @@ function stateValuesView(
   }
   case EffectActivationState.AffectedBy:
     return unitStateView(entry[0], entry[1], unitNumber, t);
-  case EffectActivationState.Tagged:
+  case EffectActivationState.Tagged: {
+    const state = entry[1];
+    return isReadonlyArray(state) ?
+      (<span>{t('effect:condition.state.multiple_tagged', { tag1: state[0], tag2: state[1] })}</span>) :
+      (<span>{t(`effect:condition.state.${entry[0]}`, { tag: state })}</span>);
+  }
   case EffectActivationState.NotTagged:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { tag: entry[1] })}</span>);
   case EffectActivationState.TaggedAffected:

@@ -148,9 +148,6 @@ type ActivationState =
     [EffectActivationState.Affected]?: AffectedEffect
   } &
   {
-    [EffectActivationState.Tagged]?: SkillEffectTag
-  } &
-  {
     [EffectActivationState.TaggedAffected]?: {
       tag: SkillEffectTag,
       effects: ReadonlyArray<AffectedEffect>
@@ -188,6 +185,20 @@ export type ActivationSelfState =
     [EffectActivationState.NotEquipped]?: ReadonlyArray<EquipmentId>
   } &
   {
+    [EffectActivationState.Tagged]?:
+      SkillEffectTag |
+      // The following are AND conditions
+      readonly ['power_of_true_blood_death_eye',    'power_of_true_blood_fate_control'] |
+      readonly ['power_of_true_blood_fate_control', 'power_of_true_blood_deathless'] |
+      readonly ['power_of_true_blood_death_eye',    'power_of_true_blood_deathless']
+  } &
+  {
+    [EffectActivationState.NotAffected]?:
+      // The following are AND conditions
+      readonly [typeof Effect.FollowUpAttack] |
+      readonly [typeof Effect.FollowUpAttack, typeof Effect.TargetProtect]
+  } &
+  {
     [EffectActivationState.StatusGreaterOrEqualThan]?: {
       status: 'atk' | 'def',
       than: 'atk' | 'def',
@@ -207,6 +218,12 @@ export type ActivationTargetState =
   } &
   {
     [EffectActivationState.Unit]?: typeof UnitAlias.SteelLine
+  } &
+  {
+    [EffectActivationState.Tagged]?:
+      SkillEffectTag |
+      // The following is AND condition
+      readonly ['eternal_true_bloods_flash', 'cyclops_eternal_beam']
   } &
   NotAffectedActivationState
 
@@ -270,6 +287,7 @@ export type SelfSkillEffectActivationState =
   {
     squad:
       ActivationSquadState |
+      // The following are OR conditions
       readonly [NotInSquadState<typeof UnitRole.Attacker>, InSquadState<typeof UnitAlias.EmpressHound>] |
       readonly [InSquadState<87>, InSquadState<89>, InSquadState<90>] |
       readonly [InSquadState<138>, InSquadState<140>, InSquadState<236>]

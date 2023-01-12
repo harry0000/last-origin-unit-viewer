@@ -255,7 +255,7 @@ export function matchSkillConditions(
     case OffensiveSkillEffectCondition.AntiHeavyUnitType:
       return checkAllSkillEffectDetails(actives, passives, e => !!e?.heavy_type_damage_up);
     case OffensiveSkillEffectCondition.DamageTakenIncrease:
-      return checkAllEnemyTargetSkillEffect(actives, passives, e => !!e.damage_taken_increased);
+      return checkAllEnemyTargetSkillEffect(actives, passives, e => !!e.damage_taken_increased || !!e.damage_reduction_down);
     case OffensiveSkillEffectCondition.Counterattack:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.counterattack);
     case OffensiveSkillEffectCondition.EnmityMerciless:
