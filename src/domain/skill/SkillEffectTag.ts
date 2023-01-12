@@ -82,7 +82,8 @@ export type SkillEffectTag =
   'workaholic' |
   'lucky_hit' |
   'cyclops_eternal_beam' |
-  'power_of_pureblood' |
+  'power_of_true_blood_?' |
+  'one_who_inherits_true_blood' |
   'bulk_up' |
   'maximum_pump_up' |
   'now_copy_me' |
@@ -145,6 +146,7 @@ export type SkillEffectTag =
   'power_of_true_blood_death_eye' |
   'power_of_true_blood_fate_control' |
   'power_of_true_blood_deathless' |
+  'power_overflows' |
   'assault_formation' |
   'flanking_formation' |
   'command_sharing' |

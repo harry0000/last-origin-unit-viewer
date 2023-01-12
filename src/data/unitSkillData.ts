@@ -9532,11 +9532,20 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'hit_vital_spot' }],
         details: { self: { additional_damage: { tag: 'lucky_hit', base: { milliPercentage: 100000 }, per_lv_up: { milliPercentage: 5000 }, rate: 'rate_up_by_level' } } }
       }, {
-        conditions: [{ trigger: 'hit_vital_spot', state: { self: [{ tagged: 'power_of_pureblood' }] } }],
+        conditions: [{ trigger: 'hit_vital_spot', state: { self: [{ tagged: 'power_of_true_blood_?' }] } }],
         details: {
           self: {
             ignore_barrier_dr: {},
             defense_penetration: { milliPercentage: 150000 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'one_who_inherits_true_blood' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            damage_taken_increased: { milliPercentage: 25000, term: { for_rounds: 2 } },
+            all_buff_blocking: { term: { for_rounds: 2 } }
           }
         }
       }]
@@ -9561,9 +9570,13 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'power_of_pureblood' }] } }],
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'power_of_true_blood_?' }] } }],
         target: { kind: 'enemy' },
         details: { target: { buff_removal: { effects: ['atk_up', 'cri_up'], term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'one_who_inherits_true_blood' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effect: 'ignore_barrier_dr', term: 'immediate' } } }
       }]
     }],
     passive: [{
@@ -9590,12 +9603,23 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: {
           target: {
-            cri_up: { tag: 'power_of_pureblood', base: { milliPercentage: 1500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
-            acc_up: { tag: 'power_of_pureblood', base: { milliPercentage: 2500 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
+            cri_up: { tag: 'power_of_true_blood_?', base: { milliPercentage: 1500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            acc_up: { tag: 'power_of_true_blood_?', base: { milliPercentage: 2500 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
             // FIXME: rate up for any effect activation
             activation_rate_percentage_up: { tag: 'lucky_hit', effect: 'additional_damage', base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
           }
         }
+      }]
+    }, {
+      area: 'all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        target: { kind: 'ally' },
+        details: { target: { damage_multiplier_up: { tag: 'one_who_inherits_true_blood', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'power_overflows' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { damage_multiplier_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
       }]
     }]
   },
@@ -18003,8 +18027,8 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            spd_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } }
+            atk_up: { tag: 'power_overflows', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { tag: 'power_overflows', base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } }
           }
         }
       }, {
@@ -18012,8 +18036,8 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            spd_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } }
+            atk_up: { tag: 'power_overflows', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { tag: 'power_overflows', base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } }
           }
         }
       }, {
@@ -18021,18 +18045,18 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            spd_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } }
+            atk_up: { tag: 'power_overflows', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { tag: 'power_overflows', base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } }
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'power_of_pureblood' }] } }],
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'power_of_true_blood_?' }] } }],
         target: { kind: 'ally' },
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            spd_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } },
-            defense_penetration: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+            atk_up: { tag: 'power_overflows', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { tag: 'power_overflows', base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } },
+            defense_penetration: { tag: 'power_overflows', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
           }
         }
       }, {
