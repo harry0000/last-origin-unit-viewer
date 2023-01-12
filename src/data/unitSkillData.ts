@@ -9548,6 +9548,9 @@ export const unitSkillData: UnitSkillData = {
             all_buff_blocking: { term: { for_rounds: 2 } }
           }
         }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ equipped: 'mark_of_the_dragonslayer' }], squad: { in_squad: 240 } } }],
+        details: { self: { cooperative_attack: { unit: 240, active: 1 } } }
       }]
     }, {
       damage_deal: {
@@ -9577,6 +9580,9 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'one_who_inherits_true_blood' }] } }],
         target: { kind: 'enemy' },
         details: { target: { buff_removal: { effect: 'ignore_barrier_dr', term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ equipped: 'mark_of_the_dragonslayer' }], squad: { in_squad: 240 } } }],
+        details: { self: { cooperative_attack: { unit: 240, active: 2 } } }
       }]
     }],
     passive: [{
