@@ -30,7 +30,7 @@ export function buildEffectIconSrcUrl(effect: Effect): string | undefined {
     return buildIconSrcUrl(Effect.RangeUp);
   case Effect.MinimizeDamage:
   case Effect.MinimizeDamageLessThanValue:
-    return buildIconSrcUrl(Effect.DamageReduction);
+    return buildIconSrcUrl(Effect.DamageReductionUp);
   case Effect.AreaDamageDispersionUp:
     return buildIconSrcUrl(Effect.DefUp);
   case Effect.AreaDamageDispersionDown:

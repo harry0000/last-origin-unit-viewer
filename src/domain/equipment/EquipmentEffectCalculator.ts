@@ -175,7 +175,7 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.ExpUp:
       case Effect.DefensePenetration:
       case Effect.DamageTakenIncreased:
-      case Effect.DamageReduction:
+      case Effect.DamageReductionUp:
       case Effect.Counterattack:
         return {
           [entry[0]]: {

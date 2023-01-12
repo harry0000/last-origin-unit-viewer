@@ -57,7 +57,7 @@ export const DefensiveSkillEffectCondition = {
   ColumnProtect: 'column_protect',
   TargetProtect: 'target_protect',
   Barrier: 'barrier',
-  DamageReduction: 'damage_reduction',
+  DamageReductionUp: 'damage_reduction_up',
   MinimizeOrNullifyDamage: 'minimize_or_nullify_damage',
   DefensePenetrationResist: 'defense_penetration_resist',
   BattleContinuation: 'battle_continuation'
@@ -268,8 +268,8 @@ export function matchSkillConditions(
       return checkAllSkillEffect(actives, passives, e => 'target' in e.details && !!e.details.target?.target_protect);
     case DefensiveSkillEffectCondition.Barrier:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.barrier);
-    case DefensiveSkillEffectCondition.DamageReduction:
-      return checkAllSkillEffectDetails(actives, passives, e => !!e.damage_reduction);
+    case DefensiveSkillEffectCondition.DamageReductionUp:
+      return checkAllSkillEffectDetails(actives, passives, e => !!e.damage_reduction_up);
     case DefensiveSkillEffectCondition.MinimizeOrNullifyDamage:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.minimize_damage || !!e.nullify_damage);
     case DefensiveSkillEffectCondition.DefensePenetrationResist:

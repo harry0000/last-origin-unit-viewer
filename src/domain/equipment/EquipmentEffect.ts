@@ -57,7 +57,7 @@ export type MilliPercentageEffectKey = typeof Effect[
   'ExpUp' |
   'DefensePenetration' |
   'DamageTakenIncreased' |
-  'DamageReduction' |
+  'DamageReductionUp' |
   'Counterattack'
 ]
 export type MicroValueEffectKey = typeof Effect.ApUp

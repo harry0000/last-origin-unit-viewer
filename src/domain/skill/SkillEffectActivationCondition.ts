@@ -66,9 +66,9 @@ type AffectedByActivationState =
 type NotAffectedActivationState =
   Readonly<{
     [EffectActivationState.NotAffected]?:
-      readonly [typeof Effect.DefUp, typeof Effect.DamageReduction] |
+      readonly [typeof Effect.DefUp, typeof Effect.DamageReductionUp] |
       readonly [typeof Effect.SpdUp] |
-      readonly [typeof Effect.DamageReduction] |
+      readonly [typeof Effect.DamageReductionUp] |
       readonly [typeof Effect.BattleContinuation] |
       readonly [typeof Effect.RowProtect] |
       readonly [typeof Effect.Marked]
@@ -105,7 +105,7 @@ const AffectedSkillEffect = [
   Effect.DamageMultiplierUp,
   Effect.DefensePenetration,
   Effect.DamageTakenIncreased,
-  Effect.DamageReduction,
+  Effect.DamageReductionUp,
   Effect.MinimizeDamage,
   Effect.Barrier,
   Effect.TargetProtect,
