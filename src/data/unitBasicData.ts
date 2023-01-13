@@ -1112,6 +1112,13 @@ export const unitBasicData = {
     type: 'light',
     role: 'attacker'
   },
+  240: {
+    no: 240,
+    kind: 'bioroid',
+    rank: 'ss',
+    type: 'light',
+    role: 'supporter'
+  },
   251: {
     no: 251,
     kind: 'bioroid',

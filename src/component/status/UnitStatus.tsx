@@ -20,7 +20,7 @@ const UnitStatus: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
       css={{
         userSelect: 'none',
         overflowY: 'hidden',
-        padding: '0 5px 5px',
+        padding: 5,
         '& > *:not(:first-of-type)': {
           marginTop: 10
         }
@@ -32,7 +32,7 @@ const UnitStatus: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
       <UnitEquipmentView />
       <UnitCoreLinkView />
       <UnitFullLinkView />
-      <div css={{ '& > *:not(:first-of-type)': { marginTop: 10 } }}>
+      <div css={{ '& > :not(:first-of-type)': { marginTop: 10 } }}>
         <AffectionBonusSelector />
         <DamagedStateSelector />
       </div>

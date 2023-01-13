@@ -3886,6 +3886,27 @@ export const unitStatusData: UnitStatusData = {
     iceResist: { milliPercentage: 0 },
     electricResist: { milliPercentage: 0 }
   },
+  240: {
+    hp: {
+      1: { value: 157 },
+      90: { value: 1688 }
+    },
+    atk: {
+      1: { milliValue: 60000 },
+      90: { milliValue: 674000 }
+    },
+    def: {
+      1: { milliValue: 6000 },
+      90: { milliValue: 158000 }
+    },
+    acc: { milliPercentage: 155000 },
+    eva: { milliPercentage: 0 },
+    cri: { milliPercentage: 16000 },
+    spd: { microValue: 4270000 },
+    fireResist: { milliPercentage: 0 },
+    iceResist: { milliPercentage: 0 },
+    electricResist: { milliPercentage: 0 }
+  },
   251: {
     hp: {
       1: { value: 230 },

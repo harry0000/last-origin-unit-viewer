@@ -400,6 +400,7 @@ class BattleEffectSimulator {
 
             if (isAllyUnitTargetSkillEffect(effect)) {
               const hasNoTargetState = !('target' in state);
+              const hasSelfEffect = 'self' in effect.details && effect.details.self;
               const targetUnits =
                 squadUnits
                   .filter(target =>
@@ -410,8 +411,12 @@ class BattleEffectSimulator {
               const matchedAnyUnit =
                 targetUnits.some(target => target.appliedEffects.matchTargetAffectedState(state));
 
-              if (hasNoTargetState || matchedAnyUnit) {
-                if ('self' in effect.details && effect.details.self) {
+              if (
+                hasNoTargetState ||
+                !hasSelfEffect ||
+                matchedAnyUnit // Effects on self must meet target conditions.
+              ) {
+                if (hasSelfEffect) {
                   unit.appliedEffects.applySkillEffects(effect.details.self, type, affected_by, scaled);
                 }
 

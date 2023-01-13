@@ -81,7 +81,9 @@ export type SkillEffectTag =
   'new_blasting_tool' |
   'workaholic' |
   'lucky_hit' |
-  'power_of_pureblood' |
+  'cyclops_eternal_beam' |
+  'power_of_true_blood_?' |
+  'one_who_inherits_true_blood' |
   'bulk_up' |
   'maximum_pump_up' |
   'now_copy_me' |
@@ -140,6 +142,11 @@ export type SkillEffectTag =
   'form_change_preparation' |
   'falcon_form' |
   'human_form' |
+  'eternal_true_bloods_flash' |
+  'power_of_true_blood_death_eye' |
+  'power_of_true_blood_fate_control' |
+  'power_of_true_blood_deathless' |
+  'power_overflows' |
   'assault_formation' |
   'flanking_formation' |
   'command_sharing' |

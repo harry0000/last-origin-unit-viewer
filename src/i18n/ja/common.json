@@ -19,21 +19,20 @@
       }
     },
     "unit_detail_condition": "詳細条件",
-    "empty_condition": "なし",
-    "active_skill_condition": "アクティブスキル",
-    "status_skill_effect_condition": "ステータス系スキル効果",
-    "offensive_skill_effect_condition": "攻撃系スキル効果",
-    "defensive_skill_effect_condition": "防御系スキル効果",
-    "other_skill_effect_condition": "その他のスキル効果",
-    "core_link_bonus_condition": "コアリンクボーナス",
-    "full_link_bonus_condition": "フルリンクボーナス",
-    "rank_up_condition": "昇級キャラクター",
     "active_skill_conditions": {
       "fire_active": "火炎属性攻撃",
       "ice_active": "冷気属性攻撃",
       "electric_active": "電気属性攻撃",
-      "ignore_protect": "保護無視",
-      "area_of_effect": "範囲攻撃"
+      "ignore_protect": "保護無視"
+    },
+    "active_skill_area_conditions": {
+      "2_x_2": "2 x 2",
+      "fan_shape": "扇形",
+      "diagonal": "対角",
+      "cross": "十字",
+      "row": "行範囲",
+      "column": "列範囲",
+      "all": "全体"
     },
     "skill_effect_conditions": {
       "atk_up": "攻撃Up",
@@ -72,7 +71,7 @@
       "column_protect": "列保護",
       "target_protect": "指定保護",
       "barrier": "バリア",
-      "damage_reduction": "被ダメージDown",
+      "damage_reduction_up": "被ダメージ減少",
       "minimize_or_nullify_damage": "被ダメージ最小化/無効",
       "defense_penetration_resist": "防御貫通耐性",
       "battle_continuation": "戦闘続行",
@@ -133,6 +132,26 @@
     "unit_status_tab": {
       "in_orca": "オルカ内",
       "in_squad": "分隊内 (戦闘開始時)"
+    }
+  },
+  "filter": {
+    "active_skill": "アクティブスキル",
+    "active_skill_area": "アクティブスキル攻撃範囲",
+    "status_skill_effect": "ステータス系スキル効果",
+    "offensive_skill_effect": "攻撃系スキル効果",
+    "defensive_skill_effect": "防御系スキル効果",
+    "other_skill_effect": "その他のスキル効果",
+    "core_link_bonus": "コアリンクボーナス",
+    "full_link_bonus": "フルリンクボーナス",
+    "rank_up": "昇級キャラクター",
+    "badge": {
+      "empty": "なし",
+      "active_skill": "$t(form.active_skill_conditions.{{condition}})",
+      "active_skill_area": "攻撃範囲 : $t(form.active_skill_area_conditions.{{condition}})",
+      "skill_effect": "$t(form.skill_effect_conditions.{{condition}})",
+      "core_link_bonus": "$t(status.core_link_bonus) : $t(form.core_link_bonus_conditions.{{condition}})",
+      "full_link_bonus": "$t(status.full_link_bonus) : $t(form.full_link_bonus_conditions.{{condition}})",
+      "rank_up": "$t(form.rank_up_conditions.{{condition}})"
     }
   },
   "unit": {
@@ -291,6 +310,7 @@
     }
   },
   "damaged_state": "中破状態",
+  "affection_state": "誓約状態",
   "form_change": "モードチェンジ",
   "empty": "―",
   "notification": {

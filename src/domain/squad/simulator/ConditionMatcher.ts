@@ -439,7 +439,9 @@ function pickTaggedEffects(
 }
 
 function matchNotAffected(
-  state: NonNullable<ActivationTargetState[typeof EffectActivationState.NotAffected]>,
+  state:
+    NonNullable<ActivationSelfState[typeof EffectActivationState.NotAffected]> |
+    NonNullable<ActivationTargetState[typeof EffectActivationState.NotAffected]>,
   affected: ReadonlyArray<BattleEffect>
 ): boolean {
   const effects = pickEffects(affected);
@@ -457,10 +459,12 @@ function matchAffected(
 }
 
 function matchTagged(
-  state: SkillEffectTag,
+  state: SkillEffectTag | ReadonlyArray<SkillEffectTag>,
   affected: ReadonlyArray<BattleEffect>
 ): boolean {
-  return affected.some(({ value }) => 'tag' in value && value.tag === state);
+  return isReadonlyArray(state) ?
+    state.every(tag => affected.some(({ value }) => 'tag' in value && value.tag === tag)) :
+    affected.some(({ value }) => 'tag' in value && value.tag === state);
 }
 
 function matchTaggedAffected(

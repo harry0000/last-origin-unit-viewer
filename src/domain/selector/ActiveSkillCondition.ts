@@ -1,5 +1,4 @@
 import { DamageAttribute, UnitSkillData } from '../skill/UnitSkillData';
-import { SkillAreaType } from '../skill/SkillAreaOfEffect';
 import { UnitNumber } from '../UnitBasicInfo';
 
 import { extractAllActiveSkills, extractEffectsData } from './SkillDataExtractor';
@@ -8,8 +7,7 @@ export const ActiveSkillCondition = {
   FireActive: 'fire_active',
   IceActive: 'ice_active',
   ElectricActive: 'electric_active',
-  IgnoreProtect: 'ignore_protect',
-  AreaOfEffect: 'area_of_effect'
+  IgnoreProtect: 'ignore_protect'
 } as const;
 export type ActiveSkillCondition = typeof ActiveSkillCondition[keyof typeof ActiveSkillCondition]
 
@@ -44,8 +42,6 @@ export function matchActiveSkillConditions(
       return actives.some(as =>
         extractEffectsData(as).some(e => 'self' in e.details && !!e.details.self?.ignore_protect)
       );
-    case ActiveSkillCondition.AreaOfEffect:
-      return actives.some(as => 'damage_deal' in as && as.area !== SkillAreaType.Single);
     }
   });
 }

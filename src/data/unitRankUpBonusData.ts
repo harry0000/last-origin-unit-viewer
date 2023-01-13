@@ -735,6 +735,13 @@ export const unitRankUpBonusData = {
       def_up: { milliValue: 8000 },
       cri_up: { milliPercentage: 2000 },
       acc_up: { milliPercentage: 5000 }
+    },
+    ss: {
+      hp_up: { value: 115 },
+      atk_up: { milliValue: 75000 },
+      def_up: { milliValue: 10000 },
+      cri_up: { milliPercentage: 1000 },
+      acc_up: { milliPercentage: 5000 }
     }
   },
   119: {

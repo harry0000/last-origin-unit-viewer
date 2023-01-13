@@ -25,7 +25,8 @@ export type SpecificCoreLinkBonus =
   Readonly<{ [Effect.SpdUp]: { [key in keyof MicroValue]: 20_000 } }> |
   GoltarionSpecificCoreLinkBonus
 
-type GoltarionCoreLinkBonus =
+// for Goltarion & Cyclops Princess
+type ExceptHpCoreLinkBonus =
   Readonly<{
     [key in keyof Omit<CommonCoreLinkBonus, typeof Effect.HpUp>]: MilliPercentageValue
   }> &
@@ -44,7 +45,7 @@ export type CoreLinkBonus =
     Readonly<{ [Effect.EvaUp]: MilliPercentageValue }> |
     Readonly<{ [Effect.SpdUp]: MicroValue }>
   ) |
-  GoltarionCoreLinkBonus
+  ExceptHpCoreLinkBonus
 
 export type SortieCostBonus = Readonly<{
   sortie_cost: { [key in keyof MilliPercentageValue]: 20_000 | 25_000 }

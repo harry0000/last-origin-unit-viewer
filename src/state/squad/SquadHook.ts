@@ -10,8 +10,8 @@ import { UnitBasicInfo, UnitType } from '../../domain/UnitBasicInfo';
 
 import { SquadJsonStructure } from '../../service/SquadJsonStructure';
 import { convertToJsonObject } from '../../service/SquadJsonConverter';
-import { generateShareUrl, generateTwitterShareUrl, squadUrlParamName } from '../../service/ShareUrlGenerator';
-import { restore, UrlSafeBase64String } from '../../service/UrlParamConverter';
+import { generateShareUrl, generateTwitterShareUrl, getSquadParam } from '../../service/ShareUrlGenerator';
+import { restore } from '../../service/UrlParamConverter';
 import { restoreFromJsonObject } from '../../service/SquadJsonRestore';
 
 import {
@@ -44,8 +44,13 @@ export const ItemType = {
 export type ItemType = typeof ItemType[keyof typeof ItemType]
 
 const squadShareModalShowState = atom<boolean>({
-  key: 'squadShareModalShowState',
+  key: 'SquadHook_squadShareModalShowState',
   default: false
+});
+
+const squadShareUrlState = atom<string>({
+  key: 'SquadHook_squadShareUrlState',
+  default: ''
 });
 
 export function useSquadUnitTypeCount(type: UnitType): number {
@@ -69,7 +74,7 @@ export function useUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
   // https://github.com/react-dnd/react-dnd/issues/2612#issuecomment-646756506
   useEffect(() => {
     previewRef(getEmptyImage(), { captureDraggingState: true });
-  }, []);
+  }, [previewRef]);
 
   return dragRef;
 }
@@ -87,7 +92,7 @@ export function useSquadUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
   // https://github.com/react-dnd/react-dnd/issues/2612#issuecomment-646756506
   useEffect(() => {
     previewRef(getEmptyImage(), { captureDraggingState: true });
-  }, []);
+  }, [previewRef]);
 
   return dragRef;
 }
@@ -193,28 +198,17 @@ function useSquadJson(): () => SquadJsonStructure | undefined {
 }
 
 export function useSquadShareModalOpener(): () => void {
-  const setModalShow = useSetRecoilState(squadShareModalShowState);
+  const getSquadJson = useSquadJson();
   const notify = useNotificationResister();
+
+  const setModalShow = useSetRecoilState(squadShareModalShowState);
+  const setShareUrl = useSetRecoilState(squadShareUrlState);
 
   return useRecoilCallback((cbi) => () => {
     const squadUnitCount = getSquadUnitCount(cbi)();
     if (squadUnitCount !== 0) {
       setModalShow(true);
-    } else {
-      notify('squad_is_empty');
-    }
-  });
-}
 
-export function useSquadShareModal(): [modalShow: boolean, hideModal: () => void, url: string | undefined] {
-  const notify = useNotificationResister();
-  const getSquadJson = useSquadJson();
-  const [modalShow, setModalShow] = useRecoilState(squadShareModalShowState);
-
-  const [shareUrl, setShareUrl] = useState<string>('');
-
-  useEffect(() => {
-    if (modalShow) {
       const squadJson = getSquadJson();
       if (squadJson) {
         generateShareUrl(squadJson)
@@ -228,13 +222,21 @@ export function useSquadShareModal(): [modalShow: boolean, hideModal: () => void
           });
       }
     } else {
-      setShareUrl('');
+      notify('squad_is_empty');
     }
-  }, [modalShow]);
+  });
+}
+
+export function useSquadShareModal(): [modalShow: boolean, hideModal: () => void, url: string | undefined] {
+  const [modalShow, setModalShow] = useRecoilState(squadShareModalShowState);
+  const [shareUrl, setShareUrl] = useRecoilState(squadShareUrlState);
 
   return [
     modalShow,
-    () => { setModalShow(false); },
+    () => {
+      setModalShow(false);
+      setShareUrl('');
+    },
     shareUrl
   ];
 }
@@ -286,14 +288,15 @@ export function useSquadRestoreFromUrl(): boolean {
   const damagedRestore = useRecoilCallback(restoreUnitDamagedState);
 
   const history = useHistory();
-  const squadParam = new URLSearchParams(useLocation().search).get(squadUrlParamName);
+  const location = useLocation();
 
   useEffect(() => {
+    const squadParam = getSquadParam(location);
     if (squadParam) {
       setRestoring(true);
 
       try {
-        const json = restore(squadParam as UrlSafeBase64String);
+        const json = restore(squadParam);
         const restored = restoreFromJsonObject(json);
         if (restored) {
           lvStateRestore(restored.lvStatus);
@@ -319,7 +322,22 @@ export function useSquadRestoreFromUrl(): boolean {
       setRestoring(false);
       history.replace(`${process.env.PUBLIC_URL}/`);
     }
-  }, [history, squadParam]);
+  }, [
+    history,
+    location,
+    notify,
+    selectUnit,
+    squadRestore,
+    lvStateRestore,
+    chip1Restore,
+    chip2Restore,
+    osRestore,
+    gearRestore,
+    coreLinkRestore,
+    skillRestore,
+    affectionRestore,
+    damagedRestore
+  ]);
 
   return restoring;
 }

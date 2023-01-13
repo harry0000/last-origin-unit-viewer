@@ -37,9 +37,9 @@ const UnitDetailTabItem: React.FC<{
 
 const UnitSkillList = React.lazy(() => import('../skill/UnitSkillList'));
 
-const UnitDetailView: React.FC<{ className: string }> = ({ className }) => {
+const UnitDetailView: React.FC = () => {
   return (
-    <div className={className}>
+    <div>
       <UnitBasicInfoView />
       <Tab.Container
         id="unit-detail-view-tab-container"

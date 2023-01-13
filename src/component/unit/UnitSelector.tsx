@@ -10,6 +10,12 @@ import UnitDetailConditionsSelector from './UnitDetailConditionsSelector';
 import { UnitRank, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
 import { useUnitRankSelector, useUnitRoleSelector, useUnitTypeSelector } from '../../state/selector/UnitSelectorHook';
 
+const buttonMargin = {
+  '& > :not(:first-of-type)': {
+    marginLeft: 4
+  }
+} as const;
+
 const UnitRankSelectorButton: React.FC<{ rank: UnitRank }> = ({ rank }) => {
   const { t } = useTranslation();
   const [selected, toggle] = useUnitRankSelector(rank);
@@ -52,28 +58,28 @@ const UnitRoleSelectorButton: React.FC<{ role: UnitRole }> = ({ role }) => {
   );
 };
 
-const UnitSelector: React.FC<{ className?: string }> = (props) => {
+const UnitSelector: React.FC = () => {
   return (
     <div
-      {...props}
       css={{
         display: 'grid',
         gridGap: 3,
-        gridTemplateRows: 'repeat(3, auto)'
+        gridTemplateRows: 'repeat(3, auto)',
+        padding: '5px 5px 0'
       }}
     >
-      <div>
+      <div css={buttonMargin}>
         <UnitRankSelectorButton rank={UnitRank.SS} />
         <UnitRankSelectorButton rank={UnitRank.S} />
         <UnitRankSelectorButton rank={UnitRank.A} />
         <UnitRankSelectorButton rank={UnitRank.B} />
       </div>
-      <div>
+      <div css={buttonMargin}>
         <UnitTypeSelectorButton type={UnitType.Light} />
         <UnitTypeSelectorButton type={UnitType.Flying} />
         <UnitTypeSelectorButton type={UnitType.Heavy} />
       </div>
-      <div>
+      <div css={buttonMargin}>
         <UnitRoleSelectorButton role={UnitRole.Attacker} />
         <UnitRoleSelectorButton role={UnitRole.Defender} />
         <UnitRoleSelectorButton role={UnitRole.Supporter} />

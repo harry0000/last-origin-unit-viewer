@@ -11,9 +11,7 @@ function useLazyInterval(callback: () => void, lazy: number, interval: number | 
 
   useEffect(() => {
     savedCallback.current = callback;
-  }, [callback]);
 
-  useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
     let intervalId: ReturnType<typeof setInterval> | undefined;
 
@@ -31,7 +29,7 @@ function useLazyInterval(callback: () => void, lazy: number, interval: number | 
     }
 
     return cleatTimers;
-  }, [lazy, interval]);
+  }, [callback, lazy, interval]);
 }
 
 const AutoFireButton: React.FC<{
@@ -45,7 +43,7 @@ const AutoFireButton: React.FC<{
   useEffect(() => { setMouseDown(false); }, [disabled]);
 
   useLazyInterval(
-    () => { onClick(); },
+    onClick,
     750,
     disabled !== true && isMouseDown ? 20 : undefined
   );

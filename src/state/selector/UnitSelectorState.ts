@@ -1,5 +1,6 @@
 import { atom, atomFamily, CallbackInterface, RecoilValueReadOnly, selector } from 'recoil';
 
+import { ActiveSkillAreaOfEffectCondition } from '../../domain/selector/ActiveSkillAreaOfEffectCondition';
 import { ActiveSkillCondition } from '../../domain/selector/ActiveSkillCondition';
 import { CoreLinkBonusCondition, FullLinkBonusCondition } from '../../domain/selector/CoreLinkBonusCondition';
 import {
@@ -29,10 +30,11 @@ const _unitSelected = atomFamily<boolean, UnitNumber>({ key: 'UnitSelectorState_
 
 const _conditionSelected = {
   basicInfo: atomFamily<boolean, UnitRank | UnitType | UnitRole>({ key: 'UnitSelectorState_conditionSelected_basicInfo', default: true }),
-  skill:     atomFamily<boolean, ActiveSkillCondition | SkillEffectCondition>({ key: 'UnitSelectorState_selectedCondition_skill', default: false }),
-  coreLink:  atomFamily<boolean, CoreLinkBonusCondition | undefined>({ key: 'UnitSelectorState_selectedCondition_coreLink', default: (cond) => !cond }),
-  fullLink:  atomFamily<boolean, FullLinkBonusCondition | undefined>({ key: 'UnitSelectorState_selectedCondition_fullLink', default: (cond) => !cond }),
-  rankUp:    atomFamily<boolean, RankUpCondition | undefined>({ key: 'UnitSelectorState_selectedCondition_rankUp', default: (cond) => !cond })
+  skill:     atomFamily<boolean, ActiveSkillCondition | SkillEffectCondition>({ key: 'UnitSelectorState_conditionSelected_skill', default: false }),
+  skillArea: atomFamily<boolean, ActiveSkillAreaOfEffectCondition | undefined>({ key: 'UnitSelectorState_conditionSelected_skillArea', default: (cond) => !cond }),
+  coreLink:  atomFamily<boolean, CoreLinkBonusCondition | undefined>({ key: 'UnitSelectorState_conditionSelected_coreLink', default: (cond) => !cond }),
+  fullLink:  atomFamily<boolean, FullLinkBonusCondition | undefined>({ key: 'UnitSelectorState_conditionSelected_fullLink', default: (cond) => !cond }),
+  rankUp:    atomFamily<boolean, RankUpCondition | undefined>({ key: 'UnitSelectorState_conditionSelected_rankUp', default: (cond) => !cond })
 };
 
 function _update(valueOrUpdater: ValueOrUpdater<UnitSelector>): (cbi: CallbackInterface) => void {
@@ -58,9 +60,14 @@ function _update(valueOrUpdater: ValueOrUpdater<UnitSelector>): (cbi: CallbackIn
     Object.values(UnitRole).forEach(role => {
       set(_conditionSelected.basicInfo(role), nextValue.isRoleSelected(role));
     });
+
     Object.values(ActiveSkillCondition).forEach(condition => {
       set(_conditionSelected.skill(condition), nextValue.isActiveSkillConditionSelected(condition));
     });
+    [undefined, ...Object.values(ActiveSkillAreaOfEffectCondition)].forEach(condition => {
+      set(_conditionSelected.skillArea(condition), nextValue.activeSkillArea === condition);
+    });
+
     Object.values(StatusSkillEffectCondition).forEach(condition => {
       set(_conditionSelected.skill(condition), nextValue.isSkillEffectSelected(condition));
     });
@@ -101,6 +108,8 @@ export const typeSelectedState = (type: UnitType): RecoilValueReadOnly<boolean> 
 export const roleSelectedState = (role: UnitRole): RecoilValueReadOnly<boolean> => _conditionSelected.basicInfo(role);
 
 export const activeSkillSelectedState = (cond: ActiveSkillCondition): RecoilValueReadOnly<boolean> => _conditionSelected.skill(cond);
+export const activeSkillAreaSelectedState = (cond: ActiveSkillAreaOfEffectCondition | undefined): RecoilValueReadOnly<boolean> => _conditionSelected.skillArea(cond);
+
 export const skillEffectSelectedState = (cond: SkillEffectCondition): RecoilValueReadOnly<boolean> => _conditionSelected.skill(cond);
 export const coreLinkSelectedState = (cond: CoreLinkBonusCondition | undefined): RecoilValueReadOnly<boolean> => _conditionSelected.coreLink(cond);
 export const fullLinkSelectedState = (cond: FullLinkBonusCondition | undefined): RecoilValueReadOnly<boolean> => _conditionSelected.fullLink(cond);
@@ -125,6 +134,10 @@ export const toggleUnitRole = (role: UnitRole) => (cbi: CallbackInterface) => ()
 
 export const toggleActiveSkillCondition = (cond: ActiveSkillCondition) => (cbi: CallbackInterface) => (): void => {
   _update(s => s.toggleActiveSkillCondition(cond))(cbi);
+};
+
+export const selectActiveSkillAreaCondition = (cond: ActiveSkillAreaOfEffectCondition | undefined) => (cbi: CallbackInterface) => (): void => {
+  _update(s => s.selectActiveSkillAreaCondition(cond))(cbi);
 };
 
 export const toggleSkillEffectCondition = (cond: SkillEffectCondition) => (cbi: CallbackInterface) => (): void => {

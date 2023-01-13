@@ -28,10 +28,10 @@ const MainContainer: React.FC = () => {
         className='main'
         ref={dropRef}
       >
-        <UnitSelector className='main-content' />
-        <UnitList className='main-content' />
-        <SquadView className='main-content' />
-        <UnitDetailView className='main-content' />
+        <div className="main-content"><UnitSelector /></div>
+        <div className="main-content"><UnitList /></div>
+        <div className="main-content"><SquadView /></div>
+        <div className="main-content"><UnitDetailView /></div>
       </main>
       <UnitDragPreview />
       <ToastNotifier />

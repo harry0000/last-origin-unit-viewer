@@ -8,6 +8,10 @@
 .main .main-content {
   width: 100%;
   max-width: 768px;
-  margin: 10px auto 0;
   overflow-x: hidden;
+  margin: 0 auto;
+}
+
+.main .main-content:not(:first-of-type) {
+  margin-top: 10px;
 }

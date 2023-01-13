@@ -6,6 +6,7 @@ import {
   UnitSkillData
 } from '../skill/UnitSkillData';
 import { FormChangeUnits } from '../UnitFormValue';
+import { SkillAreaType } from '../skill/SkillAreaOfEffect';
 import { SkillEffectsAsEquipmentEffect } from '../skill/SkillEffectData';
 import { UnitNumber } from '../UnitBasicInfo';
 
@@ -97,6 +98,16 @@ export function extractAllPassiveSkills(skill: UnitSkillData[UnitNumber]): Reado
   default:
     return skill.passive;
   }
+}
+
+export function extractSkillAreaOfEffect(
+  skill: ActiveSkillData | ActiveSkillDataAsEquipmentEffect | PassiveSkillData | PassiveSkillDataAsEquipmentEffect
+): SkillAreaType {
+  return typeof skill.area === 'string' ?
+    skill.area :
+    '10' in skill.area ?
+      skill.area[10] :
+      skill.area[5];
 }
 
 function isSkillEffectsDataAsEquipmentEffect<

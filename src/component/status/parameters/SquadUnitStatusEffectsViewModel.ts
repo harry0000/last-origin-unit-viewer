@@ -97,6 +97,17 @@ export type SquadUnitStatusEffectDetails = {
   effect: UnitStatusEffectValue
 }
 
+function canUseTagAsSource(effect: BattleEffect['effect']): boolean {
+  switch (effect) {
+  case Effect.TagStack:
+  case Effect.ActivationRatePercentageUp:
+  case Effect.AbsolutelyActivated:
+    return false;
+  default:
+    return true;
+  }
+}
+
 function getSkillName(
   affectedBy: Extract<BattleEffect['affected_by'], { type: 'ally' }>
 ): EffectLabel {
@@ -111,8 +122,8 @@ function getSkillName(
   };
 }
 
-function buildSourceOfEffectLabel({ value, affected_by }: BattleEffect): EffectLabel {
-  return 'tag' in value ?
+function buildSourceOfEffectLabel({ effect, value, affected_by }: BattleEffect): EffectLabel {
+  return 'tag' in value && canUseTagAsSource(effect) ?
     { type: 'tag', key: `effect:tag.${value.tag}` } :
     affected_by.type === 'equipment' ?
       { type: 'name', key: `equipment:${affected_by.id}` } :

@@ -1,18 +1,19 @@
-import { ActiveSkillCondition, matchActiveSkillConditions } from './ActiveSkillCondition';
 import {
-  SkillEffectCondition,
-  matchSkillConditions
-} from './SkillEffectCondition';
-import { UnitBasicData, UnitBasicInfo, UnitRank, UnitRole, UnitType } from '../UnitBasicInfo';
-import { UnitSkillData } from '../skill/UnitSkillData';
+  ActiveSkillAreaOfEffectCondition,
+  matchActiveSkillAreaOfEffectConditions
+} from './ActiveSkillAreaOfEffectCondition';
+import { ActiveSkillCondition, matchActiveSkillConditions } from './ActiveSkillCondition';
 import {
   CoreLinkBonusCondition,
   FullLinkBonusCondition,
   matchCoreLinkBonusConditions
 } from './CoreLinkBonusCondition';
+import { RankUpCondition, matchRankUpConditions } from './RankUpCondition';
+import { SkillEffectCondition, matchSkillConditions } from './SkillEffectCondition';
+import { UnitBasicData, UnitBasicInfo, UnitRank, UnitRole, UnitType } from '../UnitBasicInfo';
 import { UnitCoreLinkBonusData } from '../UnitCoreLinkBonusData';
-import { matchRankUpConditions, RankUpCondition } from './RankUpCondition';
 import { UnitRankUpBonusData } from '../status/UnitRankUpBonusData';
+import { UnitSkillData } from '../skill/UnitSkillData';
 
 function toggleSelector<T>(values: ReadonlySet<T>, value: T): ReadonlySet<T> {
   const newValues = new Set(values);
@@ -32,6 +33,7 @@ class UnitSelector {
       new Set<UnitType>(['light', 'heavy', 'flying']),
       new Set<UnitRole>(['attacker', 'defender', 'supporter']),
       new Set(),
+      undefined,
       new Set(),
       undefined,
       undefined,
@@ -44,6 +46,7 @@ class UnitSelector {
   readonly #types: ReadonlySet<UnitType>;
   readonly #roles: ReadonlySet<UnitRole>;
   readonly #activeSkills: ReadonlySet<ActiveSkillCondition>;
+  readonly activeSkillArea: ActiveSkillAreaOfEffectCondition | undefined;
   readonly #skillEffects: ReadonlySet<SkillEffectCondition>;
   readonly coreLinkBonus: CoreLinkBonusCondition | undefined;
   readonly fullLinkBonus: FullLinkBonusCondition | undefined;
@@ -55,6 +58,7 @@ class UnitSelector {
     types: ReadonlySet<UnitType>,
     roles: ReadonlySet<UnitRole>,
     activeSkills: ReadonlySet<ActiveSkillCondition>,
+    activeSkillArea: ActiveSkillAreaOfEffectCondition | undefined,
     skillEffects: ReadonlySet<SkillEffectCondition>,
     coreLinkBonus: CoreLinkBonusCondition | undefined,
     fullLinkBonus: FullLinkBonusCondition | undefined,
@@ -65,6 +69,7 @@ class UnitSelector {
     this.#types = types;
     this.#roles = roles;
     this.#activeSkills = activeSkills;
+    this.activeSkillArea = activeSkillArea;
     this.#skillEffects = skillEffects;
     this.coreLinkBonus = coreLinkBonus;
     this.fullLinkBonus = fullLinkBonus;
@@ -77,6 +82,7 @@ class UnitSelector {
     types?: ReadonlySet<UnitType>,
     roles?: ReadonlySet<UnitRole>,
     activeSkills?: ReadonlySet<ActiveSkillCondition>,
+    activeSkillArea?: ActiveSkillAreaOfEffectCondition | undefined,
     skillEffects?: ReadonlySet<SkillEffectCondition>,
     coreLinkBonus?: CoreLinkBonusCondition | undefined,
     fullLinkBonus?: FullLinkBonusCondition | undefined,
@@ -88,6 +94,7 @@ class UnitSelector {
       types: values.types ?? this.#types,
       roles: values.roles ?? this.#roles,
       activeSkills: values.activeSkills ?? this.#activeSkills,
+      activeSkillArea: 'activeSkillArea' in values ? values.activeSkillArea : this.activeSkillArea,
       skillEffects: values.skillEffects ?? this.#skillEffects,
       coreLinkBonus: 'coreLinkBonus' in values ? values.coreLinkBonus : this.coreLinkBonus,
       fullLinkBonus: 'fullLinkBonus' in values ? values.fullLinkBonus : this.fullLinkBonus,
@@ -100,6 +107,7 @@ class UnitSelector {
       newValues.types,
       newValues.roles,
       newValues.activeSkills,
+      newValues.activeSkillArea,
       newValues.skillEffects,
       newValues.coreLinkBonus,
       newValues.fullLinkBonus,
@@ -132,6 +140,13 @@ class UnitSelector {
   toggleActiveSkillCondition(condition: ActiveSkillCondition): UnitSelector {
     return this.#updateStore({
       activeSkills: toggleSelector(this.#activeSkills, condition),
+      selectedUnit: undefined
+    });
+  }
+
+  selectActiveSkillAreaCondition(activeSkillArea: ActiveSkillAreaOfEffectCondition | undefined): UnitSelector {
+    return this.#updateStore({
+      activeSkillArea,
       selectedUnit: undefined
     });
   }
@@ -199,6 +214,7 @@ class UnitSelector {
     return Object.values(units).filter(unit =>
       this.#matchUnit(unit) &&
       matchActiveSkillConditions(skills[unit.no], this.#activeSkills) &&
+      matchActiveSkillAreaOfEffectConditions(skills[unit.no], this.activeSkillArea) &&
       matchSkillConditions(skills[unit.no], this.#skillEffects) &&
       matchCoreLinkBonusConditions(coreLinkBonuses[unit.no], this.coreLinkBonus, this.fullLinkBonus) &&
       matchRankUpConditions(unit.no, rankUpBonuses, this.rankUpCondition)
