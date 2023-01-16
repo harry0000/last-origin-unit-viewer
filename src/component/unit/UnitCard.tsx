@@ -29,9 +29,14 @@ const Badge: React.FC<{ rank: UnitRank, role: UnitRole }> = React.memo(({ rank, 
   );
 });
 
+function includedInFirstView(unit: UnitBasicInfo): boolean {
+  return unit.no <= 26;
+}
+
 const UnitCard: React.FC<{ unit: UnitBasicInfo }> = React.memo(({ unit }) => {
   const [unitName, selected, selectUnit] = useUnit(unit);
   const dragRef = useUnitDrag(unit);
+  const loading = includedInFirstView(unit) ? undefined : 'lazy';
 
   return (
     <OverlayTrigger
@@ -45,7 +50,7 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = React.memo(({ unit }) => {
       >
         <Image
           rounded
-          loading="lazy"
+          loading={loading}
           draggable="false"
           height={80}
           width={80}
