@@ -95,7 +95,13 @@ function stateValuesView(
     } else if ('equal' in entry[1]) {
       return t('effect:condition.state.tag_stack_eq', entry[1]);
     } else {
-      return t('effect:condition.state.tag_stack_ge', entry[1]);
+      const { tag, greater_or_equal } = entry[1];
+      if (isReadonlyArray(tag)) {
+        const tags = tag.map(tagKey => t('effect:tag.format', { tag: tagKey })).join(t('effect:or_symbolic_separator'));
+        return t('effect:condition.state.tags_stack_ge', { tags, greater_or_equal });
+      } else {
+        return t('effect:condition.state.tag_stack_ge', { tag, greater_or_equal });
+      }
     }
   case EffectActivationState.Form:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { form: entry[1] })}</span>);

@@ -18075,13 +18075,7 @@ export const unitSkillData: UnitSkillData = {
       equipment_effects: [{
         conditions: [{
           trigger: 'hit',
-          state: {
-            self: [
-              { tagged: ['power_of_true_blood_death_eye',    'power_of_true_blood_fate_control'] },
-              { tagged: ['power_of_true_blood_fate_control', 'power_of_true_blood_deathless'] },
-              { tagged: ['power_of_true_blood_death_eye',    'power_of_true_blood_deathless'] }
-            ]
-          }
+          state: { self: [{ stack: { tag: ['power_of_true_blood_death_eye', 'power_of_true_blood_fate_control', 'power_of_true_blood_deathless'], greater_or_equal: 2 } }] }
         }],
         target: { kind: 'enemy' },
         details: {
