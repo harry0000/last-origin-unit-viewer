@@ -114,10 +114,9 @@ const UnitStatusEffectsPopoverView: React.FC<{
     (<span>{children}</span>);
 };
 
-const SquadUnitStatusEffectPopoverRow: React.FC<SquadUnitStatusEffectDetails> = ({ source: { type, key }, scaled, effect }) => {
+const SquadUnitStatusEffectPopoverRow: React.FC<SquadUnitStatusEffectDetails> = ({ source, scaled, effect }) => {
   const { t } = useTranslation();
-  const label =
-    type === 'tag' ? t('effect:with_tag_quotes', { value: t(key) }) : t(key);
+  const label = 'tag' in source ? t('effect:tag.format', source) : t(source.key);
 
   return (
     <PopoverListContent.Row>

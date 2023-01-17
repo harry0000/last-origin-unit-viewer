@@ -30,6 +30,7 @@ import {
 } from '../../../domain/ValueUnit';
 import { SkillEffectActivationRate } from '../../../domain/skill/SkillEffectActivationRate';
 import { SkillEffectScaleFactor } from '../../../domain/skill/SkillEffectScaleFactor';
+import { SkillEffectTag } from '../../../domain/skill/SkillEffectTag';
 import { SkillEffectType } from '../../../domain/skill/SkillEffectType';
 import { hasFormChangeUnitNumber } from '../../../domain/UnitFormValue';
 import { extractNo, extractType } from '../../../domain/skill/SkillType';
@@ -67,7 +68,7 @@ type ValueStatusBattleEffect =
   AtkValueUpBattleEffect |
   DefValueUpBattleEffect
 
-type EffectLabel = { type: 'tag' | 'name', key: string | string[] }
+type EffectLabel = { tag: SkillEffectTag } | { key: string | string[] }
 
 type ApplyingEffectAddition =
   { type: 'rate', key: 'percentage' | SkillEffectActivationRate, options?: { value: number } } |
@@ -110,12 +111,11 @@ function canUseTagAsSource(effect: BattleEffect['effect']): boolean {
 
 function getSkillName(
   affectedBy: Extract<BattleEffect['affected_by'], { type: 'ally' }>
-): EffectLabel {
+): Extract<EffectLabel, { key: string | string[] }> {
   const form = hasFormChangeUnitNumber(affectedBy) ? affectedBy.form : undefined;
   const defaultKey = `skill:name.${affectedBy.no}.${extractType(affectedBy.skillType)}.${extractNo(affectedBy.skillType)}`;
 
   return {
-    type: 'name',
     key: form ?
       [`${defaultKey}.${form}`, defaultKey] :
       defaultKey
@@ -123,10 +123,10 @@ function getSkillName(
 }
 
 function buildSourceOfEffectLabel({ effect, value, affected_by }: BattleEffect): EffectLabel {
-  return 'tag' in value && canUseTagAsSource(effect) ?
-    { type: 'tag', key: `effect:tag.${value.tag}` } :
+  return 'tag' in value && value.tag && canUseTagAsSource(effect) ?
+    { tag: value.tag } :
     affected_by.type === 'equipment' ?
-      { type: 'name', key: `equipment:${affected_by.id}` } :
+      { key: `equipment:${affected_by.id}` } :
       getSkillName(affected_by);
 }
 

@@ -110,12 +110,11 @@ const ApCol: React.FC = () => {
   );
 };
 
-const EffectLabel: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({ effect: { label: { type, key } } }) => {
+const EffectLabel: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({ effect: { label } }) => {
   const { t } = useTranslation();
-  const label =
-    type === 'tag' ? t('effect:with_tag_quotes', { value: t(key) }) : t(key);
+  const text = 'tag' in label ? t('effect:tag.format', label) : t(label.key);
 
-  return (<div className="effect-label">{label}{t('effect:tag_separator')}</div>);
+  return (<div className="effect-label">{text}{t('effect:tag_separator')}</div>);
 };
 
 const EffectDetails: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({ effect: { description: { key, options }, additions } }) => {
