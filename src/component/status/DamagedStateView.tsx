@@ -9,6 +9,7 @@ import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
 
 import { Dropdown } from 'react-bootstrap';
 import { DropdownPlaceholder } from './DropdownPlaceholder';
+import UnitStatusHeading from './UnitStatusHeading';
 
 import { useSelectedUnit } from '../../state/selector/UnitSelectorHook';
 import { useUnitDamagedState } from '../../state/status/UnitDamagedHook';
@@ -96,16 +97,13 @@ const DamagedStateSelector: React.FC = () => {
 };
 
 const DamagedStateView: React.FC = () => {
-  const { t } = useTranslation();
-
   return (
     <div>
-      <div css={{ color: '#ccc', fontSize: '0.9em', marginBottom: 8 }}>
-        <span>{t('heading.damaged_state')}</span>
-      </div>
-      <div>
-        <DamagedStateSelector />
-      </div>
+      <UnitStatusHeading
+        iconSrc={`${process.env.PUBLIC_URL}/icon/damaged.webp`}
+        headingKey="heading.damaged_state"
+      />
+      <DamagedStateSelector />
     </div>
   );
 };

@@ -8,6 +8,7 @@ import { OverlayTrigger, Popover } from 'react-bootstrap';
 import PopoverListContent from '../../common/PopoverListContent';
 import { Search } from '../../icon/FluentIcons';
 import SVGIcon from '../../icon/SVGIcon';
+import UnitStatusHeading from '../UnitStatusHeading';
 import { effectValueColor } from '../../common/effectValueColor';
 
 import { CoreLinkBonus } from '../../../domain/UnitCoreLinkBonusData';
@@ -22,7 +23,7 @@ import './UnitCoreLinkView.css';
 
 const CoreLinkRate: React.FC = () => {
   const selected = useSelectedUnit();
-  const View = ({ rate }: { rate: number }) => (<span className="core-link">{rate}&nbsp;%</span>);
+  const View = ({ rate }: { rate: number }) => (<span className="core-link-rate">{rate}&nbsp;%</span>);
 
   const CoreLinkRateView: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
     const rate = useCoreLinkRate(unit);
@@ -80,7 +81,7 @@ const CoreLinkEffectDetailView: React.FC = () => {
   };
 
   return (
-    <span className="core-link-details">
+    <span className="core-link-rate-details">
       {selected ? (<DetailView unit={selected} />) : (child)}
     </span>
   );
@@ -89,14 +90,15 @@ const CoreLinkEffectDetailView: React.FC = () => {
 const CoreLinkSelector = React.lazy(() => import('./CoreLinkSelector'));
 
 const UnitCoreLinkView: React.FC = () => {
-  const { t } = useTranslation();
   return (
     <div className="slot-container">
-      <div className="label">
-        <span>{t('heading.core_link')}</span>
+      <UnitStatusHeading
+        iconSrc={`${process.env.PUBLIC_URL}/icon/placeholder_core_link.webp`}
+        headingKey="heading.core_link"
+      >
         <CoreLinkRate />
         <CoreLinkEffectDetailView />
-      </div>
+      </UnitStatusHeading>
       <div className="slot-row">
         <div className="slot-cell"><Suspense fallback={Fragment}><CoreLinkSelector slot="slot1" /></Suspense></div>
         <div className="slot-cell"><Suspense fallback={Fragment}><CoreLinkSelector slot="slot2" /></Suspense></div>
