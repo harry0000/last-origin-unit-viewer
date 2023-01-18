@@ -13,7 +13,7 @@ const UnitEquipmentView: React.FC = () => {
 
   return (
     <div className="slot-container">
-      <div className="label"><span>{t('status.equipment')}</span></div>
+      <div className="label"><span>{t('heading.equipment')}</span></div>
       <div className="slot-row">
         <div className="slot-cell"><Suspense fallback={Fragment}><EquipmentSelector slot="chip1" /></Suspense></div>
         <div className="slot-cell"><Suspense fallback={Fragment}><EquipmentSelector slot="chip2" /></Suspense></div>

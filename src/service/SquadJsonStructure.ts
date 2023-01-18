@@ -8,13 +8,21 @@ import {
   OsEquipmentRank
 } from '../domain/equipment/EquipmentData';
 import { CoreLinkUnit } from '../domain/UnitCoreLink';
+import { DamagedState } from '../domain/UnitDamagedState';
 import { FullLinkBonusIndex } from '../domain/UnitCoreLinkBonusData';
 import { SkillLv } from '../domain/skill/UnitSkillLvValue';
 import { TenKeyPosition } from '../domain/squad/Squad';
 import { UnitLvValue } from '../domain/status/UnitLv';
 import { UnitNumber, UnitRank } from '../domain/UnitBasicInfo';
 
-export type UnitInfoJsonStructure = readonly [no: UnitNumber, rank: UnitRank, vow: 0 | 1, damaged?: 0 | 1]
+export const UnitDamagedJsonValue = {
+  [DamagedState.NoDamaged]: 0,
+  [DamagedState.ModeratelyDamaged]: 1,
+  [DamagedState.HeavilyDamaged]: 2
+} as const;
+export type UnitDamagedJsonValue = typeof UnitDamagedJsonValue[keyof typeof UnitDamagedJsonValue]
+
+export type UnitInfoJsonStructure = readonly [no: UnitNumber, rank: UnitRank, vow: 0 | 1, damaged?: UnitDamagedJsonValue]
 
 export type UnitEnhancementJsonStructure = readonly [
   lv: UnitLvValue,

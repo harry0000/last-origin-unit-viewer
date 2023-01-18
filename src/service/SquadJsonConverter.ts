@@ -2,6 +2,7 @@ import {
   positions,
   SquadJsonStructure,
   UnitCoreLinkJsonStructure,
+  UnitDamagedJsonValue,
   UnitEnhancementJsonStructure,
   UnitEquipmentJsonStructure,
   UnitInfoJsonStructure,
@@ -40,7 +41,7 @@ function convertUnit(
     unit.no,
     unitLvStatus.rank,
     affection?.isAffectionBonusEnabled ? 1 : 0,
-    damaged.isDamaged ? 1 : 0
+    UnitDamagedJsonValue[damaged.damaged]
   ];
   const enhancement = convertUnitEnhancement(unitLvStatus);
 

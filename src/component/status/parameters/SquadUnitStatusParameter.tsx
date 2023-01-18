@@ -72,11 +72,7 @@ const HpParameter: React.FC = () => {
 const HpBar: React.FC = () => {
   const damaged = useSquadUnitDamagedState();
 
-  return damaged === undefined ?
-    (<div className="hp-bar nope" />) :
-    damaged ?
-      (<div className="hp-bar damaged" />) :
-      (<div className="hp-bar" />);
+  return (<div className={`hp-bar ${damaged ?? 'nope'}`} />);
 };
 
 const HpCol: React.FC = () => {

@@ -8,6 +8,7 @@ import { Image } from 'react-bootstrap';
 import UnitRankIcon from '../common/UnitRankIcon';
 
 import { BioroidUnitNumber, UnitBasicInfo, UnitKind, UnitRank } from '../../domain/UnitBasicInfo';
+import { DamagedState } from '../../domain/UnitDamagedState';
 import { TenKeyPosition } from '../../domain/squad/Squad';
 
 import { useAffectionBonus } from '../../state/status/UnitAffectionHook';
@@ -17,27 +18,33 @@ import { useUnitDamagedState } from '../../state/status/UnitDamagedHook';
 
 import { ifTruthy } from '../../util/react';
 
+import './SquadGrid.css';
+
 const DamagedOverlay: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
   const { t } = useTranslation();
-  const [damaged] = useUnitDamagedState(unit);
+  const [damagedState] = useUnitDamagedState(unit);
 
-  return (
-    ifTruthy(
-      damaged,
-      (<Image
-        css={{
-          position: 'absolute',
-          right: 1,
-          bottom: 1
-        }}
+  switch (damagedState) {
+  case DamagedState.NoDamaged:
+    return null;
+  case DamagedState.ModeratelyDamaged:
+    return (
+      <Image
+        className="moderately-damaged-icon"
         draggable="false"
         height={24}
         width={24}
-        alt={t('damaged_state')}
+        alt={t('damaged_state.moderately_damaged')}
         src={`${process.env.PUBLIC_URL}/icon/need_repair.webp`}
-      />)
-    )
-  );
+      />
+    );
+  case DamagedState.HeavilyDamaged:
+    return (
+      <div className="heavily-damaged-text">
+        {t('damaged_state.heavily_damaged')}
+      </div>
+    );
+  }
 };
 
 const AffectionOverlay: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {

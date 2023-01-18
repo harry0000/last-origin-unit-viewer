@@ -5,6 +5,7 @@ import {
   OsEquipmentJsonStructure,
   positions,
   UnitCoreLinkJsonStructure,
+  UnitDamagedJsonValue,
   UnitEnhancementJsonStructure,
   UnitSkillJsonStructure
 } from './SquadJsonStructure';
@@ -21,6 +22,8 @@ import { buildUnitSkill, UnitSkill } from '../domain/skill/UnitSkill';
 import { unitBasicData } from '../data/unitBasicData';
 import { unitCoreLinkBonusData } from '../data/unitCoreLinkBonusData';
 import { equipmentData } from '../data/equipmentData';
+
+import { typedEntries } from '../util/object';
 
 type RestoredSquad = {
   squad: Squad,
@@ -46,18 +49,14 @@ function restoreAffection(unit: BioroidUnitNumber, affection: 0 | 1): UnitAffect
     undefined;
 }
 
-function restoreDamaged(unit: UnitNumber, damaged: 0 | 1 | undefined): UnitDamagedState | undefined {
-  if (damaged === undefined) {
-    return new UnitDamagedState(unit);
+function restoreDamaged(unit: UnitNumber, damaged: 0 | 1 | 2 | undefined): UnitDamagedState | undefined {
+  const state = new UnitDamagedState(unit);
+  if (!damaged) {
+    return state;
   }
 
-  const state = damaged === 1 ?
-    new UnitDamagedState(unit).changeToDamagedState() :
-    new UnitDamagedState(unit);
-
-  return (state.isDamaged ? 1 : 0) === damaged ?
-    state :
-    undefined;
+  const restored = typedEntries(UnitDamagedJsonValue).find(([, value]) => value === damaged);
+  return restored && state.setDamagedState(restored[0]);
 }
 
 function restoreUnitLvStatus(

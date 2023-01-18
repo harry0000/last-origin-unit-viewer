@@ -5,7 +5,7 @@ import { Interpolation } from '@emotion/serialize';
 import React from 'react';
 
 import AffectionBonusSelector from './AffectionBonusSelector';
-import DamagedStateSelector from './DamagedStateSelector';
+import DamagedStateView from './DamagedStateView';
 import UnitCoreLinkView from './corelink/UnitCoreLinkView';
 import UnitEquipmentView from './equipment/UnitEquipmentView';
 import UnitFullLinkView from './corelink/UnitFullLinkView';
@@ -32,10 +32,8 @@ const UnitStatus: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
       <UnitEquipmentView />
       <UnitCoreLinkView />
       <UnitFullLinkView />
-      <div css={{ '& > :not(:first-of-type)': { marginTop: 10 } }}>
-        <AffectionBonusSelector />
-        <DamagedStateSelector />
-      </div>
+      <DamagedStateView />
+      <AffectionBonusSelector />
     </div>
   );
 };

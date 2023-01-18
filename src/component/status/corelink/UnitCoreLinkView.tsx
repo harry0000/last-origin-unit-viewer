@@ -93,7 +93,7 @@ const UnitCoreLinkView: React.FC = () => {
   return (
     <div className="slot-container">
       <div className="label">
-        <span>{t('status.core_link')}</span>
+        <span>{t('heading.core_link')}</span>
         <CoreLinkRate />
         <CoreLinkEffectDetailView />
       </div>
