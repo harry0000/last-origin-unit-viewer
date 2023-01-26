@@ -11,7 +11,7 @@
 
 .nav-tabs.unit-status-parameter-details .nav-link.active {
   color: #eee;
-  background-color: transparent;
+  background-color: #0a101e;
   border-color: #ffcc00 #ffcc00 #0a101e;
   border-width: 2px;
 }
