@@ -10,3 +10,11 @@
   border-left: #aaa solid 3px;
   user-select: none;
 }
+
+.unit-condition-selector {
+  margin: 3px;
+}
+
+.unit-condition-selector > .btn.btn-toggle {
+  font-size: 0.9em;
+}

@@ -1,7 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { Theme, jsx } from '@emotion/react';
-import { Interpolation } from '@emotion/serialize';
+import { jsx } from '@emotion/react';
 import React, { ReactNode } from 'react';
 
 import { CheckboxChecked, CheckboxUnchecked } from '../icon/FluentIcons';
@@ -9,7 +8,7 @@ import RoundedToggleButton from '../common/RoundedToggleButton';
 import SVGIcon from '../icon/SVGIcon';
 
 const UnitDetailConditionSelectorButton: React.FC<{
-  css?: Interpolation<Theme>,
+  className?: string,
   children: ReactNode,
   selected: boolean,
   onSelect: () => void

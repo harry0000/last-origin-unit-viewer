@@ -6,9 +6,13 @@
 
 .numeric.dropdown > a {
   color: inherit;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   padding: 0 5px 0 10px;
+}
+
+.numeric.dropdown > a.dropdown-toggle > span {
+  margin-right: 10px;
 }
 
 .numeric.dropdown > a.dropdown-toggle:hover {
@@ -16,7 +20,7 @@
 }
 
 .numeric.dropdown a.dropdown-toggle::after {
-  margin-left: 0.5em;
+  margin-left: auto;
 }
 
 .numeric.dropdown .dropdown-menu.show {

@@ -4,12 +4,14 @@ import {
   isSquadJsonStructure,
   OsEquipmentJsonStructure,
   positions,
+  PrimaryActiveSkillJsonValue,
   UnitCoreLinkJsonStructure,
   UnitDamagedJsonValue,
   UnitEnhancementJsonStructure,
   UnitSkillJsonStructure
 } from './SquadJsonStructure';
 
+import PrimaryActiveSkill from '../domain/skill/PrimaryActiveSkill';
 import { Squad } from '../domain/squad/Squad';
 import { BioroidUnitNumber, UnitBasicInfo, UnitKind, UnitNumber, UnitRank } from '../domain/UnitBasicInfo';
 import UnitAffection from '../domain/UnitAffection';
@@ -34,6 +36,7 @@ type RestoredSquad = {
   gearEquipment: ReadonlyArray<UnitGearEquipment>,
   coreLink: ReadonlyArray<UnitCoreLink>,
   skill: ReadonlyArray<UnitSkill>,
+  primary: ReadonlyArray<PrimaryActiveSkill>,
   affection: ReadonlyArray<UnitAffection>,
   damaged: ReadonlyArray<UnitDamagedState>
 }
@@ -214,6 +217,16 @@ function restoreSkill(unit: UnitBasicInfo, [as1, as2, ps1, ps2, ps3]: UnitSkillJ
   );
 }
 
+function restorePrimaryActiveSkill(unit: UnitNumber, [, , , , , skill]: UnitSkillJsonStructure): PrimaryActiveSkill | undefined {
+  const primary = new PrimaryActiveSkill(unit);
+  if (!skill) {
+    return primary;
+  }
+
+  const restored = typedEntries(PrimaryActiveSkillJsonValue).find(([, value]) => value === skill);
+  return restored && primary.setPrimary(restored[0]);
+}
+
 function validateSquad(squad: Squad, units: ReadonlyArray<UnitBasicInfo>): boolean {
   const unitSet: ReadonlySet<UnitBasicInfo> = new Set(units);
   const unitsInSquad: ReadonlySet<UnitBasicInfo> =
@@ -242,6 +255,7 @@ export function restoreFromJsonObject(json: unknown): RestoredSquad | undefined 
   const gearEquipment: Array<UnitGearEquipment> = [];
   const coreLink: Array<UnitCoreLink> = [];
   const skill: Array<UnitSkill> = [];
+  const primary: Array<PrimaryActiveSkill> = [];
   const affection: Array<UnitAffection> = [];
   const damaged: Array<UnitDamagedState> = [];
 
@@ -277,7 +291,8 @@ export function restoreFromJsonObject(json: unknown): RestoredSquad | undefined 
     const gear = restoreGear(unitNo, unitJson[2][3]);
     const unitCoreLink = restoreCoreLink(unitNo, unitJson[3]);
     const unitSkill = restoreSkill(unit, unitJson[4]);
-    if (!lv || !chip1 || !chip2 || !os || !gear || !unitCoreLink || !unitSkill || !unitDamaged) {
+    const primarySkill = restorePrimaryActiveSkill(unitNo, unitJson[4]);
+    if (!lv || !chip1 || !chip2 || !os || !gear || !unitCoreLink || !unitSkill || !primarySkill || !unitDamaged) {
       return undefined;
     }
 
@@ -290,11 +305,24 @@ export function restoreFromJsonObject(json: unknown): RestoredSquad | undefined 
     gearEquipment.push(gear);
     coreLink.push(unitCoreLink);
     skill.push(unitSkill);
+    primary.push(primarySkill);
     unitAffection && affection.push(unitAffection);
     damaged.push(unitDamaged);
   }
 
   return validateSquad(squad, units) ?
-    { squad, lvStatus, chip1Equipment, chip2Equipment, osEquipment, gearEquipment, coreLink, skill, affection, damaged } :
+    {
+      squad,
+      lvStatus,
+      chip1Equipment,
+      chip2Equipment,
+      osEquipment,
+      gearEquipment,
+      coreLink,
+      skill,
+      primary,
+      affection,
+      damaged
+    } :
     undefined;
 }

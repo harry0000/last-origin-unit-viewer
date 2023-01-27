@@ -15,7 +15,8 @@ import { useUnitLvMode } from '../../state/status/parameters/UnitLvStatusHook';
 
 const style = {
   '& > .btn.btn-toggle': {
-    lineHeight: '0.7'
+    lineHeight: 1,
+    fontSize: '0.9em'
   }
 } as const;
 

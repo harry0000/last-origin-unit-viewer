@@ -114,6 +114,7 @@
       "s": "Sランク昇級",
       "ss": "SSランク昇級"
     },
+    "active_skill_priority": "優先使用",
     "full_link_bonus": {
       "sortie_cost": "出撃コスト -{{value}}%",
       "damage_multiplier": "スキル威力 +{{value}}%",
@@ -140,6 +141,7 @@
     }
   },
   "heading": {
+    "skill_level": "スキルレベル",
     "equipment": "装備",
     "core_link": "コアリンク",
     "full_link_bonus": "フルリンクボーナス",
@@ -308,6 +310,11 @@
       "passive1": "パッシブスキル 1",
       "passive2": "パッシブスキル 2",
       "passive3": "パッシブスキル 3"
+    },
+    "need_rank_up": {
+      "passive1": "※ Aランク昇級が必要です",
+      "passive2": "※ Sランク昇級が必要です",
+      "passive3": "※ SSランク昇級が必要です"
     },
     "effect": {
       "type": {

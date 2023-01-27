@@ -65,15 +65,13 @@ const expandBackground: CSSObject = {
     ].join(' ')
 };
 
-const selectorButtonMargin: CSSObject = { margin: '3px' };
-
 const ActiveSkillConditionSelector: React.FC<{ condition: ActiveSkillCondition }> = ({ condition }) => {
   const { t } = useTranslation();
   const [selected, toggle] = useActiveSkillConditionSelector(condition);
 
   return (
     <UnitDetailConditionSelectorButton
-      css={selectorButtonMargin}
+      className="unit-condition-selector"
       selected={selected}
       onSelect={toggle}
     >
@@ -88,7 +86,7 @@ const ActiveSkillAreaConditionSelector: React.FC<{ condition: ActiveSkillAreaOfE
 
   return (
     <UnitDetailConditionSelectorRadioButton
-      css={selectorButtonMargin}
+      className="unit-condition-selector"
       selected={selected}
       onSelect={select}
     >
@@ -106,7 +104,7 @@ const SkillEffectConditionSelector: React.FC<{ condition: SkillEffectCondition }
 
   return (
     <UnitDetailConditionSelectorButton
-      css={selectorButtonMargin}
+      className="unit-condition-selector"
       selected={selected}
       onSelect={toggle}
     >
@@ -121,7 +119,7 @@ const CoreLinkBonusConditionSelector: React.FC<{ condition: CoreLinkBonusConditi
 
   return (
     <UnitDetailConditionSelectorRadioButton
-      css={selectorButtonMargin}
+      className="unit-condition-selector"
       selected={selected}
       onSelect={select}
     >
@@ -139,7 +137,7 @@ const FullLinkBonusConditionSelector: React.FC<{ condition: FullLinkBonusConditi
 
   return (
     <UnitDetailConditionSelectorRadioButton
-      css={selectorButtonMargin}
+      className="unit-condition-selector"
       selected={selected}
       onSelect={select}
     >
@@ -157,7 +155,7 @@ const RankUpConditionSelector: React.FC<{ condition: RankUpCondition | undefined
 
   return (
     <UnitDetailConditionSelectorRadioButton
-      css={selectorButtonMargin}
+      className="unit-condition-selector"
       selected={selected}
       onSelect={select}
     >

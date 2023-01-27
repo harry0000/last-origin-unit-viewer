@@ -1,0 +1,90 @@
+.unit-skill-settings {
+  display: flex;
+  flex-wrap: wrap;
+  color: #ccc;
+  padding: 6px 0;
+}
+
+.active-skill-settings,
+.passive-skill-settings {
+  display: flex;
+}
+
+.unit-skill-settings > .divider {
+  margin: 0 16px;
+  border-left: 5px solid rgba(255, 255, 255, 0.2);
+  height: 32px;
+}
+
+@media (max-width: 660px) {
+  .active-skill-settings,
+  .passive-skill-settings {
+    width: 100%;
+  }
+
+  .unit-skill-settings > .divider {
+    display: none;
+  }
+
+  .passive-skill-settings > .skill-setting {
+    margin-top: 16px;
+  }
+}
+
+:is(.active-skill-settings, .passive-skill-settings) > .skill-setting:not(:first-of-type) {
+  margin-left: 16px;
+}
+
+.skill-setting.active-skill {
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-level-form {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  user-select: none;
+}
+
+.skill-type-icon {
+  position: relative;
+  margin-right: 5px;
+  width: 24px;
+}
+
+.skill-type-icon > .need-rank-up {
+  position: absolute;
+  bottom: 0;
+  right: -5px;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tooltip-inner > .need-rank-up {
+  color: #f00;
+  font-weight: bold;
+}
+
+.skill-level-form > .skill-lv-label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.skill-level-form > .dropdown.numeric {
+  width: 56px;
+}
+
+.skill-level-form > .dropdown {
+  flex-shrink: 0;
+}
+
+.active-skill-priority {
+  margin-top: 6px;
+}
+
+.active-skill-priority > .btn-group-toggle > .btn-toggle {
+  font-size: 0.8em;
+  line-height: 1;
+}

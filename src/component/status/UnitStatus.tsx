@@ -10,6 +10,7 @@ import UnitCoreLinkView from './corelink/UnitCoreLinkView';
 import UnitEquipmentView from './equipment/UnitEquipmentView';
 import UnitFullLinkView from './corelink/UnitFullLinkView';
 import UnitLvView from './parameters/UnitLvView';
+import UnitSkillView from './UnitSkillView';
 import UnitStatusParameterContainer from './parameters/UnitStatusParameterContainer';
 import UnitStatusParametersForm from './parameters/UnitStatusParametersForm';
 
@@ -29,6 +30,7 @@ const UnitStatus: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
       <UnitStatusParameterContainer />
       <UnitLvView />
       <UnitStatusParametersForm />
+      <UnitSkillView />
       <UnitEquipmentView />
       <UnitCoreLinkView />
       <UnitFullLinkView />
