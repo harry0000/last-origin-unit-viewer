@@ -2,50 +2,48 @@
 /** @jsx jsx */
 import { Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { ButtonVariant } from 'react-bootstrap/types';
 
-function useLazyInterval(callback: () => void, lazy: number, interval: number | undefined): void {
-  const savedCallback = useRef<() => void>();
-
+function useDelayedInterval(callback: () => void, delay: number, interval: number, isRunning: boolean): void {
   useEffect(() => {
-    savedCallback.current = callback;
-
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
     let intervalId: ReturnType<typeof setInterval> | undefined;
 
-    function tick() {
-      savedCallback.current?.call(undefined);
-    }
     function cleatTimers() {
       if (timeoutId) clearTimeout(timeoutId);
       if (intervalId) clearInterval(intervalId);
     }
 
-    if (interval) {
-      tick();
-      timeoutId = setTimeout(() => { intervalId = setInterval(tick, interval); }, lazy);
+    if (isRunning) {
+      callback();
+      timeoutId = setTimeout(() => { intervalId = setInterval(callback, interval); }, delay);
     }
 
     return cleatTimers;
-  }, [callback, lazy, interval]);
+  }, [callback, delay, interval, isRunning]);
 }
 
 const AutoFireButton: React.FC<{
   css?: Interpolation<Theme>,
   variant: ButtonVariant,
-  disabled?: boolean,
+  disabled: boolean,
   onClick: () => void
 }> = ({ disabled, onClick, children, ...rest }) => {
+  const [prevDisabled, setPrevDisabled] = useState(disabled);
   const [isMouseDown, setMouseDown] = useState(false);
 
-  useEffect(() => { setMouseDown(false); }, [disabled]);
+  if (disabled != prevDisabled) {
+    setPrevDisabled(disabled);
+    setMouseDown(false);
+  }
 
-  useLazyInterval(
+  useDelayedInterval(
     onClick,
     750,
-    disabled !== true && isMouseDown ? 20 : undefined
+    20,
+    !disabled && isMouseDown
   );
 
   return (

@@ -17,6 +17,7 @@ import { useRemainPoints, useUnitLv, useUsedPointReset } from '../../../state/st
 import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
 
 const unitLvStyle: CSSObject = {
+  display: 'flex',
   fontSize: '1.4em',
   width: 115,
   flexShrink: 0
@@ -46,7 +47,6 @@ const UnitLvValueView: React.FC = () => {
     return (
       lvMode === UnitLvMode.Manual ?
         (<NumberValueDropdown
-          css={{ display: 'inline-block' }}
           id="unit-lv-dropdown"
           items={unitLvItems}
           value={lv ? lv : 1}

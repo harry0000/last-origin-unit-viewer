@@ -114,6 +114,7 @@
       "s": "Sランク昇級",
       "ss": "SSランク昇級"
     },
+    "active_skill_priority": "優先使用",
     "full_link_bonus": {
       "sortie_cost": "出撃コスト -{{value}}%",
       "damage_multiplier": "スキル威力 +{{value}}%",
@@ -125,6 +126,11 @@
       "spd_up": "$t(status.spd) +{{value}}",
       "range_up": "射程 +{{value}}"
     },
+    "damaged_state": {
+      "no_damaged": "損傷なし (HP 100%)",
+      "moderately_damaged": "中破 (HP 25%)",
+      "heavily_damaged": "大破 (HP 1)"
+    },
     "unit_detail_tab": {
       "status": "ステータス",
       "skill": "スキル詳細"
@@ -133,6 +139,13 @@
       "in_orca": "オルカ内",
       "in_squad": "分隊内 (戦闘開始時)"
     }
+  },
+  "heading": {
+    "skill_level": "スキルレベル",
+    "equipment": "装備",
+    "core_link": "コアリンク",
+    "full_link_bonus": "フルリンクボーナス",
+    "damaged_state": "損傷状態"
   },
   "filter": {
     "active_skill": "アクティブスキル",
@@ -242,7 +255,6 @@
       },
       "cannot_be_dispelled": "解除不可"
     },
-    "core_link": "コアリンク",
     "core_link_slot1": "コアリンクスロット1",
     "core_link_slot2": "コアリンクスロット2",
     "core_link_slot3": "コアリンクスロット3",
@@ -250,8 +262,6 @@
     "core_link_slot5": "コアリンクスロット5",
     "unlink": "コアリンク解除",
     "core_link_bonus": "コアリンクボーナス",
-    "full_link_bonus": "フルリンクボーナス",
-    "equipment": "装備",
     "remove_equipment": "装備解除",
     "equipment_status_effect": "ステータス効果",
     "none_equipment_status_effect": "—",
@@ -301,6 +311,11 @@
       "passive2": "パッシブスキル 2",
       "passive3": "パッシブスキル 3"
     },
+    "need_rank_up": {
+      "passive1": "※ Aランク昇級が必要です",
+      "passive2": "※ Sランク昇級が必要です",
+      "passive3": "※ SSランク昇級が必要です"
+    },
     "effect": {
       "type": {
         "buff": "バフ (強化効果)",
@@ -309,7 +324,10 @@
       }
     }
   },
-  "damaged_state": "中破状態",
+  "damaged_state": {
+    "moderately_damaged": "中破",
+    "heavily_damaged": "HP1"
+  },
   "affection_state": "誓約状態",
   "form_change": "モードチェンジ",
   "empty": "―",

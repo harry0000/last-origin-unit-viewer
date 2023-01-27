@@ -1,35 +1,51 @@
 import { UnitNumber } from './UnitBasicInfo';
 import { IntegerValue, multiplyValue } from './ValueUnit';
 
+export const DamagedState = {
+  NoDamaged: 'no_damaged',
+  ModeratelyDamaged: 'moderately_damaged',
+  HeavilyDamaged: 'heavily_damaged'
+} as const;
+export type DamagedState = typeof DamagedState[keyof typeof DamagedState]
+
 class UnitDamagedState {
 
   readonly unit: UnitNumber;
-  readonly isDamaged: boolean;
+  readonly damaged: DamagedState;
 
   constructor(
     unit: UnitNumber,
-    isDamaged?: boolean
+    damaged?: DamagedState
   ) {
     this.unit = unit;
-    this.isDamaged = isDamaged ?? false;
+    this.damaged = damaged ?? DamagedState.NoDamaged;
   }
 
-  get currentHpRate(): 25 | 100 {
-    return this.isDamaged ? 25 : 100;
+  get currentHpRate(): 1 | 25 | 100 {
+    switch (this.damaged) {
+    case DamagedState.NoDamaged:
+      return 100;
+    case DamagedState.ModeratelyDamaged:
+      return 25;
+    case DamagedState.HeavilyDamaged:
+      return 1;
+    }
   }
 
   currentHpValue(maxHpValue: IntegerValue): IntegerValue {
-    return multiplyValue(maxHpValue, { milliPercentage: this.currentHpRate * 1_000 });
+    switch (this.damaged) {
+    case DamagedState.NoDamaged:
+    case DamagedState.ModeratelyDamaged:
+      return multiplyValue(maxHpValue, { milliPercentage: this.currentHpRate * 1_000 });
+    case DamagedState.HeavilyDamaged:
+      return { value: 1 };
+    }
   }
 
-  toggleDamagedState(): UnitDamagedState {
-    return new UnitDamagedState(this.unit, !this.isDamaged);
-  }
-
-  changeToDamagedState(): UnitDamagedState {
-    return this.isDamaged ?
-      this :
-      this.toggleDamagedState();
+  setDamagedState(damaged: DamagedState): UnitDamagedState {
+    return this.damaged !== damaged ?
+      new UnitDamagedState(this.unit, damaged) :
+      this;
   }
 }
 

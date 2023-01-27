@@ -1,13 +1,19 @@
 import { useRecoilCallback, useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
+import {
+  ActiveSkillType,
+  PassiveSkillType,
+  SkillType,
+  availablePassiveSkill,
+  extractNo
+} from '../../domain/skill/SkillType';
 import { DamageDeal, SkillEffect } from '../../domain/skill/UnitSkills';
 import { FormChangeUnitNumbers, UnitForms } from '../../domain/UnitFormValue';
 import { FormChangeUnitSkill } from '../../domain/skill/UnitSkill';
 import { SkillApCostValue, SkillRangeValue } from '../../domain/skill/UnitSkillData';
 import { SkillAreaType } from '../../domain/skill/SkillAreaOfEffect';
 import { SkillLv } from '../../domain/skill/UnitSkillLvValue';
-import { SkillType, extractNo } from '../../domain/skill/SkillType';
 import { UnitBasicInfo, UnitNumber } from '../../domain/UnitBasicInfo';
 
 import {
@@ -24,6 +30,9 @@ import {
   unitPassive3SkillState,
   unitSkillLvState
 } from './UnitSkillState';
+import { selectedUnitCurrentRankState } from '../status/parameters/UnitLvStatusState';
+import { selectedUnitState } from '../selector/UnitSelectorState';
+import { setPrimaryActiveSkill, unitPrimaryActiveSkillState } from './PrimaryActiveSkillState';
 import { useActiveSkillTab } from '../ui/UnitSkillTabState';
 import { useSelectedUnit } from '../selector/UnitSelectorHook';
 
@@ -205,6 +214,19 @@ export function useEffectsAsEquipmentDescription(skillType: SkillType, unit: Uni
   }
 }
 
+export function usePassiveSkillVisibility(skillType: PassiveSkillType): boolean {
+  const selected = useRecoilValue(selectedUnitState);
+  const enabled = useRecoilValue(selectedUnitSkillEnabledState(selected, skillType));
+
+  return !selected || enabled;
+}
+
+export function useNeedRankUpForPassiveSkill(skillType: PassiveSkillType): boolean {
+  const rank = useRecoilValue(selectedUnitCurrentRankState);
+
+  return !!rank && !availablePassiveSkill(skillType, rank);
+}
+
 export function useSkillLvState(
   skillType: SkillType,
   unit: UnitBasicInfo
@@ -212,6 +234,16 @@ export function useSkillLvState(
   return [
     useRecoilValue(unitSkillLvState(unit, skillType)),
     useRecoilCallback(changeSkillLv(unit, skillType))
+  ];
+}
+
+export function usePrimaryActiveSkill(
+  skillType: ActiveSkillType,
+  { no }: UnitBasicInfo
+): [priority: boolean, setPriority: () => void] {
+  return [
+    useRecoilValue(unitPrimaryActiveSkillState(no)) === skillType,
+    useRecoilCallback(setPrimaryActiveSkill(no, skillType))
   ];
 }
 

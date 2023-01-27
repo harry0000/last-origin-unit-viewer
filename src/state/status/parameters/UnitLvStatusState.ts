@@ -1,4 +1,4 @@
-import { atomFamily, selectorFamily, CallbackInterface, RecoilValueReadOnly } from 'recoil';
+import { atomFamily, selector, selectorFamily, CallbackInterface, RecoilValueReadOnly } from 'recoil';
 import deepEqual from 'fast-deep-equal';
 
 import {
@@ -28,6 +28,7 @@ import UnitLvStatus from '../../../domain/status/UnitLvStatus';
 import { getUnitDefaultRank } from '../../../domain/status/UnitRankState';
 
 import { coreLinkCountState, fullLinkBonusEffectState } from '../../corelink/UnitCoreLinkState';
+import { selectedUnitState } from '../../selector/UnitSelectorState';
 import { updateUnitLvStateDependency } from '../../transaction';
 
 import { getFromSnapshot, getValue, ValueOrUpdater } from '../../../util/recoil';
@@ -214,6 +215,14 @@ export const currentRankState = (<N extends UnitNumber>() =>
     get: (unit) => ({ get }) => isRankUpUnitNumber(unit) ? get(_rank(unit)) : getUnitDefaultRank(unit)
   })
 )();
+
+export const selectedUnitCurrentRankState = selector<UnitRank | undefined>({
+  key: 'selectedUnitCurrentRankState',
+  get: ({ get }) => {
+    const selected = get(selectedUnitState);
+    return selected && get(currentRankState(selected.no));
+  }
+});
 
 export const unitCostState = selectorFamily<UnitCost, UnitBasicInfo>({
   key: 'unitCostState',

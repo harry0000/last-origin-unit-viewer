@@ -17,7 +17,7 @@
 
 .skill.nav-tabs .nav-item.show .nav-link,
 .skill.nav-tabs .nav-link.active {
-  background-color: transparent;
+  background-color: #0a101e;
   border-width: 2px;
 }
 

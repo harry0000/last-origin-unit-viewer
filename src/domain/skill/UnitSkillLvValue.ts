@@ -1,5 +1,7 @@
-import { UnitBasicInfo, UnitRank, UnitRankComparator } from '../UnitBasicInfo';
+import { UnitBasicInfo } from '../UnitBasicInfo';
+import { availablePassiveSkill, SkillType } from './SkillType';
 import { getUnitMaxRank } from '../status/UnitRankState';
+
 import { Sequence } from '../../util/type';
 
 export type SkillLv = Sequence<10>
@@ -32,9 +34,9 @@ class UnitSkillLvValue {
     this.active2Lv = active2Lv ?? 10;
 
     const maxRank = getUnitMaxRank(unit.no);
-    this.passive1Lv = UnitRankComparator[maxRank].greaterThan(UnitRank.B) ? passive1Lv ?? 10 : undefined;
-    this.passive2Lv = UnitRankComparator[maxRank].greaterThan(UnitRank.A) ? passive2Lv ?? 10 : undefined;
-    this.passive3Lv = UnitRankComparator[maxRank].greaterThan(UnitRank.S) ? passive3Lv ?? 10 : undefined;
+    this.passive1Lv = availablePassiveSkill(SkillType.Passive1, maxRank) ? passive1Lv ?? 10 : undefined;
+    this.passive2Lv = availablePassiveSkill(SkillType.Passive2, maxRank) ? passive2Lv ?? 10 : undefined;
+    this.passive3Lv = availablePassiveSkill(SkillType.Passive3, maxRank) ? passive3Lv ?? 10 : undefined;
   }
 
   setActive1Lv(lv: SkillLv): UnitSkillLvValue {

@@ -51,7 +51,7 @@ function getTerm(value: SkillEffectDetailsEntry[1], t: TFunction): string | unde
 
 function getTag(value: SkillEffectDetailsEntry[1], t: TFunction): string | undefined {
   return 'tag' in value ?
-    value.tag && t(`effect:tag.${value.tag}`) :
+    value.tag && t('effect:tag.format', { tag: value.tag }) :
     undefined;
 }
 

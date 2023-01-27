@@ -1,13 +1,11 @@
 .btn.btn-toggle {
   font-weight: bold;
-  font-size: 0.9em;
   border: 2px solid transparent;
   border-radius: 5px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 3px 5px;
-  width: 100%;
 }
 
 .btn.btn-toggle.focus {

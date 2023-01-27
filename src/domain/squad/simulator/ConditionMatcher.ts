@@ -478,7 +478,7 @@ function matchTaggedAffected(
 
 function matchTagStack(
   state: {
-    tag: SkillEffectTag,
+    tag: SkillEffectTag | ReadonlyArray<SkillEffectTag>,
     effect?: AffectedEffect,
   } & (
     { equal: 1 | 2 | 3 } |
@@ -486,10 +486,15 @@ function matchTagStack(
   ),
   affected: ReadonlyArray<BattleEffect>
 ): boolean {
-  const taggedEffects = pickTaggedEffects(state.tag, affected);
-  const stacked = taggedEffects.size && (
-    state.effect ? (taggedEffects.get(state.effect) ?? 0) : taggedEffects.values().next().value
-  );
+  const countStacked = (tag: SkillEffectTag): number => {
+    const taggedEffects = pickTaggedEffects(tag, affected);
+    return taggedEffects.size && (
+      state.effect ? (taggedEffects.get(state.effect) ?? 0) : taggedEffects.values().next().value
+    );
+  };
+  const stacked = isReadonlyArray(state.tag) ?
+    state.tag.reduce((acc, t) => acc + countStacked(t), 0) :
+    countStacked(state.tag);
 
   return 'equal' in state ?
     stacked === state.equal :

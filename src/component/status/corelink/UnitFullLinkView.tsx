@@ -2,43 +2,52 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { Suspense } from 'react';
-import { useTranslation } from 'react-i18next';
 
-import { Dropdown } from 'react-bootstrap';
+import { DropdownPlaceholder } from '../DropdownPlaceholder';
+import UnitStatusHeading from '../UnitStatusHeading';
 
 import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
 
-import './FullLinkBonusDropdown.css';
-
 const FullLinkBonusDropdown = React.lazy(() => import('./FullLinkBonusDropdown'));
-
-const DropdownPlaceholder: React.FC = () => (<Dropdown className="full-link-bonus"><div className="placeholder" /></Dropdown>);
 
 const FullLinkBonusSelector: React.FC = () => {
   const selected = useSelectedUnit();
 
-  return (
-    <div className="selector full-link-bonus">
-      {
-        selected ?
-          (<Suspense fallback={<DropdownPlaceholder />}><FullLinkBonusDropdown unit={selected} /></Suspense>) :
-          (<DropdownPlaceholder />)
-      }
-    </div>
-  );
+  return selected ?
+    (<Suspense fallback={<DropdownPlaceholder />}><FullLinkBonusDropdown unit={selected} /></Suspense>) :
+    (<DropdownPlaceholder />);
 };
 
-const UnitFullLinkView: React.FC = () => {
-  const { t } = useTranslation();
+const FullLinkIcon = (
+  <div
+    css={{
+      display: 'flex',
+      alignContent: 'center',
+      justifyContent: 'center',
+      border: '2px solid #fff',
+      borderRadius: 3,
+      width: 20,
+      height: 20,
+      color: '#fff',
+      fontSize: 16,
+      fontWeight: 'bold',
+      lineHeight: 1,
+      userSelect: 'none'
+    }}
+    aria-hidden="true"
+  >
+    B
+  </div>
+);
 
+const UnitFullLinkView: React.FC = () => {
   return (
     <div>
-      <div css={{ color: '#ccc', fontSize: '0.9em', marginBottom: 8 }}>
-        <span>{t('status.full_link_bonus')}</span>
-      </div>
-      <div>
-        <FullLinkBonusSelector />
-      </div>
+      <UnitStatusHeading
+        icon={FullLinkIcon}
+        headingKey="heading.full_link_bonus"
+      />
+      <FullLinkBonusSelector />
     </div>
   );
 };

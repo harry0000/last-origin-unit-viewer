@@ -22,10 +22,17 @@
     no-repeat;
 }
 
-.hp-bar.damaged {
+.hp-bar.moderately_damaged {
   background:
     linear-gradient(90deg, transparent 23%, #ffcc00 23%, #ffcc00 27%, transparent 27%),
-    linear-gradient(90deg, #c33 0%, #c33 23%, transparent 23%, transparent 27%, rgba(255, 255, 255, 0.15) 27%, rgba(255, 255, 255, 0.15) 100%),
+    linear-gradient(90deg, #c33 0%, #c33 23%, rgba(255, 255, 255, 0.15) 23%, rgba(255, 255, 255, 0.15) 100%),
+    no-repeat;
+}
+
+.hp-bar.heavily_damaged {
+  background:
+    linear-gradient(90deg, transparent 23%, #ffcc00 23%, #ffcc00 27%, transparent 27%),
+    linear-gradient(90deg, #c33 0%, #c33 1%, rgba(255, 255, 255, 0.15) 1%, rgba(255, 255, 255, 0.15) 100%),
     no-repeat;
 }
 

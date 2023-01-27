@@ -1,4 +1,4 @@
-h1.unit-detail-condition-header {
+.unit-detail-condition-header {
   color: #aaa;
   font-size: 1rem;
   font-weight: bold;
@@ -9,4 +9,12 @@ h1.unit-detail-condition-header {
 
   border-left: #aaa solid 3px;
   user-select: none;
+}
+
+.unit-condition-selector {
+  margin: 3px;
+}
+
+.unit-condition-selector > .btn.btn-toggle {
+  font-size: 0.9em;
 }

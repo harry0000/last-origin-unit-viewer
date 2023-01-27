@@ -8,13 +8,22 @@ import {
   OsEquipmentRank
 } from '../domain/equipment/EquipmentData';
 import { CoreLinkUnit } from '../domain/UnitCoreLink';
+import { DamagedState } from '../domain/UnitDamagedState';
 import { FullLinkBonusIndex } from '../domain/UnitCoreLinkBonusData';
 import { SkillLv } from '../domain/skill/UnitSkillLvValue';
+import { SkillType } from '../domain/skill/SkillType';
 import { TenKeyPosition } from '../domain/squad/Squad';
 import { UnitLvValue } from '../domain/status/UnitLv';
 import { UnitNumber, UnitRank } from '../domain/UnitBasicInfo';
 
-export type UnitInfoJsonStructure = readonly [no: UnitNumber, rank: UnitRank, vow: 0 | 1, damaged?: 0 | 1]
+export const UnitDamagedJsonValue = {
+  [DamagedState.NoDamaged]: 0,
+  [DamagedState.ModeratelyDamaged]: 1,
+  [DamagedState.HeavilyDamaged]: 2
+} as const;
+export type UnitDamagedJsonValue = typeof UnitDamagedJsonValue[keyof typeof UnitDamagedJsonValue]
+
+export type UnitInfoJsonStructure = readonly [no: UnitNumber, rank: UnitRank, vow: 0 | 1, damaged?: UnitDamagedJsonValue]
 
 export type UnitEnhancementJsonStructure = readonly [
   lv: UnitLvValue,
@@ -46,12 +55,19 @@ export type UnitCoreLinkJsonStructure = readonly [
   full_link_bonus: FullLinkBonusIndex | -1
 ]
 
+export const PrimaryActiveSkillJsonValue = {
+  [SkillType.Active1]: 1,
+  [SkillType.Active2]: 2
+} as const;
+export type PrimaryActiveSkillJsonValue = typeof PrimaryActiveSkillJsonValue[keyof typeof PrimaryActiveSkillJsonValue]
+
 export type UnitSkillJsonStructure = readonly [
   active1_lv: SkillLv,
   active2_lv: SkillLv,
   passive1_lv: SkillLv | 0,
   passive2_lv: SkillLv | 0,
-  passive3_lv: SkillLv | 0
+  passive3_lv: SkillLv | 0,
+  primary?: PrimaryActiveSkillJsonValue
 ]
 
 export type UnitJsonStructure = readonly [
@@ -125,5 +141,5 @@ function isUnitCoreLinkStructure(arg: unknown): arg is UnitCoreLinkJsonStructure
 }
 
 function isUnitSkillStructure(arg: unknown): arg is UnitSkillJsonStructure {
-  return Array.isArray(arg) && arg.length === 5 && arg.every(v => typeof v === 'number');
+  return Array.isArray(arg) && (arg.length === 5 || arg.length === 6) && arg.every(v => typeof v === 'number');
 }

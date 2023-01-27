@@ -1,7 +1,9 @@
 import {
   positions,
+  PrimaryActiveSkillJsonValue,
   SquadJsonStructure,
   UnitCoreLinkJsonStructure,
+  UnitDamagedJsonValue,
   UnitEnhancementJsonStructure,
   UnitEquipmentJsonStructure,
   UnitInfoJsonStructure,
@@ -9,6 +11,7 @@ import {
   UnitSkillJsonStructure
 } from './SquadJsonStructure';
 
+import PrimaryActiveSkill from '../domain/skill/PrimaryActiveSkill';
 import { Squad } from '../domain/squad/Squad';
 import UnitAffection from '../domain/UnitAffection';
 import { UnitBasicInfo, UnitNumber } from '../domain/UnitBasicInfo';
@@ -33,6 +36,7 @@ function convertUnit(
   gear: UnitGearEquipment,
   coreLink: UnitCoreLink,
   skill: UnitSkill,
+  primary: PrimaryActiveSkill,
   affection: UnitAffection | undefined,
   damaged: UnitDamagedState
 ): SquadJsonStructure[0][number] {
@@ -40,7 +44,7 @@ function convertUnit(
     unit.no,
     unitLvStatus.rank,
     affection?.isAffectionBonusEnabled ? 1 : 0,
-    damaged.isDamaged ? 1 : 0
+    UnitDamagedJsonValue[damaged.damaged]
   ];
   const enhancement = convertUnitEnhancement(unitLvStatus);
 
@@ -49,7 +53,7 @@ function convertUnit(
     enhancement,
     convertEquipment(enhancement[0], chip1, chip2, os, gear),
     convertCoreLink(enhancement[0], coreLink),
-    convertSkill(skill)
+    convertSkill(skill, primary)
   ];
 }
 
@@ -91,13 +95,14 @@ function convertCoreLink(lv: UnitLvValue, unitCoreLink: UnitCoreLink): UnitCoreL
   ];
 }
 
-function convertSkill(unitSkill: UnitSkill): UnitSkillJsonStructure {
+function convertSkill(unitSkill: UnitSkill, primary: PrimaryActiveSkill,): UnitSkillJsonStructure {
   return [
     unitSkill.skillLv.active1Lv,
     unitSkill.skillLv.active2Lv,
     unitSkill.skillLv.passive1Lv ?? 0,
     unitSkill.skillLv.passive2Lv ?? 0,
-    unitSkill.skillLv.passive3Lv ?? 0
+    unitSkill.skillLv.passive3Lv ?? 0,
+    PrimaryActiveSkillJsonValue[primary.primary]
   ];
 }
 
@@ -110,6 +115,7 @@ export function convertToJsonObject(
   gear: (unit: UnitNumber) => UnitGearEquipment,
   coreLink: (unit: UnitNumber) => UnitCoreLink,
   skill: (unit: UnitBasicInfo) => UnitSkill,
+  primary: (unit: UnitNumber) => PrimaryActiveSkill,
   affection: (unit: UnitBasicInfo) => UnitAffection | undefined,
   damaged: (unit: UnitNumber) => UnitDamagedState
 ): SquadJsonStructure | undefined {
@@ -133,6 +139,7 @@ export function convertToJsonObject(
           gear(unit.no),
           coreLink(unit.no),
           skill(unit),
+          primary(unit.no),
           affection(unit),
           damaged(unit.no)
         ) :

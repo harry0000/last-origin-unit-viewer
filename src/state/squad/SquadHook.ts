@@ -30,6 +30,7 @@ import { restoreUnitAffectionState, unitAffectionStateResolver } from '../status
 import { restoreUnitCoreLink, unitCoreLinkResolver } from '../corelink/UnitCoreLinkState';
 import { restoreUnitDamagedState, unitDamagedStateResolver } from '../status/UnitDamagedState';
 import { restoreUnitEquipmentState, unitEquipmentResolver } from '../equipment/UnitEquipmentState';
+import { restoreUnitPrimaryActiveSkill, unitPrimaryActiveSkillResolver } from '../skill/PrimaryActiveSkillState';
 import { restoreUnitSkill, unitSkillResolver } from '../skill/UnitSkillState';
 import { selectUnit } from '../selector/UnitSelectorState';
 import { useNotificationResister } from '../ui/NotificationState';
@@ -191,6 +192,7 @@ function useSquadJson(): () => SquadJsonStructure | undefined {
       (unit) => get(unitEquipmentResolver('gear')(unit)),
       (unit) => get(unitCoreLinkResolver(unit)),
       (unit) => get(unitSkillResolver(unit)),
+      (unit) => get(unitPrimaryActiveSkillResolver(unit)),
       (unit) => get(unitAffectionStateResolver(unit)),
       (unit) => get(unitDamagedStateResolver(unit))
     );
@@ -284,6 +286,7 @@ export function useSquadRestoreFromUrl(): boolean {
   const gearRestore = useRecoilCallback(restoreUnitEquipmentState('gear'));
   const coreLinkRestore = useRecoilCallback(restoreUnitCoreLink);
   const skillRestore = useRecoilCallback(restoreUnitSkill);
+  const primaryRestore = useRecoilCallback(restoreUnitPrimaryActiveSkill);
   const affectionRestore = useRecoilCallback(restoreUnitAffectionState);
   const damagedRestore = useRecoilCallback(restoreUnitDamagedState);
 
@@ -306,6 +309,7 @@ export function useSquadRestoreFromUrl(): boolean {
           gearRestore(restored.gearEquipment);
           coreLinkRestore(restored.coreLink);
           skillRestore(restored.skill);
+          primaryRestore(restored.primary);
           affectionRestore(restored.affection);
           damagedRestore(restored.damaged);
 
@@ -335,6 +339,7 @@ export function useSquadRestoreFromUrl(): boolean {
     gearRestore,
     coreLinkRestore,
     skillRestore,
+    primaryRestore,
     affectionRestore,
     damagedRestore
   ]);

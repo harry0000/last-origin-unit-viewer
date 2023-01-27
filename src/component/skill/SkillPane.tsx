@@ -113,7 +113,7 @@ const FormChangeSkillBadge: React.FC<{ skillType: SkillType, unit: UnitBasicInfo
   );
 };
 
-const skillLvItems = [...Array(10)].map((v, i) => 10 - i) as ReadonlyArray<SkillLv>;
+const skillLvItems: ReadonlyArray<SkillLv> = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
 const SkillLvDropdown: React.FC<{ skillType: SkillType, unit: UnitBasicInfo }> = ({ skillType, unit }) => {
   const { t } = useTranslation();
@@ -122,11 +122,14 @@ const SkillLvDropdown: React.FC<{ skillType: SkillType, unit: UnitBasicInfo }> =
   return (
     <div css={{
       display: 'flex',
-      userSelect: 'none'
+      userSelect: 'none',
+      '& > .dropdown.numeric': {
+        flexShrink: 0,
+        width: 70
+      }
     }}>
       <span css={{ marginRight: 5 }}>{t('lv')}</span>
       <NumberValueDropdown
-        css={{ flexShrink: 0 }}
         id="skill-lv-dropdown"
         items={skillLvItems}
         value={skillLv}

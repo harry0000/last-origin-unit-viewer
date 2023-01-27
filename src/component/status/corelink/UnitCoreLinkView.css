@@ -1,12 +1,12 @@
-.slot-container .label .core-link {
-  color: #0cf;
-  font-size: 1rem;
-  font-weight: bold;
+.core-link-rate {
   display: inline-block;
-  width: 3.5rem;
+  width: 3rem;
+  color: #0cf;
+  font-weight: bold;
   text-align: right;
+  margin-left: 15px;
 }
 
-.slot-container .label .core-link-details {
+.core-link-rate-details {
   margin-left: 15px;
 }

@@ -1,6 +1,12 @@
 .tooltip-inner {
   background-color: #444 !important;
   color: #fff !important;
+  max-width: none !important;
+  white-space: nowrap;
+}
+
+.tooltip:is(.bs-tooltip-left, .bs-tooltip-right) > .tooltip-inner {
+  margin-top: 0.25em;
 }
 
 .popover {

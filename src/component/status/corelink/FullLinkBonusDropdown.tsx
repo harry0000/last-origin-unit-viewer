@@ -14,6 +14,8 @@ import { useAvailableFullLinkBonus, useFullLinkBonus } from '../../../state/core
 
 import { ifTruthy } from '../../../util/react';
 
+import '../dropdown.css';
+
 const FullLinkBonusLabel: React.FC<{ bonus: FullLinkBonus | undefined }> = ({ bonus }) => {
   const { t } = useTranslation();
 
@@ -78,8 +80,8 @@ const FullLinkBonusToggle = React.forwardRef<
     }}
   >
     {children}
-    <span className="toggle"/>
-    {ifTruthy(!available, (<span className="unavailable"/>))}
+    <span className="toggle" />
+    {ifTruthy(!available, (<span className="unavailable" />))}
   </a>
 ));
 
@@ -89,7 +91,7 @@ const FullLinkBonusDropdown: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
 
   return (
     <Dropdown
-      className="full-link-bonus"
+      className="unit-state"
       onSelect={eventKey => {
         selectBonus(eventKey ? items[+eventKey] : undefined);
       }}

@@ -1,6 +1,7 @@
 import { useRecoilValue } from 'recoil';
 
 import { DamageAttribute } from '../../../domain/skill/UnitSkillData';
+import { DamagedState } from '../../../domain/UnitDamagedState';
 import { MicroValue, calcMicroValue } from '../../../domain/ValueUnit';
 import { UnitNumber } from '../../../domain/UnitBasicInfo';
 
@@ -168,7 +169,7 @@ export function useSquadUnitApValue(): string {
   return formatApValue(useRecoilValue(squadUnitApState));
 }
 
-export function useSquadUnitDamagedState(): boolean | undefined {
+export function useSquadUnitDamagedState(): DamagedState | undefined {
   const selected = useSelectedUnit()?.no;
   return useRecoilValue(selectedUnitDamagedState(selected));
 }

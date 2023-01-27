@@ -2,18 +2,20 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { Fragment, Suspense } from 'react';
-import { useTranslation } from 'react-i18next';
+
+import UnitStatusHeading from '../UnitStatusHeading';
 
 import '../UnitSlot.css';
 
 const EquipmentSelector = React.lazy(() => import('./EquipmentSelector'));
 
 const UnitEquipmentView: React.FC = () => {
-  const { t } = useTranslation();
-
   return (
     <div className="slot-container">
-      <div className="label"><span>{t('status.equipment')}</span></div>
+      <UnitStatusHeading
+        iconSrc={`${process.env.PUBLIC_URL}/icon/placeholder_gear.webp`}
+        headingKey="heading.equipment"
+      />
       <div className="slot-row">
         <div className="slot-cell"><Suspense fallback={Fragment}><EquipmentSelector slot="chip1" /></Suspense></div>
         <div className="slot-cell"><Suspense fallback={Fragment}><EquipmentSelector slot="chip2" /></Suspense></div>

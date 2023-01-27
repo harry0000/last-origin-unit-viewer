@@ -65,15 +65,13 @@ const expandBackground: CSSObject = {
     ].join(' ')
 };
 
-const selectorButtonMargin: CSSObject = { margin: '3px' };
-
 const ActiveSkillConditionSelector: React.FC<{ condition: ActiveSkillCondition }> = ({ condition }) => {
   const { t } = useTranslation();
   const [selected, toggle] = useActiveSkillConditionSelector(condition);
 
   return (
     <UnitDetailConditionSelectorButton
-      css={selectorButtonMargin}
+      className="unit-condition-selector"
       selected={selected}
       onSelect={toggle}
     >
@@ -88,7 +86,7 @@ const ActiveSkillAreaConditionSelector: React.FC<{ condition: ActiveSkillAreaOfE
 
   return (
     <UnitDetailConditionSelectorRadioButton
-      css={selectorButtonMargin}
+      className="unit-condition-selector"
       selected={selected}
       onSelect={select}
     >
@@ -106,7 +104,7 @@ const SkillEffectConditionSelector: React.FC<{ condition: SkillEffectCondition }
 
   return (
     <UnitDetailConditionSelectorButton
-      css={selectorButtonMargin}
+      className="unit-condition-selector"
       selected={selected}
       onSelect={toggle}
     >
@@ -121,7 +119,7 @@ const CoreLinkBonusConditionSelector: React.FC<{ condition: CoreLinkBonusConditi
 
   return (
     <UnitDetailConditionSelectorRadioButton
-      css={selectorButtonMargin}
+      className="unit-condition-selector"
       selected={selected}
       onSelect={select}
     >
@@ -139,7 +137,7 @@ const FullLinkBonusConditionSelector: React.FC<{ condition: FullLinkBonusConditi
 
   return (
     <UnitDetailConditionSelectorRadioButton
-      css={selectorButtonMargin}
+      className="unit-condition-selector"
       selected={selected}
       onSelect={select}
     >
@@ -157,7 +155,7 @@ const RankUpConditionSelector: React.FC<{ condition: RankUpCondition | undefined
 
   return (
     <UnitDetailConditionSelectorRadioButton
-      css={selectorButtonMargin}
+      className="unit-condition-selector"
       selected={selected}
       onSelect={select}
     >
@@ -213,55 +211,55 @@ const UnitDetailConditionsSelector: React.FC = () => {
       <Accordion.Collapse eventKey="0">
         <div>
           <section>
-            <h1 className="unit-detail-condition-header">{t('filter.active_skill')}</h1>
+            <div className="unit-detail-condition-header">{t('filter.active_skill')}</div>
             {Object.values(ActiveSkillCondition).map(condition => (
               <ActiveSkillConditionSelector key={condition} condition={condition} />
             ))}
           </section>
           <section>
-            <h1 className="unit-detail-condition-header">{t('filter.active_skill_area')}</h1>
+            <div className="unit-detail-condition-header">{t('filter.active_skill_area')}</div>
             {[undefined, ...Object.values(ActiveSkillAreaOfEffectCondition)].map(condition => (
               <ActiveSkillAreaConditionSelector key={`${condition}`} condition={condition} />
             ))}
           </section>
           <section>
-            <h1 className="unit-detail-condition-header">{t('filter.status_skill_effect')}</h1>
+            <div className="unit-detail-condition-header">{t('filter.status_skill_effect')}</div>
             {Object.values(StatusSkillEffectCondition).map(condition => (
               <SkillEffectConditionSelector key={condition} condition={condition} />
             ))}
           </section>
           <section>
-            <h1 className="unit-detail-condition-header">{t('filter.offensive_skill_effect')}</h1>
+            <div className="unit-detail-condition-header">{t('filter.offensive_skill_effect')}</div>
             {Object.values(OffensiveSkillEffectCondition).map(condition => (
               <SkillEffectConditionSelector key={condition} condition={condition} />
             ))}
           </section>
           <section>
-            <h1 className="unit-detail-condition-header">{t('filter.defensive_skill_effect')}</h1>
+            <div className="unit-detail-condition-header">{t('filter.defensive_skill_effect')}</div>
             {Object.values(DefensiveSkillEffectCondition).map(condition => (
               <SkillEffectConditionSelector key={condition} condition={condition} />
             ))}
           </section>
           <section>
-            <h1 className="unit-detail-condition-header">{t('filter.other_skill_effect')}</h1>
+            <div className="unit-detail-condition-header">{t('filter.other_skill_effect')}</div>
             {Object.values(OtherSkillEffectCondition).map(condition => (
               <SkillEffectConditionSelector key={condition} condition={condition} />
             ))}
           </section>
           <section>
-            <h1 className="unit-detail-condition-header">{t('filter.core_link_bonus')}</h1>
+            <div className="unit-detail-condition-header">{t('filter.core_link_bonus')}</div>
             {[undefined, ...Object.values(CoreLinkBonusCondition)].map(condition => (
               <CoreLinkBonusConditionSelector key={`${condition}`} condition={condition} />
             ))}
           </section>
           <section>
-            <h1 className="unit-detail-condition-header">{t('filter.full_link_bonus')}</h1>
+            <div className="unit-detail-condition-header">{t('filter.full_link_bonus')}</div>
             {[undefined, ...Object.values(FullLinkBonusCondition)].map(condition => (
               <FullLinkBonusConditionSelector key={`${condition}`} condition={condition} />
             ))}
           </section>
           <section>
-            <h1 className="unit-detail-condition-header">{t('filter.rank_up')}</h1>
+            <div className="unit-detail-condition-header">{t('filter.rank_up')}</div>
             {[undefined, ...Object.values(RankUpCondition)].map(condition => (
               <RankUpConditionSelector key={`${condition}`} condition={condition} />
             ))}

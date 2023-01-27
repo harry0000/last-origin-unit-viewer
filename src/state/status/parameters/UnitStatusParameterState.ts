@@ -58,7 +58,7 @@ import {
   UnitOsEquipment
 } from '../../../domain/equipment/UnitEquipment';
 import UnitCoreLink from '../../../domain/UnitCoreLink';
-import UnitDamagedState from '../../../domain/UnitDamagedState';
+import UnitDamagedState, { DamagedState } from '../../../domain/UnitDamagedState';
 import UnitLvStatus from '../../../domain/status/UnitLvStatus';
 import { UnitLvValue } from '../../../domain/status/UnitLv';
 import { UnitNumber, UnitRank } from '../../../domain/UnitBasicInfo';
@@ -693,7 +693,7 @@ export const selectedUnitCurrentHpState = selectorFamily<IntegerValue | undefine
   get: (unit) => ({ get }) => unit && get(unitDamagedStateResolver(unit)).currentHpValue(get(_hp(unit)))
 });
 
-export const selectedUnitDamagedState = selectorFamily<boolean | undefined, UnitNumber | undefined>({
+export const selectedUnitDamagedState = selectorFamily<DamagedState | undefined, UnitNumber | undefined>({
   key: 'selectedUnitDamagedState',
   get: (unit) => ({ get }) => unit && get(damagedState(unit))
 });

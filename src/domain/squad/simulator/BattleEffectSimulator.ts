@@ -1,6 +1,6 @@
 import deepEqual from 'fast-deep-equal';
 
-import { ActiveSkillType, PassiveSkillType, SkillType } from '../../skill/SkillType';
+import { ActiveSkillType, PassiveSkillType, SkillType, availablePassiveSkill } from '../../skill/SkillType';
 import { AffectionBonus } from '../../UnitAffection';
 import {
   ApplicableAllEquipmentEffect,
@@ -46,7 +46,7 @@ import { SkillEffectActivationCondition } from '../../skill/SkillEffectActivatio
 import { SkillEffectType } from '../../skill/SkillEffectType';
 import { SourceOfEffect } from './SourceOfEffect';
 import { Squad, TenKeyPosition } from '../Squad';
-import { UnitBasicInfo, UnitNumber, UnitRank, UnitRankComparator, UnitRole, UnitType } from '../../UnitBasicInfo';
+import { UnitBasicInfo, UnitNumber, UnitRank, UnitRole, UnitType } from '../../UnitBasicInfo';
 import UnitDamagedState from '../../UnitDamagedState';
 import { UnitLvValue } from '../../status/UnitLv';
 import { calcTargetPositions } from '../../skill/SkillAreaOfEffectMatcher';
@@ -568,25 +568,25 @@ function extractSkillEffects(
   };
 
   switch (skillType) {
-  case 'active1': {
+  case SkillType.Active1: {
     const skill = unit.skill.active1Skill(unit.coreLinkBonus, unit.fullLinkBonus, unit.affectionBonus);
     return extract(skill);
   }
-  case 'active2': {
+  case SkillType.Active2: {
     const skill = unit.skill.active2Skill(unit.coreLinkBonus, unit.fullLinkBonus, unit.affectionBonus);
     return extract(skill);
   }
-  case 'passive1': {
+  case SkillType.Passive1: {
     const skill = unit.skill.passive1Skill(unit.fullLinkBonus, unit.affectionBonus);
-    return skill && UnitRankComparator[unit.rank].greaterThan(UnitRank.B) ? extract(skill) : [];
+    return skill && availablePassiveSkill(skillType, unit.rank) ? extract(skill) : [];
   }
-  case 'passive2': {
+  case SkillType.Passive2: {
     const skill = unit.skill.passive2Skill(unit.fullLinkBonus, unit.affectionBonus);
-    return skill && UnitRankComparator[unit.rank].greaterThan(UnitRank.A) ? extract(skill) : [];
+    return skill && availablePassiveSkill(skillType, unit.rank) ? extract(skill) : [];
   }
-  case 'passive3': {
+  case SkillType.Passive3: {
     const skill = unit.skill.passive3Skill(unit.fullLinkBonus, unit.affectionBonus);
-    return skill && UnitRankComparator[unit.rank].greaterThan(UnitRank.S) ? extract(skill) : [];
+    return skill && availablePassiveSkill(skillType, unit.rank) ? extract(skill) : [];
   }
   }
 }
