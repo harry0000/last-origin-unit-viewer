@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, CSSObject } from '@emotion/react';
+import { jsx } from '@emotion/react';
+import { CSSPropertiesWithMultiValues } from '@emotion/serialize/dist/declarations/types';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -11,7 +12,7 @@ import { Effect } from '../../../domain/Effect';
 
 import { buildEffectIconSrcUrl } from '../../../service/EffectIconSrcUrlBuilder';
 
-const placeHolderStyle: CSSObject = {
+const placeHolderStyle: CSSPropertiesWithMultiValues = {
   width: 24,
   height: 24
 };

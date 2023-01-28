@@ -99,7 +99,7 @@ export type EquipmentUpdateCallbackArgs<T extends EquipmentSlot = EquipmentSlot>
   [slot: T, unitEquipment: UnitEquipmentType<T>]
 
 const DefaultEnhanceLv = 10;
-const enhanceLvs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;
+const enhanceLvs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const satisfies ReadonlyArray<EquipmentEnhancementLevel>;
 
 function getSlotAvailable<T extends EquipmentSlot, E extends UnitEquipmentType<T>>(
   slot: T,

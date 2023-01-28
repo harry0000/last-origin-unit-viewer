@@ -61,7 +61,7 @@ export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> 
   [UnitAlias.SmartEnjoy]: new Set([205, 206]),
   [UnitAlias.SpartanSeries]: new Set([215, 216, 217]),
   [UnitAlias.Mermaid]: new Set([251, 252])
-} as const;
+};
 
 export function isUnitAlias(arg: string): arg is UnitAlias {
   return Object.keys(unitNumbersForAlias).some(alias => alias === arg);

@@ -22,7 +22,7 @@ export type AreaOfEffectCell = Readonly<{
   ]
 }>
 
-export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectCell }> = {
+export const AreaOfEffectCells = {
   [SkillAreaType.Self]: {
     select: 5,
     area: ['none', 'none', 'none', 'none', 'effective', 'none', 'none', 'none', 'none']
@@ -398,4 +398,4 @@ export const AreaOfEffectCells: Readonly<{ [key in SkillAreaType]: AreaOfEffectC
   [SkillAreaType.FixedAll]: {
     area: ['effective', 'effective', 'effective', 'effective', 'effective', 'effective', 'effective', 'effective', 'effective']
   }
-} as const;
+} as const satisfies Readonly<{ [key in SkillAreaType]: AreaOfEffectCell }>;

@@ -31,7 +31,7 @@ import { ifTruthy } from '../../util/react';
 
 import './UnitSkillView.css';
 
-const skillLvItems: ReadonlyArray<SkillLv> = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+const skillLvItems = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1] as const satisfies ReadonlyArray<SkillLv>;
 
 const SkillTypeIconOverlay: React.FC<{ skillType: SkillType, children: ReactElement }> = ({ skillType, children }) => {
   const { t } = useTranslation();

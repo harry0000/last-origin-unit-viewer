@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { CSSObject, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
+import { CSSPropertiesWithMultiValues } from '@emotion/serialize/dist/declarations/types';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -45,7 +46,7 @@ import { ifTruthy } from '../../util/react';
 
 import './UnitDetailConditionSelector.css';
 
-const collapseBackground: CSSObject = {
+const collapseBackground: CSSPropertiesWithMultiValues = {
   background:
     [
       'linear-gradient(135deg, transparent 5.5em, #0a101e 5.5em, #0a101e 5.9em, transparent 5.9em),',
@@ -55,7 +56,7 @@ const collapseBackground: CSSObject = {
     ].join(' ')
 };
 
-const expandBackground: CSSObject = {
+const expandBackground: CSSPropertiesWithMultiValues = {
   background:
     [
       'linear-gradient(45deg,  transparent 5.5em, #0a101e 5.5em, #0a101e 5.9em, transparent 5.9em),',

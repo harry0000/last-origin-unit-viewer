@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+import { CSSPropertiesWithMultiValues } from '@emotion/serialize/dist/declarations/types';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -17,8 +18,8 @@ const style = {
   '& > .btn.btn-toggle': {
     lineHeight: 1,
     fontSize: '0.9em'
-  }
-} as const;
+  } as const satisfies CSSPropertiesWithMultiValues
+};
 
 const UnitLvModeToggleButton: React.FC = () => {
   const { t } = useTranslation();

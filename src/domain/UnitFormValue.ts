@@ -16,7 +16,7 @@ export const FormChangeUnits = {
   JangHwa: 154,
   Fortress: 222,
   Peregrinus: 239
-} as const;
+} as const satisfies Record<string, UnitNumber>;
 
 const NormalForm = 'normal';
 
@@ -77,7 +77,7 @@ export const UnitForms = {
     default: 'falcon_form',
     changed: 'human_form'
   }
-} as const;
+} as const satisfies { [K in typeof FormChangeUnits[keyof typeof FormChangeUnits]]: Record<'default' | 'changed', string> };
 export type UnitForms =
   typeof UnitForms[keyof typeof UnitForms][keyof typeof UnitForms[keyof typeof UnitForms]]
 

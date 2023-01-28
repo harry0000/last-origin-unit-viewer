@@ -1,19 +1,20 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, CSSObject } from '@emotion/react';
+import { jsx } from '@emotion/react';
+import { CSSPropertiesWithMultiValues } from '@emotion/serialize/dist/declarations/types';
 import React, { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Image } from 'react-bootstrap';
 
-const headingStyle: CSSObject = {
+const headingStyle: CSSPropertiesWithMultiValues = {
   display: 'flex',
   alignItems: 'center',
   height: 24,
   marginBottom: 4
 };
 
-const headingTextStyle: CSSObject = {
+const headingTextStyle: CSSPropertiesWithMultiValues = {
   color: '#ccc',
   fontSize: 16,
   lineHeight: 1,

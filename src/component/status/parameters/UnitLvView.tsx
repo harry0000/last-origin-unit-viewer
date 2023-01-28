@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { CSSObject, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
+import { CSSPropertiesWithMultiValues } from '@emotion/serialize/dist/declarations/types';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -16,14 +17,14 @@ import { UnitLvMode, UnitLvValue, UnitMaxLvValue } from '../../../domain/status/
 import { useRemainPoints, useUnitLv, useUsedPointReset } from '../../../state/status/parameters/UnitLvStatusHook';
 import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
 
-const unitLvStyle: CSSObject = {
+const unitLvStyle: CSSPropertiesWithMultiValues = {
   display: 'flex',
   fontSize: '1.4em',
   width: 115,
   flexShrink: 0
 };
 
-const remainPointsStyle: CSSObject = {
+const remainPointsStyle: CSSPropertiesWithMultiValues = {
   color: '#000',
   fontWeight: 'bold',
   border: '5px solid #fc0',
@@ -33,7 +34,7 @@ const remainPointsStyle: CSSObject = {
   marginLeft: 'auto'
 };
 
-const resetPointsStyle: CSSObject = {
+const resetPointsStyle: CSSPropertiesWithMultiValues = {
   marginLeft: 10
 };
 
