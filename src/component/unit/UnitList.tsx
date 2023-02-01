@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
+import { VirtuosoGrid } from 'react-virtuoso';
 
 import { useFilteredUnitList } from '../../state/selector/UnitSelectorHook';
 
@@ -14,11 +15,17 @@ const UnitList: React.FC = () => {
 
   return (
     <div className="unit-list-view">
-      <div className="unit-list">
-        <div className="unit-grid">
-          {units.map(unit => (<UnitCard key={unit.no} unit={unit} />))}
-        </div>
-      </div>
+      <VirtuosoGrid
+        style={{
+          height: 280,
+          overflowY: 'scroll'
+        }}
+        className="unit-list"
+        listClassName="unit-grid"
+        data={units}
+        computeItemKey={(_, { no }) => no}
+        itemContent={(_, unit) => (<UnitCard unit={unit} />)}
+      />
     </div>
   );
 };

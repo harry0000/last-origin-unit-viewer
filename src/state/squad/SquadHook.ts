@@ -64,7 +64,8 @@ export function useUnitDrag(unit: UnitBasicInfo): ConnectDragSource {
     () => ({
       type: ItemType.UnitCard,
       item: () => {
-        select();
+        // HACK: for VirtuosoGrid. When run synchronously, unit card cannot be dragged & dropped.
+        setTimeout(select, 1);
         return unit;
       }
     }),
