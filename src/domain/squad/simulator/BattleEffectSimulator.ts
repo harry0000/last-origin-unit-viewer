@@ -131,7 +131,7 @@ class BattleEffectSimulator {
   readonly #round = 1;
 
   readonly #units: ReadonlyArray<UnitOriginState>;
-  readonly #enemies: EnemySquadState = { 4: { type: UnitType.Light, role: UnitRole.Attacker } }
+  readonly #enemies: EnemySquadState = { 4: { type: UnitType.Light, role: UnitRole.Attacker } };
 
   private constructor(units: ReadonlyArray<UnitOriginState>) {
     this.#units = units;
