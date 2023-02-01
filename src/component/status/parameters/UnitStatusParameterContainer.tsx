@@ -32,7 +32,7 @@ const UnitStatusParameterContainer: React.FC = () => {
         eventKey="in_squad"
         title={t('form.unit_status_tab.in_squad')}
       >
-        <React.Suspense fallback={React.Fragment}>
+        <React.Suspense fallback={null}>
           <SquadUnitStatusParameter />
         </React.Suspense>
       </Tab>

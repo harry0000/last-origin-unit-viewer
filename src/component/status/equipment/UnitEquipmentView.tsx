@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { Fragment, Suspense } from 'react';
+import React, { Suspense } from 'react';
 
 import UnitStatusHeading from '../UnitStatusHeading';
 
@@ -17,10 +17,10 @@ const UnitEquipmentView: React.FC = () => {
         headingKey="heading.equipment"
       />
       <div className="slot-row">
-        <div className="slot-cell"><Suspense fallback={Fragment}><EquipmentSelector slot="chip1" /></Suspense></div>
-        <div className="slot-cell"><Suspense fallback={Fragment}><EquipmentSelector slot="chip2" /></Suspense></div>
-        <div className="slot-cell"><Suspense fallback={Fragment}><EquipmentSelector slot="os" /></Suspense></div>
-        <div className="slot-cell"><Suspense fallback={Fragment}><EquipmentSelector slot="gear" /></Suspense></div>
+        <div className="slot-cell"><Suspense fallback={null}><EquipmentSelector slot="chip1" /></Suspense></div>
+        <div className="slot-cell"><Suspense fallback={null}><EquipmentSelector slot="chip2" /></Suspense></div>
+        <div className="slot-cell"><Suspense fallback={null}><EquipmentSelector slot="os" /></Suspense></div>
+        <div className="slot-cell"><Suspense fallback={null}><EquipmentSelector slot="gear" /></Suspense></div>
       </div>
     </div>
   );

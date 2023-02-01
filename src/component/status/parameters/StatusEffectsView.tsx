@@ -3,8 +3,9 @@
 import { Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
 import React, { ReactNode } from 'react';
-import { nanoid } from 'nanoid';
+import { StringMap } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { nanoid } from 'nanoid';
 
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import PopoverListContent from '../../common/PopoverListContent';
@@ -121,7 +122,7 @@ const SquadUnitStatusEffectPopoverRow: React.FC<SquadUnitStatusEffectDetails> = 
   return (
     <PopoverListContent.Row>
       <EffectsPopoverRowLabel>
-        {`${label}${scaled ? ` (${t('status.effect.scaled.' + scaled.key, scaled.options)})` : ''}`}
+        {`${label}${scaled ? ` (${t('status.effect.scaled.' + scaled.key, scaled.options as StringMap)})` : ''}`}
       </EffectsPopoverRowLabel>
       <EffectsPopoverRowValue>
         <StatusEffectValueView viewModel={effect} />

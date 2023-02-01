@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { Fragment, ReactNode, Suspense } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { OverlayTrigger, Popover } from 'react-bootstrap';
@@ -100,11 +100,11 @@ const UnitCoreLinkView: React.FC = () => {
         <CoreLinkEffectDetailView />
       </UnitStatusHeading>
       <div className="slot-row">
-        <div className="slot-cell"><Suspense fallback={Fragment}><CoreLinkSelector slot="slot1" /></Suspense></div>
-        <div className="slot-cell"><Suspense fallback={Fragment}><CoreLinkSelector slot="slot2" /></Suspense></div>
-        <div className="slot-cell"><Suspense fallback={Fragment}><CoreLinkSelector slot="slot3" /></Suspense></div>
-        <div className="slot-cell"><Suspense fallback={Fragment}><CoreLinkSelector slot="slot4" /></Suspense></div>
-        <div className="slot-cell"><Suspense fallback={Fragment}><CoreLinkSelector slot="slot5" /></Suspense></div>
+        <div className="slot-cell"><Suspense fallback={null}><CoreLinkSelector slot="slot1" /></Suspense></div>
+        <div className="slot-cell"><Suspense fallback={null}><CoreLinkSelector slot="slot2" /></Suspense></div>
+        <div className="slot-cell"><Suspense fallback={null}><CoreLinkSelector slot="slot3" /></Suspense></div>
+        <div className="slot-cell"><Suspense fallback={null}><CoreLinkSelector slot="slot4" /></Suspense></div>
+        <div className="slot-cell"><Suspense fallback={null}><CoreLinkSelector slot="slot5" /></Suspense></div>
       </div>
     </div>
   );

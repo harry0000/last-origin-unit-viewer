@@ -115,7 +115,7 @@ const SquadView: React.FC = () => {
       <div className="action-order">
         <ActionOrderView />
       </div>
-      <React.Suspense fallback={React.Fragment}>
+      <React.Suspense fallback={null}>
         <SquadShareModal />
       </React.Suspense>
     </div>
