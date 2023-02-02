@@ -19,19 +19,17 @@ const UnitFormSelector: React.FC = () => {
   return ifNonNullable(
     formChangeUnit,
     unit => (
-      <div css={{ display: 'flex', alignItems: 'center', padding: '10px 0' }}>
+      <div css={{ display: 'flex', alignItems: 'center', padding: '10px 8px' }}>
         <OverlayTrigger
           placement='top'
           overlay={<Tooltip id='tooltip-form-change'>{t('form_change')}</Tooltip>}
         >
-          <span css={{ margin: '0 8px' }}>
-            <SVGButton
-              aria-label="Change unit form"
-              variant="secondary"
-              svg={<ArrowSync />}
-              onClick={changeForm}
-            />
-          </span>
+          <SVGButton
+            aria-label="Change unit form"
+            variant="secondary"
+            svg={<ArrowSync />}
+            onClick={changeForm}
+          />
         </OverlayTrigger>
         <span css={{ color: '#eee', marginLeft: 10 }}>
           {t(`effect:form.${unit.unitForm()}`)}

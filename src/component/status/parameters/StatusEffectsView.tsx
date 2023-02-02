@@ -80,7 +80,7 @@ const UnitStatusEffectsPopoverView: React.FC<{
   const EffectsOverlay = ({ unit, children }: { unit: UnitBasicInfo, children: ReactNode }) => {
     const effects = useStatusEffects(unit, parameter);
     if (effects.length === 0) {
-      return (<span>{children}</span>);
+      return (<React.Fragment>{children}</React.Fragment>);
     }
 
     const popover = (
@@ -112,7 +112,7 @@ const UnitStatusEffectsPopoverView: React.FC<{
 
   return selected ?
     (<EffectsOverlay unit={selected}>{children}</EffectsOverlay>) :
-    (<span>{children}</span>);
+    (<React.Fragment>{children}</React.Fragment>);
 };
 
 const SquadUnitStatusEffectPopoverRow: React.FC<SquadUnitStatusEffectDetails> = ({ source, scaled, effect }) => {
@@ -171,7 +171,7 @@ const SquadUnitStatusEffectsPopoverView: React.FC<{
 
   return effects.hasEffects ?
     (<EffectsOverlay>{children}</EffectsOverlay>) :
-    (<span>{children}</span>);
+    (<React.Fragment>{children}</React.Fragment>);
 };
 
 const SquadUnitAttributeResistEffectsPopoverView: React.FC<{
@@ -217,7 +217,7 @@ const SquadUnitAttributeResistEffectsPopoverView: React.FC<{
 
   return effects.hasEffects ?
     (<EffectsOverlay>{children}</EffectsOverlay>) :
-    (<span>{children}</span>);
+    (<React.Fragment>{children}</React.Fragment>);
 };
 
 const StatusEffectsViewContainer: React.FC<{

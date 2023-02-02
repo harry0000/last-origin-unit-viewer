@@ -2,14 +2,14 @@
   border-bottom: 2px solid #fc0;
 }
 
-.nav-tabs.unit-status-parameter-details .nav-link {
+.nav-tabs.unit-status-parameter-details > .nav-item > .nav-link {
   color: #888;
   font-weight: bold;
   margin-bottom: -2px;
   border: 2px solid transparent;
 }
 
-.nav-tabs.unit-status-parameter-details .nav-link.active {
+.nav-tabs.unit-status-parameter-details > .nav-item > .nav-link.active {
   color: #eee;
   background-color: #0a101e;
   border-color: #ffcc00 #ffcc00 #0a101e;

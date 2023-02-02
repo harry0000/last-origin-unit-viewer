@@ -210,7 +210,7 @@ const UnitDetailConditionsSelector: React.FC = () => {
         </div>
       </Accordion.Toggle>
       <Accordion.Collapse eventKey="0">
-        <div>
+        <React.Fragment>
           <section>
             <div className="unit-detail-condition-header">{t('filter.active_skill')}</div>
             {Object.values(ActiveSkillCondition).map(condition => (
@@ -265,7 +265,7 @@ const UnitDetailConditionsSelector: React.FC = () => {
               <RankUpConditionSelector key={`${condition}`} condition={condition} />
             ))}
           </section>
-        </div>
+        </React.Fragment>
       </Accordion.Collapse>
     </Accordion>
   );

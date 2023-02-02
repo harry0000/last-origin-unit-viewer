@@ -14,6 +14,7 @@ import { useSelectedUnitStatusEnhancedLv } from '../../../state/status/parameter
 import { useStatusParameter } from '../../../state/status/parameters/UnitStatusParameterHook';
 
 import './StatusParameter.css';
+import { Tab } from 'react-bootstrap';
 
 const UnitStatusParameterLvView: React.FC<{ status: EnhanceableStatus }> = ({ status }) => {
   const lv = useSelectedUnitStatusEnhancedLv(status);
@@ -52,9 +53,12 @@ const StatusParameterCol: React.FC<{ status: EnhanceableStatus | 'spd' }> = ({ s
   );
 };
 
-const UnitStatusParameter: React.FC = () => {
+const UnitStatusParameterTabPane: React.FC<{ eventKey: string }> = (props) => {
   return (
-    <div className="status-parameter-container">
+    <Tab.Pane
+      className="status-parameter-container"
+      {...props}
+    >
       <div className="status-parameter-row">
         <StatusParameterCol status="hp" />
       </div>
@@ -75,8 +79,8 @@ const UnitStatusParameter: React.FC = () => {
         <UnitIceResist />
         <UnitElectricResist />
       </div>
-    </div>
+    </Tab.Pane>
   );
 };
 
-export default UnitStatusParameter;
+export default UnitStatusParameterTabPane;

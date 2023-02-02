@@ -1,7 +1,8 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { ReactNode, Suspense } from 'react';
+import React, { Suspense } from 'react';
+import { ReactElementLike } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { OverlayTrigger, Popover } from 'react-bootstrap';
@@ -37,7 +38,7 @@ const CoreLinkRate: React.FC = () => {
 
 const CoreLinkEffectsPopoverView: React.FC<{
   bonus: CoreLinkBonus,
-  children: ReactNode
+  children: ReactElementLike
 }> = ({ bonus, children }) => {
   const { t } = useTranslation();
   const popover = (
@@ -66,7 +67,7 @@ const CoreLinkEffectsPopoverView: React.FC<{
 
   return (
     <OverlayTrigger overlay={popover}>
-      <span>{children}</span>
+      {children}
     </OverlayTrigger>
   );
 };

@@ -9,7 +9,7 @@ import { nanoid } from 'nanoid';
 import { Effect } from '../../../domain/Effect';
 
 import EffectIcon from './EffectIcon';
-import { Image, OverlayTrigger, Popover, Tooltip } from 'react-bootstrap';
+import { Image, OverlayTrigger, Popover, Tab, Tooltip } from 'react-bootstrap';
 import { SquadUnitElectricResist, SquadUnitFireResist, SquadUnitIceResist } from './AttributeResist';
 import { SquadUnitApEffectsPopoverView, SquadUnitStatusEffectsView } from './StatusEffectsView';
 import { SquadUnitApplyingEffectViewModel } from './SquadUnitStatusEffectsViewModel';
@@ -234,9 +234,12 @@ const EffectList: React.FC = () => {
   );
 };
 
-const SquadUnitStatusParameter: React.FC = () => {
+const SquadUnitStatusParameterTabPane: React.FC<{ eventKey: string }> = (props) => {
   return (
-    <div className="status-parameter-container">
+    <Tab.Pane
+      className="status-parameter-container"
+      {...props}
+    >
       <div className="status-parameter-row">
         <HpCol />
         <ApCol />
@@ -259,8 +262,8 @@ const SquadUnitStatusParameter: React.FC = () => {
         <SquadUnitElectricResist />
       </div>
       <EffectList />
-    </div>
+    </Tab.Pane>
   );
 };
 
-export default SquadUnitStatusParameter;
+export default SquadUnitStatusParameterTabPane;
