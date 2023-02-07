@@ -15401,7 +15401,7 @@ export const unitSkillData: UnitSkillData = {
         details: {
           self: {
             column_protect: { term: { for_rounds: 1 } },
-            eva_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+            eva_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } }
           }
         }
       }]
