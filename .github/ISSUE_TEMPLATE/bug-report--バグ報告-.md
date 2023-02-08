@@ -21,7 +21,7 @@ Steps to reproduce the behavior:
 A clear and concise description of what you expected to happen.
 
 **Squad shared URL (分隊共有URL)**
-If applicable, add shared URL to reproduce the behavior.
+If applicable, add squad shared URL to reproduce the behavior.
 バグが確認できる分隊共有URLがあれば追加してください。
 
 **Screenshots (スクリーンショット)**
