@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { CSSObject, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
+import { CSSPropertiesWithMultiValues } from '@emotion/serialize/dist/declarations/types';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -93,14 +94,16 @@ const UnitStatusParameterUpDownForm: React.FC<{ status: EnhanceableStatus }> = (
   );
 };
 
-const row: CSSObject = {
-  display: 'flex',
-  width: '100%',
-  '& > div': {
-    width: '50%'
-  },
-  '& > div:first-of-type': { paddingRight: 8 },
-  '& > div:last-of-type': { paddingLeft: 8 },
+const row = {
+  ...{
+    display: 'flex',
+    width: '100%',
+  } as const satisfies CSSPropertiesWithMultiValues,
+  ...{
+    '& > div': { width: '50%' },
+    '& > div:first-of-type': { paddingRight: 8 },
+    '& > div:last-of-type': { paddingLeft: 8 },
+  } as const satisfies Record<string, CSSPropertiesWithMultiValues>
 };
 
 const UnitStatusParametersForm: React.FC = () => {

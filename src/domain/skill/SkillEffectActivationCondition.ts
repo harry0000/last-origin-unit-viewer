@@ -128,6 +128,7 @@ const AffectedAnyTypeEffect = [
   Effect.TagStack,
   Effect.ColumnProtect,
   Effect.RowProtect,
+  Effect.Counterattack,
   Effect.Reconnaissance,
   Effect.Marked
 ] as const;
@@ -162,7 +163,8 @@ type ActivationState =
       tag: SkillEffectTag,
     } & (
       { equal: 1 | 2 | 3 } |
-      { greater_or_equal: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 9 }
+      { greater_or_equal: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 9 } |
+      { less_or_equal: 2 }
     )) | {
       tag: readonly ['power_of_true_blood_death_eye', 'power_of_true_blood_fate_control', 'power_of_true_blood_deathless'],
       greater_or_equal: 2

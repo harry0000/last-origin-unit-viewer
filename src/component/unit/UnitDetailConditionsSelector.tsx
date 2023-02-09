@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { CSSObject, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
+import { CSSPropertiesWithMultiValues } from '@emotion/serialize/dist/declarations/types';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -45,7 +46,7 @@ import { ifTruthy } from '../../util/react';
 
 import './UnitDetailConditionSelector.css';
 
-const collapseBackground: CSSObject = {
+const collapseBackground: CSSPropertiesWithMultiValues = {
   background:
     [
       'linear-gradient(135deg, transparent 5.5em, #0a101e 5.5em, #0a101e 5.9em, transparent 5.9em),',
@@ -55,7 +56,7 @@ const collapseBackground: CSSObject = {
     ].join(' ')
 };
 
-const expandBackground: CSSObject = {
+const expandBackground: CSSPropertiesWithMultiValues = {
   background:
     [
       'linear-gradient(45deg,  transparent 5.5em, #0a101e 5.5em, #0a101e 5.9em, transparent 5.9em),',
@@ -209,7 +210,7 @@ const UnitDetailConditionsSelector: React.FC = () => {
         </div>
       </Accordion.Toggle>
       <Accordion.Collapse eventKey="0">
-        <div>
+        <React.Fragment>
           <section>
             <div className="unit-detail-condition-header">{t('filter.active_skill')}</div>
             {Object.values(ActiveSkillCondition).map(condition => (
@@ -264,7 +265,7 @@ const UnitDetailConditionsSelector: React.FC = () => {
               <RankUpConditionSelector key={`${condition}`} condition={condition} />
             ))}
           </section>
-        </div>
+        </React.Fragment>
       </Accordion.Collapse>
     </Accordion>
   );

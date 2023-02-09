@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import { DndProvider } from 'react-dnd-multi-backend';
 import { HTML5toTouch } from 'rdndmb-html5-to-touch';
@@ -15,13 +15,15 @@ import App from './App';
 
 gtag.initialize();
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(
   <React.StrictMode>
     <RecoilRoot>
       <DndProvider options={HTML5toTouch}>
         <App />
       </DndProvider>
     </RecoilRoot>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );

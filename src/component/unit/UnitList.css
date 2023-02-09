@@ -3,9 +3,6 @@
 }
 
 .unit-list {
-  height: 276px;
-  padding: 10px 5px 5px;
-  overflow-y: scroll;
   scrollbar-color: #ffcc00 #514E55;
 }
 
@@ -37,10 +34,11 @@
   min-height: 32px;
 }
 
-.unit-list .unit-grid {
+.unit-grid {
   display: grid;
-  grid-gap: 12px;
   grid-template-columns: repeat(auto-fill, 80px);
   grid-template-rows: repeat(auto-fill, 80px);
   justify-content: space-evenly;
+  grid-gap: 12px;
+  margin: 12px 6px;
 }

@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+import { CSSPropertiesWithMultiValues } from '@emotion/serialize/dist/declarations/types';
 import React, { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -15,7 +16,7 @@ import { DamageAttribute } from '../../../domain/skill/UnitSkillData';
 import { useAttributeResistParameter } from '../../../state/status/parameters/UnitStatusParameterHook';
 import { useSquadUnitAttributeResistParameter } from '../../../state/status/parameters/SquadUnitStatusParameterHook';
 
-const AttributeResistEffectStyle = { color: '#888', fontSize: '0.9em', fontWeight: 'bold' } as const;
+const AttributeResistEffectStyle: CSSPropertiesWithMultiValues = { color: '#888', fontSize: '0.9em', fontWeight: 'bold' };
 
 const AttributeResist: React.FC<{
   attribute: DamageAttribute,

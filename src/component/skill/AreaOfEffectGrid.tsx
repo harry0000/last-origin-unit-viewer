@@ -1,8 +1,9 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { CSSObject, Theme, jsx } from '@emotion/react';
-import React from 'react';
+import { Theme, jsx } from '@emotion/react';
+import { CSSPropertiesWithMultiValues } from '@emotion/serialize/dist/declarations/types';
 import { Interpolation } from '@emotion/serialize';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { AreaOfEffectCellType } from './AreaOfEffectCellType';
@@ -14,16 +15,16 @@ import { useSkillArea } from '../../state/skill/UnitSkillHook';
 
 import { ifNonNullable } from '../../util/react';
 
-const cellColorStyle: { [key in AreaOfEffectCellType]: string } = {
+const cellColorStyle = {
   [AreaOfEffectCellType.Effective]: '#d0191d',
   [AreaOfEffectCellType.High]:      '#ff8f03',
   [AreaOfEffectCellType.Middle]:    '#ba5a03',
   [AreaOfEffectCellType.Low]:       '#763316',
   [AreaOfEffectCellType.Weak]:      '#6b3f31',
   [AreaOfEffectCellType.None]:      '#4b4b4d'
-} as const;
+} as const satisfies { [key in AreaOfEffectCellType]: string };
 
-const overlayStyle: (type: AreaOfEffectCellType) => CSSObject = (type) =>
+const overlayStyle: (type: AreaOfEffectCellType) => CSSPropertiesWithMultiValues | Record<string, never> = (type) =>
   type !== AreaOfEffectCellType.None ?
     {
       borderRadius: 2,
@@ -34,7 +35,7 @@ const overlayStyle: (type: AreaOfEffectCellType) => CSSObject = (type) =>
       right: 4,
       opacity: 0.8,
       backgroundColor: cellColorStyle[type]
-    } :
+    } as const satisfies CSSPropertiesWithMultiValues :
     {};
 
 const AreaOfEffectCell: React.FC<{ selected: boolean, type: AreaOfEffectCellType }> = ({ selected, type, ...rest }) => {

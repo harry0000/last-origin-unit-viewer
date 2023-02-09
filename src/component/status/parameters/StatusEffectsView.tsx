@@ -3,8 +3,9 @@
 import { Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
 import React, { ReactNode } from 'react';
-import { nanoid } from 'nanoid';
+import { StringMap } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { nanoid } from 'nanoid';
 
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import PopoverListContent from '../../common/PopoverListContent';
@@ -79,7 +80,7 @@ const UnitStatusEffectsPopoverView: React.FC<{
   const EffectsOverlay = ({ unit, children }: { unit: UnitBasicInfo, children: ReactNode }) => {
     const effects = useStatusEffects(unit, parameter);
     if (effects.length === 0) {
-      return (<span>{children}</span>);
+      return (<React.Fragment>{children}</React.Fragment>);
     }
 
     const popover = (
@@ -111,7 +112,7 @@ const UnitStatusEffectsPopoverView: React.FC<{
 
   return selected ?
     (<EffectsOverlay unit={selected}>{children}</EffectsOverlay>) :
-    (<span>{children}</span>);
+    (<React.Fragment>{children}</React.Fragment>);
 };
 
 const SquadUnitStatusEffectPopoverRow: React.FC<SquadUnitStatusEffectDetails> = ({ source, scaled, effect }) => {
@@ -121,7 +122,7 @@ const SquadUnitStatusEffectPopoverRow: React.FC<SquadUnitStatusEffectDetails> = 
   return (
     <PopoverListContent.Row>
       <EffectsPopoverRowLabel>
-        {`${label}${scaled ? ` (${t('status.effect.scaled.' + scaled.key, scaled.options)})` : ''}`}
+        {`${label}${scaled ? ` (${t('status.effect.scaled.' + scaled.key, scaled.options as StringMap)})` : ''}`}
       </EffectsPopoverRowLabel>
       <EffectsPopoverRowValue>
         <StatusEffectValueView viewModel={effect} />
@@ -170,7 +171,7 @@ const SquadUnitStatusEffectsPopoverView: React.FC<{
 
   return effects.hasEffects ?
     (<EffectsOverlay>{children}</EffectsOverlay>) :
-    (<span>{children}</span>);
+    (<React.Fragment>{children}</React.Fragment>);
 };
 
 const SquadUnitAttributeResistEffectsPopoverView: React.FC<{
@@ -216,7 +217,7 @@ const SquadUnitAttributeResistEffectsPopoverView: React.FC<{
 
   return effects.hasEffects ?
     (<EffectsOverlay>{children}</EffectsOverlay>) :
-    (<span>{children}</span>);
+    (<React.Fragment>{children}</React.Fragment>);
 };
 
 const StatusEffectsViewContainer: React.FC<{

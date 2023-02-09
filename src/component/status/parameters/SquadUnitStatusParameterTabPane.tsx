@@ -2,13 +2,14 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { ReactElement } from 'react';
-import { nanoid } from 'nanoid';
+import { StringMap } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { nanoid } from 'nanoid';
 
 import { Effect } from '../../../domain/Effect';
 
 import EffectIcon from './EffectIcon';
-import { Image, OverlayTrigger, Popover, Tooltip } from 'react-bootstrap';
+import { Image, OverlayTrigger, Popover, Tab, Tooltip } from 'react-bootstrap';
 import { SquadUnitElectricResist, SquadUnitFireResist, SquadUnitIceResist } from './AttributeResist';
 import { SquadUnitApEffectsPopoverView, SquadUnitStatusEffectsView } from './StatusEffectsView';
 import { SquadUnitApplyingEffectViewModel } from './SquadUnitStatusEffectsViewModel';
@@ -125,7 +126,7 @@ const EffectDetails: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({
   const translateAddition = (addition: SquadUnitApplyingEffectViewModel['additions'][number]): string  => {
     switch (addition.type) {
     case 'rate':
-      return t(`status.effect.rate.${addition.key}`, addition.options);
+      return t(`status.effect.rate.${addition.key}`, addition.options as StringMap);
     case 'times':
       return t('effect:times', { count: addition.value });
     case 'cannot_be_dispelled':
@@ -156,7 +157,7 @@ const EffectDetails: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({
 const EffectTerm: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({ effect: { term } }) => {
   const { t } = useTranslation();
 
-  return (<div className="effect-term">{term ? t(term.key, term.options) : ''}</div>);
+  return (<div className="effect-term">{term ? t(term.key, term.options as StringMap) : ''}</div>);
 };
 
 const EffectSource: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({ effect: { type, affected } }) => {
@@ -233,9 +234,12 @@ const EffectList: React.FC = () => {
   );
 };
 
-const SquadUnitStatusParameter: React.FC = () => {
+const SquadUnitStatusParameterTabPane: React.FC<{ eventKey: string }> = (props) => {
   return (
-    <div className="status-parameter-container">
+    <Tab.Pane
+      className="status-parameter-container"
+      {...props}
+    >
       <div className="status-parameter-row">
         <HpCol />
         <ApCol />
@@ -258,8 +262,8 @@ const SquadUnitStatusParameter: React.FC = () => {
         <SquadUnitElectricResist />
       </div>
       <EffectList />
-    </div>
+    </Tab.Pane>
   );
 };
 
-export default SquadUnitStatusParameter;
+export default SquadUnitStatusParameterTabPane;

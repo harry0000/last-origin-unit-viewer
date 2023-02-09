@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+import { CSSPropertiesWithMultiValues } from '@emotion/serialize/dist/declarations/types';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -13,8 +14,8 @@ import { useUnitRankSelector, useUnitRoleSelector, useUnitTypeSelector } from '.
 const buttonMargin = {
   '& > :not(:first-of-type)': {
     marginLeft: 4
-  }
-} as const;
+  } as const satisfies CSSPropertiesWithMultiValues
+};
 
 const UnitRankSelectorButton: React.FC<{ rank: UnitRank }> = ({ rank }) => {
   const { t } = useTranslation();

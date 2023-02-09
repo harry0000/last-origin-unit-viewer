@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { ReactNode } from 'react';
-import { TFunction } from 'i18next';
+import { StringMap, TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 
 import SkillEffectTargetView from './SkillEffectTargetView';
@@ -95,13 +95,19 @@ function stateValuesView(
     } else if ('equal' in entry[1]) {
       return t('effect:condition.state.tag_stack_eq', entry[1]);
     } else {
-      const { tag, greater_or_equal } = entry[1];
-      if (isReadonlyArray(tag)) {
-        const tags = tag.map(tagKey => t('effect:tag.format', { tag: tagKey })).join(t('effect:or_symbolic_separator'));
-        return t('effect:condition.state.tags_stack_ge', { tags, greater_or_equal });
-      } else {
-        return t('effect:condition.state.tag_stack_ge', { tag, greater_or_equal });
-      }
+      const { tag } = entry[1];
+      const isMultipleTag = isReadonlyArray(tag);
+      const prefix = isMultipleTag ? 'tags_' : 'tag_';
+      const suffix = 'greater_or_equal' in entry[1] ? 'stack_ge' : 'stack_le';
+      const options: StringMap = {
+        ...entry[1],
+        ...(isMultipleTag ?
+          { tags: tag.map(tagKey => t('effect:tag.format', { tag: tagKey })).join(t('effect:or_symbolic_separator')) }:
+          {}
+        )
+      };
+
+      return t(`effect:condition.state.${prefix}${suffix}`, options);
     }
   case EffectActivationState.Form:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { form: entry[1] })}</span>);
@@ -213,7 +219,7 @@ function unitStateView(
       );
   } else {
     const key = 'unit' in state ? 'affected_effect_by' : 'affected_equipment_effect_by';
-    return (<span>{t(`effect:condition.state.${key}`, state as Record<string, unknown>)}</span>);
+    return (<span>{t(`effect:condition.state.${key}`, state as StringMap)}</span>);
   }
 }
 
@@ -291,7 +297,7 @@ const SquadStateView: React.FC<{
               'equal' in state.num_of_units ?
                 t('effect:condition.state.num_of_units_eq', state.num_of_units) :
                 'greater_or_equal' in state.num_of_units ?
-                  t('effect:condition.state.num_of_units_ge', state.num_of_units as Record<string, unknown>) :
+                  t('effect:condition.state.num_of_units_ge', state.num_of_units as StringMap) :
                   t('effect:condition.state.num_of_units_le', state.num_of_units) :
             'not_in_squad' in state ?
               unitStateView(EffectActivationState.NotInSquad, state.not_in_squad, unitNumber, t) :
@@ -318,8 +324,8 @@ const EnemyStateView: React.FC<{
         'equal' in num_of_units ?
           t('effect:condition.state.num_of_enemies_eq', num_of_units) :
           'less_or_equal' in num_of_units ?
-            t('effect:condition.state.num_of_enemies', num_of_units as Record<string, unknown>) :
-            t('effect:condition.state.num_of_enemies_ge', num_of_units as Record<string, unknown>)
+            t('effect:condition.state.num_of_enemies', num_of_units as StringMap) :
+            t('effect:condition.state.num_of_enemies_ge', num_of_units as StringMap)
       }
     </React.Fragment>
   );
@@ -337,13 +343,19 @@ const TriggerView: React.FC<{
 
   switch (condition.trigger) {
   case EffectTrigger.StartRound:
-    return condition.round ?
-      'at' in condition.round ?
-        t('effect:condition.trigger.round.at', { round: condition.round.at }) :
-        'from' in condition.round ?
-          t('effect:condition.trigger.round.from', { round: condition.round.from }) :
-          t('effect:condition.trigger.round.until', { round: condition.round.until }) :
-      t('effect:condition.trigger.start_round');
+    return (
+      <React.Fragment>
+        {
+          condition.round ?
+            'at' in condition.round ?
+              t('effect:condition.trigger.round.at', { round: condition.round.at }) :
+              'from' in condition.round ?
+                t('effect:condition.trigger.round.from', { round: condition.round.from }) :
+                t('effect:condition.trigger.round.until', { round: condition.round.until }) :
+            t('effect:condition.trigger.start_round')
+        }
+      </React.Fragment>
+    );
   case EffectTrigger.UseActive1:
   case EffectTrigger.UseActive2:
   case EffectTrigger.HitActive1:
@@ -373,7 +385,7 @@ const TriggerView: React.FC<{
       </React.Fragment>
     );
   default:
-    return t(`effect:condition.trigger.${condition.trigger}`);
+    return (<React.Fragment>{t(`effect:condition.trigger.${condition.trigger}`)}</React.Fragment>);
   }
 };
 
@@ -392,7 +404,9 @@ const ConditionStateView: React.FC<{
     return null;
   }
 
-  const Separator = ({ show }: { show: boolean }) => ifTruthy(show, t('effect:and_symbolic_separator'));
+  const Separator = ({ show }: { show: boolean }) => (
+    <React.Fragment>{ifTruthy(show, t('effect:and_symbolic_separator'))}</React.Fragment>
+  );
   const NotTargetStateView = ({ entry, unitNumber, needSeparator }: {
     entry: Entry<SelfSkillEffectActivationState>,
     unitNumber: UnitNumber,

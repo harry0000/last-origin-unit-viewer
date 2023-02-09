@@ -12,10 +12,8 @@ type ObjectEntry<T extends {}> =
   // eslint-disable-next-line @typescript-eslint/ban-types
   T extends object ?
     { [K in keyof T]: [K, Required<T>[K]] }[keyof T] extends infer E ?
-      E extends [infer K, infer V] ?
-        K extends string | number ?
-          [`${K}`, V] :
-          never :
+      E extends [infer K extends string | number, infer V] ?
+        [`${K}`, V] :
         never :
       never :
     never

@@ -28,7 +28,7 @@ type UpdateParams = {
 }
 
 const MinEnhancementLv = 0;
-const MaxEnhancementLv = 300;
+const MaxEnhancementLv = 360;
 
 function validLv(lv: number): boolean {
   return MinEnhancementLv <= lv && lv <= MaxEnhancementLv;

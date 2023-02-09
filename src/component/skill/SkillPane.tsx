@@ -1,8 +1,9 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { CSSObject, Theme, jsx } from '@emotion/react';
-import React, { ReactNode } from 'react';
+import { Theme, jsx } from '@emotion/react';
+import { CSSPropertiesWithMultiValues } from '@emotion/serialize/dist/declarations/types';
 import { Interpolation } from '@emotion/serialize';
+import React, { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AreaOfEffectGrid from './AreaOfEffectGrid';
@@ -30,24 +31,26 @@ import { ifNonNullable, ifTruthy } from '../../util/react';
 
 import './RankUpSkillBadge.css';
 
-const skillLabelFontStyle: CSSObject = {
+const skillLabelFontStyle: CSSPropertiesWithMultiValues = {
   fontSize: '1.2em',
   color: '#ccc'
 };
-const skillValueFontSizeStyle: CSSObject = {
+const skillValueFontSizeStyle: CSSPropertiesWithMultiValues = {
   fontSize: '1.2em',
   fontWeight: 'bold'
 };
-const skillLabelStyle: CSSObject = {
+const skillLabelStyle: CSSPropertiesWithMultiValues = {
   ...skillLabelFontStyle,
   display: 'inline-block',
   width: '4em'
 };
-const skillBadgeStyle: CSSObject = {
-  fontSize: '1.2em',
+const skillBadgeStyle = {
+  ...{
+    fontSize: '1.2em',
+  } as const satisfies CSSPropertiesWithMultiValues,
   '& > .badge': {
     whiteSpace: 'normal'
-  }
+  } as const satisfies CSSPropertiesWithMultiValues
 };
 
 const NestedContainer: React.FC<{ css?: Interpolation<Theme>, children: ReactNode }> = ({ children, ...rest }) => (
@@ -113,7 +116,7 @@ const FormChangeSkillBadge: React.FC<{ skillType: SkillType, unit: UnitBasicInfo
   );
 };
 
-const skillLvItems: ReadonlyArray<SkillLv> = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+const skillLvItems = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1] as const satisfies ReadonlyArray<SkillLv>;
 
 const SkillLvDropdown: React.FC<{ skillType: SkillType, unit: UnitBasicInfo }> = ({ skillType, unit }) => {
   const { t } = useTranslation();

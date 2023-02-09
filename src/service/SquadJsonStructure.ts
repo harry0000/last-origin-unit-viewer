@@ -20,7 +20,7 @@ export const UnitDamagedJsonValue = {
   [DamagedState.NoDamaged]: 0,
   [DamagedState.ModeratelyDamaged]: 1,
   [DamagedState.HeavilyDamaged]: 2
-} as const;
+} as const satisfies Record<DamagedState, number>;
 export type UnitDamagedJsonValue = typeof UnitDamagedJsonValue[keyof typeof UnitDamagedJsonValue]
 
 export type UnitInfoJsonStructure = readonly [no: UnitNumber, rank: UnitRank, vow: 0 | 1, damaged?: UnitDamagedJsonValue]
@@ -87,10 +87,10 @@ export type SquadJsonStructure = readonly [
 ]
 
 export const positions = [
-  1 as TenKeyPosition, 2 as TenKeyPosition, 3 as TenKeyPosition,
-  4 as TenKeyPosition, 5 as TenKeyPosition, 6 as TenKeyPosition,
-  7 as TenKeyPosition, 8 as TenKeyPosition, 9 as TenKeyPosition
-] as const;
+  1, 2, 3,
+  4, 5, 6,
+  7, 8, 9
+] as const satisfies ReadonlyArray<TenKeyPosition>;
 
 export function isSquadJsonStructure(arg: unknown): arg is SquadJsonStructure {
   return Array.isArray(arg) && arg.length === 1 && isSquadUnitsStructure(arg[0]);

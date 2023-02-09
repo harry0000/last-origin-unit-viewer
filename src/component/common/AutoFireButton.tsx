@@ -2,7 +2,8 @@
 /** @jsx jsx */
 import { Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
+
 import { Button } from 'react-bootstrap';
 import { ButtonVariant } from 'react-bootstrap/types';
 
@@ -29,7 +30,8 @@ const AutoFireButton: React.FC<{
   css?: Interpolation<Theme>,
   variant: ButtonVariant,
   disabled: boolean,
-  onClick: () => void
+  onClick: () => void,
+  children: ReactNode
 }> = ({ disabled, onClick, children, ...rest }) => {
   const [prevDisabled, setPrevDisabled] = useState(disabled);
   const [isMouseDown, setMouseDown] = useState(false);

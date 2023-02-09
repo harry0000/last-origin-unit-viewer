@@ -1,4 +1,4 @@
-import { constSelector, selectorFamily, useRecoilValue } from 'recoil';
+import { selectorFamily, useRecoilValue } from 'recoil';
 
 import {
   availableRank,
@@ -24,15 +24,15 @@ function pickEquipment(unit: UnitNumber, rank: EquipmentRank) {
   };
 }
 
-const chipEquipment = constSelector<ReadonlyArray<Chip>>(Object.values(equipmentData).filter(isChipEquipment));
-const osEquipment   = constSelector<ReadonlyArray<Os>>(Object.values(equipmentData).filter(isOsEquipment));
-const gearEquipment = constSelector<ReadonlyArray<Gear>>(Object.values(equipmentData).filter(isGearEquipment));
+const chipEquipment = Object.values(equipmentData).filter(isChipEquipment);
+const osEquipment   = Object.values(equipmentData).filter(isOsEquipment);
+const gearEquipment = Object.values(equipmentData).filter(isGearEquipment);
 
 const availableChipEquipmentState = selectorFamily<ReadonlyArray<Chip>, [unit: UnitNumber, slot: 'chip1' | 'chip2']>({
   key: 'availableChipEquipmentState',
   get: ([unit, slot]) => ({ get }) => {
     const rank = get(selectedEquipmentRankState(slot));
-    return get(chipEquipment).filter(pickEquipment(unit, rank));
+    return chipEquipment.filter(pickEquipment(unit, rank));
   }
 });
 
@@ -40,7 +40,7 @@ const availableOsEquipmentState = selectorFamily<ReadonlyArray<Os>, UnitNumber>(
   key: 'availableOsEquipmentState',
   get: (unit) => ({ get }) => {
     const rank = get(selectedEquipmentRankState('os'));
-    return get(osEquipment).filter(pickEquipment(unit, rank));
+    return osEquipment.filter(pickEquipment(unit, rank));
   }
 });
 
@@ -48,7 +48,7 @@ const availableGearEquipmentState = selectorFamily<ReadonlyArray<Gear>, UnitNumb
   key: 'availableGearEquipmentState',
   get: (unit) => ({ get }) => {
     const rank = get(selectedEquipmentRankState('gear'));
-    return get(gearEquipment).filter(pickEquipment(unit, rank));
+    return gearEquipment.filter(pickEquipment(unit, rank));
   }
 });
 

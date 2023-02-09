@@ -39,7 +39,7 @@ const UnitSkillList = React.lazy(() => import('../skill/UnitSkillList'));
 
 const UnitDetailView: React.FC = () => {
   return (
-    <div>
+    <React.Fragment>
       <UnitBasicInfoView />
       <Tab.Container
         id="unit-detail-view-tab-container"
@@ -54,10 +54,10 @@ const UnitDetailView: React.FC = () => {
         </Nav>
         <Tab.Content className="unit-detail">
           <Tab.Pane eventKey="status"><UnitStatus /></Tab.Pane>
-          <Tab.Pane eventKey="skill"><React.Suspense fallback={React.Fragment}><UnitSkillList /></React.Suspense></Tab.Pane>
+          <Tab.Pane eventKey="skill"><React.Suspense fallback={null}><UnitSkillList /></React.Suspense></Tab.Pane>
         </Tab.Content>
       </Tab.Container>
-    </div>
+    </React.Fragment>
   );
 };
 
