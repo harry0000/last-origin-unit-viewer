@@ -482,7 +482,8 @@ function matchTagStack(
     effect?: AffectedEffect,
   } & (
     { equal: 1 | 2 | 3 } |
-    { greater_or_equal: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 9 }
+    { greater_or_equal: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 9 } |
+    { less_or_equal: 2 }
   ),
   affected: ReadonlyArray<BattleEffect>
 ): boolean {
@@ -498,7 +499,9 @@ function matchTagStack(
 
   return 'equal' in state ?
     stacked === state.equal :
-    stacked >= state.greater_or_equal;
+    'greater_or_equal' in state ?
+      stacked >= state.greater_or_equal :
+      stacked <= state.less_or_equal;
 }
 
 function matchAffectedBy(

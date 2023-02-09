@@ -10792,6 +10792,123 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  130: {
+    no: 130,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 145000 },
+        per_lv_up: { milliPercentage: 14500 }
+      },
+      range: 4,
+      cost: 5,
+      area: 'single',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            provoked: { term: { for_rounds: 2 } },
+            damage_taken_increased: { base: { milliPercentage: 7000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            atk_down: { base: { milliPercentage: 17000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'attacked' }],
+        target: { kind: 'enemy' },
+        details: {
+          self: {
+            counterattack: { base: { milliPercentage: 77000 }, per_lv_up: { milliPercentage: 3000 }, term: 'infinite', times: 1 },
+            range_up: { value: 2, term: { for_rounds: 2 }, times: 1 }
+          },
+          target: {
+            counterattack: { base: { milliPercentage: 77000 }, per_lv_up: { milliPercentage: -7000 }, term: 'infinite', times: 1 },
+            range_up: { value: 2, term: { for_rounds: 2 }, times: 1 }
+          }
+        }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 210000 },
+        per_lv_up: { milliPercentage: 21000 }
+      },
+      range: 1,
+      cost: 10,
+      area: 'row_toward_front',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        scale_factor: { per_stack: { tag: 'bunny' } },
+        details: { self: { additional_damage: { base: { milliPercentage: 7000 }, per_lv_up: { milliPercentage: 1400 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ stack: { tag: 'bunny', greater_or_equal: 3 } }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { all_buff_removal: { term: 'immediate' } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        details: {
+          self: {
+            atk_up: { tag: 'bunny', base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 3 },
+            range_up_active_2: { value: 2, term: 'infinite', max_stack: 3  }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'bunny' }] } }],
+        details: { self: { ap_up: { base: { microValue: 3000000 }, per_lv_up: { microValue: 200000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ stack: { tag: 'bunny', less_or_equal: 2 } }] } }],
+        details: { self: { action_count_up: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ stack: { tag: 'bunny', greater_or_equal: 1 } }] } }],
+        details: { self: { atk_up: { base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ stack: { tag: 'bunny', greater_or_equal: 2 } }] } }],
+        details: { self: { ignore_barrier_dr: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ stack: { tag: 'bunny', greater_or_equal: 3 } }] } }],
+        details: { self: { all_buff_removal_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 7000 }, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'be_attacked', state: { target: [{ affected: 'counterattack' }, { affected: 'follow_up_attack' }, { affected: 'provoked' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effects: ['row_protect', 'column_protect', 'target_protect'], term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        // TODO: per: { milliPercentage: 2500 }
+        scale_factor: { per_units: { type: 'enemy', variation: 'proportional' } },
+        details: { self: { damage_reduction_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }]
+    }, {
+      area: {
+        1: 'cross',
+        10: 'fixed_all'
+      },
+      effects: [{
+        conditions: [{ trigger: 'be_attacked' }],
+        details: {
+          self: {
+            acc_up: { tag: 'burning_bunny_spirit', base: { milliPercentage: 7000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 1 },
+            spd_up: { tag: 'burning_bunny_spirit', base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 }, max_stack: 1 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'burning_bunny_spirit' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            acc_up: { base: { milliPercentage: 7000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }]
+  },
   131: {
     no: 131,
     active: [{

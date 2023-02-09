@@ -108,6 +108,7 @@ export const unitEquipmentSlotData = {
   127: { chip1: 20, chip2: 80, os: 60, gear: 40 },
   128: { chip1: 40, chip2: 60, os: 80, gear: 20 },
   129: { chip1: 20, chip2: 80, os: 60, gear: 40 },
+  130: { chip1: 40, chip2: 80, os: 20, gear: 60 },
   131: { chip1: 60, chip2: 80, os: 40, gear: 20 },
   132: { chip1: 40, chip2: 60, os: 20, gear: 80 },
   133: { chip1: 40, chip2: 60, os: 20, gear: 80 },

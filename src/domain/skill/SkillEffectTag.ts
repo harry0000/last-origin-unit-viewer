@@ -99,6 +99,8 @@ export type SkillEffectTag =
   'great_overlords_order' |
   'command_offense_troop' |
   'command_defense_troop' |
+  'bunny' |
+  'burning_bunny_spirit' |
   'cheerleader' |
   'with_flammables' |
   'asceticism' |
