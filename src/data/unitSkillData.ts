@@ -10815,7 +10815,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'attacked' }],
+        conditions: [{ trigger: 'attack' }],
         target: { kind: 'enemy' },
         details: {
           self: {
