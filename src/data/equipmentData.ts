@@ -1298,17 +1298,17 @@ export const equipmentData = {
       type: 'flying'
     },
     status_effects: [
-      { cri_up: { milliPercentage:  5000 }, acc_down: { milliPercentage: 75000 } },
-      { cri_up: { milliPercentage:  6000 }, acc_down: { milliPercentage: 75000 } },
-      { cri_up: { milliPercentage:  7000 }, acc_down: { milliPercentage: 75000 } },
-      { cri_up: { milliPercentage:  8000 }, acc_down: { milliPercentage: 75000 } },
-      { cri_up: { milliPercentage:  9000 }, acc_down: { milliPercentage: 75000 } },
-      { cri_up: { milliPercentage: 10000 }, acc_down: { milliPercentage: 75000 } },
-      { cri_up: { milliPercentage: 11000 }, acc_down: { milliPercentage: 75000 } },
-      { cri_up: { milliPercentage: 12000 }, acc_down: { milliPercentage: 75000 } },
-      { cri_up: { milliPercentage: 13000 }, acc_down: { milliPercentage: 75000 } },
-      { cri_up: { milliPercentage: 14000 }, acc_down: { milliPercentage: 75000 } },
-      { cri_up: { milliPercentage: 15000 }, acc_down: { milliPercentage: 75000 } }
+      { cri_up: { milliPercentage:  5000 }, eva_down: { milliPercentage: 75000 } },
+      { cri_up: { milliPercentage:  6000 }, eva_down: { milliPercentage: 75000 } },
+      { cri_up: { milliPercentage:  7000 }, eva_down: { milliPercentage: 75000 } },
+      { cri_up: { milliPercentage:  8000 }, eva_down: { milliPercentage: 75000 } },
+      { cri_up: { milliPercentage:  9000 }, eva_down: { milliPercentage: 75000 } },
+      { cri_up: { milliPercentage: 10000 }, eva_down: { milliPercentage: 75000 } },
+      { cri_up: { milliPercentage: 11000 }, eva_down: { milliPercentage: 75000 } },
+      { cri_up: { milliPercentage: 12000 }, eva_down: { milliPercentage: 75000 } },
+      { cri_up: { milliPercentage: 13000 }, eva_down: { milliPercentage: 75000 } },
+      { cri_up: { milliPercentage: 14000 }, eva_down: { milliPercentage: 75000 } },
+      { cri_up: { milliPercentage: 15000 }, eva_down: { milliPercentage: 75000 } }
     ],
     equipment_effects: [
       [{ condition: { trigger: 'start_wave' }, details: { atk_up: { milliPercentage:  5000, term: 'infinite' }, defense_penetration: { milliPercentage: 15000, term: 'infinite' } } }],
