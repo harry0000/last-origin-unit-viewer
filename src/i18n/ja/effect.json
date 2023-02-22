@@ -326,7 +326,7 @@
       "enemy_unit": "敵$t(effect:unit.{{unit}})が"
     }
   },
-  "scale_factor" : {
+  "scale_factor": {
     "per_stack": "$t(effect:tag.format, { \"tag\": \"{{tag}}\" }) 1スタックにつき",
     "per_stack_effect": "$t(effect:tag.format, { \"tag\": \"{{tag}}\" })($t(effect:effect.name.{{effect}})) 1スタックにつき",
     "per_units": "味方/敵の数に比例して",
