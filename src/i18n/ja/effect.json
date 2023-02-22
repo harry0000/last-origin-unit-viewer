@@ -287,7 +287,7 @@
       "tagged": "$t(effect:tag.format, { \"tag\": \"{{tag}}\" })状態である",
       "multiple_tagged": "$t(effect:tag.format, { \"tag\": \"{{tag1}}\" })$t(effect:and_symbolic_separator)$t(effect:tag.format, { \"tag\": \"{{tag2}}\" })状態である",
       "not_tagged": "$t(effect:tag.format, { \"tag\": \"{{tag}}\" })状態でない",
-      "tagged_affected": "$t(effect:tag.format, { \"tag\": \"{{tag}}\" })($t(effect:tag_separator){{effect}})状態である",
+      "tagged_affected": "$t(effect:tag.format, { \"tag\": \"{{tag}}\" })({{effect}})状態である",
       "tag_stack_eq": "$t(effect:tag.format, { \"tag\": \"{{tag}}\" }) {{equal}}スタックである",
       "tag_stack_ge": "$t(effect:tag.format, { \"tag\": \"{{tag}}\" }) {{greater_or_equal}}スタック以上である",
       "tag_stack_le": "$t(effect:tag.format, { \"tag\": \"{{tag}}\" }) {{less_or_equal}}スタック以下である",
