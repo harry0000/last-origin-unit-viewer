@@ -119,6 +119,18 @@ type PhoenixSkillData = Readonly<{
     ]
 }>
 
+type AjaxSkillData = Readonly<{
+  no: 47
+  active:
+    readonly [ActiveSkillData, ActiveSkillData],
+  passive:
+    readonly [
+      PassiveSkillData,
+      PassiveSkillDataAsEquipmentEffect,
+      PassiveSkillData
+    ]
+}>
+
 type CirceSkillData = Readonly<{
   no: 136
   active:
@@ -345,6 +357,7 @@ type PeregrinusSkillData = Readonly<{
 type UnitSkill<N extends UnitNumber> =
   N extends BlackLilithSkillData['no'] ? BlackLilithSkillData :
   N extends PhoenixSkillData['no'] ? PhoenixSkillData :
+  N extends AjaxSkillData['no'] ? AjaxSkillData :
   N extends CirceSkillData['no'] ? CirceSkillData :
   N extends LemonadeAlphaSkillData['no'] ? LemonadeAlphaSkillData :
   N extends OrangeadeSkillData['no'] ? OrangeadeSkillData :

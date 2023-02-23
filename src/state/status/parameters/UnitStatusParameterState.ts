@@ -228,6 +228,7 @@ const _hpFullLinkBonusValue = atomFamily<IntegerValue, UnitNumber>({ key: 'UnitS
 
 const _atkCoreLinkBonusValue = atomFamily<MilliValue, UnitNumber>({ key: 'UnitStatusParameterState_atkCoreLinkBonusValue', default: ZeroMilliValue });
 const _defCoreLinkBonusValue = atomFamily<MilliValue, UnitNumber>({ key: 'UnitStatusParameterState_defCoreLinkBonusValue', default: ZeroMilliValue });
+const _defFullLinkBonusValue = atomFamily<MilliValue, UnitNumber>({ key: 'UnitStatusParameterState_defFullLinkBonusValue', default: ZeroMilliValue });
 
 const _inSquad = {
   battleEffects: atomFamily<ReadonlyArray<BattleEffectExcludeAPEffect>, UnitNumber>({
@@ -313,7 +314,7 @@ function _updateStatus(
 
     const hpParam = new UnitHpStatusParameter(unit, lv, hp, chip1Effect, chip2Effect, osEffect, gearEffect, coreLinkBonus, fullLinkBonus, rankUpBonus);
     const atkParam = new UnitAtkStatusParameter(unit, lv, atk, chip1Effect, chip2Effect, osEffect, gearEffect, coreLinkBonus, rankUpBonus);
-    const defParam = new UnitDefStatusParameter(unit, lv, def, chip1Effect, chip2Effect, osEffect, gearEffect, coreLinkBonus, rankUpBonus);
+    const defParam = new UnitDefStatusParameter(unit, lv, def, chip1Effect, chip2Effect, osEffect, gearEffect, coreLinkBonus, fullLinkBonus, rankUpBonus);
     const accParam = new UnitAccStatusParameter(unit, acc, chip1Effect, chip2Effect, osEffect, gearEffect, coreLinkBonus, fullLinkBonus, rankUpBonus);
     const evaParam = new UnitEvaStatusParameter(unit, eva, chip1Effect, chip2Effect, osEffect, gearEffect, coreLinkBonus, fullLinkBonus, rankUpBonus);
     const criParam = new UnitCriStatusParameter(unit, cri, chip1Effect, chip2Effect, osEffect, gearEffect, coreLinkBonus, fullLinkBonus, rankUpBonus);
@@ -334,6 +335,7 @@ function _updateStatus(
     setIfNotDeepEqual(cbi, _def(unit), defParam.def, equalMilliValue);
     setIfNotDeepEqual(cbi, _defEffectValue(unit), defParam.defEffectValue, equalMilliValue);
     setIfNotDeepEqual(cbi, _defCoreLinkBonusValue(unit), defParam.defCoreLinkBonus, equalMilliValue);
+    setIfNotDeepEqual(cbi, _defFullLinkBonusValue(unit), defParam.defFullLinkBonus, equalMilliValue);
 
     setIfNotDeepEqual(cbi, _acc(unit), accParam.acc, equalMilliPercentageValue);
     setIfNotDeepEqual(cbi, _accEffectValue(unit), accParam.accEffectValue, equalMilliPercentageValue);
@@ -614,6 +616,7 @@ export const atkCoreLinkBonusValueState = (unit: UnitNumber): RecoilValueReadOnl
 export const defCoreLinkBonusValueState = (unit: UnitNumber): RecoilValueReadOnly<MilliValue> => _defCoreLinkBonusValue(unit);
 
 export const hpFullLinkBonusValueState = (unit: UnitNumber): RecoilValueReadOnly<IntegerValue> => _hpFullLinkBonusValue(unit);
+export const defFullLinkBonusValueState = (unit: UnitNumber): RecoilValueReadOnly<MilliValue> => _defFullLinkBonusValue(unit);
 
 function wrapSquadUnitSelector<T>(key: string, family: (unit: UnitNumber) => RecoilValueReadOnly<T>, fallbackValue: T): RecoilValueReadOnly<T>;
 function wrapSquadUnitSelector<T>(key: string, family: (unit: UnitNumber) => RecoilValueReadOnly<T | undefined>): RecoilValueReadOnly<T | undefined>;

@@ -45,6 +45,9 @@ export type SkillEffectTag =
   'charging_order' |
   'seize_opportunity' |
   'rapid_acceleration' |
+  'hammer_and_anvil_tactic' |
+  'tightened_leash' |
+  'loosened_leash' |
   'bombardment_squadron_command' |
   'stealth_mode' |
   'elation' |

@@ -108,7 +108,6 @@ const AffectedSkillEffect = [
   Effect.DamageReductionUp,
   Effect.MinimizeDamage,
   Effect.Barrier,
-  Effect.TargetProtect,
   Effect.FollowUpAttack,
   Effect.IgnoreBarrierDr,
   Effect.IgnoreProtect,
@@ -128,6 +127,7 @@ const AffectedAnyTypeEffect = [
   Effect.TagStack,
   Effect.ColumnProtect,
   Effect.RowProtect,
+  Effect.TargetProtect,
   Effect.Counterattack,
   Effect.Reconnaissance,
   Effect.Marked
@@ -230,7 +230,7 @@ export type ActivationTargetState =
 type InSquadStateUnit =
   UnitNumber |
   typeof UnitType['Light' | 'Heavy'] |
-  typeof UnitRole['Attacker' | 'Supporter'] |
+  UnitRole |
   typeof UnitAlias[
     'ElectricActive' |
     'SteelLine' |
@@ -249,7 +249,7 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 
 type NotInSquadStateUnit =
   252 |
-  typeof UnitRole.Attacker |
+  typeof UnitRole['Attacker' | 'Defender'] |
   typeof UnitAlias.SteelLine |
   typeof SkillAreaType.CrossAdjacent |
   Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>>

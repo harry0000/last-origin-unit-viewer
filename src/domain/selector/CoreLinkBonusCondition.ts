@@ -14,6 +14,7 @@ export type CoreLinkBonusCondition = typeof CoreLinkBonusCondition[keyof typeof 
 
 export const FullLinkBonusCondition = {
   HpUp: Effect.HpUp,
+  DefUp: Effect.DefUp,
   AccUp: Effect.AccUp,
   CriUp: Effect.CriUp,
   EvaUp: Effect.EvaUp,

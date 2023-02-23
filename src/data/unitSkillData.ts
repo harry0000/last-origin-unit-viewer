@@ -3936,6 +3936,124 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  47: {
+    no: 47,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 150000 },
+        per_lv_up: { milliPercentage: 15000 }
+      },
+      range: 2,
+      cost: 7,
+      area: 'single_and_front_middle_explosion',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { def_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ not_tagged: 'loosened_leash' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { stunned: { term: { for_rounds: 1 }, rate: 'constant' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'loosened_leash' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { stunned: { term: { for_rounds: 2 }, rate: 'constant' } } }
+      }, {
+        conditions: [{ trigger: 'be_attacked', state: { self: [{ affected: 'counterattack' }] } }],
+        details: { self: { acc_up: { base: { milliPercentage: 100000 }, per_lv_up: { milliPercentage: 10000 }, term: { for_rounds: 1 }, times: 1 } } }
+      }]
+    }, {
+      range: 6,
+      cost: 7,
+      area: 'single',
+      effects: [{
+        target: { kind: 'ally' },
+        details: {
+          self: {
+            def_up: { tag: 'hammer_and_anvil_tactic', base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, term: 'infinite', max_stack: 1, cannot_be_dispelled: true },
+            nullify_damage: { tag: 'hammer_and_anvil_tactic', term: { for_rounds: 1 }, times: 1, max_stack: 1 }
+          },
+          target: {
+            def_up: { tag: 'hammer_and_anvil_tactic', base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, term: 'infinite', max_stack: 1, cannot_be_dispelled: true },
+            nullify_damage: { tag: 'hammer_and_anvil_tactic', term: { for_rounds: 1 }, times: 1, max_stack: 1 }
+          }
+        }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'tightened_leash' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { target_protect: { tag: 'hammer_and_anvil_tactic', term: 'infinite', max_stack: 1, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'tightened_leash' }], target: [{ tagged_affected: { tag: 'hammer_and_anvil_tactic', effects: ['follow_up_attack'] } }] } }],
+        target: { kind: 'ally' },
+        // TODO: Change to general_effect_removal
+        details: { target: { buff_removal: { tag: 'hammer_and_anvil_tactic', effect: 'follow_up_attack' } } }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'loosened_leash' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { follow_up_attack: { tag: 'hammer_and_anvil_tactic', term: 'infinite', max_stack: 1, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'loosened_leash' }], target: [{ tagged_affected: { tag: 'hammer_and_anvil_tactic', effects: ['target_protect'] } }] } }],
+        target: { kind: 'ally' },
+        // TODO: Change to general_effect_removal
+        details: { target: { buff_removal: { tag: 'hammer_and_anvil_tactic', effect: 'target_protect' } } }
+      }]
+    }],
+    passive: [{
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'defender' } } }],
+        details: { self: { damage_reduction_up: { tag: 'tightened_leash', base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'defender' } } }],
+        details: { self: { atk_up: { tag: 'loosened_leash', base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { self: [{ tagged: 'tightened_leash' }] } }],
+        target: { kind: 'ally_except_self' },
+        details: { target: { target_protect: { tag: 'loosened_leash', term: { for_rounds: 2 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'loosened_leash' }] } }],
+        details: { self: { range_up: { value: 2, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'self',
+      equipment_effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { counterattack: { base: { milliPercentage: 90000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'tightened_leash' }] } }],
+        details: {
+          self: {
+            column_protect: { term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'loosened_leash' }] } }],
+        details: {
+          self: {
+            cri_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 4 } } } }],
+        details: { self: { damage_multiplier_up_by_status: { status: 'def', milliPercentage: 4000, term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 1 } } } }],
+        scale_factor: { per_units: { type: 'squad' } },
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            def_value_up: { base: { milliValue: 40000 }, per_lv_up: { milliValue: 4000 }, term: { for_rounds: 1 } },
+            area_damage_dispersion_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }]
+  },
   51: {
     no: 51,
     active: [{

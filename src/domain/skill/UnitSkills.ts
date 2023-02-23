@@ -103,7 +103,7 @@ export type SkillEffectValue = Readonly<{
     E extends typeof Effect['AtkValueUpByUnitValue'] ?
       ValueWithAddition<'milliPercentage'> & { unit: 90 | 211 } :
     E extends typeof Effect['DamageMultiplierUpByStatus' | 'DamageMultiplierReductionByStatus'] ?
-      ValueWithAddition<'milliPercentage'> & { status: 'eva' } :
+      ValueWithAddition<'milliPercentage'> & { status: 'def' | 'eva' } :
     E extends typeof Effect['CriReductionByStatus'] ?
       ValueWithAddition<'milliPercentage'> & { status: 'def' } :
     E extends MultipleMilliPercentageEffectKey ?
