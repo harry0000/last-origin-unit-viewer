@@ -175,6 +175,7 @@ export class UnitDefStatusParameter {
   readonly def: MilliValue;
   readonly defEffectValue: MilliValue;
   readonly defCoreLinkBonus: MilliValue;
+  readonly defFullLinkBonus: MilliValue;
 
   constructor(
     unit: UnitNumber,
@@ -185,17 +186,22 @@ export class UnitDefStatusParameter {
     os: StatusEffect,
     gear: StatusEffect,
     coreLinkBonus: CoreLinkBonus | Record<string, never>,
+    fullLinkBonus: FullLinkBonus | undefined,
     rankUpBonus: UnitRankUpBonus | undefined
   ) {
+    const _fullLinkBonus: FullLinkBonus | Record<string, never> = fullLinkBonus ?? {};
+
     const baseDef            = calculateUnitBaseDef(unit, lv);
     const rankUpBonusSummary = sumMilliValues(...pickValues(Effect.DefUp)(...Object.values(rankUpBonus ?? {})));
     const defAddition        = sumMilliValues(...pickValues(Effect.DefUp, Effect.DefDown)(defEnhancement, chip1, chip2, os, gear));
     const def                = sumMilliValues(baseDef, rankUpBonusSummary, defAddition);
 
     this.defCoreLinkBonus = Effect.DefUp in coreLinkBonus ? multiplyMilliValue(def, coreLinkBonus.def_up) : { milliValue: 0 };
-    this.defEffectValue = sumMilliValues(defAddition, this.defCoreLinkBonus);
+    this.defFullLinkBonus = Effect.DefUp in _fullLinkBonus ? multiplyMilliValue(def, _fullLinkBonus.def_up) : { milliValue: 0 };
 
-    this.def = sumMilliValues(def, this.defCoreLinkBonus);
+    this.defEffectValue = sumMilliValues(defAddition, this.defCoreLinkBonus, this.defFullLinkBonus);
+
+    this.def = sumMilliValues(def, this.defCoreLinkBonus, this.defFullLinkBonus);
   }
 }
 

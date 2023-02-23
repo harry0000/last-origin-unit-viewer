@@ -154,7 +154,7 @@ function unitStateView(
     typeof UnitAlias.EmpressHound |
     typeof SkillAreaType.CrossAdjacent |
     typeof UnitType['Light' | 'Heavy'] |
-    typeof UnitRole['Attacker' | 'Supporter'] |
+    UnitRole |
     'golden_factory' |
     { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp },
   selfUnitNumber: UnitNumber,

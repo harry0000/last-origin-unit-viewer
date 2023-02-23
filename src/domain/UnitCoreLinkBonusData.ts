@@ -72,7 +72,11 @@ export type CriUpBonus = Readonly<{
 }>
 
 export type HpUpBonus = Readonly<{
-  [Effect.HpUp]: { [key in keyof MilliPercentageValue]: 20_000 | 50_000 }
+  [Effect.HpUp]: { [key in keyof MilliPercentageValue]: 20_000 | 40_000 | 50_000 }
+}>
+
+export type DefUpBonus = Readonly<{
+  [Effect.DefUp]: { [key in keyof MilliPercentageValue]: 30_000 }
 }>
 
 export type BuffDebuffLv2UpBonus = Readonly<{
@@ -83,7 +87,7 @@ export type SpdUpBonus = Readonly<{
   [Effect.SpdUp]: { [key in keyof MicroValue]: 100_000 | 150_000 | 200_000 }
 }>
 
-type CommonFullLinkBonus = HpUpBonus | AccUpBonus | CriUpBonus | Range1UpBonus | BuffDebuffLv2UpBonus
+type CommonFullLinkBonus = HpUpBonus | DefUpBonus | AccUpBonus | CriUpBonus | Range1UpBonus | BuffDebuffLv2UpBonus
 
 export type UnitCoreLinkBonusData = Readonly<{
   [key in UnitNumber]: {
