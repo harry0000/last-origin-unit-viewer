@@ -56,10 +56,11 @@ type StatusEffectActivationStateKey =
 type AffectedByActivationState =
   Readonly<{
     [EffectActivationState.AffectedBy]:
-      9 | 54 | 55 | 133 | 135 |
-      UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
+      { unit: 9 | 54 | 55 | 133 | 135 } |
       { unit: 23, effect: typeof Effect.FollowUpAttack } |
       { unit: 83, effect: typeof Effect.TargetProtect } |
+      UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
+      UnitAliasExceptUnit<typeof UnitAlias.Strikers, 150> |
       { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp }
   }>
 
@@ -103,6 +104,7 @@ const AffectedSkillEffect = [
   Effect.ActionCountUp,
   Effect.ActionCountDown,
   Effect.DamageMultiplierUp,
+  Effect.DamageMultiplierDown,
   Effect.DefensePenetration,
   Effect.DamageTakenIncreased,
   Effect.DamageReductionUp,
@@ -241,6 +243,7 @@ type InSquadStateUnit =
     'EmpressHound'
   ] |
   Readonly<UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter>> |
+  Readonly<UnitAliasAndRole<typeof UnitAlias['Strikers'], typeof UnitRole.Attacker>> |
   'golden_factory'
 
 type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {

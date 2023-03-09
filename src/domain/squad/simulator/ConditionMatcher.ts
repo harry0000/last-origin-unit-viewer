@@ -20,6 +20,7 @@ import { UnitBasicInfo, UnitKind, UnitNumber, UnitRole, UnitType } from '../../U
 import { calcTargetPositions } from '../../skill/SkillAreaOfEffectMatcher';
 import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../ValueUnit';
 import { isFormChangeUnitSkill } from '../../skill/UnitSkill';
+import { isPassiveSkillType } from '../../skill/SkillType';
 import { isUnitAlias, unitNumbersForAlias } from '../../UnitAlias';
 
 import { isReadonlyArray, ValueOf } from '../../../util/type';
@@ -509,18 +510,23 @@ function matchAffectedBy(
   affected: ReadonlyArray<BattleEffect>
 ): boolean {
   const matcher: (e: BattleEffect) => boolean = (() => {
-    if (typeof state === 'number') {
-      return ({ affected_by }) => affected_by.type === 'ally' && affected_by.no === state;
-    } else if ('alias' in state) {
+    if ('alias' in state) {
+      // check only passive skill effects.
       return ({ affected_by }) =>
         affected_by.type === 'ally' &&
         affected_by.no !== state.except &&
-        unitNumbersForAlias[state.alias].has(affected_by.no);
+        unitNumbersForAlias[state.alias].has(affected_by.no) &&
+        isPassiveSkillType(affected_by.skillType);
     } else if ('unit' in state) {
-      return ({ effect, affected_by }) =>
-        effect === state.effect &&
-        affected_by.type === 'ally' &&
-        affected_by.no === state.unit;
+      if ('effect' in state) {
+        return ({ effect, affected_by }) =>
+          effect === state.effect &&
+          affected_by.type === 'ally' &&
+          affected_by.no === state.unit;
+      } else {
+        return ({ affected_by }) =>
+          affected_by.type === 'ally' && affected_by.no === state.unit;
+      }
     } else {
       return ({ effect, affected_by }) =>
         effect === state.effect &&

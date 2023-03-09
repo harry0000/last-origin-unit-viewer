@@ -187,6 +187,8 @@
     "night_of_blood_queen": "血の女王の夜",
     "clear_and_serene": "明鏡止水",
     "foresight": "敵看破",
+    "talaria": "タラリア",
+    "take_down_a_peg_or_two": "一発お見舞い",
     "separation_anxiety": "分離不安症",
     "energy_focusing": "エネルギー集束",
     "mimesis": "擬態",
@@ -311,7 +313,8 @@
       "num_of_enemies": "{{greater_or_equal}}～{{less_or_equal}}体である",
       "num_of_enemies_eq": "{{equal}}体である",
       "num_of_enemies_ge": "{{greater_or_equal}}体以上いる",
-      "affected_by": "{{unit}}のスキル効果を受けている",
+      "affected_by": "$t(effect:quote)$t(unit:display, { \"number\": {{unit}} })$t(effect:unquote)のスキル効果を受けている",
+      "affected_by_alias": "のパッシブスキルの効果を受けている",
       "affected_effect_by": "$t(effect:quote)$t(unit:display, { \"number\": {{unit}} })$t(effect:unquote)から$t(effect:effect.name.{{effect}})の効果を受けている",
       "affected_equipment_effect_by": "$t(effect:quote)$t(equipment:{{equipment}})$t(effect:unquote)の$t(effect:effect.name.{{effect}})の効果を受けている"
     },

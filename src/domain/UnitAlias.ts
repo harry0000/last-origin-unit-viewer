@@ -56,7 +56,7 @@ export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> 
   [UnitAlias.DEntertainment]: new Set([121, 123, 124, 125, 127, 128, 129, 130, 171, 174, 178]),
   [UnitAlias.MagicalGirl]: new Set([123, 127]),
   [UnitAlias.KouheiChurch]: new Set([126, 138, 139, 140, 236]),
-  [UnitAlias.Strikers]: new Set([149, 151, 152]),
+  [UnitAlias.Strikers]: new Set([149, 150, 151, 152]),
   [UnitAlias.EmpressHound]: new Set([154, 155]),
   [UnitAlias.SmartEnjoy]: new Set([205, 206]),
   [UnitAlias.SpartanSeries]: new Set([215, 216, 217]),
