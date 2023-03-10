@@ -105,7 +105,6 @@ export type SkillEffectTag =
   'bunny' |
   'burning_bunny_spirit' |
   'cheerleader' |
-  'with_flammables' |
   'asceticism' |
   'fanaticism' |
   'bleeding_hole' |

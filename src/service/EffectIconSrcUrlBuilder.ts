@@ -13,6 +13,8 @@ export function buildEffectIconSrcUrl(effect: Effect): string | undefined {
     return buildIconSrcUrl(Effect.AtkUp);
   case Effect.FixedDamage:
     return buildIconSrcUrl(Effect.AdditionalDamage);
+  case Effect.FixedFireDamage:
+    return buildIconSrcUrl(Effect.AdditionalFireDamage);
   case Effect.AtkValueUp:
   case Effect.AtkValueUpByUnitValue:
     return buildIconSrcUrl(Effect.AtkUp);

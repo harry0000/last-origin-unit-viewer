@@ -58,7 +58,7 @@ type AffectedByActivationState =
     [EffectActivationState.AffectedBy]:
       { unit: 9 | 54 | 55 | 133 | 135 } |
       { unit: 23, effect: typeof Effect.FollowUpAttack } |
-      { unit: 83, effect: typeof Effect.TargetProtect } |
+      { unit: 83 | 134, effect: typeof Effect.TargetProtect } |
       UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
       UnitAliasExceptUnit<typeof UnitAlias.Strikers, 150> |
       { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp }
@@ -197,6 +197,7 @@ export type ActivationSelfState =
   {
     [EffectActivationState.NotAffected]?:
       // The following are AND conditions
+      readonly [typeof Effect.Reconnaissance] |
       readonly [typeof Effect.FollowUpAttack] |
       readonly [typeof Effect.FollowUpAttack, typeof Effect.TargetProtect]
   } &

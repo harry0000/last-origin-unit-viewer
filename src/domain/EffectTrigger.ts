@@ -24,6 +24,7 @@ export const EffectTrigger = {
   HitVitalSpot: 'hit_vital_spot',
   Missed: 'missed',
   BeHit: 'be_hit',
+  BeHitPhysicalActive: 'be_hit_physical_active',
   BeHitFireActive: 'be_hit_fire_active',
   BeHitIceActive: 'be_hit_ice_active',
   BeHitElectricActive: 'be_hit_electric_active',
