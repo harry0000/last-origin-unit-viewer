@@ -81,7 +81,11 @@ const targetArea: Record<ActiveSkillAreaOfEffectCondition, ReadonlySet<SkillArea
   [ActiveSkillAreaOfEffectCondition.Diagonal]: new Set([
     Diagonal,
     Zigzag,
-    FanShapeWithoutFront
+    FanShapeWithoutFront,
+    FanShape,
+    FanShapeGreatlyAttenuate,
+    FanShapeSlightlyAttenuate,
+    FanShapeStrongExplosion
   ]),
   [ActiveSkillAreaOfEffectCondition.Cross]: new Set([
     Cross,
