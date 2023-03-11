@@ -285,7 +285,9 @@ const SquadStateView: React.FC<{
   const numOfCrossAdjacent = (state: NumOfCrossAdjacent): string => {
     return 'equal' in state ?
       t('effect:condition.state.cross_adjacent_eq', state) :
-      t('effect:condition.state.cross_adjacent_ge', state);
+      'less_or_equal' in state ?
+        t('effect:condition.state.cross_adjacent', state) :
+        t('effect:condition.state.cross_adjacent_ge', state);
   };
 
   return (

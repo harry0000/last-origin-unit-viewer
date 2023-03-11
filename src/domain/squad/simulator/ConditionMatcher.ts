@@ -602,7 +602,10 @@ export function matchSquadState(
 
     return (
       'equal' in num_of_units ? num_of_units.equal === count :
-        'less_or_equal' in num_of_units ? count <= num_of_units.less_or_equal :
+        'less_or_equal' in num_of_units ?
+          'greater_or_equal' in num_of_units ?
+            num_of_units.greater_or_equal <= count && count <= num_of_units.less_or_equal :
+            count <= num_of_units.less_or_equal :
           num_of_units.greater_or_equal <= count
     );
   } else if (cond.length === 2) {

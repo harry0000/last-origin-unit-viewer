@@ -116,6 +116,7 @@ export type SkillEffectTag =
   'separation_anxiety' |
   'energy_focusing' |
   'mimesis' |
+  'great_antarctica_adventure' |
   'pre_cooking' |
   'best_desserts' |
   'psychic_barrier' |

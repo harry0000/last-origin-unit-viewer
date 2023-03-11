@@ -11402,6 +11402,32 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: { self: { damage_reduction_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } } } }
       }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_wave', state: { self: [{ grid: 'front_line' }] } }],
+        details: {
+          self: {
+            range_up: { value: 1, term: 'infinite', cannot_be_dispelled: true },
+            counterattack: { base: { milliPercentage: 80000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'idle', state: { self: [{ affected: 'counterattack' }] } }],
+        details: { self: { buff_removal: { effect: 'counterattack', term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'idle', state: { self: [{ grid: 'front_line', not_affected: ['counterattack'] }] } }],
+        details: { self: { counterattack: { base: { milliPercentage: 80000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'fire_resist_up' }, { affected: 'fire_resist_down' }] } }],
+        details: { self: { minimum_fire_resist_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'ice_resist_up' }, { affected: 'ice_resist_down' }] } }],
+        details: { self: { minimum_ice_resist_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'electric_resist_up' }, { affected: 'electric_resist_down' }] } }],
+        details: { self: { minimum_electric_resist_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } } } }
+      }]
     }]
   },
   135: {
@@ -13074,6 +13100,10 @@ export const unitSkillData: UnitSkillData = {
             immovable: { tag: 'freeze', term: { for_rounds: 2 } }
           }
         }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'great_antarctica_adventure' }], target: [{ tagged: 'wet' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { all_buff_removal: { term: 'immediate' } } }
       }]
     }],
     passive: [{
@@ -13106,6 +13136,19 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { target: [{ affected: 'target_protect' }] } }],
         target: { kind: 'ally' },
         details: { target: { ap_up: { base: { microValue: 100000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { spd_up: { tag: 'great_antarctica_adventure', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'mimesis' }] } }],
+        details: { self: { ignore_protect: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'freeze' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { ice_resist_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
       }]
     }]
   },
@@ -17489,6 +17532,24 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'be_hit' }],
         target: { kind: 'ally' },
         details: { target: { atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 }, max_stack: 3 } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 4 } } } }],
+        details: { self: { reconnaissance: { term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'cross_adjacent', greater_or_equal: 2, less_or_equal: 3 } } } }],
+        details: { self: { marked: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'cross_adjacent', equal: 4 } } } }],
+        details: { self: { marked: { term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ hp_greater_than: 50 }] } }],
+        details: { self: { minimize_damage_less_than_value: { base: { value: 500 }, per_lv_up: { value: 50 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ hp_less_or_equal: 50 }] } }],
+        details: { self: { minimize_damage_less_than_value: { base: { value: 750 }, per_lv_up: { value: 75 }, term: { for_rounds: 1 } } } }
       }]
     }]
   },

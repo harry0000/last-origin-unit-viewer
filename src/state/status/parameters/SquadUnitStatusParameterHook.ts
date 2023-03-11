@@ -36,6 +36,8 @@ import {
   squadUnitFireResistState,
   squadUnitIceResistEffectsState,
   squadUnitIceResistState,
+  squadUnitMinimumElectricResistUpEffectsState,
+  squadUnitMinimumFireResistUpEffectsState,
   squadUnitMinimumIceResistUpEffectsState,
   squadUnitSpdEffectsState,
   squadUnitSpdEffectValueState,
@@ -144,15 +146,23 @@ export function useSquadUnitAttributeResistEffects(
 ): SquadUnitAttributeResistEffectsViewModel {
   switch (status) {
   case 'fireResist':
-    return SquadUnitAttributeResistEffectsViewModel.build(status, useRecoilValue(squadUnitFireResistEffectsState));
+    return new SquadUnitAttributeResistEffectsViewModel(
+      status,
+      useRecoilValue(squadUnitFireResistEffectsState),
+      useRecoilValue(squadUnitMinimumFireResistUpEffectsState)
+    );
   case 'iceResist':
-    return SquadUnitAttributeResistEffectsViewModel.build(
+    return new SquadUnitAttributeResistEffectsViewModel(
       status,
       useRecoilValue(squadUnitIceResistEffectsState),
       useRecoilValue(squadUnitMinimumIceResistUpEffectsState)
     );
   case 'electricResist':
-    return SquadUnitAttributeResistEffectsViewModel.build(status, useRecoilValue(squadUnitElectricResistEffectsState));
+    return new SquadUnitAttributeResistEffectsViewModel(
+      status,
+      useRecoilValue(squadUnitElectricResistEffectsState),
+      useRecoilValue(squadUnitMinimumElectricResistUpEffectsState)
+    );
   }
 }
 

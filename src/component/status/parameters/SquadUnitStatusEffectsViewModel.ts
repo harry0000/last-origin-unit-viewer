@@ -11,6 +11,8 @@ import {
   EvaBattleEffect,
   FireResistBattleEffect,
   IceResistBattleEffect,
+  MinimumElectricResistUpBattleEffect,
+  MinimumFireResistUpBattleEffect,
   MinimumIceResistUpBattleEffect,
   SpdBattleEffect
 } from '../../../domain/squad/simulator/BattleEffect';
@@ -62,7 +64,9 @@ type PercentageStatusBattleEffect =
   FireResistBattleEffect |
   IceResistBattleEffect |
   ElectricResistBattleEffect |
-  MinimumIceResistUpBattleEffect
+  MinimumFireResistUpBattleEffect |
+  MinimumIceResistUpBattleEffect |
+  MinimumElectricResistUpBattleEffect
 
 type ValueStatusBattleEffect =
   AtkValueUpBattleEffect |
@@ -317,29 +321,14 @@ function getAttributeStatusKey(status: 'fireResist' | 'iceResist' | 'electricRes
 
 export class SquadUnitAttributeResistEffectsViewModel {
 
-  static build(
-    ...[status, rateEffects, minimumRateUpEffects]:
-      [status: 'fireResist',     rateEffects: ReadonlyArray<FireResistBattleEffect>] |
-      [status: 'iceResist',      rateEffects: ReadonlyArray<IceResistBattleEffect>, minimumRateUpEffects: ReadonlyArray<MinimumIceResistUpBattleEffect>] |
-      [status: 'electricResist', rateEffects: ReadonlyArray<ElectricResistBattleEffect>]
-  ): SquadUnitAttributeResistEffectsViewModel {
-    switch (status) {
-    case 'fireResist':
-    case 'electricResist':
-      return new SquadUnitAttributeResistEffectsViewModel(status, rateEffects);
-    case 'iceResist':
-      return new SquadUnitAttributeResistEffectsViewModel(status, rateEffects, minimumRateUpEffects);
-    }
-  }
-
   readonly statusKey: string;
   readonly reteEffects: ReadonlyArray<SquadUnitStatusEffectDetails>;
   readonly minimumReteUpEffects: ReadonlyArray<SquadUnitStatusEffectDetails>;
 
-  private constructor(
+  constructor(
     status: 'fireResist' | 'iceResist' | 'electricResist',
     reteBattleEffects: ReadonlyArray<PercentageStatusBattleEffect>,
-    minimumRateUpEffects: ReadonlyArray<MinimumIceResistUpBattleEffect> = []
+    minimumRateUpEffects: ReadonlyArray<PercentageStatusBattleEffect>
   ) {
     this.statusKey = getAttributeStatusKey(status);
     this.reteEffects = reteBattleEffects.map(buildBattleEffectProps);

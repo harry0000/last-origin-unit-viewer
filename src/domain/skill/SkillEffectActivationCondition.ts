@@ -197,6 +197,7 @@ export type ActivationSelfState =
   {
     [EffectActivationState.NotAffected]?:
       // The following are AND conditions
+      readonly [typeof Effect.Counterattack] |
       readonly [typeof Effect.Reconnaissance] |
       readonly [typeof Effect.FollowUpAttack] |
       readonly [typeof Effect.FollowUpAttack, typeof Effect.TargetProtect]
@@ -268,8 +269,9 @@ export type NumOfUnitsInSquadState = {
     { unit: 'ally', greater_or_equal: 1 | 2 | 4 } |
     { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 } |
     { unit: typeof UnitType['Flying' | 'Heavy'], less_or_equal: 1 | 2 } |
-    { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
     { unit: typeof UnitRole.Attacker, equal: 1 | 2 | 3 | 4 } |
+    { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
+    { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 2, less_or_equal: 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 }
 }
 

@@ -14,6 +14,8 @@ import {
   EvaBattleEffect,
   FireResistBattleEffect,
   IceResistBattleEffect,
+  MinimumElectricResistUpBattleEffect,
+  MinimumFireResistUpBattleEffect,
   MinimumIceResistUpBattleEffect,
   SpdBattleEffect
 } from '../../../domain/squad/simulator/BattleEffect';
@@ -272,7 +274,9 @@ const _inSquad = {
   iceResistEffects: atomFamily<ReadonlyArray<IceResistBattleEffect>, UnitNumber>({ key: 'UnitsStatusParameterState_inSquad_iceResistEffects', default: [] }),
   electricResistEffects: atomFamily<ReadonlyArray<ElectricResistBattleEffect>, UnitNumber>({ key: 'UnitsStatusParameterState_inSquad_electricResistEffects', default: [] }),
 
+  minimumFireResistUpEffects: atomFamily<ReadonlyArray<MinimumFireResistUpBattleEffect>, UnitNumber>({ key: 'UnitsStatusParameterState_inSquad_minimumFireResistUpEffects', default: [] }),
   minimumIceResistUpEffects: atomFamily<ReadonlyArray<MinimumIceResistUpBattleEffect>, UnitNumber>({ key: 'UnitsStatusParameterState_inSquad_minimumIceResistUpEffects', default: [] }),
+  minimumElectricResistUpEffects: atomFamily<ReadonlyArray<MinimumElectricResistUpBattleEffect>, UnitNumber>({ key: 'UnitsStatusParameterState_inSquad_minimumElectricResistUpEffects', default: [] }),
 
   atkRateEffectValue: atomFamily<MilliValue | undefined, UnitNumber>({ key: 'UnitsStatusParameterState_inSquad_atkRateEffectValue', default: undefined }),
   defRateEffectValue: atomFamily<MilliValue | undefined, UnitNumber>({ key: 'UnitsStatusParameterState_inSquad_defRateEffectValue', default: undefined }),
@@ -319,9 +323,9 @@ function _updateStatus(
     const evaParam = new UnitEvaStatusParameter(unit, eva, chip1Effect, chip2Effect, osEffect, gearEffect, coreLinkBonus, fullLinkBonus, rankUpBonus);
     const criParam = new UnitCriStatusParameter(unit, cri, chip1Effect, chip2Effect, osEffect, gearEffect, coreLinkBonus, fullLinkBonus, rankUpBonus);
     const spdParam = new UnitSpdStatusParameter(unit, chip1Effect, chip2Effect, osEffect, gearEffect, coreLinkBonus, fullLinkBonus, rankUpBonus);
-    const fireResist     = new UnitFireResistStatusParameter(unit, chip1Effect, chip2Effect, osEffect, gearEffect);
-    const iceResist      = new UnitIceResistStatusParameter(unit, chip1Effect, chip2Effect, osEffect, gearEffect);
-    const electricResist = new UnitElectricResistStatusParameter(unit, chip1Effect, chip2Effect, osEffect, gearEffect);
+    const fireResist     = new UnitFireResistStatusParameter(unit, chip1Effect, chip2Effect, osEffect, gearEffect, rankUpBonus);
+    const iceResist      = new UnitIceResistStatusParameter(unit, chip1Effect, chip2Effect, osEffect, gearEffect, rankUpBonus);
+    const electricResist = new UnitElectricResistStatusParameter(unit, chip1Effect, chip2Effect, osEffect, gearEffect, rankUpBonus);
 
     setIfNotDeepEqual(cbi, _hp(unit), hpParam.hp, equalIntegerValue);
     setIfNotDeepEqual(cbi, _hpEffectValue(unit), hpParam.hpEffectValue, equalIntegerValue);
@@ -481,7 +485,9 @@ function _updateSquadUnitStatus(
       setIfNotDeepEqual(cbi, _inSquad.iceResistEffects(unit), unitStatus.iceResistEffects);
       setIfNotDeepEqual(cbi, _inSquad.electricResistEffects(unit), unitStatus.electricResistEffects);
 
+      setIfNotDeepEqual(cbi, _inSquad.minimumFireResistUpEffects(unit), unitStatus.minimumFireResistEffects);
       setIfNotDeepEqual(cbi, _inSquad.minimumIceResistUpEffects(unit), unitStatus.minimumIceResistEffects);
+      setIfNotDeepEqual(cbi, _inSquad.minimumElectricResistUpEffects(unit), unitStatus.minimumElectricResistEffects);
 
       setIfNotDeepEqual(cbi, _inSquad.atkRateEffectValue(unit), unitStatus.atkRateEffectValue);
       setIfNotDeepEqual(cbi, _inSquad.defRateEffectValue(unit), unitStatus.defRateEffectValue);
@@ -677,7 +683,9 @@ export const squadUnitFireResistEffectsState = wrapSquadUnitSelector('squadUnitF
 export const squadUnitIceResistEffectsState = wrapSquadUnitSelector('squadUnitIceResistEffectsState', _inSquad.iceResistEffects, []);
 export const squadUnitElectricResistEffectsState = wrapSquadUnitSelector('squadUnitElectricResistEffectsState', _inSquad.electricResistEffects, []);
 
+export const squadUnitMinimumFireResistUpEffectsState = wrapSquadUnitSelector('squadUnitMinimumFireResistUpEffectsState', _inSquad.minimumFireResistUpEffects, []);
 export const squadUnitMinimumIceResistUpEffectsState = wrapSquadUnitSelector('squadUnitMinimumIceResistUpEffectsState', _inSquad.minimumIceResistUpEffects, []);
+export const squadUnitMinimumElectricResistUpEffectsState = wrapSquadUnitSelector('squadUnitMinimumElectricResistUpEffectsState', _inSquad.minimumElectricResistUpEffects, []);
 
 export const squadUnitAtkRateEffectValueState = wrapSquadUnitSelector('squadUnitAtkRateEffectValueState', _inSquad.atkRateEffectValue);
 export const squadUnitDefRateEffectValueState = wrapSquadUnitSelector('squadUnitDefRateEffectValueState', _inSquad.defRateEffectValue);

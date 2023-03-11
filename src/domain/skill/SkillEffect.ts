@@ -3,7 +3,7 @@ import { Effect } from '../Effect';
 export type StatusEffectOnly = typeof Effect['HpUp' | 'HpDown']
 export type EquipmentEffectOnly =
   StatusEffectOnly |
-  typeof Effect['MinimumIceResistUp' | 'RangeDownActive1']
+  typeof Effect['RangeDownActive1']
 export type NoValueEffectKey =
   typeof Effect[
     'ActionCountUp' |

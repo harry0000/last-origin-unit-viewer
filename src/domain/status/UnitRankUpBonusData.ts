@@ -37,7 +37,10 @@ export type RankUpBonus = {
   cri_up?: MilliPercentageValue,
   acc_up?: MilliPercentageValue,
   eva_up?: MilliPercentageValue,
-  spd_up?: MicroValue
+  spd_up?: MicroValue,
+  fire_resist_up?: MilliPercentageValue,
+  ice_resist_up?: MilliPercentageValue,
+  electric_resist_up?: MilliPercentageValue
 } | {
   // HACK: for Goltarion
   atk_up: MilliValue,
