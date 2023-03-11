@@ -56,10 +56,11 @@ type StatusEffectActivationStateKey =
 type AffectedByActivationState =
   Readonly<{
     [EffectActivationState.AffectedBy]:
-      9 | 54 | 55 | 133 | 135 |
-      UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
+      { unit: 9 | 54 | 55 | 133 | 135 } |
       { unit: 23, effect: typeof Effect.FollowUpAttack } |
-      { unit: 83, effect: typeof Effect.TargetProtect } |
+      { unit: 83 | 134, effect: typeof Effect.TargetProtect } |
+      UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
+      UnitAliasExceptUnit<typeof UnitAlias.Strikers, 150> |
       { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp }
   }>
 
@@ -103,6 +104,7 @@ const AffectedSkillEffect = [
   Effect.ActionCountUp,
   Effect.ActionCountDown,
   Effect.DamageMultiplierUp,
+  Effect.DamageMultiplierDown,
   Effect.DefensePenetration,
   Effect.DamageTakenIncreased,
   Effect.DamageReductionUp,
@@ -195,6 +197,8 @@ export type ActivationSelfState =
   {
     [EffectActivationState.NotAffected]?:
       // The following are AND conditions
+      readonly [typeof Effect.Counterattack] |
+      readonly [typeof Effect.Reconnaissance] |
       readonly [typeof Effect.FollowUpAttack] |
       readonly [typeof Effect.FollowUpAttack, typeof Effect.TargetProtect]
   } &
@@ -241,6 +245,7 @@ type InSquadStateUnit =
     'EmpressHound'
   ] |
   Readonly<UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter>> |
+  Readonly<UnitAliasAndRole<typeof UnitAlias['Strikers'], typeof UnitRole.Attacker>> |
   'golden_factory'
 
 type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
@@ -264,8 +269,9 @@ export type NumOfUnitsInSquadState = {
     { unit: 'ally', greater_or_equal: 1 | 2 | 4 } |
     { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 } |
     { unit: typeof UnitType['Flying' | 'Heavy'], less_or_equal: 1 | 2 } |
-    { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
     { unit: typeof UnitRole.Attacker, equal: 1 | 2 | 3 | 4 } |
+    { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
+    { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 2, less_or_equal: 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 }
 }
 

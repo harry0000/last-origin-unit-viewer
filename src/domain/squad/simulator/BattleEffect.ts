@@ -77,7 +77,9 @@ type ApEffect = typeof Effect['ApUp' | 'ApDown' | 'SetAp']
 type FireResistEffect = typeof Effect['FireResistUp' | 'FireResistDown']
 type IceResistEffect = typeof Effect['IceResistUp' | 'IceResistDown']
 type ElectricResistEffect = typeof Effect['ElectricResistUp' | 'ElectricResistDown']
+type MinimumFireResistUpEffect = typeof Effect.MinimumFireResistUp
 type MinimumIceResistUpEffect = typeof Effect.MinimumIceResistUp
+type MinimumElectricResistUpEffect = typeof Effect.MinimumElectricResistUp
 
 type StatusEffect =
   AtkEffect | AtkValueUpEffect | AtkValueUpByUnitEffect |
@@ -90,7 +92,9 @@ type StatusEffect =
   FireResistEffect |
   IceResistEffect |
   ElectricResistEffect |
-  MinimumIceResistUpEffect
+  MinimumFireResistUpEffect |
+  MinimumIceResistUpEffect |
+  MinimumElectricResistUpEffect
 
 export type AtkBattleEffect = MakeBattleEffect<AtkEffect>
 export type AtkValueUpBattleEffect = MakeBattleEffect<AtkValueUpEffect>
@@ -105,7 +109,9 @@ export type ApBattleEffect = MakeBattleEffect<ApEffect>
 export type FireResistBattleEffect = MakeBattleEffect<FireResistEffect>
 export type IceResistBattleEffect = MakeBattleEffect<IceResistEffect>
 export type ElectricResistBattleEffect = MakeBattleEffect<ElectricResistEffect>
+export type MinimumFireResistUpBattleEffect = MakeBattleEffect<MinimumFireResistUpEffect>
 export type MinimumIceResistUpBattleEffect = MakeBattleEffect<MinimumIceResistUpEffect>
+export type MinimumElectricResistUpBattleEffect = MakeBattleEffect<MinimumElectricResistUpEffect>
 
 export function isStatusBattleEffect<E extends StatusEffect>(
   effect: E,

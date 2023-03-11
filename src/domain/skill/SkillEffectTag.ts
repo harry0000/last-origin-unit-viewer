@@ -105,16 +105,18 @@ export type SkillEffectTag =
   'bunny' |
   'burning_bunny_spirit' |
   'cheerleader' |
-  'with_flammables' |
   'asceticism' |
   'fanaticism' |
   'bleeding_hole' |
   'night_of_blood_queen' |
   'clear_and_serene' |
   'foresight' |
+  'talaria' |
+  'take_down_a_peg_or_two' |
   'separation_anxiety' |
   'energy_focusing' |
   'mimesis' |
+  'great_antarctica_adventure' |
   'pre_cooking' |
   'best_desserts' |
   'psychic_barrier' |

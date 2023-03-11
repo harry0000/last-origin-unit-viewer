@@ -328,27 +328,29 @@ abstract class UnitAttributeResistStatusParameter {
     chip1: StatusEffect,
     chip2: StatusEffect,
     os: StatusEffect,
-    gear: StatusEffect
+    gear: StatusEffect,
+    rankUpBonus: UnitRankUpBonus | undefined
   ) {
+    const rankUpBonusSummary = sumMilliPercentageValues(...pickValues(...statusEffectKeys)(...Object.values(rankUpBonus ?? {})));
     this.resistEffectValue = sumMilliPercentageValues(...pickValues(...statusEffectKeys)(chip1, chip2, os, gear));
-    this.resist = sumMilliPercentageValues(baseResist, this.resistEffectValue);
+    this.resist = sumMilliPercentageValues(baseResist, rankUpBonusSummary, this.resistEffectValue);
   }
 }
 
 export class UnitFireResistStatusParameter extends UnitAttributeResistStatusParameter {
-  constructor(unit: UnitNumber, chip1: StatusEffect, chip2: StatusEffect, os: StatusEffect, gear: StatusEffect) {
-    super([Effect.FireResistUp, Effect.FireResistDown], unitStatusData[unit].fireResist, chip1, chip2, os, gear);
+  constructor(unit: UnitNumber, chip1: StatusEffect, chip2: StatusEffect, os: StatusEffect, gear: StatusEffect, rankUpBonus: UnitRankUpBonus | undefined) {
+    super([Effect.FireResistUp, Effect.FireResistDown], unitStatusData[unit].fireResist, chip1, chip2, os, gear, rankUpBonus);
   }
 }
 
 export class UnitIceResistStatusParameter extends UnitAttributeResistStatusParameter {
-  constructor(unit: UnitNumber, chip1: StatusEffect, chip2: StatusEffect, os: StatusEffect, gear: StatusEffect) {
-    super([Effect.IceResistUp, Effect.IceResistDown], unitStatusData[unit].iceResist, chip1, chip2, os, gear);
+  constructor(unit: UnitNumber, chip1: StatusEffect, chip2: StatusEffect, os: StatusEffect, gear: StatusEffect, rankUpBonus: UnitRankUpBonus | undefined) {
+    super([Effect.IceResistUp, Effect.IceResistDown], unitStatusData[unit].iceResist, chip1, chip2, os, gear, rankUpBonus);
   }
 }
 
 export class UnitElectricResistStatusParameter extends UnitAttributeResistStatusParameter {
-  constructor(unit: UnitNumber, chip1: StatusEffect, chip2: StatusEffect, os: StatusEffect, gear: StatusEffect) {
-    super([Effect.ElectricResistUp, Effect.ElectricResistDown], unitStatusData[unit].electricResist, chip1, chip2, os, gear);
+  constructor(unit: UnitNumber, chip1: StatusEffect, chip2: StatusEffect, os: StatusEffect, gear: StatusEffect, rankUpBonus: UnitRankUpBonus | undefined) {
+    super([Effect.ElectricResistUp, Effect.ElectricResistDown], unitStatusData[unit].electricResist, chip1, chip2, os, gear, rankUpBonus);
   }
 }
