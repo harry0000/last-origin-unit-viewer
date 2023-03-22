@@ -51,6 +51,7 @@
       "ap_down": "AP Down",
       "attribute_resist_up": "属性耐性Up",
       "attribute_resist_down": "属性耐性Down",
+      "minimum_attribute_resist_up": "属性耐性下限Up",
       "status_resist_up": "状態異常耐性Up",
       "status_resist_down": "状態異常耐性Down",
       "range_up": "射程Up",
