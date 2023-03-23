@@ -41,8 +41,10 @@ function matchFullLinkBonusCondition(
   fullLinkBonus: FullLinkBonusCondition
 ): boolean {
   switch (fullLinkBonus) {
-  case Effect.EvaUp:
+  case FullLinkBonusCondition.EvaUp:
     return 'eva_up' in coreLink.full_link_bonus[3];
+  case FullLinkBonusCondition.BuffDebuffLv2Up:
+    return commonFullLinkBonusIndexes.some(i => 'buff_debuff_lv_up' in coreLink.full_link_bonus[i]);
   default:
     return commonFullLinkBonusIndexes.some(i => fullLinkBonus in coreLink.full_link_bonus[i]);
   }
