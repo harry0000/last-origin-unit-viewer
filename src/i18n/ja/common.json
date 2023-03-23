@@ -164,8 +164,8 @@
       "active_skill": "$t(form.active_skill_conditions.{{condition}})",
       "active_skill_area": "攻撃範囲 : $t(form.active_skill_area_conditions.{{condition}})",
       "skill_effect": "$t(form.skill_effect_conditions.{{condition}})",
-      "core_link_bonus": "$t(status.core_link_bonus) : $t(form.core_link_bonus_conditions.{{condition}})",
-      "full_link_bonus": "$t(status.full_link_bonus) : $t(form.full_link_bonus_conditions.{{condition}})",
+      "core_link_bonus": "$t(filter.core_link_bonus) : $t(form.core_link_bonus_conditions.{{condition}})",
+      "full_link_bonus": "$t(filter.full_link_bonus) : $t(form.full_link_bonus_conditions.{{condition}})",
       "rank_up": "$t(form.rank_up_conditions.{{condition}})"
     }
   },
@@ -265,7 +265,6 @@
     "core_link_slot4": "コアリンクスロット4",
     "core_link_slot5": "コアリンクスロット5",
     "unlink": "コアリンク解除",
-    "core_link_bonus": "コアリンクボーナス",
     "remove_equipment": "装備解除",
     "equipment_status_effect": "ステータス効果",
     "none_equipment_status_effect": "—",
