@@ -146,6 +146,7 @@ export class UnitAtkStatusParameter {
   readonly atk: MilliValue;
   readonly atkEffectValue: MilliValue;
   readonly atkCoreLinkBonus: MilliValue;
+  readonly atkFullLinkBonus: MilliValue;
 
   constructor(
     unit: UnitNumber,
@@ -156,17 +157,22 @@ export class UnitAtkStatusParameter {
     os: StatusEffect,
     gear: StatusEffect,
     coreLinkBonus: CoreLinkBonus | Record<string, never>,
+    fullLinkBonus: FullLinkBonus | undefined,
     rankUpBonus: UnitRankUpBonus | undefined
   ) {
+    const _fullLinkBonus: FullLinkBonus | Record<string, never> = fullLinkBonus ?? {};
+
     const baseAtk            = calculateUnitBaseAtk(unit, lv);
     const rankUpBonusSummary = sumMilliValues(...pickValues(Effect.AtkUp)(...Object.values(rankUpBonus ?? {})));
     const atkAddition        = sumMilliValues(...pickValues(Effect.AtkUp, Effect.AtkDown)(atkEnhancement, chip1, chip2, os, gear));
     const atk                = sumMilliValues(baseAtk, rankUpBonusSummary, atkAddition);
 
     this.atkCoreLinkBonus = Effect.AtkUp in coreLinkBonus ? multiplyMilliValue(atk, coreLinkBonus.atk_up) : { milliValue: 0 };
-    this.atkEffectValue = sumMilliValues(atkAddition, this.atkCoreLinkBonus);
+    this.atkFullLinkBonus = Effect.AtkUp in _fullLinkBonus ? multiplyMilliValue(atk, _fullLinkBonus.atk_up) : { milliValue: 0 };
 
-    this.atk = sumMilliValues(atk, this.atkCoreLinkBonus);
+    this.atkEffectValue = sumMilliValues(atkAddition, this.atkCoreLinkBonus, this.atkFullLinkBonus);
+
+    this.atk = sumMilliValues(atk, this.atkCoreLinkBonus, this.atkFullLinkBonus);
   }
 }
 

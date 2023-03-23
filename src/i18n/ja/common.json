@@ -103,6 +103,7 @@
     "full_link_bonus_conditions": {
       "empty": "未指定",
       "hp_up": "HP Up",
+      "atk_up": "$t(form.skill_effect_conditions.atk_up)",
       "def_up": "$t(form.skill_effect_conditions.def_up)",
       "acc_up": "$t(form.skill_effect_conditions.acc_up)",
       "cri_up": "$t(form.skill_effect_conditions.cri_up)",
@@ -122,6 +123,7 @@
       "damage_multiplier": "スキル威力 +{{value}}%",
       "buff_debuff_lv_up": "バフ/デバフ効果Lv +{{value}}",
       "hp_up": "$t(status.hp) +{{value}}%",
+      "atk_up": "$t(status.atk) +{{value}}%",
       "def_up": "$t(status.def) +{{value}}%",
       "acc_up": "$t(status.acc) +{{value}}%",
       "eva_up": "$t(status.eva) +{{value}}%",

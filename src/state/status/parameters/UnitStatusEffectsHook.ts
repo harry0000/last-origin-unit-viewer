@@ -17,6 +17,7 @@ import {
 } from './UnitLvStatusState';
 import {
   atkCoreLinkBonusValueState,
+  atkFullLinkBonusValueState,
   defCoreLinkBonusValueState,
   defFullLinkBonusValueState,
   hpCoreLinkBonusValueState,
@@ -332,6 +333,17 @@ function fullLinkBonusEffects(
       }] :
       [];
   }
+  case 'atk': {
+    const bonus = useRecoilValue(fullLinkBonusEffectState(unit));
+    const value = useRecoilValue(atkFullLinkBonusValueState(unit));
+    return bonus && 'atk_up' in bonus ?
+      [{
+        key: 'full_link_bonus',
+        affected: t('status.affected.full_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.atk_up) }),
+        value: calcMilliValue(value)
+      }] :
+      [];
+  }
   case 'def': {
     const bonus = useRecoilValue(fullLinkBonusEffectState(unit));
     const value = useRecoilValue(defFullLinkBonusValueState(unit));
@@ -383,7 +395,6 @@ function fullLinkBonusEffects(
       }] :
       [];
   }
-  case 'atk':
   case 'fireResist':
   case 'iceResist':
   case 'electricResist':

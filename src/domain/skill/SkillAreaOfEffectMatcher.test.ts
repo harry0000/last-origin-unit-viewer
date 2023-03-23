@@ -197,6 +197,10 @@ describe('calcTargetPositions()', () => {
       expect(calcTargetPositions(SkillAreaType.MiddleStaircase, 8)).toEqual(new Set([8, 4, 5, 1, 2]));
     });
 
+    test('LeftSpreadForward', () => {
+      expect(calcTargetPositions(SkillAreaType.LeftSpreadForward, 1)).toEqual(new Set([9, 5, 6, 1, 2, 3]));
+    });
+
     test('LeftSpreadBackward', () => {
       expect(calcTargetPositions(SkillAreaType.LeftSpreadBackward, 3)).toEqual(new Set([7, 4, 5, 1, 2, 3]));
     });

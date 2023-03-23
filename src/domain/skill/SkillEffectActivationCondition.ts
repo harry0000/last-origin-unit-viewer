@@ -229,6 +229,9 @@ export type ActivationTargetState =
       // The following is AND condition
       readonly ['eternal_true_bloods_flash', 'cyclops_eternal_beam']
   } &
+  {
+    [EffectActivationState.NotTagged]?: 'vafrlogi'
+  } &
   NotAffectedActivationState
 
 type InSquadStateUnit =

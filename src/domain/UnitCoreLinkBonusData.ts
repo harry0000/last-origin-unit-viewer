@@ -75,6 +75,10 @@ export type HpUpBonus = Readonly<{
   [Effect.HpUp]: { [key in keyof MilliPercentageValue]: 20_000 | 40_000 | 50_000 }
 }>
 
+export type AtkUpBonus = Readonly<{
+  [Effect.AtkUp]: { [key in keyof MilliPercentageValue]: 20_000 }
+}>
+
 export type DefUpBonus = Readonly<{
   [Effect.DefUp]: { [key in keyof MilliPercentageValue]: 30_000 }
 }>
@@ -94,7 +98,7 @@ export type UnitCoreLinkBonusData = Readonly<{
     specific_link_bonus: SpecificCoreLinkBonus,
     full_link_bonus: readonly [
       SortieCostBonus,
-      CommonFullLinkBonus | DamageMultiplierBonus,
+      CommonFullLinkBonus | AtkUpBonus | DamageMultiplierBonus,
       CommonFullLinkBonus,
       CommonFullLinkBonus | EvaUpBonus,
       SpdUpBonus

@@ -18578,6 +18578,146 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  246: {
+    no: 246,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 142000 },
+        per_lv_up: { milliPercentage: 14200 },
+        attribute: 'fire'
+      },
+      range: 3,
+      cost: 5,
+      area: 'single',
+      effects: [{
+        details: { self: { fixed_fire_damage_over_time: { value: 100, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { marked: { term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ not_tagged: 'vafrlogi', affected: 'fixed_fire_damage_over_time' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            fixed_fire_damage: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' },
+            debuff_removal: { effect: 'fixed_fire_damage_over_time', term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ tagged: 'vafrlogi' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            fixed_fire_damage: { base: { milliPercentage: 100000 }, per_lv_up: { milliPercentage: 10000 }, term: 'immediate' },
+            damage_taken_increased: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            tag_release: { tag: 'vafrlogi', term: 'immediate' },
+            debuff_removal: { effect: 'fixed_fire_damage_over_time', term: 'immediate' }
+          }
+        }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 131000 },
+        per_lv_up: { milliPercentage: 13100 },
+        attribute: 'fire'
+      },
+      range: 4,
+      cost: 10,
+      area: 'left_spread_forward',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { fire_resist_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'marked' }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'immediate' } } }
+      }, {
+        // TODO: Including fixed_fire_damage_over_time effect by vafrlogi
+        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'fixed_fire_damage_over_time' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effect: 'fire_resist_up', term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ tagged: 'vafrlogi' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { status_resist_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'fixed_fire_damage_over_time' }] } }],
+        details: { self: { atk_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }, { trigger: 'attack' }],
+        details: { self: { debuff_removal: { effects: ['fixed_damage_over_time', 'fixed_ice_damage_over_time', 'fixed_electric_damage_over_time'], term: 'immediate' } } }
+      }]
+    }, {
+      area: 'all_adjacent',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            fixed_fire_damage_over_time: { value: 100, term: { for_rounds: 1 } },
+            defense_penetration: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'cross_adjacent' } } }],
+        details: {
+          self: {
+            ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
+            ignore_protect: { term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'cross_adjacent', greater_or_equal: 1 } } } }],
+        details: {
+          self: {
+            spd_down: { milliPercentage: 15000, term: { for_rounds: 1 } },
+            damage_multiplier_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { minimum_fire_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            ice_resist_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            debuff_removal: { effect: 'ice_resist_down', term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { at: 1 } }],
+        target: { kind: 'enemy' },
+        details: { target: { fixed_fire_damage_over_time: { tag: 'vafrlogi', base: { value: 200 }, per_lv_up: { value: 80 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { at: 2 } }],
+        target: { kind: 'enemy' },
+        details: { target: { fixed_fire_damage_over_time: { tag: 'vafrlogi', base: { value: 400 }, per_lv_up: { value: 160 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { at: 3 } }],
+        target: { kind: 'enemy' },
+        details: { target: { fixed_fire_damage_over_time: { tag: 'vafrlogi', base: { value: 600 }, per_lv_up: { value: 240 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { at: 4 } }],
+        target: { kind: 'enemy' },
+        details: { target: { fixed_fire_damage_over_time: { tag: 'vafrlogi', base: { value: 800 }, per_lv_up: { value: 320 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { from: 5 } }],
+        target: { kind: 'enemy' },
+        details: { target: { fixed_fire_damage_over_time: { tag: 'vafrlogi', base: { value: 1000 }, per_lv_up: { value: 400 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }]
+    }]
+  },
   251: {
     no: 251,
     active: [{

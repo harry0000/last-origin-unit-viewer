@@ -12,8 +12,9 @@ const {
   FanShapeSlightlyAttenuate,
   FanShapeStrongExplosion,
   FanShapeWithoutFront,
-  Diagonal,
   Zigzag,
+  Diagonal,
+  LeftSpreadForward,
   Cross,
   CrossWithFrontLine,
   CrossSmallExplosion,
@@ -74,6 +75,7 @@ const targetArea: Record<ActiveSkillAreaOfEffectCondition, ReadonlySet<SkillArea
     FanShapeSlightlyAttenuate,
     FanShapeStrongExplosion,
     FanShapeWithoutFront,
+    LeftSpreadForward,
     LineWithFront,
     LineWithBack,
     InvertedFanShape
@@ -85,7 +87,8 @@ const targetArea: Record<ActiveSkillAreaOfEffectCondition, ReadonlySet<SkillArea
     FanShape,
     FanShapeGreatlyAttenuate,
     FanShapeSlightlyAttenuate,
-    FanShapeStrongExplosion
+    FanShapeStrongExplosion,
+    LeftSpreadForward
   ]),
   [ActiveSkillAreaOfEffectCondition.Cross]: new Set([
     Cross,
@@ -101,7 +104,8 @@ const targetArea: Record<ActiveSkillAreaOfEffectCondition, ReadonlySet<SkillArea
     RowsOnBothSidesTowardFront,
     RowTowardFrontWithFrontLine,
     TwoByThree,
-    MercilessCat
+    MercilessCat,
+    LeftSpreadForward
   ]),
   [ActiveSkillAreaOfEffectCondition.Column]: new Set([
     Line,

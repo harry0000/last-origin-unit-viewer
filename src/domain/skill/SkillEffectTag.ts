@@ -154,6 +154,7 @@ export type SkillEffectTag =
   'power_of_true_blood_fate_control' |
   'power_of_true_blood_deathless' |
   'power_overflows' |
+  'vafrlogi' |
   'assault_formation' |
   'flanking_formation' |
   'command_sharing' |
