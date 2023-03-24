@@ -651,6 +651,14 @@ export function matchEnemyState(
   );
 }
 
+function matchEquippedUnit(state: NonNullable<EquipmentEffectActivationState['unit']>, unit: UnitBasicInfo): boolean {
+  if (typeof state === 'number') {
+    return state === unit.no;
+  } else {
+    return state.kind === unit.kind && (!state.except || state.except !== unit.no);
+  }
+}
+
 export function matchStaticEquipmentState(
   state: EquipmentEffectActivationState,
   unit: UnitOriginState
@@ -658,7 +666,7 @@ export function matchStaticEquipmentState(
   return (
     (!state.grid                || onGridPosition(state.grid, unit.position)) &&
     (!state.hp_greater_or_equal || matchHpRate(EffectActivationState.HpGreaterOrEqual, state.hp_greater_or_equal, unit)) &&
-    (!state.unit                || matchUnitBasicInfo(state.unit, unit.unit))
+    (!state.unit                || matchEquippedUnit(state.unit, unit.unit))
   );
 }
 

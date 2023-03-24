@@ -303,6 +303,7 @@
       "form": "<$t(effect:form.{{form}})>である",
       "equipped": "$t(effect:quote){{equipment}}$t(effect:unquote)を装備している",
       "not_equipped": "{{equipments}}を装備していない",
+      "equipped_with": "{{unit}}が装備している",
       "grid": "$t(effect:condition.grid.{{grid}})にいる",
       "in_squad": "{{unit}}がいる",
       "not_in_squad": "{{unit}}がいない",

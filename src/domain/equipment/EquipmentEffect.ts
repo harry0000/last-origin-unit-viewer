@@ -122,7 +122,7 @@ export type EquipmentEffectActivationState = Readonly<{
   [EffectActivationState.HpGreaterOrEqual]?: 25 | 100,
   [EffectActivationState.Affected]?: typeof Effect['Reconnaissance' | 'Barrier'],
   [EffectActivationState.Tagged]?: 'wet',
-  [EffectActivationState.Unit]?: UnitKind,
+  [EffectActivationState.Unit]?: { kind: UnitKind, except?: 171 } | 171,
   [EffectActivationState.StatusLessThanSelf]?: { status: 'def' },
 }>
 
