@@ -10,6 +10,7 @@ import { UnitKind } from '../UnitBasicInfo';
 export type NoValueEffectKey = typeof Effect[
   'RangeDownActive1' |
   'ActionCountUp' |
+  'LimitActionCount' |
   'MinimizeDamage' |
   'AllDebuffRemoval' |
   'ColumnProtect' |

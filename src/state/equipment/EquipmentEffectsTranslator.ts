@@ -64,6 +64,7 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   switch (entry[0]) {
   case Effect.RangeDownActive1:
   case Effect.ActionCountUp:
+  case Effect.LimitActionCount:
   case Effect.MinimizeDamage:
   case Effect.AllDebuffRemoval:
   case Effect.ColumnProtect:

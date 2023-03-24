@@ -445,6 +445,7 @@
       "range_down": "射程距離ダウン",
       "action_count_up": "最大行動回数アップ",
       "action_count_down": "最大行動回数ダウン",
+      "limit_action_count": "最大行動回数制限",
       "defense_penetration": "防御貫通",
       "defense_penetration_resist_up_by_self_hp_rate": "現在HPに比例して防御貫通耐性アップ",
       "damage_taken_increased": "被ダメージアップ",
@@ -547,6 +548,7 @@
       "range_up_active_2": "スキル2の射程距離 +{{value}}",
       "action_count_up": "最大行動回数 +1",
       "action_count_down": "最大行動回数 -1",
+      "limit_action_count": "最大行動回数を1に制限",
 
       "defense_penetration": "防御貫通 +{{value}}%",
       "defense_penetration_resist_up_by_self_hp_rate": "現在HPに比例して防御貫通耐性 +{{value}}%",

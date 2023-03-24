@@ -59,6 +59,7 @@ export const Effect = {
   RangeUpActive2: 'range_up_active_2',
   ActionCountUp: 'action_count_up',
   ActionCountDown: 'action_count_down',
+  LimitActionCount: 'limit_action_count',
   DefensePenetration: 'defense_penetration',
   DefensePenetrationResistUpBySelfHpRate: 'defense_penetration_resist_up_by_self_hp_rate',
   DamageTakenIncreased: 'damage_taken_increased',
