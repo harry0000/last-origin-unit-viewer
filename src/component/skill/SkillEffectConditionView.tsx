@@ -77,17 +77,7 @@ function stateValuesView(
   case EffectActivationState.NotTagged:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { tag: entry[1] })}</span>);
   case EffectActivationState.TaggedAffected:
-    return (
-      <span>
-        {t(
-          `effect:condition.state.${entry[0]}`,
-          {
-            tag: entry[1].tag,
-            effect: entry[1].effects.map(e => t(`effect:effect.name.${e}`)).join(t('effect:and_symbolic_separator'))
-          }
-        )}
-      </span>
-    );
+    return (<span>{t(`effect:condition.state.${entry[0]}`, entry[1])}</span>);
   case EffectActivationState.Stack:
     if ('effect' in entry[1]) {
       return t('effect:condition.state.tag_effect_stack_ge', entry[1]);

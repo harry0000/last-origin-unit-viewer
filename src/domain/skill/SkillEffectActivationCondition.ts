@@ -161,7 +161,7 @@ type ActivationState =
   {
     [EffectActivationState.TaggedAffected]?: {
       tag: SkillEffectTag,
-      effects: ReadonlyArray<AffectedEffect>
+      effect: AffectedEffect
     }
   } &
   {

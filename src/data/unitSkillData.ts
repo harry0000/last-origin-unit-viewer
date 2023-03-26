@@ -1412,7 +1412,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: { target: { follow_up_attack: { tag: 'cats_hand', term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ state: { self: [{ tagged_affected: { tag: 'cats_hand', effects: ['follow_up_attack'] } }] } }],
+        conditions: [{ state: { self: [{ tagged_affected: { tag: 'cats_hand', effect: 'follow_up_attack' } }] } }],
         details: { self: { absolutely_activated: { tag: 'begin_containment', effect: 'provoked' } } }
       }]
     }]
@@ -2426,7 +2426,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { target: [{ tagged_affected: { tag: 'support_fire', effects: ['marked'] } }] } }],
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged_affected: { tag: 'support_fire', effect: 'marked' } }] } }],
         target: { kind: 'enemy' },
         details: {
           target: {
@@ -3469,7 +3469,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: { self: { action_count_up: { term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { target: [{ tagged_affected: { tag: 'first_aid', effects: ['minimize_damage'] } }] } }],
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged_affected: { tag: 'first_aid', effect: 'minimize_damage' } }] } }],
         target: { kind: 'ally' },
         details: { target: { enmity: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } } } }
       }]
@@ -3983,7 +3983,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: { target: { target_protect: { tag: 'hammer_and_anvil_tactic', term: 'infinite', max_stack: 1, cannot_be_dispelled: true } } }
       }, {
-        conditions: [{ state: { self: [{ tagged: 'tightened_leash' }], target: [{ tagged_affected: { tag: 'hammer_and_anvil_tactic', effects: ['follow_up_attack'] } }] } }],
+        conditions: [{ state: { self: [{ tagged: 'tightened_leash' }], target: [{ tagged_affected: { tag: 'hammer_and_anvil_tactic', effect: 'follow_up_attack' } }] } }],
         target: { kind: 'ally' },
         // TODO: Change to general_effect_removal
         details: { target: { buff_removal: { tag: 'hammer_and_anvil_tactic', effect: 'follow_up_attack' } } }
@@ -3992,7 +3992,7 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: { target: { follow_up_attack: { tag: 'hammer_and_anvil_tactic', term: 'infinite', max_stack: 1, cannot_be_dispelled: true } } }
       }, {
-        conditions: [{ state: { self: [{ tagged: 'loosened_leash' }], target: [{ tagged_affected: { tag: 'hammer_and_anvil_tactic', effects: ['target_protect'] } }] } }],
+        conditions: [{ state: { self: [{ tagged: 'loosened_leash' }], target: [{ tagged_affected: { tag: 'hammer_and_anvil_tactic', effect: 'target_protect' } }] } }],
         target: { kind: 'ally' },
         // TODO: Change to general_effect_removal
         details: { target: { buff_removal: { tag: 'hammer_and_anvil_tactic', effect: 'target_protect' } } }

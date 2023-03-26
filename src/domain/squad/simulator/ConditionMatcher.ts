@@ -473,12 +473,10 @@ function matchTagged(
 }
 
 function matchTaggedAffected(
-  state: { tag: SkillEffectTag, effects: ReadonlyArray<AffectedEffect> },
+  state: { tag: SkillEffectTag, effect: AffectedEffect },
   affected: ReadonlyArray<BattleEffect>
 ): boolean {
-  const taggedEffects = pickTaggedEffects(state.tag, affected);
-
-  return taggedEffects.size > 0 && state.effects.every(e => taggedEffects.has(e));
+  return pickTaggedEffects(state.tag, affected).has(state.effect);
 }
 
 function matchTagStack(
