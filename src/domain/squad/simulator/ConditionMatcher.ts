@@ -92,6 +92,8 @@ function matchTargetConditions(
         (!('type'   in cond) || target.type === cond.type) &&
         (!('role'   in cond) || target.role === cond.role) &&
         (!('except' in cond) || target.no   !== cond.except);
+    } else if ('except' in cond) {
+      return target.no !== cond.except;
     } else {
       return target.type === cond.type && target.role === cond.role;
     }

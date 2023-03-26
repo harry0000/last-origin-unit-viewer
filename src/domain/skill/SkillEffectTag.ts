@@ -92,8 +92,9 @@ export type SkillEffectTag =
   'now_copy_me' |
   'miss_olympia' |
   'gold_forged_through_hundred_refinement' |
-  'magical_girl_at_centurys_end' |
   'hit_vital_spot' |
+  'magical_girl_at_centurys_end' |
+  'growing_magical_girl' |
   'bravery' |
   'duel_preparation' |
   'counterattack_preparation' |
@@ -120,6 +121,7 @@ export type SkillEffectTag =
   'pre_cooking' |
   'best_desserts' |
   'psychic_barrier' |
+  'brainwashing_wave' |
   'charge_electrically' |
   'high_voltage' |
   'death_blow' |

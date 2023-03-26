@@ -38,6 +38,12 @@ export type UnitAliasExceptUnit<
   except: E
 }
 
+export type ExceptUnit<
+  E extends UnitNumber = UnitNumber
+> = {
+  except: E
+}
+
 export const GridState = {
   FrontLine: 'front_line',
   MidLine: 'mid_line',
@@ -59,6 +65,7 @@ type AffectedByActivationState =
       { unit: 9 | 54 | 55 | 133 | 135 } |
       { unit: 23, effect: typeof Effect.FollowUpAttack } |
       { unit: 83 | 134, effect: typeof Effect.TargetProtect } |
+      { unit: 171, effect: typeof Effect.Marked } |
       UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
       UnitAliasExceptUnit<typeof UnitAlias.Strikers, 150> |
       { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp }
@@ -256,7 +263,7 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 }
 
 type NotInSquadStateUnit =
-  252 |
+  127 | 252 |
   typeof UnitRole['Attacker' | 'Defender'] |
   typeof UnitAlias.SteelLine |
   typeof SkillAreaType.CrossAdjacent |
@@ -269,6 +276,7 @@ type NotInSquadState<T extends NotInSquadStateUnit = NotInSquadStateUnit> = {
 export type NumOfUnitsInSquadState = {
   [EffectActivationState.NumOfUnits]:
     { unit: UnitKind, greater_or_equal: 3 } |
+    { unit: typeof UnitKind.AGS, less_or_equal: 2 } |
     { unit: 'ally', greater_or_equal: 1 | 2 | 4 } |
     { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 } |
     { unit: typeof UnitType['Flying' | 'Heavy'], less_or_equal: 1 | 2 } |

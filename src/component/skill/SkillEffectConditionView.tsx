@@ -302,17 +302,53 @@ const SquadStateView: React.FC<{
               {unitStateView(EffectActivationState.InSquad, state[1].in_squad, unitNumber, t)}
             </React.Fragment>) :
             unitStateView(EffectActivationState.InSquad, state.map(s => s.in_squad), unitNumber, t) :
-          'num_of_units' in state ?
-            isNumOfCrossAdjacent(state.num_of_units) ?
-              numOfCrossAdjacent(state.num_of_units) :
-              'equal' in state.num_of_units ?
-                t('effect:condition.state.num_of_units_eq', state.num_of_units) :
-                'greater_or_equal' in state.num_of_units ?
-                  t('effect:condition.state.num_of_units_ge', state.num_of_units as StringMap) :
-                  t('effect:condition.state.num_of_units_le', state.num_of_units) :
-            'not_in_squad' in state ?
-              unitStateView(EffectActivationState.NotInSquad, state.not_in_squad, unitNumber, t) :
-              unitStateView(EffectActivationState.InSquad, state.in_squad, unitNumber, t)
+          (<React.Fragment>
+            {
+              typedEntries(state).map((entry, i, array) => {
+                const Separator = () => (
+                  <React.Fragment>{ifTruthy(needSeparator(array, i), t('effect:and_symbolic_separator'))}</React.Fragment>
+                );
+
+                switch (entry[0]) {
+                case EffectActivationState.InSquad:
+                  return (
+                    <React.Fragment key={entry[0]}>
+                      {unitStateView(EffectActivationState.InSquad, entry[1], unitNumber, t)}
+                      <Separator />
+                    </React.Fragment>
+                  );
+                case EffectActivationState.NotInSquad:
+                  return (
+                    <React.Fragment key={entry[0]}>
+                      {unitStateView(EffectActivationState.NotInSquad, entry[1], unitNumber, t)}
+                      <Separator />
+                    </React.Fragment>
+                  );
+                case EffectActivationState.NumOfUnits: {
+                  const squadState = entry[1];
+                  return (
+                    <React.Fragment key={entry[0]}>
+                      {
+                        isNumOfCrossAdjacent(squadState) ?
+                          numOfCrossAdjacent(squadState) :
+                          'equal' in squadState ?
+                            t('effect:condition.state.num_of_units_eq', squadState) :
+                            'greater_or_equal' in squadState ?
+                              t('effect:condition.state.num_of_units_ge', squadState as StringMap) :
+                              t('effect:condition.state.num_of_units_le', squadState as StringMap)
+                      }
+                      <Separator />
+                    </React.Fragment>
+                  );
+                }
+                default: {
+                  const _exhaustiveCheck: never = entry;
+                  return _exhaustiveCheck;
+                }
+                }
+              })
+            }
+          </React.Fragment>)
       }
     </React.Fragment>
   );
