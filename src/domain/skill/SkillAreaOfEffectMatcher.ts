@@ -103,7 +103,7 @@ const relativeCoordinate: Record<Exclude<SkillAreaType, FixedSkillAreaType>, Rea
   [SkillAreaType.CrossAdjacent]: [[0, -1], [-1, 0], [1, 0], [0, 1]],
   [SkillAreaType.DiagonalAdjacent]: [[-1, -1], [1, -1], [-1, 1], [1, 1]],
   [SkillAreaType.InvertedFanShapeAdjacent]: [[-2, -1], [-2, 0], [-1, 0], [-2, 1]],
-  [SkillAreaType.CatsHand]: [[-1, -1], [-2, 0], [-1, 1]],
+  [SkillAreaType.CatsHand]: [[0, 0], [-2, -1], [-1, -1], [-2, 0], [-2, 1], [-1, 1]],
   [SkillAreaType.UnderWatcher]: [[-2, -1], [-1, -1], [0, -1], [-2, 0], [-1, 0], [-2, 1], [-1, 1], [0, 1]],
   [SkillAreaType.AllForward]: [[1, -1], [2, -1], [1, 0], [2, 0], [1, 1], [2, 1]],
   [SkillAreaType.AllBackward]: [[-2, -1], [-1, -1], [-2, 0], [-1, 0], [-2, 1], [-1, 1]],

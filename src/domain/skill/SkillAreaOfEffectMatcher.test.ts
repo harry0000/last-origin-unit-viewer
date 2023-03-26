@@ -358,7 +358,7 @@ describe('calcTargetPositions()', () => {
     });
 
     test('CatsHand', () => {
-      expect(calcTargetPositions(SkillAreaType.CatsHand, 6)).toEqual(new Set([8, 4, 2]));
+      expect(calcTargetPositions(SkillAreaType.CatsHand, 6)).toEqual(new Set([7, 8, 4, 6, 1, 2]));
     });
 
     test('UnderWatcher', () => {
