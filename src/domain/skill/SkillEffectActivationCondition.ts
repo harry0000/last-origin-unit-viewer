@@ -112,6 +112,7 @@ const AffectedSkillEffect = [
   Effect.ActionCountDown,
   Effect.DamageMultiplierUp,
   Effect.DamageMultiplierDown,
+  Effect.DamageMultiplierUpByStatus,
   Effect.DefensePenetration,
   Effect.DamageTakenIncreased,
   Effect.DamageReductionUp,

@@ -10689,6 +10689,27 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'spd_up' }] } }],
         details: { self: { spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } } } }
       }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { damage_multiplier_up_by_status: { tag: 'moon_light_power', status: 'eva', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'be_attacked' }],
+        details: { self: { counterattack: { base: { milliPercentage: 70000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ affected: 'atk_up' }] } }],
+        target: { kind: 'ally', conditions: [128] },
+        details: { target: { atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ affected: 'acc_up' }] } }],
+        target: { kind: 'ally', conditions: [128] },
+        details: { target: { acc_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ affected: 'spd_up' }] } }],
+        target: { kind: 'ally', conditions: [128] },
+        details: { target: { spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } } } }
+      }]
     }]
   },
   128: {

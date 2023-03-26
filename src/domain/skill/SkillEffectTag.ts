@@ -99,6 +99,7 @@ export type SkillEffectTag =
   'duel_preparation' |
   'counterattack_preparation' |
   'second_coming' |
+  'moon_light_power' |
   'great_overlord_please_be_careful' |
   'great_overlords_order' |
   'command_offense_troop' |
