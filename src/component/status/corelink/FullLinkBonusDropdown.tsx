@@ -30,6 +30,8 @@ const FullLinkBonusLabel: React.FC<{ bonus: FullLinkBonus | undefined }> = ({ bo
     label = t('form.full_link_bonus.buff_debuff_lv_up', { value: bonus.buff_debuff_lv_up.value });
   } else if ('hp_up' in bonus) {
     label = t('form.full_link_bonus.hp_up', { value: calcMilliPercentageValue(bonus.hp_up) });
+  } else if ('atk_up' in bonus) {
+    label = t('form.full_link_bonus.atk_up', { value: calcMilliPercentageValue(bonus.atk_up) });
   } else if ('def_up' in bonus) {
     label = t('form.full_link_bonus.def_up', { value: calcMilliPercentageValue(bonus.def_up) });
   } else if ('acc_up' in bonus) {

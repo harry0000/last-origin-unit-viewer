@@ -1,5 +1,6 @@
 import { UnitAlias } from '../UnitAlias';
 import {
+  ExceptUnit,
   UnitAliasAndRole,
   UnitAliasAndType,
   UnitAliasExceptUnit,
@@ -22,6 +23,7 @@ export type AlliedUnitTarget = Readonly<{
   conditions?:
     ReadonlyArray<
       UnitNumber |
+      ExceptUnit<128> |
       UnitKind | UnitType | UnitRole |
       UnitTypeAndRole |
       UnitAlias |

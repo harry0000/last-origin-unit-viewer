@@ -48,7 +48,7 @@ const SkillEffectTargetView: React.FC<{
               const except = 'except' in cond ? cond.except : undefined;
 
               return (
-                <React.Fragment key={cond.alias}>
+                <React.Fragment key={JSON.stringify(cond)}>
                   {ifNonNullable(
                     except,
                     v => (
@@ -70,10 +70,19 @@ const SkillEffectTargetView: React.FC<{
               );
             } else if ('not_alias' in cond) {
               return (
-                <React.Fragment key={cond.not_alias}>
+                <React.Fragment key={JSON.stringify(cond)}>
                   <UnitAliasView unitAlias={cond.not_alias} />
                   {t('effect:negative_form')}
                   {'type' in cond ? t(`effect:unit.${cond.type}`) : t('effect:unit.unit')}
+                  {separator}
+                </React.Fragment>
+              );
+            } else if ('except' in cond) {
+              return (
+                <React.Fragment key={JSON.stringify(cond)}>
+                  {t('effect:with_quotes', { value: t('unit:display', { number: cond.except }) })}
+                  {t('effect:except_preposition')}
+                  {t('effect:unit.unit')}
                   {separator}
                 </React.Fragment>
               );

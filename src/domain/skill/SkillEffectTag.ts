@@ -92,12 +92,14 @@ export type SkillEffectTag =
   'now_copy_me' |
   'miss_olympia' |
   'gold_forged_through_hundred_refinement' |
-  'magical_girl_at_centurys_end' |
   'hit_vital_spot' |
+  'magical_girl_at_centurys_end' |
+  'growing_magical_girl' |
   'bravery' |
   'duel_preparation' |
   'counterattack_preparation' |
   'second_coming' |
+  'moon_light_power' |
   'great_overlord_please_be_careful' |
   'great_overlords_order' |
   'command_offense_troop' |
@@ -120,6 +122,7 @@ export type SkillEffectTag =
   'pre_cooking' |
   'best_desserts' |
   'psychic_barrier' |
+  'brainwashing_wave' |
   'charge_electrically' |
   'high_voltage' |
   'death_blow' |
@@ -154,6 +157,7 @@ export type SkillEffectTag =
   'power_of_true_blood_fate_control' |
   'power_of_true_blood_deathless' |
   'power_overflows' |
+  'vafrlogi' |
   'assault_formation' |
   'flanking_formation' |
   'command_sharing' |

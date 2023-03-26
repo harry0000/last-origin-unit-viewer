@@ -69,13 +69,14 @@ export function useUnitRoleSelector(role: UnitRole): [selected: boolean, toggle:
 }
 
 export function useConditionEmptyBadge(): boolean {
-  const actives  = useSelectedActiveSkillConditions();
-  const skills   = useSelectedSkillEffectConditions();
-  const coreLink = useSelectedCoreLinkBonusCondition();
-  const fullLink = useSelectedFullLinkBonusCondition();
-  const rankUp   = useSelectedRankUpCondition();
+  const actives   = useSelectedActiveSkillConditions();
+  const skills    = useSelectedSkillEffectConditions();
+  const skillArea = useSelectedActiveSkillAreaCondition();
+  const coreLink  = useSelectedCoreLinkBonusCondition();
+  const fullLink  = useSelectedFullLinkBonusCondition();
+  const rankUp    = useSelectedRankUpCondition();
 
-  return !actives.length && !skills.length && !coreLink && !fullLink && !rankUp;
+  return !actives.length && !skills.length && !skillArea && !coreLink && !fullLink && !rankUp;
 }
 
 export function useSelectedActiveSkillConditions(): ReadonlyArray<ActiveSkillCondition> {

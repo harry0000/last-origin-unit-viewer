@@ -35,18 +35,20 @@ type DependencyState = typeof EffectActivationState[
   'Stack'
 ]
 
+const dependencyStateKeys = [
+  EffectActivationState.Affected,
+  EffectActivationState.NotAffected,
+  EffectActivationState.AffectedBy,
+  EffectActivationState.Tagged,
+  EffectActivationState.NotTagged,
+  EffectActivationState.TaggedAffected,
+  EffectActivationState.Stack
+] as const satisfies ReadonlyArray<DependencyState>;
+
 export function hasNoDependencyState<T extends ActivationSelfState | ActivationTargetState | EquipmentEffectActivationState>(
   arg: T
 ): arg is T & Record<DependencyState, never> {
-  return (
-    !(EffectActivationState.Affected in arg) &&
-    !(EffectActivationState.NotAffected in arg) &&
-    !(EffectActivationState.AffectedBy in arg) &&
-    !(EffectActivationState.Tagged in arg) &&
-    !(EffectActivationState.NotTagged in arg) &&
-    !(EffectActivationState.TaggedAffected in arg) &&
-    !(EffectActivationState.Stack in arg)
-  );
+  return dependencyStateKeys.every(state => !(state in arg));
 }
 
 function matchTargetConditions(
@@ -90,6 +92,8 @@ function matchTargetConditions(
         (!('type'   in cond) || target.type === cond.type) &&
         (!('role'   in cond) || target.role === cond.role) &&
         (!('except' in cond) || target.no   !== cond.except);
+    } else if ('except' in cond) {
+      return target.no !== cond.except;
     } else {
       return target.type === cond.type && target.role === cond.role;
     }
@@ -469,12 +473,10 @@ function matchTagged(
 }
 
 function matchTaggedAffected(
-  state: { tag: SkillEffectTag, effects: ReadonlyArray<AffectedEffect> },
+  state: { tag: SkillEffectTag, effect: AffectedEffect },
   affected: ReadonlyArray<BattleEffect>
 ): boolean {
-  const taggedEffects = pickTaggedEffects(state.tag, affected);
-
-  return taggedEffects.size > 0 && state.effects.every(e => taggedEffects.has(e));
+  return pickTaggedEffects(state.tag, affected).has(state.effect);
 }
 
 function matchTagStack(
@@ -542,16 +544,23 @@ export function matchAffectedState(
   state: ReadonlyArray<ActivationSelfState> | ReadonlyArray<ActivationTargetState>,
   affected: ReadonlyArray<BattleEffect>
 ): boolean {
-  const { Affected, Tagged, TaggedAffected, Stack, AffectedBy, NotAffected } = EffectActivationState;
+  const { Affected, NotAffected, AffectedBy, Tagged, NotTagged, TaggedAffected, Stack } = EffectActivationState;
 
-  return state.some(s =>
-    (!(NotAffected in s)    || !!s.not_affected    && matchNotAffected(s.not_affected, affected)) &&
-    (!(Affected in s)       || !!s.affected        && matchAffected(s.affected, affected)) &&
-    (!(Tagged in s)         || !!s.tagged          && matchTagged(s.tagged, affected)) &&
-    (!(TaggedAffected in s) || !!s.tagged_affected && matchTaggedAffected(s.tagged_affected, affected)) &&
-    (!(Stack in s)          || !!s.stack           && matchTagStack(s.stack, affected)) &&
-    (!(AffectedBy in s)     || !!s.affected_by     && matchAffectedBy(s.affected_by, affected))
-  );
+  return state.some(s => dependencyStateKeys.every(key => {
+    switch (key) {
+    case Affected:       return !(key in s) || !!s.affected        && matchAffected(s.affected, affected);
+    case NotAffected:    return !(key in s) || !!s.not_affected    && matchNotAffected(s.not_affected, affected);
+    case AffectedBy:     return !(key in s) || !!s.affected_by     && matchAffectedBy(s.affected_by, affected);
+    case Tagged:         return !(key in s) || !!s.tagged          && matchTagged(s.tagged, affected);
+    case NotTagged:      return !(key in s) || !!s.not_tagged      && !matchTagged(s.not_tagged, affected);
+    case TaggedAffected: return !(key in s) || !!s.tagged_affected && matchTaggedAffected(s.tagged_affected, affected);
+    case Stack:          return !(key in s) || !!s.stack           && matchTagStack(s.stack, affected);
+    default: {
+      const _exhaustiveCheck: never = key;
+      return _exhaustiveCheck;
+    }
+    }
+  }));
 }
 
 export function matchSquadState(
@@ -642,6 +651,14 @@ export function matchEnemyState(
   );
 }
 
+function matchEquippedUnit(state: NonNullable<EquipmentEffectActivationState['unit']>, unit: UnitBasicInfo): boolean {
+  if (typeof state === 'number') {
+    return state === unit.no;
+  } else {
+    return state.kind === unit.kind && (!state.except || state.except !== unit.no);
+  }
+}
+
 export function matchStaticEquipmentState(
   state: EquipmentEffectActivationState,
   unit: UnitOriginState
@@ -649,7 +666,7 @@ export function matchStaticEquipmentState(
   return (
     (!state.grid                || onGridPosition(state.grid, unit.position)) &&
     (!state.hp_greater_or_equal || matchHpRate(EffectActivationState.HpGreaterOrEqual, state.hp_greater_or_equal, unit)) &&
-    (!state.unit                || matchUnitBasicInfo(state.unit, unit.unit))
+    (!state.unit                || matchEquippedUnit(state.unit, unit.unit))
   );
 }
 

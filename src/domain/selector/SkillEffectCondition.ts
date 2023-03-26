@@ -29,6 +29,7 @@ export const StatusSkillEffectCondition = {
   ApDown: 'ap_down',
   AttributeResistUp: 'attribute_resist_up',
   AttributeResistDown: 'attribute_resist_down',
+  MinimumAttributeResistUp: 'minimum_attribute_resist_up',
   StatusResistUp: 'status_resist_up',
   StatusResistDown: 'status_resist_down',
   RangeUp: 'range_up',
@@ -227,6 +228,12 @@ export function matchSkillConditions(
         actives,
         passives,
         e => !!e.fire_resist_down || !!e.ice_resist_down || !!e.electric_resist_down
+      );
+    case StatusSkillEffectCondition.MinimumAttributeResistUp:
+      return checkAllSkillEffectDetails(
+        actives,
+        passives,
+        e => !!e.minimum_fire_resist_up || !!e.minimum_ice_resist_up || !!e.minimum_electric_resist_up
       );
     case StatusSkillEffectCondition.StatusResistUp:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.status_resist_up);

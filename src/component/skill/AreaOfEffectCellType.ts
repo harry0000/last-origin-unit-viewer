@@ -175,6 +175,10 @@ export const AreaOfEffectCells = {
     select: 8,
     area: ['none', 'effective', 'none', 'effective', 'effective', 'none', 'effective', 'effective', 'none']
   },
+  [SkillAreaType.LeftSpreadForward]: {
+    select: 1,
+    area: ['none', 'none', 'effective', 'none', 'effective', 'effective', 'effective', 'effective', 'effective']
+  },
   [SkillAreaType.LeftSpreadBackward]: {
     select: 3,
     area: ['effective', 'none', 'none', 'effective', 'effective', 'none', 'effective', 'effective', 'effective']

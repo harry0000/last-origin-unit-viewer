@@ -64,6 +64,7 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   switch (entry[0]) {
   case Effect.RangeDownActive1:
   case Effect.ActionCountUp:
+  case Effect.LimitActionCount:
   case Effect.MinimizeDamage:
   case Effect.AllDebuffRemoval:
   case Effect.ColumnProtect:
@@ -194,8 +195,19 @@ function translateCondition(details: EffectDetails | EffectDetailsAsSkill, t: TF
           return t('effect:condition.state.affected', { effect: entry[1] });
         case EffectActivationState.Tagged:
           return t('effect:condition.state.tagged', { tag: entry[1] });
-        case EffectActivationState.Unit:
-          return t('effect:condition.state.unit', { unit: t(`effect:unit.${entry[1]}`) });
+        case EffectActivationState.Unit: {
+          const key = 'effect:condition.state.equipped_with';
+          if (typeof entry[1] === 'number') {
+            const unit = t('effect:with_quotes', { value: t('unit:display', { number: entry[1] }) });
+            return t(key, { unit });
+          } else {
+            const kind = t(`effect:unit.${entry[1].kind}`);
+            const unit = 'except' in entry[1] ?
+              `${t('effect:with_quotes', { value: t('unit:display', { number: entry[1].except }) })}${t('effect:except_preposition')}${kind}` :
+              kind;
+            return t(key, { unit });
+          }
+        }
         case EffectActivationState.StatusLessThanSelf:
           return (
             (hasTarget ? t(`effect:condition.target.${details.target.kind}`) : '') +

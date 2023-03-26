@@ -39,6 +39,7 @@ export const SkillAreaType = {
   FrontOfCross: 'front_of_cross',
   Diagonal: 'diagonal',
   MiddleStaircase: 'middle_staircase',
+  LeftSpreadForward: 'left_spread_forward',
   LeftSpreadBackward: 'left_spread_backward',
   UnderWatcherWithSelf: 'under_watcher_with_self',
   LeaveMeAlone: 'leave_me_alone',

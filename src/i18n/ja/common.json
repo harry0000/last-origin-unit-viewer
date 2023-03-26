@@ -51,6 +51,7 @@
       "ap_down": "AP Down",
       "attribute_resist_up": "属性耐性Up",
       "attribute_resist_down": "属性耐性Down",
+      "minimum_attribute_resist_up": "属性耐性下限Up",
       "status_resist_up": "状態異常耐性Up",
       "status_resist_down": "状態異常耐性Down",
       "range_up": "射程Up",
@@ -102,6 +103,7 @@
     "full_link_bonus_conditions": {
       "empty": "未指定",
       "hp_up": "HP Up",
+      "atk_up": "$t(form.skill_effect_conditions.atk_up)",
       "def_up": "$t(form.skill_effect_conditions.def_up)",
       "acc_up": "$t(form.skill_effect_conditions.acc_up)",
       "cri_up": "$t(form.skill_effect_conditions.cri_up)",
@@ -121,6 +123,7 @@
       "damage_multiplier": "スキル威力 +{{value}}%",
       "buff_debuff_lv_up": "バフ/デバフ効果Lv +{{value}}",
       "hp_up": "$t(status.hp) +{{value}}%",
+      "atk_up": "$t(status.atk) +{{value}}%",
       "def_up": "$t(status.def) +{{value}}%",
       "acc_up": "$t(status.acc) +{{value}}%",
       "eva_up": "$t(status.eva) +{{value}}%",
@@ -164,8 +167,8 @@
       "active_skill": "$t(form.active_skill_conditions.{{condition}})",
       "active_skill_area": "攻撃範囲 : $t(form.active_skill_area_conditions.{{condition}})",
       "skill_effect": "$t(form.skill_effect_conditions.{{condition}})",
-      "core_link_bonus": "$t(status.core_link_bonus) : $t(form.core_link_bonus_conditions.{{condition}})",
-      "full_link_bonus": "$t(status.full_link_bonus) : $t(form.full_link_bonus_conditions.{{condition}})",
+      "core_link_bonus": "$t(filter.core_link_bonus) : $t(form.core_link_bonus_conditions.{{condition}})",
+      "full_link_bonus": "$t(filter.full_link_bonus) : $t(form.full_link_bonus_conditions.{{condition}})",
       "rank_up": "$t(form.rank_up_conditions.{{condition}})"
     }
   },
@@ -265,7 +268,6 @@
     "core_link_slot4": "コアリンクスロット4",
     "core_link_slot5": "コアリンクスロット5",
     "unlink": "コアリンク解除",
-    "core_link_bonus": "コアリンクボーナス",
     "remove_equipment": "装備解除",
     "equipment_status_effect": "ステータス効果",
     "none_equipment_status_effect": "—",

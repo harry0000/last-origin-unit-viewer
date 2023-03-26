@@ -10,6 +10,7 @@ import { UnitKind } from '../UnitBasicInfo';
 export type NoValueEffectKey = typeof Effect[
   'RangeDownActive1' |
   'ActionCountUp' |
+  'LimitActionCount' |
   'MinimizeDamage' |
   'AllDebuffRemoval' |
   'ColumnProtect' |
@@ -120,8 +121,8 @@ export type EquipmentEffectActivationState = Readonly<{
   [EffectActivationState.Grid]?: typeof GridState.BackLine,
   [EffectActivationState.HpGreaterOrEqual]?: 25 | 100,
   [EffectActivationState.Affected]?: typeof Effect['Reconnaissance' | 'Barrier'],
-  [EffectActivationState.Tagged]?: 'wet',
-  [EffectActivationState.Unit]?: UnitKind,
+  [EffectActivationState.Tagged]?: 'wet' | 'moon_light_power',
+  [EffectActivationState.Unit]?: { kind: UnitKind, except?: 171 } | 171 | 127,
   [EffectActivationState.StatusLessThanSelf]?: { status: 'def' },
 }>
 
