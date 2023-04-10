@@ -19,7 +19,7 @@ import UnitFormValue, {
   FormChangeUnits,
   FormLessUnitBasicInfo,
   FormPerUnit,
-  isFormChangeUnitBasicInfo,
+  hasFormChangeUnitNumber,
   isFormChangeUnitNumber
 } from '../UnitFormValue';
 import UnitSkillLvValue, { SkillLv } from './UnitSkillLvValue';
@@ -31,7 +31,7 @@ import {
 import { unitSkillData } from '../../data/unitSkillData';
 
 export function buildUnitSkill(unit: UnitBasicInfo): UnitSkill {
-  if (isFormChangeUnitBasicInfo(unit)) {
+  if (hasFormChangeUnitNumber(unit)) {
     switch (unit.no) {
     case FormChangeUnits.Alexandra:
       return new AlexandraUnitSkill(unit);
