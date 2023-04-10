@@ -1,0 +1,23 @@
+name: CI
+on:
+  push:
+    branches-ignore:
+      - master
+    tags-ignore:
+      - '**'
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+      - name: Lint
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+      - name: Test
+        run: CI=true npm test

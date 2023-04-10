@@ -26,7 +26,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Setup
-        run: npm install
+        run: npm ci --no-audit --progress=false --silent
 
       - name: Build
         env:
