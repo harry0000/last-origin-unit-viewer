@@ -19,8 +19,14 @@
   },
   "plugins": [
     "react",
+    "react-hooks",
     "@typescript-eslint"
   ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "rules": {
     "indent": [
       "error",
@@ -38,12 +44,20 @@
       "error",
       "single"
     ],
+    "no-console": [
+      "error",
+      { "allow": ["error"] }
+    ],
     "react/prop-types": "off",
     "react/no-unknown-property": [
       "error",
       { "ignore": ["css", "focusable"] }
     ],
     "react-hooks/rules-of-hooks": "off",
+    "react-hooks/exhaustive-deps": [
+      "warn",
+      { "additionalHooks": "(useRecoilCallback|useRecoilTransaction_UNSTABLE)" }
+    ],
     "semi": [
       "error",
       "always"
