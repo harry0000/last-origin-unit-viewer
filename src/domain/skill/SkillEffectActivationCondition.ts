@@ -122,7 +122,8 @@ const AffectedSkillEffect = [
   Effect.IgnoreBarrierDr,
   Effect.IgnoreProtect,
   Effect.Provoked,
-  Effect.Immovable
+  Effect.Immovable,
+  Effect.Stunned
 ] as const;
 export type AffectedSkillEffect = typeof AffectedSkillEffect extends ReadonlyArray<infer T> ? T : never;
 
@@ -291,13 +292,12 @@ export type ActivationSquadState = InSquadState | NotInSquadState | NumOfUnitsIn
 
 export type ActivationEnemyState = {
   [EffectActivationState.NumOfUnits]:
-    { equal: 1 } |
+    { equal: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 } |
     { greater_or_equal: 1, less_or_equal: 2 } |
     { greater_or_equal: 3, less_or_equal: 4 } |
     { greater_or_equal: 5, less_or_equal: 6 } |
     { greater_or_equal: 3, unit: typeof UnitType.Heavy } |
-    { greater_or_equal: 5 } |
-    { greater_or_equal: 7 }
+    { greater_or_equal: 5 | 6 | 7 }
 }
 
 export type SelfSkillEffectActivationState =
