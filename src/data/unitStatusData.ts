@@ -1905,7 +1905,7 @@ export const unitStatusData: UnitStatusData = {
       90: { milliValue: 24000 }
     },
     acc: { milliPercentage: 100000 },
-    eva: { milliPercentage: 50370 },
+    eva: { milliPercentage: 51000 },
     cri: { milliPercentage: 7500 },
     spd: { microValue: 4700000 },
     fireResist: { milliPercentage: 0 },
