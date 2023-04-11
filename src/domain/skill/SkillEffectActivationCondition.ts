@@ -6,7 +6,7 @@ import { SkillAreaType } from './SkillAreaOfEffect';
 import { SkillEffectTag } from './SkillEffectTag';
 import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
-import { UnitKind, UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
+import { UnitKind, UnitNumber, UnitRank, UnitRole, UnitType } from '../UnitBasicInfo';
 
 export type UnitNotAlias = {
   not_alias: typeof UnitAlias['AngerOfHorde' | 'KouheiChurch']
@@ -217,6 +217,10 @@ export type ActivationSelfState =
       than: 'atk' | 'def',
       value: number
     }
+  } &
+  {
+    // for Tommy Walker
+    [EffectActivationState.RankGreaterOrEqual]?: typeof UnitRank.S
   }
 
 export type ActivationTargetState =
@@ -265,7 +269,7 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 }
 
 type NotInSquadStateUnit =
-  127 | 252 |
+  110 | 127 | 252 |
   typeof UnitRole['Attacker' | 'Defender'] |
   typeof UnitAlias.SteelLine |
   typeof SkillAreaType.CrossAdjacent |

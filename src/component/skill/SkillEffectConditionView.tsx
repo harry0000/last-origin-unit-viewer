@@ -58,6 +58,8 @@ function stateValuesView(
     return (<span>{t(`effect:condition.state.${entry[0]}`, entry[1])}</span>);
   case EffectActivationState.StatusGreaterOrEqualThan:
     return (<span>{t(`effect:condition.state.${entry[0]}`, entry[1])}</span>);
+  case EffectActivationState.RankGreaterOrEqual:
+    return (<span>{t(`effect:condition.state.${entry[0]}`, { rank: entry[1] })}</span>);
   case EffectActivationState.Affected:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { effect: entry[1] })}</span>);
   case EffectActivationState.NotAffected: {

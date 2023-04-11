@@ -25,7 +25,7 @@ export type SkillEffectScaleFactor =
       type: 'squad',
       unit?:
         UnitKind |
-        typeof UnitType.Light |
+        typeof UnitType['Light' | 'Heavy'] |
         typeof UnitRole['Attacker' | 'Supporter'] |
         typeof UnitAlias[
           'BioroidUnder145cmTall' |

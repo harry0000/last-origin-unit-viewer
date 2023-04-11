@@ -41,6 +41,7 @@ export const SkillAreaType = {
   MiddleStaircase: 'middle_staircase',
   LeftSpreadForward: 'left_spread_forward',
   LeftSpreadBackward: 'left_spread_backward',
+  AllBackwardWithSelf: 'all_backward_with_self',
   UnderWatcherWithSelf: 'under_watcher_with_self',
   LeaveMeAlone: 'leave_me_alone',
   All: 'all',

@@ -16,7 +16,7 @@ import { SkillAreaType } from '../../skill/SkillAreaOfEffect';
 import { SkillEffectScaleFactor } from '../../skill/SkillEffectScaleFactor';
 import { SkillEffectTag } from '../../skill/SkillEffectTag';
 import { TenKeyPosition } from '../Squad';
-import { UnitBasicInfo, UnitKind, UnitNumber, UnitRole, UnitType } from '../../UnitBasicInfo';
+import { UnitBasicInfo, UnitKind, UnitNumber, UnitRankComparator, UnitRole, UnitType } from '../../UnitBasicInfo';
 import { calcTargetPositions } from '../../skill/SkillAreaOfEffectMatcher';
 import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../ValueUnit';
 import { isFormChangeUnitSkill } from '../../skill/UnitSkill';
@@ -358,14 +358,15 @@ function matchStaticActivationSelfState(
   unit: UnitOriginState,
   skillArea: ReadonlySet<TenKeyPosition>
 ): boolean {
-  const { Grid, Form, Equipped, NotEquipped, StatusGreaterOrEqualThan } = EffectActivationState;
+  const { Grid, Form, Equipped, NotEquipped, StatusGreaterOrEqualThan, RankGreaterOrEqual } = EffectActivationState;
   return (
     matchCommonStaticActivationState(state, unit) &&
     (!(Grid in state) || !!state.grid && onGridPosition(state.grid, unit.position, skillArea)) &&
     (!(Form in state) || !!state.form && isFormChangeUnitSkill(unit.skill) && state.form === unit.skill.unitForm()) &&
     (!(Equipped in state) || !!state.equipped && equipped(state.equipped, unit)) &&
     (!(NotEquipped in state) || !!state.not_equipped && state.not_equipped.every(id => notEquipped(id, unit))) &&
-    (!(StatusGreaterOrEqualThan in state) || !!state.status_greater_or_equal_than && compareSelfStatus(state.status_greater_or_equal_than, unit))
+    (!(StatusGreaterOrEqualThan in state) || !!state.status_greater_or_equal_than && compareSelfStatus(state.status_greater_or_equal_than, unit)) &&
+    (!(RankGreaterOrEqual in state) || !!state.rank_greater_or_equal && !UnitRankComparator[unit.rank].lessThan(state.rank_greater_or_equal))
   );
 }
 

@@ -1892,18 +1892,18 @@
     "222": {
       "active": {
         "1": {
-          "mobility_position": "掩護射撃",
-          "fixed_position": "塹壕射撃"
+          "hull_down_mode": "掩護射撃",
+          "turret_down_mode": "塹壕射撃"
         },
         "2": {
-          "mobility_position": "ターゲット処理",
-          "fixed_position": "ターゲット牽制"
+          "hull_down_mode": "ターゲット処理",
+          "turret_down_mode": "ターゲット牽制"
         }
       },
       "passive": {
         "1": {
-          "mobility_position": "移動型陣地",
-          "fixed_position": "固定型陣地"
+          "hull_down_mode": "ハルダウンモード",
+          "turret_down_mode": "ターレットダウンモード"
         }
       }
     },
@@ -1942,11 +1942,11 @@
     },
     "227": {
       "active": {
-        "1": "ペイブウェイ",
+        "1": "ストレイフ",
         "2": "協同偵察"
       },
       "passive": {
-        "1": "ブリムストーン"
+        "1": "近接航空支援"
       }
     },
     "228": {
