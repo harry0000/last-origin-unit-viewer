@@ -16658,8 +16658,8 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: {
           target: {
-            damage_multiplier_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite' },
-            cri_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite' }
+            damage_multiplier_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 99 } },
+            cri_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 99 } }
           }
         }
       }]
@@ -16670,8 +16670,20 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: {
           target: {
-            atk_value_up: { base: { milliValue: 150000 }, per_lv_up: { milliValue: 10000 }, term: 'infinite' },
-            def_value_up: { base: { milliValue: 150000 }, per_lv_up: { milliValue: 10000 }, term: 'infinite' }
+            atk_value_up: { base: { milliValue: 150000 }, per_lv_up: { milliValue: 10000 }, term: { for_rounds: 99 } },
+            def_value_up: { base: { milliValue: 150000 }, per_lv_up: { milliValue: 10000 }, term: { for_rounds: 99 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      equipment_effects: [{
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'light', less_or_equal: 1 } } } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            acc_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 99 } },
+            range_up: { value: { 1: 1, 10: 2 }, term: { for_rounds: 99 } }
           }
         }
       }]

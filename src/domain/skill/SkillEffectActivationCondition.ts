@@ -285,7 +285,7 @@ export type NumOfUnitsInSquadState = {
     { unit: typeof UnitKind.AGS, less_or_equal: 2 } |
     { unit: 'ally', greater_or_equal: 1 | 2 | 4 } |
     { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 } |
-    { unit: typeof UnitType['Flying' | 'Heavy'], less_or_equal: 1 | 2 } |
+    { unit: UnitType, less_or_equal: 1 | 2 } |
     { unit: typeof UnitRole.Attacker, equal: 1 | 2 | 3 | 4 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 2, less_or_equal: 3 } |

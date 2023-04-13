@@ -158,6 +158,7 @@ type OrangeadeSkillData = Readonly<{
   passive:
     readonly [
       PassiveSkillDataAsEquipmentEffect,
+      PassiveSkillDataAsEquipmentEffect,
       PassiveSkillDataAsEquipmentEffect
     ]
 }>
