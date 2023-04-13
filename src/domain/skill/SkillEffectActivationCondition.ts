@@ -234,7 +234,7 @@ export type ActivationTargetState =
     }
   } &
   {
-    [EffectActivationState.Unit]?: typeof UnitAlias.SteelLine
+    [EffectActivationState.Unit]?: typeof UnitAlias.SteelLine | typeof UnitType.Flying
   } &
   {
     [EffectActivationState.Tagged]?:
@@ -300,6 +300,7 @@ export type ActivationEnemyState = {
     { greater_or_equal: 1, less_or_equal: 2 } |
     { greater_or_equal: 3, less_or_equal: 4 } |
     { greater_or_equal: 5, less_or_equal: 6 } |
+    { greater_or_equal: 1, unit: typeof UnitType.Flying } |
     { greater_or_equal: 3, unit: typeof UnitType.Heavy } |
     { greater_or_equal: 5 | 6 | 7 }
 }

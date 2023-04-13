@@ -433,6 +433,7 @@ function calculateEffectValue(
   case Effect.CriDown:
   case Effect.EvaUp:
   case Effect.StatusResistUp:
+  case Effect.DamageReductionUp:
     if ('length' in entry[1]) {
       return { [entry[0]]: entry[1].map(v => calculateMilliPercentageEffectValue(v, lv, effectLv)) };
     }

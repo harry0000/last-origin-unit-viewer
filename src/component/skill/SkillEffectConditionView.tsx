@@ -148,7 +148,7 @@ function affectedByStateView(
 
 function unitStateView(key: typeof EffectActivationState.InSquad, state: ValueOf<ActivationSquadState, typeof EffectActivationState.InSquad> | ReadonlyArray<UnitNumber>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.NotInSquad, state: ValueOf<ActivationSquadState, typeof EffectActivationState.NotInSquad> | 41, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
-function unitStateView(key: typeof EffectActivationState.Unit, state: typeof UnitAlias.SteelLine, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.Unit, state: typeof UnitAlias.SteelLine | typeof UnitType.Flying, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
   key: typeof EffectActivationState['InSquad' | 'NotInSquad' | 'Unit'],
   state:
@@ -164,7 +164,7 @@ function unitStateView(
     typeof UnitAlias.KouheiChurch |
     typeof UnitAlias.EmpressHound |
     typeof SkillAreaType.CrossAdjacent |
-    typeof UnitType['Light' | 'Heavy'] |
+    UnitType |
     UnitRole |
     'golden_factory' |
     { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp },

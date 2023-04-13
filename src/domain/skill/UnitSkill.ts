@@ -724,11 +724,11 @@ class FortressUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Fortr
   }
 
   protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
-    return undefined;
+    return unitSkillData[this.unitNumber].passive[1];
   }
 
   protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
-    return undefined;
+    return unitSkillData[this.unitNumber].passive[2][this.unitForm()];
   }
 }
 

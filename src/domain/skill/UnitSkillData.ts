@@ -335,7 +335,9 @@ type FortressSkillData = Readonly<{
     ],
   passive:
     readonly [
-      { readonly [key in FortressForm]: PassiveSkillData }
+      { readonly [key in FortressForm]: PassiveSkillData },
+      PassiveSkillData,
+      { readonly [key in FortressForm]: PassiveSkillData },
     ]
 }>
 

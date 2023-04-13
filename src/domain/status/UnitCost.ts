@@ -91,7 +91,8 @@ const initialUnitCostData = {
       },
       [UnitType.Flying]: {
         [UnitRole.Attacker]:  { part: 27, nutrient: 0, power: 43 },
-        [UnitRole.Defender]:  { part: 38, nutrient: 0, power: 32 }
+        [UnitRole.Defender]:  { part: 38, nutrient: 0, power: 32 },
+        [UnitRole.Supporter]: { part: 27, nutrient: 0, power: 32 }
       }
     },
     [UnitRank.S]: {
@@ -104,6 +105,9 @@ const initialUnitCostData = {
         [UnitRole.Attacker]:  { part: 35, nutrient: 0, power: 31 },
         [UnitRole.Defender]:  { part: 44, nutrient: 0, power: 22 },
         [UnitRole.Supporter]: { part: 35, nutrient: 0, power: 22 }
+      },
+      [UnitType.Flying]: {
+        [UnitRole.Supporter]: { part: 22, nutrient: 0, power: 26 }
       }
     },
     [UnitRank.A]: {
@@ -278,6 +282,7 @@ class RankUpUnitCostResolver<N extends  RankUpUnitNumber> {
       const agsCost = initialUnitCostData.ags;
       switch (unit.no) {
       case 107: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
+      case 110: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 114: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 115: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 128: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
@@ -286,7 +291,9 @@ class RankUpUnitCostResolver<N extends  RankUpUnitNumber> {
       case 215: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 216: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 217: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
+      case 222: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 225: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
+      case 227: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       default: {
         const _exhaustiveCheck: never = unit;
         return _exhaustiveCheck;

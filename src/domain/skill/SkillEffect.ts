@@ -85,5 +85,6 @@ export type MultipleMilliPercentageEffectKey =
     'AccDown' |
     'CriDown' |
     'EvaUp' |
-    'StatusResistUp'
+    'StatusResistUp' |
+    'DamageReductionUp'
   ]

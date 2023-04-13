@@ -82,7 +82,9 @@ export type SkillEffectTag =
   'secretive_research' |
   'start_supply' |
   'salvage' |
+  'golden_wagon' |
   'new_blasting_tool' |
+  'constancy_protocol' |
   'workaholic' |
   'lucky_hit' |
   'cyclops_eternal_beam' |

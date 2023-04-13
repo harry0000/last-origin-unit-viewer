@@ -291,6 +291,7 @@ export function translateSkillEffectDetails(
   case Effect.CriDown:
   case Effect.EvaUp:
   case Effect.StatusResistUp:
+  case Effect.DamageReductionUp:
     return 'length' in entry[1] ?
       entry[1].map(v => translateMilliPercentageDetail(entry[0], v, t)) :
       translateMilliPercentageDetail(entry[0], entry[1], t);

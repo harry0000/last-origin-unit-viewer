@@ -23,7 +23,7 @@ import { isFormChangeUnitSkill } from '../../skill/UnitSkill';
 import { isPassiveSkillType } from '../../skill/SkillType';
 import { isUnitAlias, unitNumbersForAlias } from '../../UnitAlias';
 
-import { isReadonlyArray, ValueOf } from '../../../util/type';
+import { ExtractArray, isReadonlyArray, ValueOf } from '../../../util/type';
 
 type DependencyState = typeof EffectActivationState[
   'Affected' |
@@ -51,53 +51,58 @@ export function hasNoDependencyState<T extends ActivationSelfState | ActivationT
   return dependencyStateKeys.every(state => !(state in arg));
 }
 
+function matchTargetCondition(
+  target: UnitBasicInfo,
+  cond: ExtractArray<NonNullable<AlliedUnitTarget['conditions']>>
+): boolean {
+  if (typeof cond === 'number') {
+    return target.no === cond;
+  } else if (typeof cond === 'string') {
+    if (isUnitAlias(cond)) {
+      return unitNumbersForAlias[cond].has(target.no);
+    } else {
+      switch (cond) {
+      case UnitKind.Bioroid:
+      case UnitKind.AGS:
+        return target.kind === cond;
+      case UnitType.Light:
+      case UnitType.Heavy:
+      case UnitType.Flying:
+        return target.type === cond;
+      case UnitRole.Attacker:
+      case UnitRole.Defender:
+      case UnitRole.Supporter:
+        return target.role === cond;
+      default: {
+        const _exhaustiveCheck: never = cond;
+        return _exhaustiveCheck;
+      }
+      }
+    }
+  }
+
+  if ('not_alias' in cond) {
+    return (
+      !unitNumbersForAlias[cond.not_alias].has(target.no) &&
+      (!('type' in cond) || target.type === cond.type)
+    );
+  } else if ('alias' in cond) {
+    return unitNumbersForAlias[cond.alias].has(target.no) &&
+      (!('type'   in cond) || target.type === cond.type) &&
+      (!('role'   in cond) || target.role === cond.role) &&
+      (!('except' in cond) || target.no   !== cond.except);
+  } else if ('except' in cond) {
+    return target.no !== cond.except;
+  } else {
+    return target.type === cond.type && target.role === cond.role;
+  }
+}
+
 function matchTargetConditions(
   target: UnitBasicInfo,
   condition: NonNullable<AlliedUnitTarget['conditions']>
 ): boolean {
-  return condition.some(cond => {
-    if (typeof cond === 'number') {
-      return target.no === cond;
-    } else if (typeof cond === 'string') {
-      if (isUnitAlias(cond)) {
-        return unitNumbersForAlias[cond].has(target.no);
-      } else {
-        switch (cond) {
-        case UnitKind.Bioroid:
-        case UnitKind.AGS:
-          return target.kind === cond;
-        case UnitType.Light:
-        case UnitType.Heavy:
-        case UnitType.Flying:
-          return target.type === cond;
-        case UnitRole.Attacker:
-        case UnitRole.Defender:
-        case UnitRole.Supporter:
-          return target.role === cond;
-        default: {
-          const _exhaustiveCheck: never = cond;
-          return _exhaustiveCheck;
-        }
-        }
-      }
-    }
-
-    if ('not_alias' in cond) {
-      return (
-        !unitNumbersForAlias[cond.not_alias].has(target.no) &&
-        (!('type' in cond) || target.type === cond.type)
-      );
-    } else if ('alias' in cond) {
-      return unitNumbersForAlias[cond.alias].has(target.no) &&
-        (!('type'   in cond) || target.type === cond.type) &&
-        (!('role'   in cond) || target.role === cond.role) &&
-        (!('except' in cond) || target.no   !== cond.except);
-    } else if ('except' in cond) {
-      return target.no !== cond.except;
-    } else {
-      return target.type === cond.type && target.role === cond.role;
-    }
-  });
+  return condition.some(cond => matchTargetCondition(target, cond));
 }
 
 export function matchTarget(
@@ -390,7 +395,7 @@ function matchStaticActivationTargetState(
       !(StatusLessThanSelf in state) ||
       !!state.status_less_than_self && compareTargetStatus(StatusLessThanSelf, state.status_less_than_self.status, source, target)
     ) &&
-    (!(Unit in state) || !!state.unit && unitNumbersForAlias[state.unit].has(target.unit.no))
+    (!(Unit in state) || !!state.unit && matchTargetCondition(target.unit, state.unit))
   );
 }
 
