@@ -1,4 +1,6 @@
 import { DamageAttribute, UnitSkillData } from '../skill/UnitSkillData';
+import { Effect } from '../Effect';
+import { SkillEffectDataValue } from '../skill/SkillEffectData';
 import { UnitNumber } from '../UnitBasicInfo';
 
 import { extractAllActiveSkills, extractEffectsData } from './SkillDataExtractor';
@@ -10,6 +12,10 @@ export const ActiveSkillCondition = {
   IgnoreProtect: 'ignore_protect'
 } as const;
 export type ActiveSkillCondition = typeof ActiveSkillCondition[keyof typeof ActiveSkillCondition]
+
+function hasImmediateTerm(effect: SkillEffectDataValue[typeof Effect.IgnoreProtect]): boolean {
+  return !!effect && (!effect.term || effect.term === 'immediate');
+}
 
 export function matchActiveSkillConditions(
   skill: UnitSkillData[UnitNumber],
@@ -40,7 +46,7 @@ export function matchActiveSkillConditions(
       );
     case ActiveSkillCondition.IgnoreProtect:
       return actives.some(as =>
-        extractEffectsData(as).some(e => 'self' in e.details && !!e.details.self?.ignore_protect)
+        extractEffectsData(as).some(e => 'self' in e.details && hasImmediateTerm(e.details.self?.ignore_protect))
       );
     }
   });

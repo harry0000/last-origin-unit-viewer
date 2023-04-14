@@ -4568,7 +4568,7 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         details: {
           self: {
-            ignore_protect: { term: 'immediate' },
+            ignore_protect: {},
             defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 }, term: 'immediate' }
           }
         }
@@ -11529,7 +11529,7 @@ export const unitSkillData: UnitSkillData = {
       cost: 9,
       area: 'fan_shape',
       effects: [{
-        details: { self: { ignore_protect: { term: 'immediate' } } }
+        details: { self: { ignore_protect: {} } }
       }, {
         conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
@@ -12597,7 +12597,7 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         target: { kind: 'enemy' },
         details: {
-          self: { ignore_protect: { term: 'immediate' } },
+          self: { ignore_protect: {} },
           target: { buff_removal: { effect: 'eva_up', term: 'immediate' } }
         }
       }, {
@@ -12881,7 +12881,7 @@ export const unitSkillData: UnitSkillData = {
         effects: [{
           details: {
             self: {
-              ignore_protect: { term: 'immediate' },
+              ignore_protect: {},
               defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: 'immediate' }
             }
           }
@@ -12907,7 +12907,7 @@ export const unitSkillData: UnitSkillData = {
           conditions: [{ trigger: 'attack' }],
           target: { kind: 'enemy' },
           details: {
-            self: { ignore_protect: { term: 'immediate' } },
+            self: { ignore_protect: {} },
             target: { buff_removal: { effect: 'eva_up', term: 'immediate' } }
           }
         }, {
@@ -12928,7 +12928,7 @@ export const unitSkillData: UnitSkillData = {
         cost: 7,
         area: 'single',
         effects: [{
-          details: { self: { ignore_protect: { term: 'immediate' } } }
+          details: { self: { ignore_protect: {} } }
         }, {
           conditions: [{ trigger: 'hit', state: { target: [{ affected: 'marked' }, { affected: 'eva_down' }] } }],
           target: { kind: 'enemy' },
@@ -13056,7 +13056,7 @@ export const unitSkillData: UnitSkillData = {
         effects: [{
           details: {
             self: {
-              ignore_protect: { term: 'immediate' },
+              ignore_protect: {},
               form_change: { form: 'normal', term: 'immediate' }
             }
           }
@@ -13078,7 +13078,7 @@ export const unitSkillData: UnitSkillData = {
           target: { kind: 'enemy' },
           details: {
             self: {
-              ignore_protect: { term: 'immediate' },
+              ignore_protect: {},
               form_change: { form: 'remote_bomb_placement', term: 'immediate' }
             },
             target: { buff_removal: { effect: 'eva_up', term: 'immediate' } }
@@ -13096,7 +13096,7 @@ export const unitSkillData: UnitSkillData = {
         effects: [{
           details: {
             self: {
-              ignore_protect: { term: 'immediate' },
+              ignore_protect: {},
               form_change: { form: 'normal', term: 'immediate' }
             }
           }
@@ -15929,7 +15929,7 @@ export const unitSkillData: UnitSkillData = {
       cost: 10,
       area: 'all_strong_explosion',
       effects: [{
-        details: { self: { ignore_protect: { term: 'immediate' } } }
+        details: { self: { ignore_protect: {} } }
       }, {
         conditions: [{ trigger: 'hit', state: { target: [{ status_less_than_self: { status: 'atk' } }] } }],
         target: { kind: 'enemy' },
@@ -16631,7 +16631,7 @@ export const unitSkillData: UnitSkillData = {
       cost: 4,
       area: 'single',
       effects: [{
-        details: { self: { ignore_protect: { term: 'immediate' } } }
+        details: { self: { ignore_protect: {} } }
       }, {
         conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
@@ -17882,7 +17882,7 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         target: { kind: 'enemy' },
         details: {
-          self: { ignore_protect: { term: 'immediate' } },
+          self: { ignore_protect: {} },
           target: { eva_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } }
         }
       }, {
@@ -18573,7 +18573,7 @@ export const unitSkillData: UnitSkillData = {
       cost: 8,
       area: 'single',
       effects: [{
-        details: { self: { ignore_protect: { term: 'immediate' } } }
+        details: { self: { ignore_protect: {} } }
       }, {
         conditions: [{ trigger: 'hit', state: { self: [{ not_tagged: 'bridle_of_sins' }] } }],
         details: { self: { additional_fire_damage: { base: { milliPercentage: 27000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
@@ -18598,7 +18598,7 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         details: {
           self: {
-            ignore_protect: { term: 'immediate' },
+            ignore_protect: {},
             silenced: { term: { for_rounds: 2 }, cannot_be_dispelled: true }
           }
         }
@@ -18755,7 +18755,7 @@ export const unitSkillData: UnitSkillData = {
       cost: 8,
       area: 'line_toward_front_wavelets',
       effects: [{
-        details: { self: { ignore_protect: { term: 'immediate' } } }
+        details: { self: { ignore_protect: {} } }
       }, {
         conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
@@ -18882,7 +18882,7 @@ export const unitSkillData: UnitSkillData = {
         effects: [{
           details: {
             self: {
-              ignore_protect: { term: 'immediate' },
+              ignore_protect: {},
               defense_penetration: { base: { milliPercentage: 45000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' },
               form_change: { form: 'falcon_form', term: 'immediate' },
               tag_release: { tag: 'form_change_preparation', term: 'immediate' }
@@ -19287,7 +19287,7 @@ export const unitSkillData: UnitSkillData = {
       cost: 8,
       area: 'cross',
       effects: [{
-        details: { self: { ignore_protect: { term: 'immediate' } } }
+        details: { self: { ignore_protect: {} } }
       }, {
         conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
@@ -19386,7 +19386,7 @@ export const unitSkillData: UnitSkillData = {
       cost: 9,
       area: 'cross',
       effects: [{
-        details: { self: { ignore_protect: { term: 'immediate' } } }
+        details: { self: { ignore_protect: {} } }
       }, {
         conditions: [{ trigger: 'hit', state: { target: [{ tagged: 'radar_detection' }] } }],
         target: { kind: 'enemy' },
