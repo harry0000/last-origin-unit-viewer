@@ -90,6 +90,7 @@
       "remove_debuff": "有害効果解除",
       "remove_buff_resist_up": "強化効果解除耐性Up",
       "prevents_debuff": "有害効果免疫",
+      "all_buff_blocking": "強化効果不可",
       "exp_up": "獲得経験値Up",
       "action_count_up": "最大行動回数 +1"
     },
