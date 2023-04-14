@@ -370,6 +370,7 @@ function _updateStatus(
         squad,
         {
           unit,
+          lvValue: lv,
           rank: lvState.rank,
           atk: atkParam.atk,
           def: defParam.def,
