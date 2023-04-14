@@ -2055,17 +2055,17 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 45000, rate: 'constant', term: { for_rounds: 1 } }, acc_up: { milliPercentage: 75000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 75000, rate: 'constant', term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 45000, rate: 'constant', term: { for_rounds: 1 } }, all_debuff_removal: { rate: 'constant', term: 'immediate' } } }]
     ],
     effects: [
-      [{ condition: { trigger: 'start_round', state: { unit: 127, tagged: 'moon_light_power' } }, details: { self: { atk_up: { milliPercentage: 15000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 25000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 15000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 127, tagged: 'moon_light_power' } }, details: { self: { atk_up: { milliPercentage: 18000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 30000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 18000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 127, tagged: 'moon_light_power' } }, details: { self: { atk_up: { milliPercentage: 21000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 35000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 21000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 127, tagged: 'moon_light_power' } }, details: { self: { atk_up: { milliPercentage: 24000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 40000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 24000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 127, tagged: 'moon_light_power' } }, details: { self: { atk_up: { milliPercentage: 27000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 45000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 27000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 127, tagged: 'moon_light_power' } }, details: { self: { atk_up: { milliPercentage: 30000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 50000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 30000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 127, tagged: 'moon_light_power' } }, details: { self: { atk_up: { milliPercentage: 33000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 55000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 33000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 127, tagged: 'moon_light_power' } }, details: { self: { atk_up: { milliPercentage: 36000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 60000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 36000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 127, tagged: 'moon_light_power' } }, details: { self: { atk_up: { milliPercentage: 39000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 65000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 39000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 127, tagged: 'moon_light_power' } }, details: { self: { atk_up: { milliPercentage: 42000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 70000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 42000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
-      [{ condition: { trigger: 'start_round', state: { unit: 127, tagged: 'moon_light_power' } }, details: { self: { atk_up: { milliPercentage: 45000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 75000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 45000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }]
+      [{ condition: { trigger: 'start_round', state: { self: { unit: 127, tagged: 'moon_light_power' } } }, details: { self: { atk_up: { milliPercentage: 15000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 25000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 15000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
+      [{ condition: { trigger: 'start_round', state: { self: { unit: 127, tagged: 'moon_light_power' } } }, details: { self: { atk_up: { milliPercentage: 18000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 30000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 18000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
+      [{ condition: { trigger: 'start_round', state: { self: { unit: 127, tagged: 'moon_light_power' } } }, details: { self: { atk_up: { milliPercentage: 21000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 35000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 21000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
+      [{ condition: { trigger: 'start_round', state: { self: { unit: 127, tagged: 'moon_light_power' } } }, details: { self: { atk_up: { milliPercentage: 24000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 40000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 24000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
+      [{ condition: { trigger: 'start_round', state: { self: { unit: 127, tagged: 'moon_light_power' } } }, details: { self: { atk_up: { milliPercentage: 27000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 45000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 27000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
+      [{ condition: { trigger: 'start_round', state: { self: { unit: 127, tagged: 'moon_light_power' } } }, details: { self: { atk_up: { milliPercentage: 30000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 50000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 30000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
+      [{ condition: { trigger: 'start_round', state: { self: { unit: 127, tagged: 'moon_light_power' } } }, details: { self: { atk_up: { milliPercentage: 33000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 55000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 33000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
+      [{ condition: { trigger: 'start_round', state: { self: { unit: 127, tagged: 'moon_light_power' } } }, details: { self: { atk_up: { milliPercentage: 36000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 60000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 36000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
+      [{ condition: { trigger: 'start_round', state: { self: { unit: 127, tagged: 'moon_light_power' } } }, details: { self: { atk_up: { milliPercentage: 39000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 65000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 39000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
+      [{ condition: { trigger: 'start_round', state: { self: { unit: 127, tagged: 'moon_light_power' } } }, details: { self: { atk_up: { milliPercentage: 42000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 70000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 42000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }],
+      [{ condition: { trigger: 'start_round', state: { self: { unit: 127, tagged: 'moon_light_power' } } }, details: { self: { atk_up: { milliPercentage: 45000, term: { for_rounds: 1 } }, eva_up: { milliPercentage: 75000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 45000, term: { for_rounds: 1 } }, all_debuff_removal: { term: 'immediate' } } } }]
     ]
   },
   crystal_ball_of_fate: {
@@ -2246,6 +2246,198 @@ export const equipmentData = {
       [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue: 450000, term: 'immediate' } } }],
       [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue: 500000, term: 'immediate' } } }],
       [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue: 550000, term: 'immediate' } } }]
+    ]
+  },
+  mini_black_wyrm: {
+    type: 'gear',
+    id: 'mini_black_wyrm',
+    exclusive: {
+      role: 'defender'
+    },
+    status_effects: [
+      { hp_up: { value: 250 } },
+      { hp_up: { value: 275 } },
+      { hp_up: { value: 300 } },
+      { hp_up: { value: 325 } },
+      { hp_up: { value: 350 } },
+      { hp_up: { value: 375 } },
+      { hp_up: { value: 400 } },
+      { hp_up: { value: 425 } },
+      { hp_up: { value: 450 } },
+      { hp_up: { value: 475 } },
+      { hp_up: { value: 500 } }
+    ],
+    effects: [
+      [{ condition: { trigger: 'be_hit', state: { target: { status_greater_than_self: { status: 'spd' } } } }, target: { kind: 'enemy' }, details: { target: { fire_resist_down: { milliPercentage: 10000, term: { for_rounds: 1 }, max_stack: 1 } } } }],
+      [{ condition: { trigger: 'be_hit', state: { target: { status_greater_than_self: { status: 'spd' } } } }, target: { kind: 'enemy' }, details: { target: { fire_resist_down: { milliPercentage: 11000, term: { for_rounds: 1 }, max_stack: 1 } } } }],
+      [{ condition: { trigger: 'be_hit', state: { target: { status_greater_than_self: { status: 'spd' } } } }, target: { kind: 'enemy' }, details: { target: { fire_resist_down: { milliPercentage: 12000, term: { for_rounds: 1 }, max_stack: 1 } } } }],
+      [{ condition: { trigger: 'be_hit', state: { target: { status_greater_than_self: { status: 'spd' } } } }, target: { kind: 'enemy' }, details: { target: { fire_resist_down: { milliPercentage: 13000, term: { for_rounds: 1 }, max_stack: 1 } } } }],
+      [{ condition: { trigger: 'be_hit', state: { target: { status_greater_than_self: { status: 'spd' } } } }, target: { kind: 'enemy' }, details: { target: { fire_resist_down: { milliPercentage: 14000, term: { for_rounds: 1 }, max_stack: 1 } } } }],
+      [{ condition: { trigger: 'be_hit', state: { target: { status_greater_than_self: { status: 'spd' } } } }, target: { kind: 'enemy' }, details: { target: { fire_resist_down: { milliPercentage: 15000, term: { for_rounds: 1 }, max_stack: 1 } } } }],
+      [{ condition: { trigger: 'be_hit', state: { target: { status_greater_than_self: { status: 'spd' } } } }, target: { kind: 'enemy' }, details: { target: { fire_resist_down: { milliPercentage: 16000, term: { for_rounds: 1 }, max_stack: 1 } } } }],
+      [{ condition: { trigger: 'be_hit', state: { target: { status_greater_than_self: { status: 'spd' } } } }, target: { kind: 'enemy' }, details: { target: { fire_resist_down: { milliPercentage: 17000, term: { for_rounds: 1 }, max_stack: 1 } } } }],
+      [{ condition: { trigger: 'be_hit', state: { target: { status_greater_than_self: { status: 'spd' } } } }, target: { kind: 'enemy' }, details: { target: { fire_resist_down: { milliPercentage: 18000, term: { for_rounds: 1 }, max_stack: 1 } } } }],
+      [{ condition: { trigger: 'be_hit', state: { target: { status_greater_than_self: { status: 'spd' } } } }, target: { kind: 'enemy' }, details: { target: { fire_resist_down: { milliPercentage: 19000, term: { for_rounds: 1 }, max_stack: 1 } } } }],
+      [{ condition: { trigger: 'be_hit', state: { target: { status_greater_than_self: { status: 'spd' } } } }, target: { kind: 'enemy' }, details: { target: { fire_resist_down: { milliPercentage: 20000, term: { for_rounds: 1 }, max_stack: 1 } } } }]
+    ]
+  },
+  mini_fenrir: {
+    type: 'gear',
+    id: 'mini_fenrir',
+    status_effects: [
+      { acc_up: { milliPercentage:  5000 } },
+      { acc_up: { milliPercentage:  9000 } },
+      { acc_up: { milliPercentage: 13000 } },
+      { acc_up: { milliPercentage: 17000 } },
+      { acc_up: { milliPercentage: 21000 } },
+      { acc_up: { milliPercentage: 25000 } },
+      { acc_up: { milliPercentage: 29000 } },
+      { acc_up: { milliPercentage: 33000 } },
+      { acc_up: { milliPercentage: 37000 } },
+      { acc_up: { milliPercentage: 41000 } },
+      { acc_up: { milliPercentage: 45000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue:  500000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue:  550000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue:  600000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue:  650000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue:  700000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue:  750000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue:  800000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue:  850000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue:  900000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue:  950000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'use_any_active' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }]
+    ]
+  },
+  mini_frigga: {
+    type: 'gear',
+    id: 'mini_frigga',
+    exclusive: {
+      role: 'defender'
+    },
+    status_effects: [
+      { hp_up: { value:  500 } },
+      { hp_up: { value:  550 } },
+      { hp_up: { value:  600 } },
+      { hp_up: { value:  650 } },
+      { hp_up: { value:  700 } },
+      { hp_up: { value:  750 } },
+      { hp_up: { value:  800 } },
+      { hp_up: { value:  850 } },
+      { hp_up: { value:  900 } },
+      { hp_up: { value:  950 } },
+      { hp_up: { value: 1000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:   500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  1000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  2000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  3000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  4000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  5000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  6000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  7000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  8000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  9000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage: 10000, term: 'infinite' } } }]
+    ]
+  },
+  mini_hirume: {
+    type: 'gear',
+    id: 'mini_hirume',
+    status_effects: [
+      { eva_up: { milliPercentage: 10000 } },
+      { eva_up: { milliPercentage: 12000 } },
+      { eva_up: { milliPercentage: 14000 } },
+      { eva_up: { milliPercentage: 16000 } },
+      { eva_up: { milliPercentage: 18000 } },
+      { eva_up: { milliPercentage: 20000 } },
+      { eva_up: { milliPercentage: 22000 } },
+      { eva_up: { milliPercentage: 24000 } },
+      { eva_up: { milliPercentage: 26000 } },
+      { eva_up: { milliPercentage: 28000 } },
+      { eva_up: { milliPercentage: 30000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' }, spd_up: { milliPercentage:  5000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' }, spd_up: { milliPercentage:  5500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' }, spd_up: { milliPercentage:  6000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' }, spd_up: { milliPercentage:  6500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' }, spd_up: { milliPercentage:  7000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' }, spd_up: { milliPercentage:  7500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' }, spd_up: { milliPercentage:  8000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' }, spd_up: { milliPercentage:  8500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' }, spd_up: { milliPercentage:  9000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' }, spd_up: { milliPercentage:  9500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' }, spd_up: { milliPercentage: 10000, term: 'infinite' } } }]
+    ]
+  },
+  mini_poi: {
+    type: 'gear',
+    id: 'mini_poi',
+    exclusive: {
+      role: 'attacker'
+    },
+    status_effects: [
+      { cri_up: { milliPercentage: 10000 } },
+      { cri_up: { milliPercentage: 11000 } },
+      { cri_up: { milliPercentage: 12000 } },
+      { cri_up: { milliPercentage: 13000 } },
+      { cri_up: { milliPercentage: 14000 } },
+      { cri_up: { milliPercentage: 15000 } },
+      { cri_up: { milliPercentage: 16000 } },
+      { cri_up: { milliPercentage: 17000 } },
+      { cri_up: { milliPercentage: 18000 } },
+      { cri_up: { milliPercentage: 19000 } },
+      { cri_up: { milliPercentage: 20000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 16000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 18000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 20000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 22000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 24000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 26000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 28000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 30000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 32000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 34000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 36000, term: 'infinite' } } }]
+    ]
+  },
+  mini_snow_feather: {
+    type: 'gear',
+    id: 'mini_snow_feather',
+    exclusive: {
+      role: 'defender'
+    },
+    status_effects: [
+      { eva_up: { milliPercentage: 10000 } },
+      { eva_up: { milliPercentage: 15000 } },
+      { eva_up: { milliPercentage: 20000 } },
+      { eva_up: { milliPercentage: 25000 } },
+      { eva_up: { milliPercentage: 30000 } },
+      { eva_up: { milliPercentage: 35000 } },
+      { eva_up: { milliPercentage: 40000 } },
+      { eva_up: { milliPercentage: 45000 } },
+      { eva_up: { milliPercentage: 50000 } },
+      { eva_up: { milliPercentage: 55000 } },
+      { eva_up: { milliPercentage: 60000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { minimize_damage: { term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimize_damage: { term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimize_damage: { term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimize_damage: { term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimize_damage: { term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimize_damage: { term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimize_damage: { term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimize_damage: { term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimize_damage: { term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimize_damage: { term: 'infinite', times: 1 } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { minimize_damage: { term: 'infinite', times: 1 } } }]
     ]
   },
   enhanced_observation_gear: {

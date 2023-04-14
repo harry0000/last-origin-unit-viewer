@@ -268,16 +268,28 @@ function calculateEffectsAsSkill(
   rank: Exclude<EquipmentRank, typeof EquipmentRank.SSS>,
   effects: EquipmentEffectsAsSkill
 ): ReadonlyArray<EffectDetailsAsSkill> {
-  return effects.map(effect => ({
-    condition: effect.condition,
-    details:
-      Object.assign(
-        { self: calculateEffectDetails(rank, effect.details.self) },
-        'target' in effect.details ?
-          { target: calculateEffectDetails(rank, effect.details.target) } :
-          {}
-      )
-  }));
+  return effects.map(effect => {
+    if ('target' in effect) {
+      return {
+        condition: effect.condition,
+        target: effect.target,
+        details: {
+          ...('self' in effect.details ?
+            { self: calculateEffectDetails(rank, effect.details.self) } :
+            {}
+          ),
+          target: calculateEffectDetails(rank, effect.details.target)
+        }
+      };
+    } else {
+      return {
+        condition: effect.condition,
+        details: {
+          self: calculateEffectDetails(rank, effect.details.self)
+        }
+      };
+    }
+  });
 }
 
 export function calculateEffectAsSkill(

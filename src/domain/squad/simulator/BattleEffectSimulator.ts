@@ -26,8 +26,14 @@ import {
 import { CoreLinkBonus, FullLinkBonus } from '../../UnitCoreLinkBonusData';
 import { EffectTrigger } from '../../EffectTrigger';
 import {
+  EffectDetails,
+  EffectDetailsAsSkill,
   EquipmentEffect,
-  EquipmentEffectActivationCondition
+  EquipmentEffectActivationCondition,
+  EquipmentEffectActivationState,
+  EquipmentEffectAsSkillSelfActivationCondition,
+  EquipmentEffectAsSkillTargetActivationCondition,
+  EquipmentEffectValue
 } from '../../equipment/EquipmentEffect';
 import { EquipmentSlot } from '../../../state/equipment/UnitEquipmentState';
 import { FormChangeUnitNumbers } from '../../UnitFormValue';
@@ -350,16 +356,20 @@ class BattleEffectSimulator {
 
       const pickRestEquipmentEffect = (arg: ApplicableAllEquipmentEffect): arg is ApplicableStateFullEquipmentEffect => {
         const { effect, type, affected_by } = arg;
-        const state = effect.condition.state;
+        const state = extractActivationState(effect.condition.state);
         const hasNoDependency = !state || Matcher.hasNoDependencyState(state);
         if (!hasNoDependency) {
           return true;
         }
 
-        if (!state || Matcher.matchStaticEquipmentState(state, unit)) {
-          // HACK: Currently, equipment does not have effects on allied targets. (ignore effects on 'target')
+        const selfEffect = extractSelfEquipmentEffect(effect);
+        if (
+          selfEffect &&
+          (!state || Matcher.matchStaticEquipmentState(state, unit))
+        ) {
+          // HACK: Currently, equipment has only effects on self at start_wave & start_round. (ignore effects on 'target')
           unit.appliedEffects.applyEquipmentEffects(
-            'self' in effect.details ? effect.details.self : effect.details,
+            selfEffect,
             type,
             affected_by
           );
@@ -465,12 +475,17 @@ class BattleEffectSimulator {
 
     squadUnits.forEach(unit => {
       unit.applicableEquipmentEffects.forEach(({ effect, type, affected_by }) => {
+        const selfEffect = extractSelfEquipmentEffect(effect);
+        const state = extractActivationState(effect.condition.state);
         if (
-          Matcher.matchStaticEquipmentState(effect.condition.state, unit) &&
-          unit.appliedEffects.matchAffectedEquipmentState(effect.condition.state)
+          selfEffect &&
+          state &&
+          Matcher.matchStaticEquipmentState(state, unit) &&
+          unit.appliedEffects.matchAffectedEquipmentState(state)
         ) {
+          // HACK: Currently, equipment has only effects on self at start_wave & start_round. (ignore effects on 'target')
           unit.appliedEffects.applyEquipmentEffects(
-            'self' in effect.details ? effect.details.self : effect.details,
+            selfEffect,
             type,
             affected_by
           );
@@ -482,7 +497,13 @@ class BattleEffectSimulator {
     });
   }
 
-  #matchRoundTrigger(cond: SkillEffectActivationCondition | EquipmentEffectActivationCondition): boolean {
+  #matchRoundTrigger(
+    cond:
+      SkillEffectActivationCondition |
+      EquipmentEffectActivationCondition |
+      EquipmentEffectAsSkillSelfActivationCondition |
+      EquipmentEffectAsSkillTargetActivationCondition
+  ): boolean {
     if (!('trigger' in cond)) {
       return false;
     }
@@ -601,6 +622,28 @@ function extractEquipmentEffect(
   case 'os':    return [unit[slot].osEffects(unit.lv),    buildAffectedBy('os', unit[slot].os)];
   case 'gear':  return [unit[slot].gearEffects(unit.lv),  buildAffectedBy('gear', unit[slot].gear)];
   }
+}
+
+function extractActivationState(
+  state:
+    EquipmentEffectActivationCondition['state'] |
+    EquipmentEffectAsSkillSelfActivationCondition['state'] |
+    EquipmentEffectAsSkillTargetActivationCondition['state']
+): EquipmentEffectActivationState | undefined {
+  return state && (
+    // HACK: Currently, there is no target state at start_wave & start_round.
+    'self' in state ? state.self : 'target' in state ? state.target : state
+  );
+}
+
+function extractSelfEquipmentEffect(effect: EffectDetails | EffectDetailsAsSkill): EquipmentEffectValue | undefined {
+  return (
+    'self' in effect.details ?
+      effect.details.self :
+      !('target' in effect.details) ?
+        effect.details :
+        undefined
+  );
 }
 
 function applyEffects(

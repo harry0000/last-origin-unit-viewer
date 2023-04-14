@@ -8,7 +8,9 @@ import {
   EffectDetailsAsSkill,
   EquipmentEffectActivationCondition,
   EquipmentEffectAddition,
-  EquipmentEffectValue
+  EquipmentEffectAsSkillSelfActivationCondition,
+  EquipmentEffectAsSkillTargetActivationCondition,
+  EquipmentEffectValue, extractEquipmentEffectActivationConditionState
 } from '../../domain/equipment/EquipmentEffect';
 import { EffectTrigger } from '../../domain/EffectTrigger';
 import { calcMicroValue, calcMilliPercentageValue } from '../../domain/ValueUnit';
@@ -26,9 +28,15 @@ export type TranslatedEquipmentEffect = {
 export type TranslatedEquipmentEffectAsSkill = {
   condition?: string,
   details: {
-    self: TranslatedEquipmentEffect['details'],
+    self?: TranslatedEquipmentEffect['details'],
     target?: TranslatedEquipmentEffect['details']
   }
+}
+
+export function isTranslatedEquipmentEffectAsSkillDetails(
+  arg: TranslatedEquipmentEffect['details'] | TranslatedEquipmentEffectAsSkill['details']
+): arg is TranslatedEquipmentEffectAsSkill['details'] {
+  return 'self' in arg || 'target' in arg;
 }
 
 function translateTerm(term: Required<EffectAdditionData>['term'], t: TFunction): string {
@@ -157,7 +165,13 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   }
 }
 
-function translateTrigger(condition: EquipmentEffectActivationCondition, t: TFunction): string {
+function translateTrigger(
+  condition:
+    EquipmentEffectActivationCondition |
+    EquipmentEffectAsSkillSelfActivationCondition |
+    EquipmentEffectAsSkillTargetActivationCondition,
+  t: TFunction
+): string {
   if (!('trigger' in condition)) {
     return '';
   }
@@ -183,8 +197,9 @@ function translateCondition(details: EffectDetails | EffectDetailsAsSkill, t: TF
 
   const trigger = translateTrigger(details.condition, t);
   const hasTarget = 'target' in details && details.target;
-  const state = 'state' in details.condition && details.condition.state ?
-    typedEntries(details.condition.state)
+  const state = extractEquipmentEffectActivationConditionState(details.condition);
+  const translated = state ?
+    typedEntries(state)
       .map(entry => {
         switch (entry[0]) {
         case EffectActivationState.Grid:
@@ -208,6 +223,11 @@ function translateCondition(details: EffectDetails | EffectDetailsAsSkill, t: TF
             return t(key, { unit });
           }
         }
+        case EffectActivationState.StatusGreaterThanSelf:
+          return (
+            (hasTarget ? t(`effect:condition.target.${details.target.kind}`) : '') +
+            t('effect:condition.state.status_greater_than_self', entry[1])
+          );
         case EffectActivationState.StatusLessThanSelf:
           return (
             (hasTarget ? t(`effect:condition.target.${details.target.kind}`) : '') +
@@ -218,12 +238,12 @@ function translateCondition(details: EffectDetails | EffectDetailsAsSkill, t: TF
       .join(t('effect:and_symbolic_separator')) :
     '';
 
-  const separator = trigger && state ? t('effect:separator') : '';
-  const toTarget = state && hasTarget ?
+  const separator = trigger && translated ? t('effect:separator') : '';
+  const toTarget = translated && hasTarget ?
     t('effect:separator') + t('effect:effect.target.target') + t('effect:to_preposition') + t('effect:below_effects') :
     '';
 
-  const condition = `${trigger}${separator}${state}${state ? t('effect:case') : ''}${toTarget}`;
+  const condition = `${trigger}${separator}${translated}${translated ? t('effect:case') : ''}${toTarget}`;
   return { condition };
 }
 
@@ -256,7 +276,11 @@ export function translateEquipmentEffectAsSkill(
   return effects.map(e => {
     return {
       details: {
-        self: translateDetails(e.details.self, t),
+        ...(
+          'self' in e.details && e.details.self ?
+            { self: translateDetails(e.details.self, t) } :
+            {}
+        ),
         ...(
           'target' in e.details && e.details.target ?
             { target: translateDetails(e.details.target, t) } :

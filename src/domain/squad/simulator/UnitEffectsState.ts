@@ -5,7 +5,8 @@ import { CoreLinkBonus, FullLinkBonus } from '../../UnitCoreLinkBonusData';
 import {
   EffectDetails,
   EffectDetailsAsSkill,
-  EquipmentEffectActivationCondition
+  EquipmentEffectActivationCondition,
+  EquipmentEffectActivationState, EquipmentEffectValue
 } from '../../equipment/EquipmentEffect';
 import { MicroValue, MilliPercentageValue, MilliValue } from '../../ValueUnit';
 import {
@@ -37,12 +38,17 @@ type StateFullSkillEffect =
     conditions: Conditions<TargetSkillEffectActivationCondition & { state: TargetSkillEffectActivationState }>
   }
 
-type StateFullEquipmentEffectCondition = {
-  condition: EquipmentEffectActivationCondition & Required<Pick<EquipmentEffectActivationCondition, 'state'>>
-}
-
-type StateFullEquipmentEffect = Omit<EffectDetails, 'condition'> & StateFullEquipmentEffectCondition
-type StateFullEquipmentEffectAsSkill = Omit<EffectDetailsAsSkill, 'condition'> & StateFullEquipmentEffectCondition
+type StateFullEquipmentEffect =
+  Omit<EffectDetails, 'condition'> & {
+    condition: EquipmentEffectActivationCondition & { state: EquipmentEffectActivationState }
+  }
+type StateFullEquipmentEffectAsSkill =
+  Omit<Extract<EffectDetailsAsSkill, { details: { self: EquipmentEffectValue } }>, 'condition'> & {
+    condition: EquipmentEffectActivationCondition & { state: { self: EquipmentEffectActivationState } }
+  } |
+  Omit<Extract<EffectDetailsAsSkill, { details: { target: EquipmentEffectValue } }>, 'condition'> & {
+    condition: EquipmentEffectActivationCondition & { state: { target: EquipmentEffectActivationState } }
+  }
 
 export type UnitOriginState = {
   position: TenKeyPosition,
