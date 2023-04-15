@@ -19,7 +19,7 @@ import UnitFormValue, {
   FormChangeUnits,
   FormLessUnitBasicInfo,
   FormPerUnit,
-  isFormChangeUnitBasicInfo,
+  hasFormChangeUnitNumber,
   isFormChangeUnitNumber
 } from '../UnitFormValue';
 import UnitSkillLvValue, { SkillLv } from './UnitSkillLvValue';
@@ -31,7 +31,7 @@ import {
 import { unitSkillData } from '../../data/unitSkillData';
 
 export function buildUnitSkill(unit: UnitBasicInfo): UnitSkill {
-  if (isFormChangeUnitBasicInfo(unit)) {
+  if (hasFormChangeUnitNumber(unit)) {
     switch (unit.no) {
     case FormChangeUnits.Alexandra:
       return new AlexandraUnitSkill(unit);
@@ -724,11 +724,11 @@ class FortressUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Fortr
   }
 
   protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
-    return undefined;
+    return unitSkillData[this.unitNumber].passive[1];
   }
 
   protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
-    return undefined;
+    return unitSkillData[this.unitNumber].passive[2][this.unitForm()];
   }
 }
 

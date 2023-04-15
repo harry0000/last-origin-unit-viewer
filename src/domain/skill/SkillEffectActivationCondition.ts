@@ -6,7 +6,7 @@ import { SkillAreaType } from './SkillAreaOfEffect';
 import { SkillEffectTag } from './SkillEffectTag';
 import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
-import { UnitKind, UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
+import { UnitKind, UnitNumber, UnitRank, UnitRole, UnitType } from '../UnitBasicInfo';
 
 export type UnitNotAlias = {
   not_alias: typeof UnitAlias['AngerOfHorde' | 'KouheiChurch']
@@ -122,7 +122,8 @@ const AffectedSkillEffect = [
   Effect.IgnoreBarrierDr,
   Effect.IgnoreProtect,
   Effect.Provoked,
-  Effect.Immovable
+  Effect.Immovable,
+  Effect.Stunned
 ] as const;
 export type AffectedSkillEffect = typeof AffectedSkillEffect extends ReadonlyArray<infer T> ? T : never;
 
@@ -216,6 +217,10 @@ export type ActivationSelfState =
       than: 'atk' | 'def',
       value: number
     }
+  } &
+  {
+    // for Tommy Walker
+    [EffectActivationState.RankGreaterOrEqual]?: typeof UnitRank.S
   }
 
 export type ActivationTargetState =
@@ -229,7 +234,7 @@ export type ActivationTargetState =
     }
   } &
   {
-    [EffectActivationState.Unit]?: typeof UnitAlias.SteelLine
+    [EffectActivationState.Unit]?: typeof UnitAlias.SteelLine | typeof UnitType.Flying
   } &
   {
     [EffectActivationState.Tagged]?:
@@ -264,7 +269,7 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 }
 
 type NotInSquadStateUnit =
-  127 | 252 |
+  110 | 127 | 252 |
   typeof UnitRole['Attacker' | 'Defender'] |
   typeof UnitAlias.SteelLine |
   typeof SkillAreaType.CrossAdjacent |
@@ -280,7 +285,7 @@ export type NumOfUnitsInSquadState = {
     { unit: typeof UnitKind.AGS, less_or_equal: 2 } |
     { unit: 'ally', greater_or_equal: 1 | 2 | 4 } |
     { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 } |
-    { unit: typeof UnitType['Flying' | 'Heavy'], less_or_equal: 1 | 2 } |
+    { unit: UnitType, less_or_equal: 1 | 2 } |
     { unit: typeof UnitRole.Attacker, equal: 1 | 2 | 3 | 4 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 2, less_or_equal: 3 } |
@@ -291,13 +296,13 @@ export type ActivationSquadState = InSquadState | NotInSquadState | NumOfUnitsIn
 
 export type ActivationEnemyState = {
   [EffectActivationState.NumOfUnits]:
-    { equal: 1 } |
+    { equal: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 } |
     { greater_or_equal: 1, less_or_equal: 2 } |
     { greater_or_equal: 3, less_or_equal: 4 } |
     { greater_or_equal: 5, less_or_equal: 6 } |
+    { greater_or_equal: 1, unit: typeof UnitType.Flying } |
     { greater_or_equal: 3, unit: typeof UnitType.Heavy } |
-    { greater_or_equal: 5 } |
-    { greater_or_equal: 7 }
+    { greater_or_equal: 5 | 6 | 7 }
 }
 
 export type SelfSkillEffectActivationState =

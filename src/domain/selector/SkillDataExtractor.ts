@@ -88,7 +88,11 @@ export function extractAllPassiveSkills(skill: UnitSkillData[UnitNumber]): Reado
   case FormChangeUnits.JangHwa:
     return skill.passive;
   case FormChangeUnits.Fortress:
-    return Object.values(skill.passive[0]);
+    return [
+      ...Object.values(skill.passive[0]),
+      skill.passive[1],
+      ...Object.values(skill.passive[2])
+    ];
   case FormChangeUnits.Peregrinus:
     return [
       ...Object.values(skill.passive[0]),

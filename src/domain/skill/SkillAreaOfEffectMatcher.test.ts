@@ -205,6 +205,10 @@ describe('calcTargetPositions()', () => {
       expect(calcTargetPositions(SkillAreaType.LeftSpreadBackward, 3)).toEqual(new Set([7, 4, 5, 1, 2, 3]));
     });
 
+    test('AllBackwardWithSelf', () => {
+      expect(calcTargetPositions(SkillAreaType.AllBackwardWithSelf, 6)).toEqual(new Set([7, 8, 4, 5, 6, 1, 2]));
+    });
+
     test('UnderWatcherWithSelf', () => {
       expect(calcTargetPositions(SkillAreaType.UnderWatcherWithSelf, 6)).toEqual(new Set([7, 8, 9, 4, 5, 6, 1, 2, 3]));
     });

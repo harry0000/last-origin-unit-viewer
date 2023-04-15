@@ -80,8 +80,11 @@ export type SkillEffectTag =
   'guiding_technique' |
   'balance_seeker' |
   'secretive_research' |
-  'wreckage_recycling' |
+  'start_supply' |
+  'salvage' |
+  'golden_wagon' |
   'new_blasting_tool' |
+  'constancy_protocol' |
   'workaholic' |
   'lucky_hit' |
   'cyclops_eternal_beam' |

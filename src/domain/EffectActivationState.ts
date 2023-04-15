@@ -6,6 +6,7 @@ export const EffectActivationState = {
   StatusGreaterThanSelf: 'status_greater_than_self',
   StatusLessThanSelf: 'status_less_than_self',
   StatusGreaterOrEqualThan: 'status_greater_or_equal_than',
+  RankGreaterOrEqual: 'rank_greater_or_equal',
   Affected: 'affected',
   NotAffected: 'not_affected',
   AffectedBy: 'affected_by',

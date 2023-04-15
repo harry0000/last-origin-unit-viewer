@@ -9,6 +9,8 @@ export type IndexOf<T extends readonly unknown[]> = Exclude<Partial<T>['length']
 export type Keyof<T> = T extends Record<string | number | symbol, unknown> ? keyof T : never
 export type ValueOf<T extends Record<string | number | symbol, unknown>, K extends Keyof<T>> = T extends { [key in K]: infer V } ? V : never
 
+export type ExtractArray<T> = T extends ReadonlyArray<infer U> ? U : never;
+
 /**
  * @param arg
  * @see {@link https://github.com/microsoft/TypeScript/issues/17002}

@@ -74,10 +74,13 @@ export const OtherSkillEffectCondition = {
   Stunned: 'stunned',
   PushPull: 'push_pull',
   WetCorrosionOverloaded: 'wet_corrosion_overloaded',
+  IgnoreProtectActivate: 'ignore_protect_activate',
+  IgnoreProtectDeactivate: 'ignore_protect_deactivate',
   RemoveBuff: 'remove_buff',
   RemoveDebuff: 'remove_debuff',
   RemoveBuffResistUp: 'remove_buff_resist_up',
   PreventsDebuff: 'prevents_debuff',
+  AllBuffBlocking: 'all_buff_blocking',
   ExpUp: 'exp_up',
   ActionCountUp: 'action_count_up'
 } as const;
@@ -100,6 +103,10 @@ function hasAbnormalConditionTags(details: SkillEffectDataValue): boolean {
     !!details.fixed_damage_over_time?.tag && dotConditionTags.has(details.fixed_damage_over_time.tag) ||
     details.electric_resist_down?.tag === 'wet'
   );
+}
+
+function isNotImmediateTerm(effect: SkillEffectDataValue[typeof Effect.IgnoreProtect]): boolean {
+  return !!effect && !!effect.term && (typeof effect.term !== 'string' || effect.term !== 'immediate');
 }
 
 function checkAllSkillEffectDetails(
@@ -306,6 +313,10 @@ export function matchSkillConditions(
       return checkActiveSkillEffect(actives, e => 'target' in e.details && (!!e.details.target?.push || !!e.details.target?.pull));
     case OtherSkillEffectCondition.WetCorrosionOverloaded:
       return checkAllSkillEffectDetails(actives, passives, e => hasAbnormalConditionTags(e));
+    case OtherSkillEffectCondition.IgnoreProtectActivate:
+      return checkAllSkillEffectDetails(actives, passives, e => isNotImmediateTerm(e.ignore_protect));
+    case OtherSkillEffectCondition.IgnoreProtectDeactivate:
+      return checkAllSkillEffectDetails(actives, passives, e => !!e.ignore_protect_deactivate);
     case OtherSkillEffectCondition.RemoveBuff:
       return checkAllEnemyTargetSkillEffect(actives, passives, e => !!e.all_buff_removal || !!e.buff_removal);
     case OtherSkillEffectCondition.RemoveDebuff:
@@ -314,6 +325,8 @@ export function matchSkillConditions(
       return checkAllSkillEffectDetails(actives, passives, e => !!e.all_buff_removal_resist_up);
     case OtherSkillEffectCondition.PreventsDebuff:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.prevents_effect);
+    case OtherSkillEffectCondition.AllBuffBlocking:
+      return checkAllSkillEffectDetails(actives, passives, e => !!e.all_buff_blocking);
     case OtherSkillEffectCondition.ExpUp:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.exp_up);
     case OtherSkillEffectCondition.ActionCountUp:

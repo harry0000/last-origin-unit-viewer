@@ -37,7 +37,8 @@ import {
 } from '../../../state/equipment/UnitEquipmentHook';
 import {
   TranslatedEquipmentEffect,
-  TranslatedEquipmentEffectAsSkill
+  TranslatedEquipmentEffectAsSkill,
+  isTranslatedEquipmentEffectAsSkillDetails
 } from '../../../state/equipment/EquipmentEffectsTranslator';
 import { useAvailableEquipment } from '../../../state/equipment/availableEquipment';
 import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
@@ -145,10 +146,17 @@ const EffectDetailList: React.FC<{
           <div key={JSON.stringify(e)}>
             {ifNonNullable(condition, cond => (<div className="condition">{cond}</div>))}
             {
-              'self' in details ?
+              isTranslatedEquipmentEffectAsSkillDetails(details) ?
                 (<React.Fragment>
-                  <Badge variant="light">{t('effect:effect.target.self')}</Badge>
-                  <EffectDetailRows details={details.self} />
+                  {ifNonNullable(
+                    'self' in details ? details.self : undefined,
+                    self => (
+                      <React.Fragment>
+                        <Badge variant="light">{t('effect:effect.target.self')}</Badge>
+                        <EffectDetailRows details={self} />
+                      </React.Fragment>
+                    )
+                  )}
                   {ifNonNullable(
                     'target' in details ? details.target : undefined,
                     target => (

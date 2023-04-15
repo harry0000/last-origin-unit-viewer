@@ -1,0 +1,11 @@
+name: 'setup'
+description: 'setup node and node_modules'
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: Setup
+      run: npm ci --no-audit --progress=false --silent
+      shell: bash

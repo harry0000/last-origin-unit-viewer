@@ -23,7 +23,7 @@
       "fire_active": "火炎属性攻撃",
       "ice_active": "冷気属性攻撃",
       "electric_active": "電気属性攻撃",
-      "ignore_protect": "保護無視"
+      "ignore_protect": "保護無視攻撃"
     },
     "active_skill_area_conditions": {
       "2_x_2": "2 x 2",
@@ -84,10 +84,13 @@
       "stunned": "行動不能",
       "push_pull": "押し出し/引き寄せ",
       "wet_corrosion_overloaded": "浸水/腐食/過負荷",
+      "ignore_protect_activate": "保護無視 有効化",
+      "ignore_protect_deactivate": "保護無視 無効化",
       "remove_buff": "強化効果解除",
       "remove_debuff": "有害効果解除",
       "remove_buff_resist_up": "強化効果解除耐性Up",
       "prevents_debuff": "有害効果免疫",
+      "all_buff_blocking": "強化効果不可",
       "exp_up": "獲得経験値Up",
       "action_count_up": "最大行動回数 +1"
     },

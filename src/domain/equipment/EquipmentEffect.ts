@@ -123,7 +123,8 @@ export type EquipmentEffectActivationState = Readonly<{
   [EffectActivationState.Affected]?: typeof Effect['Reconnaissance' | 'Barrier'],
   [EffectActivationState.Tagged]?: 'wet' | 'moon_light_power',
   [EffectActivationState.Unit]?: { kind: UnitKind, except?: 171 } | 171 | 127,
-  [EffectActivationState.StatusLessThanSelf]?: { status: 'def' },
+  [EffectActivationState.StatusGreaterThanSelf]?: { status: 'spd' },
+  [EffectActivationState.StatusLessThanSelf]?: { status: 'def' }
 }>
 
 type EquipmentEffectActivationTrigger = Readonly<{
@@ -136,9 +137,36 @@ type EquipmentEffectActivationTrigger = Readonly<{
   trigger: Exclude<EffectTrigger, typeof EffectTrigger['StartRound' | 'HitActive2']>
 }>
 
+export function extractEquipmentEffectActivationConditionState(
+  condition:
+    EquipmentEffectActivationCondition |
+    EquipmentEffectAsSkillSelfActivationCondition |
+    EquipmentEffectAsSkillTargetActivationCondition
+): EquipmentEffectActivationState | undefined {
+  if (!('state' in condition)) {
+    return undefined;
+  }
+
+  return condition.state && (
+    'self' in condition.state ?
+      condition.state.self :
+      'target' in condition.state ?
+        condition.state.target :
+        condition.state
+  );
+}
+
 export type EquipmentEffectActivationCondition =
   EquipmentEffectActivationTrigger &
   Readonly<{ state?: EquipmentEffectActivationState }>
+
+export type EquipmentEffectAsSkillSelfActivationCondition =
+  EquipmentEffectActivationTrigger &
+  Readonly<{ state?: { self: EquipmentEffectActivationState } }>
+
+export type EquipmentEffectAsSkillTargetActivationCondition =
+  EquipmentEffectActivationTrigger &
+  Readonly<{ state?: { target: EquipmentEffectActivationState } }>
 
 export type EffectDetails = Readonly<{
   condition: EquipmentEffectActivationCondition,
@@ -147,10 +175,22 @@ export type EffectDetails = Readonly<{
 }>
 
 export type EffectDetailsAsSkill = Readonly<{
-  condition: EquipmentEffectActivationCondition,
+  condition: EquipmentEffectAsSkillSelfActivationCondition,
+  details: {
+    self: EquipmentEffectValue
+  }
+} | {
+  condition: EquipmentEffectAsSkillSelfActivationCondition,
+  target: { kind: 'enemy' },
   details: {
     self: EquipmentEffectValue,
-    target?: EquipmentEffectValue
+    target: EquipmentEffectValue
+  }
+} | {
+  condition: EquipmentEffectAsSkillTargetActivationCondition,
+  target: { kind: 'enemy' },
+  details: {
+    target: EquipmentEffectValue
   }
 }>
 

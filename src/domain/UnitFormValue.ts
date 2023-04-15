@@ -70,8 +70,8 @@ export const UnitForms = {
     changed: 'remote_bomb_placement'
   },
   [FormChangeUnits.Fortress]: {
-    default: 'mobility_position',
-    changed: 'fixed_position'
+    default: 'hull_down_mode',
+    changed: 'turret_down_mode'
   },
   [FormChangeUnits.Peregrinus]: {
     default: 'falcon_form',

@@ -158,6 +158,7 @@ type OrangeadeSkillData = Readonly<{
   passive:
     readonly [
       PassiveSkillDataAsEquipmentEffect,
+      PassiveSkillDataAsEquipmentEffect,
       PassiveSkillDataAsEquipmentEffect
     ]
 }>
@@ -335,7 +336,9 @@ type FortressSkillData = Readonly<{
     ],
   passive:
     readonly [
-      { readonly [key in FortressForm]: PassiveSkillData }
+      { readonly [key in FortressForm]: PassiveSkillData },
+      PassiveSkillData,
+      { readonly [key in FortressForm]: PassiveSkillData },
     ]
 }>
 

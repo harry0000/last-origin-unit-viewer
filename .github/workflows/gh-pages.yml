@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
 
       - name: Get npm cache directory
         id: npm-cache-dir
@@ -26,7 +26,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Setup
-        run: npm install
+        run: npm ci --no-audit --progress=false --silent
 
       - name: Build
         env:
