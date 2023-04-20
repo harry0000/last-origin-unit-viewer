@@ -8859,9 +8859,6 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'use_this_active' }],
         details: { self: { acc_up: { base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 8000 }, term: 'immediate' } } }
-      }, {
-        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'golden_wagon' }] } }],
-        details: { self: { cooperative_attack: { unit: 107, active: 1, term: 'immediate' } } }
       }]
     }],
     passive: [{
@@ -8934,6 +8931,9 @@ export const unitSkillData: UnitSkillData = {
             range_up: { tag: 'golden_wagon', value: 1, term: { for_rounds: 1 } }
           }
         }
+      }, {
+        conditions: [{ trigger: 'hit_active_2' }],
+        details: { self: { cooperative_attack: { unit: 107, active: 1, term: 'immediate' } } }
       }]
     }]
   },
