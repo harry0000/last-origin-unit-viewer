@@ -15,12 +15,12 @@ class UnitLv {
   readonly mode: UnitLvMode;
 
   constructor(value?: UnitLvValue, mode?: UnitLvMode) {
-    this.value = value ?? 1;
-    this.mode = mode ?? 'auto';
+    this.value = value ?? 100;
+    this.mode = mode ?? UnitLvMode.Manual;
   }
 
   setLv(value: UnitLvValue): UnitLv {
-    if (this.mode === 'auto' || value === this.value) {
+    if (this.mode === UnitLvMode.Auto || value === this.value) {
       return this;
     } else {
       return new UnitLv(value, this.mode);
@@ -28,7 +28,7 @@ class UnitLv {
   }
 
   adjustLv(enhancements: UnitParameterEnhancementLv): UnitLv {
-    if (this.mode === 'auto') {
+    if (this.mode === UnitLvMode.Auto) {
       const newLv = Math.max(1, Math.ceil(enhancements.points / 3)) as UnitLvValue;
       return new UnitLv(newLv, this.mode);
     }
@@ -38,16 +38,16 @@ class UnitLv {
   toggleMode(): UnitLv {
     return new UnitLv(
       this.value,
-      this.mode === 'auto' ? 'manual' : 'auto'
+      this.mode === UnitLvMode.Auto ? UnitLvMode.Manual : UnitLvMode.Auto
     );
   }
 
   setManualLvMode(): UnitLv {
-    return this.mode === 'auto' ? this.toggleMode() : this;
+    return this.mode === UnitLvMode.Auto ? this.toggleMode() : this;
   }
 
   get points(): number {
-    return (this.mode === 'auto' ? UnitMaxLvValue : this.value) * 3;
+    return (this.mode === UnitLvMode.Auto ? UnitMaxLvValue : this.value) * 3;
   }
 }
 

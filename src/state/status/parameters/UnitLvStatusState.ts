@@ -23,7 +23,7 @@ import {
   calculateUnitCost,
   summaryUnitCosts
 } from '../../../domain/status/UnitCost';
-import { UnitLvMode, UnitLvValue } from '../../../domain/status/UnitLv';
+import UnitLv, { UnitLvMode, UnitLvValue } from '../../../domain/status/UnitLv';
 import UnitLvStatus from '../../../domain/status/UnitLvStatus';
 import { getUnitDefaultRank } from '../../../domain/status/UnitRankState';
 
@@ -74,8 +74,8 @@ const _unitLvStatusState = atomFamily<UnitLvStatus, UnitNumber>({
   default: (unit) => new UnitLvStatus(unit)
 });
 
-const _lv             = atomFamily<UnitLvValue, UnitNumber>({ key: 'UnitLvStatusState_lv', default: 1 });
-const _lvMode         = atomFamily<UnitLvMode, UnitNumber>({ key: 'UnitLvStatusState_lvMode', default: UnitLvMode.Auto });
+const _lv             = atomFamily<UnitLvValue, UnitNumber>({ key: 'UnitLvStatusState_lv', default: 100 });
+const _lvMode         = atomFamily<UnitLvMode, UnitNumber>({ key: 'UnitLvStatusState_lvMode', default: UnitLvMode.Manual });
 const _remainPoints   = atomFamily<number, UnitNumber>({ key: 'UnitLvStatusState_remainPoints', default: 300 });
 const _canResetPoints = atomFamily<boolean, UnitNumber>({ key: 'UnitLvStatusState_canResetPoints', default: false });
 
@@ -95,13 +95,12 @@ const _rank = atomFamily<UnitRank, RankUpUnitNumber>({
 const _rankUpEnabled = atomFamily<UnitRankUpEnabled, RankUpUnitNumber>({
   key: 'UnitLvStatusState_rankUpEnabled',
   default: (unit) => {
-    const defaultValue = { [UnitRank.A]: false, [UnitRank.S]: false, [UnitRank.SS]: false };
-    const defaultRank = getUnitDefaultRank(unit);
-    if (defaultRank !== UnitRank.B) {
-      defaultValue[defaultRank] = true;
-    }
-
-    return defaultValue;
+    const lvStatus = new UnitLvStatus(unit,  new UnitLv());
+    return {
+      [UnitRank.A]: lvStatus.isRankEnabled(UnitRank.A),
+      [UnitRank.S]: lvStatus.isRankEnabled(UnitRank.S),
+      [UnitRank.SS]: lvStatus.isRankEnabled(UnitRank.SS)
+    };
   }
 });
 const _rankUpBonus = atomFamily<UnitRankUpBonus | undefined, RankUpUnitNumber>({ key: 'UnitLvStatusState_rankUpBonus', default: undefined });
