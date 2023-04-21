@@ -245,6 +245,12 @@ export type ActivationTargetState =
   {
     [EffectActivationState.NotTagged]?: 'vafrlogi'
   } &
+  {
+    [EffectActivationState.NotTaggedAffected]?: {
+      tag: 'wind_style',
+      effect: typeof Effect.SpdUp
+    }
+  } &
   NotAffectedActivationState
 
 type InSquadStateUnit =
@@ -257,6 +263,7 @@ type InSquadStateUnit =
     'SteelLineOfficerRanks' |
     'SteelLineExcludingOfficerRanks' |
     'Horizon' |
+    'Kunoichi' |
     'KouheiChurch' |
     'EmpressHound'
   ] |
@@ -271,7 +278,7 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 type NotInSquadStateUnit =
   110 | 127 | 252 |
   typeof UnitRole['Attacker' | 'Defender'] |
-  typeof UnitAlias.SteelLine |
+  typeof UnitAlias['SteelLine' | 'Kunoichi'] |
   typeof SkillAreaType.CrossAdjacent |
   Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>>
 

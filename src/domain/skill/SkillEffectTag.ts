@@ -76,6 +76,7 @@ export type SkillEffectTag =
   'where_are_you_looking_at' |
   'stealth_camouflage' |
   'overwhelming_cuteness' |
+  'full_proficiency' |
   'receiving_observation_data' |
   'guiding_technique' |
   'balance_seeker' |
@@ -126,9 +127,11 @@ export type SkillEffectTag =
   'best_desserts' |
   'psychic_barrier' |
   'brainwashing_wave' |
+  'wind_style' |
   'charge_electrically' |
   'high_voltage' |
   'death_blow' |
+  'ash_kagura' |
   'overexcitement' |
   'controlling_excitement' |
   'excitement' |

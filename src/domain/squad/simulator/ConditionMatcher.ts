@@ -32,6 +32,7 @@ type DependencyState = typeof EffectActivationState[
   'Tagged' |
   'NotTagged' |
   'TaggedAffected' |
+  'NotTaggedAffected' |
   'Stack'
 ]
 
@@ -42,6 +43,7 @@ const dependencyStateKeys = [
   EffectActivationState.Tagged,
   EffectActivationState.NotTagged,
   EffectActivationState.TaggedAffected,
+  EffectActivationState.NotTaggedAffected,
   EffectActivationState.Stack
 ] as const satisfies ReadonlyArray<DependencyState>;
 
@@ -550,17 +552,18 @@ export function matchAffectedState(
   state: ReadonlyArray<ActivationSelfState> | ReadonlyArray<ActivationTargetState>,
   affected: ReadonlyArray<BattleEffect>
 ): boolean {
-  const { Affected, NotAffected, AffectedBy, Tagged, NotTagged, TaggedAffected, Stack } = EffectActivationState;
+  const { Affected, NotAffected, AffectedBy, Tagged, NotTagged, TaggedAffected, NotTaggedAffected, Stack } = EffectActivationState;
 
   return state.some(s => dependencyStateKeys.every(key => {
     switch (key) {
-    case Affected:       return !(key in s) || !!s.affected        && matchAffected(s.affected, affected);
-    case NotAffected:    return !(key in s) || !!s.not_affected    && matchNotAffected(s.not_affected, affected);
-    case AffectedBy:     return !(key in s) || !!s.affected_by     && matchAffectedBy(s.affected_by, affected);
-    case Tagged:         return !(key in s) || !!s.tagged          && matchTagged(s.tagged, affected);
-    case NotTagged:      return !(key in s) || !!s.not_tagged      && !matchTagged(s.not_tagged, affected);
-    case TaggedAffected: return !(key in s) || !!s.tagged_affected && matchTaggedAffected(s.tagged_affected, affected);
-    case Stack:          return !(key in s) || !!s.stack           && matchTagStack(s.stack, affected);
+    case Affected:          return !(key in s) || !!s.affected            && matchAffected(s.affected, affected);
+    case NotAffected:       return !(key in s) || !!s.not_affected        && matchNotAffected(s.not_affected, affected);
+    case AffectedBy:        return !(key in s) || !!s.affected_by         && matchAffectedBy(s.affected_by, affected);
+    case Tagged:            return !(key in s) || !!s.tagged              && matchTagged(s.tagged, affected);
+    case NotTagged:         return !(key in s) || !!s.not_tagged          && !matchTagged(s.not_tagged, affected);
+    case TaggedAffected:    return !(key in s) || !!s.tagged_affected     && matchTaggedAffected(s.tagged_affected, affected);
+    case NotTaggedAffected: return !(key in s) || !!s.not_tagged_affected && !matchTaggedAffected(s.not_tagged_affected, affected);
+    case Stack:             return !(key in s) || !!s.stack               && matchTagStack(s.stack, affected);
     default: {
       const _exhaustiveCheck: never = key;
       return _exhaustiveCheck;
