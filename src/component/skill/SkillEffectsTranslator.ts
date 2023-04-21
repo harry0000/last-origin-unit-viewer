@@ -198,7 +198,8 @@ export function translateSkillEffectDetails(
       term
     };
   case Effect.BuffRemoval:
-  case Effect.DebuffRemoval: {
+  case Effect.DebuffRemoval:
+  case Effect.EffectRemoval: {
     const effects = translateEffectNames(entry[1], t);
 
     return {

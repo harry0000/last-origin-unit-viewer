@@ -43,6 +43,7 @@ export function buildEffectIconSrcUrl(effect: Effect): string | undefined {
   case Effect.BuffRemoval:
     return buildIconSrcUrl(Effect.AllBuffRemoval);
   case Effect.DebuffRemoval:
+  case Effect.EffectRemoval:
     return buildIconSrcUrl(Effect.AllDebuffRemoval);
   case Effect.AbsolutelyActivated:
     return buildIconSrcUrl(Effect.ActivationRatePercentageUp);

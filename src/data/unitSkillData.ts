@@ -3985,8 +3985,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ state: { self: [{ tagged: 'tightened_leash' }], target: [{ tagged_affected: { tag: 'hammer_and_anvil_tactic', effect: 'follow_up_attack' } }] } }],
         target: { kind: 'ally' },
-        // TODO: Change to general_effect_removal
-        details: { target: { buff_removal: { tag: 'hammer_and_anvil_tactic', effect: 'follow_up_attack' } } }
+        details: { target: { effect_removal: { tag: 'hammer_and_anvil_tactic', effect: 'follow_up_attack' } } }
       }, {
         conditions: [{ state: { self: [{ tagged: 'loosened_leash' }] } }],
         target: { kind: 'ally' },
@@ -3994,8 +3993,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ state: { self: [{ tagged: 'loosened_leash' }], target: [{ tagged_affected: { tag: 'hammer_and_anvil_tactic', effect: 'target_protect' } }] } }],
         target: { kind: 'ally' },
-        // TODO: Change to general_effect_removal
-        details: { target: { buff_removal: { tag: 'hammer_and_anvil_tactic', effect: 'target_protect' } } }
+        details: { target: { effect_removal: { tag: 'hammer_and_anvil_tactic', effect: 'target_protect' } } }
       }]
     }],
     passive: [{
@@ -12654,8 +12652,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'be_attacked' }],
-        // TODO: Change to general_effect_removal
-        details: { self: { buff_removal: { tag: 'talaria', effects: ['eva_up', 'spd_up'], term: 'immediate' } } }
+        details: { self: { effect_removal: { tag: 'talaria', effects: ['eva_up', 'spd_up'], term: 'immediate' } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'reconnaissance' }] } }],
         details: { self: { eva_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } } } }
@@ -12668,7 +12665,7 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { reconnaissance: {} } }
       }, {
         conditions: [{ trigger: 'be_attacked', state: { self: [{ affected: 'counterattack' }] } }],
-        // TODO: Change to any_effect_removal ?
+        // TODO: Change to effect_removal ?
         details: { self: { buff_removal: { effect: 'counterattack', term: 'immediate' } } }
       }]
     }, {
