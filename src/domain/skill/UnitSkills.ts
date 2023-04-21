@@ -75,7 +75,7 @@ export type SkillEffectValue = Readonly<{
     E extends typeof Effect.BattleContinuation ?
       ValueWithAddition<'value'> |
       ValueWithAddition<'milliPercentage'> :
-    E extends typeof Effect['BuffRemoval' | 'DebuffRemoval' | 'PreventsEffect'] ?
+    E extends typeof Effect['BuffRemoval' | 'DebuffRemoval' | 'EffectRemoval' | 'PreventsEffect'] ?
       ({
         effect: Effect
       } | {

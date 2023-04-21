@@ -83,6 +83,7 @@ export const Effect = {
   AllDebuffRemoval: 'all_debuff_removal',
   BuffRemoval: 'buff_removal',
   DebuffRemoval: 'debuff_removal',
+  EffectRemoval: 'effect_removal',
   AllBuffRemovalResistUp: 'all_buff_removal_resist_up',
   PreventsEffect: 'prevents_effect',
   ActivationRatePercentageUp: 'activation_rate_percentage_up',

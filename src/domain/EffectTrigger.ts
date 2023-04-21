@@ -15,6 +15,7 @@ export const EffectTrigger = {
   Attacked: 'attacked',
   BeAttacked: 'be_attacked',
   FollowUpAttack: 'follow_up_attack',
+  CooperativeAttack: 'cooperative_attack',
   ReAttack: 're_attack',
   Hit: 'hit',
   HitFireActive: 'hit_fire_active',

@@ -144,7 +144,7 @@ function getStatusEffect(
 function createSlotAvailable(slot: EquipmentSlot): (unit: UnitNumber) => RecoilState<boolean> {
   return atomFamily<boolean, UnitNumber>({
     key: `UnitEquipmentState_slotAvailable_${slot}`,
-    default: false
+    default: true
   });
 }
 

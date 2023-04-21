@@ -13,6 +13,7 @@ export const EffectActivationState = {
   Tagged: 'tagged',
   NotTagged: 'not_tagged',
   TaggedAffected: 'tagged_affected',
+  NotTaggedAffected: 'not_tagged_affected',
   Stack: 'stack',
   Form: 'form',
   Equipped: 'equipped',

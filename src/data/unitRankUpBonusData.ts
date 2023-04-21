@@ -962,6 +962,17 @@ export const unitRankUpBonusData = {
       spd_up: { microValue: 60000 }
     }
   },
+  174: {
+    ss: {
+      hp_up: { value: 200 },
+      atk_up: { milliValue: 110000 },
+      def_up: { milliValue: 15000 },
+      cri_up: { milliPercentage: 7000 },
+      acc_up: { milliPercentage: 18000 },
+      eva_up: { milliPercentage: 8000 },
+      spd_up: { microValue: 50000 }
+    }
+  },
   178: {
     ss: {
       hp_up: { value: 185 },
@@ -970,6 +981,17 @@ export const unitRankUpBonusData = {
       cri_up: { milliPercentage: 5000 },
       acc_up: { milliPercentage: 16000 },
       eva_up: { milliPercentage: 8000 },
+      spd_up: { microValue: 100000 }
+    }
+  },
+  180: {
+    ss: {
+      hp_up: { value: 140 },
+      atk_up: { milliValue: 100000 },
+      def_up: { milliValue: 30000 },
+      cri_up: { milliPercentage: 7000 },
+      acc_up: { milliPercentage: 13000 },
+      eva_up: { milliPercentage: 5000 },
       spd_up: { microValue: 100000 }
     }
   },

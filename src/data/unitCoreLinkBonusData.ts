@@ -821,6 +821,16 @@ export const unitCoreLinkBonusData: UnitCoreLinkBonusData = {
       { spd_up: { microValue: 100000 } }
     ]
   },
+  99: {
+    specific_link_bonus: { acc_up: { milliPercentage: 7000 } },
+    full_link_bonus: [
+      { sortie_cost: { milliPercentage: 25000 } },
+      { atk_up: { milliPercentage: 20000 } },
+      { range_up: { value: 1 } },
+      { buff_debuff_lv_up: { value: 2 } },
+      { spd_up: { microValue: 100000 } }
+    ]
+  },
   101: {
     specific_link_bonus: { acc_up: { milliPercentage: 7000 } },
     full_link_bonus: [

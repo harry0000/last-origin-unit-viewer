@@ -66,6 +66,7 @@ export type MilliPercentageEffectKey =
       'CooperativeAttack' |
       'BuffRemoval' |
       'DebuffRemoval' |
+      'EffectRemoval' |
       'PreventsEffect' |
       'ActivationRatePercentageUp' |
       'AbsolutelyActivated' |

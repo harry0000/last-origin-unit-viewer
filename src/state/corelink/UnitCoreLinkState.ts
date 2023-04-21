@@ -23,7 +23,7 @@ function createLinkedUnit(slot: CoreLinkSlot) {
 function createSlotAvailable(slot: CoreLinkSlot) {
   return atomFamily<boolean, UnitNumber>({
     key: `UnitCoreLinkState_slotAvailable_${slot}`,
-    default: false
+    default: true
   });
 }
 

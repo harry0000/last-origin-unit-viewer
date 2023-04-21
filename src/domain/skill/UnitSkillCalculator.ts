@@ -377,6 +377,7 @@ function calculateEffectValue(
     return { [entry[0]]: calculateMicroValueEffectValue(entry[1], lv, effectLv) };
   case Effect.BuffRemoval:
   case Effect.DebuffRemoval:
+  case Effect.EffectRemoval:
   case Effect.PreventsEffect:
   case Effect.AbsolutelyActivated: {
     const effect = 'effect' in entry[1] ? { effect: entry[1].effect } : { effects: entry[1].effects };

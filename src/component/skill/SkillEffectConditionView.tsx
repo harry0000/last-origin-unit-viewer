@@ -79,6 +79,7 @@ function stateValuesView(
   case EffectActivationState.NotTagged:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { tag: entry[1] })}</span>);
   case EffectActivationState.TaggedAffected:
+  case EffectActivationState.NotTaggedAffected:
     return (<span>{t(`effect:condition.state.${entry[0]}`, entry[1])}</span>);
   case EffectActivationState.Stack:
     if ('effect' in entry[1]) {
@@ -156,13 +157,16 @@ function unitStateView(
     ReadonlyArray<UnitNumber> |
     UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter> |
     UnitAliasAndRole<typeof UnitAlias.Strikers, typeof UnitRole.Attacker> |
-    typeof UnitAlias.ElectricActive |
-    typeof UnitAlias.SteelLine |
-    typeof UnitAlias.SteelLineOfficerRanks |
-    typeof UnitAlias.SteelLineExcludingOfficerRanks |
-    typeof UnitAlias.Horizon |
-    typeof UnitAlias.KouheiChurch |
-    typeof UnitAlias.EmpressHound |
+    typeof UnitAlias[
+      'ElectricActive' |
+      'SteelLine' |
+      'SteelLineOfficerRanks' |
+      'SteelLineExcludingOfficerRanks' |
+      'Horizon' |
+      'Kunoichi' |
+      'KouheiChurch' |
+      'EmpressHound'
+    ] |
     typeof SkillAreaType.CrossAdjacent |
     UnitType |
     UnitRole |

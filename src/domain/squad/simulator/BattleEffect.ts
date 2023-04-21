@@ -121,14 +121,14 @@ export function isStatusBattleEffect<E extends StatusEffect>(
 }
 
 type AllRemovalEffect = typeof Effect['AllBuffRemoval' | 'AllDebuffRemoval']
-type BuffDebuffRemovalEffect = typeof Effect['BuffRemoval' | 'DebuffRemoval']
+type EffectRemovalEffect = typeof Effect['BuffRemoval' | 'DebuffRemoval' | 'EffectRemoval']
 
-type RemovalEffect = typeof Effect['TagUnstack' | 'TagRelease'] | AllRemovalEffect | BuffDebuffRemovalEffect
+type RemovalEffect = typeof Effect['TagUnstack' | 'TagRelease'] | AllRemovalEffect | EffectRemovalEffect
 
 type TagUnstackBattleEffect = MakeBattleEffect<typeof Effect.TagUnstack>
 type TagReleaseBattleEffect = MakeBattleEffect<typeof Effect.TagRelease>
 type AllEffectRemovalBattleEffect = MakeBattleEffect<AllRemovalEffect>
-type BuffDebuffRemovalBattleEffect = MakeBattleEffect<BuffDebuffRemovalEffect>
+type BuffDebuffRemovalBattleEffect = MakeBattleEffect<EffectRemovalEffect>
 
 type RemovalBattleEffect =
   TagUnstackBattleEffect |
@@ -239,6 +239,7 @@ function pickRemovalEffect(arg: SkillBattleEffect | EquipmentBattleEffect): arg 
   case Effect.AllDebuffRemoval:
   case Effect.BuffRemoval:
   case Effect.DebuffRemoval:
+  case Effect.EffectRemoval:
     return true;
   default:
     return false;
@@ -293,6 +294,8 @@ function matchRemovals(
         return type === SkillEffectType.Buff && matchRemovalEffect(removal, battleEffect);
       case Effect.DebuffRemoval:
         return type === SkillEffectType.DeBuff && matchRemovalEffect(removal, battleEffect);
+      case Effect.EffectRemoval:
+        return matchRemovalEffect(removal, battleEffect);
       case Effect.AllDebuffRemoval:
         return type === SkillEffectType.DeBuff;
       case Effect.AllBuffRemoval:
