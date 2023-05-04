@@ -167,4 +167,6 @@ export type SkillEffectTag =
   'assault_formation' |
   'flanking_formation' |
   'command_sharing' |
-  'radar_detection'
+  'radar_detection' |
+  'circling_formation' |
+  'heroic_virtue'
