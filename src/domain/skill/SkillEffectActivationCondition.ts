@@ -265,7 +265,8 @@ type InSquadStateUnit =
     'Horizon' |
     'Kunoichi' |
     'KouheiChurch' |
-    'EmpressHound'
+    'EmpressHound' |
+    'Mermaid'
   ] |
   Readonly<UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter>> |
   Readonly<UnitAliasAndRole<typeof UnitAlias['Strikers'], typeof UnitRole.Attacker>> |
@@ -278,7 +279,7 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 type NotInSquadStateUnit =
   110 | 127 | 252 |
   typeof UnitRole['Attacker' | 'Defender'] |
-  typeof UnitAlias['SteelLine' | 'Kunoichi'] |
+  typeof UnitAlias['SteelLine' | 'Kunoichi' | 'Mermaid'] |
   typeof SkillAreaType.CrossAdjacent |
   Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>>
 

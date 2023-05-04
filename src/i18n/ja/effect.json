@@ -243,7 +243,9 @@
     "assault_formation":  "突撃陣形",
     "flanking_formation": "迂回陣形",
     "command_sharing": "指揮共有",
-    "radar_detection": "レーダー捕捉"
+    "radar_detection": "レーダー捕捉",
+    "circling_formation": "艦隊輪形陣",
+    "heroic_virtue": "英雄の気迫"
   },
   "condition": {
     "trigger": {

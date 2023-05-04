@@ -165,7 +165,8 @@ function unitStateView(
       'Horizon' |
       'Kunoichi' |
       'KouheiChurch' |
-      'EmpressHound'
+      'EmpressHound' |
+      'Mermaid'
     ] |
     typeof SkillAreaType.CrossAdjacent |
     UnitType |
