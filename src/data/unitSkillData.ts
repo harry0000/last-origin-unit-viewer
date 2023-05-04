@@ -19703,7 +19703,12 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { fixed_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: -1000 }, term: 'immediate' } } }
       }, {
         conditions: [{ trigger: 'hit', state: { squad: { in_squad: 'mermaid' } } }],
-        details: { self: { fixed_damage: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: -500 }, term: 'immediate' } } }
+        details: {
+          self: {
+            fixed_damage: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: -500 }, term: 'immediate' },
+            defense_penetration: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: 'immediate' }
+          }
+        }
       }, {
         conditions: [{ trigger: 'hit', state: { self: [{ affected: 'def_up' }] } }],
         target: { kind: 'enemy' },
