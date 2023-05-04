@@ -19473,7 +19473,16 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: ['defender', 'mermaid'] },
+        target: { kind: 'ally', conditions: ['defender'] },
+        details: {
+          target: {
+            damage_reduction_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['mermaid'] },
         details: {
           target: {
             damage_reduction_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
