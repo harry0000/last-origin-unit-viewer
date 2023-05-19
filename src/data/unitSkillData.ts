@@ -19398,6 +19398,116 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  250: {
+    no: 250,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 180000 },
+        per_lv_up: { milliPercentage: 18000 }
+      },
+      range: 5,
+      cost: 6,
+      area: 'single',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'eva_down' }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'atk_down' }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 125000 },
+        per_lv_up: { milliPercentage: 12500 }
+      },
+      range: 6,
+      cost: 10,
+      area: 'row_toward_front_with_shock_wave',
+      effects: [{
+        conditions: [{ trigger: 'hit', state: { target: [{ hp_greater_or_equal: 100 }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effect: 'nullify_damage', term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ hp_greater_or_equal: 50 }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effect: 'def_up', term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ stack: { tag: 'be_grateful', effect: 'acc_up', greater_or_equal: 3 } }] } }],
+        details: {
+          self: {
+            additional_damage: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' },
+            buff_removal: { tag: 'be_grateful', effect: 'acc_up', term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'attack', state: { squad: { not_in_squad: 'mermaid' } } }],
+        details: { self: { spd_down: { tag: 'tired', base: { milliPercentage: 90000 }, per_lv_up: { milliPercentage: -2000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'attack', state: { squad: { in_squad: 'mermaid' } } }],
+        details: { self: { spd_down: { tag: 'competent_subordinate', base: { milliPercentage: 70000 }, per_lv_up: { milliPercentage: -2000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'def_up' }] } }],
+        details: { self: { atk_up: { tag: 'come_to_me', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'eva_up' }] } }],
+        details: { self: { atk_up: { tag: 'come_to_me', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'barrier' }] } }],
+        details: { self: { atk_up: { tag: 'come_to_me', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'damage_reduction_up' }] } }],
+        details: { self: { atk_up: { tag: 'come_to_me', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'target_protect' }] } }],
+        details: { self: { atk_up: { tag: 'come_to_me', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'status_resist_up' }] } }],
+        details: { self: { atk_up: { tag: 'come_to_me', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ stack: { tag: 'come_to_me', effect: 'atk_up', greater_or_equal: 2 } }] } }],
+        details: { self: { damage_multiplier_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ stack: { tag: 'come_to_me', effect: 'atk_up', greater_or_equal: 4 } }] } }],
+        details: { self: { ignore_protect: { term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: [{ type: 'heavy', role: 'defender' }, { type: 'heavy', role: 'supporter' }] },
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'follow_up_attack' }],
+        details: {
+          self: {
+            defense_penetration: { tag: 'be_grateful', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', max_stack: 3 },
+            acc_up: { tag: 'be_grateful', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', max_stack: 3 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'follow_up_attack', state: { self: [{ tagged: 'tired' }, { tagged: 'competent_subordinate' }] } }],
+        details: { self: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_taken_increased: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'infinite', times: 1, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'end_wave' }],
+        details: { self: { atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', cannot_be_dispelled: true } } }
+      }]
+    }]
+  },
   251: {
     no: 251,
     active: [{
