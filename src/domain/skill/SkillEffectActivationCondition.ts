@@ -169,7 +169,7 @@ type ActivationState =
     [EffectActivationState.Stack]?: {
       tag: SkillEffectTag,
       effect: AffectedEffect,
-      greater_or_equal: 3 | 5
+      greater_or_equal: 2 | 3 | 4 | 5
     } | ({
       tag: SkillEffectTag,
     } & (

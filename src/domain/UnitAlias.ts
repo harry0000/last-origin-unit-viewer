@@ -62,7 +62,7 @@ export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> 
   [UnitAlias.EmpressHound]: new Set([154, 155]),
   [UnitAlias.SmartEnjoy]: new Set([205, 206]),
   [UnitAlias.SpartanSeries]: new Set([215, 216, 217]),
-  [UnitAlias.Mermaid]: new Set([251, 252, 253])
+  [UnitAlias.Mermaid]: new Set([250, 251, 252, 253])
 };
 
 export function isUnitAlias(arg: string): arg is UnitAlias {

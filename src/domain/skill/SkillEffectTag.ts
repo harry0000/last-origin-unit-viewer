@@ -164,6 +164,10 @@ export type SkillEffectTag =
   'power_of_true_blood_deathless' |
   'power_overflows' |
   'vafrlogi' |
+  'tired' |
+  'competent_subordinate' |
+  'come_to_me' |
+  'be_grateful' |
   'assault_formation' |
   'flanking_formation' |
   'command_sharing' |
