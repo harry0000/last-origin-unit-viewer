@@ -4037,7 +4037,7 @@ export const unitSkillData: UnitSkillData = {
     }, {
       area: 'fixed_all',
       effects: [{
-        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 4 } } } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'ally', equal: 4 } } } }],
         details: { self: { damage_multiplier_up_by_status: { status: 'def', milliPercentage: 4000, term: 'infinite', cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 1 } } } }],
@@ -10036,7 +10036,7 @@ export const unitSkillData: UnitSkillData = {
             }
           }
         }, {
-          conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 4 } } } }],
+          conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'ally', equal: 4 } } } }],
           details: { self: { form_change: { form: 'maximum_pump_up' } } }
         }]
       },
@@ -13605,6 +13605,110 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  169: {
+    no: 169,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 124000 },
+        per_lv_up: { milliPercentage: 12400 }
+      },
+      range: 3,
+      cost: 4,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { provoked: { term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'provoked' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { light_type_damage_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 2 } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: { tagged: 'younger_sister' } } } }],
+        details: { self: { ignore_barrier_dr: { term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 212000 },
+        per_lv_up: { milliPercentage: 21200 }
+      },
+      range: 3,
+      cost: 8,
+      area: 'single_and_front',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'provoked' }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: { tagged: 'younger_sister' } } } }],
+        details: { self: { additional_damage_focusing: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'provoked' }], squad: { in_squad: { tagged: 'younger_sister' } } } }],
+        target: { kind: 'enemy' },
+        details: { target: { stunned: { term: { for_rounds: 2 } } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'ally', less_or_equal: 3 } } } }],
+        details: { self: { status_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'ally', equal: 4 } } } }],
+        details: { self: { status_resist_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 1 } } } }],
+        details: { self: { battle_continuation: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 }, term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units_less_than_enemies: {} } } }],
+        details: { self: { battle_continuation: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 }, term: 'infinite', cannot_be_dispelled: true } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { atk_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ hp_greater_or_equal: 25 }] } }],
+        target: { kind: 'ally_except_self' },
+        details: { target: { atk_up: { tag: 'younger_sister', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'd_entertainment' } } }],
+        details: { self: { defense_penetration: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        details: { self: { spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 2 }, max_stack: 3 } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ tagged: 'younger_sister' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 2 }, max_stack: 3 } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave', state: { target: [{ hp_rate_greater_or_equal_than_self: {} }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { provoked: { tag: 'villain', term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'enemy_killed', state: { target: [{ tagged: 'villain' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { status_resist_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 }, max_stack: 3 } } }
+      }, {
+        conditions: [{ trigger: 'be_attacked', state: { target: [{ affected: 'provoked' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_taken_increased: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 3 }, max_stack: 3 } } }
+      }, {
+        conditions: [{ trigger: 'revive' }],
+        details: { self: { all_debuff_removal: { term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'revive', state: { target: [{ tagged: 'villain' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { all_buff_removal: { term: 'immediate' } } }
+      }]
+    }]
+  },
   170: {
     no: 170,
     active: [{
@@ -14565,7 +14669,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 2 } } } }],
         details: { self: { atk_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 4 } } } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'ally', equal: 4 } } } }],
         details: { self: { cri_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
@@ -18216,7 +18320,7 @@ export const unitSkillData: UnitSkillData = {
     }, {
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 4 } } } }],
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'ally', equal: 4 } } } }],
         details: { self: { reconnaissance: { term: 'infinite' } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'cross_adjacent', greater_or_equal: 2, less_or_equal: 3 } } } }],
@@ -18524,7 +18628,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'ally', greater_or_equal: 4 } } } }],
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'ally', equal: 4 } } } }],
         target: { kind: 'ally' },
         details: {
           target: {

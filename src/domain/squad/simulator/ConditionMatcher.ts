@@ -4,12 +4,14 @@ import {
   ActivationTargetState,
   AffectedEffect,
   GridState,
-  SkillEffectActivationState
+  SelfSkillEffectActivationState,
+  SkillEffectActivationState,
+  TargetSkillEffectActivationState
 } from '../../skill/SkillEffectActivationCondition';
 import { AlliedUnitTarget, SkillEffectTargetKind } from '../../skill/SkillEffectTarget';
 import { BattleEffect } from './BattleEffect';
 import { EffectActivationState } from '../../EffectActivationState';
-import { EnemySquadState, UnitOriginState } from './UnitEffectsState';
+import { EnemySquadState, UnitOriginState, UnitStateFullEffectsState } from './UnitEffectsState';
 import { EquipmentEffectActivationState } from '../../equipment/EquipmentEffect';
 import { EquipmentId } from '../../equipment/EquipmentData';
 import { SkillAreaType } from '../../skill/SkillAreaOfEffect';
@@ -23,7 +25,8 @@ import { isFormChangeUnitSkill } from '../../skill/UnitSkill';
 import { isPassiveSkillType } from '../../skill/SkillType';
 import { isUnitAlias, unitNumbersForAlias } from '../../UnitAlias';
 
-import { ExtractArray, isReadonlyArray, ValueOf } from '../../../util/type';
+import { ExtractArray, ValueOf, isReadonlyArray } from '../../../util/type';
+import { isRecord, typedEntries } from '../../../util/object';
 
 type DependencyState = typeof EffectActivationState[
   'Affected' |
@@ -51,6 +54,18 @@ export function hasNoDependencyState<T extends ActivationSelfState | ActivationT
   arg: T
 ): arg is T & Record<DependencyState, never> {
   return dependencyStateKeys.every(state => !(state in arg));
+}
+
+export function hasNoDependencySquadState(
+  arg:
+    ValueOf<SelfSkillEffectActivationState, 'squad'> |
+    ValueOf<TargetSkillEffectActivationState, 'squad'>
+): boolean {
+  return Array.isArray(arg) || (
+    !(EffectActivationState.InSquad in arg) ||
+    !isRecord(arg.in_squad) ||
+    !(EffectActivationState.Tagged in arg.in_squad)
+  );
 }
 
 function matchTargetCondition(
@@ -129,7 +144,7 @@ type NumOfUnitsSquadCondition = ValueOf<ActivationSquadState, typeof EffectActiv
 function getSquadUnitMatcher(
   cond:
     FactorUnitCondition |
-    Exclude<InSquadCondition, 'golden_factory'> |
+    Exclude<InSquadCondition, { [EffectActivationState.Tagged]: 'younger_sister' } | 'golden_factory'> |
     NotInSquadCondition |
     Exclude<NumOfUnitsSquadCondition, 'ally'>,
   sourcePosition: TenKeyPosition
@@ -377,6 +392,9 @@ function matchStaticActivationSelfState(
   );
 }
 
+/**
+ * Currently, ignore enemy target state (e.g. HpRateGreaterOrEqualThanSelf).
+ */
 function matchStaticActivationTargetState(
   state: ActivationTargetState,
   source: UnitOriginState,
@@ -572,10 +590,33 @@ export function matchAffectedState(
   }));
 }
 
-export function matchSquadState(
+export function matchAffectedSquadUnitState(
   state: SkillEffectActivationState,
   source: UnitOriginState,
-  squad: ReadonlyArray<UnitOriginState>
+  squad: ReadonlyArray<UnitStateFullEffectsState>
+): boolean {
+  if (!('squad' in state)) {
+    return true;
+  }
+
+  const cond = state.squad;
+  if (EffectActivationState.InSquad in cond) {
+    const in_squad = cond.in_squad;
+    if (isRecord(in_squad) && EffectActivationState.Tagged in in_squad) {
+      return squad
+        .filter(({ unit }) => unit.no != source.unit.no)
+        .some(({ appliedEffects }) => appliedEffects.matchTargetAffectedState({ target: [in_squad] }));
+    }
+  }
+
+  return true;
+}
+
+export function matchStaticSquadState(
+  state: SkillEffectActivationState,
+  source: UnitOriginState,
+  squad: ReadonlyArray<UnitOriginState>,
+  enemies: EnemySquadState
 ): boolean {
   if (!('squad' in state)) {
     return true;
@@ -585,58 +626,74 @@ export function matchSquadState(
     return state.unit.no !== source.unit.no && matcher(state);
   };
 
-  const cond = state.squad;
-
-  if (EffectActivationState.InSquad in cond) {
-    const in_squad = cond.in_squad;
-    if (in_squad === 'golden_factory') {
-      return false;
-    } else if (
-      typeof in_squad === 'string' ||
-      typeof in_squad === 'number'
-    ) {
-      const matcher = exceptSourceUnit(getSquadUnitMatcher(in_squad, source.position));
-
-      return squad.some(matcher);
-    } else {
-      const { alias, role } = in_squad;
-      const matcher = exceptSourceUnit(({ unit }) =>
-        unitNumbersForAlias[alias].has(unit.no) && unit.role === role
+  const squadState = state.squad;
+  if (isReadonlyArray(squadState)) {
+    if (squadState.length === 2) {
+      const matcher = exceptSourceUnit(getSquadUnitMatcher(squadState[0].not_in_squad, source.position));
+      return (
+        squad.every(target => !matcher(target)) ||
+        squad.some(getSquadUnitMatcher(squadState[1].in_squad, source.position))
       );
-
-      return squad.some(matcher);
+    } else {
+      // HACK: to avoid "TS2349: This expression is not callable."
+      const nums: ReadonlyArray<{ [EffectActivationState.InSquad]: UnitNumber }> = squadState;
+      return nums.every(({ in_squad }) => squad.some(getSquadUnitMatcher(in_squad, source.position)));
     }
-  } else if (EffectActivationState.NotInSquad in cond) {
-    const matcher = exceptSourceUnit(getSquadUnitMatcher(cond.not_in_squad, source.position));
-
-    return squad.every(target => !matcher(target));
-  } else if (EffectActivationState.NumOfUnits in cond) {
-    const num_of_units = cond.num_of_units;
-    const target = num_of_units.unit;
-    const count =
-      target === 'ally' ?
-        squad.length - 1 : // except source unit
-        squad.filter(exceptSourceUnit(getSquadUnitMatcher(target, source.position))).length;
-
-    return (
-      'equal' in num_of_units ? num_of_units.equal === count :
-        'less_or_equal' in num_of_units ?
-          'greater_or_equal' in num_of_units ?
-            num_of_units.greater_or_equal <= count && count <= num_of_units.less_or_equal :
-            count <= num_of_units.less_or_equal :
-          num_of_units.greater_or_equal <= count
-    );
-  } else if (cond.length === 2) {
-    const matcher = exceptSourceUnit(getSquadUnitMatcher(cond[0].not_in_squad, source.position));
-
-    return (
-      squad.every(target => !matcher(target)) ||
-      squad.some(getSquadUnitMatcher(cond[1].in_squad, source.position))
-    );
   } else {
-    // HACK: to avoid "TS2349: This expression is not callable."
-    const nums: ReadonlyArray<{ [EffectActivationState.InSquad]: UnitNumber }> = cond;
-    return nums.every(({ in_squad }) => squad.some(getSquadUnitMatcher(in_squad, source.position)));
+    return typedEntries(squadState).every(entry => {
+      switch (entry[0]) {
+      case EffectActivationState.InSquad: {
+        const in_squad = entry[1];
+        if (in_squad === 'golden_factory') {
+          return false;
+        } else if (
+          typeof in_squad === 'string' ||
+          typeof in_squad === 'number'
+        ) {
+          const matcher = exceptSourceUnit(getSquadUnitMatcher(in_squad, source.position));
+          return squad.some(matcher);
+        } else if (EffectActivationState.Tagged in in_squad) {
+          // Use `matchAffectedSquadUnitState()`.
+          // HACK: return `true` as a static condition.
+          return true;
+        } else {
+          const { alias, role } = in_squad;
+          const matcher = exceptSourceUnit(({ unit }) =>
+            unitNumbersForAlias[alias].has(unit.no) && unit.role === role
+          );
+
+          return squad.some(matcher);
+        }
+      }
+      case EffectActivationState.NotInSquad: {
+        const matcher = exceptSourceUnit(getSquadUnitMatcher(entry[1], source.position));
+        return squad.every(target => !matcher(target));
+      }
+      case EffectActivationState.NumOfUnits: {
+        const num_of_units = entry[1];
+        const target = num_of_units.unit;
+        const count =
+          target === 'ally' ?
+            squad.length - 1 : // except source unit
+            squad.filter(exceptSourceUnit(getSquadUnitMatcher(target, source.position))).length;
+
+        return (
+          'equal' in num_of_units ? num_of_units.equal === count :
+            'less_or_equal' in num_of_units ?
+              'greater_or_equal' in num_of_units ?
+                num_of_units.greater_or_equal <= count && count <= num_of_units.less_or_equal :
+                count <= num_of_units.less_or_equal :
+              num_of_units.greater_or_equal <= count
+        );
+      }
+      case EffectActivationState.NumOfUnitsLessThanEnemies:
+        return squad.length < Object.keys(enemies).length;
+      default: {
+        const _exhaustiveCheck: never = entry;
+        return _exhaustiveCheck;
+      }
+      }
+    });
   }
 }
 

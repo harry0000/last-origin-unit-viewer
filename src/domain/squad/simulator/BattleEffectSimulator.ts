@@ -180,7 +180,7 @@ class BattleEffectSimulator {
                 'state' in cond &&
                 Matcher.matchStaticSelfState(cond.state, unit, targets) &&
                 initialState.appliedEffects.matchSelfAffectedState(cond.state) &&
-                Matcher.matchSquadState(cond.state, unit, squadUnits) &&
+                Matcher.matchStaticSquadState(cond.state, unit, squadUnits, this.#enemies) &&
                 Matcher.matchEnemyState(cond.state, this.#enemies)
               )
             ) {
@@ -307,7 +307,8 @@ class BattleEffectSimulator {
           effect.conditions.forEach(({ state }) => {
             const hasNoDependency =
               (!('self'   in state) || state.self.every(Matcher.hasNoDependencyState)) &&
-              (!('target' in state) || state.target.every(Matcher.hasNoDependencyState));
+              (!('target' in state) || state.target.every(Matcher.hasNoDependencyState)) &&
+              (!('squad' in state) || Matcher.hasNoDependencySquadState(state.squad));
             if (!hasNoDependency) {
               hasDependency = true;
               return;
@@ -316,7 +317,7 @@ class BattleEffectSimulator {
             if (
               !appliedEffect &&
               Matcher.matchStaticSelfState(state, unit, targets) &&
-              Matcher.matchSquadState(state, unit, this.#units) &&
+              Matcher.matchStaticSquadState(state, unit, this.#units, this.#enemies) &&
               Matcher.matchEnemyState(state, this.#enemies)
             ) {
               if (isAllyUnitTargetSkillEffect(effect)) {
@@ -395,7 +396,8 @@ class BattleEffectSimulator {
         const state = effect.conditions[0].state;
         if (
           Matcher.matchStaticSelfState(state, unit, targets) &&
-          Matcher.matchSquadState(state, unit, squadUnits) &&
+          Matcher.matchStaticSquadState(state, unit, squadUnits, this.#enemies) &&
+          Matcher.matchAffectedSquadUnitState(state, unit, squadUnits) &&
           Matcher.matchEnemyState(state, this.#enemies)
         ) {
           const scaled = this.#calculateScaled(effect, unit.unit, unit.position);

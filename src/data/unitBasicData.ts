@@ -881,6 +881,13 @@ export const unitBasicData = {
     type: 'light',
     role: 'supporter'
   },
+  169: {
+    no: 169,
+    kind: 'bioroid',
+    rank: 'ss',
+    type: 'light',
+    role: 'attacker'
+  },
   170: {
     no: 170,
     kind: 'bioroid',

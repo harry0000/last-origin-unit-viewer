@@ -126,6 +126,8 @@ export type SkillEffectTag =
   'pre_cooking' |
   'best_desserts' |
   'psychic_barrier' |
+  'younger_sister' |
+  'villain' |
   'brainwashing_wave' |
   'wind_style' |
   'charge_electrically' |

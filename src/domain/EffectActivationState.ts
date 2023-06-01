@@ -3,6 +3,7 @@ export const EffectActivationState = {
   HpLessOrEqual: 'hp_less_or_equal',
   HpGreaterThan: 'hp_greater_than',
   HpLessThan: 'hp_less_than',
+  HpRateGreaterOrEqualThanSelf: 'hp_rate_greater_or_equal_than_self',
   StatusGreaterThanSelf: 'status_greater_than_self',
   StatusLessThanSelf: 'status_less_than_self',
   StatusGreaterOrEqualThan: 'status_greater_or_equal_than',
@@ -22,6 +23,7 @@ export const EffectActivationState = {
   InSquad: 'in_squad',
   NotInSquad: 'not_in_squad',
   Unit: 'unit',
-  NumOfUnits: 'num_of_units'
+  NumOfUnits: 'num_of_units',
+  NumOfUnitsLessThanEnemies: 'num_of_units_less_than_enemies'
 } as const;
 export type EffectActivationState = typeof EffectActivationState[keyof typeof EffectActivationState]

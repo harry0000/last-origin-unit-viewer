@@ -26,6 +26,7 @@ export const Effect = {
   FixedIceDamageOverTime: 'fixed_ice_damage_over_time',
   FixedElectricDamageOverTime: 'fixed_electric_damage_over_time',
   LightTypeDamageUp: 'light_type_damage_up',
+  LightTypeDamageDown: 'light_type_damage_down',
   HeavyTypeDamageUp: 'heavy_type_damage_up',
   HeavyTypeDamageDown: 'heavy_type_damage_down',
   FlyingTypeDamageUp: 'flying_type_damage_up',
