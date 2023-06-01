@@ -2600,7 +2600,7 @@ export const unitStatusData: UnitStatusData = {
     acc: { milliPercentage: 145000 },
     eva: { milliPercentage: 30000 },
     cri: { milliPercentage: 10400 },
-    spd: { microValue: 4150000.0000000005 },
+    spd: { microValue: 4150000 },
     fireResist: { milliPercentage: 35000 },
     iceResist: { milliPercentage: 35000 },
     electricResist: { milliPercentage: 35000 }
@@ -2831,7 +2831,7 @@ export const unitStatusData: UnitStatusData = {
     acc: { milliPercentage: 120000 },
     eva: { milliPercentage: 25000 },
     cri: { milliPercentage: 5200 },
-    spd: { microValue: 4150000.0000000005 },
+    spd: { microValue: 4150000 },
     fireResist: { milliPercentage: 35000 },
     iceResist: { milliPercentage: 35000 },
     electricResist: { milliPercentage: 35000 }
