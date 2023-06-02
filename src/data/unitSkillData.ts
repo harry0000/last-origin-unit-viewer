@@ -16741,6 +16741,119 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  208: {
+    no: 208,
+    active: [{
+      damage_deal: { milliPercentage: 1000 },
+      range: 4,
+      cost: 5,
+      area: 'single',
+      effects: [{
+        target: { kind: 'enemy' },
+        details: {
+          self: { ignore_protect: {} },
+          target: {
+            buff_removal: { effect: 'eva_up', term: 'immediate' },
+            eva_down: { tag: 'you_are_already_my_fan', base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 3 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            buff_removal: { effect: 'counterattack', term: 'immediate' },
+            pull: { tag: 'charmed', value: 1, term: { for_rounds: 3 }, max_stack: 1 }
+          }
+        }
+      }]
+    }, {
+      range: 6,
+      cost: 10,
+      area: 'all_adjacent',
+      effects: [{
+        target: { kind: 'ally' },
+        details: {
+          self: { atk_down: { tag: 'vocal_nodules', milliPercentage: 40000, cannot_be_dispelled: true } },
+          target: { atk_value_up_by_unit_value: { unit: 208, base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 2 } } }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }, { trigger: 'use_any_active' }],
+        details: { self: { buff_removal: { effect: 'atk_value_up_by_unit_value', term: 'immediate' } } }
+      }]
+    }],
+    passive: [{
+      area: 'all_adjacent',
+      effects: [{
+        conditions: [{ trigger: 'start_wave', state: { target: [{ status_less_than_self: { status: 'spd' } }] } }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 1500000 }, per_lv_up: { microValue: 150000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { prevents_effect: { effects: ['atk_down', 'def_down', 'ap_down'], term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['attacker'] },
+        details: { target: { prevents_effect: { effect: 'atk_down', term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['defender'] },
+        details: { target: { prevents_effect: { effect: 'def_down', term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['supporter'] },
+        details: { target: { prevents_effect: { effect: 'ap_down', term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { atk_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'enemy_killed' }],
+        details: { self: { effect_removal: { tag: 'vocal_nodules', effect: 'atk_down' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'vocal_nodules' }] } }],
+        details: { self: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { target: [{ stack: { tag: 'you_are_already_my_fan', equal: 1 }, grid: 'front_line' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { spd_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ stack: { tag: 'you_are_already_my_fan', equal: 1 }, grid: 'mid_line' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { spd_down: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ stack: { tag: 'you_are_already_my_fan', equal: 1 }, grid: 'back_line' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { spd_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ stack: { tag: 'you_are_already_my_fan', equal: 2 }, grid: 'front_line' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_taken_increased: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ stack: { tag: 'you_are_already_my_fan', equal: 2 }, grid: 'mid_line' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_taken_increased: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ stack: { tag: 'you_are_already_my_fan', equal: 2 }, grid: 'back_line' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_taken_increased: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ stack: { tag: 'you_are_already_my_fan', equal: 3 }, grid: 'front_line' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            all_buff_blocking: { term: { for_rounds: 1 }, cannot_be_dispelled: true },
+            stunned: { term: { for_rounds: 1 }, cannot_be_dispelled: true }
+          }
+        }
+      }]
+    }]
+  },
   209: {
     no: 209,
     active: [{
