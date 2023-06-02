@@ -126,7 +126,7 @@ export type SkillEffectDataValue = Readonly<{
     E extends typeof Effect['FormChange' | 'FormRelease'] ?
       { form: UnitForms } & SkillEffectAddition :
     E extends typeof Effect['AtkValueUpByUnitValue'] ?
-      ValueWithAddition<'milliPercentage'> & { unit: 90 | 211 } :
+      ValueWithAddition<'milliPercentage'> & { unit: 90 | 208 | 211 } :
     E extends typeof Effect['DamageMultiplierUpByStatus' | 'DamageMultiplierReductionByStatus'] ?
       ValueWithAddition<'milliPercentage'> & { status: 'def' | 'eva' } :
     E extends typeof Effect['CriReductionByStatus'] ?

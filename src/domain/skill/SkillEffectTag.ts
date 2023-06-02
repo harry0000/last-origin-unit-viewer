@@ -126,6 +126,8 @@ export type SkillEffectTag =
   'pre_cooking' |
   'best_desserts' |
   'psychic_barrier' |
+  'younger_sister' |
+  'villain' |
   'brainwashing_wave' |
   'wind_style' |
   'charge_electrically' |
@@ -145,6 +147,9 @@ export type SkillEffectTag =
   'caffeine_charged' |
   'nicotine_charged' |
   'output_limit_release' |
+  'you_are_already_my_fan' |
+  'charmed' |
+  'vocal_nodules' |
   'smooth' |
   'tactical_data_link' |
   'passive_radar' |

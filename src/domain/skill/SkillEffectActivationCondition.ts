@@ -226,6 +226,9 @@ export type ActivationSelfState =
 export type ActivationTargetState =
   ActivationState &
   {
+    [EffectActivationState.HpRateGreaterOrEqualThanSelf]?: Record<string, never>
+  } &
+  {
     [EffectActivationState.Grid]?: Exclude<GridState, typeof GridState.AreaOfEffect>
   } &
   {
@@ -264,12 +267,14 @@ type InSquadStateUnit =
     'SteelLineExcludingOfficerRanks' |
     'Horizon' |
     'Kunoichi' |
+    'DEntertainment' |
     'KouheiChurch' |
     'EmpressHound' |
     'Mermaid'
   ] |
   Readonly<UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter>> |
   Readonly<UnitAliasAndRole<typeof UnitAlias['Strikers'], typeof UnitRole.Attacker>> |
+  { [EffectActivationState.Tagged]: 'younger_sister' } |
   'golden_factory'
 
 type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
@@ -291,7 +296,9 @@ export type NumOfUnitsInSquadState = {
   [EffectActivationState.NumOfUnits]:
     { unit: UnitKind, greater_or_equal: 3 } |
     { unit: typeof UnitKind.AGS, less_or_equal: 2 } |
-    { unit: 'ally', greater_or_equal: 1 | 2 | 4 } |
+    { unit: 'ally', greater_or_equal: 1 | 2 } |
+    { unit: 'ally', less_or_equal: 3 } |
+    { unit: 'ally', equal: 4 } |
     { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 } |
     { unit: UnitType, less_or_equal: 1 | 2 } |
     { unit: typeof UnitRole.Attacker, equal: 1 | 2 | 3 | 4 } |
@@ -300,7 +307,11 @@ export type NumOfUnitsInSquadState = {
     { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 }
 }
 
-export type ActivationSquadState = InSquadState | NotInSquadState | NumOfUnitsInSquadState
+export type NumOfUnitsLessThanEnemiesState = {
+  [EffectActivationState.NumOfUnitsLessThanEnemies]: Record<string, never>
+}
+
+export type ActivationSquadState = InSquadState | NotInSquadState | NumOfUnitsInSquadState | NumOfUnitsLessThanEnemiesState
 
 export type ActivationEnemyState = {
   [EffectActivationState.NumOfUnits]:

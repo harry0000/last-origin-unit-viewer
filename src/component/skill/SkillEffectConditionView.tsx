@@ -53,6 +53,8 @@ function stateValuesView(
   case EffectActivationState.HpGreaterThan:
   case EffectActivationState.HpLessThan:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { value: entry[1] })}</span>);
+  case EffectActivationState.HpRateGreaterOrEqualThanSelf:
+    return (<span>{t(`effect:condition.state.${entry[0]}`)}</span>);
   case EffectActivationState.StatusGreaterThanSelf:
   case EffectActivationState.StatusLessThanSelf:
     return (<span>{t(`effect:condition.state.${entry[0]}`, entry[1])}</span>);
@@ -151,7 +153,7 @@ function unitStateView(key: typeof EffectActivationState.InSquad, state: ValueOf
 function unitStateView(key: typeof EffectActivationState.NotInSquad, state: ValueOf<ActivationSquadState, typeof EffectActivationState.NotInSquad> | 41, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.Unit, state: typeof UnitAlias.SteelLine | typeof UnitType.Flying, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
-  key: typeof EffectActivationState['InSquad' | 'NotInSquad' | 'Unit'],
+  key: typeof EffectActivationState['InSquad' | 'NotInSquad' | 'Unit' | 'NumOfUnitsLessThanEnemies'],
   state:
     UnitNumber |
     ReadonlyArray<UnitNumber> |
@@ -164,6 +166,7 @@ function unitStateView(
       'SteelLineExcludingOfficerRanks' |
       'Horizon' |
       'Kunoichi' |
+      'DEntertainment' |
       'KouheiChurch' |
       'EmpressHound' |
       'Mermaid'
@@ -172,6 +175,7 @@ function unitStateView(
     UnitType |
     UnitRole |
     'golden_factory' |
+    { [EffectActivationState.Tagged]: 'younger_sister' } |
     { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp },
   selfUnitNumber: UnitNumber,
   t: TFunction
@@ -225,7 +229,12 @@ function unitStateView(
       </React.Fragment>
     );
   } else {
-    return (<span>{t('effect:condition.state.affected_equipment_effect_by', state as StringMap)}</span>);
+    return EffectActivationState.Tagged in state ?
+      (<span>
+        {t('effect:condition.state.tagged', { tag: state.tagged })}
+        {t('effect:condition.state.in_squad', { unit: t('effect:unit.ally') })}
+      </span>) :
+      (<span>{t('effect:condition.state.affected_equipment_effect_by', state)}</span>);
   }
 }
 
@@ -287,68 +296,73 @@ const SquadStateView: React.FC<{
         t('effect:condition.state.cross_adjacent_ge', state);
   };
 
-  return (
-    <React.Fragment>
-      {t('effect:condition.target.squad')}
-      {
-        isReadonlyArray(state) ?
+  if (isReadonlyArray(state)) {
+    return (
+      <React.Fragment>
+        {t('effect:condition.target.squad')}
+        {
           state.length === 2 ?
             (<React.Fragment>
               {unitStateView(EffectActivationState.NotInSquad, state[0].not_in_squad, unitNumber, t)}
               <span>{t('effect:or_symbolic_separator')}</span>
               {unitStateView(EffectActivationState.InSquad, state[1].in_squad, unitNumber, t)}
             </React.Fragment>) :
-            unitStateView(EffectActivationState.InSquad, state.map(s => s.in_squad), unitNumber, t) :
-          (<React.Fragment>
-            {
-              typedEntries(state).map((entry, i, array) => {
-                const Separator = () => (
-                  <React.Fragment>{ifTruthy(needSeparator(array, i), t('effect:and_symbolic_separator'))}</React.Fragment>
-                );
+            unitStateView(EffectActivationState.InSquad, state.map(s => s.in_squad), unitNumber, t)
+        }
+      </React.Fragment>
+    );
+  } else {
+    return EffectActivationState.NumOfUnitsLessThanEnemies in state ?
+      (<span>{t(`effect:condition.state.${EffectActivationState.NumOfUnitsLessThanEnemies}`)}</span>) :
+      (<React.Fragment>
+        {t('effect:condition.target.squad')}
+        {
+          typedEntries(state).map((entry, i, array) => {
+            const Separator = () => (
+              <React.Fragment>{ifTruthy(needSeparator(array, i), t('effect:and_symbolic_separator'))}</React.Fragment>
+            );
 
-                switch (entry[0]) {
-                case EffectActivationState.InSquad:
-                  return (
-                    <React.Fragment key={entry[0]}>
-                      {unitStateView(EffectActivationState.InSquad, entry[1], unitNumber, t)}
-                      <Separator />
-                    </React.Fragment>
-                  );
-                case EffectActivationState.NotInSquad:
-                  return (
-                    <React.Fragment key={entry[0]}>
-                      {unitStateView(EffectActivationState.NotInSquad, entry[1], unitNumber, t)}
-                      <Separator />
-                    </React.Fragment>
-                  );
-                case EffectActivationState.NumOfUnits: {
-                  const squadState = entry[1];
-                  return (
-                    <React.Fragment key={entry[0]}>
-                      {
-                        isNumOfCrossAdjacent(squadState) ?
-                          numOfCrossAdjacent(squadState) :
-                          'equal' in squadState ?
-                            t('effect:condition.state.num_of_units_eq', squadState) :
-                            'greater_or_equal' in squadState ?
-                              t('effect:condition.state.num_of_units_ge', squadState as StringMap) :
-                              t('effect:condition.state.num_of_units_le', squadState as StringMap)
-                      }
-                      <Separator />
-                    </React.Fragment>
-                  );
-                }
-                default: {
-                  const _exhaustiveCheck: never = entry;
-                  return _exhaustiveCheck;
-                }
-                }
-              })
+            switch (entry[0]) {
+            case EffectActivationState.InSquad:
+              return (
+                <React.Fragment key={entry[0]}>
+                  {unitStateView(EffectActivationState.InSquad, entry[1], unitNumber, t)}
+                  <Separator />
+                </React.Fragment>
+              );
+            case EffectActivationState.NotInSquad:
+              return (
+                <React.Fragment key={entry[0]}>
+                  {unitStateView(EffectActivationState.NotInSquad, entry[1], unitNumber, t)}
+                  <Separator />
+                </React.Fragment>
+              );
+            case EffectActivationState.NumOfUnits: {
+              const squadState = entry[1];
+              return (
+                <React.Fragment key={entry[0]}>
+                  {
+                    isNumOfCrossAdjacent(squadState) ?
+                      numOfCrossAdjacent(squadState) :
+                      'equal' in squadState ?
+                        t('effect:condition.state.num_of_units_eq', squadState) :
+                        'greater_or_equal' in squadState ?
+                          t('effect:condition.state.num_of_units_ge', squadState as StringMap) :
+                          t('effect:condition.state.num_of_units_le', squadState as StringMap)
+                  }
+                  <Separator />
+                </React.Fragment>
+              );
             }
-          </React.Fragment>)
-      }
-    </React.Fragment>
-  );
+            default: {
+              const _exhaustiveCheck: never = entry;
+              return _exhaustiveCheck;
+            }
+            }
+          })
+        }
+      </React.Fragment>);
+  }
 };
 
 const EnemyStateView: React.FC<{
