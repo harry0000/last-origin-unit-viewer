@@ -169,6 +169,8 @@ export type SkillEffectTag =
   'power_of_true_blood_deathless' |
   'power_overflows' |
   'vafrlogi' |
+  'reinforced_exoskeleton' |
+  'claw' |
   'tired' |
   'competent_subordinate' |
   'come_to_me' |

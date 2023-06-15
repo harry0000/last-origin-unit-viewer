@@ -274,7 +274,7 @@ type InSquadStateUnit =
   ] |
   Readonly<UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter>> |
   Readonly<UnitAliasAndRole<typeof UnitAlias['Strikers'], typeof UnitRole.Attacker>> |
-  { [EffectActivationState.Tagged]: 'younger_sister' } |
+  { [EffectActivationState.Tagged]: 'younger_sister' | 'reinforced_exoskeleton' } |
   'golden_factory'
 
 type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {

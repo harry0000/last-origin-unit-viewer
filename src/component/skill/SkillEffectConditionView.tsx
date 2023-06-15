@@ -175,7 +175,7 @@ function unitStateView(
     UnitType |
     UnitRole |
     'golden_factory' |
-    { [EffectActivationState.Tagged]: 'younger_sister' } |
+    { [EffectActivationState.Tagged]: 'younger_sister' | 'reinforced_exoskeleton' } |
     { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp },
   selfUnitNumber: UnitNumber,
   t: TFunction
