@@ -128,19 +128,19 @@ export const equipmentData = {
   critical_chip_beta: {
     type: 'chip',
     id: 'critical_chip_beta',
-    max_rank: 'ss',
+    max_rank: 'sss',
     status_effects: [
-      { cri_up: { milliPercentage: { ss:  9600, s:  7200, a:  6000, b:  4800 } }, def_down: { milliValue: 27000 } },
-      { cri_up: { milliPercentage: { ss: 10080, s:  7560, a:  6300, b:  5040 } }, def_down: { milliValue: 29700 } },
-      { cri_up: { milliPercentage: { ss: 10560, s:  7920, a:  6600, b:  5280 } }, def_down: { milliValue: 32400 } },
-      { cri_up: { milliPercentage: { ss: 11520, s:  8640, a:  7200, b:  5760 } }, def_down: { milliValue: 35100 } },
-      { cri_up: { milliPercentage: { ss: 12960, s:  9720, a:  8100, b:  6480 } }, def_down: { milliValue: 37800 } },
-      { cri_up: { milliPercentage: { ss: 14880, s: 11160, a:  9300, b:  7440 } }, def_down: { milliValue: 40500 } },
-      { cri_up: { milliPercentage: { ss: 16320, s: 12240, a: 10200, b:  8160 } }, def_down: { milliValue: 43200 } },
-      { cri_up: { milliPercentage: { ss: 19200, s: 14400, a: 12000, b:  9600 } }, def_down: { milliValue: 45900 } },
-      { cri_up: { milliPercentage: { ss: 23040, s: 17280, a: 14400, b: 11520 } }, def_down: { milliValue: 48600 } },
-      { cri_up: { milliPercentage: { ss: 27840, s: 20880, a: 17400, b: 13920 } }, def_down: { milliValue: 51300 } },
-      { cri_up: { milliPercentage: { ss: 33600, s: 25200, a: 21000, b: 16800 } }, def_down: { milliValue: 54000 } }
+      { cri_up: { milliPercentage: { sss: 12000, ss:  9600, s:  7200, a:  6000, b:  4800 } }, def_down: { milliValue: { sss: 50000, ss: 27000, s: 27000, a: 27000, b: 27000 } } },
+      { cri_up: { milliPercentage: { sss: 14400, ss: 10080, s:  7560, a:  6300, b:  5040 } }, def_down: { milliValue: { sss: 55000, ss: 29700, s: 29700, a: 29700, b: 29700 } } },
+      { cri_up: { milliPercentage: { sss: 16800, ss: 10560, s:  7920, a:  6600, b:  5280 } }, def_down: { milliValue: { sss: 55000, ss: 32400, s: 32400, a: 32400, b: 32400 } } },
+      { cri_up: { milliPercentage: { sss: 19200, ss: 11520, s:  8640, a:  7200, b:  5760 } }, def_down: { milliValue: { sss: 55000, ss: 35100, s: 35100, a: 35100, b: 35100 } } },
+      { cri_up: { milliPercentage: { sss: 21600, ss: 12960, s:  9720, a:  8100, b:  6480 } }, def_down: { milliValue: { sss: 55000, ss: 37800, s: 37800, a: 37800, b: 37800 } } },
+      { cri_up: { milliPercentage: { sss: 24000, ss: 14880, s: 11160, a:  9300, b:  7440 } }, def_down: { milliValue: { sss: 55000, ss: 40500, s: 40500, a: 40500, b: 40500 } } },
+      { cri_up: { milliPercentage: { sss: 26400, ss: 16320, s: 12240, a: 10200, b:  8160 } }, def_down: { milliValue: { sss: 55000, ss: 43200, s: 43200, a: 43200, b: 43200 } } },
+      { cri_up: { milliPercentage: { sss: 28800, ss: 19200, s: 14400, a: 12000, b:  9600 } }, def_down: { milliValue: { sss: 55000, ss: 45900, s: 45900, a: 45900, b: 45900 } } },
+      { cri_up: { milliPercentage: { sss: 31200, ss: 23040, s: 17280, a: 14400, b: 11520 } }, def_down: { milliValue: { sss: 55000, ss: 48600, s: 48600, a: 48600, b: 48600 } } },
+      { cri_up: { milliPercentage: { sss: 33600, ss: 27840, s: 20880, a: 17400, b: 13920 } }, def_down: { milliValue: { sss: 55000, ss: 51300, s: 51300, a: 51300, b: 51300 } } },
+      { cri_up: { milliPercentage: { sss: 36000, ss: 33600, s: 25200, a: 21000, b: 16800 } }, def_down: { milliValue: { sss: 55000, ss: 54000, s: 54000, a: 54000, b: 54000 } } }
     ]
   },
   accuracy_chip: {
@@ -947,6 +947,7 @@ export const equipmentData = {
     type: 'os',
     id: 'light_attacker_optimization_os',
     max_rank: 'sss',
+    min_rank: 'ss',
     exclusive: {
       type: 'light',
       role: 'attacker'
@@ -969,6 +970,7 @@ export const equipmentData = {
     type: 'os',
     id: 'light_defender_optimization_os',
     max_rank: 'sss',
+    min_rank: 'ss',
     exclusive: {
       type: 'light',
       role: 'defender'
@@ -991,6 +993,7 @@ export const equipmentData = {
     type: 'os',
     id: 'light_supporter_optimization_os',
     max_rank: 'sss',
+    min_rank: 'ss',
     exclusive: {
       type: 'light',
       role: 'supporter'
@@ -1013,6 +1016,7 @@ export const equipmentData = {
     type: 'os',
     id: 'heavy_attacker_optimization_os',
     max_rank: 'sss',
+    min_rank: 'ss',
     exclusive: {
       type: 'heavy',
       role: 'attacker'
@@ -1035,6 +1039,7 @@ export const equipmentData = {
     type: 'os',
     id: 'heavy_defender_optimization_os',
     max_rank: 'sss',
+    min_rank: 'ss',
     exclusive: {
       type: 'heavy',
       role: 'defender'
@@ -1070,6 +1075,7 @@ export const equipmentData = {
     type: 'os',
     id: 'heavy_supporter_optimization_os',
     max_rank: 'sss',
+    min_rank: 'ss',
     exclusive: {
       type: 'heavy',
       role: 'supporter'
@@ -1092,6 +1098,7 @@ export const equipmentData = {
     type: 'os',
     id: 'flying_attacker_optimization_os',
     max_rank: 'sss',
+    min_rank: 'ss',
     exclusive: {
       type: 'flying',
       role: 'attacker'
@@ -1114,6 +1121,7 @@ export const equipmentData = {
     type: 'os',
     id: 'flying_defender_optimization_os',
     max_rank: 'sss',
+    min_rank: 'ss',
     exclusive: {
       type: 'flying',
       role: 'defender'
@@ -1136,6 +1144,7 @@ export const equipmentData = {
     type: 'os',
     id: 'flying_supporter_optimization_os',
     max_rank: 'sss',
+    min_rank: 'ss',
     exclusive: {
       type: 'flying',
       role: 'supporter'

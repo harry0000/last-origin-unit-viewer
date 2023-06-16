@@ -37,13 +37,15 @@ export const EquipmentRank = {
 } as const;
 export type EquipmentRank = typeof EquipmentRank[keyof typeof EquipmentRank]
 
-export type ChipEquipmentRank = Exclude<EquipmentRank, typeof EquipmentRank.SSS>
+export type ChipEquipmentRank = EquipmentRank
 export type OsEquipmentRank   = EquipmentRank
 export type GearEquipmentRank = Exclude<EquipmentRank, typeof EquipmentRank.SSS>
 
-export const ChipEquipmentRanks = [EquipmentRank.SS, EquipmentRank.S, EquipmentRank.A, EquipmentRank.B] as const;
-export const OsEquipmentRanks   = [EquipmentRank.SSS, EquipmentRank.SS, EquipmentRank.S, EquipmentRank.A, EquipmentRank.B] as const;
-export const GearEquipmentRanks = ChipEquipmentRanks;
+const EquipmentRanks = [EquipmentRank.SSS, EquipmentRank.SS, EquipmentRank.S, EquipmentRank.A, EquipmentRank.B] as const;
+
+export const ChipEquipmentRanks = EquipmentRanks;
+export const OsEquipmentRanks   = EquipmentRanks;
+export const GearEquipmentRanks = [EquipmentRank.SS, EquipmentRank.S, EquipmentRank.A, EquipmentRank.B] as const;
 
 export type EquipmentEnhancementLevel = 0 | Sequence<10>
 
@@ -159,8 +161,11 @@ export function availableRank(equipment: EquipmentData, rank: EquipmentRank): bo
     return true;
   case EquipmentRank.S:
   case EquipmentRank.A:
-  case EquipmentRank.B:
-    return 'max_rank' in equipment && equipment.max_rank === EquipmentRank.SS;
+  case EquipmentRank.B: {
+    const onlySS = !('max_rank' in equipment) && !('min_rank' in equipment);
+    const gteqSS = 'max_rank' in equipment && 'min_rank' in equipment; // Currently, min_rank is only 'ss'.
+    return !onlySS && !gteqSS;
+  }
   }
 }
 
