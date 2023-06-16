@@ -8,21 +8,16 @@ import { unitRankUpBonusData } from '../../data/unitRankUpBonusData';
 
 import { typedEntries } from '../../util/object';
 
+const unitRanks = [UnitRank.B, UnitRank.A, UnitRank.S, UnitRank.SS] as const;
+const unitRankIndex = { [UnitRank.B]: 0, [UnitRank.A]: 1, [UnitRank.S]: 2, [UnitRank.SS]: 3 } as const;
+
 export function getUnitMaxRank(unit: UnitNumber): UnitRank {
-  switch (unitSkillData[unit].passive.length) {
-  case 3: return UnitRank.SS;
-  case 2: return UnitRank.S;
-  case 1: return UnitRank.A;
-  case 0: return UnitRank.B;
-  }
+  return unitRanks[unitSkillData[unit].passive.length];
 }
 
 export function getUnitDefaultRank(unit: UnitNumber): UnitRank {
   return unitBasicData[unit].rank;
 }
-
-const unitRanks = [UnitRank.B, UnitRank.A, UnitRank.S, UnitRank.SS] as const;
-const unitRankIndex = { [UnitRank.B]: 0, [UnitRank.A]: 1, [UnitRank.S]: 2, [UnitRank.SS]: 3 } as const;
 
 type AvailableRanks =
   readonly [typeof UnitRank.B, typeof UnitRank.A] |
