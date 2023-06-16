@@ -134,6 +134,9 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.Stunned:
         return { [entry[0]]: calculateAddition(rank, entry[1]) };
       case Effect.FixedDamageOverTime:
+      case Effect.FixedFireDamageOverTime:
+      case Effect.FixedIceDamageOverTime:
+      case Effect.FixedElectricDamageOverTime:
       case Effect.Barrier:
       case Effect.RangeUp:
       case Effect.RangeDown:

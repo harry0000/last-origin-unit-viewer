@@ -19615,6 +19615,115 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  247: {
+    no: 247,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 234700 },
+        per_lv_up: { milliPercentage: 6700 }
+      },
+      range: 3,
+      cost: 7,
+      area: 'row_toward_front',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          self: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 }, max_stack: 1 } },
+          target: { spd_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 }, max_stack: 1 } }
+        }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        scale_factor: { per_stack: { tag: 'claw' } },
+        target: { kind: 'enemy' },
+        details: {
+          self: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 }, max_stack: 1 } },
+          target: { spd_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 }, max_stack: 1 } }
+        }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        target: { kind: 'enemy' },
+        details: { target: { effect_removal: { effect: 'area_damage_dispersion_up', term: 'immediate' } } }
+      }]
+    }, {
+      range: 6,
+      cost: 7,
+      area: 'single',
+      effects: [{
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            tag_stack: { tag: 'reinforced_exoskeleton', term: 'infinite', cannot_be_dispelled: true },
+            def_value_up: { base: { milliValue: 500000 }, per_lv_up: { milliValue: 50000 }, term: { for_rounds: 1 } },
+            cri_reduction_by_status: { status: 'def', milliPercentage: 1000, term: { for_rounds: 1 } },
+            effect_removal: { effect: 'eva_up', term: 'immediate' }
+          }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'enemy_killed' }],
+        target: { kind: 'ally', conditions: ['ags'] },
+        details: {
+          self: { cri_up: { tag: 'claw', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', max_stack: 3 } },
+          target: { atk_up: { tag: 'claw', base: { milliPercentage: 35000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 3 } } }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'reinforced_exoskeleton' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            def_value_up: { base: { milliValue: 500000 }, per_lv_up: { milliValue: 50000 }, term: { for_rounds: 1 } },
+            cri_reduction_by_status: { status: 'def', milliPercentage: 1000, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'reinforced_exoskeleton' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { acc_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: { tagged: 'reinforced_exoskeleton' } } } }],
+        details: { self: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { damage_reduction_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { per_stack: { tag: 'claw' } },
+        details: { self: { damage_reduction_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'idle' }],
+        target: { kind: 'ally', conditions: ['ags'] },
+        details: { target: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'idle' }],
+        scale_factor: { per_stack: { tag: 'claw' } },
+        target: { kind: 'ally', conditions: ['ags'] },
+        details: {
+          self: { tag_release: { tag: 'claw', term: 'immediate' } },
+          target: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'enemy' },
+        details: { target: { def_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 5 } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'claw' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effect: 'def_up', term: 'immediate' } } }
+      }]
+    }]
+  },
   250: {
     no: 250,
     active: [{

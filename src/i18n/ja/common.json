@@ -164,7 +164,7 @@
     "other_skill_effect": "その他のスキル効果",
     "core_link_bonus": "コアリンクボーナス",
     "full_link_bonus": "フルリンクボーナス",
-    "rank_up": "昇級キャラクター",
+    "rank_up": "昇級戦闘員",
     "badge": {
       "empty": "なし",
       "active_skill": "$t(form.active_skill_conditions.{{condition}})",
@@ -351,7 +351,7 @@
     },
     "squad_is_empty": {
       "title": "分隊編成",
-      "body": "分隊にキャラクターを配置してください。"
+      "body": "分隊に戦闘員を配置してください。"
     },
     "error_while_generating_squad_url": {
       "title": "分隊編成",

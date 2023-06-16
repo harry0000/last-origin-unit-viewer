@@ -144,7 +144,7 @@ type NumOfUnitsSquadCondition = ValueOf<ActivationSquadState, typeof EffectActiv
 function getSquadUnitMatcher(
   cond:
     FactorUnitCondition |
-    Exclude<InSquadCondition, { [EffectActivationState.Tagged]: 'younger_sister' } | 'golden_factory'> |
+    Exclude<InSquadCondition, { [EffectActivationState.Tagged]: 'younger_sister' | 'reinforced_exoskeleton' } | 'golden_factory'> |
     NotInSquadCondition |
     Exclude<NumOfUnitsSquadCondition, 'ally'>,
   sourcePosition: TenKeyPosition

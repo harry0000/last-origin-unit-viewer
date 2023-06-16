@@ -87,6 +87,9 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   case Effect.Stunned:
     return buildDetail(t(`effect:effect.description.${entry[0]}`), entry[1], t);
   case Effect.FixedDamageOverTime:
+  case Effect.FixedFireDamageOverTime:
+  case Effect.FixedIceDamageOverTime:
+  case Effect.FixedElectricDamageOverTime:
   case Effect.Barrier:
   case Effect.RangeUp:
   case Effect.RangeDown:
