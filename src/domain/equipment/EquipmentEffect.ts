@@ -26,6 +26,9 @@ export type NoValueEffectKey = typeof Effect[
 ]
 export type IntegerValueEffectKey = typeof Effect[
   'FixedDamageOverTime' |
+  'FixedFireDamageOverTime' |
+  'FixedIceDamageOverTime' |
+  'FixedElectricDamageOverTime' |
   'RangeUpActive2' |
   'Barrier'
 ]

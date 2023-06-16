@@ -2773,6 +2773,66 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { immovable: { term: { for_rounds: 1 } }, prevents_effect: { effects: ['push', 'pull'], term: { for_rounds: 1 } }, spd_down: { milliPercentage: 15000, term: { for_rounds: 1 } } } }]
     ]
   },
+  napalm_rounds: {
+    type: 'gear',
+    id: 'napalm_rounds',
+    exclusive: {
+      role: 'supporter'
+    },
+    effects: [
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_fire_damage_over_time: { value: 100, term: { for_rounds: 2 } }, fire_resist_down: { milliPercentage: 10000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_fire_damage_over_time: { value: 110, term: { for_rounds: 2 } }, fire_resist_down: { milliPercentage: 11000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_fire_damage_over_time: { value: 120, term: { for_rounds: 2 } }, fire_resist_down: { milliPercentage: 12000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_fire_damage_over_time: { value: 130, term: { for_rounds: 2 } }, fire_resist_down: { milliPercentage: 13000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_fire_damage_over_time: { value: 140, term: { for_rounds: 2 } }, fire_resist_down: { milliPercentage: 14000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_fire_damage_over_time: { value: 150, term: { for_rounds: 2 } }, fire_resist_down: { milliPercentage: 15000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_fire_damage_over_time: { value: 160, term: { for_rounds: 2 } }, fire_resist_down: { milliPercentage: 16000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_fire_damage_over_time: { value: 170, term: { for_rounds: 2 } }, fire_resist_down: { milliPercentage: 17000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_fire_damage_over_time: { value: 180, term: { for_rounds: 2 } }, fire_resist_down: { milliPercentage: 18000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_fire_damage_over_time: { value: 190, term: { for_rounds: 2 } }, fire_resist_down: { milliPercentage: 19000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_fire_damage_over_time: { value: 200, term: { for_rounds: 2 } }, fire_resist_down: { milliPercentage: 20000, term: { for_rounds: 2 } } } } }]
+    ]
+  },
+  cryogenic_rounds: {
+    type: 'gear',
+    id: 'cryogenic_rounds',
+    exclusive: {
+      role: 'supporter'
+    },
+    effects: [
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_ice_damage_over_time: { value: 100, term: { for_rounds: 2 } }, ice_resist_down: { milliPercentage: 10000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_ice_damage_over_time: { value: 110, term: { for_rounds: 2 } }, ice_resist_down: { milliPercentage: 11000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_ice_damage_over_time: { value: 120, term: { for_rounds: 2 } }, ice_resist_down: { milliPercentage: 12000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_ice_damage_over_time: { value: 130, term: { for_rounds: 2 } }, ice_resist_down: { milliPercentage: 13000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_ice_damage_over_time: { value: 140, term: { for_rounds: 2 } }, ice_resist_down: { milliPercentage: 14000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_ice_damage_over_time: { value: 150, term: { for_rounds: 2 } }, ice_resist_down: { milliPercentage: 15000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_ice_damage_over_time: { value: 160, term: { for_rounds: 2 } }, ice_resist_down: { milliPercentage: 16000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_ice_damage_over_time: { value: 170, term: { for_rounds: 2 } }, ice_resist_down: { milliPercentage: 17000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_ice_damage_over_time: { value: 180, term: { for_rounds: 2 } }, ice_resist_down: { milliPercentage: 18000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_ice_damage_over_time: { value: 190, term: { for_rounds: 2 } }, ice_resist_down: { milliPercentage: 19000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_ice_damage_over_time: { value: 200, term: { for_rounds: 2 } }, ice_resist_down: { milliPercentage: 20000, term: { for_rounds: 2 } } } } }]
+    ]
+  },
+  arc_discharge_rounds: {
+    type: 'gear',
+    id: 'arc_discharge_rounds',
+    exclusive: {
+      role: 'supporter'
+    },
+    effects: [
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_electric_damage_over_time: { value: 100, term: { for_rounds: 2 } }, electric_resist_down: { milliPercentage: 10000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_electric_damage_over_time: { value: 110, term: { for_rounds: 2 } }, electric_resist_down: { milliPercentage: 11000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_electric_damage_over_time: { value: 120, term: { for_rounds: 2 } }, electric_resist_down: { milliPercentage: 12000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_electric_damage_over_time: { value: 130, term: { for_rounds: 2 } }, electric_resist_down: { milliPercentage: 13000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_electric_damage_over_time: { value: 140, term: { for_rounds: 2 } }, electric_resist_down: { milliPercentage: 14000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_electric_damage_over_time: { value: 150, term: { for_rounds: 2 } }, electric_resist_down: { milliPercentage: 15000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_electric_damage_over_time: { value: 160, term: { for_rounds: 2 } }, electric_resist_down: { milliPercentage: 16000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_electric_damage_over_time: { value: 170, term: { for_rounds: 2 } }, electric_resist_down: { milliPercentage: 17000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_electric_damage_over_time: { value: 180, term: { for_rounds: 2 } }, electric_resist_down: { milliPercentage: 18000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_electric_damage_over_time: { value: 190, term: { for_rounds: 2 } }, electric_resist_down: { milliPercentage: 19000, term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'hit' }, target: { kind: 'enemy' }, details: { target: { fixed_electric_damage_over_time: { value: 200, term: { for_rounds: 2 } }, electric_resist_down: { milliPercentage: 20000, term: { for_rounds: 2 } } } } }]
+    ]
+  },
   '40mm_du_rounds': {
     type: 'gear',
     id: '40mm_du_rounds',
