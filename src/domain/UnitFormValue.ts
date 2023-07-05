@@ -7,6 +7,7 @@ export const FormChangeUnits = {
   BloodyPanther: 61,
   Emily: 68,
   Phantom: 73,
+  Pinto: 83,
   Bulgasari: 84,
   InvincibleDragon: 85,
   Siren: 89,
@@ -40,6 +41,10 @@ export const UnitForms = {
   [FormChangeUnits.Phantom]: {
     default: NormalForm,
     changed: 'optical_camouflage'
+  },
+  [FormChangeUnits.Pinto]: {
+    default: NormalForm,
+    changed: 'true_power'
   },
   [FormChangeUnits.Bulgasari]: {
     default: NormalForm,
@@ -90,6 +95,7 @@ export type LeonaForm            = FormPerUnit<typeof FormChangeUnits.Leona>
 export type BloodyPantherForm    = FormPerUnit<typeof FormChangeUnits.BloodyPanther>
 export type EmilyForm            = FormPerUnit<typeof FormChangeUnits.Emily>
 export type PhantomForm          = FormPerUnit<typeof FormChangeUnits.Phantom>
+export type PintoForm            = FormPerUnit<typeof FormChangeUnits.Pinto>
 export type BulgasariForm        = FormPerUnit<typeof FormChangeUnits.Bulgasari>
 export type InvincibleDragonForm = FormPerUnit<typeof FormChangeUnits.InvincibleDragon>
 export type SirenForm            = FormPerUnit<typeof FormChangeUnits.Siren>
@@ -109,6 +115,7 @@ export type FormChangeUnitBasicInfo<N extends FormChangeUnitNumbers> =
     N extends typeof FormChangeUnits.BloodyPanther    ? typeof unitBasicData[typeof FormChangeUnits.BloodyPanther] :
     N extends typeof FormChangeUnits.Emily            ? typeof unitBasicData[typeof FormChangeUnits.Emily] :
     N extends typeof FormChangeUnits.Phantom          ? typeof unitBasicData[typeof FormChangeUnits.Phantom] :
+    N extends typeof FormChangeUnits.Pinto            ? typeof unitBasicData[typeof FormChangeUnits.Pinto] :
     N extends typeof FormChangeUnits.Bulgasari        ? typeof unitBasicData[typeof FormChangeUnits.Bulgasari] :
     N extends typeof FormChangeUnits.InvincibleDragon ? typeof unitBasicData[typeof FormChangeUnits.InvincibleDragon] :
     N extends typeof FormChangeUnits.Siren            ? typeof unitBasicData[typeof FormChangeUnits.Siren] :

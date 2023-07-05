@@ -7,6 +7,7 @@ import { SkillEffectTag } from './SkillEffectTag';
 import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
 import { UnitKind, UnitNumber, UnitRank, UnitRole, UnitType } from '../UnitBasicInfo';
+import { isReadonlyArray, ValueOf } from '../../util/type';
 
 export type UnitNotAlias = {
   not_alias: typeof UnitAlias['AngerOfHorde' | 'KouheiChurch']
@@ -20,7 +21,9 @@ export type UnitTypeAndRole = {
 export type UnitAliasAndType = {
   alias: UnitAlias,
   type: UnitType
-} | {
+}
+
+export type UnitNotAliasAndType = {
   not_alias: typeof UnitAlias.MagicalGirl,
   type: typeof UnitType.Light
 }
@@ -30,12 +33,25 @@ export type UnitAliasAndRole<A extends UnitAlias = UnitAlias, R extends UnitRole
   role: R
 }
 
+export type UnitNotAliasAndRole = {
+  not_alias: typeof UnitAlias.MongooseTeam,
+  role: typeof UnitRole['Attacker' | 'Defender']
+}
+
 export type UnitAliasExceptUnit<
   A extends UnitAlias = UnitAlias,
   E extends UnitNumber = UnitNumber
 > = {
   alias: A,
   except: E
+}
+
+export const ArmoredBulgasari = 'armored_bulgasari';
+export type ArmoredBulgasari = typeof ArmoredBulgasari
+
+export type DefenderAndArmoredBulgasari = readonly [typeof UnitRole.Defender, ArmoredBulgasari]
+export function isDefenderAndArmoredBulgasari(arg: unknown): arg is DefenderAndArmoredBulgasari {
+  return isReadonlyArray(arg) && arg.length === 2 && arg[0] === UnitRole.Defender && arg[1] === ArmoredBulgasari;
 }
 
 export type ExceptUnit<
@@ -180,6 +196,9 @@ type ActivationState =
       tag: readonly ['power_of_true_blood_death_eye', 'power_of_true_blood_fate_control', 'power_of_true_blood_deathless'],
       greater_or_equal: 2
     }
+  } &
+  {
+    [EffectActivationState.Equipped]?: EquipmentId
   } |
   AffectedByActivationState
 
@@ -193,9 +212,6 @@ export type ActivationSelfState =
   } &
   {
     [EffectActivationState.Form]?: UnitForms
-  } &
-  {
-    [EffectActivationState.Equipped]?: EquipmentId
   } &
   {
     [EffectActivationState.NotEquipped]?: ReadonlyArray<EquipmentId>
@@ -273,8 +289,11 @@ type InSquadStateUnit =
     'Mermaid'
   ] |
   Readonly<UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter>> |
+  Readonly<UnitAliasAndRole<typeof UnitAlias['MongooseTeam'], typeof UnitRole.Defender>> |
   Readonly<UnitAliasAndRole<typeof UnitAlias['Strikers'], typeof UnitRole.Attacker>> |
-  { [EffectActivationState.Tagged]: 'younger_sister' | 'reinforced_exoskeleton' } |
+  Readonly<{ [EffectActivationState.Tagged]: 'younger_sister' | 'reinforced_exoskeleton' }> |
+  Readonly<{ [EffectActivationState.AffectedBy]: { unit: 83, effect: typeof Effect.TargetProtect } }> |
+  ArmoredBulgasari |
   'golden_factory'
 
 type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
@@ -282,11 +301,12 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 }
 
 type NotInSquadStateUnit =
-  110 | 127 | 252 |
+  80 | 82 | 110 | 127 | 252 |
   typeof UnitRole['Attacker' | 'Defender'] |
   typeof UnitAlias['SteelLine' | 'Kunoichi' | 'Mermaid'] |
   typeof SkillAreaType.CrossAdjacent |
-  Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>>
+  Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>> |
+  DefenderAndArmoredBulgasari
 
 type NotInSquadState<T extends NotInSquadStateUnit = NotInSquadStateUnit> = {
   [EffectActivationState.NotInSquad]: T
@@ -304,7 +324,8 @@ export type NumOfUnitsInSquadState = {
     { unit: typeof UnitRole.Attacker, equal: 1 | 2 | 3 | 4 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 2, less_or_equal: 3 } |
-    { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 }
+    { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 } |
+    { unit: DefenderAndArmoredBulgasari, equal: 1 | 2 | 3 | 4 }
 }
 
 export type NumOfUnitsLessThanEnemiesState = {
@@ -324,13 +345,26 @@ export type ActivationEnemyState = {
     { greater_or_equal: 5 | 6 | 7 }
 }
 
+type JangHwaActivationSquadState =
+  readonly [NotInSquadState<typeof UnitRole.Attacker>, InSquadState<typeof UnitAlias.EmpressHound>]
+
+type SpecialSquadConditions = Exclude<ValueOf<SelfSkillEffectActivationState, 'squad'>, ActivationSquadState>
+
+export function isUnitsInSquadCondition(
+  arg: SpecialSquadConditions
+): arg is Exclude<SpecialSquadConditions, JangHwaActivationSquadState> {
+  return 'in_squad' in arg[0] && typeof arg[0].in_squad === 'number';
+}
+
 export type SelfSkillEffectActivationState =
   { self: ReadonlyArray<ActivationSelfState> } |
   {
     squad:
       ActivationSquadState |
       // The following are OR conditions
-      readonly [NotInSquadState<typeof UnitRole.Attacker>, InSquadState<typeof UnitAlias.EmpressHound>] |
+      JangHwaActivationSquadState |
+      readonly [InSquadState<80>, InSquadState<82>] |
+      readonly [InSquadState<81>, InSquadState<83>] |
       readonly [InSquadState<87>, InSquadState<89>, InSquadState<90>] |
       readonly [InSquadState<138>, InSquadState<140>, InSquadState<236>]
   } |

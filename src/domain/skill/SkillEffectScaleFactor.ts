@@ -1,7 +1,7 @@
 import { AffectedSkillEffect } from './SkillEffectActivationCondition';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import { SkillEffectTag } from './SkillEffectTag';
-import { UnitAlias } from '../UnitAlias';
+import { UnitAlias, isUnitAlias } from '../UnitAlias';
 import { UnitKind, UnitRole, UnitType } from '../UnitBasicInfo';
 
 export const VariationType = {
@@ -9,6 +9,15 @@ export const VariationType = {
   InverselyProportional: 'inversely_proportional'
 } as const;
 export type VariationType = typeof VariationType[keyof typeof VariationType]
+
+type AlvisSkillEffectScaleFactor = readonly [
+  typeof UnitAlias.BioroidUnder145cmTall,
+  typeof UnitAlias.SistersOfValhalla
+]
+
+export function isAlvisSkillEffectScaleFactor(arg: ReadonlyArray<string>): arg is AlvisSkillEffectScaleFactor {
+  return arg.every(isUnitAlias);
+}
 
 export type SkillEffectScaleFactor =
   {
@@ -26,7 +35,7 @@ export type SkillEffectScaleFactor =
       unit?:
         UnitKind |
         typeof UnitType['Light' | 'Heavy'] |
-        typeof UnitRole['Attacker' | 'Supporter'] |
+        UnitRole |
         typeof UnitAlias[
           'BioroidUnder145cmTall' |
           'ElectricActive' |
@@ -41,7 +50,7 @@ export type SkillEffectScaleFactor =
           'CityGuard' |
           'KouheiChurch'
         ] |
-        readonly [typeof UnitAlias.BioroidUnder145cmTall, typeof UnitAlias.SistersOfValhalla] |
+        AlvisSkillEffectScaleFactor |
         typeof SkillAreaType.CrossAdjacent,
       except?: 'self'
     }

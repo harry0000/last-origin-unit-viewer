@@ -385,6 +385,12 @@ export const AreaOfEffectCells = {
   [SkillAreaType.FixedBackLine]: {
     area: ['effective', 'none', 'none', 'effective', 'none', 'none', 'effective', 'none', 'none']
   },
+  [SkillAreaType.FixedFrontAndMidLine]: {
+    area: ['none', 'effective', 'effective', 'none', 'effective', 'effective', 'none', 'effective', 'effective']
+  },
+  [SkillAreaType.FixedFrontAndBackLine]: {
+    area: ['effective', 'none', 'effective', 'effective', 'none', 'effective', 'effective', 'none', 'effective']
+  },
   [SkillAreaType.FixedMidAndBackLine]: {
     area: ['effective', 'effective', 'none', 'effective', 'effective', 'none', 'effective', 'effective', 'none']
   },

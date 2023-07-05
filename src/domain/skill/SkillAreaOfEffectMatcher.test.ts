@@ -13,6 +13,14 @@ describe('calcTargetPositions()', () => {
       expect(calcTargetPositions(SkillAreaType.FixedBackLine, 5)).toEqual(new Set([7, 4, 1]));
     });
 
+    test('FixedFrontAndMidLine', () => {
+      expect(calcTargetPositions(SkillAreaType.FixedFrontAndMidLine, 5)).toEqual(new Set([8, 9, 5, 6, 2, 3]));
+    });
+
+    test('FixedFrontAndBackLine', () => {
+      expect(calcTargetPositions(SkillAreaType.FixedFrontAndBackLine, 5)).toEqual(new Set([7, 9, 4, 6, 1, 3]));
+    });
+
     test('FixedMidAndBackLine', () => {
       expect(calcTargetPositions(SkillAreaType.FixedMidAndBackLine, 5)).toEqual(new Set([7, 8, 4, 5, 1, 2]));
     });

@@ -20,8 +20,10 @@ export function extractAllActiveSkills(skill: UnitSkillData[UnitNumber]): Readon
     return [skill.active[0], ...Object.values(skill.active[1])];
   case FormChangeUnits.Phantom:
     return [...skill.active.flatMap(as => Object.values(as))];
-  case FormChangeUnits.Bulgasari:
+  case FormChangeUnits.Pinto:
     return [skill.active[0], ...Object.values(skill.active[1])];
+  case FormChangeUnits.Bulgasari:
+    return [...skill.active.flatMap(as => Object.values(as))];
   case FormChangeUnits.InvincibleDragon:
     return [...skill.active.flatMap(as => Object.values(as))];
   case FormChangeUnits.Siren:

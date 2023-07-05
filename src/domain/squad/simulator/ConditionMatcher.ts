@@ -3,22 +3,26 @@ import {
   ActivationSquadState,
   ActivationTargetState,
   AffectedEffect,
+  ArmoredBulgasari,
   GridState,
   SelfSkillEffectActivationState,
   SkillEffectActivationState,
-  TargetSkillEffectActivationState
+  TargetSkillEffectActivationState,
+  isUnitsInSquadCondition
 } from '../../skill/SkillEffectActivationCondition';
 import { AlliedUnitTarget, SkillEffectTargetKind } from '../../skill/SkillEffectTarget';
 import { BattleEffect } from './BattleEffect';
+import { Effect } from '../../Effect';
 import { EffectActivationState } from '../../EffectActivationState';
 import { EnemySquadState, UnitOriginState, UnitStateFullEffectsState } from './UnitEffectsState';
 import { EquipmentEffectActivationState } from '../../equipment/EquipmentEffect';
 import { EquipmentId } from '../../equipment/EquipmentData';
+import { FormChangeUnits } from '../../UnitFormValue';
 import { SkillAreaType } from '../../skill/SkillAreaOfEffect';
-import { SkillEffectScaleFactor } from '../../skill/SkillEffectScaleFactor';
+import { SkillEffectScaleFactor, isAlvisSkillEffectScaleFactor } from '../../skill/SkillEffectScaleFactor';
 import { SkillEffectTag } from '../../skill/SkillEffectTag';
 import { TenKeyPosition } from '../Squad';
-import { UnitBasicInfo, UnitKind, UnitNumber, UnitRankComparator, UnitRole, UnitType } from '../../UnitBasicInfo';
+import { UnitBasicInfo, UnitKind, UnitRankComparator, UnitRole, UnitType } from '../../UnitBasicInfo';
 import { calcTargetPositions } from '../../skill/SkillAreaOfEffectMatcher';
 import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../ValueUnit';
 import { isFormChangeUnitSkill } from '../../skill/UnitSkill';
@@ -101,7 +105,8 @@ function matchTargetCondition(
   if ('not_alias' in cond) {
     return (
       !unitNumbersForAlias[cond.not_alias].has(target.no) &&
-      (!('type' in cond) || target.type === cond.type)
+      (!('type' in cond) || target.type === cond.type) &&
+      (!('role' in cond) || target.role === cond.role)
     );
   } else if ('alias' in cond) {
     return unitNumbersForAlias[cond.alias].has(target.no) &&
@@ -141,10 +146,19 @@ type InSquadCondition         = ValueOf<ActivationSquadState, typeof EffectActiv
 type NotInSquadCondition      = ValueOf<ActivationSquadState, typeof EffectActivationState.NotInSquad>
 type NumOfUnitsSquadCondition = ValueOf<ActivationSquadState, typeof EffectActivationState.NumOfUnits>['unit']
 
+function isArmoredBulgasari({ unit: { no }, gear: { gear } }: UnitOriginState): boolean {
+  return no === FormChangeUnits.Bulgasari && gear?.id === 'counterterrorism_body_armor';
+}
+
 function getSquadUnitMatcher(
   cond:
     FactorUnitCondition |
-    Exclude<InSquadCondition, { [EffectActivationState.Tagged]: 'younger_sister' | 'reinforced_exoskeleton' } | 'golden_factory'> |
+    Exclude<
+      InSquadCondition,
+      { [EffectActivationState.Tagged]: 'younger_sister' | 'reinforced_exoskeleton' } |
+      { [EffectActivationState.AffectedBy]: { unit: 83, effect: typeof Effect.TargetProtect } } |
+      'golden_factory'
+    > |
     NotInSquadCondition |
     Exclude<NumOfUnitsSquadCondition, 'ally'>,
   sourcePosition: TenKeyPosition
@@ -154,8 +168,12 @@ function getSquadUnitMatcher(
   }
 
   if (isReadonlyArray(cond)) {
-    const set = new Set([...unitNumbersForAlias[cond[0]], ...unitNumbersForAlias[cond[1]]]);
-    return (target) => set.has(target.unit.no);
+    if (isAlvisSkillEffectScaleFactor(cond)) {
+      const set = new Set([...unitNumbersForAlias[cond[0]], ...unitNumbersForAlias[cond[1]]]);
+      return (target) => set.has(target.unit.no);
+    } else {
+      return (target) => target.unit.role == cond[0] || isArmoredBulgasari(target);
+    }
   } else if (typeof cond === 'number') {
     return (target) => target.unit.no === cond;
   } else if (typeof cond === 'string') {
@@ -177,6 +195,8 @@ function getSquadUnitMatcher(
         const targetPos = calcTargetPositions(cond, sourcePosition);
         return (target) => targetPos.has(target.position);
       }
+      case ArmoredBulgasari:
+        return isArmoredBulgasari;
       default: {
         const _exhaustiveCheck: never = cond;
         return _exhaustiveCheck;
@@ -602,7 +622,10 @@ export function matchAffectedSquadUnitState(
   const cond = state.squad;
   if (EffectActivationState.InSquad in cond) {
     const in_squad = cond.in_squad;
-    if (isRecord(in_squad) && EffectActivationState.Tagged in in_squad) {
+    if (isRecord(in_squad) && (
+      EffectActivationState.Tagged in in_squad ||
+      EffectActivationState.AffectedBy in in_squad
+    )) {
       return squad
         .filter(({ unit }) => unit.no != source.unit.no)
         .some(({ appliedEffects }) => appliedEffects.matchTargetAffectedState({ target: [in_squad] }));
@@ -628,16 +651,15 @@ export function matchStaticSquadState(
 
   const squadState = state.squad;
   if (isReadonlyArray(squadState)) {
-    if (squadState.length === 2) {
-      const matcher = exceptSourceUnit(getSquadUnitMatcher(squadState[0].not_in_squad, source.position));
-      return (
-        squad.every(target => !matcher(target)) ||
-        squad.some(getSquadUnitMatcher(squadState[1].in_squad, source.position))
-      );
+    if (isUnitsInSquadCondition(squadState)) {
+      return squadState.some(({ in_squad }) => squad.some(getSquadUnitMatcher(in_squad, source.position)));
     } else {
-      // HACK: to avoid "TS2349: This expression is not callable."
-      const nums: ReadonlyArray<{ [EffectActivationState.InSquad]: UnitNumber }> = squadState;
-      return nums.every(({ in_squad }) => squad.some(getSquadUnitMatcher(in_squad, source.position)));
+      const is_attacker = exceptSourceUnit(getSquadUnitMatcher(squadState[0].not_in_squad, source.position));
+      const in_squad = exceptSourceUnit(getSquadUnitMatcher(squadState[1].in_squad, source.position));
+      return (
+        squad.every(target => !is_attacker(target)) ||
+        squad.some(in_squad)
+      );
     }
   } else {
     return typedEntries(squadState).every(entry => {
@@ -652,10 +674,15 @@ export function matchStaticSquadState(
         ) {
           const matcher = exceptSourceUnit(getSquadUnitMatcher(in_squad, source.position));
           return squad.some(matcher);
-        } else if (EffectActivationState.Tagged in in_squad) {
+        } else if (
+          EffectActivationState.Tagged in in_squad ||
+          EffectActivationState.AffectedBy in in_squad
+        ) {
           // Use `matchAffectedSquadUnitState()`.
           // HACK: return `true` as a static condition.
           return true;
+        } else if (isReadonlyArray(in_squad)) {
+          return squad.some(unit => unit.unit.role === in_squad[0] || isArmoredBulgasari(unit));
         } else {
           const { alias, role } = in_squad;
           const matcher = exceptSourceUnit(({ unit }) =>
