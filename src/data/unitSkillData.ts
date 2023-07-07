@@ -4007,7 +4007,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_wave', state: { self: [{ tagged: 'tightened_leash' }] } }],
         target: { kind: 'ally_except_self' },
-        details: { target: { target_protect: { tag: 'loosened_leash', term: { for_rounds: 2 }, cannot_be_dispelled: true } } }
+        details: { target: { target_protect: { term: { for_rounds: 2 }, cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'loosened_leash' }] } }],
         details: { self: { range_up: { value: 2, term: { for_rounds: 1 } } } }
