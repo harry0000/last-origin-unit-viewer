@@ -308,7 +308,7 @@ class BattleEffectSimulator {
             const hasNoDependency =
               (!('self'   in state) || state.self.every(Matcher.hasNoDependencyState)) &&
               (!('target' in state) || state.target.every(Matcher.hasNoDependencyState)) &&
-              (!('squad' in state) || Matcher.hasNoDependencySquadState(state.squad));
+              (!('squad'  in state) || Matcher.hasNoDependencySquadState(state.squad));
             if (!hasNoDependency) {
               hasDependency = true;
               return;
@@ -566,7 +566,7 @@ function pickSkillEffects(
       }
 
       const effect = { ...e.effect, conditions };
-      return { ...e, ...effect };
+      return { ...e, effect } as unknown as ApplicableAllSkillEffect;
     });
 }
 
