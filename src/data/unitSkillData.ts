@@ -5268,6 +5268,33 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: { self: { ignore_barrier_dr: { term: { for_rounds: 1 } } } }
       }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: { alias: 'aa_cannonier', role: 'supporter' } } } }],
+        scale_factor: { per_units: { type: 'squad', unit: 'heavy' } },
+        target: { kind: 'enemy' },
+        details: { target: { damage_taken_increased: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 200 }, term: 'infinite', max_stack: 1, times: 1 } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: { alias: 'aa_cannonier', role: 'supporter' } } } }],
+        scale_factor: { per_units: { type: 'squad', unit: 'attacker' } },
+        target: { kind: 'enemy' },
+        details: { target: { spd_down: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 100 }, term: { for_rounds: 1 }, times: 1 } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: { alias: 'aa_cannonier', role: 'supporter' } } } }],
+        scale_factor: { per_units: { type: 'squad', unit: 'heavy' } },
+        target: { kind: 'enemy' },
+        details: { target: { damage_taken_increased: { base: { milliPercentage: 1500 }, per_lv_up: { milliPercentage: 300 }, term: 'infinite', max_stack: 1, times: 1 } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: { alias: 'aa_cannonier', role: 'supporter' } } } }],
+        scale_factor: { per_units: { type: 'squad', unit: 'attacker' } },
+        target: { kind: 'enemy' },
+        details: { target: { spd_down: { base: { milliPercentage: 1500 }, per_lv_up: { milliPercentage: 150 }, term: { for_rounds: 1 }, times: 1 } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: [{ alias: 'aa_cannonier', role: 'attacker' }] },
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+      }]
     }]
   },
   68: {
@@ -5415,6 +5442,51 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'attack' }],
         target: { kind: 'ally', conditions: [{ type: 'heavy', role: 'attacker' }] },
         details: { target: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }, {
+        conditions: [
+          { trigger: 'follow_up_attack', state: { self: [{ tagged: 'bombard' }] } },
+          { trigger: 'cooperative_attack', state: { self: [{ tagged: 'bombard' }] } }
+        ],
+        target: { kind: 'ally', conditions: [{ type: 'heavy', role: 'attacker' }] },
+        details: { target: { ap_up: { base: { microValue: 250000 }, per_lv_up: { microValue: 25000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_mid_and_back_line',
+      effects: [{
+        conditions: [
+          { trigger: 'idle' },
+          { trigger: 'start_round', state: { self: [{ tagged: 'battery' }] } }
+        ],
+        target: { kind: 'ally', conditions: [{ type: 'heavy', role: 'attacker' }] },
+        details: {
+          target: {
+            acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true },
+            cri_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true },
+            immovable: { term: { for_rounds: 1 }, cannot_be_dispelled: true },
+            prevents_effect: { effects: ['push', 'pull'], term: { for_rounds: 1 }, cannot_be_dispelled: true }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'idle', state: { self: [{ not_tagged: 'battery', grid: 'area_of_effect' }] } }],
+        details: { self: { tag_stack: { tag: 'battery', term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'idle', state: { self: [{ tagged: 'battery', grid: 'area_of_effect' }] } }],
+        details: { self: { tag_release: { tag: 'battery', term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        scale_factor: { per_units: { type: 'squad', unit: 'heavy' } },
+        details: { self: { atk_up: { tag: 'bombard', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave' }],
+        scale_factor: { per_units: { type: 'squad', unit: 'attacker' } },
+        details: { self: { cri_up: { tag: 'bombard', milliPercentage: 10000, term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: [{ alias: 'aa_cannonier', role: 'supporter' }] },
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
       }]
     }]
   },
@@ -5439,9 +5511,16 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'enemy', conditions: ['light', 'heavy'] },
         details: { target: { buff_removal: { effect: 'def_up', term: 'immediate' } } }
       }, {
-        conditions: [{ trigger: 'critical' }],
+        conditions: [{ trigger: 'critical', state: { self: [{ not_tagged: 'point_woman' }] } }],
         target: { kind: 'enemy' },
         details: { target: { buff_removal: { effects: ['row_protect', 'column_protect', 'target_protect'], term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'point_woman' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effects: ['row_protect', 'column_protect', 'target_protect'], term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'foo' }], squad: { in_squad: 67 } } }],
+        details: { self: { cooperative_attack: { unit: 67, active: 1, term: 'immediate' } } }
       }]
     }, {
       damage_deal: {
@@ -5460,12 +5539,19 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'critical' }],
+        conditions: [{ trigger: 'critical', state: { self: [{ not_tagged: 'point_woman' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effects: ['eva_up', 'damage_reduction_up'] } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'point_woman' }] } }],
         target: { kind: 'enemy' },
         details: { target: { buff_removal: { effects: ['eva_up', 'damage_reduction_up'] } } }
       }, {
         conditions: [{ trigger: 'use_this_active' }],
         details: { self: { acc_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 30000 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'foo' }], squad: { in_squad: 69 } } }],
+        details: { self: { cooperative_attack: { unit: 69, active: 2, term: 'immediate' } } }
       }]
     }],
     passive: [{
@@ -5491,6 +5577,71 @@ export const unitSkillData: UnitSkillData = {
             acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 2 }
           }
         }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'foo' }], squad: { not_in_squad: [67, 69] } } }],
+        details: { self: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            ap_up: { tag: 'foo', base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
+            prevents_effect: { tag: 'foo', effect: 'acc_down', term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            eva_up: { tag: 'point_woman', base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
+            spd_up: { tag: 'point_woman', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { unit: 'defender', equal: 0 } } } }],
+        target: { kind: 'ally', conditions: [{ alias: 'aa_cannonier', role: 'attacker' }] },
+        details: { target: { ignore_protect: { term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { unit: 'defender', equal: 1 } } } }],
+        target: { kind: 'ally', conditions: [{ alias: 'aa_cannonier', role: 'attacker' }] },
+        details: { target: { ignore_protect: { term: { for_rounds: 2 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { unit: 'defender', equal: 2 } } } }],
+        target: { kind: 'ally', conditions: [{ alias: 'aa_cannonier', role: 'attacker' }] },
+        details: { target: { ignore_protect: { term: { for_rounds: 3 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { unit: 'defender', equal: 3 } } } }],
+        target: { kind: 'ally', conditions: [{ alias: 'aa_cannonier', role: 'attacker' }] },
+        details: { target: { ignore_protect: { term: { for_rounds: 4 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { unit: 'defender', equal: 4 } } } }],
+        target: { kind: 'ally', conditions: [{ alias: 'aa_cannonier', role: 'attacker' }] },
+        details: { target: { ignore_protect: { term: { for_rounds: 5 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { unit: 'defender', equal: 5 } } } }],
+        target: { kind: 'ally', conditions: [{ alias: 'aa_cannonier', role: 'attacker' }] },
+        details: { target: { ignore_protect: { term: { for_rounds: 6 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { unit: 'defender', equal: 6 } } } }],
+        target: { kind: 'ally', conditions: [{ alias: 'aa_cannonier', role: 'attacker' }] },
+        details: { target: { ignore_protect: { term: { for_rounds: 7 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { unit: 'defender', equal: 7 } } } }],
+        target: { kind: 'ally', conditions: [{ alias: 'aa_cannonier', role: 'attacker' }] },
+        details: { target: { ignore_protect: { term: { for_rounds: 8 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { unit: 'defender', equal: 8 } } } }],
+        target: { kind: 'ally', conditions: [{ alias: 'aa_cannonier', role: 'attacker' }] },
+        details: { target: { ignore_protect: { term: { for_rounds: 9 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { unit: 'defender', equal: 9 } } } }],
+        target: { kind: 'ally', conditions: [{ alias: 'aa_cannonier', role: 'attacker' }] },
+        details: { target: { ignore_protect: { term: { for_rounds: 10 }, cannot_be_dispelled: true } } }
       }]
     }]
   },
@@ -6776,6 +6927,40 @@ export const unitSkillData: UnitSkillData = {
             spd_up: { base: { milliPercentage: 1500 }, per_lv_up: { milliPercentage: 100 }, term: { for_rounds: 1 } }
           }
         }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'enemy', conditions: ['defender'] },
+        details: {
+          target: {
+            provoked: { term: { for_rounds: 1 } },
+            ignore_protect_deactivate: { term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'be_hit', state: { target: [{ affected: 'provoked' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            ap_down: { microValue: 600000, term: 'immediate' },
+            damage_taken_increased: { milliPercentage: 12000, term: { for_rounds: 2 }, max_stack: 3 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'use_active_2', state: { self: [{ affected: 'follow_up_attack' }] } }],
+        target: { kind: 'ally_except_self' },
+        details: {
+          target: {
+            status_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 3 } },
+            all_buff_removal_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 3 }, cannot_be_dispelled: true }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'use_active_2', state: { self: [{ affected: ['follow_up_attack', 'counterattack'] }] } }],
+        target: { kind: 'ally_except_self' },
+        details: { target: { acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 3 } } } }
       }]
     }]
   },

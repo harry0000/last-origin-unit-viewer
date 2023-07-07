@@ -66,8 +66,12 @@ function stateValuesView(
     return (<span>{t(`effect:condition.state.${entry[0]}`, entry[1])}</span>);
   case EffectActivationState.RankGreaterOrEqual:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { rank: entry[1] })}</span>);
-  case EffectActivationState.Affected:
-    return (<span>{t(`effect:condition.state.${entry[0]}`, { effect: entry[1] })}</span>);
+  case EffectActivationState.Affected: {
+    const effect = entry[1];
+    return isReadonlyArray(effect) ?
+      (<span>{t('effect:condition.state.affected_both', { effect: { 0: effect[0], 1: effect[1] } })}</span>) :
+      (<span>{t(`effect:condition.state.${entry[0]}`, { effect })}</span>);
+  }
   case EffectActivationState.NotAffected: {
     const effects = entry[1]
       .map(e => t(`effect:effect.name.${e}`))
@@ -201,7 +205,11 @@ function unitStateView(
     if (isDefenderAndArmoredBulgasari(state)) {
       unit = `${t(`effect:unit.${state[0]}`)}${t('effect:unit_separator')}${t(`effect:unit.${state[1]}`)}`;
     } else {
-      unit = state.map(u => unitName(u)).join(t('effect:unit_separator'));
+      const separator =
+        key === EffectActivationState.NotInSquad ?
+          t('effect:and_separator') :
+          t('effect:unit_separator');
+      unit = state.map(u => unitName(u)).join(separator);
     }
     return (<span>{t(`effect:condition.state.${key}`, { unit })}</span>);
   } else if (typeof state === 'string') {

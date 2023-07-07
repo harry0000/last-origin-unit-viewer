@@ -57,6 +57,10 @@ export type SkillEffectTag =
   'shock_absorption' |
   'scoop_discovery' |
   'enhance_output' |
+  'battery' |
+  'bombard' |
+  'foo' |
+  'point_woman' |
   'scrap_collect' |
   'electromagnatic_consonance' |
   'max_output_burst' |

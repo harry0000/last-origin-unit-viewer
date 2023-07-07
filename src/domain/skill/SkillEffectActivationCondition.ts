@@ -54,6 +54,11 @@ export function isDefenderAndArmoredBulgasari(arg: unknown): arg is DefenderAndA
   return isReadonlyArray(arg) && arg.length === 2 && arg[0] === UnitRole.Defender && arg[1] === ArmoredBulgasari;
 }
 
+type BeastHunterAndPani = readonly [67, 69]
+export function isBeastHunterAndPani(arg: unknown): arg is BeastHunterAndPani {
+  return isReadonlyArray(arg) && arg.length === 2 && arg[0] === 67 && arg[1] === 69;
+}
+
 export type ExceptUnit<
   E extends UnitNumber = UnitNumber
 > = {
@@ -173,7 +178,7 @@ type ActivationState =
     [key in HPRateEffectActivationStateKey]?: number
   } &
   {
-    [EffectActivationState.Affected]?: AffectedEffect
+    [EffectActivationState.Affected]?: AffectedEffect | readonly [AffectedEffect, AffectedEffect]
   } &
   {
     [EffectActivationState.TaggedAffected]?: {
@@ -306,6 +311,7 @@ type NotInSquadStateUnit =
   typeof UnitAlias['SteelLine' | 'Kunoichi' | 'Mermaid'] |
   typeof SkillAreaType.CrossAdjacent |
   Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>> |
+  BeastHunterAndPani |
   DefenderAndArmoredBulgasari
 
 type NotInSquadState<T extends NotInSquadStateUnit = NotInSquadStateUnit> = {
@@ -337,6 +343,7 @@ export type ActivationSquadState = InSquadState | NotInSquadState | NumOfUnitsIn
 export type ActivationEnemyState = {
   [EffectActivationState.NumOfUnits]:
     { equal: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 } |
+    { equal: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9, unit: typeof UnitRole.Defender} |
     { greater_or_equal: 1, less_or_equal: 2 } |
     { greater_or_equal: 3, less_or_equal: 4 } |
     { greater_or_equal: 5, less_or_equal: 6 } |

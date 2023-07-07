@@ -8,7 +8,8 @@ import {
   SelfSkillEffectActivationState,
   SkillEffectActivationState,
   TargetSkillEffectActivationState,
-  isUnitsInSquadCondition
+  isUnitsInSquadCondition,
+  isBeastHunterAndPani
 } from '../../skill/SkillEffectActivationCondition';
 import { AlliedUnitTarget, SkillEffectTargetKind } from '../../skill/SkillEffectTarget';
 import { BattleEffect } from './BattleEffect';
@@ -168,7 +169,9 @@ function getSquadUnitMatcher(
   }
 
   if (isReadonlyArray(cond)) {
-    if (isAlvisSkillEffectScaleFactor(cond)) {
+    if (isBeastHunterAndPani(cond)) {
+      return (target) => target.unit.no == cond[0] || target.unit.no == cond[1];
+    } else if (isAlvisSkillEffectScaleFactor(cond)) {
       const set = new Set([...unitNumbersForAlias[cond[0]], ...unitNumbersForAlias[cond[1]]]);
       return (target) => set.has(target.unit.no);
     } else {
@@ -503,10 +506,12 @@ function matchNotAffected(
 }
 
 function matchAffected(
-  state: AffectedEffect,
+  state: AffectedEffect | ReadonlyArray<AffectedEffect>,
   affected: ReadonlyArray<BattleEffect>
 ): boolean {
-  return pickEffects(affected).has(state);
+  return isReadonlyArray(state) ?
+    state.every(pickEffects(affected).has) :
+    pickEffects(affected).has(state);
 }
 
 function matchTagged(
