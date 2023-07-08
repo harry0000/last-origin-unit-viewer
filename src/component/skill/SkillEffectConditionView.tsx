@@ -13,13 +13,17 @@ import {
   ActivationSelfState,
   ActivationSquadState,
   ActivationTargetState,
+  ArmoredBulgasari,
+  DefenderAndArmoredBulgasari,
   NumOfUnitsInSquadState,
   SelfSkillEffectActivationCondition,
   SelfSkillEffectActivationState,
   SkillEffectActivationCondition,
   SkillEffectActivationState,
   TargetSkillEffectActivationCondition,
-  UnitAliasAndRole
+  UnitAliasAndRole,
+  isDefenderAndArmoredBulgasari,
+  isUnitsInSquadCondition
 } from '../../domain/skill/SkillEffectActivationCondition';
 import { Effect } from '../../domain/Effect';
 import { EffectActivationState } from '../../domain/EffectActivationState';
@@ -62,8 +66,12 @@ function stateValuesView(
     return (<span>{t(`effect:condition.state.${entry[0]}`, entry[1])}</span>);
   case EffectActivationState.RankGreaterOrEqual:
     return (<span>{t(`effect:condition.state.${entry[0]}`, { rank: entry[1] })}</span>);
-  case EffectActivationState.Affected:
-    return (<span>{t(`effect:condition.state.${entry[0]}`, { effect: entry[1] })}</span>);
+  case EffectActivationState.Affected: {
+    const effect = entry[1];
+    return isReadonlyArray(effect) ?
+      (<span>{t('effect:condition.state.affected_both', { effect: { 0: effect[0], 1: effect[1] } })}</span>) :
+      (<span>{t(`effect:condition.state.${entry[0]}`, { effect })}</span>);
+  }
   case EffectActivationState.NotAffected: {
     const effects = entry[1]
       .map(e => t(`effect:effect.name.${e}`))
@@ -158,6 +166,7 @@ function unitStateView(
     UnitNumber |
     ReadonlyArray<UnitNumber> |
     UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter> |
+    UnitAliasAndRole<typeof UnitAlias['MongooseTeam'], typeof UnitRole.Defender> |
     UnitAliasAndRole<typeof UnitAlias.Strikers, typeof UnitRole.Attacker> |
     typeof UnitAlias[
       'ElectricActive' |
@@ -174,9 +183,12 @@ function unitStateView(
     typeof SkillAreaType.CrossAdjacent |
     UnitType |
     UnitRole |
+    ArmoredBulgasari |
+    DefenderAndArmoredBulgasari |
     'golden_factory' |
+    { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp } |
     { [EffectActivationState.Tagged]: 'younger_sister' | 'reinforced_exoskeleton' } |
-    { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp },
+    { [EffectActivationState.AffectedBy]: { unit: 83, effect: typeof Effect.TargetProtect } },
   selfUnitNumber: UnitNumber,
   t: TFunction
 ): Exclude<ReactNode, undefined> {
@@ -189,10 +201,17 @@ function unitStateView(
       <span>{t(`effect:condition.state.${key}`, { unit: unitName(state) })}</span>
     );
   } else if (isReadonlyArray(state)) {
-    const units = state.map(u => unitName(u)).join(t('effect:unit_separator'));
-    return (
-      <span>{t(`effect:condition.state.${key}`, { unit: units })}</span>
-    );
+    let unit;
+    if (isDefenderAndArmoredBulgasari(state)) {
+      unit = `${t(`effect:unit.${state[0]}`)}${t('effect:unit_separator')}${t(`effect:unit.${state[1]}`)}`;
+    } else {
+      const separator =
+        key === EffectActivationState.NotInSquad ?
+          t('effect:and_separator') :
+          t('effect:unit_separator');
+      unit = state.map(u => unitName(u)).join(separator);
+    }
+    return (<span>{t(`effect:condition.state.${key}`, { unit })}</span>);
   } else if (typeof state === 'string') {
     // TODO: Move excepting logic from view.
     const isSquadCond = key === EffectActivationState.InSquad || key === EffectActivationState.NotInSquad;
@@ -228,13 +247,26 @@ function unitStateView(
         {t(`effect:condition.state.${key}`, { unit: '' })}
       </React.Fragment>
     );
+  } else if ('equipment' in state) {
+    return (<span>{t('effect:condition.state.affected_equipment_effect_by', state)}</span>);
   } else {
-    return EffectActivationState.Tagged in state ?
-      (<span>
-        {t('effect:condition.state.tagged', { tag: state.tagged })}
-        {t('effect:condition.state.in_squad', { unit: t('effect:unit.ally') })}
-      </span>) :
-      (<span>{t('effect:condition.state.affected_equipment_effect_by', state)}</span>);
+    // only in_squad conditions.
+    // TODO: Move this logic from view.
+    if (EffectActivationState.Tagged in state) {
+      return (
+        <span>
+          {t('effect:condition.state.tagged', { tag: state.tagged })}
+          {t('effect:condition.state.in_squad', { unit: t('effect:unit.ally') })}
+        </span>
+      );
+    } else {
+      return (
+        <span>
+          {t('effect:condition.state.affected_effect_by', state.affected_by)}
+          {t('effect:condition.state.in_squad', { unit: t('effect:unit.ally') })}
+        </span>
+      );
+    }
   }
 }
 
@@ -276,10 +308,20 @@ const SelfAndTargetStateView: React.FC<{
   );
 };
 
-type NumOfCrossAdjacent = NumOfUnitsInSquadState['num_of_units'] & { unit: typeof SkillAreaType.CrossAdjacent }
+type NumOfCrossAdjacent = Extract<NumOfUnitsInSquadState['num_of_units'], { unit: typeof SkillAreaType.CrossAdjacent }>
 
-function isNumOfCrossAdjacent(arg: NumOfUnitsInSquadState['num_of_units']): arg is NumOfCrossAdjacent {
+function isNumOfCrossAdjacent(
+  arg: NumOfUnitsInSquadState['num_of_units']
+): arg is NumOfCrossAdjacent {
   return arg.unit === SkillAreaType.CrossAdjacent;
+}
+
+type NumOfDefenderAndArmoredBulgasari = Extract<NumOfUnitsInSquadState['num_of_units'], { unit: DefenderAndArmoredBulgasari }>
+
+function isNumOfDefenderAndArmoredBulgasari(
+  arg: NumOfUnitsInSquadState['num_of_units']
+): arg is NumOfDefenderAndArmoredBulgasari {
+  return isDefenderAndArmoredBulgasari(arg.unit);
 }
 
 const SquadStateView: React.FC<{
@@ -295,19 +337,22 @@ const SquadStateView: React.FC<{
         t('effect:condition.state.cross_adjacent', state) :
         t('effect:condition.state.cross_adjacent_ge', state);
   };
+  const numOfDefenderAndArmoredBulgasari = (state: NumOfDefenderAndArmoredBulgasari): string => {
+    return t('effect:condition.state.num_of_defender_armored_bulgasari', state);
+  };
 
   if (isReadonlyArray(state)) {
     return (
       <React.Fragment>
         {t('effect:condition.target.squad')}
         {
-          state.length === 2 ?
+          isUnitsInSquadCondition(state) ?
+            unitStateView(EffectActivationState.InSquad, state.map(s => s.in_squad), unitNumber, t) :
             (<React.Fragment>
               {unitStateView(EffectActivationState.NotInSquad, state[0].not_in_squad, unitNumber, t)}
               <span>{t('effect:or_symbolic_separator')}</span>
               {unitStateView(EffectActivationState.InSquad, state[1].in_squad, unitNumber, t)}
-            </React.Fragment>) :
-            unitStateView(EffectActivationState.InSquad, state.map(s => s.in_squad), unitNumber, t)
+            </React.Fragment>)
         }
       </React.Fragment>
     );
@@ -344,11 +389,13 @@ const SquadStateView: React.FC<{
                   {
                     isNumOfCrossAdjacent(squadState) ?
                       numOfCrossAdjacent(squadState) :
-                      'equal' in squadState ?
-                        t('effect:condition.state.num_of_units_eq', squadState) :
-                        'greater_or_equal' in squadState ?
-                          t('effect:condition.state.num_of_units_ge', squadState as StringMap) :
-                          t('effect:condition.state.num_of_units_le', squadState as StringMap)
+                      isNumOfDefenderAndArmoredBulgasari(squadState) ?
+                        numOfDefenderAndArmoredBulgasari(squadState) :
+                        'equal' in squadState ?
+                          t('effect:condition.state.num_of_units_eq', squadState) :
+                          'greater_or_equal' in squadState ?
+                            t('effect:condition.state.num_of_units_ge', squadState as StringMap) :
+                            t('effect:condition.state.num_of_units_le', squadState as StringMap)
                   }
                   <Separator />
                 </React.Fragment>

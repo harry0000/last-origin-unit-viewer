@@ -73,7 +73,11 @@ const SkillEffectTargetView: React.FC<{
                 <React.Fragment key={JSON.stringify(cond)}>
                   <UnitAliasView unitAlias={cond.not_alias} />
                   {t('effect:negative_form')}
-                  {'type' in cond ? t(`effect:unit.${cond.type}`) : t('effect:unit.unit')}
+                  {'type' in cond ?
+                    t(`effect:unit.${cond.type}`) :
+                    'role' in cond ?
+                      t(`effect:unit.${cond.role}`) :
+                      t('effect:unit.unit')}
                   {separator}
                 </React.Fragment>
               );

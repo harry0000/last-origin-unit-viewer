@@ -11,6 +11,7 @@ import {
   MightyRForm,
   PeregrinusForm,
   PhantomForm,
+  PintoForm,
   RampartForm,
   SirenForm,
   UllrForm
@@ -242,11 +243,21 @@ type PhantomSkillData = Readonly<{
     ]
 }>
 
+type PintoSkillData = Readonly<{
+  no: typeof FormChangeUnits.Pinto,
+  active:
+    readonly [
+      ActiveSkillData,
+      { readonly [key in PintoForm]: ActiveSkillData }
+    ],
+  passive: SSRankPassiveSkill
+}>
+
 type BulgasariSkillData = Readonly<{
   no: typeof FormChangeUnits.Bulgasari,
   active:
     readonly [
-      ActiveSkillData,
+      { readonly [key in BulgasariForm]: ActiveSkillData },
       { readonly [key in BulgasariForm]: ActiveSkillData }
     ],
   passive: SSRankPassiveSkill
@@ -370,6 +381,7 @@ type UnitSkill<N extends UnitNumber> =
   N extends BloodyPantherSkillData['no'] ? BloodyPantherSkillData :
   N extends EmilySkillData['no'] ? EmilySkillData :
   N extends PhantomSkillData['no'] ? PhantomSkillData :
+  N extends PintoSkillData['no'] ? PintoSkillData :
   N extends BulgasariSkillData['no'] ? BulgasariSkillData :
   N extends InvincibleDragonSkillData['no'] ? InvincibleDragonSkillData :
   N extends SirenSkillData['no'] ? SirenSkillData :

@@ -6,6 +6,8 @@ import { typedEntries } from '../../util/object';
 const fixedPositionTargets: Record<FixedSkillAreaType, ReadonlySet<TenKeyPosition>> = {
   [SkillAreaType.FixedFrontLine]:               new Set([3, 6, 9]),
   [SkillAreaType.FixedBackLine]:                new Set([1, 4, 7]),
+  [SkillAreaType.FixedFrontAndMidLine]:         new Set([2, 3, 5, 6, 8, 9]),
+  [SkillAreaType.FixedFrontAndBackLine]:        new Set([1, 3, 4, 6, 7, 9]),
   [SkillAreaType.FixedMidAndBackLine]:          new Set([1, 2, 4, 5, 7, 8]),
   [SkillAreaType.FixedMiddleRow]:               new Set([4, 5, 6]),
   [SkillAreaType.FixedCross]:                   new Set([2, 4, 5, 6, 8]),

@@ -11,6 +11,7 @@ import { SkillEffectTag } from '../skill/SkillEffectTag';
 import { UnitNumber } from '../UnitBasicInfo';
 
 import { extractAllActiveSkills, extractAllPassiveSkills, extractEffectsData } from './SkillDataExtractor';
+import { isReadonlyArray } from '../../util/type';
 
 export const StatusSkillEffectCondition = {
   AtkUp: 'atk_up',
@@ -168,7 +169,7 @@ function checkSelfEffectedState(skillEffect: SkillEffectData, f: (e: Effect) => 
         'state' in cond &&
         'self' in cond.state &&
         cond.state.self.some(s => {
-          return 'affected' in s && s.affected && f(s.affected);
+          return 'affected' in s && s.affected && (isReadonlyArray(s.affected) ? s.affected.some(f) : f(s.affected));
         })
       );
     }) :

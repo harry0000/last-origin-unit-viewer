@@ -43,6 +43,8 @@ export function buildUnitSkill(unit: UnitBasicInfo): UnitSkill {
       return new EmilyUnitSkill(unit);
     case FormChangeUnits.Phantom:
       return new PhantomUnitSkill(unit);
+    case FormChangeUnits.Pinto:
+      return new PintoUnitSkill(unit);
     case FormChangeUnits.Bulgasari:
       return new BulgasariUnitSkill(unit);
     case FormChangeUnits.InvincibleDragon:
@@ -460,6 +462,40 @@ class PhantomUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Phanto
   }
 }
 
+class PintoUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Pinto> {
+
+  constructor(
+    unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Pinto>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<typeof FormChangeUnits.Pinto>
+  ) {
+    super(unit, skillLv, form);
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new PintoUnitSkill(this.formChangeUnit, lv, this.form);
+  }
+
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Pinto>): FormChangeUnitSkill<typeof FormChangeUnits.Pinto> {
+    return new PintoUnitSkill(this.formChangeUnit, this.skillLv, form);
+  }
+
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0];
+  }
+
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[1];
+  }
+
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[2];
+  }
+}
+
 class BulgasariUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Bulgasari> {
 
   constructor(
@@ -478,7 +514,7 @@ class BulgasariUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Bulg
     return new BulgasariUnitSkill(this.formChangeUnit, this.skillLv, form);
   }
 
-  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0]; }
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0][this.unitForm()]; }
   protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
 
   protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {

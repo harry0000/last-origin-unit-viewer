@@ -57,12 +57,17 @@ export type SkillEffectTag =
   'shock_absorption' |
   'scoop_discovery' |
   'enhance_output' |
+  'battery' |
+  'bombard' |
+  'foo' |
+  'point_woman' |
   'scrap_collect' |
   'electromagnatic_consonance' |
   'max_output_burst' |
-  'shot_frost_bolt' |
-  'forceful_breakthrough' |
-  'forced_reconnaissance' |
+  'suppression_formation' |
+  'focused_sniping_instruction' |
+  'squadron_escort' |
+  'mongoose_breaching' |
   'readying_bombardment' |
   'neri_wins' |
   'ho_ho' |
