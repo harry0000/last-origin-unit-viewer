@@ -56,7 +56,7 @@ export type DamageMultiplierBonus = Readonly<{
 }>
 
 export type Range1UpBonus = Readonly<{
-  [Effect.RangeUp]: { [key in keyof IntegerValue]: 1 }
+  [Effect.RangeUp]: { [key in keyof IntegerValue]: 1 | 2 }
 }>
 
 export type AccUpBonus = Readonly<{

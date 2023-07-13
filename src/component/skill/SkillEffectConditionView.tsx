@@ -452,11 +452,13 @@ const TriggerView: React.FC<{
       <React.Fragment>
         {
           condition.round ?
-            'at' in condition.round ?
-              t('effect:condition.trigger.round.at', { round: condition.round.at }) :
-              'from' in condition.round ?
-                t('effect:condition.trigger.round.from', { round: condition.round.from }) :
-                t('effect:condition.trigger.round.until', { round: condition.round.until }) :
+            typeof condition.round === 'string' ?
+              t(`effect:condition.trigger.start_${condition.round}_round`) :
+              'at' in condition.round ?
+                t('effect:condition.trigger.round.at', { round: condition.round.at }) :
+                'from' in condition.round ?
+                  t('effect:condition.trigger.round.from', { round: condition.round.from }) :
+                  t('effect:condition.trigger.round.until', { round: condition.round.until }) :
             t('effect:condition.trigger.start_round')
         }
       </React.Fragment>

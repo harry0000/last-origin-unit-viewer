@@ -13743,6 +13743,126 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  156: {
+    no: 156,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 172000 },
+        per_lv_up: { milliPercentage: 13300 }
+      },
+      range: 2,
+      cost: 5,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'skoll' }, { tagged: 'solagarmr' }] } }],
+        details: { self: { atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 3 } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'hati' }, { tagged: 'managarmr' }] } }],
+        details: { self: { damage_multiplier_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 3 } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 199000 },
+        per_lv_up: { milliPercentage: 19900 }
+      },
+      range: 2,
+      cost: 10,
+      area: 'diagonal',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'skoll' }, { tagged: 'solagarmr' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { atk_down: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 3 } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'hati' }, { tagged: 'managarmr' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_multiplier_down: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 3 } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        details: {
+          self: {
+            counterattack: { base: { milliPercentage: 60000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 2 } },
+            barrier: { base: { value: 1000 }, per_lv_up: { value: 100 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'use_active_2' }],
+        details: {
+          self: {
+            counterattack: { base: { milliPercentage: 60000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 3 } },
+            barrier: { base: { value: 1000 }, per_lv_up: { value: 100 }, term: { for_rounds: 3 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'barrier' }] } }],
+        details: { self: { marked: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'be_hit', state: { self: [{ not_affected: ['barrier'] }] } }],
+        details: { self: { effect_removal: { effect: 'marked', term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'lunch_box' }] } }],
+        details: {
+          self: {
+            atk_up: { milliPercentage: 5000, term: { for_rounds: 1 } },
+            spd_up: { milliPercentage: 5000, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', round: 'odd', state: { self: [{ not_tagged: 'solagarmr' }] } }],
+        details: { self: { re_attack: { tag: 'skoll', term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', round: 'even', state: { self: [{ not_tagged: 'managarmr' }] } }],
+        details: { self: { ignore_protect: { tag: 'hati', term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'kill' }],
+        details: {
+          self: {
+            re_attack: { tag: 'solagarmr', term: { for_rounds: 2 }, max_stack: 1 },
+            ignore_protect: { tag: 'managarmr', term: { for_rounds: 2 }, max_stack: 1 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: ['solagarmr', 'managarmr'] }] } }],
+        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            def_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            ap_down: { base: { microValue: 200000 }, per_lv_up: { microValue: 20000 }, term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ status_greater_than_self: { status: 'def' } }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { def_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ status_greater_than_self: { status: 'spd' } }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { ap_down: { base: { microValue: 200000 }, per_lv_up: { microValue: 20000 }, term: 'immediate' } } }
+      }]
+    }]
+  },
   161: {
     no: 161,
     active: [{

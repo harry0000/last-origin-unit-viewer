@@ -222,11 +222,15 @@ export type ActivationSelfState =
     [EffectActivationState.NotEquipped]?: ReadonlyArray<EquipmentId>
   } &
   {
-    [EffectActivationState.Tagged]?: SkillEffectTag
+    [EffectActivationState.Tagged]?:
+      SkillEffectTag |
+      // The following is AND condition
+      readonly ['solagarmr', 'managarmr']
   } &
   {
     [EffectActivationState.NotAffected]?:
       // The following are AND conditions
+      readonly [typeof Effect.Barrier] |
       readonly [typeof Effect.Counterattack] |
       readonly [typeof Effect.Reconnaissance] |
       readonly [typeof Effect.FollowUpAttack] |
@@ -396,7 +400,7 @@ export type SkillEffectActivationState = SelfSkillEffectActivationState | Target
 
 export type SkillEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
-  round?: { at: 1 | 2 | 3 | 4 } | { from: 2 | 3 | 5 } | { until: 1 | 2 | 3 | 4 }
+  round?: 'odd' | 'even' | { at: 1 | 2 | 3 | 4 } | { from: 2 | 3 | 5 } | { until: 1 | 2 | 3 | 4 }
 } | {
   trigger: typeof EffectTrigger.HitActive1,
   round?: 'odd'
