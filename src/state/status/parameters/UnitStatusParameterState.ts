@@ -27,6 +27,10 @@ import {
   MicroValue,
   MilliPercentageValue,
   MilliValue,
+  ZeroMicroValue,
+  ZeroIntegerValue,
+  ZeroMilliValue,
+  ZeroMilliPercentageValue,
   equalIntegerValue,
   equalMicroValue,
   equalMilliPercentageValue,
@@ -61,8 +65,8 @@ import {
 } from '../../../domain/equipment/UnitEquipment';
 import UnitCoreLink from '../../../domain/UnitCoreLink';
 import UnitDamagedState, { DamagedState } from '../../../domain/UnitDamagedState';
+import UnitLv, { UnitLvValue } from '../../../domain/status/UnitLv';
 import UnitLvStatus from '../../../domain/status/UnitLvStatus';
-import { UnitLvValue } from '../../../domain/status/UnitLv';
 import { UnitNumber, UnitRank } from '../../../domain/UnitBasicInfo';
 import { UnitSkill } from '../../../domain/skill/UnitSkill';
 
@@ -198,14 +202,9 @@ function getRemovedUnits(prev: Squad, next: Squad): ReadonlySet<UnitNumber> {
   return prevUnits;
 }
 
-const ZeroIntegerValue: IntegerValue = { value: 0 };
-const ZeroMilliValue: MilliValue = { milliValue: 0 };
-const ZeroMicroValue: MicroValue = { microValue: 0 };
-const ZeroMilliPercentageValue: MilliPercentageValue = { milliPercentage: 0 };
-
-const _hp = atomFamily<IntegerValue, UnitNumber>({ key: 'UnitStatusParameterState_hp', default: (unit) => calculateUnitBaseHp(unit, 100) });
-const _atk = atomFamily<MilliValue, UnitNumber>({ key: 'UnitStatusParameterState_atk', default: (unit) => calculateUnitBaseAtk(unit, 100) });
-const _def = atomFamily<MilliValue, UnitNumber>({ key: 'UnitStatusParameterState_def', default: (unit) => calculateUnitBaseDef(unit, 100) });
+const _hp = atomFamily<IntegerValue, UnitNumber>({ key: 'UnitStatusParameterState_hp', default: (unit) => calculateUnitBaseHp(unit, UnitLv.initialState.value) });
+const _atk = atomFamily<MilliValue, UnitNumber>({ key: 'UnitStatusParameterState_atk', default: (unit) => calculateUnitBaseAtk(unit, UnitLv.initialState.value) });
+const _def = atomFamily<MilliValue, UnitNumber>({ key: 'UnitStatusParameterState_def', default: (unit) => calculateUnitBaseDef(unit, UnitLv.initialState.value) });
 const _acc = atomFamily<MilliPercentageValue, UnitNumber>({ key: 'UnitStatusParameterState_acc', default: (unit) => unitStatusData[unit].acc });
 const _eva = atomFamily<MilliPercentageValue, UnitNumber>({ key: 'UnitStatusParameterState_eva', default: (unit) => unitStatusData[unit].eva });
 const _cri = atomFamily<MilliPercentageValue, UnitNumber>({ key: 'UnitStatusParameterState_cri', default: (unit) => unitStatusData[unit].cri });

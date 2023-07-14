@@ -3,7 +3,7 @@ import deepEqual from 'fast-deep-equal';
 
 import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';
 import UnitCoreLink, { CoreLinkCount, CoreLinkUnit } from '../../domain/UnitCoreLink';
-import { UnitLvValue } from '../../domain/status/UnitLv';
+import UnitLv, { UnitLvValue } from '../../domain/status/UnitLv';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 
 import { lvValueState } from '../status/parameters/UnitLvStatusState';
@@ -16,14 +16,24 @@ export type CoreLinkSlot = 'slot1' | 'slot2' | 'slot3' | 'slot4' | 'slot5'
 function createLinkedUnit(slot: CoreLinkSlot) {
   return atomFamily<CoreLinkUnit | undefined, UnitNumber>({
     key: `UnitCoreLinkState_linkedUnit_${slot}`,
-    default: undefined
+    default: UnitCoreLink.initialState.coreLinkUnit
   });
+}
+
+function initialSlotAvailable(slot: CoreLinkSlot): boolean {
+  switch (slot) {
+  case 'slot1': return UnitCoreLink.isSlot1Available(UnitLv.initialState.value);
+  case 'slot2': return UnitCoreLink.isSlot2Available(UnitLv.initialState.value);
+  case 'slot3': return UnitCoreLink.isSlot3Available(UnitLv.initialState.value);
+  case 'slot4': return UnitCoreLink.isSlot4Available(UnitLv.initialState.value);
+  case 'slot5': return UnitCoreLink.isSlot5Available(UnitLv.initialState.value);
+  }
 }
 
 function createSlotAvailable(slot: CoreLinkSlot) {
   return atomFamily<boolean, UnitNumber>({
     key: `UnitCoreLinkState_slotAvailable_${slot}`,
-    default: true
+    default: initialSlotAvailable(slot)
   });
 }
 
@@ -32,8 +42,8 @@ const _unitCoreLink = atomFamily<UnitCoreLink, UnitNumber>({
   default: (unit) => new UnitCoreLink(unit)
 });
 
-const _linkRate = atomFamily<number, UnitNumber>({ key: 'UnitCoreLinkState_linkRate', default: 0 });
-const _linkCount = atomFamily<CoreLinkCount, UnitNumber>({ key: 'UnitCoreLinkState_linkCount', default: 0 });
+const _linkRate = atomFamily<number, UnitNumber>({ key: 'UnitCoreLinkState_linkRate', default: UnitCoreLink.initialState.linkRate });
+const _linkCount = atomFamily<CoreLinkCount, UnitNumber>({ key: 'UnitCoreLinkState_linkCount', default: UnitCoreLink.initialState.linkCount });
 const _linkedUnit = {
   slot1: createLinkedUnit('slot1'),
   slot2: createLinkedUnit('slot2'),
@@ -52,17 +62,21 @@ const _linkBonus = atomFamily<CoreLinkBonus, UnitNumber>({
   key: 'UnitCoreLinkState_linkBonus',
   default: (unit) => UnitCoreLink.emptyBonus(unit)
 });
+const _linkAllSlotAvailable = atomFamily<boolean, UnitNumber>({
+  key: 'UnitCoreLinkState_linkAllSlotAvailable',
+  default: true
+});
 const _fullLinkAvailable = atomFamily<boolean, UnitNumber>({
   key: 'UnitCoreLinkState_fullLinkAvailable',
-  default: false
+  default: UnitCoreLink.initialState.fullLinkBonusAvailable
 });
 const _selectedFullLinkBonus = atomFamily<FullLinkBonus | undefined, UnitNumber>({
   key: 'UnitCoreLinkState_selectedFullLinkBonus',
-  default: undefined
+  default: UnitCoreLink.initialState.selectedFullLinkBonus
 });
 const _fullLinkBonus = atomFamily<FullLinkBonus | undefined, UnitNumber>({
   key: 'UnitCoreLinkState_fullLinkBonus',
-  default: undefined
+  default: UnitCoreLink.initialState.fullLinkBonus
 });
 
 function _update(unit: UnitNumber, lv: UnitLvValue, valueOrUpdater: ValueOrUpdater<UnitCoreLink>): (cbi: CallbackInterface) => void {
@@ -93,13 +107,15 @@ function _update(unit: UnitNumber, lv: UnitLvValue, valueOrUpdater: ValueOrUpdat
     updateLinkedUnit('slot4');
     updateLinkedUnit('slot5');
 
-    set(_slotAvailable.slot1(unit), nextValue.isSlot1Available(lv));
-    set(_slotAvailable.slot2(unit), nextValue.isSlot2Available(lv));
-    set(_slotAvailable.slot3(unit), nextValue.isSlot3Available(lv));
-    set(_slotAvailable.slot4(unit), nextValue.isSlot4Available(lv));
-    set(_slotAvailable.slot5(unit), nextValue.isSlot5Available(lv));
+    set(_slotAvailable.slot1(unit), UnitCoreLink.isSlot1Available(lv));
+    set(_slotAvailable.slot2(unit), UnitCoreLink.isSlot2Available(lv));
+    set(_slotAvailable.slot3(unit), UnitCoreLink.isSlot3Available(lv));
+    set(_slotAvailable.slot4(unit), UnitCoreLink.isSlot4Available(lv));
+    set(_slotAvailable.slot5(unit), UnitCoreLink.isSlot5Available(lv));
     set(_linkRate(unit), nextValue.linkRate(lv));
     set(_linkCount(unit), nextValue.linkCount(lv));
+
+    set(_linkAllSlotAvailable(unit), !nextValue.isAllSlotLinkedFitUnit());
 
     set(_selectedFullLinkBonus(unit), nextValue.fullLinkBonus);
     set(_fullLinkBonus(unit), nextValue.fullLinkBonusEffect(lv));
@@ -117,6 +133,8 @@ export const linkedUnitState = (unit: UnitNumber, slot: CoreLinkSlot): RecoilVal
 export const coreLinkSlotAvailableState = (unit: UnitNumber, slot: CoreLinkSlot): RecoilValueReadOnly<boolean> => _slotAvailable[slot](unit);
 export const coreLinkRateState = (unit: UnitNumber): RecoilValueReadOnly<number> => _linkRate(unit);
 export const coreLinkCountState = (unit: UnitNumber): RecoilValueReadOnly<CoreLinkCount> => _linkCount(unit);
+
+export const linkAllSlotAvailableState = (unit: UnitNumber): RecoilValueReadOnly<boolean> => _linkAllSlotAvailable(unit);
 
 export const selectedFullLinkBonus = (unit: UnitNumber): RecoilValueReadOnly<FullLinkBonus | undefined> => _selectedFullLinkBonus(unit);
 export const fullLinkAvailableState = (unit: UnitNumber): RecoilValueReadOnly<boolean> => _fullLinkAvailable(unit);
@@ -139,6 +157,11 @@ export const linkSlot = (unit: UnitNumber, slot: CoreLinkSlot) => (cbi: Callback
       }
     }
   )(cbi);
+};
+
+export const linkAllSlot = (unit: UnitNumber) => (cbi: CallbackInterface) => (): void => {
+  const lv = cbi.snapshot.getLoadable(lvValueState(unit)).getValue();
+  _update(unit, lv, s => s.linkAllSlot())(cbi);
 };
 
 export const selectFullLinkBonus = (unit: UnitNumber) => (cbi: CallbackInterface) => (bonus: FullLinkBonus | undefined): void => {

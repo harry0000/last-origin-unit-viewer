@@ -10,6 +10,8 @@ import {
   coreLinkRateState,
   coreLinkSlotAvailableState,
   fullLinkAvailableState,
+  linkAllSlot,
+  linkAllSlotAvailableState,
   linkSlot,
   linkedUnitState,
   selectFullLinkBonus,
@@ -51,6 +53,16 @@ export function useCoreLinkEffect({ no }: UnitBasicInfo): CoreLinkBonus {
 
 export function useAvailableFullLinkBonus({ no }: UnitBasicInfo): ReadonlyArray<FullLinkBonus> {
   return unitCoreLinkBonusData[no].full_link_bonus;
+}
+
+export function useLinkAllSlot({ no }: UnitBasicInfo): [
+  linkAllSlot: () => void,
+  available: boolean
+] {
+  return [
+    useRecoilCallback(linkAllSlot(no)),
+    useRecoilValue(linkAllSlotAvailableState(no))
+  ];
 }
 
 export function useFullLinkBonus({ no }: UnitBasicInfo): [

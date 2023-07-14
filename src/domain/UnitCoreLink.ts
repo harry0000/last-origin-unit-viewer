@@ -110,11 +110,27 @@ function calcBonus(linkRate: number, no: UnitNumber): CoreLinkBonus {
 
 class UnitCoreLink {
 
+  static initialState = {
+    coreLinkUnit: undefined,
+    linkCount: 0,
+    linkRate: 0,
+    fullLinkBonusAvailable: false,
+    selectedFullLinkBonus: undefined,
+    fullLinkBonus: undefined
+  } as const;
+
   static get slot1AvailableLv(): CoreLinkSlotAvailableLv { return 10; }
   static get slot2AvailableLv(): CoreLinkSlotAvailableLv { return 30; }
   static get slot3AvailableLv(): CoreLinkSlotAvailableLv { return 50; }
   static get slot4AvailableLv(): CoreLinkSlotAvailableLv { return 70; }
   static get slot5AvailableLv(): CoreLinkSlotAvailableLv { return 90; }
+
+  static isSlot1Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot1AvailableLv; }
+  static isSlot2Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot2AvailableLv; }
+  static isSlot3Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot3AvailableLv; }
+  static isSlot4Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot4AvailableLv; }
+  static isSlot5Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot5AvailableLv; }
+
   static emptyBonus(unit: UnitNumber): CoreLinkBonus { return calcBonus(0, unit); }
 
   static getCoreLinkUnits(
@@ -242,6 +258,21 @@ class UnitCoreLink {
     return this.slot5 ? new UnitCoreLink(this.unit, this.slot1, this.slot2, this.slot3, this.slot4, undefined, this.fullLinkBonus) : this;
   }
 
+  linkAllSlot(): UnitCoreLink {
+    const fitUnit = UnitCoreLink.#fitUnit(this.unit);
+    return this.linkSlot1(fitUnit).linkSlot2(fitUnit).linkSlot3(fitUnit).linkSlot4(fitUnit).linkSlot5(fitUnit);
+  }
+
+  isAllSlotLinkedFitUnit(): boolean {
+    return (
+      this.slot1?.rate === 100 &&
+      this.slot2?.rate === 100 &&
+      this.slot3?.rate === 100 &&
+      this.slot4?.rate === 100 &&
+      this.slot5?.rate === 100
+    );
+  }
+
   #fullLinkBonusIndex(bonus: FullLinkBonus): FullLinkBonusIndex | -1 {
     return unitCoreLinkBonusData[this.unit].full_link_bonus.indexOf(bonus) as FullLinkBonusIndex | -1;
   }
@@ -265,17 +296,11 @@ class UnitCoreLink {
       this;
   }
 
-  isSlot1Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot1AvailableLv; }
-  isSlot2Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot2AvailableLv; }
-  isSlot3Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot3AvailableLv; }
-  isSlot4Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot4AvailableLv; }
-  isSlot5Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot5AvailableLv; }
-
-  slot1LinkRate(lv: UnitLvValue): number { return this.isSlot1Available(lv) && this.slot1 ? this.slot1.rate : 0; }
-  slot2LinkRate(lv: UnitLvValue): number { return this.isSlot2Available(lv) && this.slot2 ? this.slot2.rate : 0; }
-  slot3LinkRate(lv: UnitLvValue): number { return this.isSlot3Available(lv) && this.slot3 ? this.slot3.rate : 0; }
-  slot4LinkRate(lv: UnitLvValue): number { return this.isSlot4Available(lv) && this.slot4 ? this.slot4.rate : 0; }
-  slot5LinkRate(lv: UnitLvValue): number { return this.isSlot5Available(lv) && this.slot5 ? this.slot5.rate : 0; }
+  slot1LinkRate(lv: UnitLvValue): number { return UnitCoreLink.isSlot1Available(lv) && this.slot1 ? this.slot1.rate : 0; }
+  slot2LinkRate(lv: UnitLvValue): number { return UnitCoreLink.isSlot2Available(lv) && this.slot2 ? this.slot2.rate : 0; }
+  slot3LinkRate(lv: UnitLvValue): number { return UnitCoreLink.isSlot3Available(lv) && this.slot3 ? this.slot3.rate : 0; }
+  slot4LinkRate(lv: UnitLvValue): number { return UnitCoreLink.isSlot4Available(lv) && this.slot4 ? this.slot4.rate : 0; }
+  slot5LinkRate(lv: UnitLvValue): number { return UnitCoreLink.isSlot5Available(lv) && this.slot5 ? this.slot5.rate : 0; }
 
   linkCount(lv: UnitLvValue): CoreLinkCount {
     return (

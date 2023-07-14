@@ -86,11 +86,11 @@ function convertEquipment(
 
 function convertCoreLink(lv: UnitLvValue, unitCoreLink: UnitCoreLink): UnitCoreLinkJsonStructure {
   return [
-    unitCoreLink.isSlot1Available(lv) && unitCoreLink.slot1 ? unitCoreLink.slot1.rate : 0,
-    unitCoreLink.isSlot2Available(lv) && unitCoreLink.slot2 ? unitCoreLink.slot2.rate : 0,
-    unitCoreLink.isSlot3Available(lv) && unitCoreLink.slot3 ? unitCoreLink.slot3.rate : 0,
-    unitCoreLink.isSlot4Available(lv) && unitCoreLink.slot4 ? unitCoreLink.slot4.rate : 0,
-    unitCoreLink.isSlot5Available(lv) && unitCoreLink.slot5 ? unitCoreLink.slot5.rate : 0,
+    UnitCoreLink.isSlot1Available(lv) && unitCoreLink.slot1 ? unitCoreLink.slot1.rate : 0,
+    UnitCoreLink.isSlot2Available(lv) && unitCoreLink.slot2 ? unitCoreLink.slot2.rate : 0,
+    UnitCoreLink.isSlot3Available(lv) && unitCoreLink.slot3 ? unitCoreLink.slot3.rate : 0,
+    UnitCoreLink.isSlot4Available(lv) && unitCoreLink.slot4 ? unitCoreLink.slot4.rate : 0,
+    UnitCoreLink.isSlot5Available(lv) && unitCoreLink.slot5 ? unitCoreLink.slot5.rate : 0,
     unitCoreLink.isFullLinkBonusAvailable(lv) ? unitCoreLink.selectedFullLinkBonusIndex : -1
   ];
 }

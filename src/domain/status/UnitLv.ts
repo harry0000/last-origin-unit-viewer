@@ -11,12 +11,18 @@ export type UnitLvMode = typeof UnitLvMode[keyof typeof UnitLvMode]
 
 class UnitLv {
 
+  static initialState = {
+    value: 100,
+    mode: UnitLvMode.Manual,
+    points: 300
+  } as const;
+
   readonly value: UnitLvValue;
   readonly mode: UnitLvMode;
 
   constructor(value?: UnitLvValue, mode?: UnitLvMode) {
-    this.value = value ?? 100;
-    this.mode = mode ?? UnitLvMode.Manual;
+    this.value = value ?? UnitLv.initialState.value;
+    this.mode = mode ?? UnitLv.initialState.mode;
   }
 
   setLv(value: UnitLvValue): UnitLv {

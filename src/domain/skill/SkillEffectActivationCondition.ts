@@ -139,6 +139,7 @@ const AffectedSkillEffect = [
   Effect.DamageReductionUp,
   Effect.MinimizeDamage,
   Effect.Barrier,
+  Effect.ReAttack,
   Effect.FollowUpAttack,
   Effect.IgnoreBarrierDr,
   Effect.IgnoreProtect,
@@ -222,11 +223,15 @@ export type ActivationSelfState =
     [EffectActivationState.NotEquipped]?: ReadonlyArray<EquipmentId>
   } &
   {
-    [EffectActivationState.Tagged]?: SkillEffectTag
+    [EffectActivationState.Tagged]?:
+      SkillEffectTag |
+      // The following is AND condition
+      readonly ['solagarmr', 'managarmr']
   } &
   {
     [EffectActivationState.NotAffected]?:
       // The following are AND conditions
+      readonly [typeof Effect.Barrier] |
       readonly [typeof Effect.Counterattack] |
       readonly [typeof Effect.Reconnaissance] |
       readonly [typeof Effect.FollowUpAttack] |
@@ -331,6 +336,8 @@ export type NumOfUnitsInSquadState = {
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 2, less_or_equal: 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 } |
+    { unit: 'killed', greater_or_equal: 1 | 2 | 3 } |
+    { unit: 'killed', equal: 4 } |
     { unit: DefenderAndArmoredBulgasari, equal: 1 | 2 | 3 | 4 }
 }
 
@@ -396,7 +403,7 @@ export type SkillEffectActivationState = SelfSkillEffectActivationState | Target
 
 export type SkillEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
-  round?: { at: 1 | 2 | 3 | 4 } | { from: 2 | 3 | 5 } | { until: 1 | 2 | 3 | 4 }
+  round?: 'odd' | 'even' | { at: 1 | 2 | 3 | 4 } | { from: 2 | 3 | 5 } | { until: 1 | 2 | 3 | 4 }
 } | {
   trigger: typeof EffectTrigger.HitActive1,
   round?: 'odd'

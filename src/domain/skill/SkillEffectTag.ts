@@ -126,6 +126,10 @@ export type SkillEffectTag =
   'take_down_a_peg_or_two' |
   'separation_anxiety' |
   'energy_focusing' |
+  'skoll' |
+  'hati' |
+  'solagarmr' |
+  'managarmr' |
   'mimesis' |
   'great_antarctica_adventure' |
   'pre_cooking' |
