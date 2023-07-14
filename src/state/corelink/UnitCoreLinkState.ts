@@ -62,6 +62,10 @@ const _linkBonus = atomFamily<CoreLinkBonus, UnitNumber>({
   key: 'UnitCoreLinkState_linkBonus',
   default: (unit) => UnitCoreLink.emptyBonus(unit)
 });
+const _linkAllSlotAvailable = atomFamily<boolean, UnitNumber>({
+  key: 'UnitCoreLinkState_linkAllSlotAvailable',
+  default: true
+});
 const _fullLinkAvailable = atomFamily<boolean, UnitNumber>({
   key: 'UnitCoreLinkState_fullLinkAvailable',
   default: UnitCoreLink.initialState.fullLinkBonusAvailable
@@ -111,6 +115,8 @@ function _update(unit: UnitNumber, lv: UnitLvValue, valueOrUpdater: ValueOrUpdat
     set(_linkRate(unit), nextValue.linkRate(lv));
     set(_linkCount(unit), nextValue.linkCount(lv));
 
+    set(_linkAllSlotAvailable(unit), !nextValue.isAllSlotLinkedFitUnit());
+
     set(_selectedFullLinkBonus(unit), nextValue.fullLinkBonus);
     set(_fullLinkBonus(unit), nextValue.fullLinkBonusEffect(lv));
     set(_fullLinkAvailable(unit), nextValue.isFullLinkBonusAvailable(lv));
@@ -127,6 +133,8 @@ export const linkedUnitState = (unit: UnitNumber, slot: CoreLinkSlot): RecoilVal
 export const coreLinkSlotAvailableState = (unit: UnitNumber, slot: CoreLinkSlot): RecoilValueReadOnly<boolean> => _slotAvailable[slot](unit);
 export const coreLinkRateState = (unit: UnitNumber): RecoilValueReadOnly<number> => _linkRate(unit);
 export const coreLinkCountState = (unit: UnitNumber): RecoilValueReadOnly<CoreLinkCount> => _linkCount(unit);
+
+export const linkAllSlotAvailableState = (unit: UnitNumber): RecoilValueReadOnly<boolean> => _linkAllSlotAvailable(unit);
 
 export const selectedFullLinkBonus = (unit: UnitNumber): RecoilValueReadOnly<FullLinkBonus | undefined> => _selectedFullLinkBonus(unit);
 export const fullLinkAvailableState = (unit: UnitNumber): RecoilValueReadOnly<boolean> => _fullLinkAvailable(unit);
@@ -149,6 +157,11 @@ export const linkSlot = (unit: UnitNumber, slot: CoreLinkSlot) => (cbi: Callback
       }
     }
   )(cbi);
+};
+
+export const linkAllSlot = (unit: UnitNumber) => (cbi: CallbackInterface) => (): void => {
+  const lv = cbi.snapshot.getLoadable(lvValueState(unit)).getValue();
+  _update(unit, lv, s => s.linkAllSlot())(cbi);
 };
 
 export const selectFullLinkBonus = (unit: UnitNumber) => (cbi: CallbackInterface) => (bonus: FullLinkBonus | undefined): void => {

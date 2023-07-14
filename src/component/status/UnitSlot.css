@@ -1,3 +1,7 @@
+.slot-container {
+  width: fit-content;
+}
+
 .slot-row {
   display: flex;
 }

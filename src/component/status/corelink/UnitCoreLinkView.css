@@ -10,3 +10,14 @@
 .core-link-rate-details {
   margin-left: 15px;
 }
+
+.core-link-action {
+  display: flex;
+  margin-left: auto;
+}
+
+.core-link-action > .btn {
+  line-height: 0.5;
+  font-weight: bold;
+  font-size: 0.9em;
+}

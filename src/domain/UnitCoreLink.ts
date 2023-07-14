@@ -258,6 +258,21 @@ class UnitCoreLink {
     return this.slot5 ? new UnitCoreLink(this.unit, this.slot1, this.slot2, this.slot3, this.slot4, undefined, this.fullLinkBonus) : this;
   }
 
+  linkAllSlot(): UnitCoreLink {
+    const fitUnit = UnitCoreLink.#fitUnit(this.unit);
+    return this.linkSlot1(fitUnit).linkSlot2(fitUnit).linkSlot3(fitUnit).linkSlot4(fitUnit).linkSlot5(fitUnit);
+  }
+
+  isAllSlotLinkedFitUnit(): boolean {
+    return (
+      this.slot1?.rate === 100 &&
+      this.slot2?.rate === 100 &&
+      this.slot3?.rate === 100 &&
+      this.slot4?.rate === 100 &&
+      this.slot5?.rate === 100
+    );
+  }
+
   #fullLinkBonusIndex(bonus: FullLinkBonus): FullLinkBonusIndex | -1 {
     return unitCoreLinkBonusData[this.unit].full_link_bonus.indexOf(bonus) as FullLinkBonusIndex | -1;
   }
