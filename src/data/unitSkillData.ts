@@ -2063,6 +2063,31 @@ export const unitSkillData: UnitSkillData = {
           target: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } }
         }
       }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { re_attack: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ affected: 're_attack' }, { affected: 'follow_up_attack' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ affected: 're_attack' }, { affected: 'follow_up_attack' }] } }],
+        target: { kind: 'ally', conditions: ['flying', 'steel_line'] },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            damage_multiplier_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
     }]
   },
   25: {
@@ -2586,6 +2611,33 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'steel_line_excluding_officer_ranks' } } }],
         details: { self: { spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        scale_factor: { per_units: { type: 'squad' } },
+        target: { kind: 'ally' },
+        details: {
+          self: { atk_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 300 }, term: 'infinite', cannot_be_dispelled: true } },
+          target: { atk_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 300 }, term: 'infinite', cannot_be_dispelled: true } }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'killed', greater_or_equal: 1 } } } }],
+        target: { kind: 'ally' },
+        details: { target: { spd_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'killed', greater_or_equal: 2 } } } }],
+        target: { kind: 'ally' },
+        details: { target: { damage_reduction_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'killed', greater_or_equal: 3 } } } }],
+        target: { kind: 'ally' },
+        details: { target: { counterattack: { base: { milliPercentage: 70000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'killed', equal: 4 } } } }],
+        target: { kind: 'ally' },
+        details: { target: { battle_continuation: { base: { value: 500 }, per_lv_up: { value: 50 }, term: { for_rounds: 1 }, times: 1, cannot_be_dispelled: true } } }
       }]
     }]
   },

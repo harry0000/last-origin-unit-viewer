@@ -161,7 +161,7 @@ function getSquadUnitMatcher(
       'golden_factory'
     > |
     NotInSquadCondition |
-    Exclude<NumOfUnitsSquadCondition, 'ally'>,
+    Exclude<NumOfUnitsSquadCondition, 'ally' | 'killed'>,
   sourcePosition: TenKeyPosition
 ): (state: UnitOriginState) => boolean {
   if (!cond) {
@@ -707,7 +707,9 @@ export function matchStaticSquadState(
         const count =
           target === 'ally' ?
             squad.length - 1 : // except source unit
-            squad.filter(exceptSourceUnit(getSquadUnitMatcher(target, source.position))).length;
+            target === 'killed' ?
+              0 : // Currently, the number of units killed is always 0
+              squad.filter(exceptSourceUnit(getSquadUnitMatcher(target, source.position))).length;
 
         return (
           'equal' in num_of_units ? num_of_units.equal === count :

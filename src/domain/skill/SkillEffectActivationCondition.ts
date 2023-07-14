@@ -139,6 +139,7 @@ const AffectedSkillEffect = [
   Effect.DamageReductionUp,
   Effect.MinimizeDamage,
   Effect.Barrier,
+  Effect.ReAttack,
   Effect.FollowUpAttack,
   Effect.IgnoreBarrierDr,
   Effect.IgnoreProtect,
@@ -335,6 +336,8 @@ export type NumOfUnitsInSquadState = {
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 2, less_or_equal: 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 } |
+    { unit: 'killed', greater_or_equal: 1 | 2 | 3 } |
+    { unit: 'killed', equal: 4 } |
     { unit: DefenderAndArmoredBulgasari, equal: 1 | 2 | 3 | 4 }
 }
 
