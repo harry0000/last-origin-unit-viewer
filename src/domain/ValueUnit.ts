@@ -6,6 +6,11 @@ export type MilliPercentageValue                    = Readonly<{ milliPercentage
 export type ValueUnit = keyof IntegerValue | keyof MilliValue | keyof MicroValue | keyof MilliPercentageValue
 export type ValueTypes = IntegerValue | MilliValue | MicroValue | MilliPercentageValue
 
+export const ZeroIntegerValue = { value: 0 } as const satisfies IntegerValue;
+export const ZeroMilliValue = { milliValue: 0 } as const satisfies MilliValue;
+export const ZeroMicroValue = { microValue: 0 } as const satisfies MicroValue;
+export const ZeroMilliPercentageValue = { milliPercentage: 0 } as const satisfies MilliPercentageValue;
+
 export function reverseIntegerValueSign({ value }: IntegerValue): IntegerValue {
   return { value: -value };
 }

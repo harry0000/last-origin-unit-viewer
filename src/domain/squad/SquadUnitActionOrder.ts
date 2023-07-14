@@ -1,6 +1,6 @@
 import { Squad, TenKeyPosition } from './Squad';
 import { UnitNumber } from '../UnitBasicInfo';
-import { MicroValue } from '../ValueUnit';
+import { MicroValue, ZeroMicroValue } from '../ValueUnit';
 import { partition } from '../../util/array';
 
 type SquadUnitApValue = {
@@ -48,8 +48,8 @@ export class SquadUnitActionOrder {
   ) {
     const units = squad.units.map(({ unit: { no }, position }) => ({
       unit: no, position,
-      ap: apRepository(no) ?? { microValue: 0 },
-      spd: spdRepository(no) ?? { microValue: 0 }
+      ap: apRepository(no) ?? ZeroMicroValue,
+      spd: spdRepository(no) ?? ZeroMicroValue
     })).sort(descendingOrder);
 
     const [ready, notReady] = partition(units, ({ ap }) => readyToAction(ap));

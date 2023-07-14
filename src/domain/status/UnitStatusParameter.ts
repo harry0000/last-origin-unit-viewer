@@ -19,6 +19,8 @@ import {
   MicroValue,
   MilliPercentageValue,
   MilliValue,
+  ZeroIntegerValue,
+  ZeroMilliValue,
   multiplyMilliValue,
   multiplyValue,
   reverseSign,
@@ -132,8 +134,8 @@ export class UnitHpStatusParameter {
     const hpAddition         = sumValues(...pickValues(Effect.HpUp, Effect.HpDown)(hpEnhancement, chip1, chip2, os, gear));
     const hp                 = sumValues(baseHp, rankUpBonusSummary, hpAddition);
 
-    this.hpCoreLinkBonus = Effect.HpUp in coreLinkBonus ? multiplyValue(hp, coreLinkBonus.hp_up) : { value: 0 };
-    this.hpFullLinkBonus = Effect.HpUp in _fullLinkBonus ? multiplyValue(hp, _fullLinkBonus.hp_up) : { value: 0 };
+    this.hpCoreLinkBonus = Effect.HpUp in coreLinkBonus ? multiplyValue(hp, coreLinkBonus.hp_up) : ZeroIntegerValue;
+    this.hpFullLinkBonus = Effect.HpUp in _fullLinkBonus ? multiplyValue(hp, _fullLinkBonus.hp_up) : ZeroIntegerValue;
 
     this.hpEffectValue = sumValues(hpAddition, this.hpCoreLinkBonus, this.hpFullLinkBonus);
 
@@ -167,8 +169,8 @@ export class UnitAtkStatusParameter {
     const atkAddition        = sumMilliValues(...pickValues(Effect.AtkUp, Effect.AtkDown)(atkEnhancement, chip1, chip2, os, gear));
     const atk                = sumMilliValues(baseAtk, rankUpBonusSummary, atkAddition);
 
-    this.atkCoreLinkBonus = Effect.AtkUp in coreLinkBonus ? multiplyMilliValue(atk, coreLinkBonus.atk_up) : { milliValue: 0 };
-    this.atkFullLinkBonus = Effect.AtkUp in _fullLinkBonus ? multiplyMilliValue(atk, _fullLinkBonus.atk_up) : { milliValue: 0 };
+    this.atkCoreLinkBonus = Effect.AtkUp in coreLinkBonus ? multiplyMilliValue(atk, coreLinkBonus.atk_up) : ZeroMilliValue;
+    this.atkFullLinkBonus = Effect.AtkUp in _fullLinkBonus ? multiplyMilliValue(atk, _fullLinkBonus.atk_up) : ZeroMilliValue;
 
     this.atkEffectValue = sumMilliValues(atkAddition, this.atkCoreLinkBonus, this.atkFullLinkBonus);
 
@@ -202,8 +204,8 @@ export class UnitDefStatusParameter {
     const defAddition        = sumMilliValues(...pickValues(Effect.DefUp, Effect.DefDown)(defEnhancement, chip1, chip2, os, gear));
     const def                = sumMilliValues(baseDef, rankUpBonusSummary, defAddition);
 
-    this.defCoreLinkBonus = Effect.DefUp in coreLinkBonus ? multiplyMilliValue(def, coreLinkBonus.def_up) : { milliValue: 0 };
-    this.defFullLinkBonus = Effect.DefUp in _fullLinkBonus ? multiplyMilliValue(def, _fullLinkBonus.def_up) : { milliValue: 0 };
+    this.defCoreLinkBonus = Effect.DefUp in coreLinkBonus ? multiplyMilliValue(def, coreLinkBonus.def_up) : ZeroMilliValue;
+    this.defFullLinkBonus = Effect.DefUp in _fullLinkBonus ? multiplyMilliValue(def, _fullLinkBonus.def_up) : ZeroMilliValue;
 
     this.defEffectValue = sumMilliValues(defAddition, this.defCoreLinkBonus, this.defFullLinkBonus);
 

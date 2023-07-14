@@ -27,6 +27,10 @@ import {
   MicroValue,
   MilliPercentageValue,
   MilliValue,
+  ZeroMicroValue,
+  ZeroIntegerValue,
+  ZeroMilliValue,
+  ZeroMilliPercentageValue,
   equalIntegerValue,
   equalMicroValue,
   equalMilliPercentageValue,
@@ -197,11 +201,6 @@ function getRemovedUnits(prev: Squad, next: Squad): ReadonlySet<UnitNumber> {
 
   return prevUnits;
 }
-
-const ZeroIntegerValue: IntegerValue = { value: 0 };
-const ZeroMilliValue: MilliValue = { milliValue: 0 };
-const ZeroMicroValue: MicroValue = { microValue: 0 };
-const ZeroMilliPercentageValue: MilliPercentageValue = { milliPercentage: 0 };
 
 const _hp = atomFamily<IntegerValue, UnitNumber>({ key: 'UnitStatusParameterState_hp', default: (unit) => calculateUnitBaseHp(unit, UnitLv.initialState.value) });
 const _atk = atomFamily<MilliValue, UnitNumber>({ key: 'UnitStatusParameterState_atk', default: (unit) => calculateUnitBaseAtk(unit, UnitLv.initialState.value) });

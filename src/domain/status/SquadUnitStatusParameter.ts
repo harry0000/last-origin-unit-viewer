@@ -27,6 +27,7 @@ import {
   MicroValue,
   MilliPercentageValue,
   MilliValue,
+  ZeroMilliValue,
   multiplyMicroValue,
   multiplyMilliValue,
   reverseMicroValueSign,
@@ -325,7 +326,7 @@ class SquadUnitStatus {
     }
 
     this.#atk = atk;
-    this.#atkValueUpByUnitEffects = atkValueUpByUnitEffects.map(effect => ({ effect, value: { milliValue: 0 } }));
+    this.#atkValueUpByUnitEffects = atkValueUpByUnitEffects.map(effect => ({ effect, value: ZeroMilliValue }));
 
     this.#ap = sumMicroValues(...apEffectValues);
   }
@@ -388,7 +389,7 @@ export class SquadUnitStatusCalculator {
 
   #calculateAtk(): void {
     const repository: (unit: UnitNumber) => MilliValue =
-      (unit) => this.#units.get(unit)?.atkRateEffectValue ?? { milliValue: 0 };
+      (unit) => this.#units.get(unit)?.atkRateEffectValue ?? ZeroMilliValue;
 
     this.#units.forEach(unit => {
       unit.calculateAtkUpValueByUnit(repository);
