@@ -74,9 +74,9 @@ const _unitLvStatusState = atomFamily<UnitLvStatus, UnitNumber>({
   default: (unit) => new UnitLvStatus(unit)
 });
 
-const _lv             = atomFamily<UnitLvValue, UnitNumber>({ key: 'UnitLvStatusState_lv', default: 100 });
-const _lvMode         = atomFamily<UnitLvMode, UnitNumber>({ key: 'UnitLvStatusState_lvMode', default: UnitLvMode.Manual });
-const _remainPoints   = atomFamily<number, UnitNumber>({ key: 'UnitLvStatusState_remainPoints', default: 300 });
+const _lv             = atomFamily<UnitLvValue, UnitNumber>({ key: 'UnitLvStatusState_lv', default: UnitLv.initialState.value });
+const _lvMode         = atomFamily<UnitLvMode, UnitNumber>({ key: 'UnitLvStatusState_lvMode', default: UnitLv.initialState.mode });
+const _remainPoints   = atomFamily<number, UnitNumber>({ key: 'UnitLvStatusState_remainPoints', default: UnitLv.initialState.points });
 const _canResetPoints = atomFamily<boolean, UnitNumber>({ key: 'UnitLvStatusState_canResetPoints', default: false });
 
 const _enhanceLv ={
