@@ -114,7 +114,7 @@
       "range_up": "$t(form.full_link_bonus.range_up, { \"value\": 1 })",
       "buff_debuff_lv_2_up": "$t(form.full_link_bonus.buff_debuff_lv_up, { \"value\": 2 })"
     },
-    "link_all_slot": "500 %",
+    "link_all_slot": "フルリンク",
     "rank_up_conditions": {
       "empty": "未指定",
       "a": "Aランク昇級",
