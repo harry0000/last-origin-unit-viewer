@@ -10729,24 +10729,24 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'attack' }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 3 },
-            acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', max_stack: 3 }
+            atk_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', max_stack: 3 },
+            acc_up: { base: { milliPercentage: 12500 }, per_lv_up: { milliPercentage: 750 }, term: 'infinite', max_stack: 3 }
           }
         }
       }, {
         conditions: [{ trigger: 'kill' }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 3 },
-            acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', max_stack: 3 }
+            atk_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', max_stack: 3 },
+            acc_up: { base: { milliPercentage: 12500 }, per_lv_up: { milliPercentage: 750 }, term: 'infinite', max_stack: 3 }
           }
         }
       }, {
         conditions: [{ trigger: 'be_attacked' }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 3 },
-            acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', max_stack: 3 }
+            atk_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', max_stack: 3 },
+            acc_up: { base: { milliPercentage: 12500 }, per_lv_up: { milliPercentage: 750 }, term: 'infinite', max_stack: 3 }
           }
         }
       }]
