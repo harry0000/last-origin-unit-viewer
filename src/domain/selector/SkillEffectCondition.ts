@@ -44,6 +44,7 @@ export const OffensiveSkillEffectCondition = {
   AttackAssist: 'attack_assist',
   CooperativeAttack: 'cooperative_attack',
   DefensePenetration: 'defense_penetration',
+  IgnoreDef: 'ignore_def',
   IgnoreBarrierDR: 'ignore_barrier_dr',
   AntiLightUnitType: 'anti_light_unit_type',
   AntiFlyingUnitType: 'anti_flying_unit_type',
@@ -260,7 +261,9 @@ export function matchSkillConditions(
     case OffensiveSkillEffectCondition.CooperativeAttack:
       return checkActiveSkillEffect(actives, e => 'self' in e.details && !!e.details.self?.cooperative_attack);
     case OffensiveSkillEffectCondition.DefensePenetration:
-      return checkAllSkillEffectDetails(actives, passives, e => !!e.defense_penetration || !!e.ignore_def);
+      return checkAllSkillEffectDetails(actives, passives, e => !!e.defense_penetration);
+    case OffensiveSkillEffectCondition.IgnoreDef:
+      return checkAllSkillEffectDetails(actives, passives, e => !!e.ignore_def);
     case OffensiveSkillEffectCondition.IgnoreBarrierDR:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.ignore_barrier_dr);
     case OffensiveSkillEffectCondition.AntiLightUnitType:

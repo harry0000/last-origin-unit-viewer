@@ -101,6 +101,11 @@ export type SkillEffectTag =
   'now_copy_me' |
   'miss_olympia' |
   'gold_forged_through_hundred_refinement' |
+  'four_ounces_deflects_thousand_pounds' |
+  'sanctuary_proclamation' |
+  'patron_saint' |
+  'warm_up' |
+  'brute_force_attack' |
   'hit_vital_spot' |
   'magical_girl_at_centurys_end' |
   'growing_magical_girl' |

@@ -61,6 +61,7 @@
       "attack_assist": "攻撃支援/再攻撃",
       "cooperative_attack": "協同攻撃",
       "defense_penetration": "防御貫通",
+      "ignore_def": "防御力無視",
       "ignore_barrier_dr": "バリア/被ダメージDown無視",
       "anti_light_unit_type": "対軽装ダメージUp",
       "anti_flying_unit_type": "対機動ダメージUp",
@@ -114,7 +115,7 @@
       "range_up": "$t(form.full_link_bonus.range_up, { \"value\": 1 })",
       "buff_debuff_lv_2_up": "$t(form.full_link_bonus.buff_debuff_lv_up, { \"value\": 2 })"
     },
-    "link_all_slot": "500 %",
+    "link_all_slot": "フルリンク",
     "rank_up_conditions": {
       "empty": "未指定",
       "a": "Aランク昇級",
