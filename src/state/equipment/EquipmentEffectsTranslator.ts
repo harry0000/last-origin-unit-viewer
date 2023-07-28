@@ -128,6 +128,7 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   case Effect.DefensePenetration:
   case Effect.DamageTakenIncreased:
   case Effect.DamageReductionUp:
+  case Effect.AllBuffRemovalResistUp:
   case Effect.Counterattack:
     return buildDetail(
       t(`effect:effect.description.${entry[0]}`, { value: calcMilliPercentageValue(entry[1]) }),

@@ -887,6 +887,62 @@ export const unitRankUpBonusData = {
       acc_up: { milliPercentage: 3000 },
       eva_up: { milliPercentage: 2500 },
       spd_up: { microValue: 30000 }
+    },
+    s: {
+      hp_up: { value: 50 },
+      atk_up: { milliValue: 32000 },
+      def_up: { milliValue: 30000 },
+      cri_up: { milliPercentage: 6000 },
+      acc_up: { milliPercentage: 3000 },
+      eva_up: { milliPercentage: 2500 }
+    },
+    ss: {
+      hp_up: { value: 50 },
+      atk_up: { milliValue: 50000 },
+      def_up: { milliValue: 35000 },
+      cri_up: { milliPercentage: 5000 },
+      acc_up: { milliPercentage: 4000 },
+      eva_up: { milliPercentage: 2500 }
+    }
+  },
+  121: {
+    a: {
+      hp_up: { value: 100 },
+      atk_up: { milliValue: 10000 },
+      def_up: { milliValue: 20000 },
+      acc_up: { milliPercentage: 10000 },
+      spd_up: { microValue: 30000 }
+    },
+    s: {
+      hp_up: { value: 100 },
+      atk_up: { milliValue: 10000 },
+      def_up: { milliValue: 20000 },
+      acc_up: { milliPercentage: 10000 },
+      spd_up: { microValue: 40000 }
+    },
+    ss: {
+      hp_up: { value: 100 },
+      atk_up: { milliValue: 15000 },
+      def_up: { milliValue: 35000 },
+      acc_up: { milliPercentage: 10000 },
+      spd_up: { microValue: 30000 }
+    }
+  },
+  122: {
+    s: {
+      hp_up: { value: 150 },
+      atk_up: { milliValue: 25000 },
+      def_up: { milliValue: 50000 },
+      cri_up: { milliPercentage: 10000 },
+      acc_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 50000 }
+    },
+    ss: {
+      hp_up: { value: 150 },
+      atk_up: { milliValue: 25000 },
+      def_up: { milliValue: 50000 },
+      cri_up: { milliPercentage: 10000 },
+      acc_up: { milliPercentage: 5000 }
     }
   },
   123: {

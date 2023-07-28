@@ -97,6 +97,7 @@ type NotAffectedActivationState =
     [EffectActivationState.NotAffected]?:
       readonly [typeof Effect.DefUp, typeof Effect.DamageReductionUp] |
       readonly [typeof Effect.SpdUp] |
+      readonly [typeof Effect.StatusResistUp] |
       readonly [typeof Effect.DamageReductionUp] |
       readonly [typeof Effect.BattleContinuation] |
       readonly [typeof Effect.RowProtect] |
@@ -123,6 +124,7 @@ const AffectedSkillEffect = [
   Effect.ElectricResistUp,
   Effect.ElectricResistDown,
   Effect.StatusResistUp,
+  Effect.StatusResistDown,
   Effect.RangeUp,
   Effect.LightTypeDamageUp,
   Effect.HeavyTypeDamageUp,
@@ -163,7 +165,8 @@ const AffectedAnyTypeEffect = [
   Effect.TargetProtect,
   Effect.Counterattack,
   Effect.Reconnaissance,
-  Effect.Marked
+  Effect.Marked,
+  Effect.IgnoreDef
 ] as const;
 export type AffectedAnyTypeEffect = typeof AffectedAnyTypeEffect extends ReadonlyArray<infer T> ? T : never;
 
