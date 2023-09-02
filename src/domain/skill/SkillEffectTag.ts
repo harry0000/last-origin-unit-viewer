@@ -144,6 +144,7 @@ export type SkillEffectTag =
   'villain' |
   'brainwashing_wave' |
   'wind_style' |
+  'motherhood' |
   'charge_electrically' |
   'high_voltage' |
   'death_blow' |
@@ -165,6 +166,7 @@ export type SkillEffectTag =
   'charmed' |
   'vocal_nodules' |
   'smooth' |
+  'alternate_power_source' |
   'tactical_data_link' |
   'passive_radar' |
   'command_induction' |

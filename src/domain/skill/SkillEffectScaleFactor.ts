@@ -48,7 +48,8 @@ export type SkillEffectScaleFactor =
           'Horizon' |
           'TomosFriends' |
           'CityGuard' |
-          'KouheiChurch'
+          'KouheiChurch' |
+          'Elven'
         ] |
         AlvisSkillEffectScaleFactor |
         typeof SkillAreaType.CrossAdjacent,
