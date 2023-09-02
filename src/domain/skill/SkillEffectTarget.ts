@@ -25,7 +25,7 @@ export type AlliedUnitTarget = Readonly<{
   conditions?:
     ReadonlyArray<
       UnitNumber |
-      ExceptUnit<128> |
+      ExceptUnit<128 | 133 | 135> |
       UnitKind | UnitType | UnitRole |
       UnitTypeAndRole |
       UnitAlias | UnitAliasAndType | UnitAliasAndRole | UnitAliasExceptUnit |
