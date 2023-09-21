@@ -11,6 +11,7 @@ export const EffectActivationState = {
   Affected: 'affected',
   NotAffected: 'not_affected',
   AffectedBy: 'affected_by',
+  AffectedActiveBy: 'affected_active_by',
   Tagged: 'tagged',
   NotTagged: 'not_tagged',
   TaggedAffected: 'tagged_affected',

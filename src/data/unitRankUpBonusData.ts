@@ -688,6 +688,16 @@ export const unitRankUpBonusData = {
       spd_up: { microValue: 40000 }
     }
   },
+  97: {
+    ss: {
+      hp_up: { value: 109 },
+      atk_up: { milliValue: 100000 },
+      def_up: { milliValue: 98000 },
+      cri_up: { milliPercentage: 8000 },
+      acc_up: { milliPercentage: 10000 },
+      spd_up: { microValue: 50000 }
+    }
+  },
   104: {
     ss: {
       hp_up: { value: 200 },

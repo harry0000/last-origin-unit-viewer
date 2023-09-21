@@ -269,6 +269,9 @@ export type ActivationTargetState =
     [EffectActivationState.Unit]?: typeof UnitAlias.SteelLine | typeof UnitType.Flying
   } &
   {
+    [EffectActivationState.AffectedActiveBy]?: { alias: typeof UnitAlias.PECSDesigners }
+  } &
+  {
     [EffectActivationState.Tagged]?:
       SkillEffectTag |
       // The following is AND condition
@@ -284,6 +287,17 @@ export type ActivationTargetState =
     }
   } &
   NotAffectedActivationState
+
+export type InSquadTaggedUnitState =
+  Readonly<{ [EffectActivationState.Tagged]: 'younger_sister' | 'reinforced_exoskeleton' }> |
+  Readonly<{
+    [EffectActivationState.Tagged]: 'cousette' | 'midinette' | 'trottin',
+    [EffectActivationState.Unit]: 97,
+  }> |
+  Readonly<{
+    [EffectActivationState.Tagged]: 'guiding_technique' | 'balance_seeker' | 'secretive_research',
+    [EffectActivationState.Unit]: 106,
+  }>
 
 type InSquadStateUnit =
   UnitNumber |
@@ -304,8 +318,8 @@ type InSquadStateUnit =
   Readonly<UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter>> |
   Readonly<UnitAliasAndRole<typeof UnitAlias['MongooseTeam'], typeof UnitRole.Defender>> |
   Readonly<UnitAliasAndRole<typeof UnitAlias['Strikers'], typeof UnitRole.Attacker>> |
-  Readonly<{ [EffectActivationState.Tagged]: 'younger_sister' | 'reinforced_exoskeleton' }> |
   Readonly<{ [EffectActivationState.AffectedBy]: { unit: 83, effect: typeof Effect.TargetProtect } }> |
+  InSquadTaggedUnitState |
   ArmoredBulgasari |
   'golden_factory'
 
@@ -353,13 +367,16 @@ export type ActivationSquadState = InSquadState | NotInSquadState | NumOfUnitsIn
 export type ActivationEnemyState = {
   [EffectActivationState.NumOfUnits]:
     { equal: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 } |
-    { equal: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9, unit: typeof UnitRole.Defender} |
+    { equal: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9, unit: typeof UnitRole.Defender } |
     { greater_or_equal: 1, less_or_equal: 2 } |
     { greater_or_equal: 3, less_or_equal: 4 } |
     { greater_or_equal: 5, less_or_equal: 6 } |
     { greater_or_equal: 1, unit: typeof UnitType.Flying } |
     { greater_or_equal: 3, unit: typeof UnitType.Heavy } |
     { greater_or_equal: 5 | 6 | 7 }
+} | {
+  [EffectActivationState.NumOfUnits]: { equal: 1 },
+  [EffectActivationState.Unit]: UnitType
 }
 
 type JangHwaActivationSquadState =

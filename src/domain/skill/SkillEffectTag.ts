@@ -81,6 +81,12 @@ export type SkillEffectTag =
   'where_are_you_looking_at' |
   'stealth_camouflage' |
   'overwhelming_cuteness' |
+  'cousette' |
+  'midinette' |
+  'trottin' |
+  'tailor_made_cutting_light' |
+  'tailor_made_cutting_flying' |
+  'tailor_made_cutting_heavy' |
   'full_proficiency' |
   'receiving_observation_data' |
   'guiding_technique' |

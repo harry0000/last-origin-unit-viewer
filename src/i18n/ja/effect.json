@@ -40,6 +40,7 @@
     "armored_maiden": "アーマードメイデン",
     "experimental_units": "X-系実験機",
     "horizon": "ホライゾン",
+    "pecs_designers": "PECSの衣装デザイナー",
     "kunoichi": "クノイチ",
     "elven": "エルブン型バイオロイド",
     "tomos_friends": "トモの友達",
@@ -161,6 +162,12 @@
     "where_are_you_looking_at": "どこ見てるの?",
     "stealth_camouflage": "ステルス偽装",
     "overwhelming_cuteness": "圧倒的な可愛さ？",
+    "cousette": "cousette",
+    "midinette": "midinette",
+    "trottin": "trottin",
+    "tailor_made_cutting_light": "オーダーメイド裁断(軽装型)",
+    "tailor_made_cutting_flying": "オーダーメイド裁断(機動型)",
+    "tailor_made_cutting_heavy":  "オーダーメイド裁断(重装型)",
     "full_proficiency": "免許皆伝",
     "receiving_observation_data": "受信中⋯",
     "guiding_technique": "技術先導",
@@ -370,7 +377,8 @@
       "affected_by": "$t(effect:quote)$t(unit:display, { \"number\": {{unit}} })$t(effect:unquote)のスキル効果を受けている",
       "affected_by_alias": "のパッシブスキルの効果を受けている",
       "affected_effect_by": "$t(effect:quote)$t(unit:display, { \"number\": {{unit}} })$t(effect:unquote)から$t(effect:effect.name.{{effect}})の効果を受けている",
-      "affected_equipment_effect_by": "$t(effect:quote)$t(equipment:{{equipment}})$t(effect:unquote)の$t(effect:effect.name.{{effect}})の効果を受けている"
+      "affected_equipment_effect_by": "$t(effect:quote)$t(equipment:{{equipment}})$t(effect:unquote)の$t(effect:effect.name.{{effect}})の効果を受けている",
+      "affected_active_by_alias": "のアクティブスキルの効果を受けている"
     },
     "grid": {
       "front_line": "前列",
