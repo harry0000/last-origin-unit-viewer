@@ -5,7 +5,8 @@ import {
   IntegerValueEffectKey,
   MicroValueEffectKey,
   MilliPercentageEffectKey,
-  NoValueEffectKey
+  NoValueEffectKey,
+  RangeValueEffectKey
 } from './EquipmentEffect';
 import {
   IntegerValueStatusEffectKey,
@@ -116,7 +117,7 @@ export type EquipmentEffectValueData<R extends EquipmentRank> = Readonly<{
       Readonly<{ effect: Effect } | { effects: ReadonlyArray<Effect> }> & EffectAdditionData<R> :
     E extends typeof Effect.ActivationRatePercentageUp ?
       Readonly<{ effect: Effect, tag: SkillEffectTag }> & MilliPercentageValue<R> & EffectAdditionData<R> :
-    E extends typeof Effect['RangeUp' | 'RangeDown']?
+    E extends RangeValueEffectKey ?
       IntegerValue<R, 1 | 2> & EffectAdditionData<R> :
     E extends typeof Effect.BattleContinuation ?
       IntegerValue<R> & EffectAdditionData<R> |

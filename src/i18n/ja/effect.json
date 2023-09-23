@@ -606,6 +606,7 @@
       "range_up": "射程距離 +{{value}}",
       "range_down": "射程距離 -{{value}}",
 
+      "range_up_active_1": "スキル1の射程距離 +{{value}}",
       "range_down_active_1": "スキル1の射程距離 -1",
       "range_up_active_2": "スキル2の射程距離 +{{value}}",
       "action_count_up": "最大行動回数 +1",

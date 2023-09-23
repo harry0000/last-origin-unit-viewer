@@ -3051,6 +3051,26 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { milliPercentage: 90000, term: 'infinite', times: 1 }, counterattack: { milliPercentage: 110000, term: 'infinite' } } }]
     ]
   },
+  cage_once_held_blue_bird: {
+    type: 'gear',
+    id: 'cage_once_held_blue_bird',
+    exclusive: {
+      unit: 77
+    },
+    equipment_effects: [
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 20000, term: { for_rounds: 1 } }, action_count_up: { term: { for_rounds: 1 } }, range_up_active_1: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 23000, term: { for_rounds: 1 } }, action_count_up: { term: { for_rounds: 1 } }, range_up_active_1: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 26000, term: { for_rounds: 1 } }, action_count_up: { term: { for_rounds: 1 } }, range_up_active_1: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 29000, term: { for_rounds: 1 } }, action_count_up: { term: { for_rounds: 1 } }, range_up_active_1: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 32000, term: { for_rounds: 1 } }, action_count_up: { term: { for_rounds: 1 } }, range_up_active_1: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 35000, term: { for_rounds: 1 } }, action_count_up: { term: { for_rounds: 1 } }, range_up_active_1: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 38000, term: { for_rounds: 1 } }, action_count_up: { term: { for_rounds: 1 } }, range_up_active_1: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 41000, term: { for_rounds: 1 } }, action_count_up: { term: { for_rounds: 1 } }, range_up_active_1: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 44000, term: { for_rounds: 1 } }, action_count_up: { term: { for_rounds: 1 } }, range_up_active_1: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 47000, term: { for_rounds: 1 } }, action_count_up: { term: { for_rounds: 1 } }, range_up_active_1: { value: 1, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 50000, term: { for_rounds: 1 } }, action_count_up: { term: { for_rounds: 1 } }, range_up_active_1: { value: 2, term: { for_rounds: 1 } } } }]
+    ]
+  },
   counterterrorism_body_armor: {
     type: 'gear',
     id: 'counterterrorism_body_armor',
