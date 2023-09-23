@@ -3481,6 +3481,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }]
     ]
   },
+  space: {
+    type: 'gear',
+    id: 'space',
+    exclusive: {
+      unit: 104
+    },
+    status_effects: [
+      { atk_up: { milliValue: 100000 } },
+      { atk_up: { milliValue: 110000 } },
+      { atk_up: { milliValue: 120000 } },
+      { atk_up: { milliValue: 130000 } },
+      { atk_up: { milliValue: 140000 } },
+      { atk_up: { milliValue: 150000 } },
+      { atk_up: { milliValue: 160000 } },
+      { atk_up: { milliValue: 170000 } },
+      { atk_up: { milliValue: 180000 } },
+      { atk_up: { milliValue: 190000 } },
+      { atk_up: { milliValue: 200000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }]
+    ]
+  },
   space_booster: {
     type: 'gear',
     id: 'space_booster',

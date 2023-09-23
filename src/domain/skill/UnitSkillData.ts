@@ -14,6 +14,7 @@ import {
   PintoForm,
   RampartForm,
   SirenForm,
+  SpartoiaForm,
   UllrForm
 } from '../UnitFormValue';
 import { ActiveSkillEffective } from './SkillEffective';
@@ -288,6 +289,21 @@ type SirenSkillData = Readonly<{
     ]
 }>
 
+type SpartoiaSkillData = Readonly<{
+  no: typeof FormChangeUnits.Spartoia,
+  active:
+    readonly [
+      { readonly [key in SpartoiaForm]: ActiveSkillData },
+      { readonly [key in SpartoiaForm]: ActiveSkillData }
+    ],
+  passive:
+    readonly [
+      PassiveSkillData,
+      { readonly [key in SpartoiaForm]: PassiveSkillData },
+      { readonly [key in SpartoiaForm]: PassiveSkillData },
+    ]
+}>
+
 type RampartSkillData = Readonly<{
   no: typeof FormChangeUnits.Rampart,
   active:
@@ -385,6 +401,7 @@ type UnitSkill<N extends UnitNumber> =
   N extends BulgasariSkillData['no'] ? BulgasariSkillData :
   N extends InvincibleDragonSkillData['no'] ? InvincibleDragonSkillData :
   N extends SirenSkillData['no'] ? SirenSkillData :
+  N extends SpartoiaSkillData['no'] ? SpartoiaSkillData :
   N extends RampartSkillData['no'] ? RampartSkillData :
   N extends MightyRSkillData['no'] ? MightyRSkillData :
   N extends UllrSkillData['no'] ? UllrSkillData :

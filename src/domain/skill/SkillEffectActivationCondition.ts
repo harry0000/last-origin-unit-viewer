@@ -95,6 +95,7 @@ type AffectedByActivationState =
 type NotAffectedActivationState =
   Readonly<{
     [EffectActivationState.NotAffected]?:
+      readonly [typeof Effect.DefUp] |
       readonly [typeof Effect.DefUp, typeof Effect.DamageReductionUp] |
       readonly [typeof Effect.SpdUp] |
       readonly [typeof Effect.StatusResistUp] |
