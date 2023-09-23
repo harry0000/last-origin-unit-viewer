@@ -3362,6 +3362,26 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 25000, term: 'infinite' } } }]
     ]
   },
+  mmo_rpg: {
+    type: 'gear',
+    id: 'mmo_rpg',
+    exclusive: {
+      unit: 123
+    },
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 20000, term: { for_rounds: 999 } }, range_up: { value: 1, term: { for_rounds: 999 } }, battle_continuation: { value: 150, term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 22000, term: { for_rounds: 999 } }, range_up: { value: 1, term: { for_rounds: 999 } }, battle_continuation: { value: 165, term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 24000, term: { for_rounds: 999 } }, range_up: { value: 1, term: { for_rounds: 999 } }, battle_continuation: { value: 180, term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 26000, term: { for_rounds: 999 } }, range_up: { value: 1, term: { for_rounds: 999 } }, battle_continuation: { value: 195, term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 28000, term: { for_rounds: 999 } }, range_up: { value: 1, term: { for_rounds: 999 } }, battle_continuation: { value: 210, term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 30000, term: { for_rounds: 999 } }, range_up: { value: 1, term: { for_rounds: 999 } }, battle_continuation: { value: 225, term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 32000, term: { for_rounds: 999 } }, range_up: { value: 1, term: { for_rounds: 999 } }, battle_continuation: { value: 240, term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 34000, term: { for_rounds: 999 } }, range_up: { value: 1, term: { for_rounds: 999 } }, battle_continuation: { value: 255, term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 36000, term: { for_rounds: 999 } }, range_up: { value: 1, term: { for_rounds: 999 } }, battle_continuation: { value: 270, term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 38000, term: { for_rounds: 999 } }, range_up: { value: 1, term: { for_rounds: 999 } }, battle_continuation: { value: 285, term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 40000, term: { for_rounds: 999 } }, range_up: { value: 1, term: { for_rounds: 999 } }, battle_continuation: { value: 300, term: { for_rounds: 999 } } } }]
+    ]
+  },
   pest_shredder: {
     type: 'gear',
     id: 'pest_shredder',
