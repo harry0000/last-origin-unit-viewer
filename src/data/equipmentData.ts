@@ -2866,6 +2866,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 75000, term: 'infinite' } } }]
     ]
   },
+  anatolian_hookah: {
+    type: 'gear',
+    id: 'anatolian_hookah',
+    exclusive: {
+      unit: 193
+    },
+    status_effects: [
+      { fire_resist_up: { milliPercentage: 20000 }, ice_resist_up: { milliPercentage: 20000 }, electric_resist_up: { milliPercentage: 20000 } },
+      { fire_resist_up: { milliPercentage: 22000 }, ice_resist_up: { milliPercentage: 22000 }, electric_resist_up: { milliPercentage: 22000 } },
+      { fire_resist_up: { milliPercentage: 24000 }, ice_resist_up: { milliPercentage: 24000 }, electric_resist_up: { milliPercentage: 24000 } },
+      { fire_resist_up: { milliPercentage: 26000 }, ice_resist_up: { milliPercentage: 26000 }, electric_resist_up: { milliPercentage: 26000 } },
+      { fire_resist_up: { milliPercentage: 28000 }, ice_resist_up: { milliPercentage: 28000 }, electric_resist_up: { milliPercentage: 28000 } },
+      { fire_resist_up: { milliPercentage: 30000 }, ice_resist_up: { milliPercentage: 30000 }, electric_resist_up: { milliPercentage: 30000 } },
+      { fire_resist_up: { milliPercentage: 32000 }, ice_resist_up: { milliPercentage: 32000 }, electric_resist_up: { milliPercentage: 32000 } },
+      { fire_resist_up: { milliPercentage: 34000 }, ice_resist_up: { milliPercentage: 34000 }, electric_resist_up: { milliPercentage: 34000 } },
+      { fire_resist_up: { milliPercentage: 36000 }, ice_resist_up: { milliPercentage: 36000 }, electric_resist_up: { milliPercentage: 36000 } },
+      { fire_resist_up: { milliPercentage: 38000 }, ice_resist_up: { milliPercentage: 38000 }, electric_resist_up: { milliPercentage: 38000 } },
+      { fire_resist_up: { milliPercentage: 40000 }, ice_resist_up: { milliPercentage: 40000 }, electric_resist_up: { milliPercentage: 40000 } }
+    ],
+    effects: [
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { self: { atk_up: { milliPercentage:  5000, term: { for_rounds: 2 } }, acc_up: { milliPercentage:  5000, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  5000, term: { for_rounds: 2 } }, action_count_up: { term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { self: { atk_up: { milliPercentage:  5500, term: { for_rounds: 2 } }, acc_up: { milliPercentage:  5500, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  5500, term: { for_rounds: 2 } }, action_count_up: { term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { self: { atk_up: { milliPercentage:  6000, term: { for_rounds: 2 } }, acc_up: { milliPercentage:  6000, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  6000, term: { for_rounds: 2 } }, action_count_up: { term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { self: { atk_up: { milliPercentage:  6500, term: { for_rounds: 2 } }, acc_up: { milliPercentage:  6500, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  6500, term: { for_rounds: 2 } }, action_count_up: { term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { self: { atk_up: { milliPercentage:  7000, term: { for_rounds: 2 } }, acc_up: { milliPercentage:  7000, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  7000, term: { for_rounds: 2 } }, action_count_up: { term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { self: { atk_up: { milliPercentage:  7500, term: { for_rounds: 2 } }, acc_up: { milliPercentage:  7500, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  7500, term: { for_rounds: 2 } }, action_count_up: { term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { self: { atk_up: { milliPercentage:  8000, term: { for_rounds: 2 } }, acc_up: { milliPercentage:  8000, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  8000, term: { for_rounds: 2 } }, action_count_up: { term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { self: { atk_up: { milliPercentage:  8500, term: { for_rounds: 2 } }, acc_up: { milliPercentage:  8500, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  8500, term: { for_rounds: 2 } }, action_count_up: { term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { self: { atk_up: { milliPercentage:  9000, term: { for_rounds: 2 } }, acc_up: { milliPercentage:  9000, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  9000, term: { for_rounds: 2 } }, action_count_up: { term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { self: { atk_up: { milliPercentage:  9500, term: { for_rounds: 2 } }, acc_up: { milliPercentage:  9500, term: { for_rounds: 2 } }, cri_up: { milliPercentage:  9500, term: { for_rounds: 2 } }, action_count_up: { term: { for_rounds: 2 } } } } }],
+      [{ condition: { trigger: 'start_round', round: 'odd' }, details: { self: { atk_up: { milliPercentage: 10000, term: { for_rounds: 2 } }, acc_up: { milliPercentage: 10000, term: { for_rounds: 2 } }, cri_up: { milliPercentage: 10000, term: { for_rounds: 2 } }, action_count_up: { term: { for_rounds: 2 } } } } }]
+    ]
+  },
   aesa_air_radar: {
     type: 'gear',
     id: 'aesa_air_radar',
