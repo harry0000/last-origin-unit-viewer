@@ -1183,6 +1183,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { eva_up: { milliPercentage: 40000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 15000, term: 'infinite' }, silenced: { term: 'infinite', times: 1 } } }, { condition: { trigger: 'be_attacked' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }]
     ]
   },
+  laplacian_globe_os: {
+    type: 'os',
+    id: 'laplacian_globe_os',
+    exclusive: {
+      unit: 129
+    },
+    status_effects: [
+      { cri_up: { milliPercentage: 10000 }, spd_up: { microValue: 100000 } },
+      { cri_up: { milliPercentage: 11000 }, spd_up: { microValue: 110000 } },
+      { cri_up: { milliPercentage: 12000 }, spd_up: { microValue: 120000 } },
+      { cri_up: { milliPercentage: 13000 }, spd_up: { microValue: 130000 } },
+      { cri_up: { milliPercentage: 14000 }, spd_up: { microValue: 140000 } },
+      { cri_up: { milliPercentage: 15000 }, spd_up: { microValue: 150000 } },
+      { cri_up: { milliPercentage: 16000 }, spd_up: { microValue: 160000 } },
+      { cri_up: { milliPercentage: 17000 }, spd_up: { microValue: 170000 } },
+      { cri_up: { milliPercentage: 18000 }, spd_up: { microValue: 180000 } },
+      { cri_up: { milliPercentage: 19000 }, spd_up: { microValue: 190000 } },
+      { cri_up: { milliPercentage: 20000 }, spd_up: { microValue: 200000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_round' }, details: { light_type_damage_up: { milliPercentage:  5000, term: { for_rounds: 1 } }, flying_type_damage_up: { milliPercentage:  5000, term: { for_rounds: 1 } }, heavy_type_damage_up: { milliPercentage:  5000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { light_type_damage_up: { milliPercentage:  5500, term: { for_rounds: 1 } }, flying_type_damage_up: { milliPercentage:  5500, term: { for_rounds: 1 } }, heavy_type_damage_up: { milliPercentage:  5500, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { light_type_damage_up: { milliPercentage:  6000, term: { for_rounds: 1 } }, flying_type_damage_up: { milliPercentage:  6000, term: { for_rounds: 1 } }, heavy_type_damage_up: { milliPercentage:  6000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { light_type_damage_up: { milliPercentage:  6500, term: { for_rounds: 1 } }, flying_type_damage_up: { milliPercentage:  6500, term: { for_rounds: 1 } }, heavy_type_damage_up: { milliPercentage:  6500, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { light_type_damage_up: { milliPercentage:  7000, term: { for_rounds: 1 } }, flying_type_damage_up: { milliPercentage:  7000, term: { for_rounds: 1 } }, heavy_type_damage_up: { milliPercentage:  7000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { light_type_damage_up: { milliPercentage:  7500, term: { for_rounds: 1 } }, flying_type_damage_up: { milliPercentage:  7500, term: { for_rounds: 1 } }, heavy_type_damage_up: { milliPercentage:  7500, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { light_type_damage_up: { milliPercentage:  8000, term: { for_rounds: 1 } }, flying_type_damage_up: { milliPercentage:  8000, term: { for_rounds: 1 } }, heavy_type_damage_up: { milliPercentage:  8000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { light_type_damage_up: { milliPercentage:  8500, term: { for_rounds: 1 } }, flying_type_damage_up: { milliPercentage:  8500, term: { for_rounds: 1 } }, heavy_type_damage_up: { milliPercentage:  8500, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { light_type_damage_up: { milliPercentage:  9000, term: { for_rounds: 1 } }, flying_type_damage_up: { milliPercentage:  9000, term: { for_rounds: 1 } }, heavy_type_damage_up: { milliPercentage:  9000, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { light_type_damage_up: { milliPercentage:  9500, term: { for_rounds: 1 } }, flying_type_damage_up: { milliPercentage:  9500, term: { for_rounds: 1 } }, heavy_type_damage_up: { milliPercentage:  9500, term: { for_rounds: 1 } } } }],
+      [{ condition: { trigger: 'start_round' }, details: { light_type_damage_up: { milliPercentage: 10000, term: { for_rounds: 1 } }, flying_type_damage_up: { milliPercentage: 10000, term: { for_rounds: 1 } }, heavy_type_damage_up: { milliPercentage: 10000, term: { for_rounds: 1 } } } }]
+    ]
+  },
   lrad_enhancement_os: {
     type: 'os',
     id: 'lrad_enhancement_os',
