@@ -3712,6 +3712,26 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { heavy_type_damage_up: { milliPercentage: 25000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' }, reconnaissance: { term: 'infinite' } } }]
     ]
   },
+  three_authorities: {
+    type: 'gear',
+    id: 'three_authorities',
+    exclusive: {
+      unit: 85
+    },
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1000000, term: 'immediate' }, spd_up: { milliPercentage:  5000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1100000, term: 'immediate' }, spd_up: { milliPercentage:  6000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1200000, term: 'immediate' }, spd_up: { milliPercentage:  7000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1300000, term: 'immediate' }, spd_up: { milliPercentage:  8000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1400000, term: 'immediate' }, spd_up: { milliPercentage:  9000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1500000, term: 'immediate' }, spd_up: { milliPercentage: 10000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1600000, term: 'immediate' }, spd_up: { milliPercentage: 11000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1700000, term: 'immediate' }, spd_up: { milliPercentage: 12000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1800000, term: 'immediate' }, spd_up: { milliPercentage: 13000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1900000, term: 'immediate' }, spd_up: { milliPercentage: 14000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 2000000, term: 'immediate' }, spd_up: { milliPercentage: 15000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }]
+    ]
+  },
   smar_stone: {
     type: 'gear',
     id: 'smar_stone',
