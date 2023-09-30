@@ -9462,8 +9462,8 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { ap_up: { base: { microValue: 2000000 }, per_lv_up: { microValue: 100000 } } } }
       }, {
         conditions: [
-          { trigger: 'hit', state: { self: [{ tagged: 'guiding_technique' }] } },
-          { trigger: 'hit', state: { squad: { in_squad: { unit: 97, tagged: 'cousette' } } } }
+          { state: { self: [{ tagged: 'guiding_technique' }] } },
+          { state: { squad: { in_squad: { unit: 97, tagged: 'cousette' } } } }
         ],
         target: { kind: 'ally' },
         details: {
@@ -9474,8 +9474,8 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [
-          { trigger: 'hit', state: { self: [{ tagged: 'balance_seeker' }] } },
-          { trigger: 'hit', state: { squad: { in_squad: { unit: 97, tagged: 'midinette' } } } }
+          { state: { self: [{ tagged: 'balance_seeker' }] } },
+          { state: { squad: { in_squad: { unit: 97, tagged: 'midinette' } } } }
         ],
         target: { kind: 'ally' },
         details: {
@@ -9486,8 +9486,8 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [
-          { trigger: 'hit', state: { self: [{ tagged: 'secretive_research' }] } },
-          { trigger: 'hit', state: { squad: { in_squad: { unit: 97, tagged: 'trottin' } } } }
+          { state: { self: [{ tagged: 'secretive_research' }] } },
+          { state: { squad: { in_squad: { unit: 97, tagged: 'trottin' } } } }
         ],
         target: { kind: 'ally' },
         details: {
