@@ -26,10 +26,11 @@ export function buildEffectIconSrcUrl(effect: Effect): string | undefined {
     return buildIconSrcUrl(Effect.ApUp);
   case Effect.SpdDown:
     return buildIconSrcUrl(Effect.ApDown);
-  case Effect.RangeDownActive1:
-    return buildIconSrcUrl(Effect.RangeDown);
+  case Effect.RangeUpActive1:
   case Effect.RangeUpActive2:
     return buildIconSrcUrl(Effect.RangeUp);
+  case Effect.RangeDownActive1:
+    return buildIconSrcUrl(Effect.RangeDown);
   case Effect.LimitActionCount:
     return buildIconSrcUrl(Effect.ActionCountDown);
   case Effect.DamageReductionDown:

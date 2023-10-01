@@ -13,33 +13,24 @@ import { UnitNumber } from '../UnitBasicInfo';
 export function extractAllActiveSkills(skill: UnitSkillData[UnitNumber]): ReadonlyArray<ActiveSkillData | ActiveSkillDataAsEquipmentEffect> {
   switch (skill.no) {
   case FormChangeUnits.Alexandra:
-    return [...skill.active.flatMap(as => Object.values(as))];
   case FormChangeUnits.BloodyPanther:
-    return [...skill.active.flatMap(as => Object.values(as))];
-  case FormChangeUnits.Emily:
-    return [skill.active[0], ...Object.values(skill.active[1])];
   case FormChangeUnits.Phantom:
-    return [...skill.active.flatMap(as => Object.values(as))];
-  case FormChangeUnits.Pinto:
-    return [skill.active[0], ...Object.values(skill.active[1])];
   case FormChangeUnits.Bulgasari:
-    return [...skill.active.flatMap(as => Object.values(as))];
   case FormChangeUnits.InvincibleDragon:
-    return [...skill.active.flatMap(as => Object.values(as))];
   case FormChangeUnits.Siren:
+  case FormChangeUnits.Olivia:
+  case FormChangeUnits.Spartoia:
+  case FormChangeUnits.MightyR:
+  case FormChangeUnits.Ullr:
+  case FormChangeUnits.JangHwa:
+  case FormChangeUnits.Fortress:
+  case FormChangeUnits.Peregrinus:
     return [...skill.active.flatMap(as => Object.values(as))];
   case FormChangeUnits.Rampart:
     return [...Object.values(skill.active[0]), skill.active[1]];
-  case FormChangeUnits.MightyR:
-    return [...skill.active.flatMap(as => Object.values(as))];
-  case FormChangeUnits.Ullr:
-    return [...skill.active.flatMap(as => Object.values(as))];
-  case FormChangeUnits.JangHwa:
-    return [...skill.active.flatMap(as => Object.values(as))];
-  case FormChangeUnits.Fortress:
-    return [...skill.active.flatMap(as => Object.values(as))];
-  case FormChangeUnits.Peregrinus:
-    return [...skill.active.flatMap(as => Object.values(as))];
+  case FormChangeUnits.Emily:
+  case FormChangeUnits.Pinto:
+    return [skill.active[0], ...Object.values(skill.active[1])];
   default:
     return skill.active;
   }
@@ -76,6 +67,14 @@ export function extractAllPassiveSkills(skill: UnitSkillData[UnitNumber]): Reado
       skill.passive[0],
       ...Object.values(skill.passive[1]),
       skill.passive[2]
+    ];
+  case FormChangeUnits.Olivia:
+    return skill.passive;
+  case FormChangeUnits.Spartoia:
+    return [
+      skill.passive[0],
+      ...Object.values(skill.passive[1]),
+      ...Object.values(skill.passive[2])
     ];
   case FormChangeUnits.Rampart:
     return skill.passive;

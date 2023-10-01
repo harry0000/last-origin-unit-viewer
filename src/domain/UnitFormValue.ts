@@ -11,6 +11,8 @@ export const FormChangeUnits = {
   Bulgasari: 84,
   InvincibleDragon: 85,
   Siren: 89,
+  Olivia: 98,
+  Spartoia: 104,
   Rampart: 114,
   MightyR: 119,
   Ullr: 152,
@@ -58,6 +60,14 @@ export const UnitForms = {
     default: 'interception',
     changed: 'bombarding'
   },
+  [FormChangeUnits.Olivia]: {
+    default: 'normal',
+    changed: 'thimble'
+  },
+  [FormChangeUnits.Spartoia]: {
+    default: 'normal',
+    changed: 'space'
+  },
   [FormChangeUnits.Rampart]: {
     default: 'normal',
     changed: 'offensive_tactics'
@@ -99,6 +109,8 @@ export type PintoForm            = FormPerUnit<typeof FormChangeUnits.Pinto>
 export type BulgasariForm        = FormPerUnit<typeof FormChangeUnits.Bulgasari>
 export type InvincibleDragonForm = FormPerUnit<typeof FormChangeUnits.InvincibleDragon>
 export type SirenForm            = FormPerUnit<typeof FormChangeUnits.Siren>
+export type OliviaForm           = FormPerUnit<typeof FormChangeUnits.Olivia>
+export type SpartoiaForm         = FormPerUnit<typeof FormChangeUnits.Spartoia>
 export type RampartForm          = FormPerUnit<typeof FormChangeUnits.Rampart>
 export type MightyRForm          = FormPerUnit<typeof FormChangeUnits.MightyR>
 export type UllrForm             = FormPerUnit<typeof FormChangeUnits.Ullr>
@@ -119,6 +131,8 @@ export type FormChangeUnitBasicInfo<N extends FormChangeUnitNumbers> =
     N extends typeof FormChangeUnits.Bulgasari        ? typeof unitBasicData[typeof FormChangeUnits.Bulgasari] :
     N extends typeof FormChangeUnits.InvincibleDragon ? typeof unitBasicData[typeof FormChangeUnits.InvincibleDragon] :
     N extends typeof FormChangeUnits.Siren            ? typeof unitBasicData[typeof FormChangeUnits.Siren] :
+    N extends typeof FormChangeUnits.Olivia           ? typeof unitBasicData[typeof FormChangeUnits.Olivia] :
+    N extends typeof FormChangeUnits.Spartoia         ? typeof unitBasicData[typeof FormChangeUnits.Spartoia] :
     N extends typeof FormChangeUnits.Rampart          ? typeof unitBasicData[typeof FormChangeUnits.Rampart] :
     N extends typeof FormChangeUnits.MightyR          ? typeof unitBasicData[typeof FormChangeUnits.MightyR] :
     N extends typeof FormChangeUnits.Ullr             ? typeof unitBasicData[typeof FormChangeUnits.Ullr] :

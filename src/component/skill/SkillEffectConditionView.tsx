@@ -15,6 +15,7 @@ import {
   ActivationTargetState,
   ArmoredBulgasari,
   DefenderAndArmoredBulgasari,
+  InSquadTaggedUnitState,
   NumOfUnitsInSquadState,
   SelfSkillEffectActivationCondition,
   SelfSkillEffectActivationState,
@@ -80,6 +81,13 @@ function stateValuesView(
   }
   case EffectActivationState.AffectedBy:
     return affectedByStateView(entry[1], t);
+  case EffectActivationState.AffectedActiveBy:
+    return (
+      <span>
+        <UnitAliasView unitAlias={entry[1].alias} />
+        {t('effect:condition.state.affected_active_by_alias')}
+      </span>
+    );
   case EffectActivationState.Tagged: {
     const state = entry[1];
     return isReadonlyArray(state) ?
@@ -187,8 +195,8 @@ function unitStateView(
     DefenderAndArmoredBulgasari |
     'golden_factory' |
     { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp } |
-    { [EffectActivationState.Tagged]: 'younger_sister' | 'reinforced_exoskeleton' } |
-    { [EffectActivationState.AffectedBy]: { unit: 83, effect: typeof Effect.TargetProtect } },
+    { [EffectActivationState.AffectedBy]: { unit: 83, effect: typeof Effect.TargetProtect } } |
+    InSquadTaggedUnitState,
   selfUnitNumber: UnitNumber,
   t: TFunction
 ): Exclude<ReactNode, undefined> {
@@ -253,10 +261,11 @@ function unitStateView(
     // only in_squad conditions.
     // TODO: Move this logic from view.
     if (EffectActivationState.Tagged in state) {
+      const unit = 'unit' in state ? unitName(state.unit) : t('effect:unit.ally');
       return (
         <span>
           {t('effect:condition.state.tagged', { tag: state.tagged })}
-          {t('effect:condition.state.in_squad', { unit: t('effect:unit.ally') })}
+          {t('effect:condition.state.in_squad', { unit })}
         </span>
       );
     } else {
@@ -418,22 +427,36 @@ const EnemyStateView: React.FC<{
   const { t } = useTranslation();
   const { num_of_units } = state;
 
-  return (
-    <React.Fragment>
-      {
-        'unit' in num_of_units ?
-          t('effect:condition.target.enemy_unit', num_of_units) :
-          t('effect:condition.target.enemy')
-      }
-      {
-        'equal' in num_of_units ?
-          t('effect:condition.state.num_of_enemies_eq', num_of_units) :
-          'less_or_equal' in num_of_units ?
-            t('effect:condition.state.num_of_enemies', num_of_units as StringMap) :
-            t('effect:condition.state.num_of_enemies_ge', num_of_units as StringMap)
-      }
-    </React.Fragment>
-  );
+  if ('unit' in state) {
+    const unit = t(`effect:unit.${state.unit}`);
+    return (
+      <React.Fragment>
+        {t('effect:condition.target.enemy')}
+        {t('effect:condition.state.num_of_enemies_eq', num_of_units)}
+        {t('effect:and_symbolic_separator')}
+        {t('effect:condition.state.unit', { unit })}
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        {
+          'unit' in num_of_units ?
+            t('effect:condition.target.enemy_unit', num_of_units) :
+            t('effect:condition.target.enemy')
+        }
+        {
+          'equal' in num_of_units ?
+            t('effect:condition.state.num_of_enemies_eq', num_of_units) :
+            'less_or_equal' in num_of_units ?
+              'greater_or_equal' in num_of_units ?
+                t('effect:condition.state.num_of_enemies', num_of_units as StringMap) :
+                t('effect:condition.state.num_of_enemies_le', num_of_units as StringMap) :
+              t('effect:condition.state.num_of_enemies_ge', num_of_units as StringMap)
+        }
+      </React.Fragment>
+    );
+  }
 };
 
 const TriggerView: React.FC<{

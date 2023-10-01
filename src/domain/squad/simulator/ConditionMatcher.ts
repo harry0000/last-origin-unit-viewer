@@ -5,6 +5,7 @@ import {
   AffectedEffect,
   ArmoredBulgasari,
   GridState,
+  InSquadTaggedUnitState,
   SelfSkillEffectActivationState,
   SkillEffectActivationState,
   TargetSkillEffectActivationState,
@@ -37,6 +38,7 @@ type DependencyState = typeof EffectActivationState[
   'Affected' |
   'NotAffected' |
   'AffectedBy' |
+  'AffectedActiveBy' |
   'Tagged' |
   'NotTagged' |
   'TaggedAffected' |
@@ -48,6 +50,7 @@ const dependencyStateKeys = [
   EffectActivationState.Affected,
   EffectActivationState.NotAffected,
   EffectActivationState.AffectedBy,
+  EffectActivationState.AffectedActiveBy,
   EffectActivationState.Tagged,
   EffectActivationState.NotTagged,
   EffectActivationState.TaggedAffected,
@@ -156,8 +159,8 @@ function getSquadUnitMatcher(
     FactorUnitCondition |
     Exclude<
       InSquadCondition,
-      { [EffectActivationState.Tagged]: 'younger_sister' | 'reinforced_exoskeleton' } |
       { [EffectActivationState.AffectedBy]: { unit: 83, effect: typeof Effect.TargetProtect } } |
+      InSquadTaggedUnitState |
       'golden_factory'
     > |
     NotInSquadCondition |
@@ -595,13 +598,15 @@ export function matchAffectedState(
   state: ReadonlyArray<ActivationSelfState> | ReadonlyArray<ActivationTargetState>,
   affected: ReadonlyArray<BattleEffect>
 ): boolean {
-  const { Affected, NotAffected, AffectedBy, Tagged, NotTagged, TaggedAffected, NotTaggedAffected, Stack } = EffectActivationState;
+  const { Affected, NotAffected, AffectedBy, AffectedActiveBy, Tagged, NotTagged, TaggedAffected, NotTaggedAffected, Stack } = EffectActivationState;
 
   return state.some(s => dependencyStateKeys.every(key => {
     switch (key) {
     case Affected:          return !(key in s) || !!s.affected            && matchAffected(s.affected, affected);
     case NotAffected:       return !(key in s) || !!s.not_affected        && matchNotAffected(s.not_affected, affected);
     case AffectedBy:        return !(key in s) || !!s.affected_by         && matchAffectedBy(s.affected_by, affected);
+    // HACK: Currently, always return false. (Active skill effects are never applied.)
+    case AffectedActiveBy:  return !(key in s) || false;
     case Tagged:            return !(key in s) || !!s.tagged              && matchTagged(s.tagged, affected);
     case NotTagged:         return !(key in s) || !!s.not_tagged          && !matchTagged(s.not_tagged, affected);
     case TaggedAffected:    return !(key in s) || !!s.tagged_affected     && matchTaggedAffected(s.tagged_affected, affected);
@@ -627,13 +632,25 @@ export function matchAffectedSquadUnitState(
   const cond = state.squad;
   if (EffectActivationState.InSquad in cond) {
     const in_squad = cond.in_squad;
-    if (isRecord(in_squad) && (
-      EffectActivationState.Tagged in in_squad ||
-      EffectActivationState.AffectedBy in in_squad
-    )) {
-      return squad
-        .filter(({ unit }) => unit.no != source.unit.no)
-        .some(({ appliedEffects }) => appliedEffects.matchTargetAffectedState({ target: [in_squad] }));
+    if (isRecord(in_squad)) {
+      if (EffectActivationState.AffectedBy in in_squad) {
+        return squad
+          .filter(({ unit }) => unit.no != source.unit.no)
+          .some(({ appliedEffects }) => appliedEffects.matchTargetAffectedState({ target: [in_squad] }));
+      }
+      if (EffectActivationState.Tagged in in_squad) {
+        const unitNo = 'unit' in in_squad ? in_squad.unit : undefined;
+        const taggedState: { [EffectActivationState.Tagged]: SkillEffectTag } = in_squad;
+        const affectedState: SkillEffectActivationState = { target: [taggedState] };
+
+        return squad
+          .filter(({ unit: { no } }) => no !== source.unit.no && (!unitNo || no === unitNo))
+          .some(({ appliedEffects }) => appliedEffects.matchTargetAffectedState(affectedState));
+      }
+      if (EffectActivationState.AffectedActiveBy in in_squad) {
+        // HACK: Currently, always return false. (Active skill effects are never applied.)
+        return false;
+      }
     }
   }
 
@@ -681,7 +698,8 @@ export function matchStaticSquadState(
           return squad.some(matcher);
         } else if (
           EffectActivationState.Tagged in in_squad ||
-          EffectActivationState.AffectedBy in in_squad
+          EffectActivationState.AffectedBy in in_squad ||
+          EffectActivationState.AffectedActiveBy in in_squad
         ) {
           // Use `matchAffectedSquadUnitState()`.
           // HACK: return `true` as a static condition.
@@ -739,14 +757,22 @@ export function matchEnemyState(
     return true;
   }
 
-  const cond = state.enemy.num_of_units;
-  const count = 'unit' in cond ?
-    Object.values(enemies).filter(({ type }) => type === cond.unit).length :
-    Object.keys(enemies).length;
+  const enemyState = state.enemy;
+  const values = Object.values(enemies);
+  const matchUnit =
+    !('unit' in enemyState) || values.every(({ type }) => type === enemyState.unit);
 
-  return (
+  const cond = enemyState.num_of_units;
+  const count = 'unit' in cond ?
+    values.filter(({ type }) => type === cond.unit).length :
+    values.length;
+
+  return matchUnit && (
     'equal' in cond ? cond.equal === count :
-      'less_or_equal' in cond ? cond.greater_or_equal <= count && count <= cond.less_or_equal :
+      'less_or_equal' in cond ?
+        'greater_or_equal' in cond ?
+          cond.greater_or_equal <= count && count <= cond.less_or_equal :
+          count <= cond.less_or_equal :
         cond.greater_or_equal <= count
   );
 }

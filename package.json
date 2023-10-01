@@ -1,6 +1,6 @@
 {
   "name": "last-origin-unit-viewer",
-  "version": "1.2.15",
+  "version": "1.2.16",
   "private": true,
   "license": "UNLICENSED",
   "author": "harry0000 <https://github.com/harry0000>",
@@ -65,6 +65,7 @@
     "recoil": "^0.7.7"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",

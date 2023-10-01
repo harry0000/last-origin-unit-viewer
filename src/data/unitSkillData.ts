@@ -8844,6 +8844,355 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  97: {
+    no: 97,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 99900 },
+        per_lv_up: { milliPercentage: 9900 }
+      },
+      range: 4,
+      cost: 5,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { def_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [
+          { trigger: 'hit', state: { self: [{ tagged: 'cousette' }] } },
+          { trigger: 'hit', state: { squad: { in_squad: { unit: 106, tagged: 'guiding_technique' } } } }
+        ],
+        target: { kind: 'enemy' },
+        details: { target: { status_resist_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [
+          { trigger: 'hit', state: { self: [{ tagged: 'midinette' }] } },
+          { trigger: 'hit', state: { squad: { in_squad: { unit: 106, tagged: 'balance_seeker' } } } }
+        ],
+        target: { kind: 'enemy' },
+        details: { target: { defense_penetration: { base: { milliPercentage: -10000 }, per_lv_up: { milliPercentage: -1000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [
+          { trigger: 'hit', state: { self: [{ tagged: 'trottin' }] } },
+          { trigger: 'hit', state: { squad: { in_squad: { unit: 106, tagged: 'secretive_research' } } } }
+        ],
+        target: { kind: 'enemy' },
+        details: { target: { range_down: { value: { 1: 1, 10: 2 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            fixed_damage_over_time: { base: { value: 500 }, per_lv_up: { value: 50 }, term: { for_rounds: 2 } },
+            def_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 }, max_stack: 1 }
+          }
+        }
+      }]
+    }, {
+      range: 6,
+      cost: 6,
+      area: 'single',
+      effects: [{
+        target: { kind: 'ally' },
+        details: { target: { all_debuff_removal: { term: 'immediate' } } }
+      }, {
+        conditions: [
+          { state: { self: [{ tagged: 'cousette' }] } },
+          { state: { squad: { in_squad: { unit: 106, tagged: 'guiding_technique' } } } }
+        ],
+        target: { kind: 'ally' },
+        details: { target: { light_type_damage_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [
+          { state: { self: [{ tagged: 'midinette' }] } },
+          { state: { squad: { in_squad: { unit: 106, tagged: 'balance_seeker' } } } }
+        ],
+        target: { kind: 'ally' },
+        details: { target: { flying_type_damage_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [
+          { state: { self: [{ tagged: 'trottin' }] } },
+          { state: { squad: { in_squad: { unit: 106, tagged: 'secretive_research' } } } }
+        ],
+        target: { kind: 'ally' },
+        details: { target: { heavy_type_damage_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [
+          { state: { self: [{ tagged: 'cousette' }] } },
+          { state: { squad: { in_squad: { unit: 106, tagged: 'guiding_technique' } } } }
+        ],
+        target: { kind: 'ally', conditions: [98] },
+        details: { target: { light_type_damage_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [
+          { state: { self: [{ tagged: 'midinette' }] } },
+          { state: { squad: { in_squad: { unit: 106, tagged: 'balance_seeker' } } } }
+        ],
+        target: { kind: 'ally', conditions: [98] },
+        details: { target: { flying_type_damage_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [
+          { state: { self: [{ tagged: 'trottin' }] } },
+          { state: { squad: { in_squad: { unit: 106, tagged: 'secretive_research' } } } }
+        ],
+        target: { kind: 'ally', conditions: [98] },
+        details: { target: { heavy_type_damage_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'tailor_made_cutting_light' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { light_type_damage_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'tailor_made_cutting_flying' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { flying_type_damage_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'tailor_made_cutting_heavy' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { heavy_type_damage_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'tailor_made_cutting_light' }] } }],
+        target: { kind: 'ally', conditions: [98] },
+        details: { target: { light_type_damage_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'tailor_made_cutting_flying' }] } }],
+        target: { kind: 'ally', conditions: [98] },
+        details: { target: { flying_type_damage_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'tailor_made_cutting_heavy' }] } }],
+        target: { kind: 'ally', conditions: [98] },
+        details: { target: { heavy_type_damage_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
+        details: { self: { status_resist_up: { tag: 'cousette', base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }] } }],
+        details: { self: { spd_up: { tag: 'midinette', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
+        details: {
+          self: {
+            acc_up: { tag: 'trottin', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } },
+            range_up: { tag: 'trottin', value: { 1: 1, 10: 2 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { enemy: { num_of_units: { equal: 1 }, unit: 'light' } } }],
+        details: { self: { tag_stack: { tag: 'tailor_made_cutting_light', term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { enemy: { num_of_units: { equal: 1 }, unit: 'flying' } } }],
+        details: { self: { tag_stack: { tag: 'tailor_made_cutting_flying', term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { enemy: { num_of_units: { equal: 1 }, unit: 'heavy' } } }],
+        details: { self: { tag_stack: { tag: 'tailor_made_cutting_heavy', term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 106 } } }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['pecs_designers'] },
+        details: { target: { ignore_protect: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ affected_active_by: { alias: 'pecs_designers' } }] } }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ affected_active_by: { alias: 'pecs_designers' } }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { ap_down: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }]
+    }]
+  },
+  98: {
+    no: 98,
+    active: [{
+      normal: {
+        damage_deal: {
+          base: { milliPercentage: 55000 },
+          per_lv_up: { milliPercentage: 16600 }
+        },
+        range: 3,
+        cost: 3,
+        area: 'single',
+        effects: [{
+          conditions: [
+            { trigger: 'hit', state: { self: [{ not_tagged: 'golden_needle' }] } },
+            { trigger: 'hit', state: { enemy: { num_of_units: { greater_or_equal: 4 } } } }
+          ],
+          target: { kind: 'enemy' },
+          details: {
+            self: { defense_penetration: { tag: 'lint', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 5 } },
+            target: { damage_taken_increased: { tag: 'stitch', base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } } }
+          }
+        }, {
+          conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'golden_needle' }], enemy: { num_of_units: { less_or_equal: 3 } } } }],
+          target: { kind: 'enemy' },
+          details: {
+            self: { defense_penetration: { tag: 'lint', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 }, max_stack: 5 } },
+            target: { damage_taken_increased: { tag: 'stitch', base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } }
+          }
+        }]
+      },
+      thimble: {
+        damage_deal: { milliPercentage: 55000 },
+        range: 3,
+        cost: 3,
+        area: 'single',
+        effects: [{
+          conditions: [
+            { trigger: 'hit', state: { self: [{ not_tagged: 'golden_needle' }] } },
+            { trigger: 'hit', state: { enemy: { num_of_units: { greater_or_equal: 4 } } } }
+          ],
+          target: { kind: 'enemy' },
+          details: {
+            self: { defense_penetration: { tag: 'lint', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 5 } },
+            target: { damage_taken_increased: { tag: 'stitch', base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } } }
+          }
+        }, {
+          conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'golden_needle' }], enemy: { num_of_units: { less_or_equal: 3 } } } }],
+          target: { kind: 'enemy' },
+          details: {
+            self: { defense_penetration: { tag: 'lint', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 }, max_stack: 5 } },
+            target: { damage_taken_increased: { tag: 'stitch', base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } }
+          }
+        }]
+      }
+    }, {
+      normal: {
+        damage_deal: {
+          base: { milliPercentage: 40000 },
+          per_lv_up: { milliPercentage: 40000 }
+        },
+        range: 3,
+        cost: 10,
+        area: 'single',
+        effects: [{
+          details: { self: { tag_stack: { tag: 'figure_eight_knot', term: { for_rounds: 3 }, max_stack: 1 } } }
+        }, {
+          conditions: [{ trigger: 'hit', state: { target: [{ stack: { tag: 'stitch', greater_or_equal: 2 } }] } }],
+          target: { kind: 'enemy' },
+          details: { target: { all_buff_removal: { term: 'immediate' } } }
+        }, {
+          conditions: [
+            { trigger: 'hit', state: { self: [{ not_tagged: 'golden_needle' }] } },
+            { trigger: 'hit', state: { enemy: { num_of_units: { greater_or_equal: 4 } } } }
+          ],
+          scale_factor: { per_stack: { tag: 'lint' } },
+          details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'golden_needle' }], enemy: { num_of_units: { less_or_equal: 3 } } } }],
+          scale_factor: { per_stack: { tag: 'lint' } },
+          details: { self: { additional_damage: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+        }]
+      },
+      thimble: {
+        damage_deal: {
+          base: { milliPercentage: 40000 },
+          per_lv_up: { milliPercentage: 56600 }
+        },
+        range: 3,
+        cost: 10,
+        area: 'single',
+        effects: [{
+          details: { self: { tag_stack: { tag: 'figure_eight_knot', term: { for_rounds: 3 }, max_stack: 1 } } }
+        }, {
+          conditions: [{ trigger: 'hit', state: { target: [{ stack: { tag: 'stitch', greater_or_equal: 2 } }] } }],
+          target: { kind: 'enemy' },
+          details: { target: { all_buff_removal: { term: 'immediate' } } }
+        }, {
+          conditions: [
+            { trigger: 'hit', state: { self: [{ not_tagged: 'golden_needle' }] } },
+            { trigger: 'hit', state: { enemy: { num_of_units: { greater_or_equal: 4 } } } }
+          ],
+          scale_factor: { per_stack: { tag: 'lint' } },
+          details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'golden_needle' }], enemy: { num_of_units: { less_or_equal: 3 } } } }],
+          scale_factor: { per_stack: { tag: 'lint' } },
+          details: { self: { additional_damage: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+        }]
+      }
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { action_count_up: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'follow_up_attack' }, { trigger: 're_attack' }],
+        details: { self: { atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 2 } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['supporter'] },
+        details: {
+          target: {
+            follow_up_attack: { tag: 'collaboration', term: { for_rounds: 1 } },
+            ap_up: { tag: 'collaboration', base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'attack', state: { squad: { in_squad: { tagged: 'collaboration' } } } }],
+        details: { self: { effect_removal: { effect: 'follow_up_attack', term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ form: 'normal' }], squad: { in_squad: 97 }, enemy: { num_of_units: { equal: 1 } } } }],
+        details: { self: { form_change: { form: 'thimble' } } }
+      }, {
+        conditions: [
+          { trigger: 'start_round', state: { self: [{ tagged: 'figure_eight_knot', not_tagged: 'golden_needle' }] } },
+          { trigger: 'start_round', state: { self: [{ tagged: 'figure_eight_knot' }], enemy: { num_of_units: { greater_or_equal: 4 } } } }
+        ],
+        target: { kind: 'ally' },
+        details: { target: { spd_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: ['figure_eight_knot', 'golden_needle'] }], enemy: { num_of_units: { less_or_equal: 3 } } } }],
+        target: { kind: 'ally' },
+        details: { target: { spd_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            atk_up: { tag: 'golden_needle', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true },
+            action_count_up: { tag: 'golden_ruler', term: { for_rounds: 1 }, cannot_be_dispelled: true }
+          }
+        }
+      }, {
+        conditions: [
+          { trigger: 'follow_up_attack', state: { target: [{ affected_active_by: { alias: 'pecs_designers' } }] } },
+          { trigger: 're_attack', state: { target: [{ affected_active_by: { alias: 'pecs_designers' } }] } }
+        ],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            acc_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            eva_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }]
+  },
   99: {
     no: 99,
     active: [{
@@ -9141,64 +9490,126 @@ export const unitSkillData: UnitSkillData = {
   104: {
     no: 104,
     active: [{
-      damage_deal: {
-        base: { milliPercentage: 152500 },
-        per_lv_up: { milliPercentage: 13500 }
+      normal: {
+        damage_deal: {
+          base: { milliPercentage: 152500 },
+          per_lv_up: { milliPercentage: 13500 }
+        },
+        range: 4,
+        cost: {
+          1: 8,
+          2: 7,
+          7: 6
+        },
+        area: 'row_toward_front',
+        effects: [{
+          details: { self: { ignore_protect: {} } }
+        }, {
+          conditions: [{ trigger: 'hit' }],
+          target: { kind: 'enemy' },
+          details: { target: { buff_removal: { effect: 'def_up', term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'critical' }],
+          target: { kind: 'enemy' },
+          details: {
+            self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' } },
+            target: { buff_removal: { effect: 'damage_reduction_up', term: 'immediate' } }
+          }
+        }]
       },
-      range: 4,
-      cost: {
-        1: 8,
-        2: 7,
-        7: 6
-      },
-      area: 'row_toward_front',
-      effects: [{
-        details: { self: { ignore_protect: {} } }
-      }, {
-        conditions: [{ trigger: 'hit' }],
-        target: { kind: 'enemy' },
-        details: { target: { buff_removal: { effect: 'def_up' } } }
-      }, {
-        conditions: [{ trigger: 'critical' }],
-        target: { kind: 'enemy' },
-        details: {
-          self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } },
-          target: { buff_removal: { effect: 'damage_reduction_up' } }
-        }
-      }]
+      space: {
+        damage_deal: {
+          base: { milliPercentage: 152500 },
+          per_lv_up: { milliPercentage: 13500 }
+        },
+        range: 4,
+        cost: {
+          1: 8,
+          2: 7,
+          7: 6
+        },
+        area: 'row_toward_front',
+        effects: [{
+          details: { self: { ignore_protect: {} } }
+        }, {
+          conditions: [{ trigger: 'hit' }],
+          target: { kind: 'enemy' },
+          details: { target: { buff_removal: { effect: 'def_up', term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'critical' }],
+          target: { kind: 'enemy' },
+          details: { target: { damage_reduction_down: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+        }]
+      }
     }, {
-      damage_deal: {
-        base: { milliPercentage: 249500 },
-        per_lv_up: { milliPercentage: 22500 }
-      },
-      range: 2,
-      cost: {
-        1: 8,
-        2: 7,
-        7: 6
-      },
-      area: 'single',
-      effects: [{
-        details: { self: { merciless: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 } } } }
-      }, {
-        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'def_up' }, { affected: 'damage_reduction_up' }] } }],
-        target: { kind: 'enemy' },
-        details: {
-          target: {
-            atk_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
-            damage_taken_increased: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
+      normal: {
+        damage_deal: {
+          base: { milliPercentage: 249500 },
+          per_lv_up: { milliPercentage: 22500 }
+        },
+        range: 2,
+        cost: {
+          1: 8,
+          2: 7,
+          7: 6
+        },
+        area: 'single',
+        effects: [{
+          details: { self: { merciless: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'hit', state: { target: [{ affected: 'def_up' }, { affected: 'damage_reduction_up' }] } }],
+          target: { kind: 'enemy' },
+          details: {
+            target: {
+              atk_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+              damage_taken_increased: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
+            }
           }
-        }
-      }, {
-        conditions: [{ trigger: 'hit', state: { target: [{ not_affected: ['def_up', 'damage_reduction_up'] }] } }],
-        target: { kind: 'enemy' },
-        details: {
-          target: {
-            atk_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true },
-            damage_taken_increased: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true }
+        }, {
+          conditions: [{ trigger: 'hit', state: { target: [{ not_affected: ['def_up', 'damage_reduction_up'] }] } }],
+          target: { kind: 'enemy' },
+          details: {
+            target: {
+              atk_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true },
+              damage_taken_increased: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true }
+            }
           }
-        }
-      }]
+        }]
+      },
+      space: {
+        damage_deal: {
+          base: { milliPercentage: 249500 },
+          per_lv_up: { milliPercentage: 22500 }
+        },
+        range: 2,
+        cost: {
+          1: 8,
+          2: 7,
+          7: 6
+        },
+        area: 'single',
+        effects: [{
+          details: { self: { merciless: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 } } } }
+        }, {
+          conditions: [{ trigger: 'hit', state: { target: [{ affected: 'def_up' }] } }],
+          target: { kind: 'enemy' },
+          details: {
+            target: {
+              atk_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+              damage_taken_increased: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'hit', state: { target: [{ not_affected: ['def_up'] }] } }],
+          target: { kind: 'enemy' },
+          details: {
+            target: {
+              atk_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true },
+              damage_taken_increased: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true }
+            }
+          }
+        }]
+      }
     }],
     passive: [{
       area: 'self',
@@ -9213,44 +9624,84 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { acc_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
       }]
     }, {
-      area: 'self',
-      effects: [{
-        conditions: [{ trigger: 'start_round' }],
-        details: {
-          self: {
-            def_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
-            damage_reduction_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
-            fire_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
-            ice_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
-            electric_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
-            status_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
-            defense_penetration: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+      normal: {
+        area: 'self',
+        effects: [{
+          conditions: [{ trigger: 'start_wave', state: { self: [{ equipped: 'space' }] } }],
+          details: { self: { form_change: { form: 'space' } } }
+        }, {
+          conditions: [{ trigger: 'start_round' }],
+          details: {
+            self: {
+              def_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+              damage_reduction_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+              fire_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+              ice_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+              electric_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+              status_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+              defense_penetration: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+            }
           }
-        }
-      }, {
-        conditions: [{ trigger: 'start_round' }],
-        details: { self: { defense_penetration: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 }, times: 1 } } }
-      }]
+        }, {
+          conditions: [{ trigger: 'start_round' }],
+          details: { self: { defense_penetration: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 }, times: 1 } } }
+        }]
+      },
+      space: {
+        area: 'self',
+        effects: [{
+          conditions: [{ trigger: 'start_round' }],
+          details: {
+            self: {
+              defense_penetration: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } },
+              ignore_barrier_dr: { term: { for_rounds: 1 } }
+            }
+          }
+        }]
+      }
     }, {
-      area: 'self',
-      effects: [{
-        conditions: [{ trigger: 'start_round' }],
-        details: {
-          self: {
-            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+      normal: {
+        area: 'self',
+        effects: [{
+          conditions: [{ trigger: 'start_round' }],
+          details: {
+            self: {
+              atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+              cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+            }
           }
-        }
-      }, {
-        conditions: [{ trigger: 'start_wave' }],
-        details: {
-          self: {
-            ap_up: { base: { microValue: 2000000 }, per_lv_up: { microValue: 200000 }, term: 'immediate' },
-            spd_down: { milliPercentage: 10000, term: 'infinite', cannot_be_dispelled: true },
-            prevents_effect: { effects: ['spd_down', 'ap_down'], term: 'infinite', cannot_be_dispelled: true }
+        }, {
+          conditions: [{ trigger: 'start_wave' }],
+          details: {
+            self: {
+              ap_up: { base: { microValue: 2000000 }, per_lv_up: { microValue: 200000 }, term: 'immediate' },
+              spd_down: { milliPercentage: 10000, term: 'infinite', cannot_be_dispelled: true },
+              prevents_effect: { effects: ['spd_down', 'ap_down'], term: 'infinite', cannot_be_dispelled: true }
+            }
           }
-        }
-      }]
+        }]
+      },
+      space: {
+        area: 'self',
+        effects: [{
+          conditions: [{ trigger: 'start_round', round: { from: 2 } }],
+          details: {
+            self: {
+              atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+              cri_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+              def_down: { milliPercentage: 10000, term: { for_rounds: 1 }, cannot_be_dispelled: true },
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'start_wave' }],
+          details: {
+            self: {
+              ap_up: { base: { microValue: 2000000 }, per_lv_up: { microValue: 200000 }, term: 'immediate' },
+              prevents_effect: { effects: ['spd_down', 'ap_down'], term: 'infinite', cannot_be_dispelled: true }
+            }
+          }
+        }]
+      }
     }]
   },
   106: {
@@ -9272,7 +9723,10 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ state: { self: [{ tagged: 'guiding_technique' }] } }],
+        conditions: [
+          { trigger: 'hit', state: { self: [{ tagged: 'guiding_technique' }] } },
+          { trigger: 'hit', state: { squad: { in_squad: { unit: 97, tagged: 'cousette' } } } }
+        ],
         target: { kind: 'enemy' },
         details: {
           target: {
@@ -9283,7 +9737,10 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ state: { self: [{ tagged: 'balance_seeker' }] } }],
+        conditions: [
+          { trigger: 'hit', state: { self: [{ tagged: 'balance_seeker' }] } },
+          { trigger: 'hit', state: { squad: { in_squad: { unit: 97, tagged: 'midinette' } } } }
+        ],
         target: { kind: 'enemy' },
         details: {
           target: {
@@ -9292,7 +9749,10 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ state: { self: [{ tagged: 'secretive_research' }] } }],
+        conditions: [
+          { trigger: 'hit', state: { self: [{ tagged: 'secretive_research' }] } },
+          { trigger: 'hit', state: { squad: { in_squad: { unit: 97, tagged: 'trottin' } } } }
+        ],
         target: { kind: 'enemy' },
         details: {
           target: {
@@ -9309,7 +9769,10 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: { target: { ap_up: { base: { microValue: 2000000 }, per_lv_up: { microValue: 100000 } } } }
       }, {
-        conditions: [{ state: { self: [{ tagged: 'guiding_technique' }] } }],
+        conditions: [
+          { state: { self: [{ tagged: 'guiding_technique' }] } },
+          { state: { squad: { in_squad: { unit: 97, tagged: 'cousette' } } } }
+        ],
         target: { kind: 'ally' },
         details: {
           target: {
@@ -9318,7 +9781,10 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ state: { self: [{ tagged: 'balance_seeker' }] } }],
+        conditions: [
+          { state: { self: [{ tagged: 'balance_seeker' }] } },
+          { state: { squad: { in_squad: { unit: 97, tagged: 'midinette' } } } }
+        ],
         target: { kind: 'ally' },
         details: {
           target: {
@@ -9327,7 +9793,10 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ state: { self: [{ tagged: 'secretive_research' }] } }],
+        conditions: [
+          { state: { self: [{ tagged: 'secretive_research' }] } },
+          { state: { squad: { in_squad: { unit: 97, tagged: 'trottin' } } } }
+        ],
         target: { kind: 'ally' },
         details: {
           target: {
@@ -9358,7 +9827,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'right_direction',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally' },
+        target: { kind: 'ally', conditions: [{ except: 97 }] },
         details: {
           target: {
             atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
@@ -11737,6 +12206,16 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally', conditions: ['attacker'] },
         details: {
           target: {
+            heavy_type_damage_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            flying_type_damage_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'laplacian_globe_os' }] } }],
+        target: { kind: 'ally', conditions: ['attacker'] },
+        details: {
+          target: {
+            light_type_damage_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
             heavy_type_damage_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
             flying_type_damage_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
           }

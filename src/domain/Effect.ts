@@ -56,6 +56,7 @@ export const Effect = {
   ExpUp: 'exp_up',
   RangeUp: 'range_up',
   RangeDown: 'range_down',
+  RangeUpActive1: 'range_up_active_1',
   RangeDownActive1: 'range_down_active_1',
   RangeUpActive2: 'range_up_active_2',
   ActionCountUp: 'action_count_up',

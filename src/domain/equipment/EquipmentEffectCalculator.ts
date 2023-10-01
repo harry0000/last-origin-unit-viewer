@@ -140,6 +140,7 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.Barrier:
       case Effect.RangeUp:
       case Effect.RangeDown:
+      case Effect.RangeUpActive1:
       case Effect.RangeUpActive2:
         return {
           [entry[0]]: {

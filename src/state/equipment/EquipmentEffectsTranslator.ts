@@ -93,6 +93,7 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
   case Effect.Barrier:
   case Effect.RangeUp:
   case Effect.RangeDown:
+  case Effect.RangeUpActive1:
   case Effect.RangeUpActive2:
     return buildDetail(t(`effect:effect.description.${entry[0]}`, { value: entry[1].value }), entry[1], t);
   case Effect.BattleContinuation:
