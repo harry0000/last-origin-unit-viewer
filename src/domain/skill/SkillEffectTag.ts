@@ -87,6 +87,12 @@ export type SkillEffectTag =
   'tailor_made_cutting_light' |
   'tailor_made_cutting_flying' |
   'tailor_made_cutting_heavy' |
+  'lint' |
+  'stitch' |
+  'figure_eight_knot' |
+  'collaboration' |
+  'golden_needle' |
+  'golden_ruler' |
   'full_proficiency' |
   'receiving_observation_data' |
   'guiding_technique' |

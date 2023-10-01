@@ -769,7 +769,10 @@ export function matchEnemyState(
 
   return matchUnit && (
     'equal' in cond ? cond.equal === count :
-      'less_or_equal' in cond ? cond.greater_or_equal <= count && count <= cond.less_or_equal :
+      'less_or_equal' in cond ?
+        'greater_or_equal' in cond ?
+          cond.greater_or_equal <= count && count <= cond.less_or_equal :
+          count <= cond.less_or_equal :
         cond.greater_or_equal <= count
   );
 }

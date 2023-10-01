@@ -230,6 +230,7 @@ export type ActivationSelfState =
     [EffectActivationState.Tagged]?:
       SkillEffectTag |
       // The following is AND condition
+      readonly ['figure_eight_knot', 'golden_needle'] |
       readonly ['solagarmr', 'managarmr']
   } &
   {
@@ -290,7 +291,7 @@ export type ActivationTargetState =
   NotAffectedActivationState
 
 export type InSquadTaggedUnitState =
-  Readonly<{ [EffectActivationState.Tagged]: 'younger_sister' | 'reinforced_exoskeleton' }> |
+  Readonly<{ [EffectActivationState.Tagged]: 'collaboration' | 'younger_sister' | 'reinforced_exoskeleton' }> |
   Readonly<{
     [EffectActivationState.Tagged]: 'cousette' | 'midinette' | 'trottin',
     [EffectActivationState.Unit]: 97,
@@ -374,7 +375,8 @@ export type ActivationEnemyState = {
     { greater_or_equal: 5, less_or_equal: 6 } |
     { greater_or_equal: 1, unit: typeof UnitType.Flying } |
     { greater_or_equal: 3, unit: typeof UnitType.Heavy } |
-    { greater_or_equal: 5 | 6 | 7 }
+    { greater_or_equal: 4 | 5 | 6 | 7 } |
+    { less_or_equal: 3 }
 } | {
   [EffectActivationState.NumOfUnits]: { equal: 1 },
   [EffectActivationState.Unit]: UnitType

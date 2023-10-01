@@ -51,6 +51,8 @@ export function buildUnitSkill(unit: UnitBasicInfo): UnitSkill {
       return new InvincibleDragonUnitSkill(unit);
     case FormChangeUnits.Siren:
       return new SirenUnitSkill(unit);
+    case FormChangeUnits.Olivia:
+      return new OliviaUnitSkill(unit);
     case FormChangeUnits.Spartoia:
       return new SpartoiaUnitSkill(unit);
     case FormChangeUnits.Rampart:
@@ -593,6 +595,40 @@ class SirenUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Siren> {
 
   protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[1][this.unitForm()];
+  }
+
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[2];
+  }
+}
+
+class OliviaUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Olivia> {
+
+  constructor(
+    unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Olivia>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<typeof FormChangeUnits.Olivia>
+  ) {
+    super(unit, skillLv, form);
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new OliviaUnitSkill(this.formChangeUnit, lv, this.form);
+  }
+
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Olivia>): FormChangeUnitSkill<typeof FormChangeUnits.Olivia> {
+    return new OliviaUnitSkill(this.formChangeUnit, this.skillLv, form);
+  }
+
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0][this.unitForm()]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0];
+  }
+
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[1];
   }
 
   protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
