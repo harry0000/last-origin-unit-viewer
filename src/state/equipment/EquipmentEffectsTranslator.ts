@@ -13,7 +13,7 @@ import {
   EquipmentEffectValue, extractEquipmentEffectActivationConditionState
 } from '../../domain/equipment/EquipmentEffect';
 import { EffectTrigger } from '../../domain/EffectTrigger';
-import { calcMicroValue, calcMilliPercentageValue } from '../../domain/ValueUnit';
+import { calcMicroValue, calcMilliPercentageValue, calcMilliValue } from '../../domain/ValueUnit';
 
 import { Entry, typedEntries } from '../../util/object';
 
@@ -100,6 +100,8 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
     return 'value' in entry[1] ?
       buildDetail(t('effect:effect.description.battle_continuation', { value: entry[1].value }), entry[1], t) :
       buildDetail(t('effect:effect.description.battle_continuation_with_hp_rate', { value: calcMilliPercentageValue(entry[1]) }), entry[1], t);
+  case Effect.AtkValueUp:
+    return buildDetail(t(`effect:effect.description.${entry[0]}`, { value: calcMilliValue(entry[1]) }), entry[1], t);
   case Effect.DamageMultiplierUp:
   case Effect.AdditionalFireDamage:
   case Effect.AdditionalIceDamage:

@@ -3309,6 +3309,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 500000, term: 'immediate' } } }]
     ]
   },
+  horde_badge: {
+    type: 'gear',
+    id: 'horde_badge',
+    exclusive: {
+      unit: 40
+    },
+    status_effects: [
+      { acc_up: { milliPercentage: 15000 }, spd_up: { microValue: 200000 } },
+      { acc_up: { milliPercentage: 16500 }, spd_up: { microValue: 220000 } },
+      { acc_up: { milliPercentage: 18000 }, spd_up: { microValue: 240000 } },
+      { acc_up: { milliPercentage: 19500 }, spd_up: { microValue: 260000 } },
+      { acc_up: { milliPercentage: 21000 }, spd_up: { microValue: 280000 } },
+      { acc_up: { milliPercentage: 22500 }, spd_up: { microValue: 300000 } },
+      { acc_up: { milliPercentage: 24000 }, spd_up: { microValue: 320000 } },
+      { acc_up: { milliPercentage: 25500 }, spd_up: { microValue: 340000 } },
+      { acc_up: { milliPercentage: 27000 }, spd_up: { microValue: 360000 } },
+      { acc_up: { milliPercentage: 28500 }, spd_up: { microValue: 380000 } },
+      { acc_up: { milliPercentage: 30000 }, spd_up: { microValue: 400000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1100000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1200000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1300000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1400000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1500000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1600000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1700000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1800000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1900000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 2000000, term: 'immediate' } } }]
+    ]
+  },
   l_r_c_bullet: {
     type: 'gear',
     id: 'l_r_c_bullet',
@@ -3479,6 +3512,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 18000, term: { for_rounds: 1 } }, range_up: { value: 1, term: { for_rounds: 1 } } } }],
       [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 19000, term: { for_rounds: 1 } }, range_up: { value: 1, term: { for_rounds: 1 } } } }],
       [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 20000, term: { for_rounds: 1 } }, range_up: { value: 1, term: { for_rounds: 1 } } } }]
+    ]
+  },
+  secret_arts: {
+    type: 'gear',
+    id: 'secret_arts',
+    exclusive: {
+      unit: 120
+    },
+    status_effects: [
+      { cri_up: { milliPercentage: 15000 } },
+      { cri_up: { milliPercentage: 16500 } },
+      { cri_up: { milliPercentage: 18000 } },
+      { cri_up: { milliPercentage: 19500 } },
+      { cri_up: { milliPercentage: 21000 } },
+      { cri_up: { milliPercentage: 22500 } },
+      { cri_up: { milliPercentage: 24000 } },
+      { cri_up: { milliPercentage: 25500 } },
+      { cri_up: { milliPercentage: 27000 } },
+      { cri_up: { milliPercentage: 28500 } },
+      { cri_up: { milliPercentage: 30000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 100000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 105000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 110000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 115000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 120000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 125000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 130000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 135000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 140000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 145000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 150000, term: 'infinite' } } }]
     ]
   },
   sk_14_p_c_c: {

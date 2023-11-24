@@ -5,6 +5,7 @@ import {
   IntegerValueEffectKey,
   MicroValueEffectKey,
   MilliPercentageEffectKey,
+  MilliValueEffectKey,
   NoValueEffectKey,
   RangeValueEffectKey
 } from './EquipmentEffect';
@@ -97,6 +98,7 @@ export type EquipmentDataValue<R extends EquipmentRank, V extends number> =
   { readonly [key in R]: V }
 
 type IntegerValue<R extends EquipmentRank, V extends number = number> = Readonly<{ value: EquipmentDataValue<R, V> }>
+type MilliValue<R extends EquipmentRank>                              = Readonly<{ milliValue: EquipmentDataValue<R, number> }>
 type MicroValue<R extends EquipmentRank>                              = Readonly<{ microValue: EquipmentDataValue<R, number> }>
 type MilliPercentageValue<R extends EquipmentRank>                    = Readonly<{ milliPercentage: EquipmentDataValue<R, number> }>
 
@@ -124,6 +126,8 @@ export type EquipmentEffectValueData<R extends EquipmentRank> = Readonly<{
       MilliPercentageValue<R> & EffectAdditionData<R> :
     E extends IntegerValueEffectKey ?
       IntegerValue<R> & EffectAdditionData<R> :
+    E extends MilliValueEffectKey ?
+      MilliValue<R> & EffectAdditionData<R> :
     E extends MicroValueEffectKey?
       MicroValue<R> & EffectAdditionData<R> :
     E extends MilliPercentageEffectKey ?
