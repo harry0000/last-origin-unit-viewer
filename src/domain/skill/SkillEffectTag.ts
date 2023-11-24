@@ -1,4 +1,4 @@
-export type SkillEffectTagStackValue = 1 | 2 | 3 | 5 | 6
+export type SkillEffectTagStackValue = 1 | 2 | 3 | 4 | 5 | 6
 
 export type SkillEffectTag =
   'ignite' |
@@ -208,4 +208,6 @@ export type SkillEffectTag =
   'command_sharing' |
   'radar_detection' |
   'circling_formation' |
-  'heroic_virtue'
+  'heroic_virtue' |
+  'basaro_sealed' |
+  'kyu_kyu_nyo_ritsu_ryo'

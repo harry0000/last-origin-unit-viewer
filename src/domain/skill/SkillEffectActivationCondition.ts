@@ -237,6 +237,7 @@ export type ActivationSelfState =
     [EffectActivationState.NotAffected]?:
       // The following are AND conditions
       readonly [typeof Effect.Barrier] |
+      readonly [typeof Effect.BattleContinuation] |
       readonly [typeof Effect.Counterattack] |
       readonly [typeof Effect.Reconnaissance] |
       readonly [typeof Effect.FollowUpAttack] |

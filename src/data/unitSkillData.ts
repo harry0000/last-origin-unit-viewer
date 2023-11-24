@@ -21532,5 +21532,86 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { ap_up: { microValue: 400000, term: 'immediate' } } }
       }]
     }]
+  },
+  301: {
+    no: 301,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 140000 },
+        per_lv_up: { milliPercentage: 16000 }
+      },
+      range: 3,
+      cost: 6,
+      area: 'single',
+      effects: [{
+        details: { self: { defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            provoked: { term: { for_rounds: 2 } },
+            damage_taken_increased: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 130000 },
+        per_lv_up: { milliPercentage: 14000 }
+      },
+      range: 4,
+      cost: 10,
+      area: 'all_strong_explosion',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'provoked' }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_multiplier_down: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        details: { self: { battle_continuation: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 5000 }, term: 'infinite', times: 1, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { atk_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'basaro_sealed' }] } }],
+        details: { self: { re_attack: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'revive', state: { self: [{ not_affected: ['battle_continuation'], not_tagged: 'basaro_sealed' }] } }],
+        details: {
+          self: {
+            battle_continuation: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 5000 }, term: 'infinite', times: 1, cannot_be_dispelled: true },
+            buff_removal: { effect: 're_attack', term: 'immediate' },
+            tag_stack: { tag: 'basaro_sealed', term: { for_rounds: 3 }, cannot_be_dispelled: true }
+          }
+        }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'enemy_killed' }],
+        details: { self: { spd_up: { tag: 'kyu_kyu_nyo_ritsu_ryo', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 4 } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { per_stack: { tag: 'kyu_kyu_nyo_ritsu_ryo' } },
+        details: { self: { damage_multiplier_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } } } }
+      }]
+    }]
   }
 } as const;

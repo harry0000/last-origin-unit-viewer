@@ -291,7 +291,9 @@
     "command_sharing": "指揮共有",
     "radar_detection": "レーダー捕捉",
     "circling_formation": "艦隊輪形陣",
-    "heroic_virtue": "英雄の気迫"
+    "heroic_virtue": "英雄の気迫",
+    "basaro_sealed": "封印中⋯",
+    "kyu_kyu_nyo_ritsu_ryo": "急急如律令"
   },
   "condition": {
     "trigger": {
