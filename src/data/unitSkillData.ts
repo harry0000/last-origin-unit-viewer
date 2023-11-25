@@ -2858,9 +2858,9 @@ export const unitSkillData: UnitSkillData = {
           target: { kind: 'ally' },
           details: {
             target: {
-              atk_up: { tag: 'attack_command', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } },
-              acc_up: { tag: 'attack_command', base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } },
-              spd_up: { tag: 'attack_command', base: { milliPercentage: 1666 }, per_lv_up: { milliPercentage: 83 }, term: { for_rounds: 1 } }
+              atk_up: { tag: 'attack_command_observation', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } },
+              acc_up: { tag: 'attack_command_observation', base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } },
+              spd_up: { tag: 'attack_command_observation', base: { milliPercentage: 1666 }, per_lv_up: { milliPercentage: 83 }, term: { for_rounds: 1 } }
             }
           }
         }]
@@ -2882,9 +2882,9 @@ export const unitSkillData: UnitSkillData = {
           target: { kind: 'ally' },
           details: {
             target: {
-              damage_reduction_up: { tag: 'defense_command', base: { milliPercentage: 3333 }, per_lv_up: { milliPercentage: 166 }, term: { for_rounds: 1 } },
-              def_up: { tag: 'defense_command', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } },
-              spd_up: { tag: 'defense_command', base: { milliPercentage: 1666 }, per_lv_up: { milliPercentage: 83 }, term: { for_rounds: 1 } }
+              damage_reduction_up: { tag: 'defense_command_observation', base: { milliPercentage: 3333 }, per_lv_up: { milliPercentage: 166 }, term: { for_rounds: 1 } },
+              def_up: { tag: 'defense_command_observation', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } },
+              spd_up: { tag: 'defense_command_observation', base: { milliPercentage: 1666 }, per_lv_up: { milliPercentage: 83 }, term: { for_rounds: 1 } }
             }
           }
         }]
@@ -2903,6 +2903,16 @@ export const unitSkillData: UnitSkillData = {
             }
           }
         }, {
+          conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'combat_observation_frame' }] } }],
+          target: { kind: 'ally' },
+          details: {
+            target: {
+              damage_reduction_up: { tag: 'defense_command_observation', base: { milliPercentage: 3333 }, per_lv_up: { milliPercentage: 166 }, term: { for_rounds: 1 } },
+              def_up: { tag: 'defense_command_observation', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } },
+              spd_up: { tag: 'defense_command_observation', base: { milliPercentage: 1666 }, per_lv_up: { milliPercentage: 83 }, term: { for_rounds: 1 } }
+            }
+          }
+        }, {
           conditions: [{ trigger: 'idle' }],
           details: { self: { form_change: { form: 'defense_command' } } }
         }]
@@ -2917,6 +2927,16 @@ export const unitSkillData: UnitSkillData = {
               atk_up: { tag: 'defense_command_attack', base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 375 }, term: { for_rounds: 1 } },
               acc_up: { tag: 'defense_command_attack', base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 600 }, term: { for_rounds: 1 } },
               spd_up: { tag: 'defense_command_attack', base: { milliPercentage: 2500 }, per_lv_up: { milliPercentage: 125 }, term: { for_rounds: 1 } }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'combat_observation_frame' }] } }],
+          target: { kind: 'ally' },
+          details: {
+            target: {
+              atk_up: { tag: 'attack_command_observation', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } },
+              acc_up: { tag: 'attack_command_observation', base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } },
+              spd_up: { tag: 'attack_command_observation', base: { milliPercentage: 1666 }, per_lv_up: { milliPercentage: 83 }, term: { for_rounds: 1 } }
             }
           }
         }, {
