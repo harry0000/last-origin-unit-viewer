@@ -3,7 +3,7 @@ import { EffectActivationState } from '../EffectActivationState';
 import { EffectAdditionData, EquipmentDataValue, EquipmentRank } from './EquipmentData';
 import { EffectTrigger } from '../EffectTrigger';
 import { GridState } from '../skill/SkillEffectActivationCondition';
-import { IntegerValue, MicroValue, MilliPercentageValue } from '../ValueUnit';
+import { IntegerValue, MicroValue, MilliPercentageValue, MilliValue } from '../ValueUnit';
 import { SkillEffectTag } from '../skill/SkillEffectTag';
 import { UnitKind } from '../UnitBasicInfo';
 
@@ -37,6 +37,7 @@ export type IntegerValueEffectKey = typeof Effect[
   'FixedElectricDamageOverTime' |
   'Barrier'
 ]
+export type MilliValueEffectKey = typeof Effect.AtkValueUp
 export type MilliPercentageEffectKey = typeof Effect[
   'DamageMultiplierUp' |
   'AdditionalFireDamage' |
@@ -76,6 +77,7 @@ export type EquipmentEffectKey =
   NoValueEffectKey |
   RangeValueEffectKey |
   IntegerValueEffectKey |
+  MilliValueEffectKey |
   MilliPercentageEffectKey |
   MicroValueEffectKey |
   typeof Effect[
@@ -118,6 +120,8 @@ export type EquipmentEffectValue = Readonly<{
       MilliPercentageValue & EquipmentEffectAddition :
     E extends IntegerValueEffectKey ?
       IntegerValue & EquipmentEffectAddition :
+    E extends MilliValueEffectKey ?
+      MilliValue & EquipmentEffectAddition :
     E extends MicroValueEffectKey?
       MicroValue & EquipmentEffectAddition :
     E extends MilliPercentageEffectKey ?
@@ -129,7 +133,7 @@ export type EquipmentEffectActivationState = Readonly<{
   [EffectActivationState.Grid]?: typeof GridState.BackLine,
   [EffectActivationState.HpGreaterOrEqual]?: 25 | 100,
   [EffectActivationState.Affected]?: typeof Effect['Reconnaissance' | 'Barrier'],
-  [EffectActivationState.Tagged]?: 'wet' | 'patron_saint' | 'moon_light_power',
+  [EffectActivationState.Tagged]?: 'wet' | 'gold_forged_through_hundred_refinement' | 'patron_saint' | 'moon_light_power',
   [EffectActivationState.Unit]?: { kind: UnitKind, except?: 171 } | 171 | 127,
   [EffectActivationState.StatusGreaterThanSelf]?: { status: 'spd' },
   [EffectActivationState.StatusLessThanSelf]?: { status: 'def' }

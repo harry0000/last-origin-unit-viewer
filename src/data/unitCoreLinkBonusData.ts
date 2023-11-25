@@ -2039,5 +2039,15 @@ export const unitCoreLinkBonusData: UnitCoreLinkBonusData = {
       { hp_up: { milliPercentage: 20000 } },
       { spd_up: { microValue: 100000 } }
     ]
+  },
+  301: {
+    specific_link_bonus: { cri_up: { milliPercentage: 2000 } },
+    full_link_bonus: [
+      { sortie_cost: { milliPercentage: 20000 } },
+      { atk_up: { milliPercentage: 20000 } },
+      { range_up: { value: 1 } },
+      { acc_up: { milliPercentage: 75000 } },
+      { spd_up: { microValue: 100000 } }
+    ]
   }
 } as const;

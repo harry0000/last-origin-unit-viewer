@@ -112,8 +112,10 @@
     "support_fire": "援護射撃",
     "attack_command": "攻撃指揮",
     "attack_command_defence": "攻撃指揮(防御)",
+    "attack_command_observation": "攻撃指揮(観測)",
     "defense_command": "防御指揮",
     "defense_command_attack": "防御指揮(攻撃)",
+    "defense_command_observation": "防御指揮(観測)",
     "camouflage": "偽装",
     "awakening": "自覚",
     "fire_support": "火力支援",
@@ -291,7 +293,9 @@
     "command_sharing": "指揮共有",
     "radar_detection": "レーダー捕捉",
     "circling_formation": "艦隊輪形陣",
-    "heroic_virtue": "英雄の気迫"
+    "heroic_virtue": "英雄の気迫",
+    "basaro_sealed": "封印中⋯",
+    "kyu_kyu_nyo_ritsu_ryo": "急急如律令"
   },
   "condition": {
     "trigger": {
