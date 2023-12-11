@@ -6,12 +6,6 @@ import effect from './ja/effect.json';
 import skill from './ja/skill.json';
 import equipment from './ja/equipment.json';
 
-declare module 'i18next' {
-  interface CustomTypeOptions {
-    returnNull: false;
-  }
-}
-
 const resources = {
   ja: {
     common,
@@ -39,7 +33,6 @@ i18n
         default:
           return value;
         }
-
       }
     }
   });
