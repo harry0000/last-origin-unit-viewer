@@ -21603,6 +21603,9 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round' }],
         details: { self: { atk_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 302 } } }],
+        details: { self: { atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
       }]
     }, {
       area: 'self',
@@ -21631,6 +21634,134 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         scale_factor: { per_stack: { tag: 'kyu_kyu_nyo_ritsu_ryo' } },
         details: { self: { damage_multiplier_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
+  302: {
+    no: 302,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 144000 },
+        per_lv_up: { milliPercentage: 14000 }
+      },
+      range: 4,
+      cost: 6,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            provoked: { term: { for_rounds: 2 } },
+            buff_removal: { effect: 'damage_reduction_up', term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 133000 },
+        per_lv_up: { milliPercentage: 13000 }
+      },
+      range: 4,
+      cost: 9,
+      area: 'all_strong_explosion',
+      effects: [{
+        details: {
+          self: {
+            ignore_protect: {},
+            all_debuff_removal: {}
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ not_affected: ['damage_reduction_up'] }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: 'immediate' } } }
+      }]
+    }],
+    passive: [{
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'defender' } } }],
+        target: { kind: 'enemy' },
+        details: { target: { provoked: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'attacker' } } }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'attacker', equal: 1 } } } }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 45000 }, per_lv_up: { milliPercentage: 4500 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 45000 }, per_lv_up: { milliPercentage: 4500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'attacker', equal: 2 } } } }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 60000 }, per_lv_up: { milliPercentage: 6000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 60000 }, per_lv_up: { milliPercentage: 6000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'attacker', equal: 3 } } } }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 75000 }, per_lv_up: { milliPercentage: 7500 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 75000 }, per_lv_up: { milliPercentage: 7500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'attacker', equal: 4 } } } }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 90000 }, per_lv_up: { milliPercentage: 9000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 90000 }, per_lv_up: { milliPercentage: 9000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 301 } } }],
+        details: { self: { status_resist_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } }, } }
+      }, {
+        conditions: [
+          { trigger: 'start_round', state: { squad: { not_in_squad: 301 } } },
+          { trigger: 'counter', state: { squad: { not_in_squad: 301 } } }
+        ],
+        details: { self: { barrier: { base: { value: 1000 }, per_lv_up: { value: 50 }, term: { for_rounds: 1 }, max_stack: 1 } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 301 } } }],
+        details: { self: { status_resist_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [
+          { trigger: 'start_round', state: { squad: { not_in_squad: 301 } } },
+          { trigger: 'counter', state: { squad: { not_in_squad: 301 } } }
+        ],
+        details: { self: { barrier: { base: { value: 2000 }, per_lv_up: { value: 100 }, term: { for_rounds: 1 }, max_stack: 1 } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'be_hit' }],
+        details: {
+          self: {
+            counterattack: { base: { milliPercentage: 70000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 2 }, max_stack: 1 },
+            flying_type_damage_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 }, max_stack: 1 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'counter' }],
+        details: { self: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
       }]
     }]
   }
