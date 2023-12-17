@@ -11,7 +11,9 @@ export type SkillEffectTag =
   'electric_charge' |
   'sadistic_chef' |
   'practice_begins' |
-  'output_increase' |
+  'chef_the_party' |
+  'pre_heat' |
+  'bon_appetit' |
   'targeting' |
   'begin_containment' |
   'counterattack_posture' |
@@ -175,6 +177,7 @@ export type SkillEffectTag =
   'tenderizer' |
   'caffeine_charged' |
   'nicotine_charged' |
+  'output_increase' |
   'output_limit_release' |
   'you_are_already_my_fan' |
   'charmed' |

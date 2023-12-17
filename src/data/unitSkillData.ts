@@ -1130,11 +1130,21 @@ export const unitSkillData: UnitSkillData = {
       cost: 4,
       area: 'single',
       effects: [{
+        conditions: [{ trigger: 'hit', state: { self: [{ not_tagged: 'bon_appetit' }] } }],
         target: { kind: 'enemy' },
         details: {
           target: {
-            fire_resist_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            fire_resist_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } },
             fixed_fire_damage_over_time: { tag: 'ignite', base: { value: 40 }, per_lv_up: { value: 30 }, term: { for_rounds: 3 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'bon_appetit' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            fire_resist_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 } },
+            fixed_fire_damage_over_time: { tag: 'ignite', base: { value: 80 }, per_lv_up: { value: 60 }, term: { for_rounds: 3 } }
           }
         }
       }]
@@ -1144,19 +1154,30 @@ export const unitSkillData: UnitSkillData = {
         per_lv_up: { milliPercentage: 8500 },
         attribute: 'fire'
       },
-      range: 3,
+      range: 4,
       cost: 6,
       area: {
         1: 'single_and_front',
         5: 'row_toward_front'
       },
       effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ not_tagged: 'bon_appetit' }] } }],
         target: { kind: 'enemy' },
         details: {
-          self: { ignore_protect: {} },
           target: {
-            fire_resist_down: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 }, term: { for_rounds: 2 } },
+            fire_resist_down: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } },
             fixed_fire_damage_over_time: { tag: 'ignite', base: { value: 40 }, per_lv_up: { value: 30 }, term: { for_rounds: 3 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'bon_appetit' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            fire_resist_down: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 } },
+            fixed_fire_damage_over_time: { tag: 'ignite', base: { value: 80 }, per_lv_up: { value: 60 }, term: { for_rounds: 3 } }
           }
         }
       }]
@@ -1164,14 +1185,49 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round' }],
-        details: { self: { atk_up: { tag: 'output_increase', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', max_stack: 3 } } }
-      }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ stack: { tag: 'output_increase', greater_or_equal: 3 } }] } }],
+        conditions: [{ trigger: 'start_wave' }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 }, times: 1 },
-            ignore_barrier_dr: { term: { for_rounds: 1 }, times: 1 }
+            cri_down: { milliPercentage: 9999000, term: 'infinite', cannot_be_dispelled: true },
+            damage_multiplier_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', cannot_be_dispelled: true },
+            prevents_effect: { effect: 'damage_multiplier_down', term: 'infinite' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { self: [{ tagged: 'chef_the_party' }] } }],
+        details: { self: { damage_multiplier_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { self: [{ tagged: 'bon_appetit' }] } }],
+        details: { self: { damage_multiplier_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'cri_up' }] } }],
+        details: { self: { atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            atk_up: { tag: 'chef_the_party', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            acc_up: { tag: 'chef_the_party', base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'attack' }],
+        details: { self: { atk_up: { tag: 'pre_heat', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 3 } } }
+      }, {
+        conditions: [{ trigger: 'attack', state: { self: [{ stack: { tag: 'pre_heat', greater_or_equal: 3 } }] } }],
+        details: { self: { ignore_barrier_dr: { term: 'immediate' } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            spd_up: { tag: 'bon_appetit', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            action_count_up: { tag: 'bon_appetit', term: { for_rounds: 1 } }
           }
         }
       }]
