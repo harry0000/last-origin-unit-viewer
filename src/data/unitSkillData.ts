@@ -1062,7 +1062,7 @@ export const unitSkillData: UnitSkillData = {
         base: { milliPercentage: 110000 },
         per_lv_up: { milliPercentage: 10000 }
       },
-      range: 2,
+      range: 3,
       cost: 4,
       area: 'single',
       effects: [{
@@ -1071,8 +1071,7 @@ export const unitSkillData: UnitSkillData = {
         details: {
           target: {
             provoked: { term: { for_rounds: 2 } },
-            atk_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
-            cri_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 2 } },
+            damage_multiplier_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
             spd_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 2 } }
           }
         }
@@ -1085,34 +1084,97 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: {
           target: {
-            damage_reduction_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 } },
-            barrier: { base: { value: 150 }, per_lv_up: { value: 50 }, term: { for_rounds: 3 } }
+            damage_reduction_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 3 } },
+            barrier: { base: { value: 200 }, per_lv_up: { value: 50 }, term: { for_rounds: 3 } }
           },
           self: {
-            damage_reduction_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 } },
-            barrier: { base: { value: 150 }, per_lv_up: { value: 50 }, term: { for_rounds: 3 } }
+            damage_reduction_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 3 } },
+            barrier: { base: { value: 200 }, per_lv_up: { value: 50 }, term: { for_rounds: 3 } }
           }
         }
       }, {
         target: { kind: 'ally', conditions: ['attacker', 'supporter'] },
         details: { target: { target_protect: { term: { for_rounds: 3 } } } }
+      }, {
+        conditions: [{ state: { self: [{ tagged: 'moubo_sansen' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } },
+            acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 } },
+            spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 3 } }
+          }
+        }
       }]
     }],
     passive: [{
-      area: 'cross_adjacent_without_front',
+      area: 'line_with_back_line',
       effects: [{
         conditions: [{ trigger: 'start_wave' }],
+        target: { kind: 'ally', conditions: ['attacker', 'supporter'] },
+        details: {
+          target: {
+            // FIXME: Add cannot_be_dispelled attribute
+            silenced: { tag: 'are_you_ready', term: 'infinite' },
+            immovable: { tag: 'are_you_ready', term: 'infinite' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'are_you_ready' }] } }],
         target: { kind: 'ally' },
-        details: { target: { silenced: { term: 'infinite', cannot_be_dispelled: true } } }
+        details: { target: { nullify_damage: { term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
         target: { kind: 'ally' },
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
-            cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
-            acc_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 }, term: { for_rounds: 1 } },
+            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
             spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'line_with_back_line',
+      effects: [{
+        conditions: [{ trigger: 'start_wave', state: { target: [{ tagged: 'are_you_ready' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_wave' }],
+        scale_factor: { per_units: { type: 'squad', unit: 'cross_adjacent' } },
+        details: { self: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ not_tagged: 'are_you_ready' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            damage_reduction_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            barrier: { base: { value: 200 }, per_lv_up: { value: 50 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ not_tagged: 'are_you_ready' }] } }],
+        target: { kind: 'ally', conditions: ['attacker', 'supporter'] },
+        details: { target: { target_protect: { term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'line_with_back_line',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { status_resist_up: { tag: 'moubo_sansen', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_wave' }],
+        target: { kind: 'ally', conditions: ['attacker', 'supporter'] },
+        // FIXME: Add cannot_be_dispelled attribute
+        details: { target: { tag_stack: { tag: 'turning_on_light', term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'turning_on_light', not_tagged: 'are_you_ready' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            tag_release: { tag: 'turning_on_light', term: 'immediate' },
+            ignore_protect: { term: { for_rounds: 2 } }
           }
         }
       }]

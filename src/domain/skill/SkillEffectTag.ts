@@ -11,6 +11,9 @@ export type SkillEffectTag =
   'electric_charge' |
   'sadistic_chef' |
   'practice_begins' |
+  'are_you_ready' |
+  'moubo_sansen' |
+  'turning_on_light' |
   'chef_the_party' |
   'pre_heat' |
   'bon_appetit' |
