@@ -21892,8 +21892,8 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { status_resist_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [
-          { trigger: 'start_round', state: { squad: { not_in_squad: 301 } } },
-          { trigger: 'counter', state: { squad: { not_in_squad: 301 } } }
+          { trigger: 'start_round', state: { squad: { in_squad: 301 } } },
+          { trigger: 'counter', state: { squad: { in_squad: 301 } } }
         ],
         details: { self: { barrier: { base: { value: 2000 }, per_lv_up: { value: 100 }, term: { for_rounds: 1 }, max_stack: 1 } } }
       }]
