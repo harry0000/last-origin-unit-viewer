@@ -2152,7 +2152,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }]
     }, {
-      area: 'self',
+      area: 'fixed_all',
       effects: [{
         conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'attacker', greater_or_equal: 1 } } } }],
         target: { kind: 'ally', conditions: ['attacker'] },
