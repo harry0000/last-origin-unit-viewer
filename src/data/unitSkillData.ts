@@ -1114,9 +1114,8 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally', conditions: ['attacker', 'supporter'] },
         details: {
           target: {
-            // FIXME: Add cannot_be_dispelled attribute
-            silenced: { tag: 'are_you_ready', term: 'infinite' },
-            immovable: { tag: 'are_you_ready', term: 'infinite' }
+            silenced: { tag: 'are_you_ready', term: 'infinite', cannot_be_dispelled: true },
+            immovable: { tag: 'are_you_ready', term: 'infinite', cannot_be_dispelled: true }
           }
         }
       }, {
@@ -1166,8 +1165,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_wave' }],
         target: { kind: 'ally', conditions: ['attacker', 'supporter'] },
-        // FIXME: Add cannot_be_dispelled attribute
-        details: { target: { tag_stack: { tag: 'turning_on_light', term: 'infinite' } } }
+        details: { target: { tag_stack: { tag: 'turning_on_light', term: 'infinite', cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'turning_on_light', not_tagged: 'are_you_ready' }] } }],
         target: { kind: 'ally' },
@@ -10311,10 +10309,9 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: {
           self: {
-            // FIXME: Add cannot_be_dispelled attribute
-            ice_resist_down: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
-            electric_resist_down: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
-            fire_resist_up: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } }
+            ice_resist_down: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 }, cannot_be_dispelled: true },
+            electric_resist_down: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 }, cannot_be_dispelled: true },
+            fire_resist_up: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 }, cannot_be_dispelled: true }
           }
         }
       }, {
@@ -11596,8 +11593,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'fixed_all',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
-        // FIXME: Add cannot_be_dispelled attribute
-        details: { self: { spd_up: { tag: 'warm_up', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+        details: { self: { spd_up: { tag: 'warm_up', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'hit' }],
         target: { kind: 'ally' },
@@ -11617,8 +11613,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'self',
       effects: [{
         conditions: [{ trigger: 'start_wave' }],
-        // FIXME: Add cannot_be_dispelled attribute
-        details: { self: { ignore_protect: { tag: 'brute_force_attack', term: 'infinite' } } }
+        details: { self: { ignore_protect: { tag: 'brute_force_attack', term: 'infinite', cannot_be_dispelled: true } } }
       }]
     }]
   },
@@ -11887,8 +11882,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_wave' }],
         scale_factor: { per_units: { type: 'all' } },
-        // FIXME: Add cannot_be_dispelled attribute
-        details: { self: { atk_up: { tag: 'duel_preparation', base: { milliPercentage: 2500 }, per_lv_up: { milliPercentage: 250 }, term: 'infinite'/*, cannot_be_dispelled: true*/ } } }
+        details: { self: { atk_up: { tag: 'duel_preparation', base: { milliPercentage: 2500 }, per_lv_up: { milliPercentage: 250 }, term: 'infinite', cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ stack: { tag: 'duel_preparation', greater_or_equal: 3 } }] } }],
         details: { self: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
@@ -15555,8 +15549,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'fixed_all',
       effects: [{
         conditions: [{ trigger: 'start_wave' }],
-        // FIXME: Add cannot_be_dispelled attribute
-        details: { self: { light_type_damage_up: { tag: 'full_proficiency', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite' } } }
+        details: { self: { light_type_damage_up: { tag: 'full_proficiency', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
         target: { kind: 'ally', conditions: ['kunoichi'] },
@@ -16197,8 +16190,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'self',
       effects: [{
         conditions: [{ trigger: 'start_wave' }],
-        // FIXME: Add cannot_be_dispelled attribute
-        details: { self: { light_type_damage_up: { tag: 'full_proficiency', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite' } } }
+        details: { self: { light_type_damage_up: { tag: 'full_proficiency', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: 'infinite', cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
         details: { self: { atk_up: { tag: 'ash_kagura', milliPercentage: 60000, term: { for_rounds: 1 } } } }
