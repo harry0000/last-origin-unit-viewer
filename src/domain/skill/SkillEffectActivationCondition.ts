@@ -307,7 +307,6 @@ type InSquadStateUnit =
   typeof UnitType['Light' | 'Heavy'] |
   UnitRole |
   typeof UnitAlias[
-    'ElectricActive' |
     'SteelLine' |
     'SteelLineOfficerRanks' |
     'SteelLineExcludingOfficerRanks' |

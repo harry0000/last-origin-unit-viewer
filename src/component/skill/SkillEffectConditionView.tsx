@@ -177,7 +177,6 @@ function unitStateView(
     UnitAliasAndRole<typeof UnitAlias['MongooseTeam'], typeof UnitRole.Defender> |
     UnitAliasAndRole<typeof UnitAlias.Strikers, typeof UnitRole.Attacker> |
     typeof UnitAlias[
-      'ElectricActive' |
       'SteelLine' |
       'SteelLineOfficerRanks' |
       'SteelLineExcludingOfficerRanks' |

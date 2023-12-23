@@ -38,7 +38,6 @@ export type SkillEffectScaleFactor =
         UnitRole |
         typeof UnitAlias[
           'BioroidUnder145cmTall' |
-          'ElectricActive' |
           'SteelLine' |
           'SteelLineOfficerRanks' |
           'SteelLineExcludingOfficerRanks' |
