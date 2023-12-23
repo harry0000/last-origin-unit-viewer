@@ -2066,7 +2066,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'damage_multiplier_up' }] } }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
             re_attack: { term: { for_rounds: 1 } }
           }
         }
@@ -2470,7 +2470,7 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'follow_up_attack' }],
-        details: { self: { ap_up: { base: { microValue: 200000 }, per_lv_up: { microValue: 30000 }, term: 'immediate' } } }
+        details: { self: { ap_up: { base: { microValue: 50000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
       }]
     }, {
       area: 'self',
@@ -2575,7 +2575,7 @@ export const unitSkillData: UnitSkillData = {
           target: {
             atk_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
             cri_down: { milliPercentage: 5000, term: { for_rounds: 1 } },
-            ap_down: { base: { microValue: 500000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' }
+            ap_down: { base: { microValue: 100000 }, per_lv_up: { microValue: 40000 }, term: 'immediate' }
           }
         }
       }, {
@@ -2596,7 +2596,8 @@ export const unitSkillData: UnitSkillData = {
             damage_reduction_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', cannot_be_dispelled: true },
             fire_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', cannot_be_dispelled: true },
             ice_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', cannot_be_dispelled: true },
-            electric_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', cannot_be_dispelled: true }
+            electric_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', cannot_be_dispelled: true },
+            all_buff_removal_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', cannot_be_dispelled: true }
           }
         }
       }, {
