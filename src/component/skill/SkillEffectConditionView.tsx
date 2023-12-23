@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { ReactNode } from 'react';
-import { StringMap, TFunction } from 'i18next';
+import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 
 import SkillEffectTargetView from './SkillEffectTargetView';
@@ -109,7 +109,7 @@ function stateValuesView(
       const isMultipleTag = isReadonlyArray(tag);
       const prefix = isMultipleTag ? 'tags_' : 'tag_';
       const suffix = 'greater_or_equal' in entry[1] ? 'stack_ge' : 'stack_le';
-      const options: StringMap = {
+      const options = {
         ...entry[1],
         ...(isMultipleTag ?
           { tags: tag.map(tagKey => t('effect:tag.format', { tag: tagKey })).join(t('effect:or_symbolic_separator')) }:
@@ -158,7 +158,7 @@ function affectedByStateView(
   } else {
     if ('effect' in state) {
       const key = 'unit' in state ? 'affected_effect_by' : 'affected_equipment_effect_by';
-      return (<span>{t(`effect:condition.state.${key}`, state as StringMap)}</span>);
+      return (<span>{t(`effect:condition.state.${key}`, state)}</span>);
     } else {
       return (<span>{t('effect:condition.state.affected_by', state)}</span>);
     }
@@ -403,8 +403,8 @@ const SquadStateView: React.FC<{
                         'equal' in squadState ?
                           t('effect:condition.state.num_of_units_eq', squadState) :
                           'greater_or_equal' in squadState ?
-                            t('effect:condition.state.num_of_units_ge', squadState as StringMap) :
-                            t('effect:condition.state.num_of_units_le', squadState as StringMap)
+                            t('effect:condition.state.num_of_units_ge', squadState) :
+                            t('effect:condition.state.num_of_units_le', squadState)
                   }
                   <Separator />
                 </React.Fragment>
@@ -450,9 +450,9 @@ const EnemyStateView: React.FC<{
             t('effect:condition.state.num_of_enemies_eq', num_of_units) :
             'less_or_equal' in num_of_units ?
               'greater_or_equal' in num_of_units ?
-                t('effect:condition.state.num_of_enemies', num_of_units as StringMap) :
-                t('effect:condition.state.num_of_enemies_le', num_of_units as StringMap) :
-              t('effect:condition.state.num_of_enemies_ge', num_of_units as StringMap)
+                t('effect:condition.state.num_of_enemies', num_of_units) :
+                t('effect:condition.state.num_of_enemies_le', num_of_units) :
+              t('effect:condition.state.num_of_enemies_ge', num_of_units)
         }
       </React.Fragment>
     );

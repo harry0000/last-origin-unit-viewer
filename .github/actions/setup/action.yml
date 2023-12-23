@@ -3,9 +3,9 @@ description: 'setup node and node_modules'
 runs:
   using: 'composite'
   steps:
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
-        node-version: 18
+        node-version: 20
     - name: Setup
       run: npm ci --no-audit --progress=false --silent
       shell: bash

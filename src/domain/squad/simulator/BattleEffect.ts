@@ -23,7 +23,7 @@ import {
   productValue
 } from '../../ValueUnit';
 
-import { Sequence, isReadonlyArray } from '../../../util/type';
+import { Sequence, isReadonlyArray, notFalsy } from '../../../util/type';
 import { dropWhile, partition } from '../../../util/array';
 import { typedEntries } from '../../../util/object';
 
@@ -224,11 +224,26 @@ function applyScaling(
   return value;
 }
 
-function pickDependencyRoot({ effect, type }: AppliedBattleEffect): boolean {
-  return (
+function toDependencyRoot(battleEffect: AppliedBattleEffect): AppliedBattleEffect | undefined {
+  const { effect, type, value } = battleEffect;
+  if (
     isAffectedAnyTypeEffect(effect) ||
-    isAffectedSkillEffect(effect) && type !== 'general'
-  );
+    isAffectedSkillEffect(effect) && type !== SkillEffectType.General
+  ) {
+    return battleEffect;
+  } else if ('tag' in value && value.tag) {
+    // HACK: for activation tagged condition effects
+    return {
+      ...battleEffect,
+      ...{
+        effect: Effect.TagStack,
+        value: { tag: value.tag },
+        type
+      } as const satisfies EffectDetails<typeof Effect.TagStack>
+    };
+  }
+
+  return undefined;
 }
 
 function pickRemovalEffect(arg: SkillBattleEffect | EquipmentBattleEffect): arg is RemovalBattleEffect {
@@ -401,7 +416,7 @@ export class BattleEffects {
 
   #pushEffectsAndRoots(effects: ReadonlyArray<SkillBattleEffect | EquipmentBattleEffect>): ReadonlyArray<AppliedBattleEffect> {
     const [removals, newEffects] = partition<RemovalBattleEffect, AppliedBattleEffect>(effects, pickRemovalEffect);
-    const newRoots = newEffects.filter(pickDependencyRoot);
+    const newRoots = newEffects.map(toDependencyRoot).filter(notFalsy);
 
     // TODO: check max_stack
     this.#effects.push(...newEffects);

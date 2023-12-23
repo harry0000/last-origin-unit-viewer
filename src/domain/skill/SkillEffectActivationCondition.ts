@@ -281,7 +281,7 @@ export type ActivationTargetState =
       readonly ['eternal_true_bloods_flash', 'cyclops_eternal_beam']
   } &
   {
-    [EffectActivationState.NotTagged]?: 'vafrlogi'
+    [EffectActivationState.NotTagged]?: 'are_you_ready' | 'vafrlogi'
   } &
   {
     [EffectActivationState.NotTaggedAffected]?: {
@@ -331,7 +331,7 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 }
 
 type NotInSquadStateUnit =
-  80 | 82 | 110 | 127 | 252 |
+  80 | 82 | 110 | 127 | 252 | 301 |
   typeof UnitRole['Attacker' | 'Defender'] |
   typeof UnitAlias['SteelLine' | 'Kunoichi' | 'Mermaid'] |
   typeof SkillAreaType.CrossAdjacent |

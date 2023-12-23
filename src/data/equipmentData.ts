@@ -3084,6 +3084,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { milliPercentage: 90000, term: 'infinite', times: 1 }, counterattack: { milliPercentage: 110000, term: 'infinite' } } }]
     ]
   },
+  boiling_vessel: {
+    type: 'gear',
+    id: 'boiling_vessel',
+    exclusive: {
+      unit: 228
+    },
+    status_effects: [
+      { acc_up: { milliPercentage: 25000 } },
+      { acc_up: { milliPercentage: 27500 } },
+      { acc_up: { milliPercentage: 30000 } },
+      { acc_up: { milliPercentage: 32500 } },
+      { acc_up: { milliPercentage: 35000 } },
+      { acc_up: { milliPercentage: 37500 } },
+      { acc_up: { milliPercentage: 40000 } },
+      { acc_up: { milliPercentage: 42500 } },
+      { acc_up: { milliPercentage: 45000 } },
+      { acc_up: { milliPercentage: 47500 } },
+      { acc_up: { milliPercentage: 50000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:   500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  1000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  2000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  3000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  4000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  5000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  6000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  7000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  8000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage:  9000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_reduction_up: { milliPercentage: 10000, term: 'infinite' } } }]
+    ]
+  },
   cage_once_held_blue_bird: {
     type: 'gear',
     id: 'cage_once_held_blue_bird',
@@ -3479,6 +3512,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 57000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
       [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 61000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }],
       [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 65000, term: { for_rounds: 1 } }, debuff_removal: { effect: 'atk_down', term: 'immediate' } } }]
+    ]
+  },
+  prototype_warhead: {
+    type: 'gear',
+    id: 'prototype_warhead',
+    exclusive: {
+      unit: 24
+    },
+    status_effects: [
+      { atk_up: { milliValue: 150000 } },
+      { atk_up: { milliValue: 165000 } },
+      { atk_up: { milliValue: 180000 } },
+      { atk_up: { milliValue: 195000 } },
+      { atk_up: { milliValue: 210000 } },
+      { atk_up: { milliValue: 225000 } },
+      { atk_up: { milliValue: 240000 } },
+      { atk_up: { milliValue: 255000 } },
+      { atk_up: { milliValue: 270000 } },
+      { atk_up: { milliValue: 285000 } },
+      { atk_up: { milliValue: 300000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 30000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 32000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 34000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 36000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 38000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 40000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 42000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 44000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 46000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 48000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 50000, term: 'infinite' } } }]
     ]
   },
   rangers_combat_equipment_set: {
