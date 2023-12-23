@@ -10187,19 +10187,20 @@ export const unitSkillData: UnitSkillData = {
       cost: 7,
       area: 'single',
       effects: [{
+        conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
         details: {
           target: {
             def_down: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } },
-            buff_removal: { effect: 'def_up' }
+            buff_removal: { effect: 'def_up', term: 'immediate' }
           }
         }
       }, {
         conditions: [{ trigger: 'critical' }],
         target: { kind: 'enemy' },
         details: {
-          self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } },
-          target: { buff_removal: { effect: 'damage_reduction_up' } }
+          self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' } },
+          target: { buff_removal: { effect: 'damage_reduction_up', term: 'immediate' } }
         }
       }]
     }, {
@@ -10234,59 +10235,95 @@ export const unitSkillData: UnitSkillData = {
       }]
     }],
     passive: [{
-      area: 'line_with_back',
+      area: {
+        1: 'cross',
+        10: 'all'
+      },
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
-        target: { kind: 'ally' },
+        conditions: [{ trigger: 'start_round', state: { target: [{ grid: 'front_line' }] } }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
         details: {
           target: {
-            spd_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 375 }, term: { for_rounds: 1 } },
-            fire_resist_up: { base: { milliPercentage: 22500 }, per_lv_up: { milliPercentage: 1125 }, term: { for_rounds: 1 } },
-            ice_resist_up: { base: { milliPercentage: 22500 }, per_lv_up: { milliPercentage: 1125 }, term: { for_rounds: 1 } },
-            electric_resist_up: { base: { milliPercentage: 22500 }, per_lv_up: { milliPercentage: 1125 }, term: { for_rounds: 1 } },
-            status_resist_up: { base: { milliPercentage: 22500 }, per_lv_up: { milliPercentage: 1125 }, term: { for_rounds: 1 } }
+            spd_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            fire_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            ice_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            electric_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }, { grid: 'back_line' }] } }],
-        target: { kind: 'ally' },
+        conditions: [{ trigger: 'start_round', state: { target: [{ grid: 'mid_line' }] } }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
         details: {
           target: {
-            spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } },
-            fire_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
-            ice_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
-            electric_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
-            status_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } }
+            spd_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            fire_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            ice_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            electric_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ grid: 'back_line' }] } }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
+        details: {
+          target: {
+            spd_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            fire_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            ice_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            electric_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
           }
         }
       }]
     }, {
-      area: 'line_with_back',
+      area: {
+        1: 'cross',
+        10: 'all'
+      },
       effects: [{
         conditions: [{ trigger: 'start_round' }],
-        details: {
-          self: {
-            damage_reduction_up: { base: { milliPercentage: 23000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
-            ice_resist_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } }
-          }
-        }
-      }, {
-        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'wet' }] } }],
-        target: { kind: 'ally' },
-        details: {
-          target: {
-            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
-            cri_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 375 }, term: { for_rounds: 1 } },
-            spd_up: { base: { milliPercentage: 12500 }, per_lv_up: { milliPercentage: 625 }, term: { for_rounds: 1 } }
-          }
-        }
+        details: { self: { damage_reduction_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'wet' }] } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
-            cri_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 375 }, term: { for_rounds: 1 } },
-            spd_up: { base: { milliPercentage: 12500 }, per_lv_up: { milliPercentage: 625 }, term: { for_rounds: 1 } }
+            cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'wet' }] } }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            // FIXME: Add cannot_be_dispelled attribute
+            ice_resist_down: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
+            electric_resist_down: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
+            fire_resist_up: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_wave' }, { trigger: 'idle' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            ice_resist_down: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 }, max_stack: 1 },
+            electric_resist_down: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 }, max_stack: 1 },
+            fire_resist_up: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 }, max_stack: 1 }
           }
         }
       }]

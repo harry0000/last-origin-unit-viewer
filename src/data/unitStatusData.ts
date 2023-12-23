@@ -1951,7 +1951,7 @@ export const unitStatusData: UnitStatusData = {
     cri: { milliPercentage: 7700 },
     spd: { microValue: 3670000 },
     fireResist: { milliPercentage: 0 },
-    iceResist: { milliPercentage: 0 },
+    iceResist: { milliPercentage: 80000 },
     electricResist: { milliPercentage: 0 }
   },
   110: {
