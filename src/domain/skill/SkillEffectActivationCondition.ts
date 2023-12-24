@@ -269,7 +269,7 @@ export type ActivationTargetState =
     }
   } &
   {
-    [EffectActivationState.Unit]?: typeof UnitAlias.SteelLine | typeof UnitType.Flying
+    [EffectActivationState.Unit]?: typeof UnitAlias.SteelLine | typeof UnitAlias.OrbitalWatcher | typeof UnitType.Flying
   } &
   {
     [EffectActivationState.AffectedActiveBy]?: { alias: typeof UnitAlias.PECSDesigners }
@@ -304,6 +304,7 @@ export type InSquadTaggedUnitState =
 
 type InSquadStateUnit =
   UnitNumber |
+  typeof UnitKind.AGS |
   typeof UnitType['Light' | 'Heavy'] |
   UnitRole |
   typeof UnitAlias[
@@ -312,6 +313,7 @@ type InSquadStateUnit =
     'SteelLineExcludingOfficerRanks' |
     'Horizon' |
     'Kunoichi' |
+    'OrbitalWatcher' |
     'DEntertainment' |
     'KouheiChurch' |
     'EmpressHound' |
@@ -331,8 +333,9 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 
 type NotInSquadStateUnit =
   80 | 82 | 110 | 127 | 252 | 301 |
+  typeof UnitKind.AGS |
   typeof UnitRole['Attacker' | 'Defender'] |
-  typeof UnitAlias['SteelLine' | 'Kunoichi' | 'Mermaid'] |
+  typeof UnitAlias['SteelLine' | 'Kunoichi' | 'OrbitalWatcher' | 'Mermaid'] |
   typeof SkillAreaType.CrossAdjacent |
   Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>> |
   BeastHunterAndPani |

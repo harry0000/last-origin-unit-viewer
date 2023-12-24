@@ -35,7 +35,7 @@ import { SkillEffect, isTargetSkillEffect } from '../../domain/skill/UnitSkills'
 import { SkillEffectScaleFactor } from '../../domain/skill/SkillEffectScaleFactor';
 import { SkillEffectTarget } from '../../domain/skill/SkillEffectTarget';
 import { UnitAlias, isUnitAlias, unitNumbersForAlias } from '../../domain/UnitAlias';
-import { UnitNumber, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
+import { UnitKind, UnitNumber, UnitRole, UnitType } from '../../domain/UnitBasicInfo';
 
 import SkillEffectConditionViewModel from './SkillEffectConditionViewModel';
 
@@ -167,7 +167,7 @@ function affectedByStateView(
 
 function unitStateView(key: typeof EffectActivationState.InSquad, state: ValueOf<ActivationSquadState, typeof EffectActivationState.InSquad> | ReadonlyArray<UnitNumber>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.NotInSquad, state: ValueOf<ActivationSquadState, typeof EffectActivationState.NotInSquad> | 41, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
-function unitStateView(key: typeof EffectActivationState.Unit, state: typeof UnitAlias.SteelLine | typeof UnitType.Flying, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+function unitStateView(key: typeof EffectActivationState.Unit, state: typeof UnitAlias.SteelLine | typeof UnitAlias.OrbitalWatcher | typeof UnitType.Flying, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
   key: typeof EffectActivationState['InSquad' | 'NotInSquad' | 'Unit' | 'NumOfUnitsLessThanEnemies'],
   state:
@@ -182,12 +182,14 @@ function unitStateView(
       'SteelLineExcludingOfficerRanks' |
       'Horizon' |
       'Kunoichi' |
+      'OrbitalWatcher' |
       'DEntertainment' |
       'KouheiChurch' |
       'EmpressHound' |
       'Mermaid'
     ] |
     typeof SkillAreaType.CrossAdjacent |
+    typeof UnitKind.AGS |
     UnitType |
     UnitRole |
     ArmoredBulgasari |
@@ -234,11 +236,11 @@ function unitStateView(
         </React.Fragment>
       );
     } else {
-      const isTypeOrRole = state !== 'cross_adjacent' && state !== 'golden_factory';
+      const isUnitBasicInfo = state !== 'cross_adjacent' && state !== 'armored_bulgasari' && state !== 'golden_factory';
       return (
         <React.Fragment>
           {ifTruthy(
-            isSquadCond && isTypeOrRole,
+            isSquadCond && isUnitBasicInfo,
             (<span>{t('effect:unit.self')}{t('effect:except_preposition')}</span>)
           )}
           <span>{t(`effect:condition.state.${key}`, { unit: t(`effect:unit.${state}`) })}</span>

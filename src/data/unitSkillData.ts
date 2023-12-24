@@ -9432,15 +9432,20 @@ export const unitSkillData: UnitSkillData = {
         per_lv_up: { milliPercentage: 7500 }
       },
       range: 3,
-      cost: 9,
+      cost: {
+        1: 9,
+        2: 8,
+        7: 7
+      },
       area: 'row_toward_front',
       effects: [{
+        conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
         details: {
           target: {
             marked: { term: { for_rounds: 2 }, max_stack: 1 },
-            damage_taken_increased: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 2 } },
-            eva_down: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } }
+            damage_taken_increased: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            eva_down: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
           }
         }
       }, {
@@ -9453,47 +9458,55 @@ export const unitSkillData: UnitSkillData = {
         per_lv_up: { milliPercentage: 10000 }
       },
       range: 5,
-      cost: 10,
+      cost: {
+        1: 10,
+        2: 9,
+        7: 8
+      },
       area: 'all_strong_explosion',
       effects: [{
         details: {
           self: {
             ignore_protect: {},
-            spd_down: { base: { milliPercentage: 75000 }, per_lv_up: { milliPercentage: -2000 }, term: { for_rounds: 2 }, max_stack: 1, cannot_be_dispelled: true }
+            tag_stack: { tag: 'high_altitude_scanning_ceased', term: { for_rounds: 3 }, max_stack: 1, cannot_be_dispelled: true }
           }
         }
       }, {
-        conditions: [{ state: { self: [{ affected: 'reconnaissance' }] } }],
-        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 } } } }
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged_affected: { tag: 'high_altitude_scanning', effect: 'reconnaissance' } }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 } } },
+          target: { buff_removal: { effects: ['row_protect', 'column_protect', 'target_protect'], term: 'immediate' } }
+        }
       }]
     }],
     passive: [{
-      area: 'cross_adjacent',
+      area: 'all',
       effects: [{
-        conditions: [{ trigger: 'start_round' }],
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'orbital_watcher' } } }],
         target: { kind: 'ally', conditions: ['bioroid'] },
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 600 }, term: { for_rounds: 1 } },
-            cri_up: { base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } },
-            defense_penetration: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 600 }, term: { for_rounds: 1 } }
+            atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            defense_penetration: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round' }],
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'orbital_watcher' } } }],
         target: { kind: 'ally', conditions: ['ags'] },
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 18000 }, per_lv_up: { milliPercentage: 900 }, term: { for_rounds: 1 } },
-            cri_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 600 }, term: { for_rounds: 1 } },
-            defense_penetration: { base: { milliPercentage: 18000 }, per_lv_up: { milliPercentage: 900 }, term: { for_rounds: 1 } }
+            atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            defense_penetration: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
           }
         }
       }]
     }, {
-      area: 'all_adjacent',
+      area: 'all',
       effects: [{
-        conditions: [{ trigger: 'start_round' }],
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'ags' } } }],
         target: { kind: 'ally', conditions: ['bioroid'] },
         details: {
           target: {
@@ -9502,7 +9515,16 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round' }],
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'ags' }, target: [{ unit: 'orbital_watcher' }] } }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
+        details: {
+          target: {
+            spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } },
+            ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 25000 }, term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'ags' } } }],
         target: { kind: 'ally', conditions: ['ags'] },
         details: {
           target: {
@@ -9512,13 +9534,76 @@ export const unitSkillData: UnitSkillData = {
         }
       }]
     }, {
-      area: 'self',
+      area: 'fixed_all',
       effects: [{
-        conditions: [{ trigger: 'start_round' }],
-        details: { self: { defense_penetration: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } } }
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'high_altitude_scanning_ceased' }] } }],
+        details: { self: { reconnaissance: { tag: 'high_altitude_scanning', term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'end_wave' }],
-        details: { self: { reconnaissance: {} } }
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged_affected: { tag: 'high_altitude_scanning', effect: 'reconnaissance' } }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            spd_down: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            immovable: { term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'orbital_watcher' } } }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
+        details: {
+          target: {
+            atk_up: { tag: 'accurate_analysis', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            cri_up: { tag: 'accurate_analysis', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            defense_penetration: { tag: 'accurate_analysis', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'orbital_watcher' }, target: [{ unit: 'orbital_watcher' }] } }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
+        details: {
+          target: {
+            atk_up: { tag: 'accurate_analysis', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            cri_up: { tag: 'accurate_analysis', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            defense_penetration: { tag: 'accurate_analysis', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'orbital_watcher' } } }],
+        target: { kind: 'ally', conditions: ['ags'] },
+        details: {
+          target: {
+            atk_up: { tag: 'accurate_analysis', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            cri_up: { tag: 'accurate_analysis', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            defense_penetration: { tag: 'accurate_analysis', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'ags' } } }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
+        details: {
+          target: {
+            spd_up: { tag: 'calculate_optimization', base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } },
+            ap_up: { tag: 'calculate_optimization', base: { microValue: 500000 }, per_lv_up: { microValue: 25000 }, term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'ags' }, target: [{ unit: 'orbital_watcher' }] } }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
+        details: {
+          target: {
+            spd_up: { tag: 'calculate_optimization', base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } },
+            ap_up: { tag: 'calculate_optimization', base: { microValue: 500000 }, per_lv_up: { microValue: 25000 }, term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'ags' } } }],
+        target: { kind: 'ally', conditions: ['ags'] },
+        details: {
+          target: {
+            spd_up: { tag: 'calculate_optimization', base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            ap_up: { tag: 'calculate_optimization', base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' }
+          }
+        }
       }]
     }]
   },

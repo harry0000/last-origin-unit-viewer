@@ -101,6 +101,10 @@ export type SkillEffectTag =
   'golden_needle' |
   'golden_ruler' |
   'full_proficiency' |
+  'accurate_analysis' |
+  'calculate_optimization' |
+  'high_altitude_scanning' |
+  'high_altitude_scanning_ceased' |
   'receiving_observation_data' |
   'guiding_technique' |
   'balance_seeker' |
