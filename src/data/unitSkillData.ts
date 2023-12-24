@@ -9618,15 +9618,24 @@ export const unitSkillData: UnitSkillData = {
       cost: 6,
       area: 'single',
       effects: [{
+        conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
         details: {
           target: {
             def_down: [
-              { base: { milliPercentage: 35000 }, per_lv_up: { milliPercentage: 1750 }, term: { for_rounds: 1 } },
-              { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 }, term: { for_rounds: 3 } }
+              { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+              { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } },
+              { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 3 } }
             ]
           }
         }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy', conditions: ['heavy', 'defender'] },
+        details: { target: { buff_removal: { effect: 'damage_reduction_up', term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 103 } } }],
+        details: { self: { cooperative_attack: { unit: 103, active: 2, term: 'immediate' } } }
       }]
     }, {
       range: 6,
@@ -9634,24 +9643,47 @@ export const unitSkillData: UnitSkillData = {
       area: 'single',
       effects: [{
         target: { kind: 'ally' },
+        details: { target: { target_protect: { term: { for_rounds: 3 } } } }
+      }, {
+        target: { kind: 'ally', conditions: ['attacker', 'supporter'] },
         details: {
-          self: { barrier: { base: { value: 150 }, per_lv_up: { value: 150 }, term: { for_rounds: 3 } } },
-          target: { target_protect: { term: { for_rounds: 3 } } }
+          target: {
+            barrier: { base: { value: 150 }, per_lv_up: { value: 150 }, term: { for_rounds: 3 } },
+            ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' }
+          }
         }
+      }, {
+        target: { kind: 'ally', conditions: ['orbital_watcher'] },
+        details: {
+          target: {
+            all_debuff_removal: { term: 'immediate' },
+            ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' }
+          }
+        }
+      }, {
+        target: { kind: 'ally', conditions: [101] },
+        details: { target: { tag_release: { tag: 'high_altitude_scanning_ceased', term: 'immediate' } } }
       }]
     }],
     passive: [{
-      area: 'back',
+      area: 'diagonal',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally' },
+        target: { kind: 'ally', conditions: ['attacker', 'supporter'] },
         details: {
-          self: { column_protect: { term: { for_rounds: 1 } } },
           target: {
             eva_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            damage_reduction_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 }  }
+            target_protect: { term: { for_rounds: 1 }  }
           }
         }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { per_units: { type: 'squad', except: 'self' } },
+        details: { self: { damage_reduction_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { per_units: { type: 'squad', unit: 'orbital_watcher', except: 'self' } },
+        details: { self: { damage_reduction_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
       }]
     }, {
       area: 'self',
@@ -9659,13 +9691,30 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: {
           self: {
-            def_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 }  },
-            fire_resist_up: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 1750 }, term: { for_rounds: 1 }  },
-            ice_resist_up: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 1750 }, term: { for_rounds: 1 }  },
-            electric_resist_up: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 1750 }, term: { for_rounds: 1 }  },
-            status_resist_up: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 1750 }, term: { for_rounds: 1 }  }
+            def_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } },
+            fire_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            ice_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            electric_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            row_protect: { term: { for_rounds: 1 } },
+            column_protect: { term: { for_rounds: 1 } },
+            prevents_effect: { effect: 'ice_resist_down', term: { for_rounds: 1 } }
           }
         }
+      }]
+    }, {
+      area: 'all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: { target: { minimum_ice_resist_up: { base: { milliPercentage: 0 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'wet' }] } }, { trigger: 'be_hit_ice_active' }],
+        details: { self: { minimize_damage_less_than_value: { tag: 'condensation', base: { value: 1500 }, per_lv_up: { value: 100 }, term: { for_rounds: 1 }, max_stack: 1 } } }
+      }, {
+        conditions: [{ trigger: 'be_hit', state: { self: [{ tagged: 'condensation' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { spd_up: { milliPercentage: 10000, term: { for_rounds: 2 } } } }
       }]
     }]
   },

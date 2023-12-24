@@ -105,6 +105,7 @@ export type SkillEffectTag =
   'calculate_optimization' |
   'high_altitude_scanning' |
   'high_altitude_scanning_ceased' |
+  'condensation' |
   'receiving_observation_data' |
   'guiding_technique' |
   'balance_seeker' |

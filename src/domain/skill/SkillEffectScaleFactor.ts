@@ -46,6 +46,7 @@ export type SkillEffectScaleFactor =
           'MongooseTeam' |
           'Horizon' |
           'TomosFriends' |
+          'OrbitalWatcher' |
           'CityGuard' |
           'KouheiChurch' |
           'Elven'
