@@ -106,6 +106,8 @@ export type SkillEffectTag =
   'high_altitude_scanning' |
   'high_altitude_scanning_ceased' |
   'condensation' |
+  'third_cosmic_velocity' |
+  'superacceleration' |
   'receiving_observation_data' |
   'guiding_technique' |
   'balance_seeker' |

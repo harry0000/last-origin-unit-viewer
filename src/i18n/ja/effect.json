@@ -189,6 +189,8 @@
     "high_altitude_scanning": "高高度スキャニング",
     "high_altitude_scanning_ceased": "演算過負荷$t(effect:tag_separator)<高高度スキャニング>停止",
     "condensation": "凝縮",
+    "third_cosmic_velocity": "第3宇宙速度",
+    "superacceleration": "超加速",
     "receiving_observation_data": "受信中⋯",
     "guiding_technique": "技術先導",
     "balance_seeker": "大衆性の追求",

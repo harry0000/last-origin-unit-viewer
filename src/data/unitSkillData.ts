@@ -9730,8 +9730,17 @@ export const unitSkillData: UnitSkillData = {
       cost: 6,
       area: 'single_and_front_middle_explosion',
       effects: [{
+        conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
-        details: { target: { fixed_fire_damage_over_time: { tag: 'ignite', base: { value: 40 }, per_lv_up: { value: 30 }, term: { for_rounds: 3 } } } }
+        details: {
+          target: {
+            fixed_fire_damage_over_time: { tag: 'ignite', base: { value: 40 }, per_lv_up: { value: 30 }, term: { for_rounds: 3 } },
+            status_resist_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'kill', state: { self: [{ tagged: 'superacceleration' }] } }],
+        details: { self: { ap_up: { microValue: 3000000, term: 'immediate' } } }
       }]
     }, {
       damage_deal: {
@@ -9742,24 +9751,70 @@ export const unitSkillData: UnitSkillData = {
       cost: 9,
       area: 'single',
       effects: [{
-        details: { self: { defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 } } } }
+        details: {
+          self: {
+            defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' },
+            debuff_removal: { effects: ['eva_down', 'spd_down'], term: 'immediate' }
+          }
+        }
       }, {
-        conditions: [{ state: { target: [{ affected: 'marked' }, { affected: 'immovable' }] } }],
+        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'marked' }] } }],
         target: { kind: 'enemy' },
-        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 } } } }
+        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'immovable' }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'kill', state: { self: [{ tagged: 'superacceleration' }] } }],
+        details: { self: { ap_up: { microValue: 4500000, term: 'immediate' } } }
       }]
     }],
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'attack' }],
+        conditions: [{ trigger: 'attack', state: { self: [{ not_tagged: 'third_cosmic_velocity' }] } }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 2 } },
-            eva_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 2 } },
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
             spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 2 } },
           }
         }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'third_cosmic_velocity' }] } }],
+        details: { self: { eva_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'attack', state: { self: [{ tagged: 'third_cosmic_velocity' }] } }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } },
+            spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 3 } },
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'third_cosmic_velocity' }] } }],
+        details: { self: { eva_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 3 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        details: { self: { eva_up: { tag: 'third_cosmic_velocity', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { eva_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 5 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'target_protect' }] } }],
+        details: { self: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { damage_multiplier_up_by_status: { status: 'eva', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'use_active_1' }],
+        details: { self: { ignore_barrier_dr: { tag: 'superacceleration', term: { for_rounds: 3 }, max_stack: 1 } } }
       }]
     }]
   },
