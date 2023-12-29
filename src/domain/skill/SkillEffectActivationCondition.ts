@@ -345,6 +345,39 @@ type NotInSquadState<T extends NotInSquadStateUnit = NotInSquadStateUnit> = {
   [EffectActivationState.NotInSquad]: T
 }
 
+export type NumOfCrossAdjacentCondition =
+  Extract<NumOfUnitsInSquadState[typeof EffectActivationState.NumOfUnits], { unit: typeof SkillAreaType.CrossAdjacent }>
+
+export function isNumOfCrossAdjacentCondition(
+  arg: NumOfUnitsInSquadState[typeof EffectActivationState.NumOfUnits]
+): arg is NumOfCrossAdjacentCondition {
+  return 'unit' in arg && arg.unit === SkillAreaType.CrossAdjacent;
+}
+
+export type NumOfDefenderAndArmoredBulgasariCondition =
+  Extract<NumOfUnitsInSquadState[typeof EffectActivationState.NumOfUnits], { unit: DefenderAndArmoredBulgasari }>
+
+export function isNumOfDefenderAndArmoredBulgasariCondition(
+  arg: NumOfUnitsInSquadState[typeof EffectActivationState.NumOfUnits]
+): arg is NumOfDefenderAndArmoredBulgasariCondition {
+  return 'unit' in arg && isDefenderAndArmoredBulgasari(arg.unit);
+}
+
+export type NumOfUnitsCompareToEnemiesCondition =
+  { unit: typeof UnitType.Flying, greater_than: 'enemy' } |
+  { unit: typeof UnitType.Flying, less_or_equal: 'enemy' } |
+  { less_than: 'enemy' }
+
+export function isNumOfUnitsCompareToEnemiesCondition(
+  arg: NumOfUnitsInSquadState[typeof EffectActivationState.NumOfUnits]
+): arg is NumOfUnitsCompareToEnemiesCondition {
+  return (
+    'greater_than' in arg ||
+    'less_than' in arg ||
+    'less_or_equal' in arg && arg.less_or_equal === 'enemy'
+  );
+}
+
 export type NumOfUnitsInSquadState = {
   [EffectActivationState.NumOfUnits]:
     { unit: UnitKind, greater_or_equal: 3 } |
@@ -360,14 +393,11 @@ export type NumOfUnitsInSquadState = {
     { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 } |
     { unit: 'killed', greater_or_equal: 1 | 2 | 3 } |
     { unit: 'killed', equal: 4 } |
-    { unit: DefenderAndArmoredBulgasari, equal: 1 | 2 | 3 | 4 }
+    { unit: DefenderAndArmoredBulgasari, equal: 1 | 2 | 3 | 4 } |
+    NumOfUnitsCompareToEnemiesCondition
 }
 
-export type NumOfUnitsLessThanEnemiesState = {
-  [EffectActivationState.NumOfUnitsLessThanEnemies]: Record<string, never>
-}
-
-export type ActivationSquadState = InSquadState | NotInSquadState | NumOfUnitsInSquadState | NumOfUnitsLessThanEnemiesState
+export type ActivationSquadState = InSquadState | NotInSquadState | NumOfUnitsInSquadState
 
 export type ActivationEnemyState = {
   [EffectActivationState.NumOfUnits]:

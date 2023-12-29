@@ -16,7 +16,9 @@ import {
   ArmoredBulgasari,
   DefenderAndArmoredBulgasari,
   InSquadTaggedUnitState,
-  NumOfUnitsInSquadState,
+  NumOfCrossAdjacentCondition,
+  NumOfDefenderAndArmoredBulgasariCondition,
+  NumOfUnitsCompareToEnemiesCondition,
   SelfSkillEffectActivationCondition,
   SelfSkillEffectActivationState,
   SkillEffectActivationCondition,
@@ -24,7 +26,10 @@ import {
   TargetSkillEffectActivationCondition,
   UnitAliasAndRole,
   isDefenderAndArmoredBulgasari,
-  isUnitsInSquadCondition
+  isUnitsInSquadCondition,
+  isNumOfCrossAdjacentCondition,
+  isNumOfDefenderAndArmoredBulgasariCondition,
+  isNumOfUnitsCompareToEnemiesCondition
 } from '../../domain/skill/SkillEffectActivationCondition';
 import { Effect } from '../../domain/Effect';
 import { EffectActivationState } from '../../domain/EffectActivationState';
@@ -169,7 +174,7 @@ function unitStateView(key: typeof EffectActivationState.InSquad, state: ValueOf
 function unitStateView(key: typeof EffectActivationState.NotInSquad, state: ValueOf<ActivationSquadState, typeof EffectActivationState.NotInSquad> | 41, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.Unit, state: typeof UnitAlias.SteelLine | typeof UnitAlias.OrbitalWatcher | typeof UnitType.Flying, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
-  key: typeof EffectActivationState['InSquad' | 'NotInSquad' | 'Unit' | 'NumOfUnitsLessThanEnemies'],
+  key: typeof EffectActivationState['InSquad' | 'NotInSquad' | 'Unit'],
   state:
     UnitNumber |
     ReadonlyArray<UnitNumber> |
@@ -318,37 +323,28 @@ const SelfAndTargetStateView: React.FC<{
   );
 };
 
-type NumOfCrossAdjacent = Extract<NumOfUnitsInSquadState['num_of_units'], { unit: typeof SkillAreaType.CrossAdjacent }>
-
-function isNumOfCrossAdjacent(
-  arg: NumOfUnitsInSquadState['num_of_units']
-): arg is NumOfCrossAdjacent {
-  return arg.unit === SkillAreaType.CrossAdjacent;
-}
-
-type NumOfDefenderAndArmoredBulgasari = Extract<NumOfUnitsInSquadState['num_of_units'], { unit: DefenderAndArmoredBulgasari }>
-
-function isNumOfDefenderAndArmoredBulgasari(
-  arg: NumOfUnitsInSquadState['num_of_units']
-): arg is NumOfDefenderAndArmoredBulgasari {
-  return isDefenderAndArmoredBulgasari(arg.unit);
-}
-
 const SquadStateView: React.FC<{
   state: ValueOf<SkillEffectActivationState, 'squad'>,
   unitNumber: UnitNumber
 }> = ({ state, unitNumber }) => {
   const { t } = useTranslation();
 
-  const numOfCrossAdjacent = (state: NumOfCrossAdjacent): string => {
+  const numOfCrossAdjacent = (state: NumOfCrossAdjacentCondition): string => {
     return 'equal' in state ?
       t('effect:condition.state.cross_adjacent_eq', state) :
       'less_or_equal' in state ?
         t('effect:condition.state.cross_adjacent', state) :
         t('effect:condition.state.cross_adjacent_ge', state);
   };
-  const numOfDefenderAndArmoredBulgasari = (state: NumOfDefenderAndArmoredBulgasari): string => {
+  const numOfDefenderAndArmoredBulgasari = (state: NumOfDefenderAndArmoredBulgasariCondition): string => {
     return t('effect:condition.state.num_of_defender_armored_bulgasari', state);
+  };
+  const numOfUnitsCompareEnemies = (state: NumOfUnitsCompareToEnemiesCondition): string => {
+    return 'less_than' in state ?
+      t('effect:condition.state.num_of_allies_lt_enemies', state) :
+      'greater_than' in state ?
+        t('effect:condition.state.num_of_units_gt_enemies', state) :
+        t('effect:condition.state.num_of_units_le_enemies', state);
   };
 
   if (isReadonlyArray(state)) {
@@ -366,10 +362,14 @@ const SquadStateView: React.FC<{
         }
       </React.Fragment>
     );
+  } else if (
+    EffectActivationState.NumOfUnits in state &&
+    isNumOfUnitsCompareToEnemiesCondition(state.num_of_units)
+  ) {
+    return (<span>{numOfUnitsCompareEnemies(state.num_of_units)}</span>);
   } else {
-    return EffectActivationState.NumOfUnitsLessThanEnemies in state ?
-      (<span>{t(`effect:condition.state.${EffectActivationState.NumOfUnitsLessThanEnemies}`)}</span>) :
-      (<React.Fragment>
+    return (
+      <React.Fragment>
         {t('effect:condition.target.squad')}
         {
           typedEntries(state).map((entry, i, array) => {
@@ -394,22 +394,34 @@ const SquadStateView: React.FC<{
               );
             case EffectActivationState.NumOfUnits: {
               const squadState = entry[1];
-              return (
-                <React.Fragment key={entry[0]}>
-                  {
-                    isNumOfCrossAdjacent(squadState) ?
-                      numOfCrossAdjacent(squadState) :
-                      isNumOfDefenderAndArmoredBulgasari(squadState) ?
-                        numOfDefenderAndArmoredBulgasari(squadState) :
-                        'equal' in squadState ?
-                          t('effect:condition.state.num_of_units_eq', squadState) :
-                          'greater_or_equal' in squadState ?
-                            t('effect:condition.state.num_of_units_ge', squadState) :
-                            t('effect:condition.state.num_of_units_le', squadState)
-                  }
-                  <Separator />
-                </React.Fragment>
-              );
+              if (isNumOfCrossAdjacentCondition(squadState)) {
+                return (
+                  <React.Fragment key={entry[0]}>
+                    {numOfCrossAdjacent(squadState)}
+                    <Separator />
+                  </React.Fragment>
+                );
+              } else if (isNumOfDefenderAndArmoredBulgasariCondition(squadState)) {
+                return (
+                  <React.Fragment key={entry[0]}>
+                    {numOfDefenderAndArmoredBulgasari(squadState)}
+                    <Separator />
+                  </React.Fragment>
+                );
+              } else {
+                return (
+                  <React.Fragment key={entry[0]}>
+                    {
+                      'equal' in squadState ?
+                        t('effect:condition.state.num_of_units_eq', squadState) :
+                        'greater_or_equal' in squadState ?
+                          t('effect:condition.state.num_of_units_ge', squadState) :
+                          t('effect:condition.state.num_of_units_le', squadState)
+                    }
+                    <Separator />
+                  </React.Fragment>
+                );
+              }
             }
             default: {
               const _exhaustiveCheck: never = entry;
@@ -418,7 +430,8 @@ const SquadStateView: React.FC<{
             }
           })
         }
-      </React.Fragment>);
+      </React.Fragment>
+    );
   }
 };
 

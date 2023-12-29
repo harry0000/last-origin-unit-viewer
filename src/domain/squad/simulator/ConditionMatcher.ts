@@ -148,7 +148,7 @@ type FactorUnitCondition = Extract<SkillEffectScaleFactor, { per_units: { type: 
 
 type InSquadCondition         = ValueOf<ActivationSquadState, typeof EffectActivationState.InSquad>
 type NotInSquadCondition      = ValueOf<ActivationSquadState, typeof EffectActivationState.NotInSquad>
-type NumOfUnitsSquadCondition = ValueOf<ActivationSquadState, typeof EffectActivationState.NumOfUnits>['unit']
+type NumOfUnitsSquadCondition = ValueOf<ValueOf<ActivationSquadState, typeof EffectActivationState.NumOfUnits>, 'unit'>
 
 function isArmoredBulgasari({ unit: { no }, gear: { gear } }: UnitOriginState): boolean {
   return no === FormChangeUnits.Bulgasari && gear?.id === 'counterterrorism_body_armor';
@@ -721,25 +721,39 @@ export function matchStaticSquadState(
       }
       case EffectActivationState.NumOfUnits: {
         const num_of_units = entry[1];
-        const target = num_of_units.unit;
-        const count =
-          target === 'ally' ?
-            squad.length - 1 : // except source unit
-            target === 'killed' ?
-              0 : // Currently, the number of units killed is always 0
-              squad.filter(exceptSourceUnit(getSquadUnitMatcher(target, source.position))).length;
+        const gtEnemies = 'greater_than' in num_of_units;
+        const lessOrEqual = 'less_or_equal' in num_of_units;
+        if ('less_than' in num_of_units) {
+          return squad.length < Object.keys(enemies).length;
+        } else if (
+          gtEnemies ||
+          lessOrEqual && num_of_units.less_or_equal === 'enemy'
+        ) {
+          const cond = num_of_units.unit;
+          const numOfSquad = Object.values(squad).filter(({ unit: { type } }) => type === cond).length;
+          const numOfEnemy = Object.values(enemies).filter(({ type }) => type === cond).length;
+          return gtEnemies ?
+            numOfSquad > numOfEnemy :
+            numOfSquad <= numOfEnemy;
+        } else {
+          const target = num_of_units.unit;
+          const count =
+            target === 'ally' ?
+              squad.length - 1 : // except source unit
+              target === 'killed' ?
+                0 : // Currently, the number of units killed is always 0
+                squad.filter(exceptSourceUnit(getSquadUnitMatcher(target, source.position))).length;
 
-        return (
-          'equal' in num_of_units ? num_of_units.equal === count :
-            'less_or_equal' in num_of_units ?
-              'greater_or_equal' in num_of_units ?
-                num_of_units.greater_or_equal <= count && count <= num_of_units.less_or_equal :
-                count <= num_of_units.less_or_equal :
-              num_of_units.greater_or_equal <= count
-        );
+          return (
+            'equal' in num_of_units ? num_of_units.equal === count :
+              'less_or_equal' in num_of_units ?
+                'greater_or_equal' in num_of_units ?
+                  num_of_units.greater_or_equal <= count && count <= num_of_units.less_or_equal :
+                  count <= num_of_units.less_or_equal :
+                num_of_units.greater_or_equal <= count
+          );
+        }
       }
-      case EffectActivationState.NumOfUnitsLessThanEnemies:
-        return squad.length < Object.keys(enemies).length;
       default: {
         const _exhaustiveCheck: never = entry;
         return _exhaustiveCheck;
