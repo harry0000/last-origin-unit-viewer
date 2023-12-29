@@ -14017,8 +14017,7 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { reconnaissance: {} } }
       }, {
         conditions: [{ trigger: 'be_attacked', state: { self: [{ affected: 'counterattack' }] } }],
-        // TODO: Change to effect_removal ?
-        details: { self: { buff_removal: { effect: 'counterattack', term: 'immediate' } } }
+        details: { self: { effect_removal: { effect: 'counterattack', term: 'immediate' } } }
       }]
     }, {
       area: 'fixed_all',
