@@ -1,9 +1,7 @@
 import { UnitAlias } from '../UnitAlias';
 import {
-  ExceptUnit,
   UnitAliasAndRole,
   UnitAliasAndType,
-  UnitAliasExceptUnit,
   UnitNotAlias,
   UnitNotAliasAndRole,
   UnitNotAliasAndType,
@@ -25,12 +23,12 @@ export type AlliedUnitTarget = Readonly<{
   conditions?:
     ReadonlyArray<
       UnitNumber |
-      ExceptUnit<97 | 128 | 133 | 135> |
       UnitKind | UnitType | UnitRole |
       UnitTypeAndRole |
-      UnitAlias | UnitAliasAndType | UnitAliasAndRole | UnitAliasExceptUnit |
+      UnitAlias | UnitAliasAndType | UnitAliasAndRole |
       UnitNotAlias | UnitNotAliasAndType | UnitNotAliasAndRole
-    >
+    >,
+  except?: 97 | 127 | 128 | 133 | 135 | 150 | 193
 }>
 
 export type SkillEffectTarget =

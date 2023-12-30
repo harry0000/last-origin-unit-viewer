@@ -115,10 +115,7 @@ function matchTargetCondition(
   } else if ('alias' in cond) {
     return unitNumbersForAlias[cond.alias].has(target.no) &&
       (!('type'   in cond) || target.type === cond.type) &&
-      (!('role'   in cond) || target.role === cond.role) &&
-      (!('except' in cond) || target.no   !== cond.except);
-  } else if ('except' in cond) {
-    return target.no !== cond.except;
+      (!('role'   in cond) || target.role === cond.role);
   } else {
     return target.type === cond.type && target.role === cond.role;
   }
@@ -136,7 +133,10 @@ export function matchTarget(
   source: UnitBasicInfo,
   condition: AlliedUnitTarget
 ): boolean {
-  if (condition.kind === SkillEffectTargetKind.AllyExceptSelf && target.no === source.no) {
+  if (
+    condition.kind === SkillEffectTargetKind.AllyExceptSelf && target.no === source.no ||
+    'except' in condition && target.no === condition.except
+  ) {
     return false;
   }
 

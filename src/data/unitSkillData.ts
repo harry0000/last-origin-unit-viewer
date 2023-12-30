@@ -1574,7 +1574,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        target: { kind: 'ally', conditions: [{ alias: 'companion_series', except: 18 }] },
+        target: { kind: 'ally_except_self', conditions: ['companion_series'] },
         details: {
           target: {
             ap_up:  { base: { microValue: 250000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
@@ -2027,7 +2027,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: [{ alias: 'steel_line', except: 23 }] },
+        target: { kind: 'ally_except_self', conditions: ['steel_line'] },
         details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
@@ -2460,7 +2460,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'fan_shape',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: [{ alias: 'steel_line', except: 27 }] },
+        target: { kind: 'ally_except_self', conditions: ['steel_line'] },
         details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { target: [{ status_less_than_self: { status: 'spd' } }] } }],
@@ -3710,7 +3710,7 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 } } } }
       }, {
         conditions: [{ trigger: 'start_wave' }],
-        target: { kind: 'ally', conditions: [{ alias: 'anger_of_horde', except: 193 }] },
+        target: { kind: 'ally', conditions: ['anger_of_horde'], except: 193 },
         details: { target: { tag_stack: { tag: 'charging_order', term: 'infinite' } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
@@ -3732,7 +3732,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: [{ alias: 'anger_of_horde', except: 41 }] },
+        target: { kind: 'ally_except_self', conditions: ['anger_of_horde'] },
         details: { target: { atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } } } }
       }]
     }, {
@@ -10158,7 +10158,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'right_direction',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: [{ except: 97 }] },
+        target: { kind: 'ally', except: 97 },
         details: {
           target: {
             atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
@@ -12432,7 +12432,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'under_watcher_with_self',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: [{ alias: 'magical_girl', except: 127 }] },
+        target: { kind: 'ally', conditions: ['magical_girl'], except: 127 },
         details: { target: { target_protect: { term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 171 } } }],
@@ -13018,7 +13018,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'start_round', state: { target: [{ affected_by: { unit: 135 } }] } }],
-        target: { kind: 'ally', conditions: [{ except: 135 }] },
+        target: { kind: 'ally', except: 135 },
         details: {
           target: {
             atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
@@ -13226,7 +13226,7 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'start_wave', state: { target: [{ affected_by: { unit: 133 } }] } }],
-        target: { kind: 'ally', conditions: [{ except: 133 }] },
+        target: { kind: 'ally', except: 133 },
         details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
       }, {
         conditions: [{ trigger: 'start_wave' }],
@@ -13234,7 +13234,7 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { target: [{ affected_by: { unit: 133 } }] } }],
-        target: { kind: 'ally', conditions: [{ except: 133 }] },
+        target: { kind: 'ally', except: 133 },
         details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
@@ -13462,7 +13462,7 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: [{ alias: 'kouhei_church', except: 138 }] },
+        target: { kind: 'ally_except_self', conditions: ['kouhei_church'] },
         details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'hit', state: { target: [{ affected: 'row_protect' }] } }],
@@ -13470,7 +13470,7 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { ap_up: { base: { microValue: 450000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
       }, {
         conditions: [{ trigger: 'hit' }],
-        target: { kind: 'ally', conditions: [{ alias: 'kouhei_church', except: 138 }] },
+        target: { kind: 'ally_except_self', conditions: ['kouhei_church'] },
         details: { target: { ap_up: { base: { microValue: 450000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
@@ -13478,7 +13478,7 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { defense_penetration: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: [{ alias: 'kouhei_church', except: 138 }] },
+        target: { kind: 'ally_except_self', conditions: ['kouhei_church'] },
         details: {
           target: {
             ap_up: { base: { microValue: 450000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
@@ -15492,7 +15492,7 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { prevents_effect: { effect: 'marked', term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: [{ except: 128 }] },
+        target: { kind: 'ally', except: 128 },
         details: {
           target: {
             damage_multiplier_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
@@ -17470,7 +17470,7 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { atk_up: { base: { milliPercentage: 6200 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: [{ alias: 'anger_of_horde', except: 192 }] },
+        target: { kind: 'ally_except_self', conditions: ['anger_of_horde'] },
         details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
       }]
     }, {
@@ -18774,11 +18774,11 @@ export const unitSkillData: UnitSkillData = {
       area: 'fixed_all',
       effects: [{
         conditions: [{ trigger: 'start_wave' }],
-        target: { kind: 'ally', conditions: [{ alias: 'spartan_series', except: 215 }] },
+        target: { kind: 'ally_except_self', conditions: ['spartan_series'] },
         details: { target: { atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: [{ alias: 'spartan_series', except: 215 }] },
+        target: { kind: 'ally_except_self', conditions: ['spartan_series'] },
         details: {
           target: {
             follow_up_attack: { term: { for_rounds: 1 } },

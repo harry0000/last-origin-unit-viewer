@@ -59,12 +59,6 @@ export function isBeastHunterAndPani(arg: unknown): arg is BeastHunterAndPani {
   return isReadonlyArray(arg) && arg.length === 2 && arg[0] === 67 && arg[1] === 69;
 }
 
-export type ExceptUnit<
-  E extends UnitNumber = UnitNumber
-> = {
-  except: E
-}
-
 export const GridState = {
   FrontLine: 'front_line',
   MidLine: 'mid_line',
