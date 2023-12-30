@@ -28,7 +28,7 @@ export type AlliedUnitTarget = Readonly<{
       UnitAlias | UnitAliasAndType | UnitAliasAndRole |
       UnitNotAlias | UnitNotAliasAndType | UnitNotAliasAndRole
     >,
-  except?: 97 | 127 | 128 | 133 | 135 | 150 | 193
+  except?: 97 | 127 | 128 | 133 | 135 | 150 | 193 | readonly [118, 240]
 }>
 
 export type SkillEffectTarget =

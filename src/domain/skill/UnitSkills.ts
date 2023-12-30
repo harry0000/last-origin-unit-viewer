@@ -14,7 +14,8 @@ import {
   MultipleMilliPercentageEffectKey,
   NoValueEffectKey,
   PushPullEffectKey,
-  RangeUpDownEffectKey
+  RangeUpEffectKey,
+  RangeDownEffectKey
 } from './SkillEffect';
 import {
   IntegerValue,
@@ -52,6 +53,8 @@ type SkillEffectAddition = Readonly<{
 type ValueWithAddition<T extends ValueUnit> =
   { readonly [key in T]: number } & SkillEffectAddition
 
+type RangeUpDownValue = IntegerValue<1 | 2 | 3 | 4> & SkillEffectAddition
+
 type TagStackEffectValue = { tag: SkillEffectTag } & Omit<SkillEffectAddition, 'tag'>
 
 export type SkillEffectKey = Exclude<Effect, EquipmentEffectOnly>
@@ -64,8 +67,11 @@ export type SkillEffectValue = Readonly<{
       { unit: UnitNumber, active: 1 | 2 } & SkillEffectAddition :
     E extends PushPullEffectKey ?
       IntegerValue<1 | 2> & SkillEffectAddition :
-    E extends RangeUpDownEffectKey ?
-      IntegerValue<1 | 2 | 3 | 4> & SkillEffectAddition :
+    E extends RangeUpEffectKey ?
+      RangeUpDownValue :
+    E extends RangeDownEffectKey ?
+      RangeUpDownValue |
+      ReadonlyArray<RangeUpDownValue> :
     E extends IntegerValueEffectKey ?
       ValueWithAddition<'value'> :
     E extends MilliValueEffectKey ?

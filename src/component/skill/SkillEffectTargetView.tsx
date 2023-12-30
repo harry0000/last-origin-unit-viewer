@@ -11,6 +11,7 @@ import { UnitNumber } from '../../domain/UnitBasicInfo';
 import { isUnitAlias } from '../../domain/UnitAlias';
 
 import { ifNonNullable } from '../../util/react';
+import { isReadonlyArray } from '../../util/type';
 
 const SkillEffectTargetView: React.FC<{
   target: SkillEffectTarget,
@@ -23,7 +24,12 @@ const SkillEffectTargetView: React.FC<{
 
   const hasConditions = 'conditions' in target && target.conditions;
   const except = 'except' in target ? target.except : undefined;
-  const exceptUnit = target.kind === SkillEffectTargetKind.AllyExceptSelf ? selfUnitNumber : except;
+  const exceptUnit =
+    target.kind === SkillEffectTargetKind.AllyExceptSelf ?
+      selfUnitNumber :
+      !isReadonlyArray(except) ?
+        except :
+        undefined;
 
   return (
     <React.Fragment>
@@ -33,7 +39,9 @@ const SkillEffectTargetView: React.FC<{
         except,
         v => (
           <React.Fragment>
-            {unitName(v)}
+            {isReadonlyArray(v) ?
+              `${unitName(v[0])}${t('effect:unit_separator')}${unitName(v[1])}` :
+              unitName(v)}
             {t('effect:except_preposition')}
             {hasConditions ? null : t('effect:unit.unit')}
           </React.Fragment>

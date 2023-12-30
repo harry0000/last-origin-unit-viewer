@@ -59,6 +59,11 @@ export function isBeastHunterAndPani(arg: unknown): arg is BeastHunterAndPani {
   return isReadonlyArray(arg) && arg.length === 2 && arg[0] === 67 && arg[1] === 69;
 }
 
+export type DefenderAndCyclopsPrincess = readonly [typeof UnitRole.Defender, 240]
+export function isDefenderAndCyclopsPrincess(arg: unknown): arg is DefenderAndCyclopsPrincess {
+  return isReadonlyArray(arg) && arg.length === 2 && arg[0] === UnitRole.Defender && arg[1] === 240;
+}
+
 export const GridState = {
   FrontLine: 'front_line',
   MidLine: 'mid_line',
@@ -225,7 +230,8 @@ export type ActivationSelfState =
       SkillEffectTag |
       // The following is AND condition
       readonly ['figure_eight_knot', 'golden_needle'] |
-      readonly ['solagarmr', 'managarmr']
+      readonly ['solagarmr', 'managarmr'] |
+      readonly ['bond_of_light', 'oath_of_light']
   } &
   {
     [EffectActivationState.NotAffected]?:
@@ -333,7 +339,8 @@ type NotInSquadStateUnit =
   typeof SkillAreaType.CrossAdjacent |
   Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>> |
   BeastHunterAndPani |
-  DefenderAndArmoredBulgasari
+  DefenderAndArmoredBulgasari |
+  DefenderAndCyclopsPrincess
 
 type NotInSquadState<T extends NotInSquadStateUnit = NotInSquadStateUnit> = {
   [EffectActivationState.NotInSquad]: T

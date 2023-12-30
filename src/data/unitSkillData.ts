@@ -21184,6 +21184,117 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  241: {
+    no: 241,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 125000 },
+        per_lv_up: { milliPercentage: 6250 }
+      },
+      range: 3,
+      cost: 5,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            damage_multiplier_down: [
+              { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } },
+              { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+              { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+            ],
+            range_down: [
+              { value: 1, term: { for_rounds: 3 } },
+              { value: 1, term: { for_rounds: 2 } },
+              { value: 1, term: { for_rounds: 1 } }
+            ]
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'attack', state: { squad: { in_squad: 118 } } }],
+        details: { self: { cri_up: { tag: 'bond_of_light', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'attack', state: { squad: { in_squad: 240 } } }],
+        details: { self: { ignore_protect: { tag: 'oath_of_light', term: { for_rounds: 2 } } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 45000 },
+        per_lv_up: { milliPercentage: 15000 }
+      },
+      range: 5,
+      cost: 10,
+      area: 'all_strong_explosion',
+      effects: [{
+        conditions: [{ trigger: 'critical' }],
+        target: { kind: 'enemy' },
+        details: { target: { all_buff_removal: { term: 'immediate' } } }
+      }, {
+        conditions: [{ state: { self: [{ tagged: ['bond_of_light', 'oath_of_light'] }] } }],
+        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'immediate' } } }
+      }]
+    }],
+    passive: [{
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { effect_removal: { effects: ['row_protect', 'column_protect'], term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: ['defender', 240] } } }],
+        details: { self: { marked: { term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 240 } } }],
+        target: { kind: 'ally', conditions: [240] },
+        details: { target: { marked: { term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }]
+    }, {
+      area: 'all',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'defender' } } }],
+        target: { kind: 'ally', conditions: ['attacker', 'supporter'] },
+        details: { target: { damage_reduction_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'defender' } } }],
+        target: { kind: 'ally' },
+        details: { target: { damage_reduction_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['supporter'], except: [118, 240] },
+        details: {
+          target: {
+            range_up: { value: 1, term: { for_rounds: 1 } },
+            nullify_damage: { times: 1, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: [118, 240] },
+        details: {
+          target: {
+            range_up: { value: 2, term: { for_rounds: 1 } },
+            nullify_damage: { times: 2, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            prevents_effect: { effect: 'acc_down', term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 3 } }
+          }
+        }
+      }, {
+        // FIXME: Add be_hit Cyclops Princess when the bug fixed in the game.
+        conditions: [{ trigger: 'be_hit', state: { target: [{ affected: 'acc_down' }, { affected: 'def_down' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effect: 'ignore_barrier_dr', term: 'immediate' } } }
+      }]
+    }]
+  },
   246: {
     no: 246,
     active: [{

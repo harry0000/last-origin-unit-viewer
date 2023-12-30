@@ -6,6 +6,7 @@ import {
   calcMicroValue,
   calcMilliPercentageValue,
   calcMilliValue,
+  IntegerValue,
   MilliPercentageValue
 } from '../../domain/ValueUnit';
 import { isFormChangeUnitNumber, UnitForms } from '../../domain/UnitFormValue';
@@ -53,6 +54,18 @@ function getTag(value: SkillEffectDetailsEntry[1], t: TFunction): string | undef
   return 'tag' in value ?
     value.tag && t('effect:tag.format', { tag: value.tag }) :
     undefined;
+}
+
+function translateIntegerValueDetail(
+  effect: string,
+  value: SkillEffectDetailsEntry[1] & IntegerValue,
+  t: TFunction
+): SkillEffectDetailsProps {
+  return {
+    tag: getTag(value, t),
+    detail: getDetail(t(`effect:effect.description.${effect}`, { value: value.value }), value, t),
+    term: getTerm(value, t)
+  };
 }
 
 function translateMilliPercentageDetail(
@@ -146,7 +159,6 @@ export function translateSkillEffectDetails(
   case Effect.Push:
   case Effect.Pull:
   case Effect.RangeUp:
-  case Effect.RangeDown:
   case Effect.RangeUpActive2:
   case Effect.FixedDamageOverTime:
   case Effect.FixedFireDamageOverTime:
@@ -154,15 +166,11 @@ export function translateSkillEffectDetails(
   case Effect.FixedElectricDamageOverTime:
   case Effect.MinimizeDamageLessThanValue:
   case Effect.Barrier:
-    return {
-      tag: getTag(entry[1], t),
-      detail: getDetail(
-        t(`effect:effect.description.${entry[0]}`, { value: entry[1].value }),
-        entry[1],
-        t
-      ),
-      term
-    };
+    return translateIntegerValueDetail(entry[0], entry[1], t);
+  case Effect.RangeDown:
+    return 'length' in entry[1] ?
+      entry[1].map(v => translateIntegerValueDetail(entry[0], v, t)) :
+      translateIntegerValueDetail(entry[0], entry[1], t);
   case Effect.BattleContinuation: {
     const body = 'value' in entry[1] ?
       t('effect:effect.description.battle_continuation', { value: entry[1].value }) :

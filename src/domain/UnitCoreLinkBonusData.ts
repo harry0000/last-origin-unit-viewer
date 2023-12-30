@@ -72,7 +72,7 @@ export type CriUpBonus = Readonly<{
 }>
 
 export type HpUpBonus = Readonly<{
-  [Effect.HpUp]: { [key in keyof MilliPercentageValue]: 20_000 | 40_000 | 50_000 }
+  [Effect.HpUp]: { [key in keyof MilliPercentageValue]: 20_000 | 30_000 | 40_000 | 50_000 }
 }>
 
 export type AtkUpBonus = Readonly<{

@@ -10,7 +10,9 @@ import {
   SkillEffectActivationState,
   TargetSkillEffectActivationState,
   isUnitsInSquadCondition,
-  isBeastHunterAndPani
+  isBeastHunterAndPani,
+  isDefenderAndArmoredBulgasari,
+  isDefenderAndCyclopsPrincess
 } from '../../skill/SkillEffectActivationCondition';
 import { AlliedUnitTarget, SkillEffectTargetKind } from '../../skill/SkillEffectTarget';
 import { BattleEffect } from './BattleEffect';
@@ -21,7 +23,7 @@ import { EquipmentEffectActivationState } from '../../equipment/EquipmentEffect'
 import { EquipmentId } from '../../equipment/EquipmentData';
 import { FormChangeUnits } from '../../UnitFormValue';
 import { SkillAreaType } from '../../skill/SkillAreaOfEffect';
-import { SkillEffectScaleFactor, isAlvisSkillEffectScaleFactor } from '../../skill/SkillEffectScaleFactor';
+import { SkillEffectScaleFactor } from '../../skill/SkillEffectScaleFactor';
 import { SkillEffectTag } from '../../skill/SkillEffectTag';
 import { TenKeyPosition } from '../Squad';
 import { UnitBasicInfo, UnitKind, UnitRankComparator, UnitRole, UnitType } from '../../UnitBasicInfo';
@@ -135,7 +137,11 @@ export function matchTarget(
 ): boolean {
   if (
     condition.kind === SkillEffectTargetKind.AllyExceptSelf && target.no === source.no ||
-    'except' in condition && target.no === condition.except
+    'except' in condition && (
+      isReadonlyArray(condition.except) ?
+        target.no === condition.except[0] || target.no === condition.except[1] :
+        target.no === condition.except
+    )
   ) {
     return false;
   }
@@ -174,11 +180,13 @@ function getSquadUnitMatcher(
   if (isReadonlyArray(cond)) {
     if (isBeastHunterAndPani(cond)) {
       return (target) => target.unit.no == cond[0] || target.unit.no == cond[1];
-    } else if (isAlvisSkillEffectScaleFactor(cond)) {
+    } else if (isDefenderAndArmoredBulgasari(cond)) {
+      return (target) => target.unit.role == cond[0] || isArmoredBulgasari(target);
+    } else if (isDefenderAndCyclopsPrincess(cond)) {
+      return (target) => target.unit.role == cond[0] || target.unit.no == cond[1];
+    } else {
       const set = new Set([...unitNumbersForAlias[cond[0]], ...unitNumbersForAlias[cond[1]]]);
       return (target) => set.has(target.unit.no);
-    } else {
-      return (target) => target.unit.role == cond[0] || isArmoredBulgasari(target);
     }
   } else if (typeof cond === 'number') {
     return (target) => target.unit.no === cond;

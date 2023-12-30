@@ -15,6 +15,7 @@ import {
   ActivationTargetState,
   ArmoredBulgasari,
   DefenderAndArmoredBulgasari,
+  DefenderAndCyclopsPrincess,
   InSquadTaggedUnitState,
   NumOfCrossAdjacentCondition,
   NumOfDefenderAndArmoredBulgasariCondition,
@@ -26,6 +27,7 @@ import {
   TargetSkillEffectActivationCondition,
   UnitAliasAndRole,
   isDefenderAndArmoredBulgasari,
+  isDefenderAndCyclopsPrincess,
   isUnitsInSquadCondition,
   isNumOfCrossAdjacentCondition,
   isNumOfDefenderAndArmoredBulgasariCondition,
@@ -199,6 +201,7 @@ function unitStateView(
     UnitRole |
     ArmoredBulgasari |
     DefenderAndArmoredBulgasari |
+    DefenderAndCyclopsPrincess |
     'golden_factory' |
     { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp } |
     { [EffectActivationState.AffectedBy]: { unit: 83, effect: typeof Effect.TargetProtect } } |
@@ -218,6 +221,8 @@ function unitStateView(
     let unit;
     if (isDefenderAndArmoredBulgasari(state)) {
       unit = `${t(`effect:unit.${state[0]}`)}${t('effect:unit_separator')}${t(`effect:unit.${state[1]}`)}`;
+    } else if (isDefenderAndCyclopsPrincess(state)) {
+      unit = `${t(`effect:unit.${state[0]}`)}${t('effect:unit_separator')}${unitName(state[1])}`;
     } else {
       const separator =
         key === EffectActivationState.NotInSquad ?
