@@ -107,6 +107,7 @@ const initialUnitCostData = {
         [UnitRole.Supporter]: { part: 35, nutrient: 0, power: 22 }
       },
       [UnitType.Flying]: {
+        [UnitRole.Attacker]:  { part: 22, nutrient: 0, power: 35 },
         [UnitRole.Supporter]: { part: 22, nutrient: 0, power: 26 }
       }
     },
@@ -281,6 +282,7 @@ class RankUpUnitCostResolver<N extends  RankUpUnitNumber> {
     } else {
       const agsCost = initialUnitCostData.ags;
       switch (unit.no) {
+      case 103: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 107: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 110: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 114: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];

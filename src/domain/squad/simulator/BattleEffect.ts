@@ -147,8 +147,8 @@ type AppliedBattleEffect =
 
 export type BattleEffect = AppliedBattleEffect | MakeBattleEffect<StatusEffect>
 
-type MultipleValueSkillEffectKey = typeof Effect.TagRelease | MultipleMilliPercentageEffectKey
-type SingleValueSkillEffectKey = Exclude<SkillEffectKey, typeof Effect.TagRelease | MultipleMilliPercentageEffectKey>
+type MultipleValueSkillEffectKey = typeof Effect['RangeDown' | 'TagRelease'] | MultipleMilliPercentageEffectKey
+type SingleValueSkillEffectKey = Exclude<SkillEffectKey, typeof Effect['RangeDown' | 'TagRelease'] | MultipleMilliPercentageEffectKey>
 
 function buildSkillBattleEffect(
   entry:
@@ -171,6 +171,7 @@ function buildSkillBattleEffect(
   };
   const isMultipleValueEntry = (arg: typeof entry): arg is readonly [effect: MultipleValueSkillEffectKey, value: NonNullable<SkillEffectValue[MultipleValueSkillEffectKey]>] => {
     switch (arg[0]) {
+    case Effect.RangeDown:
     case Effect.TagRelease:
     case Effect.DamageMultiplierDown:
     case Effect.DefDown:

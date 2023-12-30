@@ -59,10 +59,9 @@ export function isBeastHunterAndPani(arg: unknown): arg is BeastHunterAndPani {
   return isReadonlyArray(arg) && arg.length === 2 && arg[0] === 67 && arg[1] === 69;
 }
 
-export type ExceptUnit<
-  E extends UnitNumber = UnitNumber
-> = {
-  except: E
+export type DefenderAndCyclopsPrincess = readonly [typeof UnitRole.Defender, 240]
+export function isDefenderAndCyclopsPrincess(arg: unknown): arg is DefenderAndCyclopsPrincess {
+  return isReadonlyArray(arg) && arg.length === 2 && arg[0] === UnitRole.Defender && arg[1] === 240;
 }
 
 export const GridState = {
@@ -231,7 +230,8 @@ export type ActivationSelfState =
       SkillEffectTag |
       // The following is AND condition
       readonly ['figure_eight_knot', 'golden_needle'] |
-      readonly ['solagarmr', 'managarmr']
+      readonly ['solagarmr', 'managarmr'] |
+      readonly ['bond_of_light', 'oath_of_light']
   } &
   {
     [EffectActivationState.NotAffected]?:
@@ -269,7 +269,7 @@ export type ActivationTargetState =
     }
   } &
   {
-    [EffectActivationState.Unit]?: typeof UnitAlias.SteelLine | typeof UnitType.Flying
+    [EffectActivationState.Unit]?: typeof UnitAlias.SteelLine | typeof UnitAlias.OrbitalWatcher | typeof UnitType.Flying
   } &
   {
     [EffectActivationState.AffectedActiveBy]?: { alias: typeof UnitAlias.PECSDesigners }
@@ -304,15 +304,16 @@ export type InSquadTaggedUnitState =
 
 type InSquadStateUnit =
   UnitNumber |
+  typeof UnitKind.AGS |
   typeof UnitType['Light' | 'Heavy'] |
   UnitRole |
   typeof UnitAlias[
-    'ElectricActive' |
     'SteelLine' |
     'SteelLineOfficerRanks' |
     'SteelLineExcludingOfficerRanks' |
     'Horizon' |
     'Kunoichi' |
+    'OrbitalWatcher' |
     'DEntertainment' |
     'KouheiChurch' |
     'EmpressHound' |
@@ -332,15 +333,50 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 
 type NotInSquadStateUnit =
   80 | 82 | 110 | 127 | 252 | 301 |
+  typeof UnitKind.AGS |
   typeof UnitRole['Attacker' | 'Defender'] |
-  typeof UnitAlias['SteelLine' | 'Kunoichi' | 'Mermaid'] |
+  typeof UnitAlias['SteelLine' | 'Kunoichi' | 'OrbitalWatcher' | 'Mermaid'] |
   typeof SkillAreaType.CrossAdjacent |
   Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>> |
   BeastHunterAndPani |
-  DefenderAndArmoredBulgasari
+  DefenderAndArmoredBulgasari |
+  DefenderAndCyclopsPrincess
 
 type NotInSquadState<T extends NotInSquadStateUnit = NotInSquadStateUnit> = {
   [EffectActivationState.NotInSquad]: T
+}
+
+export type NumOfCrossAdjacentCondition =
+  Extract<NumOfUnitsInSquadState[typeof EffectActivationState.NumOfUnits], { unit: typeof SkillAreaType.CrossAdjacent }>
+
+export function isNumOfCrossAdjacentCondition(
+  arg: NumOfUnitsInSquadState[typeof EffectActivationState.NumOfUnits]
+): arg is NumOfCrossAdjacentCondition {
+  return 'unit' in arg && arg.unit === SkillAreaType.CrossAdjacent;
+}
+
+export type NumOfDefenderAndArmoredBulgasariCondition =
+  Extract<NumOfUnitsInSquadState[typeof EffectActivationState.NumOfUnits], { unit: DefenderAndArmoredBulgasari }>
+
+export function isNumOfDefenderAndArmoredBulgasariCondition(
+  arg: NumOfUnitsInSquadState[typeof EffectActivationState.NumOfUnits]
+): arg is NumOfDefenderAndArmoredBulgasariCondition {
+  return 'unit' in arg && isDefenderAndArmoredBulgasari(arg.unit);
+}
+
+export type NumOfUnitsCompareToEnemiesCondition =
+  { unit: typeof UnitType.Flying, greater_than: 'enemy' } |
+  { unit: typeof UnitType.Flying, less_or_equal: 'enemy' } |
+  { less_than: 'enemy' }
+
+export function isNumOfUnitsCompareToEnemiesCondition(
+  arg: NumOfUnitsInSquadState[typeof EffectActivationState.NumOfUnits]
+): arg is NumOfUnitsCompareToEnemiesCondition {
+  return (
+    'greater_than' in arg ||
+    'less_than' in arg ||
+    'less_or_equal' in arg && arg.less_or_equal === 'enemy'
+  );
 }
 
 export type NumOfUnitsInSquadState = {
@@ -358,14 +394,11 @@ export type NumOfUnitsInSquadState = {
     { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 } |
     { unit: 'killed', greater_or_equal: 1 | 2 | 3 } |
     { unit: 'killed', equal: 4 } |
-    { unit: DefenderAndArmoredBulgasari, equal: 1 | 2 | 3 | 4 }
+    { unit: DefenderAndArmoredBulgasari, equal: 1 | 2 | 3 | 4 } |
+    NumOfUnitsCompareToEnemiesCondition
 }
 
-export type NumOfUnitsLessThanEnemiesState = {
-  [EffectActivationState.NumOfUnitsLessThanEnemies]: Record<string, never>
-}
-
-export type ActivationSquadState = InSquadState | NotInSquadState | NumOfUnitsInSquadState | NumOfUnitsLessThanEnemiesState
+export type ActivationSquadState = InSquadState | NotInSquadState | NumOfUnitsInSquadState
 
 export type ActivationEnemyState = {
   [EffectActivationState.NumOfUnits]:

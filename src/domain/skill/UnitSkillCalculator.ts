@@ -36,7 +36,7 @@ import {
   MilliValueEffectKey,
   MultipleMilliPercentageEffectKey,
   NoValueEffectKey,
-  RangeUpDownEffectKey
+  RangeUpEffectKey
 } from './SkillEffect';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import { SkillEffectTag } from './SkillEffectTag';
@@ -215,9 +215,9 @@ function calculateAddition(
 }
 
 function calculateRangeUpDownEffectValue(
-  data: NonNullable<SkillEffectDataValue[RangeUpDownEffectKey]>,
+  data: NonNullable<SkillEffectDataValue[RangeUpEffectKey]>,
   lv: SkillLv
-): NonNullable<SkillEffectValue[RangeUpDownEffectKey]> {
+): NonNullable<SkillEffectValue[RangeUpEffectKey]> {
   const value =
     typeof data.value === 'number' ?
       data.value :
@@ -356,8 +356,12 @@ function calculateEffectValue(
       }
     };
   case Effect.RangeUp:
-  case Effect.RangeDown:
   case Effect.RangeUpActive2:
+    return { [entry[0]]: calculateRangeUpDownEffectValue(entry[1], lv) };
+  case Effect.RangeDown:
+    if ('length' in entry[1]) {
+      return { [entry[0]]: entry[1].map(v => calculateRangeUpDownEffectValue(v, lv)) };
+    }
     return { [entry[0]]: calculateRangeUpDownEffectValue(entry[1], lv) };
   case Effect.FixedDamageOverTime:
   case Effect.FixedFireDamageOverTime:

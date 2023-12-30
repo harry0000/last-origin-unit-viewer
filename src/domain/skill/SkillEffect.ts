@@ -37,7 +37,8 @@ export type NoValueEffectKey =
     'GoldenFactoryConstruction'
   ]
 export type PushPullEffectKey = typeof Effect['Pull' | 'Push']
-export type RangeUpDownEffectKey = typeof Effect['RangeUp' | 'RangeDown' | 'RangeUpActive2']
+export type RangeUpEffectKey = typeof Effect['RangeUp' | 'RangeUpActive2']
+export type RangeDownEffectKey = typeof Effect['RangeDown']
 export type IntegerValueEffectKey =
   typeof Effect[
     'FixedDamageOverTime' |
@@ -56,7 +57,8 @@ export type MilliPercentageEffectKey =
     EquipmentEffectOnly |
     NoValueEffectKey |
     PushPullEffectKey |
-    RangeUpDownEffectKey |
+    RangeUpEffectKey |
+    RangeDownEffectKey |
     IntegerValueEffectKey |
     MilliValueEffectKey |
     MicroValueEffectKey |

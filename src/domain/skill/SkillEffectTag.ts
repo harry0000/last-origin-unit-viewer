@@ -1,4 +1,4 @@
-export type SkillEffectTagStackValue = 1 | 2 | 3 | 4 | 5 | 6
+export type SkillEffectTagStackValue = 1 | 2 | 3 | 4 | 5 | 6 | 10
 
 export type SkillEffectTag =
   'ignite' |
@@ -101,6 +101,13 @@ export type SkillEffectTag =
   'golden_needle' |
   'golden_ruler' |
   'full_proficiency' |
+  'accurate_analysis' |
+  'calculate_optimization' |
+  'high_altitude_scanning' |
+  'high_altitude_scanning_ceased' |
+  'condensation' |
+  'third_cosmic_velocity' |
+  'superacceleration' |
   'receiving_observation_data' |
   'guiding_technique' |
   'balance_seeker' |
@@ -204,6 +211,8 @@ export type SkillEffectTag =
   'power_of_true_blood_fate_control' |
   'power_of_true_blood_deathless' |
   'power_overflows' |
+  'bond_of_light' |
+  'oath_of_light' |
   'vafrlogi' |
   'reinforced_exoskeleton' |
   'claw' |

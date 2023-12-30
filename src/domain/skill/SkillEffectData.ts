@@ -7,7 +7,8 @@ import {
   MultipleMilliPercentageEffectKey,
   NoValueEffectKey,
   PushPullEffectKey,
-  RangeUpDownEffectKey
+  RangeUpEffectKey,
+  RangeDownEffectKey
 } from './SkillEffect';
 import { IntegerValue, ValueUnit } from '../ValueUnit';
 import { PassiveSkillEffective } from './SkillEffective';
@@ -75,6 +76,8 @@ type SkillEffectAddition = Readonly<{
 type ValueWithAddition<T extends ValueUnit> =
   EffectDataValue<T> & SkillEffectAddition
 
+type RangeUpDownValue = (IntegerValue<1 | 2 | 3 | 4> | { value: { 1: 1, 10:  2 } }) & SkillEffectAddition
+
 type TagStackEffectDataValue = { tag: SkillEffectTag } & Omit<SkillEffectAddition, 'tag'>
 
 export type SkillEffectDataValue = Readonly<{
@@ -85,11 +88,11 @@ export type SkillEffectDataValue = Readonly<{
       { unit: UnitNumber, active: 1 | 2 } & SkillEffectAddition :
     E extends PushPullEffectKey ?
       IntegerValue<1 | 2> & SkillEffectAddition :
-    E extends RangeUpDownEffectKey ?
-      (
-        IntegerValue<1 | 2 | 3 | 4> |
-        { value: { 1: 1, 10:  2 } }
-      ) & SkillEffectAddition :
+    E extends RangeUpEffectKey ?
+      RangeUpDownValue :
+    E extends RangeDownEffectKey ?
+      RangeUpDownValue |
+      ReadonlyArray<RangeUpDownValue> :
     E extends typeof Effect.BattleContinuation ?
       ValueWithAddition<'value'> |
       ValueWithAddition<'milliPercentage'> |

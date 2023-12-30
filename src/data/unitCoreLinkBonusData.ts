@@ -1980,6 +1980,16 @@ export const unitCoreLinkBonusData: UnitCoreLinkBonusData = {
       { spd_up: { microValue: 100000 } }
     ]
   },
+  241: {
+    specific_link_bonus: { def_up: { milliPercentage: 3000 } },
+    full_link_bonus: [
+      { sortie_cost: { milliPercentage: 20000 } },
+      { acc_up: { milliPercentage: 75000 } },
+      { range_up: { value: 1 } },
+      { hp_up: { milliPercentage: 30000 } },
+      { spd_up: { microValue: 100000 } }
+    ]
+  },
   246: {
     specific_link_bonus: { cri_up: { milliPercentage: 2000 } },
     full_link_bonus: [

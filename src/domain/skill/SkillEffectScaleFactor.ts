@@ -34,11 +34,10 @@ export type SkillEffectScaleFactor =
       type: 'squad',
       unit?:
         UnitKind |
-        typeof UnitType['Light' | 'Heavy'] |
+        UnitType |
         UnitRole |
         typeof UnitAlias[
           'BioroidUnder145cmTall' |
-          'ElectricActive' |
           'SteelLine' |
           'SteelLineOfficerRanks' |
           'SteelLineExcludingOfficerRanks' |
@@ -47,6 +46,7 @@ export type SkillEffectScaleFactor =
           'MongooseTeam' |
           'Horizon' |
           'TomosFriends' |
+          'OrbitalWatcher' |
           'CityGuard' |
           'KouheiChurch' |
           'Elven'

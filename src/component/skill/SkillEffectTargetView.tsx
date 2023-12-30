@@ -11,29 +11,54 @@ import { UnitNumber } from '../../domain/UnitBasicInfo';
 import { isUnitAlias } from '../../domain/UnitAlias';
 
 import { ifNonNullable } from '../../util/react';
+import { isReadonlyArray } from '../../util/type';
 
 const SkillEffectTargetView: React.FC<{
   target: SkillEffectTarget,
   selfUnitNumber: UnitNumber
 }> = ({ target, selfUnitNumber }) => {
   const { t } = useTranslation();
+  function unitName(unit: UnitNumber): string {
+    return t('effect:with_quotes', { value: t('unit:display', { number: unit }) });
+  }
+
+  const hasConditions = 'conditions' in target && target.conditions;
+  const except = 'except' in target ? target.except : undefined;
+  const exceptUnit =
+    target.kind === SkillEffectTargetKind.AllyExceptSelf ?
+      selfUnitNumber :
+      !isReadonlyArray(except) ?
+        except :
+        undefined;
 
   return (
     <React.Fragment>
       {t(`effect:effect.target.kind.${target.kind}`)}
-      {'conditions' in target ? t('effect:of_preposition') : null}
+      {hasConditions || !!except ? t('effect:of_preposition') : null}
+      {ifNonNullable(
+        except,
+        v => (
+          <React.Fragment>
+            {isReadonlyArray(v) ?
+              `${unitName(v[0])}${t('effect:unit_separator')}${unitName(v[1])}` :
+              unitName(v)}
+            {t('effect:except_preposition')}
+            {hasConditions ? null : t('effect:unit.unit')}
+          </React.Fragment>
+        )
+      )}
       {
-        'conditions' in target && target.conditions ?
+        hasConditions ?
           target.conditions.map((cond, i, arr ) => {
             const separator: string = ++i < arr.length ? t('effect:unit_separator') : '';
 
             if (typeof cond === 'number') {
-              return t('effect:with_quotes', { value: t('unit:display', { number: cond }) }) + separator;
+              return unitName(cond) + separator;
             } else if (typeof cond === 'string') {
               return isUnitAlias(cond) ?
                 (
                   <React.Fragment key={cond}>
-                    <UnitAliasView unitAlias={cond} exceptUnit={target.kind === SkillEffectTargetKind.AllyExceptSelf ? selfUnitNumber : undefined} />
+                    <UnitAliasView unitAlias={cond} exceptUnit={exceptUnit} />
                     {separator}
                   </React.Fragment>
                 ) :
@@ -45,24 +70,10 @@ const SkillEffectTargetView: React.FC<{
                   'role' in cond ?
                     t(`effect:unit.${cond.role}`) :
                     null;
-              const except = 'except' in cond ? cond.except : undefined;
 
               return (
                 <React.Fragment key={JSON.stringify(cond)}>
-                  {ifNonNullable(
-                    except,
-                    v => (
-                      <React.Fragment>
-                        {
-                          v === selfUnitNumber ?
-                            t('effect:unit.self') :
-                            t('effect:with_quotes', { value: t('unit:display', { number: v }) })
-                        }
-                        {t('effect:except_preposition')}
-                      </React.Fragment>
-                    )
-                  )}
-                  <UnitAliasView unitAlias={cond.alias} exceptUnit={except} />
+                  <UnitAliasView unitAlias={cond.alias} exceptUnit={exceptUnit} />
                   {unit ? t('effect:of_preposition') : null}
                   {unit}
                   {separator}
@@ -71,22 +82,13 @@ const SkillEffectTargetView: React.FC<{
             } else if ('not_alias' in cond) {
               return (
                 <React.Fragment key={JSON.stringify(cond)}>
-                  <UnitAliasView unitAlias={cond.not_alias} />
+                  <UnitAliasView unitAlias={cond.not_alias} exceptUnit={exceptUnit} />
                   {t('effect:negative_form')}
                   {'type' in cond ?
                     t(`effect:unit.${cond.type}`) :
                     'role' in cond ?
                       t(`effect:unit.${cond.role}`) :
                       t('effect:unit.unit')}
-                  {separator}
-                </React.Fragment>
-              );
-            } else if ('except' in cond) {
-              return (
-                <React.Fragment key={JSON.stringify(cond)}>
-                  {t('effect:with_quotes', { value: t('unit:display', { number: cond.except }) })}
-                  {t('effect:except_preposition')}
-                  {t('effect:unit.unit')}
                   {separator}
                 </React.Fragment>
               );

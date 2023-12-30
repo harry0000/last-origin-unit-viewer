@@ -24,7 +24,6 @@ export const EffectActivationState = {
   InSquad: 'in_squad',
   NotInSquad: 'not_in_squad',
   Unit: 'unit',
-  NumOfUnits: 'num_of_units',
-  NumOfUnitsLessThanEnemies: 'num_of_units_less_than_enemies'
+  NumOfUnits: 'num_of_units'
 } as const;
 export type EffectActivationState = typeof EffectActivationState[keyof typeof EffectActivationState]
