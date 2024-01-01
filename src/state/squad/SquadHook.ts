@@ -3,7 +3,7 @@ import { CSSProperties, RefObject, useEffect, useRef, useState } from 'react';
 import { ConnectDragSource, ConnectDropTarget, useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { usePreview } from 'react-dnd-preview';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Squad, TenKeyPosition } from '../../domain/squad/Squad';
 import { UnitBasicInfo, UnitType } from '../../domain/UnitBasicInfo';
@@ -291,7 +291,7 @@ export function useSquadRestoreFromUrl(): boolean {
   const affectionRestore = useRecoilCallback(restoreUnitAffectionState);
   const damagedRestore = useRecoilCallback(restoreUnitDamagedState);
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
@@ -325,10 +325,10 @@ export function useSquadRestoreFromUrl(): boolean {
       }
 
       setRestoring(false);
-      history.replace(`${process.env.PUBLIC_URL}/`);
+      navigate(`${process.env.PUBLIC_URL}/`, { replace: true });
     }
   }, [
-    history,
+    navigate,
     location,
     notify,
     selectUnit,
