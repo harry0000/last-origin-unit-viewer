@@ -538,8 +538,9 @@
       "action_count_up": "最大行動回数アップ",
       "action_count_down": "最大行動回数ダウン",
       "limit_action_count": "最大行動回数制限",
-      "defense_penetration": "防御貫通",
+      "defense_penetration": "防御貫通アップ",
       "defense_penetration_resist_up_by_self_hp_rate": "現在HPに比例して防御貫通耐性アップ",
+      "defense_penetration_down": "防御貫通減少",
       "damage_taken_increased": "被ダメージアップ",
       "damage_reduction_up": "被ダメージ減少",
       "damage_reduction_down": "被ダメージ減少弱化",
@@ -647,6 +648,7 @@
 
       "defense_penetration": "防御貫通 +{{value}}%",
       "defense_penetration_resist_up_by_self_hp_rate": "現在HPに比例して防御貫通耐性 +{{value}}%",
+      "defense_penetration_down": "防御貫通 -{{value}}%",
 
       "damage_taken_increased": "被ダメージ +{{value}}%",
       "damage_reduction_up": "被ダメージ +{{value}}% 減少",
