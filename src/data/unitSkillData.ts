@@ -10015,6 +10015,7 @@ export const unitSkillData: UnitSkillData = {
       space: {
         area: 'self',
         effects: [{
+          // FIXME: delete round.from when the bug fixed in the game.
           conditions: [{ trigger: 'start_round', round: { from: 2 } }],
           details: {
             self: {
