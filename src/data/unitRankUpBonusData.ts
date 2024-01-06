@@ -1037,6 +1037,17 @@ export const unitRankUpBonusData = {
       spd_up: { microValue: 100000 }
     }
   },
+  124: {
+    ss: {
+      hp_up: { value: 270 },
+      atk_up: { milliValue: 70000 },
+      def_up: { milliValue: 20000 },
+      cri_up: { milliPercentage: 7500 },
+      acc_up: { milliPercentage: 12000 },
+      eva_up: { milliPercentage: 1500 },
+      spd_up: { microValue: 70000 }
+    }
+  },
   127: {
     ss: {
       hp_up: { value: 175 },

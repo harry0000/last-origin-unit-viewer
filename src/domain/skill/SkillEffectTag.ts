@@ -135,7 +135,9 @@ export type SkillEffectTag =
   'hit_vital_spot' |
   'magical_girl_at_centurys_end' |
   'growing_magical_girl' |
+  'wild_boar_skin' |
   'bravery' |
+  'golden_apple' |
   'duel_preparation' |
   'counterattack_preparation' |
   'second_coming' |

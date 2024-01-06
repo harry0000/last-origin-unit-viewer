@@ -11938,18 +11938,25 @@ export const unitSkillData: UnitSkillData = {
       cost: 4,
       area: 'single',
       effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
         details: {
           target: {
             provoked: { term: { for_rounds: 2 } },
-            atk_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
-            spd_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 2 } }
+            atk_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
           }
         }
       }, {
         conditions: [{ trigger: 'critical' }],
         target: { kind: 'enemy' },
-        details: { target: { damage_taken_increased: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 2 } } } }
+        details: {
+          target: {
+            buff_removal: { effect: 'counterattack', term: 'immediate' },
+            atk_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
+          }
+        }
       }]
     }, {
       damage_deal: {
@@ -11960,52 +11967,74 @@ export const unitSkillData: UnitSkillData = {
       cost: 7,
       area: 'single',
       effects: [{
-        conditions: [{ state: { target: [{ affected: 'provoked' }] } }],
+        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'provoked' }] } }],
         target: { kind: 'enemy' },
-        details: { target: { buff_removal: { effect: 'damage_reduction_up' } } }
+        details: { target: { buff_removal: { effect: 'damage_reduction_up', term: 'immediate' } } }
       }, {
-        conditions: [{ trigger: 'critical' }],
-        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1250 } } } }
+        conditions: [{ trigger: 'hit', state: { target: [{ hp_less_or_equal: 50 }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1500 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'kill' }],
+        details: { self: { tag_stack: { tag: 'wild_boar_skin', term: { for_rounds: 3 }, max_stack: 1, cannot_be_dispelled: true } } }
       }]
     }],
     passive: [{
       area: 'self',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
-        details: { self: { damage_reduction_up: { base: { milliPercentage: 24000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
-      }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ hp_less_than: 50 }] } }],
-        details: {
-          self: {
-            damage_reduction_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            spd_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } }
-          }
-        }
+        details: { self: { damage_reduction_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'hit' }],
-        details: { self: { atk_up: { tag: 'bravery', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', max_stack: 3 } } }
+        details: { self: { damage_reduction_up: { tag: 'bravery', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 }, max_stack: 3, cannot_be_dispelled: true } } }
       }, {
-        conditions: [{ trigger: 'be_attacked', state: { self: [{ tagged: 'bravery' }] } }],
-        details: { self: { counterattack: { base: { milliPercentage: 80000 }, per_lv_up: { milliPercentage: 5000 } } } }
+        conditions: [{ trigger: 'be_hit' }],
+        details: { self: { counterattack: { base: { milliPercentage: 80000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' } } }
       }]
     }, {
-      area: 'line',
+      area: 'fixed_all',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
+        details: { self: { row_protect: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ grid: 'same_line' }] } }],
         target: { kind: 'ally', conditions: ['attacker', 'supporter'] },
         details: { target: { target_protect: { term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ stack: { tag: 'bravery', greater_or_equal: 1 } }] } }],
-        target: { kind: 'ally', conditions: ['light', 'flying'] },
-        details: { target: { cri_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 600 }, term: { for_rounds: 1 } } } }
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'ally' },
+        details: { target: { heavy_type_damage_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 }, max_stack: 3 } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ stack: { tag: 'bravery', greater_or_equal: 2 } }] } }],
-        target: { kind: 'ally', conditions: ['light', 'flying'] },
-        details: { target: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 25000 }, term: { for_rounds: 1 } } } }
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        scale_factor: { per_stack: { tag: 'bravery' } },
+        details: { target: { heavy_type_damage_up: { base: { milliPercentage: 2500 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ stack: { tag: 'bravery', greater_or_equal: 3 } }] } }],
-        target: { kind: 'ally', conditions: ['light', 'flying'] },
-        details: { target: { heavy_type_damage_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'wild_boar_skin' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { self: [{ stack: { tag: 'bravery', equal: 3 } }] } }],
+        details: { self: { nullify_damage: { times: 1, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'be_hit' }],
+        details: {
+          self: {
+            spd_up: { tag: 'golden_apple', base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 }, max_stack: 3 },
+            cri_up: { tag: 'golden_apple', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 3 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'golden_apple' }], target: [{ grid: 'mid_line' }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { milliPercentage: 25000, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'golden_apple' }], target: [{ grid: 'back_line' }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { milliPercentage: 50000, term: 'immediate' } } }
       }]
     }]
   },
