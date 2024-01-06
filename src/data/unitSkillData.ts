@@ -15585,13 +15585,18 @@ export const unitSkillData: UnitSkillData = {
       },
       range: 3,
       cost: 7,
-      area: 'line_middle_explosion',
+      area: 'line',
       effects: [{
-        details: { self: { heavy_type_damage_up: { base: { milliPercentage: 16500 }, per_lv_up: { milliPercentage: 1500 } } } }
+        details: { self: { heavy_type_damage_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1500 } } } }
       }, {
-        conditions: [{ state: { target: [{ affected: 'def_down' }] } }],
+        conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
-        details: { self: { additional_damage: { base: { milliPercentage: 26500 }, per_lv_up: { milliPercentage: 1500 } } } }
+        details: {
+          target: {
+            def_down: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } },
+            spd_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 } }
+          }
+        }
       }]
     }, {
       damage_deal: {
@@ -15602,26 +15607,66 @@ export const unitSkillData: UnitSkillData = {
       cost: 8,
       area: 'single',
       effects: [{
+        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'def_down' }] } }],
         target: { kind: 'enemy' },
-        details: {
-          target: {
-            def_down: { base: { milliPercentage: 27500 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 3 } },
-            spd_down: { base: { milliPercentage: 8750 }, per_lv_up: { milliPercentage: 1250 }, term: { for_rounds: 3 } }
-          }
-        }
+        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'spd_down' }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ not_tagged: 'diamond_chain' }], target: [{ stack: { tag: 'trees_registration', equal: 3 } }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { all_buff_removal: { term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'diamond_chain' }], target: [{ stack: { tag: 'trees_registration', greater_or_equal: 2 } }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { all_buff_removal: { term: 'immediate' } } }
       }]
     }],
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'hit_any_active' }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'diamond_chain' }] } }],
         details: {
           self: {
-            spd_up: { base: { milliPercentage: 3300 }, per_lv_up: { milliPercentage: 1300 }, term: { for_rounds: 4 }, max_stack: 3 },
-            defense_penetration: { base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 4 }, max_stack: 3 },
-            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 650 }, term: { for_rounds: 4 }, max_stack: 3 },
+            atk_up: { tag: 'lets_be_passionate', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 4 },
+            defense_penetration: { tag: 'lets_be_passionate', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 4 }
           }
         }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'diamond_chain' }] } }],
+        details: {
+          self: {
+            atk_up: { tag: 'lets_be_more_passionate', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', max_stack: 3 },
+            defense_penetration: { tag: 'lets_be_more_passionate', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite', max_stack: 3 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        scale_factor: { per_stack: { tag: 'lets_be_passionate' } },
+        details: { self: { ap_up: { microValue: 500000, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        scale_factor: { per_stack: { tag: 'lets_be_more_passionate' } },
+        details: { self: { ap_up: { microValue: 1000000, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'diamond_chain' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_taken_increased: { tag: 'trees_registration', base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'diamond_chain' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_taken_increased: { tag: 'trees_registration', base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 }, cannot_be_dispelled: true } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        details: { self: { cri_up: { tag: 'diamond_chain', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', cannot_be_dispelled: true } } }
       }]
     }]
   },

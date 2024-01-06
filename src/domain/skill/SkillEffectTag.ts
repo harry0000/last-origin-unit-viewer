@@ -171,6 +171,10 @@ export type SkillEffectTag =
   'younger_sister' |
   'villain' |
   'brainwashing_wave' |
+  'lets_be_passionate' |
+  'lets_be_more_passionate' |
+  'trees_registration' |
+  'diamond_chain' |
   'wind_style' |
   'motherhood' |
   'charge_electrically' |
