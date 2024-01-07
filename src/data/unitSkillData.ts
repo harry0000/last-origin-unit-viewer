@@ -11883,7 +11883,7 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 127 } } }],
+        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: 127 }, { in_squad: 168 }] } }],
         details: {
           self: {
             atk_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
@@ -12462,7 +12462,7 @@ export const unitSkillData: UnitSkillData = {
       area: 'under_watcher_with_self',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: ['magical_girl'], except: 127 },
+        target: { kind: 'ally', conditions: [123, 168] },
         details: { target: { target_protect: { term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 171 } } }],
@@ -12476,7 +12476,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 123 } } }],
         details: { self: { damage_multiplier_up: { tag: 'great_overlords_order', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 127 } } }],
+        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: 127 }, { in_squad: 168 }] } }],
         details: { self: { ignore_barrier_dr: { tag: 'great_overlords_order', term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
       }, {
         conditions: [
@@ -12487,7 +12487,7 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { battle_continuation: { base: { milliPercentage: 91000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', times: 1, max_stack: 1, cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'attack' }],
-        target: { kind: 'ally', conditions: ['magical_girl'] },
+        target: { kind: 'ally', conditions: ['magical_girl', 168] },
         details: {
           self: { status_resist_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } },
           target: {
@@ -15232,6 +15232,107 @@ export const unitSkillData: UnitSkillData = {
             all_buff_blocking: { term: { for_rounds: 1 }, cannot_be_dispelled: true }
           }
         }
+      }]
+    }]
+  },
+  168: {
+    no: 168,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 256000 },
+        per_lv_up: { milliPercentage: 25600 }
+      },
+      range: 3,
+      cost: 9,
+      area: 'single',
+      effects: [{
+        details: { self: { defense_penetration: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit' }, { trigger: 'follow_up_attack' }],
+        details: { self: { spd_up: { tag: 'hell_vent', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        details: { self: { additional_damage: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: 'immediate' } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 203000 },
+        per_lv_up: { milliPercentage: 22200 }
+      },
+      range: 4,
+      cost: 10,
+      area: 'row_toward_front',
+      effects: [{
+        conditions: [{ trigger: 'hit', state: { self: [{ stack: { tag: 'hell_vent', greater_or_equal: 2 } }] } }],
+        details: { self: { ignore_barrier_dr: { term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ stack: { tag: 'hell_vent', greater_or_equal: 3 } }] } }],
+        details: { self: { ignore_def: { term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'immediate' } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { ignore_protect: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'use_active_2' }],
+        details: { self: { buff_removal: { effect: 'ignore_protect', term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ affected: 'damage_taken_increased' }] } }],
+        details: { self: { additional_damage: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'be_hit' }],
+        details: {
+          self: {
+            damage_taken_increased: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: -1000 }, term: { for_rounds: 1 }, max_stack: 1 },
+            ap_up: { microValue: 1000000, term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'be_hit', state: { squad: { in_squad: 128 } } }],
+        target: { kind: 'ally_except_self' },
+        details: { target: { ap_up: { microValue: 1000000, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ grid: 'front_line' }] } }],
+        target: { kind: 'ally', conditions: [{ type: 'light', role: 'defender' }] },
+        details: {
+          target: { row_protect: { term: { for_rounds: 1 } } }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['demon_army', 'magical_girl'] },
+        details: {
+          target: {
+            atk_value_up: { base: { milliValue: 200000 }, per_lv_up: { milliValue: 20000 }, term: { for_rounds: 1 } },
+            follow_up_attack: { term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: [127] },
+        details: { target: { atk_value_up: { tag: 'suspicious', milliValue: 1000, term: { for_rounds: 1 } }, } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: [128] },
+        details: { target: { atk_value_up: { tag: 'wary_look', milliValue: 1000, term: { for_rounds: 1 } }, } }
       }]
     }]
   },
