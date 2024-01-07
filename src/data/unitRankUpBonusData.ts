@@ -1373,6 +1373,17 @@ export const unitRankUpBonusData = {
       spd_up: { microValue: 70000 }
     }
   },
+  233: {
+    ss: {
+      hp_up: { value: 150 },
+      atk_up: { milliValue: 80000 },
+      def_up: { milliValue: 15000 },
+      cri_up: { milliPercentage: 5000 },
+      acc_up: { milliPercentage: 10000 },
+      eva_up: { milliPercentage: 20000 },
+      spd_up: { microValue: 50000 }
+    }
+  },
   235: {
     // FIXME: Add rank up bonus data when bug fixed in game
     s: {

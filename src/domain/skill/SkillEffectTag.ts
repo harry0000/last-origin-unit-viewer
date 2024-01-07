@@ -206,7 +206,7 @@ export type SkillEffectTag =
   'energy_convert' |
   'predator' |
   'last_roar' |
-  'hunt_preparation' |
+  'be_prepared' |
   'heat_absorption' |
   'bridle_of_sins' |
   'form_change_preparation' |

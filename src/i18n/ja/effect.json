@@ -289,7 +289,7 @@
     "energy_convert": "エネルギーコンバート",
     "predator": "捕食者",
     "last_roar": "最後の咆哮",
-    "hunt_preparation": "狩りの準備$t(effect:tag_separator)待機",
+    "be_prepared": "Be prepared",
     "heat_absorption": "熱気吸収",
     "bridle_of_sins": "原罪のしがらみ",
     "form_change_preparation": "モード転換準備",
