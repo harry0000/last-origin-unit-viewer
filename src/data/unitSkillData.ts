@@ -12016,6 +12016,10 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'wild_boar_skin' }] } }],
         target: { kind: 'ally' },
         details: { target: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'be_hit', state: { self: [{ equipped: 'medusa' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { spd_down: { milliPercentage: 5000, term: { for_rounds: 2 }, max_stack: 3 } } }
       }]
     }, {
       area: 'self',
