@@ -3613,6 +3613,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 150000, term: 'infinite' } } }]
     ]
   },
+  shield_blade: {
+    type: 'gear',
+    id: 'shield_blade',
+    exclusive: {
+      unit: 46
+    },
+    status_effects: [
+      { hp_up: { value:  750 } },
+      { hp_up: { value:  825 } },
+      { hp_up: { value:  900 } },
+      { hp_up: { value:  975 } },
+      { hp_up: { value: 1050 } },
+      { hp_up: { value: 1125 } },
+      { hp_up: { value: 1200 } },
+      { hp_up: { value: 1275 } },
+      { hp_up: { value: 1350 } },
+      { hp_up: { value: 1425 } },
+      { hp_up: { value: 1500 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 25000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 27500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 30000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 32500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 35000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 37500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 40000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 42500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 45000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 47500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 50000, term: 'infinite' } } }]
+    ]
+  },
   sk_14_p_c_c: {
     type: 'gear',
     id: 'sk_14_p_c_c',

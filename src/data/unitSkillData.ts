@@ -4108,7 +4108,10 @@ export const unitSkillData: UnitSkillData = {
         scale_factor: { per_units: { type: 'squad', unit: 'cross_adjacent' } },
         details: { self: { def_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'cross_adjacent', equal: 4 } } } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_equipped: ['shield_blade'] }], squad: { num_of_units: { unit: 'cross_adjacent', equal: 4 } } } }],
+        details: { self: { status_resist_up: { milliPercentage: 100000, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'shield_blade' }], squad: { num_of_units: { unit: 'cross_adjacent', greater_or_equal: 3 } } } }],
         details: { self: { status_resist_up: { milliPercentage: 100000, term: { for_rounds: 1 } } } }
       }]
     }, {
