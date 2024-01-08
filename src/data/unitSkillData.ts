@@ -20926,10 +20926,10 @@ export const unitSkillData: UnitSkillData = {
       area: 'self',
       effects: [{
         conditions: [{ trigger: 'start_round', state: { self: [{ hp_greater_than: 25 }] } }],
-        details: { self: { fixed_fire_damage_over_time: { base: { value: 83 }, per_lv_up: { value: 89 }, term: { for_rounds: 1 } } } }
+        details: { self: { fixed_fire_damage_over_time: { base: { value: 83 }, per_lv_up: { value: 89 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { self: [{ hp_less_or_equal: 25 }] } }],
-        details: { self: { tag_stack: { tag: 'bridle_of_sins', term: { for_rounds: 1 } } } }
+        details: { self: { tag_stack: { tag: 'bridle_of_sins', term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
       }]
     }, {
       area: 'self',
