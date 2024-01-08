@@ -114,7 +114,7 @@ export type EquipmentEffectValue = Readonly<{
     E extends typeof Effect.ActivationRatePercentageUp ?
       Readonly<{ effect: Effect, tag: SkillEffectTag }> & MilliPercentageValue & EquipmentEffectAddition :
     E extends RangeValueEffectKey ?
-      IntegerValue<1 | 2> & EquipmentEffectAddition :
+      IntegerValue<1 | 2 | 3> & EquipmentEffectAddition :
     E extends typeof Effect.BattleContinuation ?
       IntegerValue & EquipmentEffectAddition |
       MilliPercentageValue & EquipmentEffectAddition :

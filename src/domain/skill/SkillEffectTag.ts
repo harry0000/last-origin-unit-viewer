@@ -135,7 +135,9 @@ export type SkillEffectTag =
   'hit_vital_spot' |
   'magical_girl_at_centurys_end' |
   'growing_magical_girl' |
+  'wild_boar_skin' |
   'bravery' |
+  'golden_apple' |
   'duel_preparation' |
   'counterattack_preparation' |
   'second_coming' |
@@ -166,9 +168,16 @@ export type SkillEffectTag =
   'pre_cooking' |
   'best_desserts' |
   'psychic_barrier' |
+  'hell_vent' |
+  'suspicious' |
+  'wary_look' |
   'younger_sister' |
   'villain' |
   'brainwashing_wave' |
+  'lets_be_passionate' |
+  'lets_be_more_passionate' |
+  'trees_registration' |
+  'diamond_chain' |
   'wind_style' |
   'motherhood' |
   'charge_electrically' |
@@ -200,7 +209,7 @@ export type SkillEffectTag =
   'energy_convert' |
   'predator' |
   'last_roar' |
-  'hunt_preparation' |
+  'be_prepared' |
   'heat_absorption' |
   'bridle_of_sins' |
   'form_change_preparation' |

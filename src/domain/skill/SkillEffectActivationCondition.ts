@@ -94,6 +94,7 @@ type AffectedByActivationState =
 type NotAffectedActivationState =
   Readonly<{
     [EffectActivationState.NotAffected]?:
+      readonly [typeof Effect.FixedDamageOverTime] |
       readonly [typeof Effect.DefUp] |
       readonly [typeof Effect.DefUp, typeof Effect.DamageReductionUp] |
       readonly [typeof Effect.SpdUp] |
@@ -437,6 +438,7 @@ export type SelfSkillEffectActivationState =
       readonly [InSquadState<80>, InSquadState<82>] |
       readonly [InSquadState<81>, InSquadState<83>] |
       readonly [InSquadState<87>, InSquadState<89>, InSquadState<90>] |
+      readonly [InSquadState<127>, InSquadState<168>] |
       readonly [InSquadState<138>, InSquadState<140>, InSquadState<236>]
   } |
   { enemy: ActivationEnemyState } |

@@ -120,7 +120,7 @@ export type EquipmentEffectValueData<R extends EquipmentRank> = Readonly<{
     E extends typeof Effect.ActivationRatePercentageUp ?
       Readonly<{ effect: Effect, tag: SkillEffectTag }> & MilliPercentageValue<R> & EffectAdditionData<R> :
     E extends RangeValueEffectKey ?
-      IntegerValue<R, 1 | 2> & EffectAdditionData<R> :
+      IntegerValue<R, 1 | 2 | 3> & EffectAdditionData<R> :
     E extends typeof Effect.BattleContinuation ?
       IntegerValue<R> & EffectAdditionData<R> |
       MilliPercentageValue<R> & EffectAdditionData<R> :

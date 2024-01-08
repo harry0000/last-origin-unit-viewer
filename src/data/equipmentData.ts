@@ -3428,6 +3428,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { activation_rate_percentage_up: { tag: 'lucky_hit', effect: 'additional_damage', milliPercentage: 20000, term: 'infinite' } } }]
     ]
   },
+  medusa: {
+    type: 'gear',
+    id: 'medusa',
+    exclusive: {
+      unit: 124
+    },
+    status_effects: [
+      { electric_resist_up: { milliPercentage: 40000 } },
+      { electric_resist_up: { milliPercentage: 44000 } },
+      { electric_resist_up: { milliPercentage: 48000 } },
+      { electric_resist_up: { milliPercentage: 52000 } },
+      { electric_resist_up: { milliPercentage: 56000 } },
+      { electric_resist_up: { milliPercentage: 60000 } },
+      { electric_resist_up: { milliPercentage: 64000 } },
+      { electric_resist_up: { milliPercentage: 68000 } },
+      { electric_resist_up: { milliPercentage: 72000 } },
+      { electric_resist_up: { milliPercentage: 76000 } },
+      { electric_resist_up: { milliPercentage: 80000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { milliPercentage: 30000, term: 'infinite', times: 1 }, acc_up: { milliPercentage: 30000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { milliPercentage: 32000, term: 'infinite', times: 1 }, acc_up: { milliPercentage: 35000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { milliPercentage: 34000, term: 'infinite', times: 1 }, acc_up: { milliPercentage: 40000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { milliPercentage: 36000, term: 'infinite', times: 1 }, acc_up: { milliPercentage: 45000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { milliPercentage: 38000, term: 'infinite', times: 1 }, acc_up: { milliPercentage: 50000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { milliPercentage: 40000, term: 'infinite', times: 1 }, acc_up: { milliPercentage: 55000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { milliPercentage: 42000, term: 'infinite', times: 1 }, acc_up: { milliPercentage: 60000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { milliPercentage: 44000, term: 'infinite', times: 1 }, acc_up: { milliPercentage: 65000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { milliPercentage: 46000, term: 'infinite', times: 1 }, acc_up: { milliPercentage: 70000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { milliPercentage: 48000, term: 'infinite', times: 1 }, acc_up: { milliPercentage: 75000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { battle_continuation: { milliPercentage: 50000, term: 'infinite', times: 1 }, acc_up: { milliPercentage: 80000, term: 'infinite' } } }]
+    ]
+  },
   mg80_retrofit_kit: {
     type: 'gear',
     id: 'mg80_retrofit_kit',
@@ -3611,6 +3644,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 140000, term: 'infinite' } } }],
       [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 145000, term: 'infinite' } } }],
       [{ condition: { trigger: 'start_wave' }, details: { re_attack: { term: 'infinite' } } }, { condition: { trigger: 'kill', state: { tagged: 'gold_forged_through_hundred_refinement' } }, details: { atk_value_up: { milliValue: 150000, term: 'infinite' } } }]
+    ]
+  },
+  shield_blade: {
+    type: 'gear',
+    id: 'shield_blade',
+    exclusive: {
+      unit: 46
+    },
+    status_effects: [
+      { hp_up: { value:  750 } },
+      { hp_up: { value:  825 } },
+      { hp_up: { value:  900 } },
+      { hp_up: { value:  975 } },
+      { hp_up: { value: 1050 } },
+      { hp_up: { value: 1125 } },
+      { hp_up: { value: 1200 } },
+      { hp_up: { value: 1275 } },
+      { hp_up: { value: 1350 } },
+      { hp_up: { value: 1425 } },
+      { hp_up: { value: 1500 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 25000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 27500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 30000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 32500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 35000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 37500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 40000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 42500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 45000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 47500, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { cri_up: { milliPercentage: 50000, term: 'infinite' } } }]
     ]
   },
   sk_14_p_c_c: {
@@ -3809,6 +3875,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { damage_reduction_up: { milliPercentage: 13000, term: { for_rounds: 1 } }, fire_resist_up: { milliPercentage: 31000, term: { for_rounds: 1 } }, ice_resist_up: { milliPercentage: 31000, term: { for_rounds: 1 } }, electric_resist_up: { milliPercentage: 31000, term: { for_rounds: 1 } }, column_protect: { term: { for_rounds: 1 } } } }],
       [{ condition: { trigger: 'start_round' }, details: { damage_reduction_up: { milliPercentage: 14000, term: { for_rounds: 1 } }, fire_resist_up: { milliPercentage: 33000, term: { for_rounds: 1 } }, ice_resist_up: { milliPercentage: 33000, term: { for_rounds: 1 } }, electric_resist_up: { milliPercentage: 33000, term: { for_rounds: 1 } }, column_protect: { term: { for_rounds: 1 } } } }],
       [{ condition: { trigger: 'start_round' }, details: { damage_reduction_up: { milliPercentage: 15000, term: { for_rounds: 1 } }, fire_resist_up: { milliPercentage: 35000, term: { for_rounds: 1 } }, ice_resist_up: { milliPercentage: 35000, term: { for_rounds: 1 } }, electric_resist_up: { milliPercentage: 35000, term: { for_rounds: 1 } }, column_protect: { term: { for_rounds: 1 } } } }]
+    ]
+  },
+  stole_of_atonement: {
+    type: 'gear',
+    id: 'stole_of_atonement',
+    exclusive: {
+      unit: 236
+    },
+    status_effects: [
+      { cri_up: { milliPercentage: 10000 }, fire_resist_up: { milliPercentage: 35000 } },
+      { cri_up: { milliPercentage: 11000 }, fire_resist_up: { milliPercentage: 38500 } },
+      { cri_up: { milliPercentage: 12000 }, fire_resist_up: { milliPercentage: 42000 } },
+      { cri_up: { milliPercentage: 13000 }, fire_resist_up: { milliPercentage: 45500 } },
+      { cri_up: { milliPercentage: 14000 }, fire_resist_up: { milliPercentage: 49000 } },
+      { cri_up: { milliPercentage: 15000 }, fire_resist_up: { milliPercentage: 52500 } },
+      { cri_up: { milliPercentage: 16000 }, fire_resist_up: { milliPercentage: 56000 } },
+      { cri_up: { milliPercentage: 17000 }, fire_resist_up: { milliPercentage: 59500 } },
+      { cri_up: { milliPercentage: 18000 }, fire_resist_up: { milliPercentage: 63000 } },
+      { cri_up: { milliPercentage: 19000 }, fire_resist_up: { milliPercentage: 66500 } },
+      { cri_up: { milliPercentage: 20000 }, fire_resist_up: { milliPercentage: 70000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 2, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 2, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 2, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 2, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 2, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 3, term: 'infinite' } } }]
     ]
   },
   super_alloy_plate_armor: {

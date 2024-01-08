@@ -1037,6 +1037,17 @@ export const unitRankUpBonusData = {
       spd_up: { microValue: 100000 }
     }
   },
+  124: {
+    ss: {
+      hp_up: { value: 270 },
+      atk_up: { milliValue: 70000 },
+      def_up: { milliValue: 20000 },
+      cri_up: { milliPercentage: 7500 },
+      acc_up: { milliPercentage: 12000 },
+      eva_up: { milliPercentage: 1500 },
+      spd_up: { microValue: 70000 }
+    }
+  },
   127: {
     ss: {
       hp_up: { value: 175 },
@@ -1103,6 +1114,16 @@ export const unitRankUpBonusData = {
       spd_up: { microValue: 40000 }
     }
   },
+  137: {
+    ss: {
+      hp_up: { value: 170 },
+      atk_up: { milliValue: 140000 },
+      def_up: { milliValue: 50000 },
+      cri_up: { milliPercentage: 7000 },
+      acc_up: { milliPercentage: 16000 },
+      spd_up: { microValue: 50000 }
+    }
+  },
   138: {
     ss: {
       hp_up: { value: 100 },
@@ -1164,6 +1185,24 @@ export const unitRankUpBonusData = {
       cri_up: { milliPercentage: 5000 },
       acc_up: { milliPercentage: 10000 },
       spd_up: { microValue: 60000 }
+    }
+  },
+  172: {
+    s: {
+      hp_up: { value: 50 },
+      atk_up: { milliValue: 35000 },
+      def_up: { milliValue: 30000 },
+      cri_up: { milliPercentage: 2700 },
+      acc_up: { milliPercentage: 4000 },
+      spd_up: { microValue: 30000 }
+    },
+    ss: {
+      hp_up: { value: 70 },
+      atk_up: { milliValue: 45000 },
+      def_up: { milliValue: 40000 },
+      cri_up: { milliPercentage: 4000 },
+      acc_up: { milliPercentage: 10000 },
+      spd_up: { microValue: 20000 }
     }
   },
   174: {
@@ -1332,6 +1371,17 @@ export const unitRankUpBonusData = {
       acc_up: { milliPercentage: 20000 },
       eva_up: { milliPercentage: 5000 },
       spd_up: { microValue: 70000 }
+    }
+  },
+  233: {
+    ss: {
+      hp_up: { value: 150 },
+      atk_up: { milliValue: 80000 },
+      def_up: { milliValue: 15000 },
+      cri_up: { milliPercentage: 5000 },
+      acc_up: { milliPercentage: 10000 },
+      eva_up: { milliPercentage: 20000 },
+      spd_up: { microValue: 50000 }
     }
   },
   235: {
