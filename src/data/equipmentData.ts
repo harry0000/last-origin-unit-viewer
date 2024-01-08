@@ -3877,6 +3877,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { damage_reduction_up: { milliPercentage: 15000, term: { for_rounds: 1 } }, fire_resist_up: { milliPercentage: 35000, term: { for_rounds: 1 } }, ice_resist_up: { milliPercentage: 35000, term: { for_rounds: 1 } }, electric_resist_up: { milliPercentage: 35000, term: { for_rounds: 1 } }, column_protect: { term: { for_rounds: 1 } } } }]
     ]
   },
+  stole_of_atonement: {
+    type: 'gear',
+    id: 'stole_of_atonement',
+    exclusive: {
+      unit: 236
+    },
+    status_effects: [
+      { cri_up: { milliPercentage: 10000 }, fire_resist_up: { milliPercentage: 35000 } },
+      { cri_up: { milliPercentage: 11000 }, fire_resist_up: { milliPercentage: 38500 } },
+      { cri_up: { milliPercentage: 12000 }, fire_resist_up: { milliPercentage: 42000 } },
+      { cri_up: { milliPercentage: 13000 }, fire_resist_up: { milliPercentage: 45500 } },
+      { cri_up: { milliPercentage: 14000 }, fire_resist_up: { milliPercentage: 49000 } },
+      { cri_up: { milliPercentage: 15000 }, fire_resist_up: { milliPercentage: 52500 } },
+      { cri_up: { milliPercentage: 16000 }, fire_resist_up: { milliPercentage: 56000 } },
+      { cri_up: { milliPercentage: 17000 }, fire_resist_up: { milliPercentage: 59500 } },
+      { cri_up: { milliPercentage: 18000 }, fire_resist_up: { milliPercentage: 63000 } },
+      { cri_up: { milliPercentage: 19000 }, fire_resist_up: { milliPercentage: 66500 } },
+      { cri_up: { milliPercentage: 20000 }, fire_resist_up: { milliPercentage: 70000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 2, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 2, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 2, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 2, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 2, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { range_up_active_1: { value: 3, term: 'infinite' } } }]
+    ]
+  },
   super_alloy_plate_armor: {
     type: 'gear',
     id: 'super_alloy_plate_armor',
