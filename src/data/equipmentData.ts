@@ -3342,6 +3342,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 500000, term: 'immediate' } } }]
     ]
   },
+  fps: {
+    type: 'gear',
+    id: 'fps',
+    exclusive: {
+      unit: 168
+    },
+    status_effects: [
+      { atk_up: { milliValue:  50000 } },
+      { atk_up: { milliValue:  55000 } },
+      { atk_up: { milliValue:  60000 } },
+      { atk_up: { milliValue:  65000 } },
+      { atk_up: { milliValue:  70000 } },
+      { atk_up: { milliValue:  75000 } },
+      { atk_up: { milliValue:  80000 } },
+      { atk_up: { milliValue:  85000 } },
+      { atk_up: { milliValue:  90000 } },
+      { atk_up: { milliValue:  95000 } },
+      { atk_up: { milliValue: 100000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 25000, term: 'infinite' } } }, { condition: { trigger: 'kill' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }, { condition: { trigger: 'ally_killed' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 27500, term: 'infinite' } } }, { condition: { trigger: 'kill' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }, { condition: { trigger: 'ally_killed' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 30000, term: 'infinite' } } }, { condition: { trigger: 'kill' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }, { condition: { trigger: 'ally_killed' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 32500, term: 'infinite' } } }, { condition: { trigger: 'kill' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }, { condition: { trigger: 'ally_killed' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 35000, term: 'infinite' } } }, { condition: { trigger: 'kill' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }, { condition: { trigger: 'ally_killed' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 37500, term: 'infinite' } } }, { condition: { trigger: 'kill' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }, { condition: { trigger: 'ally_killed' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 40000, term: 'infinite' } } }, { condition: { trigger: 'kill' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }, { condition: { trigger: 'ally_killed' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 42500, term: 'infinite' } } }, { condition: { trigger: 'kill' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }, { condition: { trigger: 'ally_killed' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 45000, term: 'infinite' } } }, { condition: { trigger: 'kill' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }, { condition: { trigger: 'ally_killed' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 47500, term: 'infinite' } } }, { condition: { trigger: 'kill' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }, { condition: { trigger: 'ally_killed' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 50000, term: 'infinite' } } }, { condition: { trigger: 'kill' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }, { condition: { trigger: 'ally_killed' }, details: { ap_up: { microValue: 300000, term: 'immediate' } } }]
+    ]
+  },
   horde_badge: {
     type: 'gear',
     id: 'horde_badge',
