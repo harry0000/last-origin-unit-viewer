@@ -333,7 +333,7 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 }
 
 type NotInSquadStateUnit =
-  80 | 82 | 110 | 127 | 252 | 301 |
+  80 | 82 | 110 | 127 | 199 | 252 | 301 |
   typeof UnitKind.AGS |
   typeof UnitRole['Attacker' | 'Defender'] |
   typeof UnitAlias['SteelLine' | 'Kunoichi' | 'OrbitalWatcher' | 'Mermaid'] |
@@ -387,7 +387,7 @@ export type NumOfUnitsInSquadState = {
     { unit: 'ally', greater_or_equal: 1 | 2 } |
     { unit: 'ally', less_or_equal: 3 } |
     { unit: 'ally', equal: 4 } |
-    { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 } |
+    { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 | 3 } |
     { unit: UnitType, less_or_equal: 1 | 2 } |
     { unit: typeof UnitRole.Attacker, equal: 1 | 2 | 3 | 4 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |

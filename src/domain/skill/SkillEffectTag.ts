@@ -196,6 +196,7 @@ export type SkillEffectTag =
   'tenderizer' |
   'caffeine_charged' |
   'nicotine_charged' |
+  'unrep' |
   'output_increase' |
   'output_limit_release' |
   'you_are_already_my_fan' |

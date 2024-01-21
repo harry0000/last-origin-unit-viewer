@@ -17926,6 +17926,140 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  199: {
+    no: 199,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 255000 },
+        per_lv_up: { milliPercentage: 15000 }
+      },
+      range: 4,
+      cost: 6,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_taken_increased: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy', conditions: ['attacker'] },
+        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }]
+    }, {
+      range: 1,
+      cost: 10,
+      area: 'cross',
+      effects: [{
+        target: { kind: 'ally', conditions: ['attacker'] },
+        details: {
+          target: {
+            ap_up: { tag: 'unrep', base: { microValue: 1500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
+            defense_penetration: { tag: 'unrep', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } }
+          }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: [{ type: 'light', role: 'attacker' }, { type: 'flying', role: 'attacker' }] },
+        details: { target: { atk_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', max_stack: 5 } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: [{ type: 'heavy', role: 'attacker' }] },
+        details: { target: { atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite', max_stack: 5 } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'attacker', greater_or_equal: 1 } } } }],
+        target: { kind: 'ally', conditions: [{ type: 'light', role: 'attacker' }, { type: 'flying', role: 'attacker' }] },
+        details: { target: { damage_reduction_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'attacker', greater_or_equal: 1 } } } }],
+        target: { kind: 'ally', conditions: [{ type: 'heavy', role: 'attacker' }] },
+        details: { target: { damage_reduction_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'attacker', greater_or_equal: 3 } } } }],
+        target: { kind: 'ally', conditions: [{ type: 'light', role: 'attacker' }, { type: 'flying', role: 'attacker' }] },
+        details: { target: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'attacker', greater_or_equal: 3 } } } }],
+        target: { kind: 'ally', conditions: [{ type: 'heavy', role: 'attacker' }] },
+        details: { target: { spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'attacker' } } }],
+        target: { kind: 'ally', conditions: ['heavy'] },
+        details: {
+          target: {
+            acc_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'attacker', equal: 1 } } } }],
+        target: { kind: 'ally', conditions: ['heavy'] },
+        details: {
+          target: {
+            acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'attacker', equal: 2 } } } }],
+        target: { kind: 'ally', conditions: ['heavy'] },
+        details: {
+          target: {
+            acc_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'attacker', equal: 3 } } } }],
+        target: { kind: 'ally', conditions: ['heavy'] },
+        details: {
+          target: {
+            acc_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'attacker', equal: 4 } } } }],
+        target: { kind: 'ally', conditions: ['heavy'] },
+        details: {
+          target: {
+            acc_up: { base: { milliPercentage: 70000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 70000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'attacker', equal: 4 } } } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            ap_up: { tag: 'unrep', base: { microValue: 1500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
+            defense_penetration: { tag: 'unrep', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'use_active_2', state: { squad: { not_in_squad: 'defender' } } }],
+        target: { kind: 'ally', conditions: ['heavy'] },
+        details: { target: { counterattack: { base: { milliPercentage: 60000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 200 } } }],
+        details: {
+          self: {
+            ignore_protect: { term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }]
+  },
   200: {
     no: 200,
     active: [{
@@ -17988,7 +18122,10 @@ export const unitSkillData: UnitSkillData = {
     }, {
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ stack: { tag: 'output_increase', greater_or_equal: 3 } }] } }],
+        conditions: [
+          { trigger: 'start_round', state: { squad: { not_in_squad: 199 }, self: [{ stack: { tag: 'output_increase', greater_or_equal: 3 } }] } },
+          { trigger: 'start_round', state: { squad: { in_squad: 199 } } },
+        ],
         details: { self: { action_count_up: { tag: 'output_limit_release', term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'hit_active_1', state: { self: [{ tagged: 'output_limit_release' }] } }],
