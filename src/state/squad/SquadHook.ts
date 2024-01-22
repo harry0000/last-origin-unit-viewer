@@ -251,7 +251,6 @@ export function useSquadShare(): [copyToClipboard: () => void, inputRef: RefObje
   return [
     () => {
       try {
-        /* eslint-disable @typescript-eslint/no-non-null-assertion */
         inputRef.current!.select();
         document.execCommand('copy');
         notify('copied_squad_url');
@@ -259,7 +258,6 @@ export function useSquadShare(): [copyToClipboard: () => void, inputRef: RefObje
         // Remove selection.
         inputRef.current!.focus();
         inputRef.current!.blur();
-        /* eslint-enable @typescript-eslint/no-non-null-assertion */
         window.getSelection()?.removeAllRanges();
       } catch (e) {
         console.error(e);
