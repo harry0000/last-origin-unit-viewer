@@ -34,12 +34,12 @@ function buildLongDynamicLink(param: UrlSafeBase64String): string {
 }
 
 function fetchShortShareUrl(param: UrlSafeBase64String): Promise<string> {
-  if (!process.env.REACT_APP_FIREBASE_WEB_API_KEY) {
+  if (!import.meta.env.VITE_FIREBASE_WEB_API_KEY) {
     return Promise.reject(new Error('Firebase web API key is undefined.'));
   }
 
   return fetch(
-    buildFirebaseEndpoint(process.env.REACT_APP_FIREBASE_WEB_API_KEY),
+    buildFirebaseEndpoint(import.meta.env.VITE_FIREBASE_WEB_API_KEY),
     {
       method: 'POST',
       mode: 'cors',
