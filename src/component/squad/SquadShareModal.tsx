@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Form, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Copy } from '../icon/FluentIcons';
 import SVGButton from '../common/SVGButton';
-import { ReactComponent as TwitterSocialIcon } from '../icon/TwitterSocialIcon.svg';
+import TwitterSocialIcon from '../icon/TwitterSocialIcon.svg?react';
 
 import { useSquadShare, useSquadShareModal, useSquadShareToTwitter } from '../../state/squad/SquadHook';
 

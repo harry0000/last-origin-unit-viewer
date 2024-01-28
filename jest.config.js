@@ -9,7 +9,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   moduleNameMapper: {
     '\\.css$': 'identity-obj-proxy',
-    '\\.svg$': '<rootDir>/src/__mock__/SvgMock.tsx'
+    '\\.svg?(\\?react)$': '<rootDir>/src/__mock__/SvgMock.tsx'
   },
   transform: {
     '^.+\\.[jt]sx?$': 'babel-jest'
