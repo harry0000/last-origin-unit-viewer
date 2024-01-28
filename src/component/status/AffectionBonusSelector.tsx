@@ -26,7 +26,7 @@ const AffectionBonusSelector: React.FC = () => {
         >
           <CircleImageSwitch
             id="affection-bonus-switch"
-            src={`${process.env.PUBLIC_URL}/icon/wedding_vows.webp`}
+            src={`${import.meta.env.BASE_URL}icon/wedding_vows.webp`}
             height={48}
             width={48}
             alt={t('affection.bonus')}

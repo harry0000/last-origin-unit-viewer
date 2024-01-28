@@ -26,7 +26,7 @@ const UnitIcon: React.FC<{ unit: UnitNumber }> =  React.memo(({ unit }) => {
         width={48}
         height={48}
         alt={t('unit:display', { number: unit })}
-        src={`${process.env.PUBLIC_URL}/unit_icon/${unit}.webp`}
+        src={`${import.meta.env.BASE_URL}unit_icon/${unit}.webp`}
       />
     </div>
   );
@@ -43,7 +43,7 @@ const UnitIconPlaceHolder: React.FC = () => {
         width={24}
         height={24}
         alt={t('squad.empty_unit')}
-        src={`${process.env.PUBLIC_URL}/icon/placeholder_core_link.webp`}
+        src={`${import.meta.env.BASE_URL}icon/placeholder_core_link.webp`}
       />
     </div>
   );

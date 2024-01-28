@@ -6,7 +6,7 @@ import { SquadJsonStructure } from './SquadJsonStructure';
 
 const squadUrlParamName = 'sq';
 
-const appSiteUrl = new URL(process.env.PUBLIC_URL + '/', 'https://harry0000.github.io').toString();
+const appSiteUrl = new URL(import.meta.env.BASE_URL, 'https://harry0000.github.io').toString();
 
 const defaultTwitterShareParams = {
   hashtags: 'LastOrigin,ラストオリジン,ラスオリ',

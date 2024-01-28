@@ -41,7 +41,7 @@ const CoreLinkUnitItem: React.FC<{
           height={48}
           width={48}
           alt={t(`unit:name.${unit.unit}`)}
-          src={`${process.env.PUBLIC_URL}/unit_icon/${unit.unit}.webp`}
+          src={`${import.meta.env.BASE_URL}unit_icon/${unit.unit}.webp`}
         />) :
         (<span className="partial-fit-unit">
           <Image
@@ -50,7 +50,7 @@ const CoreLinkUnitItem: React.FC<{
             height={32}
             width={32}
             alt={`${t(`unit.rank.${unit.rank}`)} ${t(`unit.type.${unit.type}`)} ${t(`unit.role.${unit.role}`)}`}
-            src={`${process.env.PUBLIC_URL}/icon/${unit.rank}_${unit.role}.webp`}
+            src={`${import.meta.env.BASE_URL}icon/${unit.rank}_${unit.role}.webp`}
           />
           <span className="unit-type">
             {t(`unit.type.${unit.type}`)}
@@ -76,7 +76,7 @@ const UnlinkItem: React.FC<{ active: boolean }> = ({  active }) => {
         height={48}
         width={48}
         alt={label}
-        src={`${process.env.PUBLIC_URL}/icon/placeholder_core_link.webp`}
+        src={`${import.meta.env.BASE_URL}icon/placeholder_core_link.webp`}
       />
       <span className="label">{label}</span>
     </Dropdown.Item>

@@ -100,7 +100,7 @@ const DamagedStateView: React.FC = () => {
   return (
     <div>
       <UnitStatusHeading
-        iconSrc={`${process.env.PUBLIC_URL}/icon/damaged.webp`}
+        iconSrc={`${import.meta.env.BASE_URL}icon/damaged.webp`}
         headingKey="heading.damaged_state"
       />
       <DamagedStateSelector />

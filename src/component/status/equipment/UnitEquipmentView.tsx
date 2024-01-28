@@ -13,7 +13,7 @@ const UnitEquipmentView: React.FC = () => {
   return (
     <div className="slot-container">
       <UnitStatusHeading
-        iconSrc={`${process.env.PUBLIC_URL}/icon/placeholder_gear.webp`}
+        iconSrc={`${import.meta.env.BASE_URL}icon/placeholder_gear.webp`}
         headingKey="heading.equipment"
       />
       <div className="slot-row">

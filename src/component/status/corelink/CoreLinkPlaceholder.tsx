@@ -27,7 +27,7 @@ const CoreLinkPlaceholder: React.FC<{ slot: CoreLinkSlot }> = React.memo(({ slot
         height={32}
         width={32}
         alt={t(`status.core_link_${slot}`)}
-        src={`${process.env.PUBLIC_URL}/icon/placeholder_core_link.webp`}
+        src={`${import.meta.env.BASE_URL}icon/placeholder_core_link.webp`}
       />
     </span>
   );

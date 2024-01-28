@@ -13,7 +13,7 @@ const UnitStatusIcon: React.FC<{
   status: EnhanceableStatus | 'spd'
 } & ImageSizeProps> = ({ status, ...others }) => {
   const { t } = useTranslation();
-  const src = `${process.env.PUBLIC_URL}/icon/status_${status}.webp`;
+  const src = `${import.meta.env.BASE_URL}icon/status_${status}.webp`;
 
   return (
     <Image

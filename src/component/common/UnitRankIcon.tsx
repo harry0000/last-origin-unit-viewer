@@ -20,7 +20,7 @@ type Props = {
 
 const UnitRankIcon: React.FC<Props> = ({ rank, role, ...rest }) => {
   const { t } = useTranslation();
-  const src = `${process.env.PUBLIC_URL}/icon/${rank}_${role}.webp`;
+  const src = `${import.meta.env.BASE_URL}icon/${rank}_${role}.webp`;
 
   return (
     <Image

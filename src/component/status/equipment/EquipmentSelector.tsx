@@ -275,7 +275,7 @@ const RemoveEquipmentItem: React.FC<{
           height={48}
           width={48}
           alt={label}
-          src={`${process.env.PUBLIC_URL}/icon/placeholder_${type}.webp`}
+          src={`${import.meta.env.BASE_URL}icon/placeholder_${type}.webp`}
         />
       </div>
       <div className="details">{label}</div>
@@ -302,7 +302,7 @@ const EquipmentSelectorMenu = <T extends EquipmentSlot>(
             eventKey={item.id}
             active={item.id === value?.id && rank === value?.rank}
             label={t(`equipment:${item.id}`)}
-            src={`${process.env.PUBLIC_URL}/equip_icon/${item.type}_${item.id}_${rank}.webp`}
+            src={`${import.meta.env.BASE_URL}equip_icon/${item.type}_${item.id}_${rank}.webp`}
           />
         ))}
       </div>

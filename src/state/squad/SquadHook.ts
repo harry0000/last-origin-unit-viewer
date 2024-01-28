@@ -323,7 +323,7 @@ export function useSquadRestoreFromUrl(): boolean {
       }
 
       setRestoring(false);
-      navigate(`${process.env.PUBLIC_URL}/`, { replace: true });
+      navigate(`${import.meta.env.BASE_URL}`, { replace: true });
     }
   }, [
     navigate,

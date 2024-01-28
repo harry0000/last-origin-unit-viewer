@@ -29,8 +29,8 @@ const SquadCostSummaryView: React.FC = () => {
         <span
           className={`cost-icon ${type}`}
           css={{
-            backgroundImage: `url(${process.env.PUBLIC_URL}/icon/cost_${type}.webp)`,
-            maskImage: `url(${process.env.PUBLIC_URL}/icon/cost_${type}.webp)`,
+            backgroundImage: `url(${import.meta.env.BASE_URL}icon/cost_${type}.webp)`,
+            maskImage: `url(${import.meta.env.BASE_URL}icon/cost_${type}.webp)`,
             maskSize: '24px'
           }}
         >
@@ -62,7 +62,7 @@ const SquadUnitTypeSummaryView: React.FC = () => {
           height={24}
           width={24}
           alt={t(`unit.type.${type}`)}
-          src={`${process.env.PUBLIC_URL}/icon/type_${type}.webp`}
+          src={`${import.meta.env.BASE_URL}icon/type_${type}.webp`}
         />
         <span className="type-count">{count}</span>
       </div>

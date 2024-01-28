@@ -25,7 +25,7 @@ const AttributeResist: React.FC<{
 }> = ({ attribute, value, children }) => {
   const { t } = useTranslation();
   const alt = t(`status.${attribute}_resist`);
-  const src = `${process.env.PUBLIC_URL}/icon/attribute_resist_${attribute}.webp`;
+  const src = `${import.meta.env.BASE_URL}icon/attribute_resist_${attribute}.webp`;
 
   return (
     <div css={{ display: 'flex', flexDirection: 'column' }}>
