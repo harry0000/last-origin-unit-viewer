@@ -4,6 +4,12 @@ import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), svgr()],
+  plugins: [
+    react({
+      jsxRuntime: 'classic',
+      jsxImportSource: '@emotion/react',
+    }),
+    svgr()
+  ],
   base: '/last-origin-unit-viewer/'
 });

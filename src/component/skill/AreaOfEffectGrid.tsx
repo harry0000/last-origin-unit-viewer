@@ -1,4 +1,3 @@
-/** @jsxRuntime classic */
 /** @jsx jsx */
 import { Theme, jsx } from '@emotion/react';
 import { CSSPropertiesWithMultiValues } from '@emotion/serialize/dist/declarations/types';

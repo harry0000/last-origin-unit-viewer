@@ -1,4 +1,3 @@
-/** @jsxRuntime classic */
 /** @jsx jsx */
 import { Theme, jsx } from '@emotion/react';
 import { Interpolation } from '@emotion/serialize';
