@@ -1,4 +1,3 @@
-/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
@@ -35,7 +34,7 @@ const DamagedOverlay: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
         height={24}
         width={24}
         alt={t('damaged_state.moderately_damaged')}
-        src={`${process.env.PUBLIC_URL}/icon/need_repair.webp`}
+        src={`${import.meta.env.BASE_URL}icon/need_repair.webp`}
       />
     );
   case DamagedState.HeavilyDamaged:
@@ -66,7 +65,7 @@ const AffectionOverlay: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
           height={24}
           width={24}
           alt={t('affection_state')}
-          src={`${process.env.PUBLIC_URL}/icon/wedding_ring.webp`}
+          src={`${import.meta.env.BASE_URL}icon/wedding_ring.webp`}
         />)
       )
     );

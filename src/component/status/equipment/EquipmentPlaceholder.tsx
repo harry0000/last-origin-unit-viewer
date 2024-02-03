@@ -1,4 +1,3 @@
-/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
@@ -28,7 +27,7 @@ const EquipmentPlaceholder: React.FC<{ type: EquipmentType }> = React.memo(({ ty
         height={32}
         width={32}
         alt={t(`equipment:type.${type}`)}
-        src={`${process.env.PUBLIC_URL}/icon/placeholder_${type}.webp`}
+        src={`${import.meta.env.BASE_URL}icon/placeholder_${type}.webp`}
       />
     </span>
   );

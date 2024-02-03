@@ -1,4 +1,3 @@
-/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
@@ -24,7 +23,7 @@ const EquipmentItemView: React.FC<{
         draggable="false"
         sizes="(max-width: 480px) 47px, (min-width: 480px) 62px"
         alt={t(`equipment:${equipmentId}`)}
-        src={`${process.env.PUBLIC_URL}/equip_icon/${equipmentType}_${equipmentId}_${equipmentRank}.webp`}
+        src={`${import.meta.env.BASE_URL}equip_icon/${equipmentType}_${equipmentId}_${equipmentRank}.webp`}
       />
       <Image
         draggable="false"
@@ -32,7 +31,7 @@ const EquipmentItemView: React.FC<{
         height={28}
         width={28}
         alt={`${t(`equipment:rank.${equipmentRank}`)} ${t(`equipment:type.${equipmentType}`)}`}
-        src={`${process.env.PUBLIC_URL}/icon/${equipmentType}_${equipmentRank}.webp`}
+        src={`${import.meta.env.BASE_URL}icon/${equipmentType}_${equipmentRank}.webp`}
       />
       <span
         css={{

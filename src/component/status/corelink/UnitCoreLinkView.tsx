@@ -1,4 +1,3 @@
-/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { Suspense } from 'react';
@@ -135,7 +134,7 @@ const UnitCoreLinkView: React.FC = () => {
   return (
     <div className="slot-container">
       <UnitStatusHeading
-        iconSrc={`${process.env.PUBLIC_URL}/icon/placeholder_core_link.webp`}
+        iconSrc={`${import.meta.env.BASE_URL}icon/placeholder_core_link.webp`}
         headingKey="heading.core_link"
       >
         <CoreLinkRate />

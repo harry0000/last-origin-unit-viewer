@@ -1,4 +1,3 @@
-/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
@@ -23,7 +22,7 @@ const UnitCostView: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
       <span>
         <span
           className={`cost-icon ${type}`}
-          css={{ backgroundImage: `url(${process.env.PUBLIC_URL}/icon/cost_${type}.webp)` }}
+          css={{ backgroundImage: `url(${import.meta.env.BASE_URL}icon/cost_${type}.webp)` }}
         >
           <span className="sr-only">{t(`cost.${type}`)}</span>
         </span>

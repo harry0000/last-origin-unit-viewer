@@ -169,7 +169,6 @@ function createEnhanceLvSelector(slot: EquipmentSlot): (lv: EquipmentEnhancement
   });
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _unitEquipment: { [K in EquipmentSlot]: (unit: UnitNumber) => RecoilState<UnitEquipmentType<K>> } = {
   chip1: atomFamily<UnitChip1Equipment, UnitNumber>({ key: 'UnitEquipmentState_unitEquipment_chip1', default: (unit) => new UnitChip1Equipment(unit) }),
   chip2: atomFamily<UnitChip2Equipment, UnitNumber>({ key: 'UnitEquipmentState_unitEquipment_chip2', default: (unit) => new UnitChip2Equipment(unit) }),
@@ -184,7 +183,6 @@ const _slotAvailable = {
   gear:  createSlotAvailable('gear')
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _equipment: { [K in EquipmentSlot]: (unit: UnitNumber) => RecoilState<EquipmentDetail<K>> } = {
   chip1: createEquipment('chip1'),
   chip2: createEquipment('chip2'),

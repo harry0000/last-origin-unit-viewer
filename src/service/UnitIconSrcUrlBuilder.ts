@@ -15,5 +15,5 @@ function hasSSRankSkin(unit: UnitNumber): boolean {
 export function buildUnitTileIconSrcUrl(unit: UnitNumber, rank: UnitRank): string {
   const suffix = rank === UnitRank.SS && hasSSRankSkin(unit) ? '_ss' : '';
 
-  return `${process.env.PUBLIC_URL}/unit_icon/${unit}${suffix}.webp`;
+  return `${import.meta.env.BASE_URL}unit_icon/${unit}${suffix}.webp`;
 }

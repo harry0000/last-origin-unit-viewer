@@ -1,4 +1,3 @@
-/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
@@ -21,7 +20,7 @@ const FitUnitView: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
         draggable="false"
         sizes="(max-width: 480px) 47px, (min-width: 480px) 62px"
         alt={t(`unit:name.${unit}`)}
-        src={`${process.env.PUBLIC_URL}/unit_icon/${unit}.webp`}
+        src={`${import.meta.env.BASE_URL}unit_icon/${unit}.webp`}
       />
     </span>
   );

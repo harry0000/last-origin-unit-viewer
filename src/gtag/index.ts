@@ -4,10 +4,10 @@ declare global {
 }
 
 export function initialize(): void {
-  if (process.env.REACT_APP_GA_MEASUREMENT_ID) {
+  if (import.meta.env.VITE_GA_MEASUREMENT_ID) {
     const script = document.createElement('script');
     script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${process.env.REACT_APP_GA_MEASUREMENT_ID}`;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${import.meta.env.VITE_GA_MEASUREMENT_ID}`;
     document.body.appendChild(script);
 
     window.dataLayer = window.dataLayer || [];
@@ -17,6 +17,6 @@ export function initialize(): void {
     };
 
     window.gtag('js', new Date());
-    window.gtag('config', process.env.REACT_APP_GA_MEASUREMENT_ID);
+    window.gtag('config', import.meta.env.VITE_GA_MEASUREMENT_ID);
   }
 }

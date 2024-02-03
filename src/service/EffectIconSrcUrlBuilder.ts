@@ -1,7 +1,7 @@
 import { Effect } from '../domain/Effect';
 
 function buildIconSrcUrl(effect: Effect): string {
-  return `${process.env.PUBLIC_URL}/effect_icon/${effect}.webp`;
+  return `${import.meta.env.BASE_URL}effect_icon/${effect}.webp`;
 }
 
 export function buildEffectIconSrcUrl(effect: Effect): string | undefined {

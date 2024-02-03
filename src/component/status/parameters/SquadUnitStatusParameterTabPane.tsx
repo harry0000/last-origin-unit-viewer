@@ -1,4 +1,3 @@
-/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { ReactElement } from 'react';
@@ -165,8 +164,8 @@ const EffectSource: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({ 
   const source = t(affected.source.key, affected.source.options);
   const [src, originalWidth] =
     isAllySkill ?
-      [`${process.env.PUBLIC_URL}/icon/placeholder_core_link.webp`, '64w'] :
-      [`${process.env.PUBLIC_URL}/icon/placeholder_${affected.type}.webp`, '96w'];
+      [`${import.meta.env.BASE_URL}icon/placeholder_core_link.webp`, '64w'] :
+      [`${import.meta.env.BASE_URL}icon/placeholder_${affected.type}.webp`, '96w'];
 
   const popover = (
     <Popover id="popover-effect-source" className="skill-effect-details">

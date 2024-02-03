@@ -1,4 +1,3 @@
-/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
@@ -55,7 +54,7 @@ const UnitCard: React.FC<{ unit: UnitBasicInfo }> = React.memo(({ unit }) => {
           height={80}
           width={80}
           alt={unitName}
-          src={`${process.env.PUBLIC_URL}/unit_icon/${unit.no}.webp`}
+          src={`${import.meta.env.BASE_URL}unit_icon/${unit.no}.webp`}
         />
         <Badge rank={unit.rank} role={unit.role} />
       </div>
