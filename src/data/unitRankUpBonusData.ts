@@ -702,9 +702,9 @@ export const unitRankUpBonusData = {
   },
   92: {
     s: {
-      hp_up: { value: 135 },
-      atk_up: { milliValue: 50000 },
-      cri_up: { milliPercentage: 1500 },
+      hp_up: { value: 150 },
+      atk_up: { milliValue: 70000 },
+      cri_up: { milliPercentage: 5000 },
       acc_up: { milliPercentage: 5000 },
       eva_up: { milliPercentage: 5000 }
     }

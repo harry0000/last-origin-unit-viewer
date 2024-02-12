@@ -88,6 +88,8 @@ export type SkillEffectTag =
   'where_are_you_looking_at' |
   'stealth_camouflage' |
   'overwhelming_cuteness' |
+  'linty_is_here' |
+  'thats_all_for_today' |
   'cousette' |
   'midinette' |
   'trottin' |
