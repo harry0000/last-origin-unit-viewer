@@ -8854,6 +8854,10 @@ export const unitSkillData: UnitSkillData = {
       cost: 6,
       area: 'single',
       effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { provoked: { term: { for_rounds: 2 }, max_stack: 1 } } }
+      }, {
         conditions: [{ trigger: 'hit', state: { self: [{ not_tagged: 'aesa_online' }] } }],
         target: { kind: 'enemy' },
         details: { target: { acc_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
