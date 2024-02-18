@@ -8614,6 +8614,10 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'hit', state: { squad: { in_squad: 96 } } }],
         details: { self: { cooperative_attack: { unit: 96, active: 2 } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'knight_of_sky' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effect: 'damage_reduction_up', term: 'immediate' } } }
       }]
     }, {
       damage_deal: {
@@ -8683,6 +8687,20 @@ export const unitSkillData: UnitSkillData = {
             cri_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } }
           }
         }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            range_up: { tag: 'knight_of_sky', value: { 1: 1, 10: 2 }, term: { for_rounds: 1 } },
+            additional_damage_focusing: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'follow_up_attack' }, { trigger: 're_attack' }],
+        details: { self: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
       }]
     }]
   },
@@ -8836,8 +8854,13 @@ export const unitSkillData: UnitSkillData = {
       cost: 6,
       area: 'single',
       effects: [{
+        conditions: [{ trigger: 'hit', state: { self: [{ not_tagged: 'aesa_online' }] } }],
         target: { kind: 'enemy' },
-        details: { target: { acc_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+        details: { target: { acc_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'aesa_online' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { acc_down: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
       }, {
         conditions: [{ state: { squad: { in_squad: 96 } } }],
         details: { self: { cooperative_attack: { unit: 96, active: 2 } } }
@@ -8862,10 +8885,17 @@ export const unitSkillData: UnitSkillData = {
           target: {
             marked: { term: { for_rounds: 2 }, max_stack: 1 },
             immovable: { term: { for_rounds: 2 }, max_stack: 1 },
-            acc_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 }, max_stack: 1 },
             buff_removal: { effects: ['counterattack', 'acc_up'], term: 'immediate' }
           }
         }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ not_tagged: 'aesa_online' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { acc_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'aesa_online' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { acc_down: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 2 }, max_stack: 1 } } }
       }, {
         conditions: [{ trigger: 'use_this_active' }],
         details: { self: { acc_up: { base: { milliPercentage: 9000 }, per_lv_up: { milliPercentage: 9000 }, term: 'immediate' } } }
@@ -8903,6 +8933,27 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'hit' }],
         details: { self: { eva_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 }, max_stack: 3 } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave', state: { squad: { not_in_squad: 'sky_knights' } } }],
+        details: { self: { minimize_damage: { times: 1, term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 'sky_knights' } } }],
+        details: { self: { minimize_damage: { times: 2, term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'be_attacked' }],
+        target: { kind: 'ally', conditions: ['sky_knights'] },
+        details: {
+          target: {
+            damage_multiplier_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 }, max_stack: 5 },
+            acc_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 }, max_stack: 5 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'aesa_air_radar' }] } }],
+        details: { self: { tag_stack: { tag: 'aesa_online', term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
       }]
     }]
   },
@@ -8990,17 +9041,34 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'idle', state: { self: [{ tagged: 'linty_is_here' }] } }],
         details: { self: { tag_release: { tag: 'linty_is_here', term: 'immediate' } } }
       }, {
-        conditions: [{ trigger: 'start_round' }],
+        conditions: [{ trigger: 'start_round' }, { trigger: 'kill', state: { self: [{ tagged: 'shiny' }] } }],
         details: { self: { eva_up: { tag: 'thats_all_for_today', base: { milliPercentage: 100000 }, per_lv_up: { milliPercentage: 10000 }, term: 'infinite', max_stack: 1 } } }
       }, {
         conditions: [{ trigger: 'evade' }],
         details: { self: { tag_release: { tag: 'thats_all_for_today', term: 'immediate' } } }
       }, {
-        conditions: [{ trigger: 'be_attacked' }],
+        conditions: [{ trigger: 'be_attacked', state: { self: [{ not_tagged: 'shiny' }] } }],
         details: { self: { ap_up: { base: { microValue: 100000 }, per_lv_up: { microValue: 50000 } } } }
       }, {
-        conditions: [{ trigger: 'kill' }],
+        conditions: [{ trigger: 'kill', state: { self: [{ not_tagged: 'shiny' }] } }],
         details: { self: { ap_up: { base: { microValue: 200000 }, per_lv_up: { microValue: 100000 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        details: { self: { battle_continuation: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, times: 1, term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { action_count_up: { tag: 'shiny', term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'be_attacked', state: { self: [{ tagged: 'shiny' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 100000 }, per_lv_up: { microValue: 50000 } } } }
+      }, {
+        conditions: [{ trigger: 'kill', state: { self: [{ tagged: 'shiny' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 200000 }, per_lv_up: { microValue: 100000 } } } }
       }]
     }]
   },
@@ -16675,6 +16743,10 @@ export const unitSkillData: UnitSkillData = {
             flying_type_damage_down: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 }, max_stack: 1 }
           }
         }
+      }, {
+        conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'prototype_fog' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { status_resist_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 }, max_stack: 1 } } }
       }]
     }],
     passive: [{
@@ -16697,6 +16769,10 @@ export const unitSkillData: UnitSkillData = {
             range_up: { value: 1, term: { for_rounds: 1 } }
           }
         }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'prototype_fog' }] } }],
+        target: { kind: 'ally', conditions: ['flying'] },
+        details: { target: { prevents_effect: { effects: ['push', 'pull'], term: { for_rounds: 1 } } } }
       }]
     }, {
       area: 'self',
@@ -16722,6 +16798,12 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_wave', state: { squad: { in_squad: 'sky_knights' } } }],
         details: { self: { spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { status_resist_up: { tag: 'prototype_fog', base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
       }]
     }]
   },
