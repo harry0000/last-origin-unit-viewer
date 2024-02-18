@@ -8843,6 +8843,117 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  94: {
+    no: 94,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 88000 },
+        per_lv_up: { milliPercentage: 8800 }
+      },
+      range: 4,
+      cost: 5,
+      area: 'single',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            marked: { term: { for_rounds: 2 } },
+            damage_taken_increased: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy', conditions: ['supporter'] },
+        details: { target: { silenced: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [
+          { trigger: 'hit', state: { self: [{ grid: 'front_line' }], squad: { in_squad: 96 } } },
+          { trigger: 'hit', state: { self: [{ grid: 'back_line' }], squad: { in_squad: 96 } } }
+        ],
+        details: { self: { cooperative_attack: { unit: 96, active: 2, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ grid: 'mid_line' }], squad: { in_squad: 93 } } }],
+        details: { self: { cooperative_attack: { unit: 93, active: 2, term: 'immediate' } } }
+      }]
+    }, {
+      range: 0,
+      cost: 8,
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ state: { target: [{ unit: 'flying' }] } }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
+        details: {
+          target: {
+            atk_up: { tag: 'formation_sortie', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 }, max_stack: 3 },
+            defense_penetration: { tag: 'formation_sortie', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 }, max_stack: 3 }
+          }
+        }
+      }, {
+        target: { kind: 'ally', conditions: ['sky_knights'] },
+        details: { target: { enmity: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 }, max_stack: 1 } } }
+      }]
+    }],
+    passive: [{
+      area: 'fixed_cross',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'flying' }] } }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
+        details: {
+          target: {
+            acc_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['sky_knights'] },
+        details: {
+          target: {
+            acc_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'use_any_active', state: { target: [{ unit: 'flying' }] } }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
+        details: { target: { ap_up: { base: { microValue: 200000 }, per_lv_up: { microValue: 20000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'use_any_active' }],
+        target: { kind: 'ally', conditions: ['sky_knights'] },
+        details: { target: { ap_up: { base: { microValue: 200000 }, per_lv_up: { microValue: 20000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
+            eva_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        scale_factor: { per_units: { type: 'squad', unit: 'flying' } },
+        target: { kind: 'ally', conditions: ['bioroid'] },
+        details: { target: { ap_up: { base: { microValue: 200000 }, per_lv_up: { microValue: 20000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { target: [{ unit: 'flying' }] } }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
+        details: { target: { exp_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'formation_sortie' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { all_debuff_removal: { term: 'immediate' } } }
+      }]
+    }]
+  },
   95: {
     no: 95,
     active: [{

@@ -88,6 +88,7 @@ export type SkillEffectTag =
   'where_are_you_looking_at' |
   'knight_of_sky' |
   'stealth_camouflage' |
+  'formation_sortie' |
   'aesa_online' |
   'overwhelming_cuteness' |
   'linty_is_here' |
