@@ -3547,6 +3547,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { damage_multiplier_up: { milliPercentage: 40000, term: { for_rounds: 999 } }, range_up: { value: 1, term: { for_rounds: 999 } }, battle_continuation: { value: 300, term: { for_rounds: 999 } } } }]
     ]
   },
+  monomolecular_scissors: {
+    type: 'gear',
+    id: 'monomolecular_scissors',
+    exclusive: {
+      unit: 97
+    },
+    status_effects: [
+      { cri_up: { milliPercentage: 25000 } },
+      { cri_up: { milliPercentage: 27500 } },
+      { cri_up: { milliPercentage: 30000 } },
+      { cri_up: { milliPercentage: 32500 } },
+      { cri_up: { milliPercentage: 35000 } },
+      { cri_up: { milliPercentage: 37500 } },
+      { cri_up: { milliPercentage: 40000 } },
+      { cri_up: { milliPercentage: 42500 } },
+      { cri_up: { milliPercentage: 45000 } },
+      { cri_up: { milliPercentage: 47500 } },
+      { cri_up: { milliPercentage: 50000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  500000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  550000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  600000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  650000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  700000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  750000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  800000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  850000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  900000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue:  950000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_round' }, details: { ap_up: { microValue: 1000000, term: 'immediate' } } }]
+    ]
+  },
   pest_shredder: {
     type: 'gear',
     id: 'pest_shredder',
@@ -3743,6 +3776,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
       [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }],
       [{ condition: { trigger: 'start_round' }, details: { range_up: { value: 1, term: { for_rounds: 1 } }, debuff_removal: { effect: 'range_down', term: 'immediate' } } }]
+    ]
+  },
+  silver_bullet_needle: {
+    type: 'gear',
+    id: 'silver_bullet_needle',
+    exclusive: {
+      unit: 98
+    },
+    status_effects: [
+      { acc_up: { milliPercentage: 15000 }, cri_up: { milliPercentage: 10000 }, spd_up: { microValue: 100000 } },
+      { acc_up: { milliPercentage: 16500 }, cri_up: { milliPercentage: 11000 }, spd_up: { microValue: 110000 } },
+      { acc_up: { milliPercentage: 18000 }, cri_up: { milliPercentage: 12000 }, spd_up: { microValue: 120000 } },
+      { acc_up: { milliPercentage: 19500 }, cri_up: { milliPercentage: 13000 }, spd_up: { microValue: 130000 } },
+      { acc_up: { milliPercentage: 21000 }, cri_up: { milliPercentage: 14000 }, spd_up: { microValue: 140000 } },
+      { acc_up: { milliPercentage: 22500 }, cri_up: { milliPercentage: 15000 }, spd_up: { microValue: 150000 } },
+      { acc_up: { milliPercentage: 24000 }, cri_up: { milliPercentage: 16000 }, spd_up: { microValue: 160000 } },
+      { acc_up: { milliPercentage: 25500 }, cri_up: { milliPercentage: 17000 }, spd_up: { microValue: 170000 } },
+      { acc_up: { milliPercentage: 27000 }, cri_up: { milliPercentage: 18000 }, spd_up: { microValue: 180000 } },
+      { acc_up: { milliPercentage: 28500 }, cri_up: { milliPercentage: 19000 }, spd_up: { microValue: 190000 } },
+      { acc_up: { milliPercentage: 30000 }, cri_up: { milliPercentage: 20000 }, spd_up: { microValue: 200000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate' } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate' } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate' } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate' } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate' } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate' } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate' } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate' } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate' } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate' } } }],
+      [{ condition: { trigger: 'attack' }, details: { re_attack: { term: 'immediate' } } }]
     ]
   },
   space: {

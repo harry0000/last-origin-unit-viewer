@@ -187,6 +187,7 @@ function unitStateView(
       'SteelLineOfficerRanks' |
       'SteelLineExcludingOfficerRanks' |
       'Horizon' |
+      'SkyKnights' |
       'Kunoichi' |
       'OrbitalWatcher' |
       'DEntertainment' |
@@ -199,6 +200,7 @@ function unitStateView(
     UnitType |
     UnitRole |
     ArmoredBulgasari |
+    readonly [typeof UnitType.Light, typeof UnitType.Heavy] |
     DefenderAndArmoredBulgasari |
     DefenderAndCyclopsPrincess |
     'golden_factory' |
@@ -218,7 +220,7 @@ function unitStateView(
     );
   } else if (isReadonlyArray(state)) {
     let unit;
-    if (isDefenderAndArmoredBulgasari(state)) {
+    if (isDefenderAndArmoredBulgasari(state) || state[0] === UnitType.Light) {
       unit = `${t(`effect:unit.${state[0]}`)}${t('effect:unit_separator')}${t(`effect:unit.${state[1]}`)}`;
     } else if (isDefenderAndCyclopsPrincess(state)) {
       unit = `${t(`effect:unit.${state[0]}`)}${t('effect:unit_separator')}${unitName(state[1])}`;

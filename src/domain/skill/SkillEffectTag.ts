@@ -86,8 +86,14 @@ export type SkillEffectTag =
   'hardpoint_equipment_support' |
   'tactical_air_relay' |
   'where_are_you_looking_at' |
+  'knight_of_sky' |
   'stealth_camouflage' |
+  'formation_sortie' |
+  'aesa_online' |
   'overwhelming_cuteness' |
+  'linty_is_here' |
+  'thats_all_for_today' |
+  'shiny' |
   'cousette' |
   'midinette' |
   'trottin' |
@@ -184,6 +190,7 @@ export type SkillEffectTag =
   'high_voltage' |
   'death_blow' |
   'ash_kagura' |
+  'prototype_fog' |
   'overexcitement' |
   'controlling_excitement' |
   'excitement' |

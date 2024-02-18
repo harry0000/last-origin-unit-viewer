@@ -184,6 +184,8 @@ function getSquadUnitMatcher(
       return (target) => target.unit.role == cond[0] || isArmoredBulgasari(target);
     } else if (isDefenderAndCyclopsPrincess(cond)) {
       return (target) => target.unit.role == cond[0] || target.unit.no == cond[1];
+    } else if (cond[0] === UnitType.Light) {
+      return (target) => target.unit.type == cond[0] || target.unit.type == cond[1];
     } else {
       const set = new Set([...unitNumbersForAlias[cond[0]], ...unitNumbersForAlias[cond[1]]]);
       return (target) => set.has(target.unit.no);
