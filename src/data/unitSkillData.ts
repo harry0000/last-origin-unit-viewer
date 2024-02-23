@@ -19616,14 +19616,24 @@ export const unitSkillData: UnitSkillData = {
     }, {
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'hit_active_1' }],
-        // TODO: per: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 500 } } && enemy > 2
+        conditions: [{ trigger: 'hit_active_1', state: { self: [{ not_equipped: ['eddy_current_controller'] }] } }],
+        // TODO: per_lv_up: 3000 ~ 500 (+500 per enemy count)
         scale_factor: { per_units: { type: 'enemy', variation: 'proportional' } },
         details: { self: { additional_electric_damage: { base: { milliPercentage: 23000 }, per_lv_up: { milliPercentage: 3000 } } } }
       }, {
-        conditions: [{ trigger: 'hit_active_2' }],
-        // TODO: per: { base: { milliPercentage: 3500 }, per_lv_up: { milliPercentage: 1000 } }
+        conditions: [{ trigger: 'hit_active_2', state: { self: [{ not_equipped: ['eddy_current_controller'] }] } }],
+        // TODO: per_lv_up: 8000 ~ 1000 (-1000 per enemy count)
         scale_factor: { per_units: { type: 'enemy', variation: 'inversely_proportional' } },
+        details: { self: { additional_electric_damage: { base: { milliPercentage: 28000 }, per_lv_up: { milliPercentage: 8000 } } } }
+      }, {
+        conditions: [{ trigger: 'hit_active_1', state: { self: [{ equipped: 'eddy_current_controller' }] } }],
+        // TODO: per_lv_up: 3000 ~ 500 (-500 per enemy count)
+        scale_factor: { per_units: { type: 'enemy', variation: 'inversely_proportional' } },
+        details: { self: { additional_electric_damage: { base: { milliPercentage: 23000 }, per_lv_up: { milliPercentage: 3000 } } } }
+      }, {
+        conditions: [{ trigger: 'hit_active_2', state: { self: [{ equipped: 'eddy_current_controller' }] } }],
+        // TODO: per_lv_up: 8000 ~ 1000 (+1000 per enemy count)
+        scale_factor: { per_units: { type: 'enemy', variation: 'proportional' } },
         details: { self: { additional_electric_damage: { base: { milliPercentage: 28000 }, per_lv_up: { milliPercentage: 8000 } } } }
       }]
     }]

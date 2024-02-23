@@ -3329,6 +3329,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { marked: { term: { for_rounds: 1 } }, eva_up: { milliPercentage: 200000, term: { for_rounds: 1 } }, damage_reduction_up: { milliPercentage: 50000, term: { for_rounds: 1 } } } }]
     ]
   },
+  eddy_current_controller: {
+    type: 'gear',
+    id: 'eddy_current_controller',
+    exclusive: {
+      unit: 221
+    },
+    status_effects: [
+      { acc_up: { milliPercentage: 20000 }, cri_up: { milliPercentage: 10000 } },
+      { acc_up: { milliPercentage: 22000 }, cri_up: { milliPercentage: 11000 } },
+      { acc_up: { milliPercentage: 24000 }, cri_up: { milliPercentage: 12000 } },
+      { acc_up: { milliPercentage: 26000 }, cri_up: { milliPercentage: 13000 } },
+      { acc_up: { milliPercentage: 28000 }, cri_up: { milliPercentage: 14000 } },
+      { acc_up: { milliPercentage: 30000 }, cri_up: { milliPercentage: 15000 } },
+      { acc_up: { milliPercentage: 32000 }, cri_up: { milliPercentage: 16000 } },
+      { acc_up: { milliPercentage: 34000 }, cri_up: { milliPercentage: 17000 } },
+      { acc_up: { milliPercentage: 36000 }, cri_up: { milliPercentage: 18000 } },
+      { acc_up: { milliPercentage: 38000 }, cri_up: { milliPercentage: 19000 } },
+      { acc_up: { milliPercentage: 40000 }, cri_up: { milliPercentage: 20000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 10000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 11000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 12000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 13000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 14000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 15000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 16000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 17000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 18000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 19000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 20000, term: 'infinite' } } }]
+    ]
+  },
   enhanced_mk_engine: {
     type: 'gear',
     id: 'enhanced_mk_engine',
