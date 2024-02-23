@@ -1256,6 +1256,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { light_type_damage_up: { milliPercentage: 10000, term: { for_rounds: 1 } }, flying_type_damage_up: { milliPercentage: 10000, term: { for_rounds: 1 } }, heavy_type_damage_up: { milliPercentage: 10000, term: { for_rounds: 1 } } } }]
     ]
   },
+  hunter_hunt_support_os: {
+    type: 'os',
+    id: 'hunter_hunt_support_os',
+    exclusive: {
+      unit: 233
+    },
+    status_effects: [
+      { atk_up: { milliValue: 100000 } },
+      { atk_up: { milliValue: 110000 } },
+      { atk_up: { milliValue: 120000 } },
+      { atk_up: { milliValue: 130000 } },
+      { atk_up: { milliValue: 140000 } },
+      { atk_up: { milliValue: 150000 } },
+      { atk_up: { milliValue: 160000 } },
+      { atk_up: { milliValue: 170000 } },
+      { atk_up: { milliValue: 180000 } },
+      { atk_up: { milliValue: 190000 } },
+      { atk_up: { milliValue: 200000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 25000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 27000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 29000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 31000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 33000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 35000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 37000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 39000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 41000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 43000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 45000, term: 'infinite' } } }]
+    ]
+  },
   lrad_enhancement_os: {
     type: 'os',
     id: 'lrad_enhancement_os',
