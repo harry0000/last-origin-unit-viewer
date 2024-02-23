@@ -426,6 +426,26 @@ export const equipmentData = {
       { atk_up: { milliValue: 80000 }, acc_up: { milliPercentage: 40000 }, eva_up: { milliPercentage: 18000 } }
     ]
   },
+  heartless_chip: {
+    type: 'chip',
+    id: 'heartless_chip',
+    exclusive: {
+      unit: 72
+    },
+    status_effects: [
+      { atk_up: { milliValue:  60000 }, eva_up: { milliPercentage: 10000 } },
+      { atk_up: { milliValue:  66000 }, eva_up: { milliPercentage: 11000 } },
+      { atk_up: { milliValue:  72000 }, eva_up: { milliPercentage: 12000 } },
+      { atk_up: { milliValue:  78000 }, eva_up: { milliPercentage: 13000 } },
+      { atk_up: { milliValue:  84000 }, eva_up: { milliPercentage: 14000 } },
+      { atk_up: { milliValue:  90000 }, eva_up: { milliPercentage: 15000 } },
+      { atk_up: { milliValue:  96000 }, eva_up: { milliPercentage: 16000 } },
+      { atk_up: { milliValue: 102000 }, eva_up: { milliPercentage: 17000 } },
+      { atk_up: { milliValue: 108000 }, eva_up: { milliPercentage: 18000 } },
+      { atk_up: { milliValue: 114000 }, eva_up: { milliPercentage: 19000 } },
+      { atk_up: { milliValue: 120000 }, eva_up: { milliPercentage: 20000 } }
+    ]
+  },
   s_42_ad_lib_chip: {
     type: 'chip',
     id: 's_42_ad_lib_chip',
