@@ -446,6 +446,26 @@ export const equipmentData = {
       { atk_up: { milliValue: 120000 }, eva_up: { milliPercentage: 20000 } }
     ]
   },
+  outback_chip: {
+    type: 'chip',
+    id: 'outback_chip',
+    exclusive: {
+      unit: 151
+    },
+    status_effects: [
+      { atk_up: { milliValue: 40000 }, def_up: { milliValue: 40000 }, eva_up: { milliPercentage: 10000 } },
+      { atk_up: { milliValue: 44000 }, def_up: { milliValue: 44000 }, eva_up: { milliPercentage: 11000 } },
+      { atk_up: { milliValue: 48000 }, def_up: { milliValue: 48000 }, eva_up: { milliPercentage: 12000 } },
+      { atk_up: { milliValue: 52000 }, def_up: { milliValue: 52000 }, eva_up: { milliPercentage: 13000 } },
+      { atk_up: { milliValue: 56000 }, def_up: { milliValue: 56000 }, eva_up: { milliPercentage: 14000 } },
+      { atk_up: { milliValue: 60000 }, def_up: { milliValue: 60000 }, eva_up: { milliPercentage: 15000 } },
+      { atk_up: { milliValue: 64000 }, def_up: { milliValue: 64000 }, eva_up: { milliPercentage: 16000 } },
+      { atk_up: { milliValue: 68000 }, def_up: { milliValue: 68000 }, eva_up: { milliPercentage: 17000 } },
+      { atk_up: { milliValue: 72000 }, def_up: { milliValue: 72000 }, eva_up: { milliPercentage: 18000 } },
+      { atk_up: { milliValue: 76000 }, def_up: { milliValue: 76000 }, eva_up: { milliPercentage: 19000 } },
+      { atk_up: { milliValue: 80000 }, def_up: { milliValue: 80000 }, eva_up: { milliPercentage: 20000 } }
+    ]
+  },
   s_42_ad_lib_chip: {
     type: 'chip',
     id: 's_42_ad_lib_chip',
