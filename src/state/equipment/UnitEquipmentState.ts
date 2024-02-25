@@ -83,11 +83,12 @@ export type EquipmentStateArgs =
   [slot: 'os',    rank: EquipmentSlotRank<'os'>] |
   [slot: 'gear',  rank: EquipmentSlotRank<'gear'>]
 
+// HACK: currying to avoid TS2590: Expression produces a union type that is too complex to represent.
 type ChangeEquipmentHandler = {
-  <T extends EquipmentSlot>(unit: UnitNumber, slot: T): (cbi: CallbackInterface) =>
+  <T extends EquipmentSlot>(unit: UnitNumber): (slot: T) => (cbi: CallbackInterface) =>
     (equipment: EquipmentType<T> | undefined) => void;
 
-  (unit: UnitNumber, slot: EquipmentSlot): (cbi: CallbackInterface) => (
+  (unit: UnitNumber): (slot: EquipmentSlot) => (cbi: CallbackInterface) => (
     ((equipment: EquipmentType<'chip1'> | undefined) => void) |
     ((equipment: EquipmentType<'chip2'> | undefined) => void) |
     ((equipment: EquipmentType<'os'>    | undefined) => void) |
@@ -383,7 +384,7 @@ export const equipmentEffectsDataState = (slot: EquipmentSlot, id: EquipmentId):
 export const equipmentEffectsAsSkillDataState = (slot: EquipmentSlot, id: EquipmentId): RecoilValueReadOnly<ReadonlyArray<EffectDetailsAsSkill> | undefined> =>
   _effectsAsSkillData({ slot, id });
 
-export const changeEquipment: ChangeEquipmentHandler = (unit: UnitNumber, slot: EquipmentSlot) => (cbi: CallbackInterface) => {
+export const changeEquipment: ChangeEquipmentHandler = (unit: UnitNumber) => (slot: EquipmentSlot) => (cbi: CallbackInterface) => {
   const get = getFromSnapshot(cbi.snapshot);
   const lv = get(lvValueState(unit));
   const enhanceLv = get(_selectedEnhanceLv(slot));

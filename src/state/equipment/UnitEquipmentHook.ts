@@ -136,25 +136,25 @@ export function useUnitEquipment({ no }: UnitBasicInfo, slot: EquipmentSlot): [
     return [
       EquipmentType.Chip,
       useRecoilValue(equipmentState(no, slot)),
-      useRecoilCallback(changeEquipment(no, slot))
+      useRecoilCallback(changeEquipment(no)(slot))
     ];
   case 'chip2':
     return [
       EquipmentType.Chip,
       useRecoilValue(equipmentState(no, slot)),
-      useRecoilCallback(changeEquipment(no, slot))
+      useRecoilCallback(changeEquipment(no)(slot))
     ];
   case 'os':
     return [
       EquipmentType.Os,
       useRecoilValue(equipmentState(no, slot)),
-      useRecoilCallback(changeEquipment(no, slot))
+      useRecoilCallback(changeEquipment(no)(slot))
     ];
   case 'gear':
     return [
       EquipmentType.Gear,
       useRecoilValue(equipmentState(no, slot)),
-      useRecoilCallback(changeEquipment(no, slot))
+      useRecoilCallback(changeEquipment(no)(slot))
     ];
   }
 }

@@ -5,6 +5,7 @@ export const FormChangeUnits = {
   Alexandra: 11,
   Leona: 31,
   BloodyPanther: 61,
+  Nashorn: 63,
   Emily: 68,
   Phantom: 73,
   Pinto: 83,
@@ -35,6 +36,10 @@ export const UnitForms = {
   [FormChangeUnits.BloodyPanther]: {
     default: 'cruiser',
     changed: 'armor'
+  },
+  [FormChangeUnits.Nashorn]: {
+    default: 'normal',
+    changed: 'main_armament_assembled'
   },
   [FormChangeUnits.Emily]: {
     default: NormalForm,
@@ -103,6 +108,7 @@ export type FormPerUnit<N extends FormChangeUnitNumbers> = typeof UnitForms[N][k
 export type AlexandraForm        = FormPerUnit<typeof FormChangeUnits.Alexandra>
 export type LeonaForm            = FormPerUnit<typeof FormChangeUnits.Leona>
 export type BloodyPantherForm    = FormPerUnit<typeof FormChangeUnits.BloodyPanther>
+export type NashornForm          = FormPerUnit<typeof FormChangeUnits.Nashorn>
 export type EmilyForm            = FormPerUnit<typeof FormChangeUnits.Emily>
 export type PhantomForm          = FormPerUnit<typeof FormChangeUnits.Phantom>
 export type PintoForm            = FormPerUnit<typeof FormChangeUnits.Pinto>
@@ -125,6 +131,7 @@ export type FormChangeUnitBasicInfo<N extends FormChangeUnitNumbers> =
     N extends typeof FormChangeUnits.Alexandra        ? typeof unitBasicData[typeof FormChangeUnits.Alexandra] :
     N extends typeof FormChangeUnits.Leona            ? typeof unitBasicData[typeof FormChangeUnits.Leona] :
     N extends typeof FormChangeUnits.BloodyPanther    ? typeof unitBasicData[typeof FormChangeUnits.BloodyPanther] :
+    N extends typeof FormChangeUnits.Nashorn          ? typeof unitBasicData[typeof FormChangeUnits.Nashorn] :
     N extends typeof FormChangeUnits.Emily            ? typeof unitBasicData[typeof FormChangeUnits.Emily] :
     N extends typeof FormChangeUnits.Phantom          ? typeof unitBasicData[typeof FormChangeUnits.Phantom] :
     N extends typeof FormChangeUnits.Pinto            ? typeof unitBasicData[typeof FormChangeUnits.Pinto] :

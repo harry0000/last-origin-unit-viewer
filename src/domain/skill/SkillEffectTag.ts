@@ -62,6 +62,7 @@ export type SkillEffectTag =
   'load_capacity_increased' |
   'f_armory_deployment' |
   'shock_absorption' |
+  'main_armament_assembled_preparation' |
   'scoop_discovery' |
   'enhance_output' |
   'battery' |

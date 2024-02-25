@@ -14,6 +14,7 @@ export function extractAllActiveSkills(skill: UnitSkillData[UnitNumber]): Readon
   switch (skill.no) {
   case FormChangeUnits.Alexandra:
   case FormChangeUnits.BloodyPanther:
+  case FormChangeUnits.Nashorn:
   case FormChangeUnits.Phantom:
   case FormChangeUnits.Bulgasari:
   case FormChangeUnits.InvincibleDragon:
@@ -56,6 +57,8 @@ export function extractAllPassiveSkills(skill: UnitSkillData[UnitNumber]): Reado
       skill.passive[1],
       ...Object.values(skill.passive[2])
     ];
+  case FormChangeUnits.Nashorn:
+    return skill.passive;
   case FormChangeUnits.Emily:
     return skill.passive;
   case FormChangeUnits.Phantom:

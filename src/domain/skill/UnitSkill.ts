@@ -39,6 +39,8 @@ export function buildUnitSkill(unit: UnitBasicInfo): UnitSkill {
       return new LeonaUnitSkill(unit);
     case FormChangeUnits.BloodyPanther:
       return new BloodyPantherUnitSkill(unit);
+    case FormChangeUnits.Nashorn:
+      return new NashornUnitSkill(unit);
     case FormChangeUnits.Emily:
       return new EmilyUnitSkill(unit);
     case FormChangeUnits.Phantom:
@@ -395,6 +397,40 @@ class BloodyPantherUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.
 
   protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
     return unitSkillData[this.unitNumber].passive[2][this.unitForm()];
+  }
+}
+
+class NashornUnitSkill extends FormChangeUnitSkill<typeof FormChangeUnits.Nashorn> {
+
+  constructor(
+    unit: FormChangeUnitBasicInfo<typeof FormChangeUnits.Nashorn>,
+    skillLv?: UnitSkillLvValue,
+    form?: UnitFormValue<typeof FormChangeUnits.Nashorn>
+  ) {
+    super(unit, skillLv, form);
+  }
+
+  protected updateSkillLvValue(lv: UnitSkillLvValue): UnitSkill {
+    return new NashornUnitSkill(this.formChangeUnit, lv, this.form);
+  }
+
+  protected updateUnitFormValue(form: UnitFormValue<typeof FormChangeUnits.Nashorn>): FormChangeUnitSkill<typeof FormChangeUnits.Nashorn> {
+    return new NashornUnitSkill(this.formChangeUnit, this.skillLv, form);
+  }
+
+  protected get active1SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[0][this.unitForm()]; }
+  protected get active2SkillData(): ActiveSkillData { return unitSkillData[this.unitNumber].active[1][this.unitForm()]; }
+
+  protected get passive1SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[0];
+  }
+
+  protected get passive2SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[1];
+  }
+
+  protected get passive3SkillData(): PassiveSkillData | PassiveSkillDataAsEquipmentEffect | undefined {
+    return unitSkillData[this.unitNumber].passive[2];
   }
 }
 
