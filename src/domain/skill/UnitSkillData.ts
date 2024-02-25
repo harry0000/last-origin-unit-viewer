@@ -9,6 +9,7 @@ import {
   JangHwaForm,
   LeonaForm,
   MightyRForm,
+  NashornForm,
   OliviaForm,
   PeregrinusForm,
   PhantomForm,
@@ -220,6 +221,16 @@ type BloodyPantherSkillData = Readonly<{
     ]
 }>
 
+type NashornSkillData = Readonly<{
+  no: typeof FormChangeUnits.Nashorn,
+  active:
+    readonly [
+      { readonly [key in NashornForm]: ActiveSkillData },
+      { readonly [key in NashornForm]: ActiveSkillData }
+    ],
+  passive: SSRankPassiveSkill
+}>
+
 type EmilySkillData = Readonly<{
   no: typeof FormChangeUnits.Emily,
   active:
@@ -406,6 +417,7 @@ type UnitSkill<N extends UnitNumber> =
   N extends AlexandraSkillData['no'] ? AlexandraSkillData :
   N extends LeonaSkillData['no'] ? LeonaSkillData :
   N extends BloodyPantherSkillData['no'] ? BloodyPantherSkillData :
+  N extends NashornSkillData['no'] ? NashornSkillData :
   N extends EmilySkillData['no'] ? EmilySkillData :
   N extends PhantomSkillData['no'] ? PhantomSkillData :
   N extends PintoSkillData['no'] ? PintoSkillData :

@@ -580,6 +580,23 @@
         "2": "意地っ張り"
       }
     },
+    "63": {
+      "active": {
+        "1": {
+          "normal": "機関砲 Faulheit",
+          "main_armament_assembled": "電熱化学砲 Stoßer"
+        },
+        "2": {
+          "normal": "戦場状況伝達",
+          "main_armament_assembled": "特殊目的榴弾 Stampfer"
+        }
+      },
+      "passive": {
+        "1": "優秀な反面教師",
+        "2": "戦略的軽量化装甲板",
+        "3": "虎視牛歩"
+      }
+    },
     "65": {
       "active": {
         "1": "重機関砲射撃",

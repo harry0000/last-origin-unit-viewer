@@ -5186,6 +5186,153 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  63: {
+    no: 63,
+    active: [{
+      normal: {
+        damage_deal: {
+          base: { milliPercentage: 124000 },
+          per_lv_up: { milliPercentage: 11000 }
+        },
+        range: 3,
+        cost: 5,
+        area: 'single',
+        effects: [{
+          conditions: [{ trigger: 'hit' }],
+          target: { kind: 'enemy' },
+          details: {
+            target: {
+              marked: { term: { for_rounds: 2 } },
+              immovable: { term: { for_rounds: 2 } }
+            }
+          }
+        }, {
+          conditions: [{ trigger: 'critical' }],
+          target: { kind: 'enemy' },
+          details: { target: { damage_taken_increased: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+        }]
+      },
+      main_armament_assembled: {
+        damage_deal: {
+          base: { milliPercentage: 235000 },
+          per_lv_up: { milliPercentage: 25000 }
+        },
+        range: 4,
+        cost: 10,
+        area: 'row_toward_front',
+        effects: [{
+          conditions: [{ trigger: 'attack' }],
+          details: { self: { form_change: { form: 'normal', term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'critical' }],
+          target: { kind: 'enemy' },
+          details: { target: { all_buff_removal: { term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'critical' }],
+          target: { kind: 'enemy', conditions: ['defender'] },
+          details: { target: { all_buff_blocking: { term: { for_rounds: 2 } } } }
+        }]
+      }
+    }, {
+      normal: {
+        range: 1,
+        cost: 9,
+        area: 'all',
+        effects: [{
+          target: { kind: 'ally', conditions: [{ type: 'light', role: 'attacker' }, { type: 'flying', role: 'attacker' }] },
+          details: {
+            target: {
+              atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+              damage_multiplier_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
+            }
+          }
+        }, {
+          target: { kind: 'ally', conditions: [{ type: 'heavy', role: 'attacker' }, 'armored_maiden'] },
+          details: {
+            target: {
+              atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
+              damage_multiplier_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
+            }
+          }
+        }]
+      },
+      main_armament_assembled: {
+        damage_deal: {
+          base: { milliPercentage: 228000 },
+          per_lv_up: { milliPercentage: 21000 }
+        },
+        range: 4,
+        cost: 10,
+        area: 'cross',
+        effects: [{
+          conditions: [{ trigger: 'attack' }],
+          details: { self: { form_change: { form: 'normal', term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'hit' }],
+          target: { kind: 'enemy' },
+          details: { target: { buff_removal: { effect: 'damage_reduction_up', term: 'immediate' } } }
+        }, {
+          conditions: [{ trigger: 'hit', state: { target: [{ affected: 'row_protect' }, { affected: 'column_protect' }, { affected: 'target_protect' }] } }],
+          target: { kind: 'enemy' },
+          details: { self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'immediate' } } }
+        }]
+      }
+    }],
+    passive: [{
+      area: 'all',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'supporter' } } }],
+        target: { kind: 'ally', conditions: [{ type: 'heavy', role: 'attacker' }] },
+        details: {
+          target: {
+            acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'supporter' } } }],
+        target: { kind: 'ally', conditions: [{ type: 'heavy', role: 'attacker' }] },
+        details: {
+          target: {
+            acc_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            ap_up: { base: { microValue: 750000 }, per_lv_up: { microValue: 75000 }, term: 'immediate' }
+          }
+        }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 } } } }
+      }, {
+        conditions: [{ trigger: 'start_wave' }],
+        details: { self: { tag_stack: { tag: 'main_armament_assembled_preparation', term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'idle', state: { self: [{ form: 'normal', tagged: 'main_armament_assembled_preparation' }] } }],
+        details: {
+          self: {
+            form_change: { form: 'main_armament_assembled', term: { for_rounds: 999 } },
+            tag_release: { tag: 'main_armament_assembled_preparation', term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { self: [{ equipped: 'armor_penetrating_round' }] } }],
+        details: { self: { form_change: { form: 'main_armament_assembled', term: { for_rounds: 999 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        // TODO: until be_hit (be_attacked ?) 3 times.
+        details: { self: { cri_up: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: 'infinite', times: 3 } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'status_resist_up' }] } }],
+        details: { self: { ignore_protect: { term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
   65: {
     no: 65,
     active: [{
@@ -5283,7 +5430,17 @@ export const unitSkillData: UnitSkillData = {
             defense_penetration: { base: { milliPercentage: 44000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } }
           }
         }
-      }]
+      }/*, {
+        // FIXME: enable when the bug fixed in the game.
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 63 } } }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 33000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 43000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            defense_penetration: { base: { milliPercentage: 44000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }*/]
     }]
   },
   66: {
@@ -5370,7 +5527,11 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'cross_adjacent', greater_or_equal: 2 } } } }],
         details: { self: { re_attack: { term: { for_rounds: 1 } } } }
-      }, {
+      }/*, {
+        // FIXME: enable when the bug fixed in the game.
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 63 } } }],
+        details: { self: { re_attack: { term: { for_rounds: 1 } } } }
+      }*/, {
         conditions: [{ trigger: 'critical' }],
         target: { kind: 'enemy' },
         details: { target: { buff_removal: { effect: 'damage_reduction_up', term: 'immediate' } } }

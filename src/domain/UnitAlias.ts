@@ -51,7 +51,7 @@ export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> 
   [UnitAlias.NotApplicableForSeizeOpportunity]: new Set([41, 193]),
   [UnitAlias.DoomBringer]: new Set([51, 52, 53, 54, 55, 56, 182]),
   [UnitAlias.AACannonier]: new Set([60, 67, 68, 69, 70]),
-  [UnitAlias.ArmoredMaiden]: new Set([61, 62, 65, 66]),
+  [UnitAlias.ArmoredMaiden]: new Set([61, 62, 63, 65, 66]),
   [UnitAlias.ExperimentalUnits]: new Set([68, 149, 152]),
   [UnitAlias.MongooseTeam]: new Set([80, 81, 82, 83, 84]),
   [UnitAlias.Horizon]: new Set([85, 87, 88, 89, 90]),

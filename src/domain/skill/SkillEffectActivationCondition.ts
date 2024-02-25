@@ -336,7 +336,7 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 type NotInSquadStateUnit =
   80 | 82 | 110 | 127 | 199 | 252 | 301 |
   typeof UnitKind.AGS |
-  typeof UnitRole['Attacker' | 'Defender'] |
+  UnitRole |
   typeof UnitAlias['SteelLine' | 'SkyKnights' | 'Kunoichi' | 'OrbitalWatcher' | 'Mermaid'] |
   typeof SkillAreaType.CrossAdjacent |
   Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>> |
