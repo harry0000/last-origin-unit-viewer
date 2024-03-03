@@ -40,9 +40,17 @@ export function extractAllActiveSkills(skill: UnitSkillData[UnitNumber]): Readon
 export function extractAllPassiveSkills(skill: UnitSkillData[UnitNumber]): ReadonlyArray<PassiveSkillData | PassiveSkillDataAsEquipmentEffect> {
   switch (skill.no) {
   case FormChangeUnits.Alexandra:
+  case FormChangeUnits.Peregrinus:
     return [
       ...Object.values(skill.passive[0]),
       skill.passive[1],
+      skill.passive[2]
+    ];
+  case FormChangeUnits.Siren:
+  case FormChangeUnits.Ullr:
+    return [
+      skill.passive[0],
+      ...Object.values(skill.passive[1]),
       skill.passive[2]
     ];
   case FormChangeUnits.Leona:
@@ -52,57 +60,28 @@ export function extractAllPassiveSkills(skill: UnitSkillData[UnitNumber]): Reado
       skill.passive[2]
     ];
   case FormChangeUnits.BloodyPanther:
-    return [
-      ...Object.values(skill.passive[0]),
-      skill.passive[1],
-      ...Object.values(skill.passive[2])
-    ];
-  case FormChangeUnits.Nashorn:
-    return skill.passive;
-  case FormChangeUnits.Emily:
-    return skill.passive;
-  case FormChangeUnits.Phantom:
-    return skill.passive.flatMap(ps => Object.values(ps));
-  case FormChangeUnits.InvincibleDragon:
-    return skill.passive;
-  case FormChangeUnits.Siren:
-    return [
-      skill.passive[0],
-      ...Object.values(skill.passive[1]),
-      skill.passive[2]
-    ];
-  case FormChangeUnits.Olivia:
-    return skill.passive;
-  case FormChangeUnits.Spartoia:
-    return [
-      skill.passive[0],
-      ...Object.values(skill.passive[1]),
-      ...Object.values(skill.passive[2])
-    ];
-  case FormChangeUnits.Rampart:
-    return skill.passive;
-  case FormChangeUnits.MightyR:
-    return skill.passive.flatMap(ps => Object.values(ps));
-  case FormChangeUnits.Ullr:
-    return [
-      skill.passive[0],
-      ...Object.values(skill.passive[1]),
-      skill.passive[2]
-    ];
-  case FormChangeUnits.JangHwa:
-    return skill.passive;
   case FormChangeUnits.Fortress:
     return [
       ...Object.values(skill.passive[0]),
       skill.passive[1],
       ...Object.values(skill.passive[2])
     ];
-  case FormChangeUnits.Peregrinus:
+  case FormChangeUnits.Spartoia:
     return [
-      ...Object.values(skill.passive[0]),
-      skill.passive[1],
-      skill.passive[2]
+      skill.passive[0],
+      ...Object.values(skill.passive[1]),
+      ...Object.values(skill.passive[2])
     ];
+  case FormChangeUnits.Phantom:
+  case FormChangeUnits.MightyR:
+    return skill.passive.flatMap(ps => Object.values(ps));
+  case FormChangeUnits.Nashorn:
+  case FormChangeUnits.Emily:
+  case FormChangeUnits.InvincibleDragon:
+  case FormChangeUnits.Olivia:
+  case FormChangeUnits.Rampart:
+  case FormChangeUnits.JangHwa:
+    return skill.passive;
   default:
     return skill.passive;
   }
