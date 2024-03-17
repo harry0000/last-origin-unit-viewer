@@ -34,12 +34,9 @@ export type SkillEffectTag =
   'support_fire' |
   'attack_command' |
   'attack_command_defence' |
-  'attack_command_observation' |
   'defense_command' |
   'defense_command_attack' |
-  'defense_command_observation' |
   'camouflage' |
-  'awakening' |
   'fire_support' |
   'first_aid' |
   'treatment_target_selection' |
