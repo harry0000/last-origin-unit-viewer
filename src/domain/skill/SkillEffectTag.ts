@@ -185,6 +185,8 @@ export type SkillEffectTag =
   'diamond_chain' |
   'wind_style' |
   'motherhood' |
+  'save_resources' |
+  'one_chocolate_bar_missing' |
   'charge_electrically' |
   'high_voltage' |
   'death_blow' |

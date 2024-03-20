@@ -16613,6 +16613,18 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
         details: { target: { marked: { term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'one_chocolate_bar_missing', stack: { tag: 'save_resources', greater_or_equal: 1 } }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { fixed_damage: { milliPercentage: 100000, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'one_chocolate_bar_missing', stack: { tag: 'save_resources', greater_or_equal: 2 } }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { all_buff_removal: { term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'one_chocolate_bar_missing', stack: { tag: 'save_resources', greater_or_equal: 3 } }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { all_buff_blocking: { term: { for_rounds: 2 } } } }
       }]
     }, {
       range: 0,
@@ -16622,8 +16634,8 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally', conditions: ['attacker'] },
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } },
-            cri_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } }
+            atk_up: { tag: 'save_resources', base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } },
+            cri_up: { tag: 'save_resources', base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } }
           }
         }
       }, {
@@ -16638,8 +16650,8 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally', conditions: ['defender'] },
         details: {
           target: {
-            def_up: { base: { milliPercentage: 17000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 } },
-            eva_up: { base: { milliPercentage: 17000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 } }
+            def_up: { tag: 'save_resources', base: { milliPercentage: 17000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 } },
+            eva_up: { tag: 'save_resources', base: { milliPercentage: 17000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 } }
           }
         }
       }, {
@@ -16654,8 +16666,8 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally', conditions: ['supporter'] },
         details: {
           target: {
-            acc_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } },
-            spd_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } }
+            acc_up: { tag: 'save_resources', base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } },
+            spd_up: { tag: 'save_resources', base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } }
           }
         }
       }, {
@@ -16674,6 +16686,35 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         target: { kind: 'ally', conditions: ['sisters_of_valhalla'] },
         details: { target: { ice_resist_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            barrier: { base: { value: 200 }, per_lv_up: { value: 20 }, term: { for_rounds: 1 } },
+            def_up: { base: { milliPercentage: 150000 }, per_lv_up: { milliPercentage: 15000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'idle' }],
+        target: { kind: 'ally', conditions: ['sisters_of_valhalla'] },
+        details: { target: { all_debuff_removal: { term: 'immediate' } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'use_active_1' }],
+        // TODO: until be_hit.
+        details: { self: { status_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 5000 }, term: 'infinite', times: 1, max_stack: 1 } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { attack_critical: { term: { for_rounds: 1 }, times: 1 } } }
+      }, {
+        conditions: [{ trigger: 'start_wave' }],
+        details: { self: { tag_stack: { tag: 'one_chocolate_bar_missing', term: 'infinite', cannot_be_dispelled: true } } }
       }]
     }]
   },
