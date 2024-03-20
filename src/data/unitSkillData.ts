@@ -3316,9 +3316,30 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'hit', state: { target: [{ affected: 'marked' }] } }],
+        conditions: [
+          { trigger: 'hit', state: { self: [{ not_tagged: 'slidrugtanni_class_armament' }], target: [{ affected: 'marked' }] } },
+          {
+            trigger: 'hit',
+            state: {
+              self: [{ tagged: 'slidrugtanni_class_armament' }],
+              target: [{ affected: 'marked' }],
+              squad: { not_in_squad: [{ form: 'attack_command', unit: 31 }, { equipped: 'combat_observation_frame', unit: 31 }] }
+            }
+          }
+        ],
         target: { kind: 'enemy' },
         details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{
+          trigger: 'hit',
+          state: {
+            self: [{ tagged: 'slidrugtanni_class_armament' }],
+            target: [{ affected: 'marked' }],
+            squad: [{ in_squad: { form: 'attack_command', unit: 31 } }, { in_squad: { equipped: 'combat_observation_frame', unit: 31 } }]
+          }
+        }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
       }]
     }, {
       damage_deal: {
@@ -3373,6 +3394,37 @@ export const unitSkillData: UnitSkillData = {
             ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' }
           }
         }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { battle_continuation: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'infinite', times: 1, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            cri_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } },
+            counterattack: { base: { milliPercentage: 90000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'be_hit' }],
+        details: { self: { atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 5 } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            all_buff_removal_resist_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true },
+            tag_stack: { tag: 'slidrugtanni_class_armament', term: { for_rounds: 1 }, cannot_be_dispelled: true }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: { form: 'defense_command', unit: 31 } }, { in_squad: { equipped: 'combat_observation_frame', unit: 31 } }] } }],
+        details: { self: { battle_continuation: { base: { value: 150 }, per_lv_up: { value: 15 }, term: { for_rounds: 1 }, times: 1, cannot_be_dispelled: true } } }
       }]
     }]
   },

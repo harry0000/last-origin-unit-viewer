@@ -38,6 +38,7 @@ export type SkillEffectTag =
   'defense_command_attack' |
   'camouflage' |
   'fire_support' |
+  'slidrugtanni_class_armament' |
   'first_aid' |
   'treatment_target_selection' |
   'influence' |

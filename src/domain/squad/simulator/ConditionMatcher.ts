@@ -9,10 +9,13 @@ import {
   SelfSkillEffectActivationState,
   SkillEffectActivationState,
   TargetSkillEffectActivationState,
-  isUnitsInSquadCondition,
   isBeastHunterAndPani,
+  isCommandStateLeona,
   isDefenderAndArmoredBulgasari,
-  isDefenderAndCyclopsPrincess
+  isDefenderAndCyclopsPrincess,
+  isEquipObservationFrameLeona,
+  isFormedLeona,
+  isJangHwaActivationSquadState
 } from '../../skill/SkillEffectActivationCondition';
 import { AlliedUnitTarget, SkillEffectTargetKind } from '../../skill/SkillEffectTarget';
 import { BattleEffect } from './BattleEffect';
@@ -184,6 +187,11 @@ function getSquadUnitMatcher(
       return (target) => target.unit.role == cond[0] || isArmoredBulgasari(target);
     } else if (isDefenderAndCyclopsPrincess(cond)) {
       return (target) => target.unit.role == cond[0] || target.unit.no == cond[1];
+    } else if (isCommandStateLeona(cond)) {
+      return ({ unit: { no }, skill, gear }) => (
+        no === cond[0].unit && isFormChangeUnitSkill(skill) && skill.unitForm() === cond[0].form ||
+        no === cond[1].unit && gear.gear?.id === cond[1].equipped
+      );
     } else if (cond[0] === UnitType.Light) {
       return (target) => target.unit.type == cond[0] || target.unit.type == cond[1];
     } else {
@@ -219,6 +227,12 @@ function getSquadUnitMatcher(
       }
       }
     }
+  } else if (isFormedLeona(cond)) {
+    return ({ unit: { no }, skill }) =>
+      no === cond.unit &&
+      isFormChangeUnitSkill(skill) && skill.unitForm() === cond.form;
+  } else if (isEquipObservationFrameLeona(cond)) {
+    return ({ unit: { no }, gear }) => no === cond.unit && gear.gear?.id === cond.equipped;
   } else {
     const set = unitNumbersForAlias[cond.alias];
     return (target) => set.has(target.unit.no) && matchUnitBasicInfo(cond.role, target.unit);
@@ -683,15 +697,15 @@ export function matchStaticSquadState(
 
   const squadState = state.squad;
   if (isReadonlyArray(squadState)) {
-    if (isUnitsInSquadCondition(squadState)) {
-      return squadState.some(({ in_squad }) => squad.some(getSquadUnitMatcher(in_squad, source.position)));
-    } else {
+    if (isJangHwaActivationSquadState(squadState)) {
       const is_attacker = exceptSourceUnit(getSquadUnitMatcher(squadState[0].not_in_squad, source.position));
       const in_squad = exceptSourceUnit(getSquadUnitMatcher(squadState[1].in_squad, source.position));
       return (
         squad.every(target => !is_attacker(target)) ||
         squad.some(in_squad)
       );
+    } else {
+      return squadState.some(({ in_squad }) => squad.some(getSquadUnitMatcher(in_squad, source.position)));
     }
   } else {
     return typedEntries(squadState).every(entry => {
@@ -715,14 +729,20 @@ export function matchStaticSquadState(
           // HACK: return `true` as a static condition.
           return true;
         } else if (isReadonlyArray(in_squad)) {
-          return squad.some(unit => unit.unit.role === in_squad[0] || isArmoredBulgasari(unit));
-        } else {
+          if (isCommandStateLeona(in_squad)) {
+            return squad.some(getSquadUnitMatcher(in_squad, source.position));
+          } else {
+            return squad.some(unit => unit.unit.role === in_squad[0] || isArmoredBulgasari(unit));
+          }
+        } else if ('alias' in in_squad) {
           const { alias, role } = in_squad;
           const matcher = exceptSourceUnit(({ unit }) =>
             unitNumbersForAlias[alias].has(unit.no) && unit.role === role
           );
 
           return squad.some(matcher);
+        } else {
+          return squad.some(getSquadUnitMatcher(in_squad, source.position));
         }
       }
       case EffectActivationState.NotInSquad: {

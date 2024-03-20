@@ -8,6 +8,7 @@ import { UnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
 import { UnitKind, UnitNumber, UnitRank, UnitRole, UnitType } from '../UnitBasicInfo';
 import { isReadonlyArray, ValueOf } from '../../util/type';
+import { isRecord } from '../../util/object';
 
 export type UnitNotAlias = {
   not_alias: typeof UnitAlias['AngerOfHorde' | 'KouheiChurch']
@@ -48,6 +49,33 @@ export type UnitAliasExceptUnit<
 
 export const ArmoredBulgasari = 'armored_bulgasari';
 export type ArmoredBulgasari = typeof ArmoredBulgasari
+
+export type AttackCommandFormLeona = {
+  [EffectActivationState.Form]: 'attack_command',
+  [EffectActivationState.Unit]: 31
+}
+export type DefenseCommandFormLeona = {
+  [EffectActivationState.Form]: 'defense_command',
+  [EffectActivationState.Unit]: 31
+}
+export type EquipObservationFrameLeona = {
+  [EffectActivationState.Equipped]: 'combat_observation_frame',
+  [EffectActivationState.Unit]: 31
+}
+
+export function isFormedLeona(arg: unknown): arg is AttackCommandFormLeona | DefenseCommandFormLeona {
+  return isRecord(arg) && arg['unit'] === 31 && (arg['form'] === 'attack_command' || arg['form'] === 'defense_command');
+}
+export function isEquipObservationFrameLeona(arg: unknown): arg is EquipObservationFrameLeona {
+  return isRecord(arg) && arg['unit'] === 31 && arg['equipped'] === 'combat_observation_frame';
+}
+
+export type AttackCommandStateLeona = readonly [AttackCommandFormLeona, EquipObservationFrameLeona];
+export type DefenseCommandStateLeona = readonly [DefenseCommandFormLeona, EquipObservationFrameLeona];
+
+export function isCommandStateLeona(arg: unknown): arg is AttackCommandStateLeona | DefenseCommandStateLeona {
+  return isReadonlyArray(arg) && arg.length === 2 && isFormedLeona(arg[0]) && isEquipObservationFrameLeona(arg[1]);
+}
 
 export type DefenderAndArmoredBulgasari = readonly [typeof UnitRole.Defender, ArmoredBulgasari]
 export function isDefenderAndArmoredBulgasari(arg: unknown): arg is DefenderAndArmoredBulgasari {
@@ -326,6 +354,9 @@ type InSquadStateUnit =
   Readonly<UnitAliasAndRole<typeof UnitAlias['Strikers'], typeof UnitRole.Attacker>> |
   Readonly<{ [EffectActivationState.AffectedBy]: { unit: 83, effect: typeof Effect.TargetProtect } }> |
   InSquadTaggedUnitState |
+  AttackCommandFormLeona |
+  DefenseCommandFormLeona |
+  EquipObservationFrameLeona |
   ArmoredBulgasari |
   'golden_factory'
 
@@ -341,6 +372,7 @@ type NotInSquadStateUnit =
   typeof SkillAreaType.CrossAdjacent |
   Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>> |
   readonly [typeof UnitType.Light, typeof UnitType.Heavy] |
+  AttackCommandStateLeona |
   BeastHunterAndPani |
   DefenderAndArmoredBulgasari |
   DefenderAndCyclopsPrincess
@@ -422,12 +454,22 @@ export type ActivationEnemyState = {
 type JangHwaActivationSquadState =
   readonly [NotInSquadState<typeof UnitRole.Attacker>, InSquadState<typeof UnitAlias.EmpressHound>]
 
+type SistersOfValhallaSquadState =
+  readonly [InSquadState<AttackCommandFormLeona>, InSquadState<EquipObservationFrameLeona>] |
+  readonly [InSquadState<DefenseCommandFormLeona>, InSquadState<EquipObservationFrameLeona>]
+
 type SpecialSquadConditions = Exclude<ValueOf<SelfSkillEffectActivationState, 'squad'>, ActivationSquadState>
 
 export function isUnitsInSquadCondition(
   arg: SpecialSquadConditions
-): arg is Exclude<SpecialSquadConditions, JangHwaActivationSquadState> {
+): arg is Exclude<SpecialSquadConditions, JangHwaActivationSquadState | SistersOfValhallaSquadState> {
   return 'in_squad' in arg[0] && typeof arg[0].in_squad === 'number';
+}
+
+export function isJangHwaActivationSquadState(
+  arg: SpecialSquadConditions
+): arg is JangHwaActivationSquadState {
+  return 'not_in_squad' in arg[0] && !!arg[0].not_in_squad;
 }
 
 export type SelfSkillEffectActivationState =
@@ -437,6 +479,7 @@ export type SelfSkillEffectActivationState =
       ActivationSquadState |
       // The following are OR conditions
       JangHwaActivationSquadState |
+      SistersOfValhallaSquadState |
       readonly [InSquadState<80>, InSquadState<82>] |
       readonly [InSquadState<81>, InSquadState<83>] |
       readonly [InSquadState<87>, InSquadState<89>, InSquadState<90>] |
