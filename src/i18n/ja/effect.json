@@ -330,6 +330,11 @@
     "radar_detection": "レーダー捕捉",
     "circling_formation": "艦隊輪形陣",
     "heroic_virtue": "英雄の気迫",
+    "like_eternal_moon": "如月之恒",
+    "full_moon_is_always_waning": "月盈則食",
+    "crescent_moon_momentum": "弦月之勢",
+    "buddy": "相棒",
+    "carefree_wandering": "逍遥遊",
     "basaro_sealed": "封印中⋯",
     "kyu_kyu_nyo_ritsu_ryo": "急急如律令"
   },
@@ -378,6 +383,7 @@
       "critical": "クリティカル時",
       "counter": "反撃時",
       "revive": "戦闘続行発動時",
+      "move": "移動時",
       "seize_opportunity": "$t(effect:condition.state.tagged, { \"tag\": \"seize_opportunity\" })$t(effect:effect.target.kind.enemy)を攻撃時"
     },
     "state": {

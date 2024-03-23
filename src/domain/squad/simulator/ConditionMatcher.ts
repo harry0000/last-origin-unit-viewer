@@ -121,6 +121,10 @@ function matchTargetCondition(
     return unitNumbersForAlias[cond.alias].has(target.no) &&
       (!('type'   in cond) || target.type === cond.type) &&
       (!('role'   in cond) || target.role === cond.role);
+  } else if ('kind' in cond) {
+    return 'type' in cond ?
+      target.type === cond.type && target.kind === cond.kind :
+      target.role === cond.role && target.kind === cond.kind;
   } else {
     return target.type === cond.type && target.role === cond.role;
   }

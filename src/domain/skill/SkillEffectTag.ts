@@ -244,5 +244,10 @@ export type SkillEffectTag =
   'radar_detection' |
   'circling_formation' |
   'heroic_virtue' |
+  'like_eternal_moon' |
+  'full_moon_is_always_waning' |
+  'crescent_moon_momentum' |
+  'carefree_wandering' |
+  'buddy' |
   'basaro_sealed' |
   'kyu_kyu_nyo_ritsu_ryo'

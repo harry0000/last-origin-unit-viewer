@@ -92,7 +92,12 @@ const SkillEffectTargetView: React.FC<{
                 </React.Fragment>
               );
             } else {
-              return t(`effect:unit.${cond.type}`) + t(`effect:unit.${cond.role}`) + separator;
+              if ('kind' in cond) {
+                const unit = 'type' in cond ? cond.type : cond.role;
+                return t(`effect:unit.${unit}`) + t(`effect:unit.${cond.kind}`) + separator;
+              } else {
+                return t(`effect:unit.${cond.type}`) + t(`effect:unit.${cond.role}`) + separator;
+              }
             }
           }) :
           null

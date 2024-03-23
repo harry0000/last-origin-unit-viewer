@@ -9106,8 +9106,7 @@ export const unitSkillData: UnitSkillData = {
       cost: 8,
       area: 'fixed_all',
       effects: [{
-        conditions: [{ state: { target: [{ unit: 'flying' }] } }],
-        target: { kind: 'ally', conditions: ['bioroid'] },
+        target: { kind: 'ally', conditions: [{ type: 'flying', kind: 'bioroid' }] },
         details: {
           target: {
             atk_up: { tag: 'formation_sortie', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 }, max_stack: 3 },
@@ -9122,8 +9121,8 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'fixed_cross',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { target: [{ unit: 'flying' }] } }],
-        target: { kind: 'ally', conditions: ['bioroid'] },
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: [{ type: 'flying', kind: 'bioroid' }] },
         details: {
           target: {
             acc_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
@@ -9140,8 +9139,8 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'use_any_active', state: { target: [{ unit: 'flying' }] } }],
-        target: { kind: 'ally', conditions: ['bioroid'] },
+        conditions: [{ trigger: 'use_any_active' }],
+        target: { kind: 'ally', conditions: [{ type: 'flying', kind: 'bioroid' }] },
         details: { target: { ap_up: { base: { microValue: 200000 }, per_lv_up: { microValue: 20000 }, term: 'immediate' } } }
       }, {
         conditions: [{ trigger: 'use_any_active' }],
@@ -9167,8 +9166,8 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally', conditions: ['bioroid'] },
         details: { target: { ap_up: { base: { microValue: 200000 }, per_lv_up: { microValue: 20000 }, term: 'immediate' } } }
       }, {
-        conditions: [{ trigger: 'start_wave', state: { target: [{ unit: 'flying' }] } }],
-        target: { kind: 'ally', conditions: ['bioroid'] },
+        conditions: [{ trigger: 'start_wave' }],
+        target: { kind: 'ally', conditions: [{ type: 'flying', kind: 'bioroid' }] },
         details: { target: { exp_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'infinite', cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'formation_sortie' }] } }],
@@ -22900,6 +22899,163 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'be_hit', state: { target: [{ tagged_affected: { tag: 'circling_formation', effect: 'barrier' } }] } }],
         target: { kind: 'ally' },
         details: { target: { ap_up: { microValue: 400000, term: 'immediate' } } }
+      }]
+    }]
+  },
+  255: {
+    no: 255,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 127000 },
+        per_lv_up: { milliPercentage: 15000 }
+      },
+      range: 4,
+      cost: 4,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'critical' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            def_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            fixed_damage_over_time: { base: { value: 2000 }, per_lv_up: { value: 100 }, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }, {
+      range: 1,
+      cost: 10,
+      area: 'under_watcher_with_self',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { silenced: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ not_tagged: 'crescent_moon_momentum' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { fixed_fire_damage_over_time: { base: { value: 10000 }, per_lv_up: { value: 500 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'crescent_moon_momentum' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { fixed_fire_damage_over_time: { base: { value: 20000 }, per_lv_up: { value: 1000 }, term: 'immediate' } } }
+      }]
+    }],
+    passive: [{
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        details: {
+          self: {
+            atk_up: { tag: 'like_eternal_moon', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            cri_up: { tag: 'like_eternal_moon', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'enemy_killed' }],
+        details: {
+          self: {
+            atk_up: { tag: 'full_moon_is_always_waning', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } },
+            acc_up: { tag: 'full_moon_is_always_waning', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'idle', state: { self: [{ tagged: 'like_eternal_moon' }, { tagged: 'full_moon_is_always_waning' }] } }],
+        details: {
+          self: {
+            ignore_protect: { tag: 'crescent_moon_momentum', term: { for_rounds: 2 } },
+            range_up: { tag: 'crescent_moon_momentum', value: 3, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }, {
+      area: 'right',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'carefree_wandering' }] } }],
+        target: { kind: 'ally', conditions: [{ role: 'attacker', kind: 'ags' }] },
+        details: { target: { atk_up: { tag: 'buddy', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'carefree_wandering' }] } }],
+        target: { kind: 'ally', conditions: [{ role: 'attacker', kind: 'bioroid' }] },
+        details: { target: { atk_up: { tag: 'buddy', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'carefree_wandering' }] } }],
+        target: { kind: 'ally', conditions: [{ role: 'defender', kind: 'ags' }] },
+        details: { target: { barrier: { tag: 'buddy', base: { value: 500 }, per_lv_up: { value: 50 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'carefree_wandering' }] } }],
+        target: { kind: 'ally', conditions: [{ role: 'defender', kind: 'bioroid' }] },
+        details: { target: { barrier: { tag: 'buddy', base: { value: 250 }, per_lv_up: { value: 25 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'carefree_wandering' }] } }],
+        target: { kind: 'ally', conditions: [{ role: 'supporter', kind: 'ags' }] },
+        details: { target: { spd_up: { tag: 'buddy', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'carefree_wandering' }] } }],
+        target: { kind: 'ally', conditions: [{ role: 'supporter', kind: 'bioroid' }] },
+        details: { target: { spd_up: { tag: 'buddy', base: { milliPercentage: 2500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'carefree_wandering' }] } }],
+        target: { kind: 'ally', conditions: ['ags'] },
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'carefree_wandering' }] } }],
+        target: { kind: 'ally', conditions: [{ role: 'attacker', kind: 'ags' }] },
+        details: { target: { atk_up: { tag: 'buddy', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'carefree_wandering' }] } }],
+        target: { kind: 'ally', conditions: [{ role: 'attacker', kind: 'bioroid' }] },
+        details: { target: { atk_up: { tag: 'buddy', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'carefree_wandering' }] } }],
+        target: { kind: 'ally', conditions: [{ role: 'defender', kind: 'ags' }] },
+        details: { target: { barrier: { tag: 'buddy', base: { value: 500 }, per_lv_up: { value: 50 }, term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'carefree_wandering' }] } }],
+        target: { kind: 'ally', conditions: [{ role: 'defender', kind: 'bioroid' }] },
+        details: { target: { barrier: { tag: 'buddy', base: { value: 250 }, per_lv_up: { value: 25 }, term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'carefree_wandering' }] } }],
+        target: { kind: 'ally', conditions: [{ role: 'supporter', kind: 'ags' }] },
+        details: { target: { spd_up: { tag: 'buddy', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'carefree_wandering' }] } }],
+        target: { kind: 'ally', conditions: [{ role: 'supporter', kind: 'bioroid' }] },
+        details: { target: { spd_up: { tag: 'buddy', base: { milliPercentage: 2500 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'carefree_wandering' }] } }],
+        target: { kind: 'ally', conditions: ['ags'] },
+        details: { target: { follow_up_attack: { term: 'infinite' } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { re_attack: { tag: 'carefree_wandering', term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'move' }],
+        details: { self: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'move', state: { target: [{ tagged: 'buddy' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ tagged: 'buddy' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { tag: 'like_eternal_moon', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            cri_up: { tag: 'like_eternal_moon', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'enemy_killed', state: { target: [{ tagged: 'buddy' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { tag: 'full_moon_is_always_waning', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } },
+            acc_up: { tag: 'full_moon_is_always_waning', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } }
+          }
+        }
       }]
     }]
   },

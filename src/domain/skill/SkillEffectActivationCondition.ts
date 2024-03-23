@@ -14,6 +14,16 @@ export type UnitNotAlias = {
   not_alias: typeof UnitAlias['AngerOfHorde' | 'KouheiChurch']
 }
 
+export type UnitTypeAndKind = {
+  type: UnitType,
+  kind: UnitKind
+}
+
+export type UnitRoleAndKind = {
+  role: UnitRole,
+  kind: UnitKind
+}
+
 export type UnitTypeAndRole = {
   type: UnitType,
   role: UnitRole
