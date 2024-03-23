@@ -17102,6 +17102,15 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: [123] },
+        details: {
+          target: {
+            light_type_damage_up: { milliPercentage: 5000, term: { for_rounds: 1 } },
+            heavy_type_damage_up: { milliPercentage: 5000, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
         target: { kind: 'ally', conditions: ['sky_knights'] },
         details: {
           target: {
