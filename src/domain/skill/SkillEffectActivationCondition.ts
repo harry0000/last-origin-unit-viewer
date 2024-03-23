@@ -82,6 +82,7 @@ export function isEquipObservationFrameLeona(arg: unknown): arg is EquipObservat
 
 export type AttackCommandStateLeona = readonly [AttackCommandFormLeona, EquipObservationFrameLeona];
 export type DefenseCommandStateLeona = readonly [DefenseCommandFormLeona, EquipObservationFrameLeona];
+export type CommandStateLeona = readonly [AttackCommandFormLeona | DefenseCommandFormLeona, EquipObservationFrameLeona]
 
 export function isCommandStateLeona(arg: unknown): arg is AttackCommandStateLeona | DefenseCommandStateLeona {
   return isReadonlyArray(arg) && arg.length === 2 && isFormedLeona(arg[0]) && isEquipObservationFrameLeona(arg[1]);

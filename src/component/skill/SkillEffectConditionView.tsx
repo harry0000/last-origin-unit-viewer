@@ -15,9 +15,11 @@ import {
   ArmoredBulgasari,
   AttackCommandFormLeona,
   AttackCommandStateLeona,
+  CommandStateLeona,
   DefenderAndArmoredBulgasari,
   DefenderAndCyclopsPrincess,
   DefenseCommandFormLeona,
+  DefenseCommandStateLeona,
   EquipObservationFrameLeona,
   InSquadTaggedUnitState,
   NumOfCrossAdjacentCondition,
@@ -29,13 +31,14 @@ import {
   SkillEffectActivationState,
   TargetSkillEffectActivationCondition,
   UnitAliasAndRole,
+  isCommandStateLeona,
   isDefenderAndArmoredBulgasari,
   isDefenderAndCyclopsPrincess,
   isJangHwaActivationSquadState,
   isNumOfCrossAdjacentCondition,
   isNumOfDefenderAndArmoredBulgasariCondition,
   isNumOfUnitsCompareToEnemiesCondition,
-  isUnitsInSquadCondition, isCommandStateLeona
+  isUnitsInSquadCondition
 } from '../../domain/skill/SkillEffectActivationCondition';
 import { Effect } from '../../domain/Effect';
 import { EffectActivationState } from '../../domain/EffectActivationState';
@@ -176,7 +179,9 @@ function affectedByStateView(
   }
 }
 
-function unitStateView(key: typeof EffectActivationState.InSquad, state: ValueOf<ActivationSquadState, typeof EffectActivationState.InSquad> | ReadonlyArray<UnitNumber>, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
+type InSquadOrState = ReadonlyArray<UnitNumber> | CommandStateLeona
+
+function unitStateView(key: typeof EffectActivationState.InSquad, state: ValueOf<ActivationSquadState, typeof EffectActivationState.InSquad> | InSquadOrState, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.NotInSquad, state: ValueOf<ActivationSquadState, typeof EffectActivationState.NotInSquad> | 41, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(key: typeof EffectActivationState.Unit, state: typeof UnitAlias.SteelLine | typeof UnitAlias.OrbitalWatcher | typeof UnitType.Flying, selfUnitNumber: UnitNumber, t: TFunction): Exclude<ReactNode, undefined>
 function unitStateView(
@@ -210,6 +215,7 @@ function unitStateView(
     ArmoredBulgasari |
     readonly [typeof UnitType.Light, typeof UnitType.Heavy] |
     AttackCommandStateLeona |
+    DefenseCommandStateLeona |
     DefenderAndArmoredBulgasari |
     DefenderAndCyclopsPrincess |
     'golden_factory' |
@@ -383,11 +389,7 @@ const SquadStateView: React.FC<{
                 <span>{t('effect:or_symbolic_separator')}</span>
                 {unitStateView(EffectActivationState.InSquad, state[1].in_squad, unitNumber, t)}
               </React.Fragment>) :
-              (<React.Fragment>
-                {unitStateView(EffectActivationState.InSquad, state[0].in_squad, unitNumber, t)}
-                <span>{t('effect:or_symbolic_separator')}</span>
-                {unitStateView(EffectActivationState.InSquad, state[1].in_squad, unitNumber, t)}
-              </React.Fragment>)
+              (unitStateView(EffectActivationState.InSquad, [state[0].in_squad, state[1].in_squad], unitNumber, t))
         }
       </React.Fragment>
     );
