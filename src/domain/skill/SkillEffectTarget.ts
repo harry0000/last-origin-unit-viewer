@@ -5,6 +5,8 @@ import {
   UnitNotAlias,
   UnitNotAliasAndRole,
   UnitNotAliasAndType,
+  UnitRoleAndKind,
+  UnitTypeAndKind,
   UnitTypeAndRole
 } from './SkillEffectActivationCondition';
 import { UnitKind, UnitNumber, UnitRole, UnitType } from '../UnitBasicInfo';
@@ -24,6 +26,7 @@ export type AlliedUnitTarget = Readonly<{
     ReadonlyArray<
       UnitNumber |
       UnitKind | UnitType | UnitRole |
+      UnitTypeAndKind | UnitRoleAndKind |
       UnitTypeAndRole |
       UnitAlias | UnitAliasAndType | UnitAliasAndRole |
       UnitNotAlias | UnitNotAliasAndType | UnitNotAliasAndRole

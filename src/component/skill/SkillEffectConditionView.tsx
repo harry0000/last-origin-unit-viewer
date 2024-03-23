@@ -13,8 +13,12 @@ import {
   ActivationSquadState,
   ActivationTargetState,
   ArmoredBulgasari,
+  AttackCommandFormLeona,
+  AttackCommandStateLeona,
   DefenderAndArmoredBulgasari,
   DefenderAndCyclopsPrincess,
+  DefenseCommandFormLeona,
+  EquipObservationFrameLeona,
   InSquadTaggedUnitState,
   NumOfCrossAdjacentCondition,
   NumOfDefenderAndArmoredBulgasariCondition,
@@ -27,10 +31,11 @@ import {
   UnitAliasAndRole,
   isDefenderAndArmoredBulgasari,
   isDefenderAndCyclopsPrincess,
-  isUnitsInSquadCondition,
+  isJangHwaActivationSquadState,
   isNumOfCrossAdjacentCondition,
   isNumOfDefenderAndArmoredBulgasariCondition,
-  isNumOfUnitsCompareToEnemiesCondition
+  isNumOfUnitsCompareToEnemiesCondition,
+  isUnitsInSquadCondition, isCommandStateLeona
 } from '../../domain/skill/SkillEffectActivationCondition';
 import { Effect } from '../../domain/Effect';
 import { EffectActivationState } from '../../domain/EffectActivationState';
@@ -199,8 +204,12 @@ function unitStateView(
     typeof UnitKind.AGS |
     UnitType |
     UnitRole |
+    AttackCommandFormLeona |
+    DefenseCommandFormLeona |
+    EquipObservationFrameLeona |
     ArmoredBulgasari |
     readonly [typeof UnitType.Light, typeof UnitType.Heavy] |
+    AttackCommandStateLeona |
     DefenderAndArmoredBulgasari |
     DefenderAndCyclopsPrincess |
     'golden_factory' |
@@ -224,6 +233,10 @@ function unitStateView(
       unit = `${t(`effect:unit.${state[0]}`)}${t('effect:unit_separator')}${t(`effect:unit.${state[1]}`)}`;
     } else if (isDefenderAndCyclopsPrincess(state)) {
       unit = `${t(`effect:unit.${state[0]}`)}${t('effect:unit_separator')}${unitName(state[1])}`;
+    } else if (isCommandStateLeona(state)) {
+      const state0 = t('effect:condition.state.form_unit', state[0]);
+      const state1 = t('effect:condition.state.equipped_unit', state[1]);
+      unit = `${state0}${t('effect:unit_separator')}${state1}`;
     } else {
       const separator =
         key === EffectActivationState.NotInSquad ?
@@ -269,6 +282,10 @@ function unitStateView(
     );
   } else if ('equipment' in state) {
     return (<span>{t('effect:condition.state.affected_equipment_effect_by', state)}</span>);
+  } else if ('equipped' in state) {
+    return (<span>{t('effect:condition.state.equipped_unit', state)}</span>);
+  } else if ('form' in state) {
+    return (<span>{t('effect:condition.state.form_unit', state)}</span>);
   } else {
     // only in_squad conditions.
     // TODO: Move this logic from view.
@@ -360,11 +377,17 @@ const SquadStateView: React.FC<{
         {
           isUnitsInSquadCondition(state) ?
             unitStateView(EffectActivationState.InSquad, state.map(s => s.in_squad), unitNumber, t) :
-            (<React.Fragment>
-              {unitStateView(EffectActivationState.NotInSquad, state[0].not_in_squad, unitNumber, t)}
-              <span>{t('effect:or_symbolic_separator')}</span>
-              {unitStateView(EffectActivationState.InSquad, state[1].in_squad, unitNumber, t)}
-            </React.Fragment>)
+            isJangHwaActivationSquadState(state) ?
+              (<React.Fragment>
+                {unitStateView(EffectActivationState.NotInSquad, state[0].not_in_squad, unitNumber, t)}
+                <span>{t('effect:or_symbolic_separator')}</span>
+                {unitStateView(EffectActivationState.InSquad, state[1].in_squad, unitNumber, t)}
+              </React.Fragment>) :
+              (<React.Fragment>
+                {unitStateView(EffectActivationState.InSquad, state[0].in_squad, unitNumber, t)}
+                <span>{t('effect:or_symbolic_separator')}</span>
+                {unitStateView(EffectActivationState.InSquad, state[1].in_squad, unitNumber, t)}
+              </React.Fragment>)
         }
       </React.Fragment>
     );

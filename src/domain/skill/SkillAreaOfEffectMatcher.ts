@@ -67,6 +67,7 @@ const relativeCoordinate: Record<Exclude<SkillAreaType, FixedSkillAreaType>, Rea
   [SkillAreaType.MiddleStaircase]: [[0, 0], [-1, 1], [0, 1], [-1, 2], [0, 2]],
   [SkillAreaType.LeftSpreadForward]: [[0, 0], [2, -2], [1, -1], [2, -1], [1, 0], [2, 0]],
   [SkillAreaType.LeftSpreadBackward]: [[0, 0], [-2, -2], [-2, -1], [-1, -1], [-2, 0], [-1, 0]],
+  [SkillAreaType.AllTowardBackLeft]: [[0, 0], [-2, -2], [-1, -2], [0, -2], [-2, -1], [-1, -1], [0, -1], [-2, 0], [-1, 0]],
   [SkillAreaType.AllBackwardWithSelf]: [[0, 0], [-2, -1], [-1, -1], [-2, 0], [-1, 0], [-2, 1], [-1, 1]],
   [SkillAreaType.UnderWatcherWithSelf]: [[0, 0], [-2, -1], [-1, -1], [0, -1], [-2, 0], [-1, 0], [-2, 1], [-1, 1], [0, 1]],
   [SkillAreaType.LeaveMeAlone]: [[0, 0], [1, -1], [2, -1], [2, 0], [1, 1], [2, 1]],

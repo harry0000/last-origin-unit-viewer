@@ -314,10 +314,27 @@ export const unitRankUpBonusData = {
   },
   35: {
     a: {
-      hp_up: { value: 80 },
-      atk_up: { milliValue: 15000 },
-      def_up: { milliValue: 14000 },
-      acc_up: { milliPercentage: 2000 }
+      hp_up: { value: 100 },
+      atk_up: { milliValue: 30000 },
+      def_up: { milliValue: 10000 },
+      cri_up: { milliPercentage: 5000 },
+      acc_up: { milliPercentage: 7000 },
+    },
+    s: {
+      hp_up: { value: 100 },
+      atk_up: { milliValue: 30000 },
+      def_up: { milliValue: 20000 },
+      cri_up: { milliPercentage: 5000 },
+      acc_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 50000 }
+    },
+    ss: {
+      hp_up: { value: 100 },
+      atk_up: { milliValue: 40000 },
+      def_up: { milliValue: 20000 },
+      cri_up: { milliPercentage: 5000 },
+      acc_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 50000 }
     }
   },
   37: {
@@ -1243,6 +1260,22 @@ export const unitRankUpBonusData = {
       spd_up: { microValue: 50000 }
     }
   },
+  177: {
+    s: {
+      hp_up: { value: 150 },
+      atk_up: { milliValue: 15000 },
+      def_up: { milliValue: 25000 },
+      acc_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 30000 }
+    },
+    ss: {
+      hp_up: { value: 150 },
+      atk_up: { milliValue: 15000 },
+      def_up: { milliValue: 25000 },
+      acc_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 20000 }
+    }
+  },
   178: {
     ss: {
       hp_up: { value: 185 },
@@ -1432,10 +1465,24 @@ export const unitRankUpBonusData = {
     }
   },
   253: {
-    // FIXME: Add rank up bonus data when bug fixed in game
     ss: {
-      hp_up: { value: 0 },
-      atk_up: { milliValue: 0 }
+      hp_up: { value: 260 },
+      atk_up: { milliValue: 70000 },
+      def_up: { milliValue: 70000 },
+      cri_up: { milliPercentage: 6000 },
+      acc_up: { milliPercentage: 12000 },
+      spd_up: { microValue: 50000 }
+    }
+  },
+  255: {
+    ss: {
+      hp_up: { value: 100 },
+      atk_up: { milliValue: 50000 },
+      def_up: { milliValue: 10000 },
+      cri_up: { milliPercentage: 5000 },
+      acc_up: { milliPercentage: 10000 },
+      eva_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 50000 }
     }
   },
   301: {

@@ -208,9 +208,9 @@ class BattleEffectSimulator {
             applicableSkillEffects: [
               ...this.#pickActiveSkillEffects('active1', changedUnit),
               ...this.#pickActiveSkillEffects('active2', changedUnit),
-              ...this.#pickPassiveSkillEffects('passive1', changedUnit),
-              ...this.#pickPassiveSkillEffects('passive2', changedUnit),
-              ...this.#pickPassiveSkillEffects('passive3', changedUnit)
+              ...this.#pickPassiveSkillEffects('passive1', changedUnit).filter(dropFormChangeEffect),
+              ...this.#pickPassiveSkillEffects('passive2', changedUnit).filter(dropFormChangeEffect),
+              ...this.#pickPassiveSkillEffects('passive3', changedUnit).filter(dropFormChangeEffect)
             ]
           };
         } else {
@@ -544,6 +544,13 @@ function hasFormChangeUnitSkill<N extends FormChangeUnitNumbers>(
   unit: UnitOriginState
 ): unit is UnitOriginState & { skill: FormChangeUnitSkill<N> } {
   return isFormChangeUnitSkill(unit.skill);
+}
+
+function dropFormChangeEffect(
+  { effect: { details } }: ApplicableAllSkillEffect
+): boolean {
+  const hasFormChangeEffect = 'self' in details && !!details.self?.form_change;
+  return !hasFormChangeEffect;
 }
 
 function buildAffectedBy(

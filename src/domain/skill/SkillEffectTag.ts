@@ -34,13 +34,11 @@ export type SkillEffectTag =
   'support_fire' |
   'attack_command' |
   'attack_command_defence' |
-  'attack_command_observation' |
   'defense_command' |
   'defense_command_attack' |
-  'defense_command_observation' |
   'camouflage' |
-  'awakening' |
   'fire_support' |
+  'slidrugtanni_class_armament' |
   'first_aid' |
   'treatment_target_selection' |
   'influence' |
@@ -187,6 +185,8 @@ export type SkillEffectTag =
   'diamond_chain' |
   'wind_style' |
   'motherhood' |
+  'save_resources' |
+  'one_chocolate_bar_missing' |
   'charge_electrically' |
   'high_voltage' |
   'death_blow' |
@@ -244,5 +244,10 @@ export type SkillEffectTag =
   'radar_detection' |
   'circling_formation' |
   'heroic_virtue' |
+  'like_eternal_moon' |
+  'full_moon_is_always_waning' |
+  'crescent_moon_momentum' |
+  'carefree_wandering' |
+  'buddy' |
   'basaro_sealed' |
   'kyu_kyu_nyo_ritsu_ryo'
