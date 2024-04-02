@@ -141,6 +141,7 @@ type NotAffectedActivationState =
       readonly [typeof Effect.DamageReductionUp] |
       readonly [typeof Effect.BattleContinuation] |
       readonly [typeof Effect.RowProtect] |
+      readonly [typeof Effect.TargetProtect] |
       readonly [typeof Effect.Marked]
   }>
 
@@ -433,6 +434,7 @@ export type NumOfUnitsInSquadState = {
     { unit: 'ally', less_or_equal: 3 } |
     { unit: 'ally', equal: 4 } |
     { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 | 3 } |
+    { unit: typeof UnitType.Light, equal: 4 } |
     { unit: UnitType, less_or_equal: 1 | 2 } |
     { unit: typeof UnitRole.Attacker, equal: 1 | 2 | 3 | 4 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |

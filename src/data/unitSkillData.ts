@@ -19543,6 +19543,79 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  214: {
+    no: 214,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 188000 },
+        per_lv_up: { milliPercentage: 17000 },
+        attribute: 'electric'
+      },
+      range: 4,
+      cost: 7,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { electric_resist_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 155000 },
+        per_lv_up: { milliPercentage: 16000 },
+        attribute: 'electric'
+      },
+      range: 3,
+      cost: 9,
+      area: 'row_toward_front',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effects: ['row_protect', 'column_protect', 'target_protect'], term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        details: { self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { light_type_damage_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'light', equal: 4 } } } }],
+        details: { self: { ap_up: { base: { microValue: 2000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } } } }
+      }, {
+        conditions: [
+          { trigger: 're_attack', state: { target: [{ not_affected: ['target_protect'] }] } },
+          { trigger: 'follow_up_attack', state: { target: [{ not_affected: ['target_protect'] }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { eva_down: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+      }]
+    }, {
+      area: 'all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { spd_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'ags' } } }],
+        target: { kind: 'ally', conditions: [{ type: 'heavy', role: 'attacker' }, { type: 'heavy', role: 'defender' }] },
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'ags' } } }],
+        target: { kind: 'ally', conditions: ['attacker', 'defender'] },
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
   215: {
     no: 215,
     active: [{

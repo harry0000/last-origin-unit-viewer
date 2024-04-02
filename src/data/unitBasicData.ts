@@ -1378,6 +1378,13 @@ export const unitBasicData = {
     type: 'light',
     role: 'supporter'
   },
+  214: {
+    no: 214,
+    kind: 'ags',
+    rank: 's',
+    type: 'heavy',
+    role: 'attacker'
+  },
   215: {
     no: 215,
     kind: 'ags',
