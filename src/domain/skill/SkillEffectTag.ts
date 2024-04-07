@@ -212,6 +212,7 @@ export type SkillEffectTag =
   'you_are_already_my_fan' |
   'charmed' |
   'vocal_nodules' |
+  'snipped' |
   'smooth' |
   'alternate_power_source' |
   'tactical_data_link' |
