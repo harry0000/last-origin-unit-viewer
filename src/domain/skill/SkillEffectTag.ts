@@ -214,6 +214,7 @@ export type SkillEffectTag =
   'vocal_nodules' |
   'snipped' |
   'smooth' |
+  'beauty_professional' |
   'alternate_power_source' |
   'tactical_data_link' |
   'passive_radar' |

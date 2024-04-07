@@ -19347,10 +19347,13 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'critical' }],
         target: { kind: 'enemy' },
-        details: {
-          self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } },
-          target: { buff_removal: { effect: 'damage_reduction_up', term: 'immediate' } }
-        }
+        details: { target: { buff_removal: { effect: 'damage_reduction_up', term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'critical', state: { self: [{ not_tagged: 'beauty_professional' }] } }],
+        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'beauty_professional' }] } }],
+        details: { self: { additional_damage: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: 'immediate' } } }
       }]
     }, {
       damage_deal: {
@@ -19371,10 +19374,13 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'critical' }],
         target: { kind: 'enemy' },
-        details: {
-          self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } },
-          target: { buff_removal: { effect: 'damage_reduction_up', term: 'immediate' } }
-        }
+        details: { target: { buff_removal: { effect: 'damage_reduction_up', term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'critical', state: { self: [{ not_tagged: 'beauty_professional' }] } }],
+        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'critical', state: { self: [{ tagged: 'beauty_professional' }] } }],
+        details: { self: { additional_damage: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: 'immediate' } } }
       }]
     }],
     passive: [{
@@ -19403,6 +19409,16 @@ export const unitSkillData: UnitSkillData = {
             spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
           }
         }
+      }]
+    }, {
+      area: 'single_and_front',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { ignore_protect: { tag: 'beauty_professional', term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
       }]
     }]
   },
