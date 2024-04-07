@@ -71,6 +71,10 @@ export const AreaOfEffectCells = {
     select: 6,
     area: ['none', 'none', 'effective', 'none', 'effective', 'effective', 'none', 'none', 'effective']
   },
+  [SkillAreaType.FanShapeTowardFront]: {
+    select: 4,
+    area: ['none', 'effective', 'effective', 'effective', 'effective', 'effective', 'none', 'effective', 'effective']
+  },
   [SkillAreaType.InvertedFanShape]: {
     select: 5,
     area: ['effective', 'none', 'none', 'effective', 'effective', 'none', 'effective', 'none', 'none']
@@ -230,10 +234,6 @@ export const AreaOfEffectCells = {
   [SkillAreaType.FanShapeGreatlyAttenuate]: {
     select: 4,
     area: ['none', 'middle', 'low', 'effective', 'middle', 'low', 'none', 'middle', 'low']
-  },
-  [SkillAreaType.FanShapeSlightlyAttenuate]: {
-    select: 4,
-    area: ['none', 'high', 'middle', 'effective', 'high', 'middle', 'none', 'high', 'middle']
   },
   [SkillAreaType.FanShapeStrongExplosion]: {
     select: 5,

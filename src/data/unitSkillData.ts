@@ -14251,67 +14251,87 @@ export const unitSkillData: UnitSkillData = {
         base: { milliPercentage: 132000 },
         per_lv_up: { milliPercentage: 12000 }
       },
-      range: 1,
+      range: 3,
       cost: 8,
-      area: 'fan_shape_slightly_attenuate',
+      area: 'fan_shape_toward_front',
       effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ grid: 'front_line', not_tagged: 'minion' }] } }],
         target: { kind: 'enemy' },
         details: {
-          self: { ignore_protect: {} },
-          target: { eva_down: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } } }
+          self: { additional_damage: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: 'immediate' } },
+          target: { all_buff_removal: { term: 'immediate' } }
         }
       }, {
-        conditions: [{ state: { target: [{ tagged: 'bleeding_hole' }] } }],
+        conditions: [{ trigger: 'hit', state: { target: [{ tagged: 'minion' }] } }],
         target: { kind: 'enemy' },
-        details: { self: { additional_damage: { base: { milliPercentage: 26000 }, per_lv_up: { milliPercentage: 6000 } } } }
+        details: {
+          self: { additional_damage: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' } },
+          target: {
+            tag_release: [
+              { tag: 'scars', term: 'immediate' },
+              { tag: 'minion', term: 'immediate' }
+            ],
+            all_buff_removal: { term: 'immediate' }
+          }
+        }
       }]
     }, {
       damage_deal: {
         base: { milliPercentage: 32000 },
         per_lv_up: { milliPercentage: 2000 }
       },
-      range: 3,
+      range: 5,
       cost: 4,
       area: 'single',
       effects: [{
+        conditions: [{ trigger: 'hit', state: { target: [{ hp_greater_or_equal: 100 }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { fixed_damage_over_time: { tag: 'scars', value: 1, term: { for_rounds: 4 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ tagged: 'minion' }] } }],
         target: { kind: 'enemy' },
         details: {
-          target: { fixed_damage_over_time: { tag: 'bleeding_hole', base: { value: 280 }, per_lv_up: { value: 80 }, term: { for_rounds: 4 } } },
-          self: {
-            atk_up: { tag: 'night_of_blood_queen', base: { milliPercentage: 53000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 4 } },
-            defense_penetration: { tag: 'night_of_blood_queen', base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 4 } },
-            range_up: { tag: 'night_of_blood_queen', value: 3, term: { for_rounds: 4 } }
+          target: {
+            tag_release: [
+              { tag: 'scars', term: 'immediate' },
+              { tag: 'minion', term: 'immediate' }
+            ],
+            fixed_damage: { base: { milliPercentage: 5000000 }, per_lv_up: { milliPercentage: 500000 }, term: 'immediate' }
           }
         }
+      }, {
+        conditions: [{ trigger: 'use_this_active' }],
+        details: { self: { acc_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 10000 } } } }
       }]
     }],
     passive: [{
       area: 'self',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
-        details: { self: { defense_penetration: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+        details: { self: { defense_penetration: { base: { milliPercentage: 35000 }, per_lv_up: { milliPercentage: 3500 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'attack' }],
-        details: { self: { merciless: { base: { milliPercentage: 53000 }, per_lv_up: { milliPercentage: 3000 } } } }
+        conditions: [{ trigger: 'use_active_2' }],
+        details: {
+          self: {
+            atk_up: { tag: 'filled', base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 4 }, max_stack: 1 },
+            cri_up: { tag: 'filled', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 4 }, max_stack: 1 },
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'filled' }] } }],
+        details: { self: { ap_up: { tag: 'hungry', base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
       }]
     }, {
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'scars' }] } }],
+        target: { kind: 'enemy' },
         details: {
-          self: {
-            defense_penetration: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            cri_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            acc_up: { base: { milliPercentage: 22000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
-          }
-        }
-      }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }] } }],
-        details: {
-          self: {
-            defense_penetration: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
-            cri_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
-            acc_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          target: {
+            silenced: { tag: 'minion', term: { for_rounds: 1 } },
+            damage_taken_increased: { tag: 'minion', base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } }
           }
         }
       }]
@@ -14322,14 +14342,8 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: { target: { reconnaissance: { term: 'infinite' } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'night_of_blood_queen' }] } }],
-        details: {
-          self: {
-            cri_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
-            acc_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            eva_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
-          }
-        }
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { merciless: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 } } } }
       }]
     }]
   },

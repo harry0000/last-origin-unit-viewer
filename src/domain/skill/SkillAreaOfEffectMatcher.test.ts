@@ -101,6 +101,10 @@ describe('calcTargetPositions()', () => {
       expect(calcTargetPositions(SkillAreaType.FanShapeForwardTargeting, 5)).toEqual(new Set([8, 4, 5, 2]));
     });
 
+    test('FanShapeForwardTargeting', () => {
+      expect(calcTargetPositions(SkillAreaType.FanShapeTowardFront, 4)).toEqual(new Set([8, 9, 4, 5, 6, 2, 3]));
+    });
+
     test('InvertedFanShape', () => {
       expect(calcTargetPositions(SkillAreaType.InvertedFanShape, 5)).toEqual(new Set([7, 4, 5, 1]));
     });
@@ -259,10 +263,6 @@ describe('calcTargetPositions()', () => {
 
     test('FanShapeGreatlyAttenuate', () => {
       expect(calcTargetPositions(SkillAreaType.FanShapeGreatlyAttenuate, 5)).toEqual(new Set([9, 5, 6, 3]));
-    });
-
-    test('FanShapeSlightlyAttenuate', () => {
-      expect(calcTargetPositions(SkillAreaType.FanShapeSlightlyAttenuate, 5)).toEqual(new Set([9, 5, 6, 3]));
     });
 
     test('FanShapeStrongExplosion', () => {

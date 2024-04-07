@@ -322,7 +322,7 @@ export type ActivationTargetState =
       readonly ['eternal_true_bloods_flash', 'cyclops_eternal_beam']
   } &
   {
-    [EffectActivationState.NotTagged]?: 'are_you_ready' | 'vafrlogi'
+    [EffectActivationState.NotTagged]?: 'are_you_ready' | 'minion' | 'vafrlogi'
   } &
   {
     [EffectActivationState.NotTaggedAffected]?: {
