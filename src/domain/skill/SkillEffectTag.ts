@@ -156,8 +156,10 @@ export type SkillEffectTag =
   'cheerleader' |
   'asceticism' |
   'fanaticism' |
-  'bleeding_hole' |
-  'night_of_blood_queen' |
+  'scars' |
+  'filled' |
+  'hungry' |
+  'minion' |
   'clear_and_serene' |
   'foresight' |
   'talaria' |
@@ -210,7 +212,9 @@ export type SkillEffectTag =
   'you_are_already_my_fan' |
   'charmed' |
   'vocal_nodules' |
+  'snipped' |
   'smooth' |
+  'beauty_professional' |
   'alternate_power_source' |
   'tactical_data_link' |
   'passive_radar' |

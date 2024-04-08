@@ -17,14 +17,14 @@ const fixedPositionTargets: Record<FixedSkillAreaType, ReadonlySet<TenKeyPositio
   [SkillAreaType.FixedAll]:                     new Set([1, 2, 3, 4, 5, 6, 7, 8, 9])
 };
 
-type CoordinateValue = -2 | -1 | 0 | 1 | 2
-type TenKeyCoordinate = readonly [x: CoordinateValue, y: CoordinateValue]
-
 const absoluteCoordinate = {
   7: [0, 0], 8: [1, 0], 9: [2, 0],
   4: [0, 1], 5: [1, 1], 6: [2, 1],
   1: [0, 2], 2: [1, 2], 3: [2, 2]
 } as const;
+
+type CoordinateValue = -2 | -1 | 0 | 1 | 2
+type TenKeyCoordinate = readonly [dx: CoordinateValue, dy: CoordinateValue]
 
 const relativeCoordinate: Record<Exclude<SkillAreaType, FixedSkillAreaType>, ReadonlyArray<TenKeyCoordinate>> = {
   [SkillAreaType.Self]: [[0, 0]],
@@ -39,6 +39,7 @@ const relativeCoordinate: Record<Exclude<SkillAreaType, FixedSkillAreaType>, Rea
   [SkillAreaType.FanShape]: [[0, 0], [1, -1], [1, 0], [1, 1]],
   [SkillAreaType.FanShapeWithoutFront]: [[0, 0], [1, -1], [1, 1]],
   [SkillAreaType.FanShapeForwardTargeting]: [[0, 0], [0, -1], [-1, 0], [0, 1]],
+  [SkillAreaType.FanShapeTowardFront]: [[0, 0], [1, -1], [2, -1], [1, 0], [2, 0], [1, 1], [2, 1]],
   [SkillAreaType.InvertedFanShape]: [[0, 0], [-1, -1], [-1, 0], [-1, 1]],
   [SkillAreaType.InvertedFanShapeWing]: [[0, 0], [-2, -1], [-1, -1], [-2, 1], [-1, 1]],
   [SkillAreaType.Wedge]: [[0, 0], [-2, -1], [-1, -1], [-1, 0], [-2, 1], [-1, 1]],
@@ -79,7 +80,6 @@ const relativeCoordinate: Record<Exclude<SkillAreaType, FixedSkillAreaType>, Rea
   [SkillAreaType.LineMiddleExplosion]: [[0, 0], [0, -1], [0, 1]],
   [SkillAreaType.LineStrongExplosion]: [[0, 0], [0, -1], [0, 1]],
   [SkillAreaType.FanShapeGreatlyAttenuate]: [[0, 0], [1, -1], [1, 0], [1, 1], [2, -1], [2, 0], [2, 1]],
-  [SkillAreaType.FanShapeSlightlyAttenuate]: [[0, 0], [1, -1], [1, 0], [1, 1], [2, -1], [2, 0], [2, 1]],
   [SkillAreaType.FanShapeStrongExplosion]: [[0, 0], [1, -1], [1, 0], [1, 1]],
   [SkillAreaType.CrossSmallExplosion]: [[0, 0], [0, -1], [-1, 0], [1, 0], [0, 1]],
   [SkillAreaType.CrossStrongExplosion]: [[0, 0], [0, -1], [-1, 0], [1, 0], [0, 1]],
