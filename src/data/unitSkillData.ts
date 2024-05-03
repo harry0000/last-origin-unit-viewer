@@ -4879,9 +4879,11 @@ export const unitSkillData: UnitSkillData = {
       cost: 5,
       area: 'single',
       effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
         details: {
-          self: { ignore_protect: {} },
           target: {
             marked: { term: { for_rounds: 2 } },
             damage_taken_increased: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
@@ -4890,47 +4892,53 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ state: { target: [{ affected: 'immovable' }, { affected: 'eva_down' }] } }],
         target: { kind: 'enemy' },
-        details: { target: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
+        details: { target: { damage_taken_increased: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } } } }
       }]
     }, {
       range: 6,
       cost: 10,
-      area: {
-        1: 'twin',
-        10: '2_x_2'
-      },
+      area: '2_x_2',
       effects: [{
         target: { kind: 'ally' },
         details: {
           target: {
-            ap_up: { tag: 'f_armory_deployment', base: { microValue: 1500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' },
-            atk_up: { tag: 'f_armory_deployment', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 2 } },
-            ignore_barrier_dr: { tag: 'f_armory_deployment', term: { for_rounds: 1 } }
+            ap_up: { tag: 'f_armory_deployment', base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' },
+            atk_up: { tag: 'f_armory_deployment', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
           }
         }
+      }, {
+        target: { kind: 'ally', conditions: ['light', 'flying'] },
+        details: { target: { ignore_barrier_dr: { tag: 'f_armory_deployment', term: { for_rounds: 1 } } } }
+      }, {
+        target: { kind: 'ally', conditions: ['heavy'] },
+        details: { target: { ignore_barrier_dr: { tag: 'f_armory_deployment', term: { for_rounds: 2 } } } }
       }]
     }],
     passive: [{
-      area: {
-        1: 'cross',
-        10: 'all'
-      },
+      area: 'all',
       effects: [{
-        conditions: [{ trigger: 'start_round' }],
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'aa_cannonier' } } }],
         target: { kind: 'ally', conditions: ['heavy'] },
         details: {
           target: {
             atk_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
-            def_up: { base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 800 }, term: { for_rounds: 1 } },
-            damage_reduction_up: { base: { milliPercentage: 6000 }, per_lv_up: { milliPercentage: 400 }, term: { for_rounds: 1 } }
+            def_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            damage_reduction_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'aa_cannonier' } } }],
+        target: { kind: 'ally', conditions: ['heavy'] },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            def_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            damage_reduction_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
           }
         }
       }]
     }, {
-      area: {
-        1: 'cross_adjacent',
-        10: 'all_adjacent'
-      },
+      area: 'all',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
         target: { kind: 'ally' },
@@ -4943,7 +4951,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'f_armory_deployment' }] } }],
         target: { kind: 'ally' },
-        details: { target: { debuff_removal: { effects: ['atk_down', 'cri_down'] } } }
+        details: { target: { prevents_effect: { effects: ['atk_down', 'cri_down'] } } }
       }]
     }, {
       area: 'fixed_all',

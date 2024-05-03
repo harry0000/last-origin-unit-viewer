@@ -352,6 +352,7 @@ type InSquadStateUnit =
     'SteelLine' |
     'SteelLineOfficerRanks' |
     'SteelLineExcludingOfficerRanks' |
+    'AACannonier' |
     'Horizon' |
     'SkyKnights' |
     'Kunoichi' |
@@ -380,7 +381,7 @@ type NotInSquadStateUnit =
   80 | 82 | 110 | 127 | 199 | 252 | 301 |
   typeof UnitKind.AGS |
   UnitRole |
-  typeof UnitAlias['SteelLine' | 'SkyKnights' | 'Kunoichi' | 'OrbitalWatcher' | 'Mermaid'] |
+  typeof UnitAlias['SteelLine' | 'AACannonier' | 'SkyKnights' | 'Kunoichi' | 'OrbitalWatcher' | 'Mermaid'] |
   typeof SkillAreaType.CrossAdjacent |
   Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>> |
   readonly [typeof UnitType.Light, typeof UnitType.Heavy] |
