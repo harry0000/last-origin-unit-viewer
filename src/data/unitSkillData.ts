@@ -18025,14 +18025,16 @@ export const unitSkillData: UnitSkillData = {
       cost: 5,
       area: '2_x_2',
       effects: [{
+        conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
         details: {
           target: {
-            atk_down: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
-            acc_down: { base: { milliPercentage: 17000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
-            eva_down: { base: { milliPercentage: 17000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
+            atk_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } },
+            eva_down: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } }
           }
         }
+      }, {
+        details: { self: { spd_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } } } }
       }]
     }, {
       range: 6,
@@ -18040,19 +18042,13 @@ export const unitSkillData: UnitSkillData = {
       area: 'single',
       effects: [{
         target: { kind: 'ally', conditions: ['attacker'] },
-        details: { target: { atk_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } } }
+        details: { target: { atk_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } } } }
       }, {
         target: { kind: 'ally', conditions: ['defender'] },
-        details: {
-          target: {
-            marked: { term: { for_rounds: 2 } },
-            def_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
-            eva_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
-          }
-        }
+        details: { target: { damage_reduction_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
       }, {
         target: { kind: 'ally', conditions: ['supporter'] },
-        details: { target: { ap_up: { base: { microValue: 2100000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
+        details: { target: { spd_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
       }]
     }],
     passive: [{
@@ -18062,8 +18058,8 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally', conditions: ['attacker'] },
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 26000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            spd_up: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+            atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
           }
         }
       }, {
@@ -18075,16 +18071,19 @@ export const unitSkillData: UnitSkillData = {
         details: { target: { ignore_barrier_dr: { term: { for_rounds: 1 } } } }
       }]
     }, {
-      area: 'front',
+      area: 'single_and_front',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
         target: { kind: 'ally', conditions: ['defender'] },
         details: {
           target: {
-            def_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
-            eva_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+            marked: { term: { for_rounds: 1 } },
+            def_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } }
           }
         }
+      }, {
+        conditions: [{ trigger: 'be_hit' }],
+        details: { self: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
       }]
     }]
   },
