@@ -378,7 +378,7 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 }
 
 type NotInSquadStateUnit =
-  80 | 82 | 110 | 127 | 199 | 252 | 301 |
+  63 | 80 | 82 | 110 | 127 | 199 | 252 | 301 |
   typeof UnitKind.AGS |
   UnitRole |
   typeof UnitAlias['SteelLine' | 'AACannonier' | 'SkyKnights' | 'Kunoichi' | 'OrbitalWatcher' | 'Mermaid'] |
