@@ -204,6 +204,8 @@ export type SkillEffectTag =
   'collection_complete' |
   'parts_acquired' |
   'light_of_sky' |
+  'custom_made_masterpiece' |
+  'tactics_lv_5' |
   'tenderizer' |
   'caffeine_charged' |
   'nicotine_charged' |
