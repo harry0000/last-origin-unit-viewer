@@ -5234,8 +5234,17 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: { self: { spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_wave' }, { trigger: 'enemy_killed' }],
+        conditions: [
+          { trigger: 'start_wave', state: { self: [{ not_tagged: 'slam_fire' }] } },
+          { trigger: 'enemy_killed', state: { self: [{ not_tagged: 'slam_fire' }] } }
+        ],
         details: { self: { re_attack: { term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [
+          { trigger: 'start_wave', state: { self: [{ tagged: 'slam_fire' }] } },
+          { trigger: 'enemy_killed', state: { self: [{ tagged: 'slam_fire' }] } }
+        ],
+        details: { self: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
       }]
     }, {
       area: 'self',
@@ -5256,6 +5265,31 @@ export const unitSkillData: UnitSkillData = {
             damage_reduction_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } }
           }
         }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        details: { self: { tag_stack: { tag: 'slam_fire', term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['armored_maiden'] },
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'front_line' }] } }],
+        details: { self: { damage_multiplier_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }], squad: { not_in_squad: 63 } } }],
+        details: { self: { damage_multiplier_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }], squad: { not_in_squad: 63 } } }],
+        details: { self: { damage_multiplier_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'mid_line' }], squad: { in_squad: 63 } } }],
+        details: { self: { damage_multiplier_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }], squad: { in_squad: 63 } } }],
+        details: { self: { damage_multiplier_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
       }]
     }]
   },
