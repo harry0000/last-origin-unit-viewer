@@ -5647,11 +5647,7 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'cross_adjacent', greater_or_equal: 2 } } } }],
         details: { self: { re_attack: { term: { for_rounds: 1 } } } }
-      }/*, {
-        // FIXME: enable when the bug fixed in the game.
-        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 63 } } }],
-        details: { self: { re_attack: { term: { for_rounds: 1 } } } }
-      }*/, {
+      }, {
         conditions: [{ trigger: 'critical' }],
         target: { kind: 'enemy' },
         details: { target: { buff_removal: { effect: 'damage_reduction_up', term: 'immediate' } } }
