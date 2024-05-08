@@ -60,6 +60,7 @@ export type SkillEffectTag =
   'load_capacity_increased' |
   'f_armory_deployment' |
   'shock_absorption' |
+  'slam_fire' |
   'main_armament_assembled_preparation' |
   'scoop_discovery' |
   'enhance_output' |
@@ -203,6 +204,8 @@ export type SkillEffectTag =
   'collection_complete' |
   'parts_acquired' |
   'light_of_sky' |
+  'custom_made_masterpiece' |
+  'tactics_lv_5' |
   'tenderizer' |
   'caffeine_charged' |
   'nicotine_charged' |
