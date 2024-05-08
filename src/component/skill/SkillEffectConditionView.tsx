@@ -196,6 +196,7 @@ function unitStateView(
       'SteelLine' |
       'SteelLineOfficerRanks' |
       'SteelLineExcludingOfficerRanks' |
+      'AACannonier' |
       'Horizon' |
       'SkyKnights' |
       'Kunoichi' |
