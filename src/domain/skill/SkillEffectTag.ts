@@ -53,6 +53,7 @@ export type SkillEffectTag =
   'hammer_and_anvil_tactic' |
   'tightened_leash' |
   'loosened_leash' |
+  'weigh_anchor' |
   'bombardment_squadron_command' |
   'stealth_mode' |
   'elation' |

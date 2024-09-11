@@ -172,7 +172,7 @@ function getSquadUnitMatcher(
     FactorUnitCondition |
     Exclude<
       InSquadCondition,
-      { [EffectActivationState.AffectedBy]: { unit: 83, effect: typeof Effect.TargetProtect } } |
+      { [EffectActivationState.AffectedBy]: { unit: 50 | 83, effect: typeof Effect.TargetProtect } } |
       InSquadTaggedUnitState |
       'golden_factory'
     > |
