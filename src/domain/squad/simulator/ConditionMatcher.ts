@@ -77,7 +77,10 @@ export function hasNoDependencySquadState(
   return Array.isArray(arg) || (
     !(EffectActivationState.InSquad in arg) ||
     !isRecord(arg.in_squad) ||
-    !(EffectActivationState.Tagged in arg.in_squad)
+    !(
+      EffectActivationState.Tagged in arg.in_squad ||
+      EffectActivationState.AffectedBy in arg.in_squad
+    )
   );
 }
 
