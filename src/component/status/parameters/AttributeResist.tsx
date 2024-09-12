@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { CSSPropertiesWithMultiValues } from '@emotion/serialize/dist/declarations/types';
+import { CSSPropertiesWithMultiValues } from '@emotion/serialize';
 import React, { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 

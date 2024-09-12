@@ -77,7 +77,10 @@ export function hasNoDependencySquadState(
   return Array.isArray(arg) || (
     !(EffectActivationState.InSquad in arg) ||
     !isRecord(arg.in_squad) ||
-    !(EffectActivationState.Tagged in arg.in_squad)
+    !(
+      EffectActivationState.Tagged in arg.in_squad ||
+      EffectActivationState.AffectedBy in arg.in_squad
+    )
   );
 }
 
@@ -172,7 +175,7 @@ function getSquadUnitMatcher(
     FactorUnitCondition |
     Exclude<
       InSquadCondition,
-      { [EffectActivationState.AffectedBy]: { unit: 83, effect: typeof Effect.TargetProtect } } |
+      { [EffectActivationState.AffectedBy]: { unit: 50 | 83, effect: typeof Effect.TargetProtect } } |
       InSquadTaggedUnitState |
       'golden_factory'
     > |

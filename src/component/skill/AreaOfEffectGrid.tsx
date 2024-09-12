@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { Theme, jsx } from '@emotion/react';
-import { CSSPropertiesWithMultiValues } from '@emotion/serialize/dist/declarations/types';
-import { Interpolation } from '@emotion/serialize';
+import { CSSPropertiesWithMultiValues, Interpolation } from '@emotion/serialize';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

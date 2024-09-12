@@ -221,7 +221,7 @@ function unitStateView(
     DefenderAndCyclopsPrincess |
     'golden_factory' |
     { equipment: 'hot_pack', effect: typeof Effect.MinimumIceResistUp } |
-    { [EffectActivationState.AffectedBy]: { unit: 83, effect: typeof Effect.TargetProtect } } |
+    { [EffectActivationState.AffectedBy]: { unit: 50 | 83, effect: typeof Effect.TargetProtect } } |
     InSquadTaggedUnitState,
   selfUnitNumber: UnitNumber,
   t: TFunction

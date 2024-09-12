@@ -4306,6 +4306,126 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  50: {
+    no: 50,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 188000 },
+        per_lv_up: { milliPercentage: 17700 },
+        attribute: 'ice'
+      },
+      range: 4,
+      cost: 9,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          self: { merciless: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } },
+          target: {
+            fire_resist_up: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } },
+            ice_resist_down: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } },
+            electric_resist_down: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 136000 },
+        per_lv_up: { milliPercentage: 14500 },
+        attribute: 'ice'
+      },
+      range: 4,
+      cost: 9,
+      area: 'row_toward_front',
+      effects: [{
+        details: {
+          self: {
+            ignore_protect: {},
+            tag_stack: { tag: 'weigh_anchor', term: 'infinite' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ tagged: 'wet' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            stunned: { term: { for_rounds: 1 } },
+            fixed_ice_damage_over_time: { base: { value: 500 }, per_lv_up: { value: 50 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'line_with_front_line',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['attacker', 'supporter'] },
+        details: { target: { target_protect: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            fire_resist_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            ice_resist_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ grid: 'back_line' }] } }],
+        details: {
+          self: {
+            column_protect: { term: { for_rounds: 1 } },
+            range_up: { value: 2, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'weigh_anchor' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            all_debuff_removal: { term: 'immediate' },
+            tag_release: { tag: 'weigh_anchor', term: 'immediate' }
+          }
+        }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { damage_reduction_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: { affected_by: { unit: 50, effect: 'target_protect' } } } } }],
+        details: { self: { damage_reduction_up: { base: { milliPercentage: 25000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'be_hit_physical_active' }],
+        details: { self: { counterattack: { base: { milliPercentage: 70000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'be_hit_fire_active' }],
+        details: { self: { counterattack: { base: { milliPercentage: 120000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'be_hit_ice_active' }],
+        details: { self: { counterattack: { base: { milliPercentage: 120000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'be_hit_electric_active' }],
+        details: { self: { counterattack: { base: { milliPercentage: 120000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'be_hit' }],
+        details: { self: { ap_up: { microValue: 750000, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'be_hit', state: { squad: { in_squad: 'defender' } } }],
+        target: { kind: 'ally_except_self' },
+        details: { target: { ap_up: { microValue: 750000, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'wet' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { damage_taken_increased: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
   51: {
     no: 51,
     active: [{

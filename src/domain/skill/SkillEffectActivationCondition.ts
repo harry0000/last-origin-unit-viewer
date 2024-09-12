@@ -123,7 +123,7 @@ type AffectedByActivationState =
     [EffectActivationState.AffectedBy]:
       { unit: 9 | 54 | 55 | 133 | 135 } |
       { unit: 23, effect: typeof Effect.FollowUpAttack } |
-      { unit: 83 | 134, effect: typeof Effect.TargetProtect } |
+      { unit: 50 | 83 | 134, effect: typeof Effect.TargetProtect } |
       { unit: 171, effect: typeof Effect.Marked } |
       UnitAliasExceptUnit<typeof UnitAlias.MongooseTeam, 80> |
       UnitAliasExceptUnit<typeof UnitAlias.Strikers, 150> |
@@ -365,7 +365,7 @@ type InSquadStateUnit =
   Readonly<UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter>> |
   Readonly<UnitAliasAndRole<typeof UnitAlias['MongooseTeam'], typeof UnitRole.Defender>> |
   Readonly<UnitAliasAndRole<typeof UnitAlias['Strikers'], typeof UnitRole.Attacker>> |
-  Readonly<{ [EffectActivationState.AffectedBy]: { unit: 83, effect: typeof Effect.TargetProtect } }> |
+  Readonly<{ [EffectActivationState.AffectedBy]: { unit: 50 | 83, effect: typeof Effect.TargetProtect } }> |
   InSquadTaggedUnitState |
   AttackCommandFormLeona |
   DefenseCommandFormLeona |
