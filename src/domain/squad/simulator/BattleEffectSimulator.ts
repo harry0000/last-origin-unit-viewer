@@ -433,14 +433,15 @@ class BattleEffectSimulator {
                 }
 
                 targetUnits.forEach(target => {
-                  effect.details.target &&
-                  target.appliedEffects.tryApplyingTargetSkillEffects(
-                    state,
-                    effect.details.target,
-                    type,
-                    affected_by,
-                    scaled
-                  );
+                  if (effect.details.target) {
+                    target.appliedEffects.tryApplyingTargetSkillEffects(
+                      state,
+                      effect.details.target,
+                      type,
+                      affected_by,
+                      scaled
+                    );
+                  }
                 });
               } else {
                 return false;
