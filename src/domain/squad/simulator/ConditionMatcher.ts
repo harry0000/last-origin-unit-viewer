@@ -578,7 +578,9 @@ function matchTagStack(
   const countStacked = (tag: SkillEffectTag): number => {
     const taggedEffects = pickTaggedEffects(tag, affected);
     return taggedEffects.size && (
-      state.effect ? (taggedEffects.get(state.effect) ?? 0) : taggedEffects.values().next().value
+      state.effect ?
+        taggedEffects.get(state.effect) ?? 0 :
+        taggedEffects.values().next().value ?? 0
     );
   };
   const stacked = isReadonlyArray(state.tag) ?

@@ -265,8 +265,8 @@ function resolveAgsUnitCost(
 
 class RankUpUnitCostResolver<N extends RankUpUnitNumber> {
 
-  static get<N extends RankUpUnitNumber>(unit: RankUpUnitBasicInfo<N>): RankUpUnitCostResolver<N> {
-    return new RankUpUnitCostResolver(unit.no);
+  static get<N extends RankUpUnitNumber>({ no }: RankUpUnitBasicInfo<N>): RankUpUnitCostResolver<N> {
+    return new RankUpUnitCostResolver(no);
   }
 
   readonly #no: N;

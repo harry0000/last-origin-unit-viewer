@@ -7,7 +7,8 @@ import { unitRankUpBonusData } from '../../data/unitRankUpBonusData';
 
 export type UnitRankUpBonusData = typeof unitRankUpBonusData
 export type RankUpUnitNumber = keyof typeof unitRankUpBonusData
-export type RankUpUnitBasicInfo<N extends RankUpUnitNumber = RankUpUnitNumber> = Extract<UnitBasicInfo, { no: N }>
+export type RankUpUnitBasicInfo<N extends RankUpUnitNumber = RankUpUnitNumber> =
+  Extract<typeof unitBasicData[N], { no: N }>
 
 const rankUpUnitNumbers: ReadonlySet<UnitNumber> = new Set(Object.keys(unitRankUpBonusData).map(r => +r as UnitNumber));
 export function isRankUpUnitNumber(arg: UnitNumber): arg is RankUpUnitNumber {
