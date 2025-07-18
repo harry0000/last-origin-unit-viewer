@@ -107,7 +107,7 @@ const UnitRankDropdown: React.FC<{
   return (
     <Dropdown
       className="rank"
-      onSelect={(eventKey) => { eventKey && setRank(eventKey as UnitRank); }}
+      onSelect={(eventKey) => { if (eventKey) { setRank(eventKey as UnitRank); } }}
     >
       <Dropdown.Toggle as={UnitRankToggle} id="unit-rank-dropdown">
         <UnitBasicInfoIcon size="large" rank={currentRank} role={role} />

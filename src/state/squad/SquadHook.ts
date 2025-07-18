@@ -269,7 +269,7 @@ export function useSquadShare(): [copyToClipboard: () => void, inputRef: RefObje
 }
 
 export function useSquadShareToTwitter(url?: string): () => void {
-  return () => { url && window.open(generateTwitterShareUrl(url)); };
+  return () => { if (url) { window.open(generateTwitterShareUrl(url)); } };
 }
 
 export function useSquadRestoreFromUrl(): boolean {

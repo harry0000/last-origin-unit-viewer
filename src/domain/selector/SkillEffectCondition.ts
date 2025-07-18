@@ -335,10 +335,8 @@ export function matchSkillConditions(
       return checkAllSkillEffectDetails(actives, passives, e => !!e.exp_up);
     case OtherSkillEffectCondition.ActionCountUp:
       return checkAllSkillEffectDetails(actives, passives, e => !!e.action_count_up);
-    default: {
-      const _exhaustiveCheck: never = condition;
-      return _exhaustiveCheck;
-    }
+    default:
+      return condition satisfies never;
     }
   });
 }

@@ -68,7 +68,9 @@ const DamagedStateDropdown: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
     <Dropdown
       className="unit-state"
       onSelect={eventKey => {
-        isDamagedState(eventKey) && setDamagedState(eventKey);
+        if (isDamagedState(eventKey)) {
+          setDamagedState(eventKey);
+        }
       }}
     >
       <Dropdown.Toggle as={DamagedStateToggle} id="damaged-state-dropdown">

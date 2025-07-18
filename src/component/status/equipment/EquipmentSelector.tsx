@@ -344,7 +344,9 @@ const EquipmentDropdown = <T extends EquipmentSlot>(
       onSelect={(eventKey) => {
         if (eventKey) {
           const item = items.find((item: SlotEquipment<T>) => item.id === eventKey);
-          item && onSelect(item);
+          if (item) {
+            onSelect(item);
+          }
         } else {
           onSelect(undefined);
         }

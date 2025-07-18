@@ -435,7 +435,6 @@ export type NumOfUnitsInSquadState = {
     { unit: 'ally', less_or_equal: 3 } |
     { unit: 'ally', equal: 4 } |
     { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 | 3 } |
-    { unit: typeof UnitType.Light, equal: 4 } |
     { unit: UnitType, less_or_equal: 1 | 2 } |
     { unit: typeof UnitRole.Attacker, equal: 1 | 2 | 3 | 4 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
@@ -458,9 +457,11 @@ export type ActivationEnemyState = {
     { greater_or_equal: 5, less_or_equal: 6 } |
     { greater_or_equal: 1, unit: typeof UnitType.Flying } |
     { greater_or_equal: 3, unit: typeof UnitType.Heavy } |
+    { greater_or_equal: 4, unit: typeof UnitType.Light | typeof UnitType.Heavy } |
     { greater_or_equal: 4 | 5 | 6 | 7 } |
     { less_or_equal: 3 }
 } | {
+  // The following are AND condition
   [EffectActivationState.NumOfUnits]: { equal: 1 },
   [EffectActivationState.Unit]: UnitType
 }

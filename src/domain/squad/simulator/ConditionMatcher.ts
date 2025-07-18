@@ -106,10 +106,8 @@ function matchTargetCondition(
       case UnitRole.Defender:
       case UnitRole.Supporter:
         return target.role === cond;
-      default: {
-        const _exhaustiveCheck: never = cond;
-        return _exhaustiveCheck;
-      }
+      default:
+        return cond satisfies never;
       }
     }
   }
@@ -228,10 +226,8 @@ function getSquadUnitMatcher(
       }
       case ArmoredBulgasari:
         return isArmoredBulgasari;
-      default: {
-        const _exhaustiveCheck: never = cond;
-        return _exhaustiveCheck;
-      }
+      default:
+        return cond satisfies never;
       }
     }
   } else if (isFormedLeona(cond)) {
@@ -342,10 +338,8 @@ function onGridPosition(...[
     return BackLine.has(position);
   case GridState.AreaOfEffect:
     return area.has(position);
-  default: {
-    const _exhaustiveCheck: never = grid;
-    return _exhaustiveCheck;
-  }
+  default:
+    return grid satisfies never;
   }
 }
 
@@ -578,7 +572,9 @@ function matchTagStack(
   const countStacked = (tag: SkillEffectTag): number => {
     const taggedEffects = pickTaggedEffects(tag, affected);
     return taggedEffects.size && (
-      state.effect ? (taggedEffects.get(state.effect) ?? 0) : taggedEffects.values().next().value
+      state.effect ?
+        taggedEffects.get(state.effect) ?? 0 :
+        taggedEffects.values().next().value ?? 0
     );
   };
   const stacked = isReadonlyArray(state.tag) ?
@@ -643,10 +639,8 @@ export function matchAffectedState(
     case TaggedAffected:    return !(key in s) || !!s.tagged_affected     && matchTaggedAffected(s.tagged_affected, affected);
     case NotTaggedAffected: return !(key in s) || !!s.not_tagged_affected && !matchTaggedAffected(s.not_tagged_affected, affected);
     case Stack:             return !(key in s) || !!s.stack               && matchTagStack(s.stack, affected);
-    default: {
-      const _exhaustiveCheck: never = key;
-      return _exhaustiveCheck;
-    }
+    default:
+      return key satisfies never;
     }
   }));
 }
@@ -791,10 +785,8 @@ export function matchStaticSquadState(
           );
         }
       }
-      default: {
-        const _exhaustiveCheck: never = entry;
-        return _exhaustiveCheck;
-      }
+      default:
+        return entry satisfies never;
       }
     });
   }
@@ -810,22 +802,26 @@ export function matchEnemyState(
 
   const enemyState = state.enemy;
   const values = Object.values(enemies);
-  const matchUnit =
-    !('unit' in enemyState) || values.every(({ type }) => type === enemyState.unit);
+  if (EffectActivationState.Unit in enemyState) {
+    return (
+      values.length === enemyState.num_of_units.equal &&
+      values.every(({ type }) => type === enemyState.unit)
+    );
+  } else {
+    const cond = enemyState.num_of_units;
+    const count = 'unit' in cond ?
+      values.filter(({ type, role }) => type === cond.unit || role === cond.unit).length :
+      values.length;
 
-  const cond = enemyState.num_of_units;
-  const count = 'unit' in cond ?
-    values.filter(({ type }) => type === cond.unit).length :
-    values.length;
-
-  return matchUnit && (
-    'equal' in cond ? cond.equal === count :
-      'less_or_equal' in cond ?
-        'greater_or_equal' in cond ?
-          cond.greater_or_equal <= count && count <= cond.less_or_equal :
-          count <= cond.less_or_equal :
-        cond.greater_or_equal <= count
-  );
+    return (
+      'equal' in cond ? cond.equal === count :
+        'less_or_equal' in cond ?
+          'greater_or_equal' in cond ?
+            cond.greater_or_equal <= count && count <= cond.less_or_equal :
+            count <= cond.less_or_equal :
+          cond.greater_or_equal <= count
+    );
+  }
 }
 
 function matchEquippedUnit(state: NonNullable<EquipmentEffectActivationState['unit']>, unit: UnitBasicInfo): boolean {

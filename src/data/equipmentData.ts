@@ -1309,6 +1309,26 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }]
     ]
   },
+  riot_os: {
+    type: 'os',
+    id: 'riot_os',
+    exclusive: {
+      unit: 214
+    },
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 20000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 21000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 21000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 22000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 22000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 23000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 23000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 24000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 24000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 25000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 25000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 26000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 26000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 27000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 27000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 28000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 28000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 29000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 29000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 30000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 30000, term: 'infinite' } } }]
+    ]
+  },
   runaway_inducement_os: {
     type: 'os',
     id: 'runaway_inducement_os',
@@ -1578,6 +1598,26 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave', state: { unit: { kind: 'ags' } } }, details: { atk_up: { milliPercentage: { ss: 25000, s: 23000, a: 21500, b: 20000 }, term: 'infinite' }, spd_up: { milliPercentage: { ss: 15000, s: 13000, a: 11500, b: 10000 }, term: 'infinite' }, acc_down: { milliPercentage: { ss: 10000, s: 11500, a: 13000, b: 14500 }, term: 'infinite' } } }]
     ]
   },
+  particle_accelerator_capacity: {
+    type: 'gear',
+    id: 'particle_accelerator_capacity',
+    exclusive: {
+      role: 'defender'
+    },
+    status_effects: [
+      { hp_up: { value:  400 } },
+      { hp_up: { value:  480 } },
+      { hp_up: { value:  560 } },
+      { hp_up: { value:  640 } },
+      { hp_up: { value:  720 } },
+      { hp_up: { value:  800 } },
+      { hp_up: { value:  880 } },
+      { hp_up: { value:  960 } },
+      { hp_up: { value: 1040 } },
+      { hp_up: { value: 1120 } },
+      { hp_up: { value: 1200 } }
+    ]
+  },
   particle_accelerator_force: {
     type: 'gear',
     id: 'particle_accelerator_force',
@@ -1598,13 +1638,6 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 35000, term: { for_rounds: 1 } }, damage_taken_increased: { milliPercentage: 20000, term: { for_rounds: 1 } } } }]
     ]
   },
-  // particle_accelerator_capacity: {
-  //   type: 'gear',
-  //   id: 'particle_accelerator_capacity',
-  //   exclusive: {
-  //     role: 'defender'
-  //   }
-  // },
   light_firearm_loader: {
     type: 'gear',
     id: 'light_firearm_loader',
@@ -3210,39 +3243,6 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { defense_penetration: { milliPercentage: 50000, term: { for_rounds: 1 } }, action_count_up: { term: { for_rounds: 1 } }, range_up_active_1: { value: 2, term: { for_rounds: 1 } } } }]
     ]
   },
-  counterterrorism_body_armor: {
-    type: 'gear',
-    id: 'counterterrorism_body_armor',
-    exclusive: {
-      unit: 84
-    },
-    status_effects: [
-      { hp_up: { value: 400 }, def_up: { milliValue:  50000 }, spd_up: { microValue: 120000 } },
-      { hp_up: { value: 440 }, def_up: { milliValue:  52500 }, spd_up: { microValue: 132000 } },
-      { hp_up: { value: 480 }, def_up: { milliValue:  55000 }, spd_up: { microValue: 144000 } },
-      { hp_up: { value: 520 }, def_up: { milliValue:  60000 }, spd_up: { microValue: 156000 } },
-      { hp_up: { value: 560 }, def_up: { milliValue:  67500 }, spd_up: { microValue: 168000 } },
-      { hp_up: { value: 600 }, def_up: { milliValue:  77500 }, spd_up: { microValue: 180000 } },
-      { hp_up: { value: 640 }, def_up: { milliValue:  85000 }, spd_up: { microValue: 192000 } },
-      { hp_up: { value: 680 }, def_up: { milliValue: 100000 }, spd_up: { microValue: 204000 } },
-      { hp_up: { value: 720 }, def_up: { milliValue: 120000 }, spd_up: { microValue: 216000 } },
-      { hp_up: { value: 760 }, def_up: { milliValue: 145000 }, spd_up: { microValue: 228000 } },
-      { hp_up: { value: 800 }, def_up: { milliValue: 175000 }, spd_up: { microValue: 240000 } }
-    ],
-    equipment_effects: [
-      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 15000, term: 'infinite' }, ice_resist_up: { milliPercentage: 15000, term: 'infinite' }, electric_resist_up: { milliPercentage: 15000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 25000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 17000, term: 'infinite' }, ice_resist_up: { milliPercentage: 17000, term: 'infinite' }, electric_resist_up: { milliPercentage: 17000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 27000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 19000, term: 'infinite' }, ice_resist_up: { milliPercentage: 19000, term: 'infinite' }, electric_resist_up: { milliPercentage: 19000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 29000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 21000, term: 'infinite' }, ice_resist_up: { milliPercentage: 21000, term: 'infinite' }, electric_resist_up: { milliPercentage: 21000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 31000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 23000, term: 'infinite' }, ice_resist_up: { milliPercentage: 23000, term: 'infinite' }, electric_resist_up: { milliPercentage: 23000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 33000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 25000, term: 'infinite' }, ice_resist_up: { milliPercentage: 25000, term: 'infinite' }, electric_resist_up: { milliPercentage: 25000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 35000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 27000, term: 'infinite' }, ice_resist_up: { milliPercentage: 27000, term: 'infinite' }, electric_resist_up: { milliPercentage: 27000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 37000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 29000, term: 'infinite' }, ice_resist_up: { milliPercentage: 29000, term: 'infinite' }, electric_resist_up: { milliPercentage: 29000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 39000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 31000, term: 'infinite' }, ice_resist_up: { milliPercentage: 31000, term: 'infinite' }, electric_resist_up: { milliPercentage: 31000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 41000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 33000, term: 'infinite' }, ice_resist_up: { milliPercentage: 33000, term: 'infinite' }, electric_resist_up: { milliPercentage: 33000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 43000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
-      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 35000, term: 'infinite' }, ice_resist_up: { milliPercentage: 35000, term: 'infinite' }, electric_resist_up: { milliPercentage: 35000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 45000, term: 'infinite' }, row_protect: { term: 'infinite' } } }]
-    ]
-  },
   chop_maker_ii: {
     type: 'gear',
     id: 'chop_maker_ii',
@@ -3307,6 +3307,59 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
       [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }],
       [{ condition: { trigger: 'start_wave' }, details: { reconnaissance: { term: 'infinite' } } }]
+    ]
+  },
+  counterterrorism_body_armor: {
+    type: 'gear',
+    id: 'counterterrorism_body_armor',
+    exclusive: {
+      unit: 84
+    },
+    status_effects: [
+      { hp_up: { value: 400 }, def_up: { milliValue:  50000 }, spd_up: { microValue: 120000 } },
+      { hp_up: { value: 440 }, def_up: { milliValue:  52500 }, spd_up: { microValue: 132000 } },
+      { hp_up: { value: 480 }, def_up: { milliValue:  55000 }, spd_up: { microValue: 144000 } },
+      { hp_up: { value: 520 }, def_up: { milliValue:  60000 }, spd_up: { microValue: 156000 } },
+      { hp_up: { value: 560 }, def_up: { milliValue:  67500 }, spd_up: { microValue: 168000 } },
+      { hp_up: { value: 600 }, def_up: { milliValue:  77500 }, spd_up: { microValue: 180000 } },
+      { hp_up: { value: 640 }, def_up: { milliValue:  85000 }, spd_up: { microValue: 192000 } },
+      { hp_up: { value: 680 }, def_up: { milliValue: 100000 }, spd_up: { microValue: 204000 } },
+      { hp_up: { value: 720 }, def_up: { milliValue: 120000 }, spd_up: { microValue: 216000 } },
+      { hp_up: { value: 760 }, def_up: { milliValue: 145000 }, spd_up: { microValue: 228000 } },
+      { hp_up: { value: 800 }, def_up: { milliValue: 175000 }, spd_up: { microValue: 240000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 15000, term: 'infinite' }, ice_resist_up: { milliPercentage: 15000, term: 'infinite' }, electric_resist_up: { milliPercentage: 15000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 25000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 17000, term: 'infinite' }, ice_resist_up: { milliPercentage: 17000, term: 'infinite' }, electric_resist_up: { milliPercentage: 17000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 27000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 19000, term: 'infinite' }, ice_resist_up: { milliPercentage: 19000, term: 'infinite' }, electric_resist_up: { milliPercentage: 19000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 29000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 21000, term: 'infinite' }, ice_resist_up: { milliPercentage: 21000, term: 'infinite' }, electric_resist_up: { milliPercentage: 21000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 31000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 23000, term: 'infinite' }, ice_resist_up: { milliPercentage: 23000, term: 'infinite' }, electric_resist_up: { milliPercentage: 23000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 33000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 25000, term: 'infinite' }, ice_resist_up: { milliPercentage: 25000, term: 'infinite' }, electric_resist_up: { milliPercentage: 25000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 35000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 27000, term: 'infinite' }, ice_resist_up: { milliPercentage: 27000, term: 'infinite' }, electric_resist_up: { milliPercentage: 27000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 37000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 29000, term: 'infinite' }, ice_resist_up: { milliPercentage: 29000, term: 'infinite' }, electric_resist_up: { milliPercentage: 29000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 39000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 31000, term: 'infinite' }, ice_resist_up: { milliPercentage: 31000, term: 'infinite' }, electric_resist_up: { milliPercentage: 31000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 41000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 33000, term: 'infinite' }, ice_resist_up: { milliPercentage: 33000, term: 'infinite' }, electric_resist_up: { milliPercentage: 33000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 43000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 35000, term: 'infinite' }, ice_resist_up: { milliPercentage: 35000, term: 'infinite' }, electric_resist_up: { milliPercentage: 35000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 45000, term: 'infinite' }, row_protect: { term: 'infinite' } } }]
+    ]
+  },
+  cupping: {
+    type: 'gear',
+    id: 'cupping',
+    exclusive: {
+      unit: 212
+    },
+    status_effects: [
+      { atk_up: { milliValue:  50000 } },
+      { atk_up: { milliValue:  55000 } },
+      { atk_up: { milliValue:  60000 } },
+      { atk_up: { milliValue:  65000 } },
+      { atk_up: { milliValue:  70000 } },
+      { atk_up: { milliValue:  75000 } },
+      { atk_up: { milliValue:  80000 } },
+      { atk_up: { milliValue:  85000 } },
+      { atk_up: { milliValue:  90000 } },
+      { atk_up: { milliValue:  95000 } },
+      { atk_up: { milliValue: 100000 } }
     ]
   },
   dust_storm: {

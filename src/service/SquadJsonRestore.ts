@@ -306,7 +306,7 @@ export function restoreFromJsonObject(json: unknown): RestoredSquad | undefined 
     coreLink.push(unitCoreLink);
     skill.push(unitSkill);
     primary.push(primarySkill);
-    unitAffection && affection.push(unitAffection);
+    if (unitAffection) { affection.push(unitAffection); }
     damaged.push(unitDamaged);
   }
 
