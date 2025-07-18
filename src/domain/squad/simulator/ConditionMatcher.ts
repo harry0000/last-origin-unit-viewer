@@ -802,22 +802,26 @@ export function matchEnemyState(
 
   const enemyState = state.enemy;
   const values = Object.values(enemies);
-  const matchUnit =
-    !('unit' in enemyState) || values.every(({ type }) => type === enemyState.unit);
+  if (EffectActivationState.Unit in enemyState) {
+    return (
+      values.length === enemyState.num_of_units.equal &&
+      values.every(({ type }) => type === enemyState.unit)
+    );
+  } else {
+    const cond = enemyState.num_of_units;
+    const count = 'unit' in cond ?
+      values.filter(({ type, role }) => type === cond.unit || role === cond.unit).length :
+      values.length;
 
-  const cond = enemyState.num_of_units;
-  const count = 'unit' in cond ?
-    values.filter(({ type }) => type === cond.unit).length :
-    values.length;
-
-  return matchUnit && (
-    'equal' in cond ? cond.equal === count :
-      'less_or_equal' in cond ?
-        'greater_or_equal' in cond ?
-          cond.greater_or_equal <= count && count <= cond.less_or_equal :
-          count <= cond.less_or_equal :
-        cond.greater_or_equal <= count
-  );
+    return (
+      'equal' in cond ? cond.equal === count :
+        'less_or_equal' in cond ?
+          'greater_or_equal' in cond ?
+            cond.greater_or_equal <= count && count <= cond.less_or_equal :
+            count <= cond.less_or_equal :
+          cond.greater_or_equal <= count
+    );
+  }
 }
 
 function matchEquippedUnit(state: NonNullable<EquipmentEffectActivationState['unit']>, unit: UnitBasicInfo): boolean {

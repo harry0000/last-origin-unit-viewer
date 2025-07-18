@@ -19823,7 +19823,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: { self: { light_type_damage_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'start_wave', state: { squad: { num_of_units: { unit: 'light', equal: 4 } } } }],
+        conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { unit: 'light', greater_or_equal: 4 } } } }],
         details: { self: { ap_up: { base: { microValue: 2000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
       }]
     }, {
