@@ -106,10 +106,8 @@ function matchTargetCondition(
       case UnitRole.Defender:
       case UnitRole.Supporter:
         return target.role === cond;
-      default: {
-        const _exhaustiveCheck: never = cond;
-        return _exhaustiveCheck;
-      }
+      default:
+        return cond satisfies never;
       }
     }
   }
@@ -228,10 +226,8 @@ function getSquadUnitMatcher(
       }
       case ArmoredBulgasari:
         return isArmoredBulgasari;
-      default: {
-        const _exhaustiveCheck: never = cond;
-        return _exhaustiveCheck;
-      }
+      default:
+        return cond satisfies never;
       }
     }
   } else if (isFormedLeona(cond)) {
@@ -342,10 +338,8 @@ function onGridPosition(...[
     return BackLine.has(position);
   case GridState.AreaOfEffect:
     return area.has(position);
-  default: {
-    const _exhaustiveCheck: never = grid;
-    return _exhaustiveCheck;
-  }
+  default:
+    return grid satisfies never;
   }
 }
 
@@ -645,10 +639,8 @@ export function matchAffectedState(
     case TaggedAffected:    return !(key in s) || !!s.tagged_affected     && matchTaggedAffected(s.tagged_affected, affected);
     case NotTaggedAffected: return !(key in s) || !!s.not_tagged_affected && !matchTaggedAffected(s.not_tagged_affected, affected);
     case Stack:             return !(key in s) || !!s.stack               && matchTagStack(s.stack, affected);
-    default: {
-      const _exhaustiveCheck: never = key;
-      return _exhaustiveCheck;
-    }
+    default:
+      return key satisfies never;
     }
   }));
 }
@@ -793,10 +785,8 @@ export function matchStaticSquadState(
           );
         }
       }
-      default: {
-        const _exhaustiveCheck: never = entry;
-        return _exhaustiveCheck;
-      }
+      default:
+        return entry satisfies never;
       }
     });
   }

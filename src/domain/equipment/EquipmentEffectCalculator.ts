@@ -48,10 +48,8 @@ function calculateStatusEffects<R extends EquipmentRank, D extends StatusEffectD
       case Effect.SpdUp:
       case Effect.SpdDown:
         return { ...acc, [entry[0]]: toMicroValue(rank, entry[1]) };
-      default: {
-        const _exhaustiveCheck: never = entry;
-        return _exhaustiveCheck;
-      }
+      default:
+        return entry satisfies never;
       }
     }, {});
 }

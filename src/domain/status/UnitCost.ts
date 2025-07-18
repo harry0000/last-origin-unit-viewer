@@ -298,10 +298,8 @@ class RankUpUnitCostResolver<N extends RankUpUnitNumber> {
       case 225: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 227: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
       case 255: return agsCost[currentRank as AvailableUnitRank<typeof unit.no>][unit.type][unit.role];
-      default: {
-        const _exhaustiveCheck: never = unit;
-        return _exhaustiveCheck;
-      }
+      default:
+        return unit satisfies never;
       }
     }
   }

@@ -165,10 +165,8 @@ function translateDetail(entry: Entry<EquipmentEffectValue>, t: TFunction): stri
       t
     );
   }
-  default: {
-    const _exhaustiveCheck: never = entry;
-    return _exhaustiveCheck;
-  }
+  default:
+    return entry satisfies never;
   }
 }
 
