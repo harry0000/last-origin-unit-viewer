@@ -457,7 +457,7 @@ export type ActivationEnemyState = {
     { greater_or_equal: 5, less_or_equal: 6 } |
     { greater_or_equal: 1, unit: typeof UnitType.Flying } |
     { greater_or_equal: 3, unit: typeof UnitType.Heavy } |
-    { greater_or_equal: 4, unit: typeof UnitType.Light } |
+    { greater_or_equal: 4, unit: typeof UnitType.Light | typeof UnitType.Heavy } |
     { greater_or_equal: 4 | 5 | 6 | 7 } |
     { less_or_equal: 3 }
 } | {

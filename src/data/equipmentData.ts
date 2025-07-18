@@ -1309,6 +1309,26 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, flying_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }]
     ]
   },
+  riot_os: {
+    type: 'os',
+    id: 'riot_os',
+    exclusive: {
+      unit: 214
+    },
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 20000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 20000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 21000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 21000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 22000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 22000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 23000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 23000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 24000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 24000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 25000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 25000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 26000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 26000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 27000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 27000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 28000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 28000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 29000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 29000, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { light_type_damage_up: { milliPercentage: 30000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 30000, term: 'infinite' } } }]
+    ]
+  },
   runaway_inducement_os: {
     type: 'os',
     id: 'runaway_inducement_os',
@@ -1578,6 +1598,26 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave', state: { unit: { kind: 'ags' } } }, details: { atk_up: { milliPercentage: { ss: 25000, s: 23000, a: 21500, b: 20000 }, term: 'infinite' }, spd_up: { milliPercentage: { ss: 15000, s: 13000, a: 11500, b: 10000 }, term: 'infinite' }, acc_down: { milliPercentage: { ss: 10000, s: 11500, a: 13000, b: 14500 }, term: 'infinite' } } }]
     ]
   },
+  particle_accelerator_capacity: {
+    type: 'gear',
+    id: 'particle_accelerator_capacity',
+    exclusive: {
+      role: 'defender'
+    },
+    status_effects: [
+      { hp_up: { value:  400 } },
+      { hp_up: { value:  480 } },
+      { hp_up: { value:  560 } },
+      { hp_up: { value:  640 } },
+      { hp_up: { value:  720 } },
+      { hp_up: { value:  800 } },
+      { hp_up: { value:  880 } },
+      { hp_up: { value:  960 } },
+      { hp_up: { value: 1040 } },
+      { hp_up: { value: 1120 } },
+      { hp_up: { value: 1200 } }
+    ]
+  },
   particle_accelerator_force: {
     type: 'gear',
     id: 'particle_accelerator_force',
@@ -1598,13 +1638,6 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_round' }, details: { atk_up: { milliPercentage: 35000, term: { for_rounds: 1 } }, damage_taken_increased: { milliPercentage: 20000, term: { for_rounds: 1 } } } }]
     ]
   },
-  // particle_accelerator_capacity: {
-  //   type: 'gear',
-  //   id: 'particle_accelerator_capacity',
-  //   exclusive: {
-  //     role: 'defender'
-  //   }
-  // },
   light_firearm_loader: {
     type: 'gear',
     id: 'light_firearm_loader',
@@ -3307,6 +3340,26 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 31000, term: 'infinite' }, ice_resist_up: { milliPercentage: 31000, term: 'infinite' }, electric_resist_up: { milliPercentage: 31000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 41000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
       [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 33000, term: 'infinite' }, ice_resist_up: { milliPercentage: 33000, term: 'infinite' }, electric_resist_up: { milliPercentage: 33000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 43000, term: 'infinite' }, row_protect: { term: 'infinite' } } }],
       [{ condition: { trigger: 'start_wave' }, details: { fire_resist_up: { milliPercentage: 35000, term: 'infinite' }, ice_resist_up: { milliPercentage: 35000, term: 'infinite' }, electric_resist_up: { milliPercentage: 35000, term: 'infinite' }, damage_reduction_up: { milliPercentage: 45000, term: 'infinite' }, row_protect: { term: 'infinite' } } }]
+    ]
+  },
+  cupping: {
+    type: 'gear',
+    id: 'cupping',
+    exclusive: {
+      unit: 212
+    },
+    status_effects: [
+      { atk_up: { milliValue:  50000 } },
+      { atk_up: { milliValue:  55000 } },
+      { atk_up: { milliValue:  60000 } },
+      { atk_up: { milliValue:  65000 } },
+      { atk_up: { milliValue:  70000 } },
+      { atk_up: { milliValue:  75000 } },
+      { atk_up: { milliValue:  80000 } },
+      { atk_up: { milliValue:  85000 } },
+      { atk_up: { milliValue:  90000 } },
+      { atk_up: { milliValue:  95000 } },
+      { atk_up: { milliValue: 100000 } }
     ]
   },
   dust_storm: {

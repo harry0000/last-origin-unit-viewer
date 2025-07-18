@@ -19734,7 +19734,7 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: { self: { status_resist_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 1 } } } }
       }, {
-        conditions: [{ trigger: 'idle' }],
+        conditions: [{ trigger: 'idle', state: { self: [{ not_tagged: 'alternate_power_source' }] } }],
         details: { self: { tag_stack: { tag: 'alternate_power_source', term: 'infinite', cannot_be_dispelled: true } } }
       }, {
         conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'alternate_power_source' }] } }],
@@ -19746,6 +19746,9 @@ export const unitSkillData: UnitSkillData = {
           },
           target: { effect_removal: { effect: 'damage_reduction_up', term: 'immediate' } }
         }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { self: [{ equipped: 'cupping' }] } }],
+        details: { self: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite', cannot_be_dispelled: true } } }
       }]
     }, {
       area: 'self',
@@ -19825,6 +19828,12 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_wave', state: { enemy: { num_of_units: { unit: 'light', greater_or_equal: 4 } } } }],
         details: { self: { ap_up: { base: { microValue: 2000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'riot_os' }] } }],
+        details: { self: { heavy_type_damage_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { self: [{ equipped: 'riot_os' }], enemy: { num_of_units: { unit: 'heavy', greater_or_equal: 4 } } } }],
+        details: { self: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
       }]
     }, {
       area: 'fixed_all',
