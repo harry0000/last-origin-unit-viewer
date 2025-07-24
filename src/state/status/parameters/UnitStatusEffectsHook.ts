@@ -250,7 +250,7 @@ function coreLinkBonusEffects(
   case 'atk': {
     const bonus = useRecoilValue(coreLinkBonusEffectsState(unit));
     const value = useRecoilValue(atkCoreLinkBonusValueState(unit));
-    return bonus && value.milliValue ?
+    return bonus && 'atk_up' in bonus && value.milliValue ?
       [{
         key: 'core_link_bonus',
         affected: t('status.affected.core_link_multiplier_bonus', { value: calcMilliPercentageValue(bonus.atk_up) }),

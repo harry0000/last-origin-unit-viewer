@@ -380,6 +380,7 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 type NotInSquadStateUnit =
   63 | 80 | 82 | 110 | 127 | 199 | 252 | 301 |
   typeof UnitKind.AGS |
+  typeof UnitType.Light |
   UnitRole |
   typeof UnitAlias['SteelLine' | 'AACannonier' | 'SkyKnights' | 'Kunoichi' | 'OrbitalWatcher' | 'Mermaid'] |
   typeof SkillAreaType.CrossAdjacent |
@@ -434,8 +435,10 @@ export type NumOfUnitsInSquadState = {
     { unit: 'ally', greater_or_equal: 1 | 2 } |
     { unit: 'ally', less_or_equal: 3 } |
     { unit: 'ally', equal: 4 } |
-    { unit: UnitType | UnitRole, greater_or_equal: 1 | 2 | 3 } |
+    { unit: UnitRole, greater_or_equal: 1 | 2 | 3 } |
+    { unit: UnitType, greater_or_equal: 1 | 2 | 3 | 4 } |
     { unit: UnitType, less_or_equal: 1 | 2 } |
+    { unit: UnitType, equal: 2 | 3 } |
     { unit: typeof UnitRole.Attacker, equal: 1 | 2 | 3 | 4 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 2, less_or_equal: 3 } |

@@ -306,6 +306,8 @@
     "smooth": "すべすべ～",
     "beauty_professional": "アクアランドの美容のプロ",
     "alternate_power_source": "動力源交代",
+    "time_of_mourning":  "哀悼の時間",
+    "sun_shower": "狐の嫁入り",
     "tactical_data_link": "戦術データリンク",
     "passive_radar": "パッシブレーダー",
     "command_induction": "指令誘導",
@@ -482,7 +484,8 @@
     "percentage": "{{value}}%の確率で",
     "rate_up_by_level": "スキルLvに応じた一定確率で",
     "constant": "一定確率で",
-    "rarely": "低確率で"
+    "rarely": "低確率で",
+    "ignore_resistance": "効果耐性を無視して"
   },
   "status": {
     "description": {
@@ -542,6 +545,9 @@
       "fixed_fire_damage_over_time": "火炎持続固定ダメージ",
       "fixed_ice_damage_over_time": "冷気持続固定ダメージ",
       "fixed_electric_damage_over_time": "電気持続固定ダメージ",
+      "fire_resist_reverse": "火炎属性耐性反転",
+      "ice_resist_reverse": "冷気属性耐性反転",
+      "electric_resist_reverse": "電気属性耐性反転",
       "light_type_damage_up": "対軽装型与ダメージアップ",
       "light_type_damage_down": "対軽装型与ダメージダウン",
       "heavy_type_damage_up": "対重装型与ダメージアップ",
@@ -641,6 +647,9 @@
       "fixed_fire_damage_over_time": "{{value}}の火炎持続固定ダメージ",
       "fixed_ice_damage_over_time": "{{value}}の冷気持続固定ダメージ",
       "fixed_electric_damage_over_time": "{{value}}の電気持続固定ダメージ",
+      "fire_resist_reverse": "火炎属性耐性反転",
+      "ice_resist_reverse": "冷気属性耐性反転",
+      "electric_resist_reverse": "電気属性耐性反転",
 
       "light_type_damage_up": "対軽装型与ダメージ +{{value}}%",
       "light_type_damage_down": "対軽装型与ダメージ -{{value}}%",

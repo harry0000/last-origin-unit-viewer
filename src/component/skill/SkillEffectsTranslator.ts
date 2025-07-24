@@ -106,6 +106,9 @@ export function translateSkillEffectDetails(
   const term = getTerm(entry[1], t);
 
   switch (entry[0]) {
+  case Effect.FireResistReverse:
+  case Effect.IceResistReverse:
+  case Effect.ElectricResistReverse:
   case Effect.ActionCountUp:
   case Effect.ActionCountDown:
   case Effect.MinimizeDamage:

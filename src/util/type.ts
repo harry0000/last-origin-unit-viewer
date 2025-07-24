@@ -1,3 +1,5 @@
+export type LiteralToNumber<T> = T extends number ? number : T
+
 type MakeSequence<N extends number, I extends unknown[] = [unknown], R = N> =
   N extends I['length'] ?
     R :

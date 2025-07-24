@@ -6,6 +6,9 @@ export type EquipmentEffectOnly =
   typeof Effect['LimitActionCount' | 'RangeUpActive1' | 'RangeDownActive1']
 export type NoValueEffectKey =
   typeof Effect[
+    'FireResistReverse' |
+    'IceResistReverse' |
+    'ElectricResistReverse' |
     'ActionCountUp' |
     'ActionCountDown' |
     'MinimizeDamage' |

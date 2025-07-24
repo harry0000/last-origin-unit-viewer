@@ -220,6 +220,8 @@ export type SkillEffectTag =
   'smooth' |
   'beauty_professional' |
   'alternate_power_source' |
+  'time_of_mourning' |
+  'sun_shower' |
   'tactical_data_link' |
   'passive_radar' |
   'command_induction' |

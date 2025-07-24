@@ -3,6 +3,7 @@ import { IntegerValue, MicroValue, MilliPercentageValue } from './ValueUnit';
 import { UnitNumber } from './UnitBasicInfo';
 
 import { IndexOf, Keyof } from '../util/type';
+import { LiteralToNumberDeep } from '../util/object';
 
 export type CommonCoreLinkBonus = Readonly<{
   [Effect.HpUp]: { [key in keyof MilliPercentageValue]: 20_000 },
@@ -10,9 +11,14 @@ export type CommonCoreLinkBonus = Readonly<{
   [Effect.ExpUp]: { [key in keyof MilliPercentageValue]: 4_000 }
 }>
 
-type GoltarionSpecificCoreLinkBonus = Readonly<{
+type GoltarionLikeSpecificCoreLinkBonus = Readonly<{
   [Effect.CriUp]: { [key in keyof MilliPercentageValue]: 2_000 },
   [Effect.AccUp]: { [key in keyof MilliPercentageValue]: 7_000 }
+}>
+
+type LemonadeBetaSpecificCoreLinkBonus = Readonly<{
+  [Effect.CriUp]: { [key in keyof MilliPercentageValue]: 2_000 },
+  [Effect.SpdUp]: { [key in keyof MicroValue]: 20_000 }
 }>
 
 export type SpecificCoreLinkBonus =
@@ -23,16 +29,39 @@ export type SpecificCoreLinkBonus =
   Readonly<{ [Effect.DefUp]: { [key in keyof MilliPercentageValue]: 3_000 } }> |
   Readonly<{ [Effect.EvaUp]: { [key in keyof MilliPercentageValue]: 2_000 } }> |
   Readonly<{ [Effect.SpdUp]: { [key in keyof MicroValue]: 20_000 } }> |
-  GoltarionSpecificCoreLinkBonus
+  GoltarionLikeSpecificCoreLinkBonus |
+  LemonadeBetaSpecificCoreLinkBonus
 
-// for Goltarion & Cyclops Princess
-type ExceptHpCoreLinkBonus =
+export type CalculatedSpecificCoreLinkBonus = LiteralToNumberDeep<SpecificCoreLinkBonus>;
+
+export function isGoltarionLikeSpecificCoreLinkBonus(
+  arg: SpecificCoreLinkBonus | CalculatedSpecificCoreLinkBonus
+): arg is GoltarionLikeSpecificCoreLinkBonus {
+  return Effect.CriUp in arg && Effect.AccUp in arg;
+}
+
+export function isLemonadeBetaSpecificCoreLinkBonus(
+  arg: SpecificCoreLinkBonus | CalculatedSpecificCoreLinkBonus
+): arg is LemonadeBetaSpecificCoreLinkBonus {
+  return Effect.CriUp in arg && Effect.SpdUp in arg;
+}
+
+type GoltarionLikeCoreLinkBonus =
   Readonly<{
     [key in keyof Omit<CommonCoreLinkBonus, typeof Effect.HpUp>]: MilliPercentageValue
   }> &
   Readonly<{
     [Effect.CriUp]: MilliPercentageValue,
     [Effect.AccUp]: MilliPercentageValue
+  }>
+
+type LemonadeBetaCoreLinkBonus =
+  Readonly<{
+    [key in keyof Omit<CommonCoreLinkBonus, typeof Effect.AtkUp>]: MilliPercentageValue
+  }> &
+  Readonly<{
+    [Effect.CriUp]: MilliPercentageValue,
+    [Effect.SpdUp]: MicroValue
   }>
 
 export type CoreLinkBonus =
@@ -45,7 +74,8 @@ export type CoreLinkBonus =
     Readonly<{ [Effect.EvaUp]: MilliPercentageValue }> |
     Readonly<{ [Effect.SpdUp]: MicroValue }>
   ) |
-  ExceptHpCoreLinkBonus
+  GoltarionLikeCoreLinkBonus |
+  LemonadeBetaCoreLinkBonus
 
 export type SortieCostBonus = Readonly<{
   sortie_cost: { [key in keyof MilliPercentageValue]: 20_000 | 25_000 }

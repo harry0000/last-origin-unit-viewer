@@ -1,3 +1,11 @@
+import { LiteralToNumber } from './type';
+
+export type LiteralToNumberDeep<T> = {
+  [K in keyof T]: T[K] extends object
+    ? LiteralToNumberDeep<T[K]>
+    : LiteralToNumber<T[K]>
+}
+
 export function isRecord(arg: unknown): arg is Record<string | number | symbol, unknown> {
   return !!arg && Object.prototype.toString.call(arg) === '[object Object]';
 }
