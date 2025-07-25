@@ -3137,6 +3137,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 45000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 25000, term: 'infinite' } } }]
     ]
   },
+  beer_can: {
+    type: 'gear',
+    id: 'beer_can',
+    exclusive: {
+      unit: 199
+    },
+    status_effects: [
+      { spd_up: { microValue: 300000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 330000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 360000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 390000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 420000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 450000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 480000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 510000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 540000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 570000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 600000 }, eva_down: { milliPercentage: 1000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }]
+    ]
+  },
   blitz_pile_bunker: {
     type: 'gear',
     id: 'blitz_pile_bunker',
@@ -3360,6 +3393,19 @@ export const equipmentData = {
       { atk_up: { milliValue:  90000 } },
       { atk_up: { milliValue:  95000 } },
       { atk_up: { milliValue: 100000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }]
     ]
   },
   dust_storm: {

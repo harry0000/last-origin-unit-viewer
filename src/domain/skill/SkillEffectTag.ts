@@ -211,6 +211,7 @@ export type SkillEffectTag =
   'caffeine_charged' |
   'nicotine_charged' |
   'unrep' |
+  'shake_shake' |
   'output_increase' |
   'output_limit_release' |
   'you_are_already_my_fan' |

@@ -213,9 +213,10 @@ function calculateEffectDetails<R extends EquipmentRank, E extends EquipmentEffe
       case Effect.DebuffRemoval:
       case Effect.PreventsEffect: {
         const value = entry[1];
+        const tag = 'tag' in value ? { tag: value.tag } : {};
         return 'effect' in value ?
-          { [entry[0]]: { ...calculateAddition(rank, value), effect: value.effect } } :
-          { [entry[0]]: { ...calculateAddition(rank, value), effects: value.effects } };
+          { [entry[0]]: { ...calculateAddition(rank, value), effect: value.effect, ...tag } } :
+          { [entry[0]]: { ...calculateAddition(rank, value), effects: value.effects, ...tag } };
       }
       case Effect.ActivationRatePercentageUp: {
         const { effect, tag } = entry[1];

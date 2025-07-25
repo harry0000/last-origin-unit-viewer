@@ -18634,7 +18634,14 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy', conditions: ['attacker'] },
-        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+        details: {
+          self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } },
+          target: { all_buff_removal: { term: 'immediate' } }
+        }
+      }, {
+        conditions: [{ trigger: 'critical', state: { self: [{ equipped: 'beer_can' }] } }],
+        target: { kind: 'enemy', conditions: ['defender', 'supporter'] },
+        details: { target: { all_buff_removal: { term: 'immediate' } } }
       }]
     }, {
       range: 1,
@@ -19746,9 +19753,6 @@ export const unitSkillData: UnitSkillData = {
           },
           target: { effect_removal: { effect: 'damage_reduction_up', term: 'immediate' } }
         }
-      }, {
-        conditions: [{ trigger: 'start_wave', state: { self: [{ equipped: 'cupping' }] } }],
-        details: { self: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite', cannot_be_dispelled: true } } }
       }]
     }, {
       area: 'self',
