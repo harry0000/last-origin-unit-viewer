@@ -4300,6 +4300,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 2000000, term: 'immediate' }, spd_up: { milliPercentage: 15000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }]
     ]
   },
+  wyatt: {
+    type: 'gear',
+    id: 'wyatt',
+    exclusive: {
+      unit: 43
+    },
+    status_effects: [
+      { acc_up: { milliPercentage:  50000 } },
+      { acc_up: { milliPercentage:  55000 } },
+      { acc_up: { milliPercentage:  60000 } },
+      { acc_up: { milliPercentage:  65000 } },
+      { acc_up: { milliPercentage:  70000 } },
+      { acc_up: { milliPercentage:  75000 } },
+      { acc_up: { milliPercentage:  80000 } },
+      { acc_up: { milliPercentage:  85000 } },
+      { acc_up: { milliPercentage:  90000 } },
+      { acc_up: { milliPercentage:  95000 } },
+      { acc_up: { milliPercentage: 100000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 2, term: 'infinite' } } }]
+    ]
+  },
   smar_stone: {
     type: 'gear',
     id: 'smar_stone',
