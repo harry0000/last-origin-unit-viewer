@@ -525,7 +525,7 @@ export type SkillEffectActivationState = SelfSkillEffectActivationState | Target
 
 export type SkillEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
-  round?: 'odd' | 'even' | { at: 1 | 2 | 3 | 4 } | { from: 2 | 3 | 5 } | { until: 1 | 2 | 3 | 4 }
+  round?: 'odd' | 'even' | { at: 1 | 2 | 3 | 4 } | { from: 2 | 3 | 4 | 5 } | { until: 1 | 2 | 3 | 4 }
 } | {
   trigger: typeof EffectTrigger.HitActive1,
   round?: 'odd'

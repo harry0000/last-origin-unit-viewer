@@ -21133,6 +21133,15 @@ export const unitSkillData: UnitSkillData = {
       }, {
         conditions: [{ trigger: 'start_round', round: { from: 3 }, state: { self: [{ not_equipped: ['boiling_vessel'] }] } }],
         details: { self: { damage_reduction_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { at: 2 }, state: { self: [{ equipped: 'boiling_vessel' }] } }],
+        details: { self: { damage_reduction_up: { base: { milliPercentage: 52000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { at: 3 }, state: { self: [{ equipped: 'boiling_vessel' }] } }],
+        details: { self: { damage_reduction_up: { base: { milliPercentage: 42000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { from: 4 }, state: { self: [{ equipped: 'boiling_vessel' }] } }],
+        details: { self: { damage_reduction_up: { base: { milliPercentage: 32000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
       }]
     }, {
       area: 'all_backward',
