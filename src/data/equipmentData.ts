@@ -3137,6 +3137,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 45000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 25000, term: 'infinite' } } }]
     ]
   },
+  bedroll: {
+    type: 'gear',
+    id: 'bedroll',
+    exclusive: {
+      unit: 63
+    },
+    status_effects: [
+      { spd_up: { microValue: 200000 }, ice_resist_up: { milliPercentage: 25000 } },
+      { spd_up: { microValue: 220000 }, ice_resist_up: { milliPercentage: 27500 } },
+      { spd_up: { microValue: 240000 }, ice_resist_up: { milliPercentage: 30000 } },
+      { spd_up: { microValue: 260000 }, ice_resist_up: { milliPercentage: 32500 } },
+      { spd_up: { microValue: 280000 }, ice_resist_up: { milliPercentage: 35000 } },
+      { spd_up: { microValue: 300000 }, ice_resist_up: { milliPercentage: 37500 } },
+      { spd_up: { microValue: 320000 }, ice_resist_up: { milliPercentage: 40000 } },
+      { spd_up: { microValue: 340000 }, ice_resist_up: { milliPercentage: 42500 } },
+      { spd_up: { microValue: 360000 }, ice_resist_up: { milliPercentage: 45000 } },
+      { spd_up: { microValue: 380000 }, ice_resist_up: { milliPercentage: 47500 } },
+      { spd_up: { microValue: 400000 }, ice_resist_up: { milliPercentage: 50000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 10000, term: { for_rounds: 999 } }, ap_up: { microValue: 1000000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 10500, term: { for_rounds: 999 } }, ap_up: { microValue: 1100000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 11000, term: { for_rounds: 999 } }, ap_up: { microValue: 1200000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 11500, term: { for_rounds: 999 } }, ap_up: { microValue: 1300000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 12000, term: { for_rounds: 999 } }, ap_up: { microValue: 1400000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 12500, term: { for_rounds: 999 } }, ap_up: { microValue: 1500000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 13000, term: { for_rounds: 999 } }, ap_up: { microValue: 1600000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 13500, term: { for_rounds: 999 } }, ap_up: { microValue: 1700000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 14000, term: { for_rounds: 999 } }, ap_up: { microValue: 1800000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 14500, term: { for_rounds: 999 } }, ap_up: { microValue: 1900000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 15000, term: { for_rounds: 999 } }, ap_up: { microValue: 2000000, term: 'immediate' } } }]
+    ]
+  },
   beer_can: {
     type: 'gear',
     id: 'beer_can',

@@ -63,6 +63,7 @@ export type SkillEffectTag =
   'shock_absorption' |
   'slam_fire' |
   'main_armament_assembled_preparation' |
+  'dont_look_for_me' |
   'scoop_discovery' |
   'enhance_output' |
   'battery' |

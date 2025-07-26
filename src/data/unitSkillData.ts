@@ -5474,11 +5474,21 @@ export const unitSkillData: UnitSkillData = {
             }
           }
         }, {
+          conditions: [{ state: { self: [{ not_tagged: 'dont_look_for_me' }] } }],
           target: { kind: 'ally', conditions: [{ type: 'heavy', role: 'attacker' }, 'armored_maiden'] },
           details: {
             target: {
               atk_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
               damage_multiplier_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
+            }
+          }
+        }, {
+          conditions: [{ state: { self: [{ tagged: 'dont_look_for_me' }] } }],
+          target: { kind: 'ally_except_self', conditions: [{ type: 'heavy', role: 'attacker' }, 'armored_maiden'] },
+          details: {
+            target: {
+              atk_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 2 } },
+              damage_multiplier_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 2 } }
             }
           }
         }]
@@ -5518,8 +5528,8 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }, {
-        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'supporter' } } }],
-        target: { kind: 'ally', conditions: [{ type: 'heavy', role: 'attacker' }] },
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'dont_look_for_me' }], squad: { not_in_squad: 'supporter' } } }],
+        target: { kind: 'ally', conditions: ['heavy'] },
         details: {
           target: {
             acc_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
@@ -5527,6 +5537,19 @@ export const unitSkillData: UnitSkillData = {
             ap_up: { base: { microValue: 750000 }, per_lv_up: { microValue: 75000 }, term: 'immediate' }
           }
         }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'dont_look_for_me' }] } }],
+        target: { kind: 'ally_except_self', conditions: ['heavy'] },
+        details: {
+          target: {
+            acc_up: { base: { milliPercentage: 60000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            ap_up: { base: { microValue: 1500000 }, per_lv_up: { microValue: 150000 }, term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { self: [{ equipped: 'bedroll' }], squad: { not_in_squad: 'supporter' } } }],
+        details: { self: { tag_stack: { tag: 'dont_look_for_me', term: 'infinite', cannot_be_dispelled: true } } }
       }]
     }, {
       area: 'self',
@@ -5546,6 +5569,9 @@ export const unitSkillData: UnitSkillData = {
         }
       }, {
         conditions: [{ trigger: 'start_wave', state: { self: [{ equipped: 'armor_penetrating_round' }] } }],
+        details: { self: { form_change: { form: 'main_armament_assembled', term: { for_rounds: 999 } } } }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { self: [{ equipped: 'bedroll' }] } }],
         details: { self: { form_change: { form: 'main_armament_assembled', term: { for_rounds: 999 } } } }
       }]
     }, {
