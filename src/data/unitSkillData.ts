@@ -22018,10 +22018,10 @@ export const unitSkillData: UnitSkillData = {
     passive: [{
       area: 'self',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { self: [{ hp_greater_than: 25 }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ hp_greater_than: 25 }, { equipped: 'stole_of_atonement' }] } }],
         details: { self: { fixed_fire_damage_over_time: { base: { value: 83 }, per_lv_up: { value: 89 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
       }, {
-        conditions: [{ trigger: 'start_round', state: { self: [{ hp_less_or_equal: 25 }] } }],
+        conditions: [{ trigger: 'start_round', state: { self: [{ hp_less_or_equal: 25 }, { equipped: 'stole_of_atonement' }] } }],
         details: { self: { tag_stack: { tag: 'bridle_of_sins', term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
       }]
     }, {
