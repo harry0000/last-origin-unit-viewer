@@ -3137,6 +3137,72 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { defense_penetration: { milliPercentage: 45000, term: 'infinite' }, heavy_type_damage_up: { milliPercentage: 25000, term: 'infinite' } } }]
     ]
   },
+  bedroll: {
+    type: 'gear',
+    id: 'bedroll',
+    exclusive: {
+      unit: 63
+    },
+    status_effects: [
+      { spd_up: { microValue: 200000 }, ice_resist_up: { milliPercentage: 25000 } },
+      { spd_up: { microValue: 220000 }, ice_resist_up: { milliPercentage: 27500 } },
+      { spd_up: { microValue: 240000 }, ice_resist_up: { milliPercentage: 30000 } },
+      { spd_up: { microValue: 260000 }, ice_resist_up: { milliPercentage: 32500 } },
+      { spd_up: { microValue: 280000 }, ice_resist_up: { milliPercentage: 35000 } },
+      { spd_up: { microValue: 300000 }, ice_resist_up: { milliPercentage: 37500 } },
+      { spd_up: { microValue: 320000 }, ice_resist_up: { milliPercentage: 40000 } },
+      { spd_up: { microValue: 340000 }, ice_resist_up: { milliPercentage: 42500 } },
+      { spd_up: { microValue: 360000 }, ice_resist_up: { milliPercentage: 45000 } },
+      { spd_up: { microValue: 380000 }, ice_resist_up: { milliPercentage: 47500 } },
+      { spd_up: { microValue: 400000 }, ice_resist_up: { milliPercentage: 50000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 10000, term: { for_rounds: 999 } }, ap_up: { microValue: 1000000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 10500, term: { for_rounds: 999 } }, ap_up: { microValue: 1100000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 11000, term: { for_rounds: 999 } }, ap_up: { microValue: 1200000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 11500, term: { for_rounds: 999 } }, ap_up: { microValue: 1300000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 12000, term: { for_rounds: 999 } }, ap_up: { microValue: 1400000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 12500, term: { for_rounds: 999 } }, ap_up: { microValue: 1500000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 13000, term: { for_rounds: 999 } }, ap_up: { microValue: 1600000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 13500, term: { for_rounds: 999 } }, ap_up: { microValue: 1700000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 14000, term: { for_rounds: 999 } }, ap_up: { microValue: 1800000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 14500, term: { for_rounds: 999 } }, ap_up: { microValue: 1900000, term: 'immediate' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { spd_up: { milliPercentage: 15000, term: { for_rounds: 999 } }, ap_up: { microValue: 2000000, term: 'immediate' } } }]
+    ]
+  },
+  beer_can: {
+    type: 'gear',
+    id: 'beer_can',
+    exclusive: {
+      unit: 199
+    },
+    status_effects: [
+      { spd_up: { microValue: 300000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 330000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 360000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 390000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 420000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 450000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 480000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 510000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 540000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 570000 }, eva_down: { milliPercentage: 1000 } },
+      { spd_up: { microValue: 600000 }, eva_down: { milliPercentage: 1000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'shake_shake', effect: 'marked', term: 'infinite' } } }]
+    ]
+  },
   blitz_pile_bunker: {
     type: 'gear',
     id: 'blitz_pile_bunker',
@@ -3360,6 +3426,19 @@ export const equipmentData = {
       { atk_up: { milliValue:  90000 } },
       { atk_up: { milliValue:  95000 } },
       { atk_up: { milliValue: 100000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { prevents_effect: { tag: 'alternate_power_source', effect: 'ap_down', term: 'infinite' } } }]
     ]
   },
   dust_storm: {
@@ -4252,6 +4331,39 @@ export const equipmentData = {
       [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1800000, term: 'immediate' }, spd_up: { milliPercentage: 13000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }],
       [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 1900000, term: 'immediate' }, spd_up: { milliPercentage: 14000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }],
       [{ condition: { trigger: 'start_wave' }, details: { ap_up: { microValue: 2000000, term: 'immediate' }, spd_up: { milliPercentage: 15000, term: { for_rounds: 999 } }, reconnaissance: { term: { for_rounds: 999 } } } }]
+    ]
+  },
+  wyatt: {
+    type: 'gear',
+    id: 'wyatt',
+    exclusive: {
+      unit: 43
+    },
+    status_effects: [
+      { acc_up: { milliPercentage:  50000 } },
+      { acc_up: { milliPercentage:  55000 } },
+      { acc_up: { milliPercentage:  60000 } },
+      { acc_up: { milliPercentage:  65000 } },
+      { acc_up: { milliPercentage:  70000 } },
+      { acc_up: { milliPercentage:  75000 } },
+      { acc_up: { milliPercentage:  80000 } },
+      { acc_up: { milliPercentage:  85000 } },
+      { acc_up: { milliPercentage:  90000 } },
+      { acc_up: { milliPercentage:  95000 } },
+      { acc_up: { milliPercentage: 100000 } }
+    ],
+    equipment_effects: [
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 1, term: 'infinite' } } }],
+      [{ condition: { trigger: 'start_wave' }, details: { ignore_protect: { term: 'infinite' }, range_up: { value: 2, term: 'infinite' } } }]
     ]
   },
   smar_stone: {

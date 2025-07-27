@@ -1,12 +1,13 @@
 import {
+  CalculatedSpecificCoreLinkBonus,
   CommonCoreLinkBonus,
   CoreLinkBonus,
-  DamageMultiplierBonus,
   FullLinkBonus,
-  FullLinkBonusIndex
+  FullLinkBonusIndex,
+  isGoltarionLikeSpecificCoreLinkBonus,
+  isLemonadeBetaSpecificCoreLinkBonus
 } from './UnitCoreLinkBonusData';
 import { Effect } from './Effect';
-import { MicroValue, MilliPercentageValue } from './ValueUnit';
 import { UnitLvValue } from './status/UnitLv';
 import { UnitNumber, UnitRank, UnitRole, UnitType } from './UnitBasicInfo';
 
@@ -48,33 +49,27 @@ function calcBonusValue(value: number, rate: number): number {
   return value * rate / 100;
 }
 
-function calcSpecificBonus(linkRate: number, no: UnitNumber):
-  { [key in keyof DamageMultiplierBonus]: MilliPercentageValue } |
-  { [Effect.HpUp]: MilliPercentageValue } |
-  { [Effect.AccUp]: MilliPercentageValue } |
-  { [Effect.CriUp]: MilliPercentageValue } |
-  { [Effect.DefUp]: MilliPercentageValue } |
-  { [Effect.EvaUp]: MilliPercentageValue } |
-  { [Effect.SpdUp]: MicroValue } |
-  {
-    [Effect.AccUp]: MilliPercentageValue,
-    [Effect.CriUp]: MilliPercentageValue
-  }
-{
+function calcSpecificBonus(linkRate: number, no: UnitNumber): CalculatedSpecificCoreLinkBonus {
   const bonus = unitCoreLinkBonusData[no].specific_link_bonus;
-  if ('acc_up' in bonus && 'cri_up' in bonus) {
+  if (isGoltarionLikeSpecificCoreLinkBonus(bonus)) {
     return {
       [Effect.AccUp]: { milliPercentage: calcBonusValue(bonus.acc_up.milliPercentage, linkRate) },
       [Effect.CriUp]: { milliPercentage: calcBonusValue(bonus.cri_up.milliPercentage, linkRate) }
     };
   }
+  if (isLemonadeBetaSpecificCoreLinkBonus(bonus)) {
+    return {
+      [Effect.CriUp]: { milliPercentage: calcBonusValue(bonus.cri_up.milliPercentage, linkRate) },
+      [Effect.SpdUp]: { microValue: calcBonusValue(bonus.spd_up.microValue, linkRate) },
+    };
+  }
 
   if ('damage_multiplier' in bonus) { return { damage_multiplier: { milliPercentage: calcBonusValue(bonus.damage_multiplier.milliPercentage, linkRate) } }; }
-  if ('hp_up' in bonus) { return  { [Effect.HpUp]: { milliPercentage: calcBonusValue(bonus.hp_up.milliPercentage, linkRate) } }; }
-  if ('acc_up' in bonus) { return { [Effect.AccUp]: { milliPercentage: calcBonusValue(bonus.acc_up.milliPercentage, linkRate) } }; }
-  if ('cri_up' in bonus) { return { [Effect.CriUp]: { milliPercentage: calcBonusValue(bonus.cri_up.milliPercentage, linkRate) } }; }
-  if ('def_up' in bonus) { return { [Effect.DefUp]: { milliPercentage: calcBonusValue(bonus.def_up.milliPercentage, linkRate) } }; }
-  if ('eva_up' in bonus) { return { [Effect.EvaUp]: { milliPercentage: calcBonusValue(bonus.eva_up.milliPercentage, linkRate) } }; }
+  if (Effect.HpUp in bonus) { return  { [Effect.HpUp]: { milliPercentage: calcBonusValue(bonus.hp_up.milliPercentage, linkRate) } }; }
+  if (Effect.AccUp in bonus) { return { [Effect.AccUp]: { milliPercentage: calcBonusValue(bonus.acc_up.milliPercentage, linkRate) } }; }
+  if (Effect.CriUp in bonus) { return { [Effect.CriUp]: { milliPercentage: calcBonusValue(bonus.cri_up.milliPercentage, linkRate) } }; }
+  if (Effect.DefUp in bonus) { return { [Effect.DefUp]: { milliPercentage: calcBonusValue(bonus.def_up.milliPercentage, linkRate) } }; }
+  if (Effect.EvaUp in bonus) { return { [Effect.EvaUp]: { milliPercentage: calcBonusValue(bonus.eva_up.milliPercentage, linkRate) } }; }
 
   return { [Effect.SpdUp]: { microValue: calcBonusValue(bonus.spd_up.microValue, linkRate) } };
 }
@@ -86,17 +81,23 @@ function calcBonus(linkRate: number, no: UnitNumber): CoreLinkBonus {
 
   const specific = calcSpecificBonus(linkRate, no);
 
-  if ('hp_up' in specific) {
-    return {
-      [Effect.HpUp]: { milliPercentage: hp + specific.hp_up.milliPercentage },
-      [Effect.AtkUp]: { milliPercentage: atk },
-      [Effect.ExpUp]: { milliPercentage: exp }
-    };
-  } else if ('acc_up' in specific && 'cri_up' in specific) {
+  if (isGoltarionLikeSpecificCoreLinkBonus(specific)) {
     return {
       [Effect.AtkUp]: { milliPercentage: atk },
       [Effect.ExpUp]: { milliPercentage: exp },
       ...specific
+    };
+  } else if (isLemonadeBetaSpecificCoreLinkBonus(specific)) {
+    return {
+      [Effect.HpUp]: { milliPercentage: hp },
+      [Effect.ExpUp]: { milliPercentage: exp },
+      ...specific
+    };
+  } else if (Effect.HpUp in specific) {
+    return {
+      [Effect.HpUp]: { milliPercentage: hp + specific.hp_up.milliPercentage },
+      [Effect.AtkUp]: { milliPercentage: atk },
+      [Effect.ExpUp]: { milliPercentage: exp }
     };
   } else {
     return {

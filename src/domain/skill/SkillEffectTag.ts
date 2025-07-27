@@ -63,6 +63,7 @@ export type SkillEffectTag =
   'shock_absorption' |
   'slam_fire' |
   'main_armament_assembled_preparation' |
+  'dont_look_for_me' |
   'scoop_discovery' |
   'enhance_output' |
   'battery' |
@@ -211,6 +212,7 @@ export type SkillEffectTag =
   'caffeine_charged' |
   'nicotine_charged' |
   'unrep' |
+  'shake_shake' |
   'output_increase' |
   'output_limit_release' |
   'you_are_already_my_fan' |
@@ -220,6 +222,8 @@ export type SkillEffectTag =
   'smooth' |
   'beauty_professional' |
   'alternate_power_source' |
+  'time_of_mourning' |
+  'sun_shower' |
   'tactical_data_link' |
   'passive_radar' |
   'command_induction' |

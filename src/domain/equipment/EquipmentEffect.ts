@@ -110,7 +110,7 @@ export type EquipmentEffectValue = Readonly<{
     E extends typeof Effect.DamageMultiplierUpByStatus ?
       Readonly<{ status: 'def' }> & MilliPercentageValue & EquipmentEffectAddition :
     E extends typeof Effect['BuffRemoval' | 'DebuffRemoval' | 'PreventsEffect'] ?
-      Readonly<{ effect: Effect } | { effects: ReadonlyArray<Effect> }> & EquipmentEffectAddition :
+      Readonly<{ effect: Effect } | { effects: ReadonlyArray<Effect> }> & EquipmentEffectAddition & Readonly<{ tag?: SkillEffectTag }> :
     E extends typeof Effect.ActivationRatePercentageUp ?
       Readonly<{ effect: Effect, tag: SkillEffectTag }> & MilliPercentageValue & EquipmentEffectAddition :
     E extends RangeValueEffectKey ?
