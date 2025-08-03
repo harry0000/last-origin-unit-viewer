@@ -15587,6 +15587,128 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  157: {
+    no: 157,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 198000 },
+        per_lv_up: { milliPercentage: 17000 },
+        attribute: 'electric'
+      },
+      range: 3,
+      cost: 6,
+      area: 'single',
+      effects: [{
+        details: { self: { merciless: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            fire_resist_down: { tag: 'overheat', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } },
+            ice_resist_up: { tag: 'overheat', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } },
+            electric_resist_down: { tag: 'overheat', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 166000 },
+        per_lv_up: { milliPercentage: 15000 },
+        attribute: 'electric'
+      },
+      range: 4,
+      cost: 10,
+      area: 'cross_small_explosion',
+      effects: [{
+        conditions: [{ trigger: 'hit', state: { target: [{ not_tagged: 'overheat' }] } }],
+        scale_factor: { per_units: { type: 'target', unit: 'cross_adjacent' } },
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ tagged: 'overheat' }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ num_of_units: { unit: 'cross_adjacent', greater_or_equal: 2 } }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { all_buff_removal:{ term: 'immediate' } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', round: { at: 1 } }],
+        details: { self: { ap_up: { base: { microValue: 3000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { at: 2 } }],
+        details: { self: { ap_up: { base: { microValue: 2000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { at: 3 } }],
+        details: { self: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', round: { from: 4 } }],
+        details: { self: { ap_up: { microValue: 500000, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ hp_greater_or_equal: 75 }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { status_resist_down: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [
+          { trigger: 'start_round', round: 'odd' },
+          { trigger: 'start_round', round: 'even', state: { self: [{ tagged: 'this_is_my_power' }] } },
+        ],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            damage_reduction_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [
+          { trigger: 'start_round', round: 'even' },
+          { trigger: 'start_round', round: 'odd', state: { self: [{ tagged: 'this_is_my_power' }] } },
+        ],
+        target: { kind: 'enemy', conditions: ['attacker'] },
+        details: {
+          target: {
+            atk_down: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            damage_taken_increased: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'kill' }],
+        details: { self: { tag_stack: { tag: 'this_is_my_power', term: { for_rounds: 2 }, max_stack: 1, cannot_be_dispelled: true } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ affected: 'follow_up_attack' }] } }],
+        details: { self: { ignore_protect: { term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['mythical_dog'] },
+        details: {
+          target: {
+            range_up: { value: 1, term: { for_rounds: 1 } },
+            row_protect: { term: { for_rounds: 1 } },
+            column_protect: { term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }]
+  },
   161: {
     no: 161,
     active: [{

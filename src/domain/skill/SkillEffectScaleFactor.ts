@@ -57,6 +57,11 @@ export type SkillEffectScaleFactor =
     }
   } | {
     per_units: {
+      type: 'target',
+      unit: typeof SkillAreaType.CrossAdjacent
+    }
+  } | {
+    per_units: {
       type: 'enemy',
       variation: VariationType,
       unit?: UnitType
