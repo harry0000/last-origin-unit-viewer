@@ -171,7 +171,7 @@ function restoreCoreLink(unit: UnitNumber, [slot1, slot2, slot3, slot4, slot5, f
     case 75:  return linkUnits[1];
     case 60:  return linkUnits[2];
     case 45:  return linkUnits[3];
-    default:  return {} as never;
+    default:  return rate satisfies never;
     }
   }
 

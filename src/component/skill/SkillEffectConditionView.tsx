@@ -149,10 +149,8 @@ function stateValuesView(
     return (<span>{t(`effect:condition.state.${entry[0]}`, { grid: entry[1] })}</span>);
   case EffectActivationState.Unit:
     return unitStateView(entry[0], entry[1], unitNumber, t);
-  default: {
-    const _exhaustiveCheck: never = entry;
-    return _exhaustiveCheck;
-  }
+  default:
+    return entry satisfies never;
   }
 }
 
@@ -455,10 +453,8 @@ const SquadStateView: React.FC<{
                 );
               }
             }
-            default: {
-              const _exhaustiveCheck: never = entry;
-              return _exhaustiveCheck;
-            }
+            default:
+              return entry satisfies never;
             }
           })
         }
