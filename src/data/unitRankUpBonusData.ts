@@ -796,21 +796,33 @@ export const unitRankUpBonusData = {
     }
   },
   102: {
-    // FIXME: Add rank up bonus data when bug fixed in game
     ss: {
-      hp_up: { value: 0 },
-      atk_up: { milliValue: 0 }
+      hp_up: { value: 150 },
+      atk_up: { milliValue: 40000 },
+      def_up: { milliValue: 170000 },
+      cri_up: { milliPercentage: 5000 },
+      acc_up: { milliPercentage: 11000 },
+      spd_up: { microValue: 50000 }
     }
   },
   103: {
-    // FIXME: Add rank up bonus data when bug fixed in game
     s: {
-      hp_up: { value: 0 },
-      atk_up: { milliValue: 0 }
+      hp_up: { value: 70 },
+      atk_up: { milliValue: 50000 },
+      def_up: { milliValue: 10000 },
+      cri_up: { milliPercentage: 10000 },
+      acc_up: { milliPercentage: 2000 },
+      eva_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 20000 }
     },
     ss: {
-      hp_up: { value: 0 },
-      atk_up: { milliValue: 0 }
+      hp_up: { value: 70 },
+      atk_up: { milliValue: 50000 },
+      def_up: { milliValue: 10000 },
+      cri_up: { milliPercentage: 5000 },
+      acc_up: { milliPercentage: 3000 },
+      eva_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 50000 }
     }
   },
   104: {
@@ -1494,14 +1506,21 @@ export const unitRankUpBonusData = {
     }
   },
   235: {
-    // FIXME: Add rank up bonus data when bug fixed in game
     s: {
-      hp_up: { value: 0 },
-      atk_up: { milliValue: 0 }
+      hp_up: { value: 50 },
+      atk_up: { milliValue: 80000 },
+      cri_up: { milliPercentage: 2000 },
+      acc_up: { milliPercentage: 10000 },
+      eva_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 30000 }
     },
     ss: {
-      hp_up: { value: 0 },
-      atk_up: { milliValue: 0 }
+      hp_up: { value: 50 },
+      atk_up: { milliValue: 70000 },
+      cri_up: { milliPercentage: 3000 },
+      acc_up: { milliPercentage: 5000 },
+      eva_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 50000 }
     }
   },
   253: {
