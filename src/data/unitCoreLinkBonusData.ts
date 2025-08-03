@@ -1365,7 +1365,7 @@ export const unitCoreLinkBonusData: UnitCoreLinkBonusData = {
     ]
   },
   156: {
-    specific_link_bonus: { def_up: { milliPercentage: 3_000 } },
+    specific_link_bonus: { def_up: { milliPercentage: 3000 } },
     full_link_bonus: [
       { sortie_cost: { milliPercentage: 25000 } },
       { cri_up: { milliPercentage: 30000 } },
