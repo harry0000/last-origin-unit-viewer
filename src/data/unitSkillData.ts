@@ -8007,7 +8007,7 @@ export const unitSkillData: UnitSkillData = {
         details: { self: { form_change: { form: 'blitz_pile_bunker' } } }
       }, {
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally_except_self', conditions: ['mongoose_team'] },
+        target: { kind: 'ally', conditions: ['mongoose_team'] },
         details: {
           target: {
             atk_up: { tag: 'mongoose_breaching', base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
