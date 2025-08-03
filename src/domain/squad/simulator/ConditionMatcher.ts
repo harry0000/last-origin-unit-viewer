@@ -279,6 +279,9 @@ export function countMatchedScaleFactor(
         Object.keys(enemies)
     ).length as ReturnType<typeof countMatchedScaleFactor>;
   }
+  case 'target':
+    // HACK: Currently this case is only used for active skill effects.
+    return 0;
   }
 }
 

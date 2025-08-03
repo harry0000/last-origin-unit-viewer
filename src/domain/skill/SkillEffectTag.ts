@@ -6,6 +6,7 @@ export type SkillEffectTag =
   'freeze' |
   'corrosion' |
   'overloaded' |
+  'overheat' |
   'plasma_generator' |
   'frost_storm' |
   'electric_charge' |
@@ -173,6 +174,7 @@ export type SkillEffectTag =
   'hati' |
   'solagarmr' |
   'managarmr' |
+  'this_is_my_power' |
   'mimesis' |
   'great_antarctica_adventure' |
   'pre_cooking' |

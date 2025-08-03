@@ -322,12 +322,18 @@ export type ActivationTargetState =
       readonly ['eternal_true_bloods_flash', 'cyclops_eternal_beam']
   } &
   {
-    [EffectActivationState.NotTagged]?: 'are_you_ready' | 'minion' | 'vafrlogi'
+    [EffectActivationState.NotTagged]?: 'overheat' | 'are_you_ready' | 'minion' | 'vafrlogi'
   } &
   {
     [EffectActivationState.NotTaggedAffected]?: {
       tag: 'wind_style',
       effect: typeof Effect.SpdUp
+    }
+  } &
+  {
+    [EffectActivationState.NumOfUnits]?: {
+      unit: typeof SkillAreaType.CrossAdjacent,
+      greater_or_equal: 2
     }
   } &
   NotAffectedActivationState

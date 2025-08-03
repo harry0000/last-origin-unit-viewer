@@ -172,6 +172,9 @@ function getUnitTargetKey(factor: ValueOf<SkillEffectScaleFactor, 'per_units'>):
     return 'unit' in factor ? 'target_ally' : 'ally';
   case 'enemy':
     return 'unit' in factor ? 'target_enemy' : 'enemy';
+  case 'target':
+    // HACK: Currently, 'target' is always the enemy.
+    return 'target_enemy';
   }
 }
 

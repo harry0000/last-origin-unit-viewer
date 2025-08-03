@@ -31,6 +31,7 @@ export const UnitAlias = {
   Elven: 'elven',
   Strikers: 'strikers',
   EmpressHound: 'empress_hound',
+  MythicalDog: 'mythical_dog',
   SmartEnjoy: 'smart_enjoy',
   SpartanSeries: 'spartan_series',
   Mermaid: 'mermaid'
@@ -67,7 +68,8 @@ export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> 
   [UnitAlias.DemonArmy]: new Set([128, 168, 171]),
   [UnitAlias.Elven]: new Set([133, 135, 176, 212, 238]),
   [UnitAlias.Strikers]: new Set([149, 150, 151, 152]),
-  [UnitAlias.EmpressHound]: new Set([154, 155, 156]),
+  [UnitAlias.EmpressHound]: new Set([154, 155, 156, 157]),
+  [UnitAlias.MythicalDog]: new Set([19, 113, 156]),
   [UnitAlias.SmartEnjoy]: new Set([205, 206]),
   [UnitAlias.SpartanSeries]: new Set([215, 216, 217]),
   [UnitAlias.Mermaid]: new Set([250, 251, 252, 253])

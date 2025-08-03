@@ -129,10 +129,8 @@ const EffectDetails: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({
       return t('effect:times', { count: addition.value });
     case 'cannot_be_dispelled':
       return t('effect:cannot_be_dispelled');
-    default: {
-      const _exhaustiveCheck: never = addition;
-      return _exhaustiveCheck;
-    }
+    default:
+      return addition satisfies never;
     }
   };
 
