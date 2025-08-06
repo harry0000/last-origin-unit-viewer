@@ -18,7 +18,7 @@ import {
   isJangHwaActivationSquadState
 } from '../../skill/SkillEffectActivationCondition';
 import { AlliedUnitTarget, SkillEffectTargetKind } from '../../skill/SkillEffectTarget';
-import { BattleEffect } from './BattleEffect';
+import { BattleEffect, BattleEffects } from './BattleEffect';
 import { Effect } from '../../Effect';
 import { EffectActivationState } from '../../EffectActivationState';
 import { EnemySquadState, UnitOriginState, UnitStateFullEffectsState } from './UnitEffectsState';
@@ -247,11 +247,16 @@ export function countMatchedScaleFactor(
   source: UnitBasicInfo,
   sourcePosition: TenKeyPosition,
   squad: ReadonlyArray<UnitOriginState>,
-  enemies: EnemySquadState
+  enemies: EnemySquadState,
+  appliedEffects: BattleEffects
 ): 0 | FactorScaledCount {
   if ('per_stack' in factor) {
-    // HACK: Currently this case does not need to be considered.
-    return 0;
+    if (!appliedEffects) {
+      return 0;
+    }
+
+    const { tag, effect } = factor.per_stack;
+    return appliedEffects.countTaggedEffect(tag, effect) as FactorScaledCount;
   }
 
   switch (factor.per_units.type) {
@@ -499,7 +504,7 @@ function pickEffects(affected: ReadonlyArray<BattleEffect>): ReadonlySet<BattleE
   return new Set(affected.map(({ effect }) => effect));
 }
 
-function pickTaggedEffects(
+export function pickTaggedEffects(
   tag: SkillEffectTag,
   affected: ReadonlyArray<BattleEffect>
 ): ReadonlyMap<BattleEffect['effect'], number> {

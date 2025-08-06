@@ -302,6 +302,7 @@ export function translateSkillEffectDetails(
   case Effect.AccDown:
   case Effect.CriDown:
   case Effect.EvaUp:
+  case Effect.SpdUp:
   case Effect.StatusResistUp:
   case Effect.DamageReductionUp:
     return 'length' in entry[1] ?

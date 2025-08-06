@@ -39,7 +39,7 @@ export type SkillEffectTarget =
   Readonly<
     {
       kind: typeof SkillEffectTargetKind.Enemy,
-      conditions?: ReadonlyArray<UnitType | UnitRole>
+      conditions?: ReadonlyArray<UnitType | UnitRole | UnitTypeAndRole>
     } |
     {
       kind: typeof SkillEffectTargetKind.AllyGrid

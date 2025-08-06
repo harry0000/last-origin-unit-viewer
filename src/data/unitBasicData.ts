@@ -1497,6 +1497,13 @@ export const unitBasicData = {
     type: 'flying',
     role: 'attacker'
   },
+  242: {
+    no: 242,
+    kind: 'ags',
+    rank: 'ss',
+    type: 'heavy',
+    role: 'supporter'
+  },
   255: {
     no: 255,
     kind: 'ags',

@@ -245,6 +245,8 @@ export type SkillEffectTag =
   'power_overflows' |
   'bond_of_light' |
   'oath_of_light' |
+  'malicious_outburst' |
+  'toxic_substance' |
   'vafrlogi' |
   'reinforced_exoskeleton' |
   'claw' |

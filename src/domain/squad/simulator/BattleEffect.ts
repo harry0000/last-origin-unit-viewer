@@ -6,16 +6,18 @@ import {
 } from '../../equipment/EquipmentEffect';
 import { MultipleMilliPercentageEffectKey } from '../../skill/SkillEffect';
 import {
+  AffectedSkillEffect,
   SkillEffectActivationState,
   isAffectedAnyTypeEffect,
   isAffectedSkillEffect
 } from '../../skill/SkillEffectActivationCondition';
 import { SkillEffectKey, SkillEffectValue } from '../../skill/UnitSkills';
 import { SkillEffectScaleFactor } from '../../skill/SkillEffectScaleFactor';
+import { SkillEffectTag } from '../../skill/SkillEffectTag';
 import { SkillEffectType } from '../../skill/SkillEffectType';
 import { SourceOfEffect } from './SourceOfEffect';
 import { compare } from './BattleEffectComparator';
-import { matchAffectedEquipmentState, matchAffectedState } from './ConditionMatcher';
+import { matchAffectedEquipmentState, matchAffectedState, pickTaggedEffects } from './ConditionMatcher';
 import {
   productMicroValue,
   productMilliPercentageValue,
@@ -178,6 +180,7 @@ function buildSkillBattleEffect(
     case Effect.AccDown:
     case Effect.CriDown:
     case Effect.EvaUp:
+    case Effect.SpdUp:
     case Effect.StatusResistUp:
       return true;
     default:
@@ -471,5 +474,13 @@ export class BattleEffects {
 
   matchAffectedEquipmentState(state: EquipmentEffectActivationState): boolean {
     return matchAffectedEquipmentState(state, this.#affectedStateRoots);
+  }
+
+  countTaggedEffect(tag: SkillEffectTag, effect?: AffectedSkillEffect): number {
+    const taggedEffects =  pickTaggedEffects(tag, this.#effects);
+
+    return effect ?
+      taggedEffects.get(effect) ?? 0 :
+      taggedEffects.values().next().value ?? 0;
   }
 }
