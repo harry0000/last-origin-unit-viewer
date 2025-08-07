@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
+import { nanoid } from 'nanoid';
 import { useTranslation } from 'react-i18next';
 
 import { Badge } from 'react-bootstrap';
@@ -55,7 +56,7 @@ const EffectDetail: React.FC<{
 
   return 'length' in details ?
     (<React.Fragment>
-      {details.map(detail => (<EffectDetailRow key={JSON.stringify(detail)} {...detail} />))}
+      {details.map(detail => (<EffectDetailRow key={nanoid()} {...detail} />))}
     </React.Fragment>) :
     (<EffectDetailRow {...details} />);
 };
@@ -75,7 +76,7 @@ const SkillEffectDetailsView: React.FC<{
   return (
     <div className={className}>
       <div><Badge variant="light">{t(`effect:effect.target.${targetKey}`)}</Badge></div>
-      {typedEntries(details).map(entry => (<EffectDetail key={entry[0]} entry={entry} />))}
+      {typedEntries(details).map(entry => (<EffectDetail key={nanoid()} entry={entry} />))}
     </div>
   );
 };

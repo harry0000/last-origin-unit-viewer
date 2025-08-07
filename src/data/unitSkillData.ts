@@ -22741,6 +22741,126 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  242: {
+    no: 242,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 247000 },
+        per_lv_up: { milliPercentage: 19000 }
+      },
+      range: 2,
+      cost: 8,
+      area: 'single',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        details: { self: { damage_multiplier_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 3 }, max_stack: 1 } } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy', conditions: ['light', 'heavy'] },
+        details: { target: { damage_multiplier_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 }, max_stack: 1 } } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy', conditions: ['flying'] },
+        details: { target: { damage_multiplier_down: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 3 }, max_stack: 1 } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ tagged_affected: { tag: 'malicious_outburst', effect: 'acc_down' } }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_damage: { base: { milliPercentage: 100000 }, per_lv_up: { milliPercentage: 10000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_wave' }],
+        details: {
+          self: {
+            spd_up: [
+              { tag: 'toxic_substance', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', max_stack: 3 },
+              { tag: 'toxic_substance', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', max_stack: 3 }
+            ]
+          }
+        }
+      }, {
+        conditions: [
+          { trigger: 'critical' },
+          { trigger: 'enemy_killed' }
+        ],
+        details: { self: { spd_up: { tag: 'toxic_substance', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite', max_stack: 3 } } }
+      }, {
+        conditions: [
+          { trigger: 'critical', state: { self: [{ stack: { tag: 'toxic_substance', equal: 3 } }] } },
+          { trigger: 'enemy_killed', state: { self: [{ stack: { tag: 'toxic_substance', equal: 3 } }] } }
+        ],
+        details: { self: { ap_up: { base: { microValue: 500000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 95000 },
+        per_lv_up: { milliPercentage: 9500 }
+      },
+      range: 3,
+      cost: 8,
+      area: 'cross',
+      effects: [{
+        details: {
+          self: {
+            ignore_protect: {},
+            tag_release: { tag: 'toxic_substance', term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ stack: { tag: 'toxic_substance', greater_or_equal: 1 } }] } }],
+        target: { kind: 'enemy', conditions: ['light', 'heavy'] },
+        details: { target: { acc_down: { tag: 'malicious_outburst', base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ stack: { tag: 'toxic_substance', greater_or_equal: 1 } }] } }],
+        target: { kind: 'enemy', conditions: ['flying'] },
+        details: { target: { acc_down: { tag: 'malicious_outburst', base: { milliPercentage: 80000 }, per_lv_up: { milliPercentage: 8000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ stack: { tag: 'toxic_substance', greater_or_equal: 2 } }] } }],
+        target: { kind: 'enemy', conditions: ['light', 'heavy'] },
+        details: { target: { damage_taken_increased: { tag: 'malicious_outburst', base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ stack: { tag: 'toxic_substance', greater_or_equal: 2 } }] } }],
+        target: { kind: 'enemy', conditions: ['flying'] },
+        details: { target: { damage_taken_increased: { tag: 'malicious_outburst', base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ stack: { tag: 'toxic_substance', greater_or_equal: 3 } }] } }],
+        target: { kind: 'enemy', conditions: ['light', 'heavy'] },
+        details: { target: { all_buff_blocking: { term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ stack: { tag: 'toxic_substance', greater_or_equal: 3 } }] } }],
+        target: { kind: 'enemy', conditions: ['flying'] },
+        details: { target: { all_buff_blocking: { term: { for_rounds: 2 }, rate: 'ignore_resistance' } } }
+      }]
+    }],
+    passive: [{
+      area: 'all_adjacent',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { per_stack: { tag: 'toxic_substance' } },
+        target: { kind: 'ally' },
+        details: { target: { status_resist_down: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: -3000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { per_stack: { tag: 'toxic_substance' } },
+        target: { kind: 'enemy' },
+        details: { target: { status_resist_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'enemy', conditions: [{ type: 'light', role: 'attacker' }, { type: 'heavy', role: 'attacker' }] },
+        details: { target: { range_down: { value: 1, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'enemy', conditions: [{ type: 'flying', role: 'attacker' }] },
+        details: { target: { range_down: { value: 2, term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: []
+    }]
+  },
   246: {
     no: 246,
     active: [{

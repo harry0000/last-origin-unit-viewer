@@ -1,7 +1,6 @@
 import { Location } from 'history';
 
 import { convert, UrlSafeBase64String } from './UrlParamConverter';
-import { isRecord } from '../util/object';
 import { SquadJsonStructure } from './SquadJsonStructure';
 
 const squadUrlParamName = 'sq';
@@ -15,48 +14,21 @@ const defaultTwitterShareParams = {
   tw_p: 'tweetbutton'
 };
 
-type ShortLinksResponse = {
-  shortLink: string,
-  previewLink: string
+function buildTinyUrlEndpoint(url: string): string {
+  return new URL('/api-create.php', 'https://tinyurl.com') + '?' + new URLSearchParams({ url });
 }
 
-function isShortLinksResponse(arg: unknown): arg is ShortLinksResponse {
-  return isRecord(arg) && 'shortLink' in arg && 'previewLink' in arg;
-}
-
-function buildFirebaseEndpoint(key: string): string {
-  return new URL('/v1/shortLinks', 'https://firebasedynamiclinks.googleapis.com') + '?' + new URLSearchParams({ key });
-}
-
-function buildLongDynamicLink(param: UrlSafeBase64String): string {
-  const link = appSiteUrl + '?' + new URLSearchParams({ [squadUrlParamName]: param });
-  return new URL('https://losquad.page.link') + '?' + new URLSearchParams({ link });
-}
-
-function fetchShortShareUrl(param: UrlSafeBase64String): Promise<string> {
-  if (!import.meta.env.VITE_FIREBASE_WEB_API_KEY) {
-    return Promise.reject(new Error('Firebase web API key is undefined.'));
-  }
-
-  return fetch(
-    buildFirebaseEndpoint(import.meta.env.VITE_FIREBASE_WEB_API_KEY),
-    {
-      method: 'POST',
-      mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        longDynamicLink: buildLongDynamicLink(param),
-        suffix: { option: 'SHORT' }
-      })
-    }
-  )
-    .then(res => res.json())
-    .then(json => {
-      if (!isShortLinksResponse(json)) {
-        throw new Error(`Unexpected response from Firebase Dynamic Links API. json: ${JSON.stringify(json)}`);
+async function fetchShortShareUrl(param: UrlSafeBase64String): Promise<string> {
+  const url = appSiteUrl + '?' + new URLSearchParams({ [squadUrlParamName]: param });
+  const response =
+    await fetch(
+      buildTinyUrlEndpoint(url),
+      {
+        method: 'GET',
+        headers: { 'Accept': 'text/plain' }
       }
-      return json.shortLink;
-    });
+    );
+  return await response.text();
 }
 
 export function getSquadParam(location: Location): UrlSafeBase64String | null {

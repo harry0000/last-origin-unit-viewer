@@ -184,7 +184,7 @@ class BattleEffectSimulator {
                 Matcher.matchEnemyState(cond.state, this.#enemies)
               )
             ) {
-              const scaled = this.#calculateScaled(effect, unit.unit, unit.position);
+              const scaled = this.#calculateScaled(effect, unit.unit, unit.position, initialState.appliedEffects);
 
               initialState.appliedEffects.applySkillEffects(
                 effect.details.self,
@@ -294,7 +294,7 @@ class BattleEffectSimulator {
   #applyStaticStateEffects(squadUnits: ReadonlyArray<UnitEffectsState>): ReadonlyArray<UnitStateFullEffectsState> {
     return squadUnits.map<UnitStateFullEffectsState>(unit => {
       const pickRestSkillEffect = (arg: ApplicableAllSkillEffect): arg is ApplicableStateFullSkillEffect => {
-        const scaled = this.#calculateScaled(arg.effect, unit.unit, unit.position);
+        const scaled = this.#calculateScaled(arg.effect, unit.unit, unit.position, unit.appliedEffects);
         if (scaled && scaled.value === 0) {
           return false;
         }
@@ -400,7 +400,7 @@ class BattleEffectSimulator {
           Matcher.matchAffectedSquadUnitState(state, unit, squadUnits) &&
           Matcher.matchEnemyState(state, this.#enemies)
         ) {
-          const scaled = this.#calculateScaled(effect, unit.unit, unit.position);
+          const scaled = this.#calculateScaled(effect, unit.unit, unit.position, unit.appliedEffects);
           if (scaled && scaled.value === 0) {
             return;
           }
@@ -528,15 +528,24 @@ class BattleEffectSimulator {
   }
 
   #calculateScaled(
-    effect:  SkillEffect,
+    effect: SkillEffect,
     source: UnitBasicInfo,
-    sourcePosition: TenKeyPosition
+    sourcePosition: TenKeyPosition,
+    appliedEffects: BattleEffects
   ): BattleEffect['scaled'] | { value: 0 } | undefined {
     if (!('scale_factor' in effect && effect.scale_factor)) {
       return undefined;
     }
 
-    const value = Matcher.countMatchedScaleFactor(effect.scale_factor, source, sourcePosition, this.#units, this.#enemies);
+    // TODO: Tag stack count is not calculated correctly due to the order in which skill effects are applied.
+    const value = Matcher.countMatchedScaleFactor(
+      effect.scale_factor,
+      source,
+      sourcePosition,
+      this.#units,
+      this.#enemies,
+      appliedEffects
+    );
     return { by: effect.scale_factor, value };
   }
 }

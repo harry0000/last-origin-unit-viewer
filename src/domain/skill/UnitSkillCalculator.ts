@@ -440,6 +440,7 @@ function calculateEffectValue(
   case Effect.AccDown:
   case Effect.CriDown:
   case Effect.EvaUp:
+  case Effect.SpdUp:
   case Effect.StatusResistUp:
   case Effect.DamageReductionUp:
     if ('length' in entry[1]) {
