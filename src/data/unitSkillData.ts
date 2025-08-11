@@ -3647,6 +3647,37 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: { self: { row_protect: { term: { for_rounds: 1 } } } }
       }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 3 } } } }
+      }, {
+        conditions: [{ trigger: 'be_hit' }],
+        target: { kind: 'enemy', conditions: ['defender', 'supporter'] },
+        details: { target: { damage_multiplier_down: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 250 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'be_hit' }],
+        target: { kind: 'enemy', conditions: ['attacker'] },
+        details: { target: { damage_multiplier_down: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            marked: { term: { for_rounds: 1 } },
+            status_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: { form: 'attack_command', unit: 31 } }, { in_squad: { equipped: 'combat_observation_frame', unit: 31 } }] } }],
+        details: { self: { damage_multiplier_up_by_status: { status: 'def', milliPercentage: { 1: 3000, 5: 4000, 10: 5000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: { form: 'defense_command', unit: 31 } }, { in_squad: { equipped: 'combat_observation_frame', unit: 31 } }] } }],
+        details: { self: { column_protect: { term: { for_rounds: 1 } } } }
+      }]
     }]
   },
   40: {
