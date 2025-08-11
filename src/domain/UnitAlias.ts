@@ -46,7 +46,7 @@ export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> 
   [UnitAlias.SteelLine]: new Set([21, 22, 23, 24, 25, 26, 27, 28, 29, 30]),
   [UnitAlias.SteelLineOfficerRanks]: new Set([21, 27, 29, 30]),
   [UnitAlias.SteelLineExcludingOfficerRanks]: new Set([22, 23, 24, 25, 26, 28]),
-  [UnitAlias.SistersOfValhalla]: new Set([31, 32, 33, 34, 35, 36, 37, 177]),
+  [UnitAlias.SistersOfValhalla]: new Set([31, 32, 33, 34, 35, 36, 37, 38, 177]),
   [UnitAlias.AngerOfHorde]: new Set([40, 41, 42, 43, 44, 192, 193, 194]),
   [UnitAlias.ApplicableForSeizeOpportunity]: new Set([40, 42, 43, 44, 192, 194]),
   [UnitAlias.NotApplicableForSeizeOpportunity]: new Set([41, 193]),

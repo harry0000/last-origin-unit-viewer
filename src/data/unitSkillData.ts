@@ -3597,6 +3597,58 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  38: {
+    no: 38,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 125000 },
+        per_lv_up: { milliPercentage: 10000 }
+      },
+      range: 2,
+      cost: 5,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: { target: { def_down: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        target: { kind: 'enemy' },
+        details: { target: { buff_removal: { effect: 'def_up', term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'use_this_active' }],
+        details: { self: { acc_up: { base: { milliPercentage: 8000 }, per_lv_up: { milliPercentage: 8000 } } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 101000 },
+        per_lv_up: { milliPercentage: 7000 }
+      },
+      range: 3,
+      cost: 10,
+      area: 'row_toward_front_with_shock_wave',
+      effects: [{
+        conditions: [{ trigger: 'hit', state: { target: [{ status_less_than_self: { status: 'def' } }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { defense_penetration_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } } }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        target: { kind: 'enemy' },
+        details: { target: { ap_down: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        scale_factor: { per_units: { type: 'all' } },
+        details: { self: { def_value_up: { base: { milliValue: 10000 }, per_lv_up: { milliValue: 5000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { row_protect: { term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
   40: {
     no: 40,
     active: [{
