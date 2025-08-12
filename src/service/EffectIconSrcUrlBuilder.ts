@@ -33,6 +33,8 @@ export function buildEffectIconSrcUrl(effect: Effect): string | undefined {
     return buildIconSrcUrl(Effect.RangeDown);
   case Effect.LimitActionCount:
     return buildIconSrcUrl(Effect.ActionCountDown);
+  case Effect.DefensePenetrationDown:
+    return buildIconSrcUrl(Effect.DefensePenetration);
   case Effect.DamageReductionDown:
   case Effect.MinimizeDamage:
   case Effect.MinimizeDamageLessThanValue:

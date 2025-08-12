@@ -67,8 +67,6 @@ export type MilliPercentageEffectKey =
     MicroValueEffectKey |
     MilliPercentageEffectDependsOnStatusKey |
     typeof Effect[
-      // TODO: add defense_penetration_down effect icon
-      'DefensePenetrationDown' |
       'AtkValueUpByUnitValue' |
       'CooperativeAttack' |
       'BuffRemoval' |

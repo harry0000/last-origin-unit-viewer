@@ -21,11 +21,11 @@ import {
 import { AffectionBonus } from '../UnitAffection';
 import {
   AroundSkillEffectDataValue,
+  SkillEffectData,
+  SkillEffectDataValue,
   isAroundSkillEffectData,
   isEffectDataValue,
-  isTargetSkillEffectData,
-  SkillEffectData,
-  SkillEffectDataValue
+  isTargetSkillEffectData
 } from './SkillEffectData';
 import { CoreLinkBonus, FullLinkBonus } from '../UnitCoreLinkBonusData';
 import { Effect } from '../Effect';
@@ -282,6 +282,27 @@ function calculateMicroValueEffectValue(
   };
 }
 
+function calculateNonLinerMilliPercentageEffectValue(
+  data: NonNullable<SkillEffectDataValue[typeof Effect['DamageMultiplierUpByStatus']]>,
+  lv: SkillLv,
+  effectLv: SkillEffectLv
+): NonNullable<SkillEffectValue[Exclude<MilliPercentageEffectKey, MultipleMilliPercentageEffectKey>]> {
+  let milliPercentage: number;
+  if ('base' in data) {
+    milliPercentage = calculateDataValue('milliPercentage', data, effectLv).milliPercentage;
+  } else if (typeof data.milliPercentage === 'number') {
+    milliPercentage = data.milliPercentage;
+  } else {
+    // Depending only on skill level
+    milliPercentage = lv === 10 ? data.milliPercentage[10] : lv >= 5 ? data.milliPercentage[5] : data.milliPercentage[1];
+  }
+
+  return {
+    ...calculateAddition(data, lv),
+    milliPercentage
+  };
+}
+
 function calculateMilliPercentageEffectValue(
   data: NonNullable<SkillEffectDataValue[Exclude<MilliPercentageEffectKey, MultipleMilliPercentageEffectKey>]>,
   lv: SkillLv,
@@ -420,6 +441,12 @@ function calculateEffectValue(
       }
     };
   case Effect.DamageMultiplierUpByStatus:
+    return {
+      [entry[0]]: {
+        ...calculateNonLinerMilliPercentageEffectValue(entry[1], lv, effectLv),
+        status: entry[1].status
+      }
+    };
   case Effect.DamageMultiplierReductionByStatus:
   case Effect.CriReductionByStatus:
     return {

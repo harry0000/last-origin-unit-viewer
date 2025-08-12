@@ -76,6 +76,9 @@ type SkillEffectAddition = Readonly<{
 type ValueWithAddition<T extends ValueUnit> =
   EffectDataValue<T> & SkillEffectAddition
 
+type NonLinerValueWithAddition<T extends ValueUnit> =
+  { readonly [key in T]: { readonly [key in 1 | 5 | 10]: number } } & SkillEffectAddition
+
 type RangeUpDownValue = (IntegerValue<1 | 2 | 3 | 4> | { value: { 1: 1, 10:  2 } }) & SkillEffectAddition
 
 type TagStackEffectDataValue = { tag: SkillEffectTag } & Omit<SkillEffectAddition, 'tag'>
@@ -130,7 +133,12 @@ export type SkillEffectDataValue = Readonly<{
       { form: UnitForms } & SkillEffectAddition :
     E extends typeof Effect['AtkValueUpByUnitValue'] ?
       ValueWithAddition<'milliPercentage'> & { unit: 90 | 208 | 211 } :
-    E extends typeof Effect['DamageMultiplierUpByStatus' | 'DamageMultiplierReductionByStatus'] ?
+    E extends typeof Effect['DamageMultiplierUpByStatus'] ?
+      (
+        ValueWithAddition<'milliPercentage'> |
+        NonLinerValueWithAddition<'milliPercentage'>
+      ) & { status: 'def' | 'eva' } :
+    E extends typeof Effect['DamageMultiplierReductionByStatus'] ?
       ValueWithAddition<'milliPercentage'> & { status: 'def' | 'eva' } :
     E extends typeof Effect['CriReductionByStatus'] ?
       ValueWithAddition<'milliPercentage'> & { status: 'def' } :

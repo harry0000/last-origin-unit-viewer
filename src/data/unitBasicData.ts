@@ -244,6 +244,13 @@ export const unitBasicData = {
     type: 'light',
     role: 'defender'
   },
+  38: {
+    no: 38,
+    kind: 'bioroid',
+    rank: 'a',
+    type: 'heavy',
+    role: 'defender'
+  },
   40: {
     no: 40,
     kind: 'bioroid',
