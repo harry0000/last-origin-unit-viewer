@@ -28,6 +28,8 @@ export const Effect = {
   FireResistReverse: 'fire_resist_reverse',
   IceResistReverse: 'ice_resist_reverse',
   ElectricResistReverse: 'electric_resist_reverse',
+  AdaptiveFireAttack: 'adaptive_fire_attack',
+  AdaptiveElectricAttack: 'adaptive_electric_attack',
   LightTypeDamageUp: 'light_type_damage_up',
   LightTypeDamageDown: 'light_type_damage_down',
   HeavyTypeDamageUp: 'heavy_type_damage_up',

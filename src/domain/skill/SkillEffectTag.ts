@@ -217,6 +217,9 @@ export type SkillEffectTag =
   'shake_shake' |
   'output_increase' |
   'output_limit_release' |
+  'burn' |
+  'electrocution' |
+  'temporal_sense_expansion' |
   'you_are_already_my_fan' |
   'charmed' |
   'vocal_nodules' |

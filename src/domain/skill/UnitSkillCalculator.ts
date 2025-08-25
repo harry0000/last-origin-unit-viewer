@@ -327,6 +327,8 @@ function calculateEffectValue(
   case Effect.FireResistReverse:
   case Effect.IceResistReverse:
   case Effect.ElectricResistReverse:
+  case Effect.AdaptiveFireAttack:
+  case Effect.AdaptiveElectricAttack:
   case Effect.ActionCountUp:
   case Effect.ActionCountDown:
   case Effect.MinimizeDamage:
