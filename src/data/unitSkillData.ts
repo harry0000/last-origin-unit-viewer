@@ -19589,6 +19589,174 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  207: {
+    no: 207,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 210000 },
+        per_lv_up: { milliPercentage: 21000 },
+        attribute: 'fire'
+      },
+      range: 3,
+      cost: 5,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            adaptive_fire_attack: { term: 'immediate' },
+            adaptive_electric_attack: { term: 'immediate' },
+            fire_resist_down: { tag: 'burn', base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 3 },
+            electric_resist_down: { tag: 'electrocution', base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, max_stack: 3 }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 99 } } }],
+        details: { self: { cooperative_attack: { unit: 99, active: 1, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 180 } } }],
+        details: { self: { cooperative_attack: { unit: 180, active: 1, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 174 } } }],
+        details: { self: { cooperative_attack: { unit: 174, active: 1, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        details: { self: { cooperative_attack: { unit: 207, active: 1, term: 'immediate' } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 170000 },
+        per_lv_up: { milliPercentage: 15000 },
+        attribute: 'fire'
+      },
+      range: 4,
+      cost: 8,
+      area: '2_x_3',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            adaptive_fire_attack: { term: 'immediate' },
+            adaptive_electric_attack: { term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 99 } } }],
+        details: { self: { cooperative_attack: { unit: 99, active: 2, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 180 } } }],
+        details: { self: { cooperative_attack: { unit: 180, active: 2, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 174 } } }],
+        details: { self: { cooperative_attack: { unit: 174, active: 2, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        details: { self: { cooperative_attack: { unit: 207, active: 2, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ stack: { tag: 'burn', greater_or_equal: 1 } }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_fire_damage: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ stack: { tag: 'burn', greater_or_equal: 2 } }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_fire_damage: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ stack: { tag: 'burn', greater_or_equal: 3 } }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_fire_damage: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ stack: { tag: 'electrocution', greater_or_equal: 1 } }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_electric_damage: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ stack: { tag: 'electrocution', greater_or_equal: 2 } }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_electric_damage: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { target: [{ stack: { tag: 'electrocution', greater_or_equal: 3 } }] } }],
+        target: { kind: 'enemy' },
+        details: { self: { additional_electric_damage: { base: { milliPercentage: 10500 }, per_lv_up: { milliPercentage: 500 }, term: 'immediate' } } }
+      }]
+    }],
+    passive: [{
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 8250 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'kunoichi' } } }],
+        target: { kind: 'ally_except_self', conditions: ['kunoichi'] },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 8250 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
+            ignore_protect: { term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'kunoichi' } } }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 21000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 8250 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        details: { self: { battle_continuation: { base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: 'infinite', cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { counterattack: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ not_tagged: 'temporal_sense_expansion' }] } }],
+        details: { self: { eva_up: { tag: 'temporal_sense_expansion', base: { milliPercentage: 100000 }, per_lv_up: { milliPercentage: 100000 }, term: 'infinite', times: 1 }, } }
+      }, {
+        conditions: [{ trigger: 'evade', state: { self: [{ tagged: 'temporal_sense_expansion' }] } }],
+        details: {
+          self: {
+            tag_release: { tag: 'temporal_sense_expansion', term: 'immediate' },
+            fixed_damage_over_time: { base: { value: 20 }, per_lv_up: { value: 5 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'defender' } } }],
+        details: {
+          self: {
+            eva_up: { base: { milliPercentage: 60000 }, per_lv_up: { milliPercentage: 20000 }, term: { for_rounds: 1 }, cannot_be_dispelled: true },
+            marked: { term: { for_rounds: 1 }, cannot_be_dispelled: true }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'kunoichi' } } }],
+        details: { self: { damage_reduction_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'kunoichi' } } }],
+        details: {
+          self: {
+            damage_multiplier_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } },
+            ignore_barrier_dr: { term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }]
+  },
   208: {
     no: 208,
     active: [{

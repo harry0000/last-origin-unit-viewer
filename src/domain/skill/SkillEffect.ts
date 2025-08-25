@@ -9,6 +9,8 @@ export type NoValueEffectKey =
     'FireResistReverse' |
     'IceResistReverse' |
     'ElectricResistReverse' |
+    'AdaptiveFireAttack' |
+    'AdaptiveElectricAttack' |
     'ActionCountUp' |
     'ActionCountDown' |
     'MinimizeDamage' |

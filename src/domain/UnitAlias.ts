@@ -58,7 +58,7 @@ export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> 
   [UnitAlias.Horizon]: new Set([85, 87, 88, 89, 90]),
   [UnitAlias.SkyKnights]: new Set([91, 92, 93, 94, 95, 96, 181]),
   [UnitAlias.PECSDesigners]: new Set([97, 98, 106]),
-  [UnitAlias.Kunoichi]: new Set([99, 174, 180]),
+  [UnitAlias.Kunoichi]: new Set([99, 174, 180, 207]),
   [UnitAlias.TomosFriends]: new Set([25, 43, 81, 125]),
   [UnitAlias.OrbitalWatcher]: new Set([101, 102, 103, 104, 235]),
   [UnitAlias.CityGuard]: new Set([111, 112, 113, 114, 115, 179, 184]),

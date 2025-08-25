@@ -305,6 +305,9 @@
     "shake_shake": "シャカシャカ",
     "output_increase": "出力上昇",
     "output_limit_release": "出力制限解除",
+    "burn": "火傷",
+    "electrocution": "感電",
+    "temporal_sense_expansion": "時間感覚拡張",
     "you_are_already_my_fan": "あなたはもう☆私のFAN",
     "charmed": "魅惑",
     "vocal_nodules": "声帯結節",
@@ -660,6 +663,8 @@
       "fire_resist_reverse": "火炎属性耐性反転",
       "ice_resist_reverse": "冷気属性耐性反転",
       "electric_resist_reverse": "電気属性耐性反転",
+      "adaptive_fire_attack": "適応属性攻撃 (火炎)",
+      "adaptive_electric_attack": "適応属性攻撃 (電気)",
 
       "light_type_damage_up": "対軽装型与ダメージ +{{value}}%",
       "light_type_damage_down": "対軽装型与ダメージ -{{value}}%",
