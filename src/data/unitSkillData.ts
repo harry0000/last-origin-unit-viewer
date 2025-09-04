@@ -3463,6 +3463,7 @@ export const unitSkillData: UnitSkillData = {
       },
       area: 'single',
       effects: [{
+        conditions: [{ state: { self: [{ not_tagged: 'peer_into_mind' }] } }],
         target: { kind: 'ally', conditions: ['bioroid'] },
         details: {
           target: {
@@ -3471,6 +3472,54 @@ export const unitSkillData: UnitSkillData = {
             cri_up: { tag: 'perception_sharing', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 } }
           }
         }
+      }, {
+        conditions: [{
+          state: {
+            self: [{ tagged: 'peer_into_mind' }],
+            squad: { not_in_squad: [{ form: 'attack_command', unit: 31 }, { equipped: 'combat_observation_frame', unit: 31 }] }
+          }
+        }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
+        details: {
+          target: {
+            ap_up: { base: { microValue: 1500000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' },
+            acc_up: { tag: 'perception_sharing', base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 } },
+            cri_up: { tag: 'perception_sharing', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 } }
+          }
+        }
+      }, {
+        conditions: [{
+          state: {
+            self: [{ tagged: 'peer_into_mind' }],
+            squad: [{ in_squad: { form: 'attack_command', unit: 31 } }, { in_squad: { equipped: 'combat_observation_frame', unit: 31 } }]
+          }
+        }],
+        target: { kind: 'ally', conditions: ['bioroid'] },
+        details: {
+          target: {
+            ap_up: { base: { microValue: 1500000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' },
+            acc_up: { tag: 'perception_sharing', base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: 'infinite' },
+            cri_up: { tag: 'perception_sharing', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: 'infinite' }
+          }
+        }
+      }, {
+        conditions: [{
+          state: {
+            self: [{ tagged: 'peer_into_mind' }],
+            squad: { not_in_squad: [{ form: 'attack_command', unit: 31 }, { equipped: 'combat_observation_frame', unit: 31 }] }
+          }
+        }],
+        target: { kind: 'ally', conditions: ['attacker'] },
+        details: { target: { ignore_protect: { term: { for_rounds: 3 } } } }
+      }, {
+        conditions: [{
+          state: {
+            self: [{ tagged: 'peer_into_mind' }],
+            squad: [{ in_squad: { form: 'attack_command', unit: 31 } }, { in_squad: { equipped: 'combat_observation_frame', unit: 31 } }]
+          }
+        }],
+        target: { kind: 'ally', conditions: ['attacker'] },
+        details: { target: { ignore_protect: { term: 'infinite' } } }
       }]
     }],
     passive: [{
@@ -3480,10 +3529,10 @@ export const unitSkillData: UnitSkillData = {
         target: { kind: 'ally' },
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            def_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
-            range_up: { value: 1, term: { for_rounds: 1 } }
+            atk_up: { tag: 'overcautiousness', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            def_up: { tag: 'overcautiousness', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { tag: 'overcautiousness', base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            range_up: { tag: 'overcautiousness', value: 1, term: { for_rounds: 1 } }
           }
         }
       }, {
@@ -3501,6 +3550,31 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: { alias: 'sisters_of_valhalla', role: 'attacker' } } } }],
         target: { kind: 'ally' },
         details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_wave' }],
+        details: { self: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'attack', state: { target: [{ tagged: 'overcautiousness' }] } }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { microValue: 500000, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: [{ in_squad: { form: 'defense_command', unit: 31 } }, { in_squad: { equipped: 'combat_observation_frame', unit: 31 } }] } }],
+        target: { kind: 'ally' },
+        details: { target: { prevents_effect: { effect: 'ice_resist_down', term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            acc_up: { base: { milliPercentage: 200000 }, per_lv_up: { milliPercentage: 20000 }, term: { for_rounds: 1 }, times: 1 },
+            tag_stack: { tag: 'peer_into_mind', term: { for_rounds: 1 }, cannot_be_dispelled: true }
+          }
+        }
       }]
     }]
   },

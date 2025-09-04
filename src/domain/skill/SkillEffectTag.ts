@@ -41,6 +41,8 @@ export type SkillEffectTag =
   'fire_support' |
   'slidrugtanni_class_armament' |
   'perception_sharing' |
+  'overcautiousness' |
+  'peer_into_mind' |
   'first_aid' |
   'treatment_target_selection' |
   'influence' |
