@@ -392,6 +392,7 @@ type NotInSquadStateUnit =
   typeof UnitAlias['SteelLine' | 'AACannonier' | 'SkyKnights' | 'Kunoichi' | 'OrbitalWatcher' | 'Mermaid'] |
   typeof SkillAreaType.CrossAdjacent |
   Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>> |
+  Readonly<UnitAliasAndRole<typeof UnitAlias.SistersOfValhalla, typeof UnitRole.Attacker>> |
   readonly [typeof UnitType.Light, typeof UnitType.Heavy] |
   AttackCommandStateLeona |
   BeastHunterAndPani |

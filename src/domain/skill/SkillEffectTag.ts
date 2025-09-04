@@ -40,6 +40,7 @@ export type SkillEffectTag =
   'camouflage' |
   'fire_support' |
   'slidrugtanni_class_armament' |
+  'perception_sharing' |
   'first_aid' |
   'treatment_target_selection' |
   'influence' |

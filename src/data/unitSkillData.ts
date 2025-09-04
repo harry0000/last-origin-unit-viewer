@@ -3439,63 +3439,68 @@ export const unitSkillData: UnitSkillData = {
       cost: 5,
       area: 'single',
       effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
         target: { kind: 'enemy' },
         details: {
           target: {
             marked: { term: { for_rounds: 2 } },
-            damage_taken_increased: { base: { milliPercentage: 18000 }, per_lv_up: { milliPercentage: 900 }, term: { for_rounds: 2 } },
-            eva_down: { base: { milliPercentage: 36000 }, per_lv_up: { milliPercentage: 1800 }, term: { for_rounds: 2 } }
+            damage_taken_increased: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            eva_down: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 } }
           }
         }
+      }, {
+        conditions: [{ trigger: 'use_this_active' }],
+        details: { self: { acc_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 10000 } } } }
       }]
     }, {
       range: 6,
-      cost: 7,
+      cost: {
+        1: 7,
+        2: 6,
+        7: 5
+      },
       area: 'single',
       effects: [{
-        target: { kind: 'ally' },
+        target: { kind: 'ally', conditions: ['bioroid'] },
         details: {
           target: {
             ap_up: { base: { microValue: 1500000 }, per_lv_up: { microValue: 100000 }, term: 'immediate' },
-            range_up: { value: 1, term: { for_rounds: 2 } },
-          }
-        }
-      }, {
-        target: { kind: 'ally', conditions: ['defender', 'supporter'] },
-        details: {
-          target: {
-            atk_up: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 600 }, term: { for_rounds: 2 } },
-            acc_up: { base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
-            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 2 } }
-          }
-        }
-      }, {
-        target: { kind: 'ally', conditions: ['attacker'] },
-        details: {
-          target: {
-            atk_up: { base: { milliPercentage: 18000 }, per_lv_up: { milliPercentage: 900 }, term: { for_rounds: 2 } },
-            acc_up: { base: { milliPercentage: 60000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 } },
-            cri_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 2 } }
+            acc_up: { tag: 'perception_sharing', base: { milliPercentage: 40000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 3 } },
+            cri_up: { tag: 'perception_sharing', base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 3 } }
           }
         }
       }]
     }],
     passive: [{
-      area: {
-        1: 'line_adjacent',
-        10: 'cross_adjacent_without_back'
-      },
+      area: 'all_adjacent',
       effects: [{
-        conditions: [{ trigger: 'start_round', state: { target: [{ hp_less_or_equal: 90 }] } }],
+        conditions: [{ trigger: 'start_round' }],
         target: { kind: 'ally' },
         details: {
           target: {
-            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
             def_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
-            spd_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
-            follow_up_attack: { term: { for_rounds: 1 } }
+            spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            range_up: { value: 1, term: { for_rounds: 1 } }
           }
         }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { target: [{ tagged: 'perception_sharing' }] } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            def_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            range_up: { value: 1, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: { alias: 'sisters_of_valhalla', role: 'attacker' } } } }],
+        target: { kind: 'ally' },
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
       }]
     }]
   },
