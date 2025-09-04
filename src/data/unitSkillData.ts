@@ -23112,6 +23112,95 @@ export const unitSkillData: UnitSkillData = {
       effects: []
     }]
   },
+  243: {
+    no: 243,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 200000 },
+        per_lv_up: { milliPercentage: 15000 },
+        attribute: 'ice'
+      },
+      range: 4,
+      cost: 5,
+      area: 'line',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          self: { additional_ice_damage: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: 'immediate' } },
+          target: { immovable: { term: { for_rounds: 1 } } }
+        }
+      }, {
+        conditions: [{ trigger: 'kill' }],
+        details: { self: { nullify_damage: { tag: 'outside_of_safe_zone', term: 'infinite', max_stack: 1, times: 1, cannot_be_dispelled: true } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 100000 },
+        per_lv_up: { milliPercentage: 7000 },
+        attribute: 'ice'
+      },
+      range: 6,
+      cost: 10,
+      area: 'all',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          self: { additional_ice_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: 'immediate' } },
+          target: {
+            spd_down: { milliPercentage: 10000, term: { for_rounds: 2 } },
+            ice_resist_down: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } },
+            electric_resist_down: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } },
+            fire_resist_up: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            provoked: { term: { for_rounds: 1 } },
+            spd_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            damage_taken_increased: { milliPercentage: 12000, term: { for_rounds: 2 } }
+          }
+        }
+      }]
+    }, {
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { self: [{ tagged: 'wet' }] } }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
+            spd_up: { base: { milliPercentage: 7500 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'golden_workers' } } }],
+        details: {
+          self: {
+            ice_resist_up: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            nullify_damage: { term: 'infinite', times: 1, max_stack: 1, cannot_be_dispelled: true },
+            effect_removal: { tag: 'outside_of_safe_zone', effect: 'nullify_damage', term: 'immediate' }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'be_attacked', state: { squad: { in_squad: 'golden_workers' } } }],
+        details: { self: { counterattack: { base: { milliPercentage: 80000 }, per_lv_up: { milliPercentage: 5000 }, term: 'immediate' } } }
+      }]
+    }]
+  },
   246: {
     no: 246,
     active: [{

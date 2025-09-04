@@ -250,6 +250,7 @@ export type SkillEffectTag =
   'oath_of_light' |
   'malicious_outburst' |
   'toxic_substance' |
+  'outside_of_safe_zone' |
   'vafrlogi' |
   'reinforced_exoskeleton' |
   'claw' |

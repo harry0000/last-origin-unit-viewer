@@ -361,6 +361,7 @@ type InSquadStateUnit =
     'AACannonier' |
     'Horizon' |
     'SkyKnights' |
+    'GoldenWorkers' |
     'Kunoichi' |
     'OrbitalWatcher' |
     'DEntertainment' |
