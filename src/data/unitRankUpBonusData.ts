@@ -299,6 +299,8 @@ export const unitRankUpBonusData = {
       cri_up: { milliPercentage: 5000 },
       acc_up: { milliPercentage: 4000 },
       spd_up: { microValue: 90000 }
+      // TODO: Add ice_resist_up when the bug is fixed in the game
+      // ice_resist_up: { milliPercentage: 50000 }
     }
   },
   34: {

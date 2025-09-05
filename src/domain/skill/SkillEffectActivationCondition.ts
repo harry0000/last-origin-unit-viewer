@@ -395,6 +395,7 @@ type NotInSquadStateUnit =
   Readonly<UnitAliasAndRole<typeof UnitAlias.SistersOfValhalla, typeof UnitRole.Attacker>> |
   readonly [typeof UnitType.Light, typeof UnitType.Heavy] |
   AttackCommandStateLeona |
+  DefenseCommandStateLeona |
   BeastHunterAndPani |
   DefenderAndArmoredBulgasari |
   DefenderAndCyclopsPrincess
