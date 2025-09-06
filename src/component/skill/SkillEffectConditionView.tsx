@@ -191,7 +191,8 @@ function unitStateView(
     UnitNumber |
     ReadonlyArray<UnitNumber> |
     UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter> |
-    UnitAliasAndRole<typeof UnitAlias['MongooseTeam'], typeof UnitRole.Defender> |
+    UnitAliasAndRole<typeof UnitAlias.SistersOfValhalla, typeof UnitRole.Attacker> |
+    UnitAliasAndRole<typeof UnitAlias.MongooseTeam, typeof UnitRole.Defender> |
     UnitAliasAndRole<typeof UnitAlias.Strikers, typeof UnitRole.Attacker> |
     typeof UnitAlias[
       'SteelLine' |
@@ -200,6 +201,7 @@ function unitStateView(
       'AACannonier' |
       'Horizon' |
       'SkyKnights' |
+      'GoldenWorkers' |
       'Kunoichi' |
       'OrbitalWatcher' |
       'DEntertainment' |
