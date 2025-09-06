@@ -3222,6 +3222,10 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ state: { target: [{ affected: 'damage_taken_increased' }, { affected: 'provoked' }] } }],
         target: { kind: 'enemy' },
         details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'honor', equipped: 'mg80_retrofit_kit' }] } }],
+        target: { kind: 'enemy' },
+        details: { target: { def_down: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } } }
       }]
     }],
     passive: [{
@@ -3283,6 +3287,19 @@ export const unitSkillData: UnitSkillData = {
             counterattack: { base: { milliPercentage: 45000 }, per_lv_up: { milliPercentage: 7500 }, term: { for_rounds: 1 } }
           }
         }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { merciless: { tag: 'honor', base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { self: [{ equipped: 'mg80_retrofit_kit' }] } }],
+        details: { self: { merciless: { tag: 'honor', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 32 } } }],
+        target: { kind: 'ally', conditions: ['supporter', 'defender'] },
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
       }]
     }]
   },

@@ -385,7 +385,7 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 }
 
 type NotInSquadStateUnit =
-  63 | 80 | 82 | 110 | 127 | 199 | 252 | 301 |
+  32 | 63 | 80 | 82 | 110 | 127 | 199 | 252 | 301 |
   typeof UnitKind.AGS |
   typeof UnitType.Light |
   UnitRole |

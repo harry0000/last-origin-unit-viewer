@@ -38,6 +38,7 @@ export type SkillEffectTag =
   'defense_command' |
   'defense_command_attack' |
   'camouflage' |
+  'honor' |
   'slidrugtanni_class_armament' |
   'perception_sharing' |
   'overcautiousness' |
