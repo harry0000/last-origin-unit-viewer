@@ -18986,6 +18986,141 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  198: {
+    no: 198,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 150000 },
+        per_lv_up: { milliPercentage: 7500 }
+      },
+      range: 3,
+      cost: 6,
+      area: 'single',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            damage_multiplier_down: { base: { milliPercentage: 45000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 2 } },
+            def_down: { base: { milliPercentage: 27500 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } },
+            ice_resist_down: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } },
+            electric_resist_down: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } },
+            fire_resist_up: { tag: 'wet', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit', round: 'odd', state: { squad: { in_squad: 50 } } }],
+        details: {
+          self: {
+            // TODO: Update the value once the bug is fixed in the game.
+            damage_reduction_up: { tag: 'sister~!', base: { milliPercentage: -2000 }, per_lv_up: { milliPercentage: -2000 }, term: { for_rounds: 2 } },
+            cooperative_attack: { unit: 50, active: 1, term: 'immediate' }
+          }
+        }
+      }]
+      // TODO: Add skill effects when Lemonade Gamma is added
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 54000 },
+        per_lv_up: { milliPercentage: 18000 }
+      },
+      range: 6,
+      cost: 10,
+      area: 'line_with_front_line',
+      effects: [{
+        conditions: [{ trigger: 'critical' }],
+        target: { kind: 'enemy' },
+        details: { target: { all_buff_removal: { term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { self: [{ tagged: 'sister~!' }] } }],
+        target: { kind: 'enemy' },
+        details: {
+          self: {
+            damage_reduction_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 } },
+            ice_resist_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 2 } }
+          },
+          target: { stunned: { term: { for_rounds: 1 } } }
+        }
+      }]
+    }],
+    passive: [{
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { effect_removal: { effects: ['row_protect', 'column_protect'], term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 50 } } }],
+        details: { self: { marked: { term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 50 } } }],
+        target: { kind: 'ally', conditions: [50] },
+        details: { target: { marked: { term: { for_rounds: 1 }, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', round: 'odd', state: { squad: { in_squad: 50 } } }],
+        target: { kind: 'ally' },
+        details: { target: { damage_reduction_up: { tag: 'sister?!', base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'be_hit' }],
+        details: { self: { all_debuff_removal: { term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'guardian_series', equal: 1 } } } }],
+        target: { kind: 'ally' },
+        details: { target: { def_value_up: { base: { milliValue: 200000 }, per_lv_up: { milliValue: 200000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'guardian_series', equal: 2 } } } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            def_value_up: { base: { milliValue: 300000 }, per_lv_up: { milliValue: 300000 }, term: { for_rounds: 1 } },
+            damage_reduction_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'guardian_series', equal: 3 } } } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            def_value_up: { base: { milliValue: 400000 }, per_lv_up: { milliValue: 400000 }, term: { for_rounds: 1 } },
+            damage_reduction_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            fire_resist_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            ice_resist_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            electric_resist_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'poseidon', equal: 1 } } } }],
+        target: { kind: 'ally' },
+        details: { target: { atk_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'poseidon', equal: 2 } } } }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+      // TODO: Add skill effects when Lemonade Gamma & Rhode are added
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { ap_up: { base: { microValue: 60000 }, per_lv_up: { microValue: 60000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'be_hit' }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 50000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'kill' }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 150000 }, per_lv_up: { microValue: 150000 }, term: 'immediate' } } }
+      }]
+    }]
+  },
   199: {
     no: 199,
     active: [{

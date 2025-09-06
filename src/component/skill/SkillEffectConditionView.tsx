@@ -37,6 +37,7 @@ import {
   isJangHwaActivationSquadState,
   isNumOfCrossAdjacentCondition,
   isNumOfDefenderAndArmoredBulgasariCondition,
+  isNumOfUnitAliasCondition,
   isNumOfUnitsCompareToEnemiesCondition,
   isUnitsInSquadCondition
 } from '../../domain/skill/SkillEffectActivationCondition';
@@ -443,6 +444,16 @@ const SquadStateView: React.FC<{
                     <Separator />
                   </React.Fragment>
                 );
+              } else if (isNumOfUnitAliasCondition(squadState)) {
+                return (
+                  <React.Fragment key={entry[0]}>
+                    {t('effect:unit.self')}
+                    {t('effect:except_preposition')}
+                    <UnitAliasView unitAlias={squadState.unit} exceptUnit={unitNumber} />
+                    {t('effect:condition.state.unit_alias_eq', squadState)}
+                    <Separator />
+                  </React.Fragment>
+                );
               } else {
                 return (
                   <React.Fragment key={entry[0]}>
@@ -535,6 +546,7 @@ const TriggerView: React.FC<{
     );
   case EffectTrigger.UseActive1:
   case EffectTrigger.UseActive2:
+  case EffectTrigger.Hit:
   case EffectTrigger.HitActive1:
   case EffectTrigger.HitActive2:
     return (

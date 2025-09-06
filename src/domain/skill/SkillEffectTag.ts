@@ -216,6 +216,8 @@ export type SkillEffectTag =
   'tenderizer' |
   'caffeine_charged' |
   'nicotine_charged' |
+  'sister~!' |
+  'sister?!' |
   'unrep' |
   'shake_shake' |
   'output_increase' |

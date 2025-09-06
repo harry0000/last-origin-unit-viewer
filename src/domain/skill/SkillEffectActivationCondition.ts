@@ -4,7 +4,7 @@ import { EffectTrigger } from '../EffectTrigger';
 import { EquipmentId } from '../equipment/EquipmentData';
 import { SkillAreaType } from './SkillAreaOfEffect';
 import { SkillEffectTag } from './SkillEffectTag';
-import { UnitAlias } from '../UnitAlias';
+import { UnitAlias, isUnitAlias } from '../UnitAlias';
 import { UnitForms } from '../UnitFormValue';
 import { UnitKind, UnitNumber, UnitRank, UnitRole, UnitType } from '../UnitBasicInfo';
 import { isReadonlyArray, ValueOf } from '../../util/type';
@@ -385,7 +385,7 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 }
 
 type NotInSquadStateUnit =
-  32 | 63 | 80 | 82 | 110 | 127 | 199 | 252 | 301 |
+  32 | 50 | 63 | 80 | 82 | 110 | 127 | 199 | 252 | 301 |
   typeof UnitKind.AGS |
   typeof UnitType.Light |
   UnitRole |
@@ -411,6 +411,15 @@ export function isNumOfCrossAdjacentCondition(
   arg: NumOfUnitsInSquadState[typeof EffectActivationState.NumOfUnits]
 ): arg is NumOfCrossAdjacentCondition {
   return 'unit' in arg && arg.unit === SkillAreaType.CrossAdjacent;
+}
+
+export type NumOfUnitAliasCondition =
+  Extract<NumOfUnitsInSquadState[typeof EffectActivationState.NumOfUnits], { unit: UnitAlias, equal: number }>
+
+export function isNumOfUnitAliasCondition(
+  arg: NumOfUnitsInSquadState[typeof EffectActivationState.NumOfUnits]
+): arg is NumOfUnitAliasCondition {
+  return 'unit' in arg && typeof arg.unit === 'string' && isUnitAlias(arg.unit);
 }
 
 export type NumOfDefenderAndArmoredBulgasariCondition =
@@ -452,6 +461,7 @@ export type NumOfUnitsInSquadState = {
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 2, less_or_equal: 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 } |
+    { unit: typeof UnitAlias['GuardianSeries' | 'Poseidon'], equal: 1 | 2 | 3 } |
     { unit: 'killed', greater_or_equal: 1 | 2 | 3 } |
     { unit: 'killed', equal: 4 } |
     { unit: DefenderAndArmoredBulgasari, equal: 1 | 2 | 3 | 4 } |
@@ -536,13 +546,16 @@ export type SkillEffectActivationTrigger = {
   trigger: typeof EffectTrigger.StartRound,
   round?: 'odd' | 'even' | { at: 1 | 2 | 3 | 4 } | { from: 2 | 3 | 4 | 5 } | { until: 1 | 2 | 3 | 4 }
 } | {
+  trigger: typeof EffectTrigger.Hit,
+  round?: 'odd' | 'even'
+} | {
   trigger: typeof EffectTrigger.HitActive1,
   round?: 'odd'
 } | {
   trigger: typeof EffectTrigger.HitActive2,
   round?: 'even'
 } | {
-  trigger: Exclude<EffectTrigger, typeof EffectTrigger['StartRound' | 'HitActive1' | 'HitActive2']>
+  trigger: Exclude<EffectTrigger, typeof EffectTrigger['StartRound' | 'Hit' | 'HitActive1' | 'HitActive2']>
 }
 
 export type SelfSkillEffectActivationCondition =
