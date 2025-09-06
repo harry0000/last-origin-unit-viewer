@@ -299,6 +299,16 @@ export const unitRankUpBonusData = {
       cri_up: { milliPercentage: 5000 },
       acc_up: { milliPercentage: 4000 },
       spd_up: { microValue: 90000 }
+      // TODO: Add ice_resist_up when the bug is fixed in the game
+      // ice_resist_up: { milliPercentage: 50000 }
+    },
+    ss: {
+      hp_up: { value: 50 },
+      atk_up: { milliValue: 23000 },
+      def_up: { milliValue: 4000 },
+      cri_up: { milliPercentage: 2500 },
+      acc_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 50000 }
     }
   },
   34: {
@@ -334,6 +344,26 @@ export const unitRankUpBonusData = {
       def_up: { milliValue: 20000 },
       cri_up: { milliPercentage: 5000 },
       acc_up: { milliPercentage: 5000 },
+      spd_up: { microValue: 50000 }
+    }
+  },
+  36: {
+    s: {
+      hp_up: { value: 60 },
+      atk_up: { milliValue: 30000 },
+      def_up: { milliValue: 15000 },
+      cri_up: { milliPercentage: 3000 },
+      acc_up: { milliPercentage: 16000 },
+      eva_up: { milliPercentage: 2000 },
+      spd_up: { microValue: 20000 }
+    },
+    ss: {
+      hp_up: { value: 60 },
+      atk_up: { milliValue: 30000 },
+      def_up: { milliValue: 10000 },
+      cri_up: { milliPercentage: 2000 },
+      acc_up: { milliPercentage: 10000 },
+      eva_up: { milliPercentage: 2000 },
       spd_up: { microValue: 50000 }
     }
   },

@@ -361,6 +361,7 @@ type InSquadStateUnit =
     'AACannonier' |
     'Horizon' |
     'SkyKnights' |
+    'GoldenWorkers' |
     'Kunoichi' |
     'OrbitalWatcher' |
     'DEntertainment' |
@@ -384,15 +385,17 @@ type InSquadState<T extends InSquadStateUnit = InSquadStateUnit> = {
 }
 
 type NotInSquadStateUnit =
-  63 | 80 | 82 | 110 | 127 | 199 | 252 | 301 |
+  32 | 63 | 80 | 82 | 110 | 127 | 199 | 252 | 301 |
   typeof UnitKind.AGS |
   typeof UnitType.Light |
   UnitRole |
   typeof UnitAlias['SteelLine' | 'AACannonier' | 'SkyKnights' | 'Kunoichi' | 'OrbitalWatcher' | 'Mermaid'] |
   typeof SkillAreaType.CrossAdjacent |
   Readonly<UnitAliasAndRole<typeof UnitAlias.AACannonier, typeof UnitRole.Supporter>> |
+  Readonly<UnitAliasAndRole<typeof UnitAlias.SistersOfValhalla, typeof UnitRole.Attacker>> |
   readonly [typeof UnitType.Light, typeof UnitType.Heavy] |
   AttackCommandStateLeona |
+  DefenseCommandStateLeona |
   BeastHunterAndPani |
   DefenderAndArmoredBulgasari |
   DefenderAndCyclopsPrincess

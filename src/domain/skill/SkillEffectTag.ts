@@ -38,8 +38,11 @@ export type SkillEffectTag =
   'defense_command' |
   'defense_command_attack' |
   'camouflage' |
-  'fire_support' |
+  'honor' |
   'slidrugtanni_class_armament' |
+  'perception_sharing' |
+  'overcautiousness' |
+  'peer_into_mind' |
   'first_aid' |
   'treatment_target_selection' |
   'influence' |
@@ -250,6 +253,7 @@ export type SkillEffectTag =
   'oath_of_light' |
   'malicious_outburst' |
   'toxic_substance' |
+  'outside_of_safe_zone' |
   'vafrlogi' |
   'reinforced_exoskeleton' |
   'claw' |
