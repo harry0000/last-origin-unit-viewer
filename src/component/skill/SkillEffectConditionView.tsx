@@ -59,7 +59,7 @@ import { ifNonNullable, ifTruthy } from '../../util/react';
 import { isReadonlyArray, ValueOf } from '../../util/type';
 
 function needSeparator(array: ReadonlyArray<unknown>, index: number): boolean {
-  return ++index < array.length;
+  return index + 1 < array.length;
 }
 
 function stateValuesView(

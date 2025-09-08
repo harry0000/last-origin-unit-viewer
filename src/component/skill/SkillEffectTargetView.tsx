@@ -53,7 +53,7 @@ const SkillEffectTargetView: React.FC<{
       {
         hasConditions ?
           target.conditions.map((cond, i, arr ) => {
-            const separator: string = ++i < arr.length ? t('effect:unit_separator') : '';
+            const separator: string = i + 1 < arr.length ? t('effect:unit_separator') : '';
 
             if (typeof cond === 'number') {
               return unitName(cond) + separator;
