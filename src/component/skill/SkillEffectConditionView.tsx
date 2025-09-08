@@ -559,20 +559,6 @@ const TriggerView: React.FC<{
         }
       </React.Fragment>
     );
-  case EffectTrigger.SeizeOpportunity:
-    return (
-      <React.Fragment>
-        {
-          [...unitNumbersForAlias[UnitAlias.NotApplicableForSeizeOpportunity]].map(number =>
-            t('effect:with_quotes', { value: t('unit:display', { number }) })
-          ).join(t('effect:unit_separator'))
-        }
-        {t('effect:except_preposition')}
-        <UnitAliasView unitAlias={UnitAlias.ApplicableForSeizeOpportunity} />
-        {t('effect:case_particle')}
-        {t(`effect:condition.trigger.${condition.trigger}`)}
-      </React.Fragment>
-    );
   default:
     return (<React.Fragment>{t(`effect:condition.trigger.${condition.trigger}`)}</React.Fragment>);
   }

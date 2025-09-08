@@ -33,8 +33,6 @@
     "sisters_of_valhalla": "シスターズオブヴァルハラ",
     "mongoose_team": "マングースチーム",
     "anger_of_horde": "アンガーオブホード",
-    "applicable_for_seize_opportunity": "アンガーオブホード",
-    "not_applicable_for_seize_opportunity": "アンガーオブホード",
     "guardian_series": "ガーディアンシリーズ",
     "doom_bringer": "ドゥームブリンガー",
     "aa_cannonier": "AAキャノニア",
@@ -142,8 +140,6 @@
     "tireless_legs": "疲れない脚",
     "scenery_in_my_mind": "胸に抱く風景",
     "dreamed_ideals": "夢見た理想",
-    "charging_order": "出撃命令！",
-    "seize_opportunity": "隙を見る",
     "rapid_acceleration": "急加速",
     "hammer_and_anvil_tactic": "掎角之勢",
     "tightened_leash": "結ばれた手綱",
@@ -413,8 +409,7 @@
       "critical": "クリティカル時",
       "counter": "反撃時",
       "revive": "戦闘続行発動時",
-      "move": "移動時",
-      "seize_opportunity": "$t(effect:condition.state.tagged, { \"tag\": \"seize_opportunity\" })$t(effect:effect.target.kind.enemy)を攻撃時"
+      "move": "移動時"
     },
     "state": {
       "hp_greater_or_equal": "HP{{value}}%以上である",

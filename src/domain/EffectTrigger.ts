@@ -33,7 +33,6 @@ export const EffectTrigger = {
   Critical: 'critical',
   Counter: 'counter',
   Revive: 'revive',
-  Move: 'move',
-  SeizeOpportunity: 'seize_opportunity'
+  Move: 'move'
 } as const;
 export type EffectTrigger = typeof EffectTrigger[keyof typeof EffectTrigger]

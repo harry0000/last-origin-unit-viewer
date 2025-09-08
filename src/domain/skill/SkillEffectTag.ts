@@ -51,8 +51,6 @@ export type SkillEffectTag =
   'tireless_legs' |
   'scenery_in_my_mind' |
   'dreamed_ideals' |
-  'charging_order' |
-  'seize_opportunity' |
   'rapid_acceleration' |
   'hammer_and_anvil_tactic' |
   'tightened_leash' |
