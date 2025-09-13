@@ -37,6 +37,7 @@ import {
   isJangHwaActivationSquadState,
   isNumOfCrossAdjacentCondition,
   isNumOfDefenderAndArmoredBulgasariCondition,
+  isNumOfUnitAliasCondition,
   isNumOfUnitsCompareToEnemiesCondition,
   isUnitsInSquadCondition
 } from '../../domain/skill/SkillEffectActivationCondition';
@@ -58,7 +59,7 @@ import { ifNonNullable, ifTruthy } from '../../util/react';
 import { isReadonlyArray, ValueOf } from '../../util/type';
 
 function needSeparator(array: ReadonlyArray<unknown>, index: number): boolean {
-  return ++index < array.length;
+  return index + 1 < array.length;
 }
 
 function stateValuesView(
@@ -194,21 +195,7 @@ function unitStateView(
     UnitAliasAndRole<typeof UnitAlias.SistersOfValhalla, typeof UnitRole.Attacker> |
     UnitAliasAndRole<typeof UnitAlias.MongooseTeam, typeof UnitRole.Defender> |
     UnitAliasAndRole<typeof UnitAlias.Strikers, typeof UnitRole.Attacker> |
-    typeof UnitAlias[
-      'SteelLine' |
-      'SteelLineOfficerRanks' |
-      'SteelLineExcludingOfficerRanks' |
-      'AACannonier' |
-      'Horizon' |
-      'SkyKnights' |
-      'GoldenWorkers' |
-      'Kunoichi' |
-      'OrbitalWatcher' |
-      'DEntertainment' |
-      'KouheiChurch' |
-      'EmpressHound' |
-      'Mermaid'
-    ] |
+    UnitAlias |
     typeof SkillAreaType.CrossAdjacent |
     typeof UnitKind.AGS |
     UnitType |
@@ -443,6 +430,16 @@ const SquadStateView: React.FC<{
                     <Separator />
                   </React.Fragment>
                 );
+              } else if (isNumOfUnitAliasCondition(squadState)) {
+                return (
+                  <React.Fragment key={entry[0]}>
+                    {t('effect:unit.self')}
+                    {t('effect:except_preposition')}
+                    <UnitAliasView unitAlias={squadState.unit} exceptUnit={unitNumber} />
+                    {t('effect:condition.state.unit_alias_eq', squadState)}
+                    <Separator />
+                  </React.Fragment>
+                );
               } else {
                 return (
                   <React.Fragment key={entry[0]}>
@@ -535,6 +532,7 @@ const TriggerView: React.FC<{
     );
   case EffectTrigger.UseActive1:
   case EffectTrigger.UseActive2:
+  case EffectTrigger.Hit:
   case EffectTrigger.HitActive1:
   case EffectTrigger.HitActive2:
     return (
@@ -545,20 +543,6 @@ const TriggerView: React.FC<{
             t(`effect:condition.trigger.${condition.trigger}`, { unit: unitNumber })
           ].join('')
         }
-      </React.Fragment>
-    );
-  case EffectTrigger.SeizeOpportunity:
-    return (
-      <React.Fragment>
-        {
-          [...unitNumbersForAlias[UnitAlias.NotApplicableForSeizeOpportunity]].map(number =>
-            t('effect:with_quotes', { value: t('unit:display', { number }) })
-          ).join(t('effect:unit_separator'))
-        }
-        {t('effect:except_preposition')}
-        <UnitAliasView unitAlias={UnitAlias.ApplicableForSeizeOpportunity} />
-        {t('effect:case_particle')}
-        {t(`effect:condition.trigger.${condition.trigger}`)}
       </React.Fragment>
     );
   default:

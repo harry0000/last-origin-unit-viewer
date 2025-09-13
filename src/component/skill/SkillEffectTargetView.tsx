@@ -26,7 +26,7 @@ const SkillEffectTargetView: React.FC<{
   const exceptUnit =
     target.kind === SkillEffectTargetKind.AllyExceptSelf ?
       selfUnitNumber :
-      !isReadonlyArray(except) ?
+      !isReadonlyArray(except) && typeof except !== 'string' ?
         except :
         undefined;
 
@@ -38,9 +38,13 @@ const SkillEffectTargetView: React.FC<{
         except,
         v => (
           <React.Fragment>
-            {isReadonlyArray(v) ?
-              `${unitName(v[0])}${t('effect:unit_separator')}${unitName(v[1])}` :
-              unitName(v)}
+            {
+              typeof v === 'string' ?
+                <UnitAliasView unitAlias={v} /> :
+                isReadonlyArray(v) ?
+                  `${unitName(v[0])}${t('effect:unit_separator')}${unitName(v[1])}` :
+                  unitName(v)
+            }
             {t('effect:except_preposition')}
             {hasConditions ? null : t('effect:unit.unit')}
           </React.Fragment>
@@ -49,7 +53,7 @@ const SkillEffectTargetView: React.FC<{
       {
         hasConditions ?
           target.conditions.map((cond, i, arr ) => {
-            const separator: string = ++i < arr.length ? t('effect:unit_separator') : '';
+            const separator: string = i + 1 < arr.length ? t('effect:unit_separator') : '';
 
             if (typeof cond === 'number') {
               return unitName(cond) + separator;

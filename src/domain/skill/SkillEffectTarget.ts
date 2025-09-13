@@ -31,7 +31,10 @@ export type AlliedUnitTarget = Readonly<{
       UnitAlias | UnitAliasAndType | UnitAliasAndRole |
       UnitNotAlias | UnitNotAliasAndType | UnitNotAliasAndRole
     >,
-  except?: 97 | 128 | 133 | 135 | 150 | 193 | readonly [118, 240]
+  except?:
+    97 | 128 | 133 | 135 | 150 | 193 |
+    readonly [118, 240] |
+    typeof UnitAlias.AngerOfHorde
 }>
 
 export type SkillEffectTarget =

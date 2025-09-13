@@ -143,15 +143,21 @@ export function matchTarget(
   source: UnitBasicInfo,
   condition: AlliedUnitTarget
 ): boolean {
-  if (
-    condition.kind === SkillEffectTargetKind.AllyExceptSelf && target.no === source.no ||
-    'except' in condition && (
-      isReadonlyArray(condition.except) ?
-        target.no === condition.except[0] || target.no === condition.except[1] :
-        target.no === condition.except
-    )
-  ) {
+  if (condition.kind === SkillEffectTargetKind.AllyExceptSelf && target.no === source.no) {
     return false;
+  }
+
+  if ('except' in condition) {
+    const except = condition.except;
+    if (
+      typeof except === 'string' ?
+        unitNumbersForAlias[except].has(target.no) :
+        isReadonlyArray(except) ?
+          target.no === except[0] || target.no === except[1] :
+          target.no === except
+    ) {
+      return false;
+    }
   }
 
   return !condition.conditions || matchTargetConditions(target, condition.conditions);

@@ -51,8 +51,7 @@ export type SkillEffectTag =
   'tireless_legs' |
   'scenery_in_my_mind' |
   'dreamed_ideals' |
-  'charging_order' |
-  'seize_opportunity' |
+  'mobile_tactic_support' |
   'rapid_acceleration' |
   'hammer_and_anvil_tactic' |
   'tightened_leash' |
@@ -216,6 +215,8 @@ export type SkillEffectTag =
   'tenderizer' |
   'caffeine_charged' |
   'nicotine_charged' |
+  'sister~!' |
+  'sister?!' |
   'unrep' |
   'shake_shake' |
   'output_increase' |
