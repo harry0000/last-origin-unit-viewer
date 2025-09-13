@@ -195,21 +195,7 @@ function unitStateView(
     UnitAliasAndRole<typeof UnitAlias.SistersOfValhalla, typeof UnitRole.Attacker> |
     UnitAliasAndRole<typeof UnitAlias.MongooseTeam, typeof UnitRole.Defender> |
     UnitAliasAndRole<typeof UnitAlias.Strikers, typeof UnitRole.Attacker> |
-    typeof UnitAlias[
-      'SteelLine' |
-      'SteelLineOfficerRanks' |
-      'SteelLineExcludingOfficerRanks' |
-      'AACannonier' |
-      'Horizon' |
-      'SkyKnights' |
-      'GoldenWorkers' |
-      'Kunoichi' |
-      'OrbitalWatcher' |
-      'DEntertainment' |
-      'KouheiChurch' |
-      'EmpressHound' |
-      'Mermaid'
-    ] |
+    UnitAlias |
     typeof SkillAreaType.CrossAdjacent |
     typeof UnitKind.AGS |
     UnitType |

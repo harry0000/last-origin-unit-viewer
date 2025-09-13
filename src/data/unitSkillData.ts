@@ -4124,7 +4124,7 @@ export const unitSkillData: UnitSkillData = {
       effects: [{
         conditions: [{ state: { target: [{ affected: 'def_down' }, { affected: 'eva_down' }] } }],
         target: { kind: 'enemy' },
-        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 } } } }
+        details: { self: { additional_damage: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' } } }
       }]
     }, {
       damage_deal: {
@@ -4135,28 +4135,63 @@ export const unitSkillData: UnitSkillData = {
       cost: 8,
       area: 'single',
       effects: [{
+        conditions: [{ trigger: 'hit', state: { self: [{ not_tagged: 'mobile_tactic_support' }] } }],
         details: {
           self: {
-            heavy_type_damage_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 } },
-            defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 } }
+            heavy_type_damage_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: 'immediate' },
+            defense_penetration: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 }, term: 'immediate' }
           }
         }
       }, {
         conditions: [{ state: { target: [{ affected: 'marked' }, { affected: 'immovable' }] } }],
         target: { kind: 'enemy' },
-        details: { self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 } } } }
+        details: { self: { additional_damage: { base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 1500 }, term: 'immediate' } } }
       }]
     }],
     passive: [{
-      area: 'line_adjacent',
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round', state: { target: [{ grid: 'same_line' }] } }],
+        target: { kind: 'ally', conditions: ['light', 'heavy'], except: 'anger_of_horde' },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            follow_up_attack: { term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: ['anger_of_horde'] },
+        details: {
+          target: {
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            follow_up_attack: { term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_wave', state: { target: [{ grid: 'same_line' }] } }],
+        target: { kind: 'ally', conditions: ['light', 'heavy'] },
+        details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'self',
       effects: [{
         conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: ['light', 'heavy'] },
-        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
+            damage_reduction_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
       }, {
-        conditions: [{ trigger: 'start_wave' }],
-        target: { kind: 'ally', conditions: ['light', 'heavy'] },
-        details: { target: { ap_up: { base: { microValue: 1000000 }, per_lv_up: { microValue: 50000 } } } }
+        conditions: [{ trigger: 'start_round', state: { squad: { not_in_squad: 'anger_of_horde' } } }],
+        scale_factor: { per_units: { type: 'squad' } },
+        details: { self: { spd_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'anger_of_horde' } } }],
+        scale_factor: { per_units: { type: 'squad' } },
+        details: { self: { spd_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 300 }, term: { for_rounds: 1 } } } }
       }]
     }, {
       area: 'all',
@@ -4164,34 +4199,10 @@ export const unitSkillData: UnitSkillData = {
         conditions: [{ trigger: 'start_round' }],
         details: {
           self: {
-            atk_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 750 }, term: { for_rounds: 1 } },
-            cri_up: { base: { milliPercentage: 10000 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } },
-            damage_reduction_up: { base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+            defense_penetration: { tag: 'mobile_tactic_support', base: { milliPercentage: 30000 }, per_lv_up: { milliPercentage: 4000 }, term: { for_rounds: 1 } },
+            heavy_type_damage_up: { tag: 'mobile_tactic_support', base: { milliPercentage: 15000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } },
           }
         }
-      }, {
-        conditions: [{ trigger: 'start_round' }],
-        scale_factor: { per_units: { type: 'squad', unit: 'anger_of_horde' } },
-        details: { self: { spd_up: { base: { milliPercentage: 4000 }, per_lv_up: { milliPercentage: 200 }, term: { for_rounds: 1 } } } }
-      }, {
-        conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: ['anger_of_horde'] },
-        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
-      }]
-    }, {
-      area: 'line_with_back',
-      effects: [{
-        conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: ['light'] },
-        details: { target: { atk_up: { base: { milliPercentage: 11000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
-      }, {
-        conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: [{ alias: 'anger_of_horde', type: 'light' }] },
-        details: { target: { atk_up: { base: { milliPercentage: 5500 }, per_lv_up: { milliPercentage: 500 }, term: { for_rounds: 1 } } } }
-      }, {
-        conditions: [{ trigger: 'start_round' }],
-        target: { kind: 'ally', conditions: [{ alias: 'anger_of_horde', type: 'flying' }] },
-        details: { target: { atk_up: { base: { milliPercentage: 16500 }, per_lv_up: { milliPercentage: 1500 }, term: { for_rounds: 1 } } } }
       }, {
         conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 41 } } }],
         target: { kind: 'ally', conditions: ['anger_of_horde'] },
