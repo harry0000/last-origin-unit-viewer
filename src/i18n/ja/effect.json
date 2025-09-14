@@ -504,6 +504,7 @@
     "rate_up_by_level": "スキルLvに応じた一定確率で",
     "constant": "一定確率で",
     "rarely": "低確率で",
+    "random": "ランダムで",
     "ignore_resistance": "効果耐性を無視して"
   },
   "status": {
@@ -625,6 +626,7 @@
       "re_attack": "再攻撃",
       "follow_up_attack": "攻撃支援対象",
       "cooperative_attack": "協同攻撃対象",
+      "brainwashing": "洗脳 (スキル再使用)",
       "counterattack": "反撃",
       "ignore_barrier_dr": "バリア・被ダメージダウン効果無視",
       "ignore_protect": "保護効果無視",
@@ -755,6 +757,7 @@
       "follow_up_attack": "攻撃支援",
       "cooperative_attack": "[$t(skill:active) ($t(unit:display, { \"number\": {{unit}} }))]協同攻撃",
       "cooperative_attack_form_active": "[$t(skill:form_active) ($t(unit:display, { \"number\": {{unit}} }))] 協同攻撃",
+      "brainwashing": "洗脳 (スキル再使用)",
       "counterattack": "{{value}}%の威力で反撃",
 
       "ignore_barrier_dr": "バリア・被ダメージダウン効果を無視",
