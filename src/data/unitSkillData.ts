@@ -23592,6 +23592,42 @@ export const unitSkillData: UnitSkillData = {
           }
         }
       }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            atk_up: { milliPercentage: 20000, term: { for_rounds: 1 } },
+            defense_penetration: { milliPercentage: 23000, term: { for_rounds: 1 } },
+            damage_reduction_up: { milliPercentage: 20000, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: [183] },
+        details: {
+          target: {
+            atk_up: { milliPercentage: 20000, term: { for_rounds: 1 } },
+            defense_penetration: { milliPercentage: 23000, term: { for_rounds: 1 } },
+            damage_reduction_up: { milliPercentage: 20000, term: { for_rounds: 1 } }
+          }
+        }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally' },
+        details: {
+          target: {
+            acc_up: { milliPercentage: 20000, term: { for_rounds: 1 } },
+            cri_up: { milliPercentage: 20000, term: { for_rounds: 1 } },
+            damage_multiplier_up: { base: { milliPercentage: 20000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }]
     }]
   },
   246: {
