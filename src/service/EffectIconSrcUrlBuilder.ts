@@ -51,6 +51,7 @@ export function buildEffectIconSrcUrl(effect: Effect): string | undefined {
   case Effect.AbsolutelyActivated:
     return buildIconSrcUrl(Effect.ActivationRatePercentageUp);
   case Effect.ReAttack:
+  case Effect.Brainwashing:
     return buildIconSrcUrl(Effect.FollowUpAttack);
   case Effect.AttackHit:
     return buildIconSrcUrl(Effect.AccUp);

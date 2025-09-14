@@ -102,6 +102,7 @@ export const Effect = {
   ReAttack: 're_attack',
   FollowUpAttack: 'follow_up_attack',
   CooperativeAttack: 'cooperative_attack',
+  Brainwashing: 'brainwashing',
   Counterattack: 'counterattack',
   IgnoreBarrierDr: 'ignore_barrier_dr',
   IgnoreProtect: 'ignore_protect',

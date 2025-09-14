@@ -32,6 +32,7 @@ export type NoValueEffectKey =
     'Immovable' |
     'Silenced' |
     'Stunned' |
+    'Brainwashing' |
     'RefundAp' |
     'AttackHit' |
     'AttackCritical' |

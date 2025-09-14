@@ -341,6 +341,7 @@ function calculateEffectValue(
   case Effect.TargetProtect:
   case Effect.ReAttack:
   case Effect.FollowUpAttack:
+  case Effect.Brainwashing:
   case Effect.IgnoreBarrierDr:
   case Effect.IgnoreProtect:
   case Effect.IgnoreProtectDeactivate:
