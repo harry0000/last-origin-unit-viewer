@@ -401,6 +401,9 @@ export const AreaOfEffectCells = {
   [SkillAreaType.FixedMiddleRow]: {
     area: ['none', 'none', 'none', 'effective', 'effective', 'effective', 'none', 'none', 'none']
   },
+  [SkillAreaType.FixedMiddleRowWithFanShapeShockWave]: {
+    area: ['none', 'high', 'middle', 'effective', 'effective', 'effective', 'none', 'high', 'middle']
+  },
   [SkillAreaType.FixedCross]: {
     area: ['none', 'effective', 'none', 'effective', 'effective', 'effective', 'none', 'effective', 'none']
   },
