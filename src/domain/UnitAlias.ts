@@ -35,7 +35,8 @@ export const UnitAlias = {
   Poseidon: 'poseidon',
   SmartEnjoy: 'smart_enjoy',
   SpartanSeries: 'spartan_series',
-  Mermaid: 'mermaid'
+  Mermaid: 'mermaid',
+  LionCorporation: 'lion_corporation'
 } as const;
 export type UnitAlias = typeof UnitAlias[keyof typeof UnitAlias]
 
@@ -74,7 +75,8 @@ export const unitNumbersForAlias: { [key in UnitAlias]: ReadonlySet<UnitNumber> 
   [UnitAlias.Poseidon]: new Set([199, 200]),
   [UnitAlias.SmartEnjoy]: new Set([205, 206]),
   [UnitAlias.SpartanSeries]: new Set([215, 216, 217]),
-  [UnitAlias.Mermaid]: new Set([250, 251, 252, 253])
+  [UnitAlias.Mermaid]: new Set([250, 251, 252, 253]),
+  [UnitAlias.LionCorporation]: new Set([293, 295])
 };
 
 export function isUnitAlias(arg: string): arg is UnitAlias {

@@ -58,6 +58,7 @@
     "smart_enjoy": "スマートエンジョイ",
     "spartan_series": "スパルタンシリーズ",
     "mermaid": "マーメイド",
+    "lion_corporation": "ライアンコーポレーション",
     "armored_bulgasari": "$t(effect:quote)$t(equipment:counterterrorism_body_armor)$t(effect:unquote)を装備した$t(effect:quote)$t(unit:display, { \"number\": 84 })$t(effect:unquote)",
     "golden_factory": "ゴールデンファクトリー"
   },

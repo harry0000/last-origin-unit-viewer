@@ -97,6 +97,7 @@ export const SkillAreaType = {
   FixedFrontAndBackLine: `${FixedAreaPrefix}front_and_back_line`,
   FixedMidAndBackLine: `${FixedAreaPrefix}mid_and_back_line`,
   FixedMiddleRow: `${FixedAreaPrefix}middle_row`,
+  FixedMiddleRowWithFanShapeShockWave: `${FixedAreaPrefix}middle_row_with_fan_shape_shock_wave`,
   FixedCross: `${FixedAreaPrefix}cross`,
   FixedDiagonal: `${FixedAreaPrefix}diagonal`,
   FixedFleetFormation: `${FixedAreaPrefix}fleet_formation`,

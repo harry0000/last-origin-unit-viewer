@@ -218,6 +218,8 @@ export const unitEquipmentSlotData = {
   252: { chip1: 20, chip2: 40, os: 60, gear: 80 },
   253: { chip1: 60, chip2: 80, os: 20, gear: 40 },
   255: { chip1: 20, chip2: 40, os: 60, gear: 80 },
+  293: { chip1: 60, chip2: 80, os: 20, gear: 40 },
+  295: { chip1: 20, chip2: 40, os: 60, gear: 80 },
   301: { chip1: 60, chip2: 80, os: 20, gear: 40 },
   302: { chip1: 60, chip2: 80, os: 20, gear: 40 }
 } as const;

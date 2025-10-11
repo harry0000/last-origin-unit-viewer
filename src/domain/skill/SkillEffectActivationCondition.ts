@@ -368,7 +368,8 @@ type InSquadStateUnit =
     'DEntertainment' |
     'KouheiChurch' |
     'EmpressHound' |
-    'Mermaid'
+    'Mermaid' |
+    'LionCorporation'
   ] |
   Readonly<UnitAliasAndRole<typeof UnitAlias['SteelLine' | 'AACannonier'], typeof UnitRole.Supporter>> |
   Readonly<UnitAliasAndRole<typeof UnitAlias['MongooseTeam'], typeof UnitRole.Defender>> |
@@ -462,7 +463,7 @@ export type NumOfUnitsInSquadState = {
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 1 | 2 | 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, greater_or_equal: 2, less_or_equal: 3 } |
     { unit: typeof SkillAreaType.CrossAdjacent, equal: 4 } |
-    { unit: typeof UnitAlias['GuardianSeries' | 'Poseidon'], equal: 1 | 2 | 3 } |
+    { unit: typeof UnitAlias['GuardianSeries' | 'Poseidon' | 'LionCorporation'], equal: 1 | 2 | 3 } |
     { unit: 'killed', greater_or_equal: 1 | 2 | 3 } |
     { unit: 'killed', equal: 4 } |
     { unit: DefenderAndArmoredBulgasari, equal: 1 | 2 | 3 | 4 } |

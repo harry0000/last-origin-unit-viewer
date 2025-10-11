@@ -24544,6 +24544,212 @@ export const unitSkillData: UnitSkillData = {
       }]
     }]
   },
+  293: {
+    no: 293,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 150000 },
+        per_lv_up: { milliPercentage: 20000 }
+      },
+      range: 3,
+      cost: 5,
+      area: 'cross_strong_explosion',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            fixed_damage: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 3000 }, term: 'immediate' },
+            damage_taken_increased: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 }, cannot_be_dispelled: true }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        target: { kind: 'enemy' },
+        details: { target: { spd_down: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 180000 },
+        per_lv_up: { milliPercentage: 13000 }
+      },
+      range: 6,
+      cost: 8,
+      area: 'all_strong_explosion',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        details: { self: { heavy_type_damage_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 3000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        details: { self: { additional_damage: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 3000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit', state: { squad: { in_squad: 295 } } }],
+        details: { self: { cooperative_attack: { unit: 295, active: 2, term: 'immediate' } } }
+      }]
+    }],
+    passive: [{
+      area: 'self',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            atk_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            acc_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } },
+            cri_up: { base: { milliPercentage: 3000 }, per_lv_up: { milliPercentage: 3000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        details: { self: { ap_up: { base: { microValue: 30000 }, per_lv_up: { microValue: 30000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'kill' }],
+        details: { self: { ap_up: { base: { microValue: 50000 }, per_lv_up: { microValue: 50000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: {
+          self: {
+            defense_penetration: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            damage_reduction_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'ally', conditions: [156] },
+        details: {
+          target: {
+            defense_penetration: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            damage_reduction_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'be_hit' }],
+        details: { self: { counterattack: { base: { milliPercentage: 12000 }, per_lv_up: { milliPercentage: 12000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { battle_continuation: { base: { milliPercentage: 5000 }, per_lv_up: { milliPercentage: 5000 }, term: { for_rounds: 1 }, times: 1, cannot_be_dispelled: true } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'lion_corporation', equal: 1 } } } }],
+        target: { kind: 'ally' },
+        details: { target: { atk_up: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
+  295: {
+    no: 295,
+    active: [{
+      damage_deal: {
+        base: { milliPercentage: 160000 },
+        per_lv_up: { milliPercentage: 13000 },
+        attribute: 'electric'
+      },
+      range: 6,
+      cost: 6,
+      area: 'fixed_middle_row_with_fan_shape_shock_wave',
+      effects: [{
+        details: { self: { ignore_protect: {} } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            def_down: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } },
+            eva_down: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        target: { kind: 'enemy' },
+        details: { target: { immovable: { term: { for_rounds: 1 } } } }
+      }]
+    }, {
+      damage_deal: {
+        base: { milliPercentage: 140000 },
+        per_lv_up: { milliPercentage: 12000 },
+        attribute: 'electric'
+      },
+      range: 6,
+      cost: 10,
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            atk_down: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 2 } },
+            fire_resist_down: { tag: 'overheat', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } },
+            ice_resist_up: { tag: 'overheat', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } },
+            electric_resist_down: { tag: 'overheat', base: { milliPercentage: 50000 }, per_lv_up: { milliPercentage: 2500 }, term: { for_rounds: 2 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'critical' }],
+        details: { self: { additional_electric_damage: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: 'immediate' } } }
+      }]
+    }],
+    passive: [{
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        target: { kind: 'enemy' },
+        details: {
+          target: {
+            atk_down: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            acc_down: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } },
+            damage_multiplier_down: { base: { milliPercentage: 2000 }, per_lv_up: { milliPercentage: 2000 }, term: { for_rounds: 1 } }
+          }
+        }
+      }, {
+        conditions: [{ trigger: 'be_hit' }],
+        details: { self: { nullify_damage: { term: 'infinite', times: 1, max_stack: 1 } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'attack' }],
+        details: { self: { all_debuff_removal: { term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'hit' }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 20000 }, per_lv_up: { microValue: 20000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'attack' }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 30000 }, per_lv_up: { microValue: 30000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'kill' }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 40000 }, per_lv_up: { microValue: 40000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 247 } } }],
+        target: { kind: 'ally', conditions: [247, 295] },
+        details: { target: { ap_up: { base: { microValue: 20000 }, per_lv_up: { microValue: 20000 }, term: 'immediate' } } }
+      }]
+    }, {
+      area: 'fixed_all',
+      effects: [{
+        conditions: [{ trigger: 'start_round' }],
+        details: { self: { damage_multiplier_up: { base: { milliPercentage: 1000 }, per_lv_up: { milliPercentage: 1000 }, term: { for_rounds: 1 } } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { num_of_units: { unit: 'lion_corporation', equal: 1 } } } }],
+        target: { kind: 'ally' },
+        details: { target: { ap_up: { base: { microValue: 40000 }, per_lv_up: { microValue: 40000 }, term: 'immediate' } } }
+      }, {
+        conditions: [{ trigger: 'start_round', state: { squad: { in_squad: 'lion_corporation' } } }],
+        target: { kind: 'ally_except_self', conditions: ['lion_corporation'] },
+        details: { target: { follow_up_attack: { term: { for_rounds: 1 } } } }
+      }]
+    }]
+  },
   301: {
     no: 301,
     active: [{

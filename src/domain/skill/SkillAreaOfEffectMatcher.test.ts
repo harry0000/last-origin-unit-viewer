@@ -29,6 +29,10 @@ describe('calcTargetPositions()', () => {
       expect(calcTargetPositions(SkillAreaType.FixedMiddleRow, 5)).toEqual(new Set([4, 5, 6]));
     });
 
+    test('FixedMiddleRowWithFanShapeShockWave', () => {
+      expect(calcTargetPositions(SkillAreaType.FixedMiddleRowWithFanShapeShockWave, 5)).toEqual(new Set([8, 9, 4, 5, 6, 2, 3]));
+    });
+
     test('FixedCross', () => {
       expect(calcTargetPositions(SkillAreaType.FixedCross, 5)).toEqual(new Set([8, 4, 5, 6, 2]));
     });
