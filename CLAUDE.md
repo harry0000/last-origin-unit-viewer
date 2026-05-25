@@ -13,15 +13,15 @@ Unit viewer for the Japanese version of the game "Last Origin". Displays unit st
 
 ## Commands
 
-- **Dev server:** `npm run dev`
-- **Build:** `npm run build` (runs `tsc && vite build`)
-- **Lint:** `npm run lint`
-- **Lint fix:** `npm run lint:fix`
-- **Test:** `npm test`
-- **Single test:** `npx jest <path-or-pattern>`
-- **Type check only:** `npx tsc --noEmit`
+- **Dev server:** `pnpm dev`
+- **Build:** `pnpm build` (runs `tsc && vite build`)
+- **Lint:** `pnpm lint`
+- **Lint fix:** `pnpm lint:fix`
+- **Test:** `pnpm test`
+- **Single test:** `pnpm exec jest <path-or-pattern>`
+- **Type check only:** `pnpm exec tsc --noEmit`
 
-Node 20. Install deps with `npm ci`.
+Node 20. Package manager is pnpm (pinned in `packageManager` field; activate via `corepack enable`). Install deps with `pnpm install --frozen-lockfile`.
 
 ## Architecture
 

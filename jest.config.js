@@ -15,7 +15,7 @@ module.exports = {
     '^.+\\.[jt]sx?$': 'babel-jest'
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!@react-dnd|react-dnd|dnd-core|nanoid)'
+    '/node_modules/\\.pnpm/[^/]+/node_modules/(?!@react-dnd|react-dnd|dnd-core|nanoid)'
   ],
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
 };

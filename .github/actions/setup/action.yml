@@ -3,9 +3,11 @@ description: 'setup node and node_modules'
 runs:
   using: 'composite'
   steps:
+    - uses: pnpm/action-setup@v4
     - uses: actions/setup-node@v4
       with:
         node-version: 20
+        cache: 'pnpm'
     - name: Setup
-      run: npm ci --no-audit --progress=false --silent
+      run: pnpm install --frozen-lockfile
       shell: bash
