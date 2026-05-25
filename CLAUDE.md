@@ -21,7 +21,7 @@ Unit viewer for the Japanese version of the game "Last Origin". Displays unit st
 - **Single test:** `pnpm exec jest <path-or-pattern>`
 - **Type check only:** `pnpm exec tsc --noEmit`
 
-Node 20. Package manager is pnpm (pinned in `packageManager` field; activate via `corepack enable`). Install deps with `pnpm install --frozen-lockfile`.
+Node 24 (latest LTS). Package manager is pnpm (pinned in `packageManager` field; activate via `corepack enable`). Install deps with `pnpm install --frozen-lockfile`.
 
 ## Architecture
 
