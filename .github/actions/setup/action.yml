@@ -8,6 +8,7 @@ runs:
       with:
         node-version: 20
         cache: 'pnpm'
+    - uses: flatt-security/setup-takumi-guard-npm@v1
     - name: Setup
       run: pnpm install --frozen-lockfile
       shell: bash
