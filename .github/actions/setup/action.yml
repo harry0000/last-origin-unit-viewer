@@ -3,12 +3,12 @@ description: 'setup node and node_modules'
 runs:
   using: 'composite'
   steps:
-    - uses: pnpm/action-setup@v4
-    - uses: actions/setup-node@v4
+    - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+    - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
       with:
         node-version: 20
         cache: 'pnpm'
-    - uses: flatt-security/setup-takumi-guard-npm@v1
+    - uses: flatt-security/setup-takumi-guard-npm@9a5d797c2085b6326d3a2985c08e3a114b9b88c1 # v1.1.1
     - name: Setup
       run: pnpm install --frozen-lockfile
       shell: bash
