@@ -46,31 +46,31 @@ const DamagedOverlay: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
   }
 };
 
+const AffectionIcon: React.FC<{ unit: BioroidUnitNumber }> = ({ unit }) => {
+  const { t } = useTranslation();
+  const [affection] = useAffectionBonus(unit);
+
+  return (
+    ifTruthy(
+      affection,
+      (<Image
+        css={{
+          position: 'absolute',
+          left: 0,
+          bottom: 0,
+          filter: 'drop-shadow(-1px -1px 1px rgba(255, 204, 0, 0.8)) drop-shadow(2px 1px 1px rgba(255, 204, 0, 0.8))'
+        }}
+        draggable="false"
+        height={24}
+        width={24}
+        alt={t('affection_state')}
+        src={`${import.meta.env.BASE_URL}icon/wedding_ring.webp`}
+      />)
+    )
+  );
+};
+
 const AffectionOverlay: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
-  const AffectionIcon = ({ unit }: { unit: BioroidUnitNumber }) => {
-    const { t } = useTranslation();
-    const [affection] = useAffectionBonus(unit);
-
-    return (
-      ifTruthy(
-        affection,
-        (<Image
-          css={{
-            position: 'absolute',
-            left: 0,
-            bottom: 0,
-            filter: 'drop-shadow(-1px -1px 1px rgba(255, 204, 0, 0.8)) drop-shadow(2px 1px 1px rgba(255, 204, 0, 0.8))'
-          }}
-          draggable="false"
-          height={24}
-          width={24}
-          alt={t('affection_state')}
-          src={`${import.meta.env.BASE_URL}icon/wedding_ring.webp`}
-        />)
-      )
-    );
-  };
-
   return unit.kind === UnitKind.Bioroid ?
     (<AffectionIcon unit={unit.no} />) :
     null;

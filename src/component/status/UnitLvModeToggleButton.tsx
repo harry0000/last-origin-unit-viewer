@@ -20,10 +20,9 @@ const style = {
   } as const satisfies CSSPropertiesWithMultiValues
 };
 
-const UnitLvModeToggleButton: React.FC = () => {
+const ToggleButton: React.FC<{ disabled?: boolean, selected: boolean, toggle?: () => void }> = ({ disabled, selected, toggle, ...rest }) => {
   const { t } = useTranslation();
-  const selected = useSelectedUnit();
-  const ToggleButton = ({ disabled, selected, toggle, ...rest }: { disabled?: boolean, selected: boolean, toggle?: () => void }) => (
+  return (
     <RoundedToggleButton
       {...rest}
       css={style}
@@ -34,19 +33,24 @@ const UnitLvModeToggleButton: React.FC = () => {
       {t('status.lv_mode.label')}
     </RoundedToggleButton>
   );
+};
 
-  const LvModeToggleButton: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
-    const [lvMode, toggle] = useUnitLvMode(unit);
+const LvModeToggleButton: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
+  const { t } = useTranslation();
+  const [lvMode, toggle] = useUnitLvMode(unit);
 
-    return (
-      <OverlayTrigger
-        placement='auto'
-        overlay={<Tooltip id='tooltip-unit-lv-mode'>{t('status.lv_mode.annotation')}</Tooltip>}
-      >
-        <ToggleButton selected={lvMode === UnitLvMode.Auto} toggle={toggle} />
-      </OverlayTrigger>
-    );
-  };
+  return (
+    <OverlayTrigger
+      placement='auto'
+      overlay={<Tooltip id='tooltip-unit-lv-mode'>{t('status.lv_mode.annotation')}</Tooltip>}
+    >
+      <ToggleButton selected={lvMode === UnitLvMode.Auto} toggle={toggle} />
+    </OverlayTrigger>
+  );
+};
+
+const UnitLvModeToggleButton: React.FC = () => {
+  const selected = useSelectedUnit();
 
   return selected ?
     (<LvModeToggleButton unit={selected.no} />) :

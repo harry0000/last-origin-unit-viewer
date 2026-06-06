@@ -14,18 +14,19 @@ import {
   useStatusParameterIncrement
 } from '../../../state/status/parameters/UnitLvStatusHook';
 
+const EnhancedLvView: React.FC<{ status: EnhanceableStatus }> = ({ status }) => {
+  const lv = useSelectedUnitStatusEnhancedLv(status);
+  return (<React.Fragment>{lv}</React.Fragment>);
+};
+
 const UnitStatusParameterLvView: React.FC<{ status: EnhanceableStatus }> = ({ status }) => {
   const { t } = useTranslation();
-  const View = ({ status }: { status: EnhanceableStatus }) => {
-    const lv = useSelectedUnitStatusEnhancedLv(status);
-    return (<React.Fragment>{lv}</React.Fragment>);
-  };
 
   return (
     <span>
       {t('lv')}
       <span css={{ display: 'inline-block', width: '2em', textAlign: 'right' }}>
-        <View status={status} />
+        <EnhancedLvView status={status} />
       </span>
     </span>
   );

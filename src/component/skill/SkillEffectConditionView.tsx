@@ -754,6 +754,70 @@ const EffectTargetsView: React.FC<{
   );
 };
 
+const OrConjunction: React.FC = () => {
+  const { t } = useTranslation();
+  return (<div css={{ fontSize: '0.7em' }}>{t('effect:or_conjunction')}</div>);
+};
+
+const Conditions: React.FC<{
+  effect: SkillEffect,
+  model: SkillEffectConditionViewModel,
+  unitNumber: UnitNumber
+}> = ({ effect, model, unitNumber }) => {
+  const { t } = useTranslation();
+
+  if (isTargetSkillEffect(effect)) {
+    const conditions =
+      effect.conditions ?
+        effect.conditions.length === 1 ?
+          (<ConditionRow condition={effect.conditions[0]} target={effect.target} unitNumber={unitNumber} />) :
+          (
+            <React.Fragment>
+              <ConditionRow condition={effect.conditions[0]} target={effect.target} unitNumber={unitNumber} />
+              <OrConjunction />
+              <ConditionRow condition={effect.conditions[1]} target={effect.target} unitNumber={unitNumber} />
+            </React.Fragment>
+          ) :
+        null;
+    return (
+      <React.Fragment>
+        {conditions}
+        {ifNonNullable(model.enemyTargetConditions, enemyTarget => (
+          <React.Fragment>
+            {ifTruthy(!!conditions, t('effect:separator'))}
+            <EnemyCondition target={enemyTarget} />
+          </React.Fragment>
+        ))}
+      </React.Fragment>
+    );
+  } else {
+    return ifNonNullable(
+      effect.conditions,
+      conds =>
+        conds.length === 1 ?
+          (<ConditionRow condition={conds[0]} unitNumber={unitNumber} />) :
+          (
+            <React.Fragment>
+              <ConditionRow condition={conds[0]} unitNumber={unitNumber} />
+              <OrConjunction />
+              <ConditionRow condition={conds[1]} unitNumber={unitNumber} />
+            </React.Fragment>
+          )
+    );
+  }
+};
+
+const Additional: React.FC<{ model: SkillEffectConditionViewModel, children: ReactNode }> = ({ model, children }) => {
+  const { t } = useTranslation();
+  return (
+    model.hasAnyConditions ?
+      model.hasMultipleConditions ?
+        (<div css={{ marginTop: 5 }}>{children}</div>) :
+        (<span>{t('effect:separator')}{children}</span>) :
+      (<span>{children}</span>)
+  );
+};
+
 const SkillEffectConditionView: React.FC<{
   effect: SkillEffect,
   unitNumber: UnitNumber
@@ -761,62 +825,10 @@ const SkillEffectConditionView: React.FC<{
   const { t } = useTranslation();
   const model = new SkillEffectConditionViewModel(effect);
 
-  const OrConjunction = () => (<div css={{ fontSize: '0.7em' }}>{t('effect:or_conjunction')}</div>);
-  const Conditions = () => {
-    if (isTargetSkillEffect(effect)) {
-      const conditions =
-        effect.conditions ?
-          effect.conditions.length === 1 ?
-            (<ConditionRow condition={effect.conditions[0]} target={effect.target} unitNumber={unitNumber} />) :
-            (
-              <React.Fragment>
-                <ConditionRow condition={effect.conditions[0]} target={effect.target} unitNumber={unitNumber} />
-                <OrConjunction />
-                <ConditionRow condition={effect.conditions[1]} target={effect.target} unitNumber={unitNumber} />
-              </React.Fragment>
-            ) :
-          null;
-      return (
-        <React.Fragment>
-          {conditions}
-          {ifNonNullable(model.enemyTargetConditions, enemyTarget => (
-            <React.Fragment>
-              {ifTruthy(!!conditions, t('effect:separator'))}
-              <EnemyCondition target={enemyTarget} />
-            </React.Fragment>
-          ))}
-        </React.Fragment>
-      );
-    } else {
-      return ifNonNullable(
-        effect.conditions,
-        conds =>
-          conds.length === 1 ?
-            (<ConditionRow condition={conds[0]} unitNumber={unitNumber} />) :
-            (
-              <React.Fragment>
-                <ConditionRow condition={conds[0]} unitNumber={unitNumber} />
-                <OrConjunction />
-                <ConditionRow condition={conds[1]} unitNumber={unitNumber} />
-              </React.Fragment>
-            )
-      );
-    }
-  };
-  const Additional = ({ children }: { children: ReactNode }) => {
-    return (
-      model.hasAnyConditions ?
-        model.hasMultipleConditions ?
-          (<div css={{ marginTop: 5 }}>{children}</div>) :
-          (<span>{t('effect:separator')}{children}</span>) :
-        (<span>{children}</span>)
-    );
-  };
-
   return (
     <div>
-      <Conditions />
-      <Additional>
+      <Conditions effect={effect} model={model} unitNumber={unitNumber} />
+      <Additional model={model}>
         <EffectiveView effective={model.effective} />
         <EffectScaleFactorView scaleFactor={model.scaleFactor} unitNumber={unitNumber} />
         <EffectTargetsView targets={model.effectTargets} unitNumber={unitNumber} />

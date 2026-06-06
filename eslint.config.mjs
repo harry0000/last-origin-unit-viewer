@@ -71,9 +71,7 @@ export default tseslint.config(
       'react-hooks/exhaustive-deps': [
         'warn',
         { 'additionalHooks': '(useRecoilCallback|useRecoilTransaction_UNSTABLE)' }
-      ],
-      // TODO: Fix violations and remove this override.
-      'react-hooks/static-components': 'off'
+      ]
     }
   }
 );
