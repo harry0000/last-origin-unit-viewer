@@ -114,15 +114,16 @@ export function useUnitDragPreview():
     return { display: false };
   }
 
-  style.top = -20;
-  style.left = -20;
-  style.opacity = 0.9;
-
   return {
     display,
     itemType,
     item,
-    style
+    style: {
+      ...style,
+      top: -20,
+      left: -20,
+      opacity: 0.9
+    }
   };
 }
 
