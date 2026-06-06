@@ -71,7 +71,10 @@ export default tseslint.config(
       'react-hooks/exhaustive-deps': [
         'warn',
         { 'additionalHooks': '(useRecoilCallback|useRecoilTransaction_UNSTABLE)' }
-      ]
+      ],
+      // TODO: Fix violations and remove these overrides (separate commits per rule).
+      'react-hooks/static-components': 'off',
+      'react-hooks/immutability': 'off'
     }
   }
 );

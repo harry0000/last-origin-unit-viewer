@@ -1,5 +1,5 @@
 import { atom, useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { CSSProperties, RefObject, useEffect, useRef, useState } from 'react';
+import { CSSProperties, RefObject, useEffect, useRef } from 'react';
 import { ConnectDragSource, ConnectDropTarget, useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { usePreview } from 'react-dnd-preview';
@@ -274,7 +274,6 @@ export function useSquadShareToTwitter(url?: string): () => void {
 
 export function useSquadRestoreFromUrl(): boolean {
   const selectUnit = useUnitSelector();
-  const [restoring, setRestoring] = useState(false);
 
   const notify = useNotificationResister();
   const squadRestore = useRecoilCallback(restoreSquad);
@@ -291,43 +290,40 @@ export function useSquadRestoreFromUrl(): boolean {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const squadParam = getSquadParam(location);
 
   useEffect(() => {
-    const squadParam = getSquadParam(location);
-    if (squadParam) {
-      setRestoring(true);
+    if (!squadParam) return;
 
-      try {
-        const json = restore(squadParam);
-        const restored = restoreFromJsonObject(json);
-        if (restored) {
-          lvStateRestore(restored.lvStatus);
-          chip1Restore(restored.chip1Equipment);
-          chip2Restore(restored.chip2Equipment);
-          osRestore(restored.osEquipment);
-          gearRestore(restored.gearEquipment);
-          coreLinkRestore(restored.coreLink);
-          skillRestore(restored.skill);
-          primaryRestore(restored.primary);
-          affectionRestore(restored.affection);
-          damagedRestore(restored.damaged);
+    try {
+      const json = restore(squadParam);
+      const restored = restoreFromJsonObject(json);
+      if (restored) {
+        lvStateRestore(restored.lvStatus);
+        chip1Restore(restored.chip1Equipment);
+        chip2Restore(restored.chip2Equipment);
+        osRestore(restored.osEquipment);
+        gearRestore(restored.gearEquipment);
+        coreLinkRestore(restored.coreLink);
+        skillRestore(restored.skill);
+        primaryRestore(restored.primary);
+        affectionRestore(restored.affection);
+        damagedRestore(restored.damaged);
 
-          squadRestore(restored.squad);
-          selectUnit(restored.squad.units[0]?.unit);
+        squadRestore(restored.squad);
+        selectUnit(restored.squad.units[0]?.unit);
 
-          notify('restore_squad_units');
-        }
-      } catch (e) {
-        console.error(e);
-        notify('error_while_restoring_squad_url');
+        notify('restore_squad_units');
       }
-
-      setRestoring(false);
-      navigate(`${import.meta.env.BASE_URL}`, { replace: true });
+    } catch (e) {
+      console.error(e);
+      notify('error_while_restoring_squad_url');
     }
+
+    navigate(`${import.meta.env.BASE_URL}`, { replace: true });
   }, [
     navigate,
-    location,
+    squadParam,
     notify,
     selectUnit,
     squadRestore,
@@ -343,5 +339,5 @@ export function useSquadRestoreFromUrl(): boolean {
     damagedRestore
   ]);
 
-  return restoring;
+  return !!squadParam;
 }
