@@ -31,7 +31,7 @@ const SquadCostView: React.FC<{ type: keyof UnitCost, value: number }> = ({ type
           maskSize: '24px'
         }}
       >
-        <span className="sr-only">{t(`cost.${type}`)}</span>
+        <span className="visually-hidden">{t(`cost.${type}`)}</span>
       </span>
       <span className="cost-value">{value}</span>
     </div>

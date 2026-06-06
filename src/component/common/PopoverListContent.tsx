@@ -28,7 +28,7 @@ const PopoverListContent: React.FC<{
   children: ReactNode
 }> & { Row: typeof PopoverListContentRow } = ({ children }) => {
   return (
-    <Popover.Content css={{ padding: 2 }}>
+    <Popover.Body css={{ padding: 2 }}>
       <div css={{
         display: 'flex',
         flexDirection: 'column',
@@ -39,7 +39,7 @@ const PopoverListContent: React.FC<{
       }}>
         {children}
       </div>
-    </Popover.Content>
+    </Popover.Body>
   );
 };
 

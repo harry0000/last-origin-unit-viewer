@@ -8,16 +8,19 @@ import PropTypes from 'prop-types';
 
 import './SVGButton.css';
 
-const SVGButton: React.FC<{
+type SVGButtonProps = {
   svg: PropTypes.ReactElementLike,
   variant?: Variant,
   fluidSvg?: boolean,
   disabled?: boolean,
   onClick?: React.MouseEventHandler<HTMLElement>
-}> = ({ variant, fluidSvg, disabled, svg, onClick, ...rest }) => {
+}
+
+const SVGButton = React.forwardRef<HTMLButtonElement, SVGButtonProps>(({ variant, fluidSvg, disabled, svg, onClick, ...rest }, ref) => {
   return (
     <Button
       {...rest}
+      ref={ref}
       className={`svg-btn${fluidSvg ? ' fluid' : ''}`}
       variant={variant ?? 'primary'}
       disabled={disabled}
@@ -26,6 +29,6 @@ const SVGButton: React.FC<{
       {svg}
     </Button>
   );
-};
+});
 
 export default SVGButton;

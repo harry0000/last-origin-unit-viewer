@@ -1,34 +1,51 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useId } from 'react';
 import { Interpolation } from '@emotion/serialize';
 import { Theme } from '@emotion/react';
-import { ButtonGroup, ToggleButton } from 'react-bootstrap';
 
 import './RoundedToggleButton.css';
 
-const RoundedToggleButton: React.FC<{
+type RoundedToggleButtonProps = {
   css?: Interpolation<Theme>,
+  className?: string,
   disabled?: boolean,
   selected: boolean,
   onChange?: React.ChangeEventHandler<HTMLInputElement>,
   children: ReactNode
-}> = (props) => {
-  const { disabled, selected, onChange, children, ...rest } = props;
+}
+
+/**
+ * @see {@link https://github.com/react-bootstrap/react-bootstrap/issues/6719}
+ */
+const RoundedToggleButton = React.forwardRef<HTMLDivElement, RoundedToggleButtonProps>((props, ref) => {
+  const { className, disabled, selected, onChange, children, ...rest } = props;
+  const id = useId();
 
   return (
-    <ButtonGroup {...rest} toggle>
-      <ToggleButton
-        type='checkbox'
-        variant="toggle"
-        value={1}
-        disabled={disabled}
+    <div
+      {...rest}
+      ref={ref}
+      role="group"
+      className={className ? `btn-group ${className}` : 'btn-group'}
+    >
+      <input
+        id={id}
+        type="checkbox"
+        className="btn-check"
         checked={selected}
-        onChange={onChange}>
+        disabled={disabled}
+        onChange={onChange}
+        autoComplete="off"
+      />
+      <label
+        htmlFor={id}
+        className={`btn btn-toggle${disabled ? ' disabled' : ''}`}
+      >
         {children}
-      </ToggleButton>
-    </ButtonGroup>
+      </label>
+    </div>
   );
-};
+});
 
 export default RoundedToggleButton;

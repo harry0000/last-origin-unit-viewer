@@ -19,7 +19,7 @@ import {
 } from '../../domain/selector/SkillEffectCondition';
 import { RankUpCondition } from '../../domain/selector/RankUpCondition';
 
-import { Accordion } from 'react-bootstrap';
+import { Accordion, useAccordionButton } from 'react-bootstrap';
 import {
   ActiveSkillAreaConditionBadge,
   ActiveSkillConditionBadges,
@@ -167,47 +167,56 @@ const RankUpConditionSelector: React.FC<{ condition: RankUpCondition | undefined
   );
 };
 
+const UnitDetailConditionsToggle: React.FC<{ collapsed: boolean, onToggle: () => void }> = ({ collapsed, onToggle }) => {
+  const { t } = useTranslation();
+  const onClick = useAccordionButton('0', onToggle);
+
+  return (
+    <div onClick={onClick} role="button">
+      <div
+        css={{
+          color: 'black',
+          fontSize: '0.8em',
+          fontWeight: 'bold',
+          paddingLeft: '1.9em',
+          margin: '3px 0',
+          cursor: 'pointer',
+          userSelect: 'none',
+          ...(collapsed ? expandBackground : collapseBackground)
+        }}
+      >
+        {t('form.unit_detail_condition')}
+      </div>
+      <div
+        css={{
+          borderTop: '#ccc solid 2px',
+          cursor: 'pointer'
+        }}
+      >
+        {ifTruthy(
+          collapsed,
+          (<React.Fragment>
+            <ConditionEmptyBadges />
+            <ActiveSkillConditionBadges />
+            <ActiveSkillAreaConditionBadge />
+            <SkillEffectConditionBadges />
+            <CoreLinkBonusConditionBadge />
+            <FullLinkBonusConditionBadge />
+            <RankUpConditionBadge />
+          </React.Fragment>)
+        )}
+      </div>
+    </div>
+  );
+};
+
 const UnitDetailConditionsSelector: React.FC = () => {
   const { t } = useTranslation();
   const [collapsed, setCollapsed] = useState(true);
 
   return (
-    <Accordion onSelect={() => setCollapsed(prev => !prev)}>
-      <Accordion.Toggle as={'div'} eventKey="0">
-        <div
-          css={{
-            color: 'black',
-            fontSize: '0.8em',
-            fontWeight: 'bold',
-            paddingLeft: '1.9em',
-            margin: '3px 0',
-            cursor: 'pointer',
-            userSelect: 'none',
-            ...(collapsed ? expandBackground : collapseBackground)
-          }}
-        >
-          {t('form.unit_detail_condition')}
-        </div>
-        <div
-          css={{
-            borderTop: '#ccc solid 2px',
-            cursor: 'pointer'
-          }}
-        >
-          {ifTruthy(
-            collapsed,
-            (<React.Fragment>
-              <ConditionEmptyBadges />
-              <ActiveSkillConditionBadges />
-              <ActiveSkillAreaConditionBadge />
-              <SkillEffectConditionBadges />
-              <CoreLinkBonusConditionBadge />
-              <FullLinkBonusConditionBadge />
-              <RankUpConditionBadge />
-            </React.Fragment>)
-          )}
-        </div>
-      </Accordion.Toggle>
+    <Accordion>
+      <UnitDetailConditionsToggle collapsed={collapsed} onToggle={() => setCollapsed(prev => !prev)} />
       <Accordion.Collapse eventKey="0">
         <React.Fragment>
           <section>

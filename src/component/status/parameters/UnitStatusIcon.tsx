@@ -8,15 +8,18 @@ import { EnhanceableStatus } from '../../../state/status/parameters/UnitLvStatus
 import { Image } from 'react-bootstrap';
 import { ImageSizeProps } from '../../common/ImageSizeProps';
 
-const UnitStatusIcon: React.FC<{
+type UnitStatusIconProps = {
   status: EnhanceableStatus | 'spd'
-} & ImageSizeProps> = ({ status, ...others }) => {
+} & ImageSizeProps
+
+const UnitStatusIcon = React.forwardRef<HTMLImageElement, UnitStatusIconProps>(({ status, ...others }, ref) => {
   const { t } = useTranslation();
   const src = `${import.meta.env.BASE_URL}icon/status_${status}.webp`;
 
   return (
     <Image
       {...others}
+      ref={ref}
       rounded
       draggable="false"
       alt={t(`status.${status}`)}
@@ -24,6 +27,6 @@ const UnitStatusIcon: React.FC<{
       srcSet={`${src} 52w`}
     />
   );
-};
+});
 
 export default UnitStatusIcon;

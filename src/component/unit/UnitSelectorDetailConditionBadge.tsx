@@ -23,7 +23,7 @@ const UnitSelectorDetailConditionBadge: React.FC<{ children: ReactNode }> = ({ c
   return (
     <Badge
       pill
-      variant="detail-condition"
+      bg="detail-condition"
       css={{
         margin: '0 2px',
         userSelect: 'none'

@@ -97,7 +97,7 @@ const RankUpSkillBadge: React.FC<{ skillType: SkillType, unit: UnitBasicInfo }> 
   return (
     ifTruthy(
       isRankUpSkill,
-      (<div css={skillBadgeStyle}><Badge variant="rank-up-skill">{t('skill.rank_up')}</Badge></div>)
+      (<div css={skillBadgeStyle}><Badge bg="rank-up-skill">{t('skill.rank_up')}</Badge></div>)
     )
   );
 };
@@ -109,7 +109,7 @@ const FormChangeSkillBadge: React.FC<{ skillType: SkillType, unit: UnitBasicInfo
   return (
     ifNonNullable(
       form,
-      v => (<div css={skillBadgeStyle}><Badge variant="secondary">{t(`effect:form.${v}`)}</Badge></div>)
+      v => (<div css={skillBadgeStyle}><Badge bg="secondary">{t(`effect:form.${v}`)}</Badge></div>)
     )
   );
 };

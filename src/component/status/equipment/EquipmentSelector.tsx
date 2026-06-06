@@ -151,7 +151,7 @@ const EffectDetailList: React.FC<{
                     'self' in details ? details.self : undefined,
                     self => (
                       <React.Fragment>
-                        <Badge variant="light">{t('effect:effect.target.self')}</Badge>
+                        <Badge bg="light" text="dark">{t('effect:effect.target.self')}</Badge>
                         <EffectDetailRows details={self} />
                       </React.Fragment>
                     )
@@ -160,7 +160,7 @@ const EffectDetailList: React.FC<{
                     'target' in details ? details.target : undefined,
                     target => (
                       <React.Fragment>
-                        <Badge variant="light">{t('effect:effect.target.target')}</Badge>
+                        <Badge bg="light" text="dark">{t('effect:effect.target.target')}</Badge>
                         <EffectDetailRows details={target} />
                       </React.Fragment>
                     )

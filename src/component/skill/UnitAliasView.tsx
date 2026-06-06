@@ -15,11 +15,11 @@ const UnitAliasView: React.FC<{
   const { t } = useTranslation();
   const popover = (
     <Popover id="popover-unit-alias" css={{ opacity: '0.9' }}>
-      <Popover.Content>
+      <Popover.Body>
         {[...unitNumbersForAlias[unitAlias]]
           .filter(n => n !== exceptUnit)
           .map(n => (<div key={n} css={{ textAlign: 'left' }}>{t('unit:display', { number: n })}</div>))}
-      </Popover.Content>
+      </Popover.Body>
     </Popover>
   );
 

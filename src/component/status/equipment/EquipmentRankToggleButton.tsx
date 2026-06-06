@@ -3,8 +3,6 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ButtonGroup, ToggleButton } from 'react-bootstrap';
-
 import { EquipmentSlotRank } from '../../../state/equipment/UnitEquipmentState';
 import { useEquipmentRankSelector } from '../../../state/equipment/UnitEquipmentHook';
 
@@ -16,23 +14,31 @@ type EquipmentRankToggleButtonProps =
   { slot: 'os',    rank: EquipmentSlotRank<'os'> } |
   { slot: 'gear',  rank: EquipmentSlotRank<'gear'> }
 
+/**
+ * @see {@link https://github.com/react-bootstrap/react-bootstrap/issues/6719}
+ */
 const EquipmentRankToggleButton: React.FC<EquipmentRankToggleButtonProps> = ({ slot, rank }) => {
   const { t } = useTranslation();
   const [selected, select] = useEquipmentRankSelector(slot, rank);
+  const id = `equipment-rank-${slot}-${rank}`;
 
   return (
-    <ButtonGroup toggle>
-      <ToggleButton
-        type='checkbox'
-        variant="equipment-rank"
-        className={rank}
-        value={1}
+    <div role="group" className="btn-group">
+      <input
+        id={id}
+        type="checkbox"
+        className="btn-check"
         checked={selected}
         onChange={select}
+        autoComplete="off"
+      />
+      <label
+        htmlFor={id}
+        className={`btn btn-equipment-rank ${rank}`}
       >
         {t(`equipment.rank.${rank}`)}
-      </ToggleButton>
-    </ButtonGroup>
+      </label>
+    </div>
   );
 };
 

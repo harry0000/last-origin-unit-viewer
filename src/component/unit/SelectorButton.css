@@ -2,28 +2,30 @@
   font-weight: bold;
   border-radius: 0;
   width: 100%;
+  border: 2px solid transparent;
 }
 
-.btn.btn-selector.focus {
+.btn-check:focus-visible + .btn.btn-selector {
   box-shadow: 0 0 0 0.1rem #00fff0;
   border-radius: 2px;
 }
 
-.btn-selector:not(:hover) {
-  border: 2px solid transparent;
-}
-
-.btn-selector:hover {
+.btn.btn-selector:hover {
   border: 2px solid #00fff0;
   border-radius: 2px;
 }
 
-.btn-selector:not(:disabled):not(.disabled).active {
+.btn-check:checked + .btn.btn-selector:not(:disabled) {
   color: #000;
   background: transparent linear-gradient(45deg, transparent 7px, #ffcc00 7px) no-repeat;
+  border-color: transparent;
 }
 
-.btn-selector:not(:disabled):not(.disabled) {
+.btn-check:checked + .btn.btn-selector:not(:disabled):hover {
+  border-color: #00fff0;
+}
+
+.btn.btn-selector:not(:disabled):not(.disabled) {
   color: #707070;
   background: transparent linear-gradient(45deg, transparent 7px, #514E55 7px) no-repeat;
 }

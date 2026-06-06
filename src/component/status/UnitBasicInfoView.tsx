@@ -22,7 +22,7 @@ const CostView: React.FC<{ type: keyof UnitCost, value: number }> = ({ type, val
         className={`cost-icon ${type}`}
         css={{ backgroundImage: `url(${import.meta.env.BASE_URL}icon/cost_${type}.webp)` }}
       >
-        <span className="sr-only">{t(`cost.${type}`)}</span>
+        <span className="visually-hidden">{t(`cost.${type}`)}</span>
       </span>
       <span className="cost-value">{value}</span>
     </span>

@@ -31,7 +31,7 @@ Node 24 (latest LTS). Package manager is pnpm (pinned in `packageManager` field;
 - TypeScript
 - React 18 
 - Recoil (state management)
-- React Bootstrap 1.x (Bootstrap 4)
+- React Bootstrap 2.x (Bootstrap 5)
 - react-i18next
 - react-dnd
 - react-router-dom v6

@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { ReactNode, useState } from 'react';
-import { Accordion, Card, useAccordionToggle } from 'react-bootstrap';
+import { Accordion, Card, useAccordionButton } from 'react-bootstrap';
 import { CardProps } from 'react-bootstrap/Card';
 import { ChevronDown, ChevronRight } from '../icon/FluentIcons';
 
 const AccordionHeader: React.FC<{ eventKey: string, children: ReactNode }> = ({ eventKey, children }) => {
   const [collapsed, setCollapsed] = useState(true);
-  const onClick = useAccordionToggle(eventKey, () => setCollapsed(prev => !prev));
+  const onClick = useAccordionButton(eventKey, () => setCollapsed(prev => !prev));
 
   return (
     <Card.Header css={{ userSelect: 'none' }} onClick={onClick} role="button">

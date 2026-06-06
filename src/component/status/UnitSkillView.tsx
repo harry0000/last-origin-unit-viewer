@@ -66,11 +66,11 @@ const NeedRankUpIcon: React.FC<{ skillType: PassiveSkillType }> = ({ skillType }
   return ifTruthy(show, (<div className="need-rank-up">{'⚠️'}</div>));
 };
 
-const SkillTypeIcon: React.FC<{ skillType: SkillType }> = ({ skillType, ...rest }) => {
+const SkillTypeIcon = React.forwardRef<HTMLDivElement, { skillType: SkillType }>(({ skillType, ...rest }, ref) => {
   const isActiveSkill = isActiveSkillType(skillType);
 
   return (
-    <div className="skill-type-icon" {...rest}>
+    <div ref={ref} className="skill-type-icon" {...rest}>
       {
         isActiveSkill ?
           (<ActiveSkillIcon skillType={skillType} />) :
@@ -79,7 +79,7 @@ const SkillTypeIcon: React.FC<{ skillType: SkillType }> = ({ skillType, ...rest 
       {!isActiveSkill ? <NeedRankUpIcon skillType={skillType} /> : null}
     </div>
   );
-};
+});
 
 const SkillLvDropdownPlaceholder: React.FC = React.memo(() => {
   return (<Dropdown className="numeric"><span>&nbsp;</span></Dropdown>);

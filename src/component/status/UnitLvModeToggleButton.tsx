@@ -20,11 +20,15 @@ const style = {
   } as const satisfies CSSPropertiesWithMultiValues
 };
 
-const ToggleButton: React.FC<{ disabled?: boolean, selected: boolean, toggle?: () => void }> = ({ disabled, selected, toggle, ...rest }) => {
+const ToggleButton = React.forwardRef<HTMLDivElement, { disabled?: boolean, selected: boolean, toggle?: () => void }>((
+  { disabled, selected, toggle, ...rest },
+  ref
+) => {
   const { t } = useTranslation();
   return (
     <RoundedToggleButton
       {...rest}
+      ref={ref}
       css={style}
       disabled={disabled}
       selected={selected}
@@ -33,7 +37,7 @@ const ToggleButton: React.FC<{ disabled?: boolean, selected: boolean, toggle?: (
       {t('status.lv_mode.label')}
     </RoundedToggleButton>
   );
-};
+});
 
 const LvModeToggleButton: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
   const { t } = useTranslation();

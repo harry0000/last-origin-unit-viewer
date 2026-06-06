@@ -18,7 +18,7 @@
   width: 50px;
 }
 
-.btn.btn-equipment-rank.focus {
+.btn-check:focus-visible + .btn.btn-equipment-rank {
   box-shadow: 0 0 0 0.1rem #00fff0;
 }
 
@@ -31,32 +31,40 @@
   background-color: #333;
 }
 
-.btn-equipment-rank.sss:not(:disabled):not(.disabled).active {
+.btn-check:checked + .btn.btn-equipment-rank:not(:disabled) {
+  border-color: transparent;
+}
+
+.btn-check:checked + .btn.btn-equipment-rank:not(:disabled):hover {
+  border-color: #00fff0;
+}
+
+.btn-check:checked + .btn.btn-equipment-rank.sss:not(:disabled) {
   color: #000;
   background-color: var(--lo-squad-equipment-rank-sss-color);
 }
 
-.btn-equipment-rank.ss:not(:disabled):not(.disabled).active {
+.btn-check:checked + .btn.btn-equipment-rank.ss:not(:disabled) {
   color: #444;
   background-color: var(--lo-squad-equipment-rank-ss-color);
 }
 
-.btn-equipment-rank.s:not(:disabled):not(.disabled).active {
+.btn-check:checked + .btn.btn-equipment-rank.s:not(:disabled) {
   color: #444;
   background-color: var(--lo-squad-equipment-rank-s-color);
 }
 
-.btn-equipment-rank.a:not(:disabled):not(.disabled).active {
+.btn-check:checked + .btn.btn-equipment-rank.a:not(:disabled) {
   color: #444;
   background-color: var(--lo-squad-equipment-rank-a-color);
 }
 
-.btn-equipment-rank.b:not(:disabled):not(.disabled).active {
+.btn-check:checked + .btn.btn-equipment-rank.b:not(:disabled) {
   color: #444;
   background-color: var(--lo-squad-equipment-rank-b-color);
 }
 
-.btn-equipment-rank:not(:disabled):not(.disabled) {
+.btn.btn-equipment-rank:not(:disabled):not(.disabled) {
   color: #e0e0e0;
   background-color: #514E55;
 }

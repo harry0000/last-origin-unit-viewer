@@ -167,7 +167,7 @@ const EffectSource: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({ 
 
   const popover = (
     <Popover id="popover-effect-source" className="skill-effect-details">
-      <Popover.Content>
+      <Popover.Body>
         <div className="skill-effect-details-body">
           <div>{source}</div>
           {isAllySkill ?
@@ -184,7 +184,7 @@ const EffectSource: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({ 
             null}
           <div className="skill-effect-type">{t(`skill.effect.type.${type}`)}</div>
         </div>
-      </Popover.Content>
+      </Popover.Body>
     </Popover>
   );
 

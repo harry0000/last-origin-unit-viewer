@@ -57,7 +57,7 @@ const Active1SkillNavItem: React.FC = () => {
   return (
     <SkillNavItem eventKey={eventKey} active={active} disabled={!enable}>
       {enable ? (<ActiveSkillIcon skillType={SkillType.Active1} />) : (<DisableActiveSkillIcon />)}
-      <span className="sr-only">Active skill 1</span>
+      <span className="visually-hidden">Active skill 1</span>
     </SkillNavItem>
   );
 };
@@ -68,7 +68,7 @@ const Active2SkillNavItem: React.FC = () => {
   return (
     <SkillNavItem eventKey={eventKey} active={active} disabled={!enable}>
       {enable ? (<ActiveSkillIcon skillType={SkillType.Active2} />) : (<DisableActiveSkillIcon />)}
-      <span className="sr-only">Active skill 2</span>
+      <span className="visually-hidden">Active skill 2</span>
     </SkillNavItem>
   );
 };
@@ -79,7 +79,7 @@ const Passive1SkillNavItem: React.FC = () => {
   return (
     <SkillNavItem eventKey={eventKey} active={active} disabled={!enable}>
       {enable ? (<PassiveSkillIcon skillType={SkillType.Passive1} />) : (<DisablePassiveSkillIcon />)}
-      <span className="sr-only">Passive skill 1</span>
+      <span className="visually-hidden">Passive skill 1</span>
     </SkillNavItem>
   );
 };
@@ -90,7 +90,7 @@ const Passive2SkillNavItem: React.FC = () => {
   return (
     <SkillNavItem eventKey={eventKey} active={active} disabled={!enable}>
       {enable ? (<PassiveSkillIcon skillType={SkillType.Passive2} />) : (<DisablePassiveSkillIcon />)}
-      <span className="sr-only">Passive skill 2</span>
+      <span className="visually-hidden">Passive skill 2</span>
     </SkillNavItem>
   );
 };
@@ -101,7 +101,7 @@ const Passive3SkillNavItem: React.FC = () => {
   return (
     <SkillNavItem eventKey={eventKey} active={active} disabled={!enable}>
       {enable ? (<PassiveSkillIcon skillType={SkillType.Passive3} />) : (<DisablePassiveSkillIcon />)}
-      <span className="sr-only">Passive skill 3</span>
+      <span className="visually-hidden">Passive skill 3</span>
     </SkillNavItem>
   );
 };
