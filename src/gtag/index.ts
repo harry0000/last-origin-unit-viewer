@@ -1,6 +1,13 @@
+/// <reference types="gtag.js" />
+
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   var dataLayer: Array<any>;
+  interface Window {
+    gtag: Gtag.Gtag;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dataLayer: Array<any>;
+  }
 }
 
 export function initialize(): void {
