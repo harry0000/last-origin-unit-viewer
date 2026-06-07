@@ -7,9 +7,7 @@ updates:
     schedule:
       interval: 'monthly'
     cooldown:
-      semver-major-days: 30
-      semver-minor-days: 14
-      semver-patch-days: 7
+      default-days: 14
     groups:
       actions-minor-patch:
         update-types:
