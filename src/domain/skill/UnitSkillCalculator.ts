@@ -85,25 +85,22 @@ function calculateDataValue<T extends ValueUnit>(unit: T, value: PerLvValue<T> |
 }
 
 function calculateDamageDeal(
-  damageDeal: ActiveSkillData['damage_deal'],
+  damageDeal: NonNullable<ActiveSkillData['damage_deal']>,
   lv: SkillLv,
   coreLinkBonus: CoreLinkBonus,
   fullLinkBonus: FullLinkBonus | undefined
-): ActiveSkill['damage_deal'] {
-  return (
-    damageDeal &&
-    {
-      ...(
-        sumMilliPercentageValues(
-          calculateDataValue('milliPercentage', damageDeal, lv),
-          ...('damage_multiplier' in coreLinkBonus ? [coreLinkBonus.damage_multiplier] : []),
-          ...(fullLinkBonus && 'damage_multiplier' in fullLinkBonus ? [fullLinkBonus.damage_multiplier] : [])
-        )
-      ),
-      effective: damageDeal.effective,
-      attribute: damageDeal.attribute
-    }
-  );
+): NonNullable<ActiveSkill['damage_deal']> {
+  return {
+    ...(
+      sumMilliPercentageValues(
+        calculateDataValue('milliPercentage', damageDeal, lv),
+        ...('damage_multiplier' in coreLinkBonus ? [coreLinkBonus.damage_multiplier] : []),
+        ...(fullLinkBonus && 'damage_multiplier' in fullLinkBonus ? [fullLinkBonus.damage_multiplier] : [])
+      )
+    ),
+    ...(damageDeal.effective ? { effective: damageDeal.effective } : {}),
+    ...(damageDeal.attribute ? { attribute: damageDeal.attribute } : {})
+  };
 }
 
 function calculateApCost(data: SkillApCostData['cost'], lv: SkillLv): SkillApCostValue {
@@ -147,10 +144,10 @@ function calculateArea(data: SkillAreaOfEffectData['area'], lv: SkillLv): SkillA
 type IncludeAddition = NonNullable<SkillEffectDataValue[NoValueEffectKey]>
 
 function calculateTerm(
-  term: IncludeAddition['term'] | undefined,
+  term: NonNullable<IncludeAddition['term']>,
   lv: SkillLv
 ) {
-  if (!term || typeof term === 'string') {
+  if (typeof term === 'string') {
     return term;
   }
 
@@ -165,10 +162,10 @@ function calculateTerm(
 }
 
 function calculateRate(
-  rate: IncludeAddition['rate'] | undefined,
+  rate: NonNullable<IncludeAddition['rate']>,
   lv: SkillLv
 ) {
-  if (!rate || typeof rate === 'string') {
+  if (typeof rate === 'string') {
     return rate;
   }
 
@@ -176,10 +173,10 @@ function calculateRate(
 }
 
 function calculateTimes(
-  times: IncludeAddition['times'] | undefined,
+  times: NonNullable<IncludeAddition['times']>,
   lv: SkillLv
 ) {
-  if (!times || typeof times === 'number') {
+  if (typeof times === 'number') {
     return times;
   }
 
@@ -195,15 +192,15 @@ function calculateTimes(
 function calculateAddition(
   addition: Pick<IncludeAddition, 'tag' | 'max_stack' | 'term' | 'rate' | 'times' | 'cannot_be_dispelled'> & { tag: SkillEffectTag },
   lv: SkillLv
-): SkillEffectValue[NoValueEffectKey] & { tag: SkillEffectTag }
+): NonNullable<SkillEffectValue[NoValueEffectKey] & { tag: SkillEffectTag }>
 function calculateAddition(
   addition: Pick<IncludeAddition, 'tag' | 'max_stack' | 'term' | 'rate' | 'times' | 'cannot_be_dispelled'>,
   lv: SkillLv
-): SkillEffectValue[NoValueEffectKey]
+): NonNullable<SkillEffectValue[NoValueEffectKey]>
 function calculateAddition(
   addition: Pick<IncludeAddition, 'tag' | 'max_stack' | 'term' | 'rate' | 'times' | 'cannot_be_dispelled'>,
   lv: SkillLv
-): SkillEffectValue[NoValueEffectKey] {
+): NonNullable<SkillEffectValue[NoValueEffectKey]> {
   return {
     ...(addition.tag ? { tag: addition.tag } : {}),
     ...(addition.max_stack ? { max_stack: addition.max_stack } : {}),

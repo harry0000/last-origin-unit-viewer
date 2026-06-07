@@ -51,7 +51,7 @@ class UnitSelector {
   readonly coreLinkBonus: CoreLinkBonusCondition | undefined;
   readonly fullLinkBonus: FullLinkBonusCondition | undefined;
   readonly rankUpCondition: RankUpCondition | undefined;
-  readonly selectedUnit?: UnitBasicInfo;
+  readonly selectedUnit: UnitBasicInfo | undefined;
 
   private constructor(
     ranks: ReadonlySet<UnitRank>,
@@ -63,7 +63,7 @@ class UnitSelector {
     coreLinkBonus: CoreLinkBonusCondition | undefined,
     fullLinkBonus: FullLinkBonusCondition | undefined,
     rankUpCondition: RankUpCondition | undefined,
-    selectedUnit?: UnitBasicInfo
+    selectedUnit: UnitBasicInfo | undefined
   ) {
     this.#ranks = ranks;
     this.#types = types;
@@ -87,7 +87,7 @@ class UnitSelector {
     coreLinkBonus?: CoreLinkBonusCondition | undefined,
     fullLinkBonus?: FullLinkBonusCondition | undefined,
     rankUpCondition?: RankUpCondition | undefined,
-    selectedUnit?: UnitBasicInfo
+    selectedUnit: UnitBasicInfo | undefined
   }): UnitSelector {
     const newValues = {
       ranks: values.ranks ?? this.#ranks,

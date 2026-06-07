@@ -69,7 +69,7 @@ type Props<S extends EquipmentSlot> = {
   id: string,
   slot: S,
   type: SlotEquipmentType<S>,
-  value?: CurrentEquipment<S>,
+  value: CurrentEquipment<S> | undefined,
   items: ReadonlyArray<SlotEquipment<S>>,
   onSelect: (equipment: SlotEquipment<S> | undefined) => void
 }

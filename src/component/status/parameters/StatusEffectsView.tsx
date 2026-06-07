@@ -125,7 +125,7 @@ const SquadUnitStatusEffectPopoverRow: React.FC<SquadUnitStatusEffectDetails> = 
   return (
     <PopoverListContent.Row>
       <EffectsPopoverRowLabel>
-        {`${label}${scaled ? ` (${t('status.effect.scaled.' + scaled.key, scaled.options)})` : ''}`}
+        {`${label}${scaled ? ` (${t('status.effect.scaled.' + scaled.key, scaled.options ?? {})})` : ''}`}
       </EffectsPopoverRowLabel>
       <EffectsPopoverRowValue>
         <StatusEffectValueView viewModel={effect} />

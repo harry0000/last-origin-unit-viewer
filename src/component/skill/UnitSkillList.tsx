@@ -114,7 +114,7 @@ const UnitSkillList: React.FC<{ css?: Interpolation<Theme> }> = (props) => {
       <UnitFormSelector />
       <Tab.Container
         id="unit-skill-viewer"
-        activeKey={activeTab}
+        activeKey={activeTab ?? 'active1'}
         onSelect={eventKey => { setActiveTab(eventKey ?? undefined); }}
       >
         <Nav variant="tabs" className={`skill ${activeTab ? activeTab.startsWith('active') ? 'active-skill' : 'passive-skill' : ''}`}>

@@ -10,7 +10,7 @@ import { UnitNumber } from '../../domain/UnitBasicInfo';
 
 const UnitAliasView: React.FC<{
   unitAlias: UnitAlias,
-  exceptUnit?: UnitNumber
+  exceptUnit?: UnitNumber | undefined
 }> = ({ unitAlias, exceptUnit }) => {
   const { t } = useTranslation();
   const popover = (

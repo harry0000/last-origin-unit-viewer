@@ -102,7 +102,10 @@ export class UnitChip1Equipment {
       const equipment_effects = calculateEffect(this.chip1.id, this.chip1.rank, this.chip1.enhanceLv);
       const effects = calculateEffectAsSkill(this.chip1.id, this.chip1.rank, this.chip1.enhanceLv);
 
-      return { equipment_effects, effects };
+      return {
+        ...(equipment_effects ? { equipment_effects } : {}),
+        ...(effects ? { effects }: {})
+      };
     } else {
       return emptyEquipmentEffect;
     }
@@ -171,7 +174,10 @@ export class UnitChip2Equipment {
       const equipment_effects = calculateEffect(this.chip2.id, this.chip2.rank, this.chip2.enhanceLv);
       const effects = calculateEffectAsSkill(this.chip2.id, this.chip2.rank, this.chip2.enhanceLv);
 
-      return { equipment_effects, effects };
+      return {
+        ...(equipment_effects ? { equipment_effects } : {}),
+        ...(effects ? { effects }: {})
+      };
     } else {
       return emptyEquipmentEffect;
     }
@@ -240,7 +246,10 @@ export class UnitOsEquipment {
       const equipment_effects = calculateEffect(this.os.id, this.os.rank, this.os.enhanceLv);
       const effects = calculateEffectAsSkill(this.os.id, this.os.rank, this.os.enhanceLv);
 
-      return { equipment_effects, effects };
+      return {
+        ...(equipment_effects ? { equipment_effects } : {}),
+        ...(effects ? { effects }: {})
+      };
     } else {
       return emptyEquipmentEffect;
     }
@@ -309,7 +318,10 @@ export class UnitGearEquipment {
       const equipment_effects = calculateEffect(this.gear.id, this.gear.rank, this.gear.enhanceLv);
       const effects = calculateEffectAsSkill(this.gear.id, this.gear.rank, this.gear.enhanceLv);
 
-      return { equipment_effects, effects };
+      return {
+        ...(equipment_effects ? { equipment_effects } : {}),
+        ...(effects ? { effects }: {})
+      };
     } else {
       return emptyEquipmentEffect;
     }

@@ -120,8 +120,8 @@ function matchTargetCondition(
     );
   } else if ('alias' in cond) {
     return unitNumbersForAlias[cond.alias].has(target.no) &&
-      (!('type'   in cond) || target.type === cond.type) &&
-      (!('role'   in cond) || target.role === cond.role);
+      (!('type' in cond) || target.type === cond.type) &&
+      (!('role' in cond) || target.role === cond.role);
   } else if ('kind' in cond) {
     return 'type' in cond ?
       target.type === cond.type && target.kind === cond.kind :
@@ -433,10 +433,10 @@ function matchCommonStaticActivationState(
 ): boolean {
   const { HpGreaterOrEqual, HpLessOrEqual, HpGreaterThan, HpLessThan } = EffectActivationState;
   return (
-    (!(HpGreaterOrEqual in state) || !!state.hp_greater_or_equal && matchHpRate(HpGreaterOrEqual, state.hp_greater_or_equal, unit)) &&
-    (!(HpLessOrEqual    in state) || !!state.hp_less_or_equal    && matchHpRate(HpLessOrEqual, state.hp_less_or_equal, unit)) &&
-    (!(HpGreaterThan    in state) || !!state.hp_greater_than     && matchHpRate(HpGreaterThan, state.hp_greater_than, unit)) &&
-    (!(HpLessThan       in state) || !!state.hp_less_than        && matchHpRate(HpLessThan, state.hp_less_than, unit))
+    (!(HpGreaterOrEqual in state) || matchHpRate(HpGreaterOrEqual, state.hp_greater_or_equal, unit)) &&
+    (!(HpLessOrEqual    in state) || matchHpRate(HpLessOrEqual, state.hp_less_or_equal, unit)) &&
+    (!(HpGreaterThan    in state) || matchHpRate(HpGreaterThan, state.hp_greater_than, unit)) &&
+    (!(HpLessThan       in state) || matchHpRate(HpLessThan, state.hp_less_than, unit))
   );
 }
 
@@ -448,12 +448,12 @@ function matchStaticActivationSelfState(
   const { Grid, Form, Equipped, NotEquipped, StatusGreaterOrEqualThan, RankGreaterOrEqual } = EffectActivationState;
   return (
     matchCommonStaticActivationState(state, unit) &&
-    (!(Grid in state) || !!state.grid && onGridPosition(state.grid, unit.position, skillArea)) &&
-    (!(Form in state) || !!state.form && isFormChangeUnitSkill(unit.skill) && state.form === unit.skill.unitForm()) &&
-    (!(Equipped in state) || !!state.equipped && equipped(state.equipped, unit)) &&
-    (!(NotEquipped in state) || !!state.not_equipped && state.not_equipped.every(id => notEquipped(id, unit))) &&
-    (!(StatusGreaterOrEqualThan in state) || !!state.status_greater_or_equal_than && compareSelfStatus(state.status_greater_or_equal_than, unit)) &&
-    (!(RankGreaterOrEqual in state) || !!state.rank_greater_or_equal && !UnitRankComparator[unit.rank].lessThan(state.rank_greater_or_equal))
+    (!(Grid                     in state) || onGridPosition(state.grid, unit.position, skillArea)) &&
+    (!(Form                     in state) || isFormChangeUnitSkill(unit.skill) && state.form === unit.skill.unitForm()) &&
+    (!(Equipped                 in state) || equipped(state.equipped, unit)) &&
+    (!(NotEquipped              in state) || state.not_equipped.every(id => notEquipped(id, unit))) &&
+    (!(StatusGreaterOrEqualThan in state) || compareSelfStatus(state.status_greater_or_equal_than, unit)) &&
+    (!(RankGreaterOrEqual       in state) || !UnitRankComparator[unit.rank].lessThan(state.rank_greater_or_equal))
   );
 }
 

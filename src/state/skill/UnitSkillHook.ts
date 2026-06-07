@@ -131,7 +131,7 @@ export function useDamageDeal(skillType: SkillType, unit: UnitBasicInfo):
   }
   case Active2: {
     const as = useRecoilValue(unitActive2SkillState(unit));
-    return 'damage_deal' in as && !!as.damage_deal ?
+    return 'damage_deal' in as ?
       [as.damage_deal, as.area] :
       [undefined, undefined];
   }

@@ -39,7 +39,7 @@ export function isTranslatedEquipmentEffectAsSkillDetails(
   return 'self' in arg || 'target' in arg;
 }
 
-function translateTerm(term: Required<EffectAdditionData>['term'], t: TFunction): string {
+function translateTerm(term: NonNullable<EffectAdditionData['term']>, t: TFunction): string {
   return typeof term === 'string' ?
     t(`effect:term.${term}`) :
     t('effect:term.for_rounds', { value: term.for_rounds });
@@ -47,17 +47,17 @@ function translateTerm(term: Required<EffectAdditionData>['term'], t: TFunction)
 
 function buildDetail(body: string, value: EquipmentEffectAddition, t: TFunction): string {
   const rate =
-    'rate' in value && value.rate ?
+    'rate' in value ?
       typeof value.rate === 'string' ?
         `${t(`effect:rate.${value.rate}`)}${t('effect:separator')}` :
         `${t('effect:rate.percentage', { value: calcMilliPercentageValue(value.rate) })}${t('effect:separator')}` :
       '';
   const additions = [
-    ...('times' in value && value.times ?
+    ...('times' in value ?
       [t('effect:times', { count: value.times })] :
       []
     ),
-    ...('max_stack' in value && value.max_stack ?
+    ...('max_stack' in value ?
       (value.max_stack === 1 ?
         [t('effect:does_not_stack')] :
         [t('effect:max_stack', { count: value.max_stack })]) :
@@ -201,7 +201,7 @@ function translateCondition(details: EffectDetails | EffectDetailsAsSkill, t: TF
   }
 
   const trigger = translateTrigger(details.condition, t);
-  const hasTarget = 'target' in details && details.target;
+  const hasTarget = 'target' in details;
   const state = extractEquipmentEffectActivationConditionState(details.condition);
   const translated = state ?
     typedEntries(state)
@@ -257,7 +257,7 @@ function translateDetails(details: EquipmentEffectValue, t: TFunction): Translat
     const value = entry[1];
     return {
       detail: translateDetail(entry, t),
-      ...(value && 'term' in value && value.term ? { term: translateTerm(value.term, t) } : {})
+      ...(value && 'term' in value ? { term: translateTerm(value.term, t) } : {})
     };
   });
 }
