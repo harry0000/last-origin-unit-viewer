@@ -11,7 +11,7 @@ describe('equipmentData constraint', () => {
     expect(() => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const v: EquipmentDataConstraint = equipmentData;
-    }).not.toThrowError();
+    }).not.toThrow();
   });
 
 });

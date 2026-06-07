@@ -5,7 +5,7 @@
   white-space: nowrap;
 }
 
-.tooltip:is(.bs-tooltip-left, .bs-tooltip-right) > .tooltip-inner {
+.tooltip:is(.bs-tooltip-start, .bs-tooltip-end) > .tooltip-inner {
   margin-top: 0.25em;
 }
 
@@ -17,34 +17,34 @@
   color: #fff !important;
 }
 
-.popover .arrow::before {
+.popover .popover-arrow::before {
   color: #444 !important;
 }
 
-.bs-tooltip-top .arrow::before,
-.bs-tooltip-auto[x-placement^="top"] .arrow::before,
-.bs-popover-top .arrow::after,
-.bs-popover-auto[x-placement^="top"] .arrow::after {
+.bs-tooltip-top .tooltip-arrow::before,
+.bs-tooltip-auto[data-popper-placement^="top"] .tooltip-arrow::before,
+.bs-popover-top .popover-arrow::after,
+.bs-popover-auto[data-popper-placement^="top"] .popover-arrow::after {
   border-top-color: #444 !important;
 }
 
-.bs-tooltip-right>.arrow::before,
-.bs-tooltip-auto[x-placement^="right"]>.arrow::before,
-.bs-popover-right>.arrow::after,
-.bs-popover-auto[x-placement^="right"]>.arrow::after {
+.bs-tooltip-end > .tooltip-arrow::before,
+.bs-tooltip-auto[data-popper-placement^="right"] > .tooltip-arrow::before,
+.bs-popover-end > .popover-arrow::after,
+.bs-popover-auto[data-popper-placement^="right"] > .popover-arrow::after {
   border-right-color: #444 !important;
 }
 
-.bs-tooltip-bottom>.arrow::before,
-.bs-tooltip-auto[x-placement^="bottom"]>.arrow::before,
-.bs-popover-bottom>.arrow::after,
-.bs-popover-auto[x-placement^="bottom"]>.arrow::after {
+.bs-tooltip-bottom > .tooltip-arrow::before,
+.bs-tooltip-auto[data-popper-placement^="bottom"] > .tooltip-arrow::before,
+.bs-popover-bottom > .popover-arrow::after,
+.bs-popover-auto[data-popper-placement^="bottom"] > .popover-arrow::after {
   border-bottom-color: #444 !important;
 }
 
-.bs-tooltip-left>.arrow::before,
-.bs-tooltip-auto[x-placement^="left"]>.arrow::before,
-.bs-popover-left>.arrow::after,
-.bs-popover-auto[x-placement^="left"]>.arrow::after {
+.bs-tooltip-start > .tooltip-arrow::before,
+.bs-tooltip-auto[data-popper-placement^="left"] > .tooltip-arrow::before,
+.bs-popover-start > .popover-arrow::after,
+.bs-popover-auto[data-popper-placement^="left"] > .popover-arrow::after {
   border-left-color: #444 !important;
 }

@@ -25,18 +25,19 @@ import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
 import '../UnitSlot.css';
 import './UnitCoreLinkView.css';
 
+const CoreLinkRateValue: React.FC<{ rate: number }> = ({ rate }) => (<span className="core-link-rate">{rate}&nbsp;%</span>);
+
+const CoreLinkRateView: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
+  const rate = useCoreLinkRate(unit);
+  return (<CoreLinkRateValue rate={rate} />);
+};
+
 const CoreLinkRate: React.FC = () => {
   const selected = useSelectedUnit();
-  const View = ({ rate }: { rate: number }) => (<span className="core-link-rate">{rate}&nbsp;%</span>);
-
-  const CoreLinkRateView: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
-    const rate = useCoreLinkRate(unit);
-    return (<View rate={rate} />);
-  };
 
   return selected ?
     (<CoreLinkRateView unit={selected} />) :
-    (<View rate={0} />);
+    (<CoreLinkRateValue rate={0} />);
 };
 
 const CoreLinkEffectsPopoverView: React.FC<{
@@ -75,18 +76,19 @@ const CoreLinkEffectsPopoverView: React.FC<{
   );
 };
 
+const searchIcon = (<SVGIcon css={{ height: 20, width: 20, cursor: 'help' }}><Search /></SVGIcon>);
+
+const CoreLinkEffectDetailPopover: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
+  const bonus = useCoreLinkEffect(unit);
+  return (<CoreLinkEffectsPopoverView bonus={bonus}>{searchIcon}</CoreLinkEffectsPopoverView>);
+};
+
 const CoreLinkEffectDetailView: React.FC = () => {
   const selected = useSelectedUnit();
-  const child = (<SVGIcon css={{ height: 20, width: 20, cursor: 'help' }}><Search /></SVGIcon>);
-
-  const DetailView: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
-    const bonus = useCoreLinkEffect(unit);
-    return (<CoreLinkEffectsPopoverView bonus={bonus}>{child}</CoreLinkEffectsPopoverView>);
-  };
 
   return (
     <span className="core-link-rate-details">
-      {selected ? (<DetailView unit={selected} />) : (child)}
+      {selected ? (<CoreLinkEffectDetailPopover unit={selected} />) : (searchIcon)}
     </span>
   );
 };

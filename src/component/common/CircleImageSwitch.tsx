@@ -32,7 +32,7 @@ const CircleImageSwitch: React.FC<{
       <input
         type="checkbox"
         id={id}
-        className="sr-only circle-image-check-input"
+        className="visually-hidden circle-image-check-input"
         checked={selected}
         disabled={disabled}
         onChange={e => {

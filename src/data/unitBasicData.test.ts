@@ -11,7 +11,7 @@ describe('unitBasicData constraint', () => {
     expect(() => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const v: UnitBasicDataConstraint = unitBasicData;
-    }).not.toThrowError();
+    }).not.toThrow();
   });
 
 });

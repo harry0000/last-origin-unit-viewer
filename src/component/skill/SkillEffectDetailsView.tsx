@@ -75,7 +75,7 @@ const SkillEffectDetailsView: React.FC<{
 
   return (
     <div className={className}>
-      <div><Badge variant="light">{t(`effect:effect.target.${targetKey}`)}</Badge></div>
+      <div><Badge bg="light" text="dark">{t(`effect:effect.target.${targetKey}`)}</Badge></div>
       {typedEntries(details).map(entry => (<EffectDetail key={nanoid()} entry={entry} />))}
     </div>
   );

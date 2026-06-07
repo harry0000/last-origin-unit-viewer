@@ -14,22 +14,23 @@ import { ifNonNullable, ifTruthy } from '../../util/react';
 
 import './UnitBasicInfoView.css';
 
+const CostView: React.FC<{ type: keyof UnitCost, value: number }> = ({ type, value }) => {
+  const { t } = useTranslation();
+  return (
+    <span>
+      <span
+        className={`cost-icon ${type}`}
+        css={{ backgroundImage: `url(${import.meta.env.BASE_URL}icon/cost_${type}.webp)` }}
+      >
+        <span className="visually-hidden">{t(`cost.${type}`)}</span>
+      </span>
+      <span className="cost-value">{value}</span>
+    </span>
+  );
+};
+
 const UnitCostView: React.FC<{ unit: UnitBasicInfo }> = ({ unit }) => {
   const { part, nutrient, power } = useUnitCost(unit);
-  const CostView = ({ type, value }: { type: keyof UnitCost, value: number }) => {
-    const { t } = useTranslation();
-    return (
-      <span>
-        <span
-          className={`cost-icon ${type}`}
-          css={{ backgroundImage: `url(${import.meta.env.BASE_URL}icon/cost_${type}.webp)` }}
-        >
-          <span className="sr-only">{t(`cost.${type}`)}</span>
-        </span>
-        <span className="cost-value">{value}</span>
-      </span>
-    );
-  };
 
   return (
     <span className="unit-cost">

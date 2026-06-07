@@ -8,7 +8,7 @@
   padding: 3px 5px;
 }
 
-.btn.btn-toggle.focus {
+.btn-check:focus-visible + .btn.btn-toggle {
   box-shadow: 0 0 0 0.1rem #00fff0;
   border-radius: 5px;
 }
@@ -23,12 +23,17 @@
   background-color: #333;
 }
 
-.btn-toggle:not(:disabled):not(.disabled).active {
+.btn-check:checked + .btn.btn-toggle:not(:disabled) {
   color: #000;
   background-color: #ffcc00;
+  border-color: transparent;
 }
 
-.btn-toggle:not(:disabled):not(.disabled) {
+.btn-check:checked + .btn.btn-toggle:not(:disabled):hover {
+  border-color: #00fff0;
+}
+
+.btn.btn-toggle:not(:disabled):not(.disabled) {
   color: #e0e0e0;
   background-color: #514E55;
 }

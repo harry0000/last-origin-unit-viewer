@@ -70,46 +70,51 @@ export type StatusEffectPopoverRowProps = {
   value: number
 }
 
+const UnitStatusEffectsOverlay: React.FC<{
+  parameter: AffectableStatus,
+  unit: UnitBasicInfo,
+  children: ReactNode
+}> = ({ parameter, unit, children }) => {
+  const effects = useStatusEffects(unit, parameter);
+  if (effects.length === 0) {
+    return (<React.Fragment>{children}</React.Fragment>);
+  }
+
+  const popover = (
+    <Popover id={`popover-unit-${parameter}-status-effects`} css={{ maxWidth: 'none' }}>
+      <PopoverListContent>
+        {effects.map(({ key, affected, value }) => (
+          <PopoverListContent.Row key={key}>
+            <EffectsPopoverRowLabel>
+              {affected}
+            </EffectsPopoverRowLabel>
+            <EffectsPopoverRowValue>
+              <StatusEffectValueView viewModel={buildUnitStatusEffectValueViewModel(parameter, value)} />
+            </EffectsPopoverRowValue>
+          </PopoverListContent.Row>
+        ))}
+      </PopoverListContent>
+    </Popover>
+  );
+
+  return (
+    <OverlayTrigger
+      placement='bottom'
+      overlay={popover}
+    >
+      <span css={{ '& > *': { cursor: 'help', textDecoration: 'underline' } }}>{children}</span>
+    </OverlayTrigger>
+  );
+};
+
 const UnitStatusEffectsPopoverView: React.FC<{
   parameter: AffectableStatus,
   children: ReactNode
 }> = ({ parameter, children }) => {
   const selected = useSelectedUnit();
-  const EffectsOverlay = ({ unit, children }: { unit: UnitBasicInfo, children: ReactNode }) => {
-    const effects = useStatusEffects(unit, parameter);
-    if (effects.length === 0) {
-      return (<React.Fragment>{children}</React.Fragment>);
-    }
-
-    const popover = (
-      <Popover id={`popover-unit-${parameter}-status-effects`} css={{ maxWidth: 'none' }}>
-        <PopoverListContent>
-          {effects.map(({ key, affected, value }) => (
-            <PopoverListContent.Row key={key}>
-              <EffectsPopoverRowLabel>
-                {affected}
-              </EffectsPopoverRowLabel>
-              <EffectsPopoverRowValue>
-                <StatusEffectValueView viewModel={buildUnitStatusEffectValueViewModel(parameter, value)} />
-              </EffectsPopoverRowValue>
-            </PopoverListContent.Row>
-          ))}
-        </PopoverListContent>
-      </Popover>
-    );
-
-    return (
-      <OverlayTrigger
-        placement='bottom'
-        overlay={popover}
-      >
-        <span css={{ '& > *': { cursor: 'help', textDecoration: 'underline' } }}>{children}</span>
-      </OverlayTrigger>
-    );
-  };
 
   return selected ?
-    (<EffectsOverlay unit={selected}>{children}</EffectsOverlay>) :
+    (<UnitStatusEffectsOverlay parameter={parameter} unit={selected}>{children}</UnitStatusEffectsOverlay>) :
     (<React.Fragment>{children}</React.Fragment>);
 };
 
@@ -129,92 +134,106 @@ const SquadUnitStatusEffectPopoverRow: React.FC<SquadUnitStatusEffectDetails> = 
   );
 };
 
+type SquadUnitStatusEffects = ReturnType<typeof useSquadUnitStatusEffects>
+
+const SquadUnitStatusEffectsOverlay: React.FC<{
+  parameter: Exclude<AffectableStatus, 'hp' | 'fireResist' | 'iceResist' | 'electricResist'>,
+  effects: SquadUnitStatusEffects,
+  children: ReactNode
+}> = ({ parameter, effects, children }) => {
+  const { t } = useTranslation();
+
+  const popover = (
+    <Popover id={`popover-squad-unit-${parameter}-status-effects`} css={{ maxWidth: 'none' }}>
+      <PopoverListContent>
+        {effects.reteEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
+        {ifNonNullable(effects.rateEffectSummary, ({ summary, value }) => (
+          <PopoverListContent.Row css={{ backgroundColor: '#333' }}>
+            <EffectsPopoverRowLabel>
+              {t('status.affected.rate_summary', { summary })}
+            </EffectsPopoverRowLabel>
+            <EffectsPopoverRowValue>
+              <StatusEffectValueView viewModel={value} />
+            </EffectsPopoverRowValue>
+          </PopoverListContent.Row>
+        ))}
+        {effects.valueUpEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
+        {effects.valueUpByUnitEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
+      </PopoverListContent>
+    </Popover>
+  );
+
+  return (
+    <OverlayTrigger
+      placement='bottom'
+      overlay={popover}
+    >
+      <span css={{ '& > *': { cursor: 'help', textDecoration: 'underline' } }}>{children}</span>
+    </OverlayTrigger>
+  );
+};
+
 const SquadUnitStatusEffectsPopoverView: React.FC<{
   parameter: Exclude<AffectableStatus, 'hp' | 'fireResist' | 'iceResist' | 'electricResist'>,
   children: ReactNode
 }> = ({ parameter, children }) => {
-  const { t } = useTranslation();
   const effects = useSquadUnitStatusEffects(parameter);
 
-  const EffectsOverlay = ({ children }: { children: ReactNode }) => {
-    const popover = (
-      <Popover id={`popover-squad-unit-${parameter}-status-effects`} css={{ maxWidth: 'none' }}>
-        <PopoverListContent>
-          {effects.reteEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
-          {ifNonNullable(effects.rateEffectSummary, ({ summary, value }) => (
-            <PopoverListContent.Row css={{ backgroundColor: '#333' }}>
-              <EffectsPopoverRowLabel>
-                {t('status.affected.rate_summary', { summary })}
-              </EffectsPopoverRowLabel>
-              <EffectsPopoverRowValue>
-                <StatusEffectValueView viewModel={value} />
-              </EffectsPopoverRowValue>
-            </PopoverListContent.Row>
-          ))}
-          {effects.valueUpEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
-          {effects.valueUpByUnitEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
-        </PopoverListContent>
-      </Popover>
-    );
-
-    return (
-      <OverlayTrigger
-        placement='bottom'
-        overlay={popover}
-      >
-        <span css={{ '& > *': { cursor: 'help', textDecoration: 'underline' } }}>{children}</span>
-      </OverlayTrigger>
-    );
-  };
-
   return effects.hasEffects ?
-    (<EffectsOverlay>{children}</EffectsOverlay>) :
+    (<SquadUnitStatusEffectsOverlay parameter={parameter} effects={effects}>{children}</SquadUnitStatusEffectsOverlay>) :
     (<React.Fragment>{children}</React.Fragment>);
+};
+
+type SquadUnitAttributeResistEffects = ReturnType<typeof useSquadUnitAttributeResistEffects>
+
+const SquadUnitAttributeResistEffectsOverlay: React.FC<{
+  parameter: 'fireResist' | 'iceResist' | 'electricResist',
+  effects: SquadUnitAttributeResistEffects,
+  children: ReactNode
+}> = ({ parameter, effects, children }) => {
+  const { t } = useTranslation();
+
+  const popover = (
+    <Popover id={`popover-squad-unit-${parameter}-status-effects`} css={{ maxWidth: 'none' }}>
+      <PopoverListContent>
+        {ifTruthy(effects.needReteEffectsLabel, (
+          <PopoverListContent.Row css={{ backgroundColor: 'transparent' }}>
+            <EffectsPopoverRowLabel>
+              {t(`status.${effects.statusKey}`)}
+            </EffectsPopoverRowLabel>
+          </PopoverListContent.Row>
+        ))}
+        {effects.reteEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
+        {ifTruthy(effects.needMinimumReteUpLabel, (
+          <PopoverListContent.Row css={{ backgroundColor: 'transparent' }}>
+            <EffectsPopoverRowLabel>
+              {t(`status.minimum_${effects.statusKey}_up`)}
+            </EffectsPopoverRowLabel>
+          </PopoverListContent.Row>
+        ))}
+        {effects.minimumReteUpEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
+      </PopoverListContent>
+    </Popover>
+  );
+
+  return (
+    <OverlayTrigger
+      placement='bottom'
+      overlay={popover}
+    >
+      <span css={{ '& > *': { cursor: 'help', textDecoration: 'underline' } }}>{children}</span>
+    </OverlayTrigger>
+  );
 };
 
 const SquadUnitAttributeResistEffectsPopoverView: React.FC<{
   parameter: 'fireResist' | 'iceResist' | 'electricResist',
   children: ReactNode
 }> = ({ parameter, children }) => {
-  const { t } = useTranslation();
   const effects = useSquadUnitAttributeResistEffects(parameter);
 
-  const EffectsOverlay = ({ children }: { children: ReactNode }) => {
-    const popover = (
-      <Popover id={`popover-squad-unit-${parameter}-status-effects`} css={{ maxWidth: 'none' }}>
-        <PopoverListContent>
-          {ifTruthy(effects.needReteEffectsLabel, (
-            <PopoverListContent.Row css={{ backgroundColor: 'transparent' }}>
-              <EffectsPopoverRowLabel>
-                {t(`status.${effects.statusKey}`)}
-              </EffectsPopoverRowLabel>
-            </PopoverListContent.Row>
-          ))}
-          {effects.reteEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
-          {ifTruthy(effects.needMinimumReteUpLabel, (
-            <PopoverListContent.Row css={{ backgroundColor: 'transparent' }}>
-              <EffectsPopoverRowLabel>
-                {t(`status.minimum_${effects.statusKey}_up`)}
-              </EffectsPopoverRowLabel>
-            </PopoverListContent.Row>
-          ))}
-          {effects.minimumReteUpEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
-        </PopoverListContent>
-      </Popover>
-    );
-
-    return (
-      <OverlayTrigger
-        placement='bottom'
-        overlay={popover}
-      >
-        <span css={{ '& > *': { cursor: 'help', textDecoration: 'underline' } }}>{children}</span>
-      </OverlayTrigger>
-    );
-  };
-
   return effects.hasEffects ?
-    (<EffectsOverlay>{children}</EffectsOverlay>) :
+    (<SquadUnitAttributeResistEffectsOverlay parameter={parameter} effects={effects}>{children}</SquadUnitAttributeResistEffectsOverlay>) :
     (<React.Fragment>{children}</React.Fragment>);
 };
 
@@ -282,48 +301,49 @@ export const SquadUnitAttributeResistEffectsView: React.FC<{
   );
 };
 
-export const SquadUnitApEffectsPopoverView: React.FC<{ children: ReactNode }> = ({ children }) => {
+const SquadUnitApEffectsOverlay: React.FC<SquadUnitApEffectsViewModel & { children: ReactNode }> = ({ apEffects, initialAp, apTickCount, spdSummary, children }) => {
   const { t } = useTranslation();
-  const viewModel = useSquadUnitApEffects();
 
-  const EffectsOverlay = ({ apEffects, initialAp, apTickCount, spdSummary, children }: SquadUnitApEffectsViewModel & { children: ReactNode }) => {
-    const popover = (
-      <Popover id={'popover-squad-unit-ap-status-effects'} css={{ maxWidth: 'none' }}>
-        <PopoverListContent>
-          {apEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
-          {ifTruthy(apEffects.length > 0, (
-            <PopoverListContent.Row css={{ backgroundColor: '#333' }}>
-              <EffectsPopoverRowLabel>
-                {t('status.affected.initial_ap')}
-              </EffectsPopoverRowLabel>
-              <EffectsPopoverRowValue>
-                <span css={effectValueColor.positive}>{`+\u00A0${initialAp}`}</span>
-              </EffectsPopoverRowValue>
-            </PopoverListContent.Row>
-          ))}
-          <PopoverListContent.Row>
+  const popover = (
+    <Popover id={'popover-squad-unit-ap-status-effects'} css={{ maxWidth: 'none' }}>
+      <PopoverListContent>
+        {apEffects.map(e => (<SquadUnitStatusEffectPopoverRow key={nanoid()} {...e} />))}
+        {ifTruthy(apEffects.length > 0, (
+          <PopoverListContent.Row css={{ backgroundColor: '#333' }}>
             <EffectsPopoverRowLabel>
-              {t('status.affected.spd', { apTickCount })}
+              {t('status.affected.initial_ap')}
             </EffectsPopoverRowLabel>
             <EffectsPopoverRowValue>
-              <span css={effectValueColor.positive}>{`+\u00A0${spdSummary}`}</span>
+              <span css={effectValueColor.positive}>{`+\u00A0${initialAp}`}</span>
             </EffectsPopoverRowValue>
           </PopoverListContent.Row>
-        </PopoverListContent>
-      </Popover>
-    );
+        ))}
+        <PopoverListContent.Row>
+          <EffectsPopoverRowLabel>
+            {t('status.affected.spd', { apTickCount })}
+          </EffectsPopoverRowLabel>
+          <EffectsPopoverRowValue>
+            <span css={effectValueColor.positive}>{`+\u00A0${spdSummary}`}</span>
+          </EffectsPopoverRowValue>
+        </PopoverListContent.Row>
+      </PopoverListContent>
+    </Popover>
+  );
 
-    return (
-      <OverlayTrigger
-        placement='bottom'
-        overlay={popover}
-      >
-        <span css={{ '& > *': { cursor: 'help', textDecoration: 'underline' } }}>{children}</span>
-      </OverlayTrigger>
-    );
-  };
+  return (
+    <OverlayTrigger
+      placement='bottom'
+      overlay={popover}
+    >
+      <span css={{ '& > *': { cursor: 'help', textDecoration: 'underline' } }}>{children}</span>
+    </OverlayTrigger>
+  );
+};
+
+export const SquadUnitApEffectsPopoverView: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const viewModel = useSquadUnitApEffects();
 
   return viewModel ?
-    (<EffectsOverlay {...viewModel}>{children}</EffectsOverlay>) :
+    (<SquadUnitApEffectsOverlay {...viewModel}>{children}</SquadUnitApEffectsOverlay>) :
     (<React.Fragment>{children}</React.Fragment>);
 };

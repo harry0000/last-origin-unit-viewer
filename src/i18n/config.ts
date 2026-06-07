@@ -24,17 +24,12 @@ i18n
     defaultNS: 'common',
     lng: 'ja',
     interpolation: {
-      escapeValue: false, // react already safes from xss
-      // eslint-disable-next-line
-      format: function(value, format, lng) {
-        switch (format) {
-        case 'unit_number':
-          return (value + '').padStart(3, '0');
-        default:
-          return value;
-        }
-      }
+      escapeValue: false // react already safes from xss
     }
   });
+
+i18n.services.formatter?.add('unit_number', (value) => {
+  return String(value).padStart(3, '0');
+});
 
 export default i18n;

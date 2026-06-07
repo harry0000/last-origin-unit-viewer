@@ -28,6 +28,7 @@
     display: inline-block;
     height: 47px;
     width: 47px;
+    text-decoration: none;
   }
 }
 
@@ -47,6 +48,7 @@
     display: inline-block;
     height: 62px;
     width: 62px;
+    text-decoration: none;
   }
 }
 

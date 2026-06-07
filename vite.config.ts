@@ -11,5 +11,8 @@ export default defineConfig({
     }),
     svgr()
   ],
-  base: '/last-origin-unit-viewer/'
+  base: '/last-origin-unit-viewer/',
+  build: {
+    chunkSizeWarningLimit: 2000
+  }
 });

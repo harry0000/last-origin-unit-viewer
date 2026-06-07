@@ -21,12 +21,12 @@
   border-radius: 3px 3px 0 0;
 }
 
-.dropdown-menu.equipment > .equipment-enhancement > .btn-group-toggle:last-of-type {
+.dropdown-menu.equipment > .equipment-enhancement > .btn-group:last-of-type {
   grid-row: 1 / span 2;
   grid-column: 6;
 }
 
-.dropdown-menu.equipment > .equipment-enhancement > .btn-group-toggle > .btn-toggle {
+.dropdown-menu.equipment > .equipment-enhancement > .btn-group > .btn-toggle {
   font-size: 0.9em;
 }
 

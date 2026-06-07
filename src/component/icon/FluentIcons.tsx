@@ -7,7 +7,7 @@
  */
 import React from 'react';
 import { Theme } from '@emotion/react';
-import { Interpolation } from '@emotion/serialize/dist/emotion-serialize.cjs';
+import { Interpolation } from '@emotion/serialize';
 
 const ArrowReset: React.FC<{ css?: Interpolation<Theme>, fill?: string }> = ({ fill, ...props }) => (
   <svg {...props} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -29,7 +29,7 @@ const SquadRestore: React.FC = () => {
           animation="border"
           role="status"
         >
-          <span className="sr-only">Loading...</span>
+          <span className="visually-hidden">Loading...</span>
         </Spinner>
       </div>
     )

@@ -19,60 +19,61 @@ import './SquadView.css';
 
 const SquadShareModal = React.lazy(() => import('./SquadShareModal'));
 
+const SquadCostView: React.FC<{ type: keyof UnitCost, value: number }> = ({ type, value }) => {
+  const { t } = useTranslation();
+  return (
+    <div>
+      <span
+        className={`cost-icon ${type}`}
+        css={{
+          backgroundImage: `url(${import.meta.env.BASE_URL}icon/cost_${type}.webp)`,
+          maskImage: `url(${import.meta.env.BASE_URL}icon/cost_${type}.webp)`,
+          maskSize: '24px'
+        }}
+      >
+        <span className="visually-hidden">{t(`cost.${type}`)}</span>
+      </span>
+      <span className="cost-value">{value}</span>
+    </div>
+  );
+};
+
 const SquadCostSummaryView: React.FC = () => {
   const { part, nutrient, power } = useSquadUnitCostSummary();
-  const CostView = ({ type, value }: { type: keyof UnitCost, value: number }) => {
-    const { t } = useTranslation();
-    return (
-      <div>
-        <span
-          className={`cost-icon ${type}`}
-          css={{
-            backgroundImage: `url(${import.meta.env.BASE_URL}icon/cost_${type}.webp)`,
-            maskImage: `url(${import.meta.env.BASE_URL}icon/cost_${type}.webp)`,
-            maskSize: '24px'
-          }}
-        >
-          <span className="sr-only">{t(`cost.${type}`)}</span>
-        </span>
-        <span className="cost-value">{value}</span>
-      </div>
-    );
-  };
 
   return (
     <div className="cost-summary">
-      <CostView type="part" value={part} />
-      <CostView type="nutrient" value={nutrient} />
-      <CostView type="power" value={power} />
+      <SquadCostView type="part" value={part} />
+      <SquadCostView type="nutrient" value={nutrient} />
+      <SquadCostView type="power" value={power} />
+    </div>
+  );
+};
+
+const SquadUnitTypeCountView: React.FC<{ type: UnitType }> = ({ type }) => {
+  const { t } = useTranslation();
+  const count = useSquadUnitTypeCount(type);
+  return (
+    <div>
+      <Image
+        className="type-icon"
+        draggable="false"
+        height={24}
+        width={24}
+        alt={t(`unit.type.${type}`)}
+        src={`${import.meta.env.BASE_URL}icon/type_${type}.webp`}
+      />
+      <span className="type-count">{count}</span>
     </div>
   );
 };
 
 const SquadUnitTypeSummaryView: React.FC = () => {
-  const CountView = ({ type }: { type: UnitType }) => {
-    const { t } = useTranslation();
-    const count = useSquadUnitTypeCount(type);
-    return (
-      <div>
-        <Image
-          className="type-icon"
-          draggable="false"
-          height={24}
-          width={24}
-          alt={t(`unit.type.${type}`)}
-          src={`${import.meta.env.BASE_URL}icon/type_${type}.webp`}
-        />
-        <span className="type-count">{count}</span>
-      </div>
-    );
-  };
-
   return (
     <div className="type-summary">
-      <CountView type={UnitType.Light} />
-      <CountView type={UnitType.Flying} />
-      <CountView type={UnitType.Heavy} />
+      <SquadUnitTypeCountView type={UnitType.Light} />
+      <SquadUnitTypeCountView type={UnitType.Flying} />
+      <SquadUnitTypeCountView type={UnitType.Heavy} />
     </div>
   );
 };

@@ -21,7 +21,7 @@ const MainContainer: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Router><SquadRestore /></Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}><SquadRestore /></Router>
       <Header />
       <main
         className='main'

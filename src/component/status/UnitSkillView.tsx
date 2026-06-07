@@ -32,17 +32,18 @@ import './UnitSkillView.css';
 
 const skillLvItems = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1] as const satisfies ReadonlyArray<SkillLv>;
 
+const NeedRankUpAnnotation: React.FC<{ skillType: PassiveSkillType }> = ({ skillType }) => {
+  const { t } = useTranslation();
+  const show = useNeedRankUpForPassiveSkill(skillType);
+
+  return ifTruthy(
+    show,
+    (<div className="need-rank-up">{t(`skill.need_rank_up.${skillType}`)}</div>)
+  );
+};
+
 const SkillTypeIconOverlay: React.FC<{ skillType: SkillType, children: ReactElement }> = ({ skillType, children }) => {
   const { t } = useTranslation();
-
-  const NeedRankUpAnnotation = ({ skillType }: { skillType: PassiveSkillType }) => {
-    const show = useNeedRankUpForPassiveSkill(skillType);
-
-    return ifTruthy(
-      show,
-      (<div className="need-rank-up">{t(`skill.need_rank_up.${skillType}`)}</div>)
-    );
-  };
 
   return (
     <OverlayTrigger
@@ -59,16 +60,17 @@ const SkillTypeIconOverlay: React.FC<{ skillType: SkillType, children: ReactElem
   );
 };
 
-const SkillTypeIcon: React.FC<{ skillType: SkillType }> = ({ skillType, ...rest }) => {
-  const isActiveSkill = isActiveSkillType(skillType);
-  const NeedRankUpIcon = ({ skillType }: { skillType: PassiveSkillType }) => {
-    const show = useNeedRankUpForPassiveSkill(skillType);
+const NeedRankUpIcon: React.FC<{ skillType: PassiveSkillType }> = ({ skillType }) => {
+  const show = useNeedRankUpForPassiveSkill(skillType);
 
-    return ifTruthy(show, (<div className="need-rank-up">{'⚠️'}</div>));
-  };
+  return ifTruthy(show, (<div className="need-rank-up">{'⚠️'}</div>));
+};
+
+const SkillTypeIcon = React.forwardRef<HTMLDivElement, { skillType: SkillType }>(({ skillType, ...rest }, ref) => {
+  const isActiveSkill = isActiveSkillType(skillType);
 
   return (
-    <div className="skill-type-icon" {...rest}>
+    <div ref={ref} className="skill-type-icon" {...rest}>
       {
         isActiveSkill ?
           (<ActiveSkillIcon skillType={skillType} />) :
@@ -77,28 +79,28 @@ const SkillTypeIcon: React.FC<{ skillType: SkillType }> = ({ skillType, ...rest 
       {!isActiveSkill ? <NeedRankUpIcon skillType={skillType} /> : null}
     </div>
   );
-};
+});
 
 const SkillLvDropdownPlaceholder: React.FC = React.memo(() => {
   return (<Dropdown className="numeric"><span>&nbsp;</span></Dropdown>);
 });
 
+const UnitSkillLvDropdown: React.FC<{ skillType: SkillType, unit: UnitBasicInfo }> = ({ skillType, unit }) => {
+  const [skillLv, setSkillLv] = useSkillLvState(skillType, unit);
+
+  return (
+    <NumberValueDropdown
+      id={`unit-status-${skillType}-skill-lv`}
+      items={skillLvItems}
+      value={skillLv}
+      onChange={setSkillLv}
+    />
+  );
+};
+
 const SkillLvDropdown: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
   const { t } = useTranslation();
   const selected = useSelectedUnit();
-
-  const DropDown = ({ unit }: { unit: UnitBasicInfo }) => {
-    const [skillLv, setSkillLv] = useSkillLvState(skillType, unit);
-
-    return (
-      <NumberValueDropdown
-        id={`unit-status-${skillType}-skill-lv`}
-        items={skillLvItems}
-        value={skillLv}
-        onChange={setSkillLv}
-      />
-    );
-  };
 
   return (
     <div className="skill-level-form">
@@ -108,33 +110,35 @@ const SkillLvDropdown: React.FC<{ skillType: SkillType }> = ({ skillType }) => {
       <div className="skill-lv-label">{t('lv')}</div>
       {
         selected ?
-          (<DropDown unit={selected} />) :
+          (<UnitSkillLvDropdown skillType={skillType} unit={selected} />) :
           (<SkillLvDropdownPlaceholder />)
       }
     </div>
   );
 };
 
-const ActiveSkillPriority: React.FC<{ skillType: ActiveSkillType }> = ({ skillType }) => {
+const ActiveSkillPriorityButton: React.FC<{ skillType: ActiveSkillType, unit: UnitBasicInfo }> = ({ skillType, unit }) => {
   const { t } = useTranslation();
+  const [isPrimary, setPrimary] = usePrimaryActiveSkill(skillType, unit);
+
+  return (
+    <RoundedToggleButton selected={isPrimary} onChange={setPrimary}>{t('form.active_skill_priority')}</RoundedToggleButton>
+  );
+};
+
+const DisabledActiveSkillPriorityButton: React.FC = React.memo(() => {
+  const { t } = useTranslation();
+  return (
+    <RoundedToggleButton selected={false} disabled={true}>{t('form.active_skill_priority')}</RoundedToggleButton>
+  );
+});
+
+const ActiveSkillPriority: React.FC<{ skillType: ActiveSkillType }> = ({ skillType }) => {
   const selected = useSelectedUnit();
 
-  const Button = ({ unit }: { unit: UnitBasicInfo }) => {
-    const [isPrimary, setPrimary] = usePrimaryActiveSkill(skillType, unit);
-
-    return (
-      <RoundedToggleButton selected={isPrimary} onChange={setPrimary}>{t('form.active_skill_priority')}</RoundedToggleButton>
-    );
-  };
-  const DisabledButton = React.memo(() => {
-    return (
-      <RoundedToggleButton selected={false} disabled={true}>{t('form.active_skill_priority')}</RoundedToggleButton>
-    );
-  });
-
   return selected ?
-    (<Button unit={selected} />) :
-    (<DisabledButton />);
+    (<ActiveSkillPriorityButton skillType={skillType} unit={selected} />) :
+    (<DisabledActiveSkillPriorityButton />);
 };
 
 const ActiveSkillSetting: React.FC<{ skillType: ActiveSkillType }> = ({ skillType }) => {

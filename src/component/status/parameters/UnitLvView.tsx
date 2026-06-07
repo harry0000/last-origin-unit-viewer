@@ -39,78 +39,78 @@ const resetPointsStyle: CSSPropertiesWithMultiValues = {
 
 const unitLvItems = [...Array(UnitMaxLvValue)].map((v, i) => UnitMaxLvValue - i) as ReadonlyArray<UnitLvValue>;
 
+const LvValueView: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
+  const [lvMode, lv, setLv] = useUnitLv(unit);
+  return (
+    lvMode === UnitLvMode.Manual ?
+      (<NumberValueDropdown
+        id="unit-lv-dropdown"
+        items={unitLvItems}
+        value={lv ? lv : 1}
+        onChange={(lv) => {
+          setLv(lv);
+        }}
+      />) :
+      (<span>{lv}</span>)
+  );
+};
+
 const UnitLvValueView: React.FC = () => {
   const selected = useSelectedUnit();
 
-  const View: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
-    const [lvMode, lv, setLv] = useUnitLv(unit);
-    return (
-      lvMode === UnitLvMode.Manual ?
-        (<NumberValueDropdown
-          id="unit-lv-dropdown"
-          items={unitLvItems}
-          value={lv ? lv : 1}
-          onChange={(lv) => {
-            setLv(lv);
-          }}
-        />) :
-        (<span>{lv}</span>)
-    );
-  };
-
   return selected ? (
-    <View unit={selected.no}/>
+    <LvValueView unit={selected.no}/>
   ) : (
     <span>0</span>
   );
 };
 
+const RemainPointsValue: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
+  const remainPoints = useRemainPoints(unit);
+  return (<React.Fragment>{remainPoints}</React.Fragment>);
+};
+
 const RemainPointsView: React.FC = () => {
   const selected = useSelectedUnit();
 
-  const View: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
-    const remainPoints = useRemainPoints(unit);
-    return (<React.Fragment>{remainPoints}</React.Fragment>);
-  };
-
   return selected ? (
-    <View unit={selected.no} />
+    <RemainPointsValue unit={selected.no} />
   ) : (
     <React.Fragment>0</React.Fragment>
   );
 };
 
-const ResetPointsButton: React.FC = () => {
+const ResetUsedPointsButton: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
   const { t } = useTranslation();
+  const [disabled, reset] = useUsedPointReset(unit);
+  const [show, setShow] = useState(false);
+
+  return (
+    <OverlayTrigger
+      placement="auto"
+      show={show && !disabled}
+      onToggle={nextShow => setShow(nextShow && !disabled)}
+      overlay={<Tooltip id="tooltip-reset-status-parameter-points">{t('status.reset_points')}</Tooltip>}
+    >
+      <SVGButton
+        aria-label="Reset points"
+        variant="danger"
+        svg={<ArrowReset />}
+        disabled={disabled}
+        onClick={() => {
+          reset();
+          setShow(false);
+        }}
+      />
+    </OverlayTrigger>
+  );
+};
+
+const ResetPointsButton: React.FC = () => {
   const selected = useSelectedUnit();
 
-  const Button: React.FC<{ unit: UnitNumber }> = ({ unit }) => {
-    const [disabled, reset] = useUsedPointReset(unit);
-    const [show, setShow] = useState(false);
-
-    return (
-      <OverlayTrigger
-        placement="auto"
-        show={show && !disabled}
-        onToggle={nextShow => setShow(nextShow && !disabled)}
-        overlay={<Tooltip id="tooltip-reset-status-parameter-points">{t('status.reset_points')}</Tooltip>}
-      >
-        <SVGButton
-          aria-label="Reset points"
-          variant="danger"
-          svg={<ArrowReset />}
-          disabled={disabled}
-          onClick={() => {
-            reset();
-            setShow(false);
-          }}
-        />
-      </OverlayTrigger>
-    );
-  };
-
   return selected ? (
-    <Button unit={selected.no}/>
+    <ResetUsedPointsButton unit={selected.no}/>
   ) : (
     <SVGButton
       aria-label="Reset points"
