@@ -10,6 +10,11 @@ Unit viewer for the Japanese version of the game "Last Origin". Displays unit st
 
 - Avoid reverse engineering; implement based on values observable in-game.
 - Full reproduction of skill effect labels (tags) is out of scope. Only reproduce tags that serve as activation conditions for other skill effects.
+- Quality is enforced primarily by the type system, not by tests.
+  - The codebase uses strict typing and type-level programming so that incorrect logic surfaces as compile errors.
+  - Tests are added only when type-level guarantees cannot express the constraint.
+- "Tests passing" does not imply "behavior preserved".
+  - Logic-level safety comes from `pnpm exec tsc --noEmit`, and runtime behavior is verified manually via `pnpm dev`.
 
 ## Commands
 
