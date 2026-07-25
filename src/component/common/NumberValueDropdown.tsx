@@ -13,35 +13,35 @@ type Props<T extends number> = {
   disabled?: boolean
 }
 
+const NumberValueToggle =
+  React.forwardRef<HTMLAnchorElement, {
+    onClick: MouseEventHandler<HTMLAnchorElement>,
+    children: ReactNode,
+    id: string,
+    style: CSSProperties,
+    className: string
+  }>((
+    { onClick, children, id, style, className },
+    ref
+  ) => (
+    <a
+      href=""
+      ref={ref}
+      id={id}
+      style={style}
+      className={className}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(e);
+      }}
+    >
+      <span>{children}</span>
+    </a>
+  ));
+
 const NumberValueDropdown = <T extends number>(
   { id, items, value, onChange, disabled }: Props<T>
 ): ReturnType<React.FC<Props<T>>> => {
-  const NumberValueToggle =
-    React.forwardRef<HTMLAnchorElement, {
-      onClick: MouseEventHandler<HTMLAnchorElement>,
-      children: ReactNode,
-      id: string,
-      style: CSSProperties,
-      className: string
-    }>((
-      { onClick, children, id, style, className },
-      ref
-    ) => (
-      <a
-        href=""
-        ref={ref}
-        id={id}
-        style={style}
-        className={className}
-        onClick={(e) => {
-          e.preventDefault();
-          onClick(e);
-        }}
-      >
-        <span>{children}</span>
-      </a>
-    ));
-
   return (
     <Dropdown
       className="numeric"

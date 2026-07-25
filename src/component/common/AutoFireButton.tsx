@@ -33,11 +33,11 @@ const AutoFireButton: React.FC<{
   children: ReactNode
 }> = ({ disabled, onClick, children, ...rest }) => {
   const [prevDisabled, setPrevDisabled] = useState(disabled);
-  const [isMouseDown, setMouseDown] = useState(false);
+  const [isMouseDown, setIsMouseDown] = useState(false);
 
   if (disabled != prevDisabled) {
     setPrevDisabled(disabled);
-    setMouseDown(false);
+    setIsMouseDown(false);
   }
 
   useDelayedInterval(
@@ -51,17 +51,17 @@ const AutoFireButton: React.FC<{
     <Button
       {...rest}
       disabled={disabled}
-      onMouseDown={() => setMouseDown(true)}
-      onMouseUp={() => setMouseDown(false)}
-      onMouseLeave={() => setMouseDown(false)}
-      onTouchStart={() => setMouseDown(true)}
+      onMouseDown={() => setIsMouseDown(true)}
+      onMouseUp={() => setIsMouseDown(false)}
+      onMouseLeave={() => setIsMouseDown(false)}
+      onTouchStart={() => setIsMouseDown(true)}
       onTouchEnd={(e) => {
         // HACK: to prevent firing onMouseDown event
         // https://github.com/facebook/react/issues/9809#issuecomment-395607117
         e.preventDefault();
-        setMouseDown(false);
+        setIsMouseDown(false);
       }}
-      onTouchCancel={() => setMouseDown(false)}
+      onTouchCancel={() => setIsMouseDown(false)}
     >
       {children}
     </Button>
