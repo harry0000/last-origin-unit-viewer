@@ -412,7 +412,7 @@ class BattleEffectSimulator {
 
             if (isAllyUnitTargetSkillEffect(effect)) {
               const hasNoTargetState = !('target' in state);
-              const hasSelfEffect = 'self' in effect.details && effect.details.self;
+              const hasSelfEffect = 'self' in effect.details;
               const targetUnits =
                 squadUnits
                   .filter(target =>
@@ -447,7 +447,7 @@ class BattleEffectSimulator {
                 return false;
               }
             } else {
-              if ('self' in effect.details && effect.details.self) {
+              if ('self' in effect.details) {
                 unit.appliedEffects.applySkillEffects(effect.details.self, type, affected_by, scaled);
               }
             }
@@ -533,7 +533,7 @@ class BattleEffectSimulator {
     sourcePosition: TenKeyPosition,
     appliedEffects: BattleEffects
   ): BattleEffect['scaled'] | { value: 0 } | undefined {
-    if (!('scale_factor' in effect && effect.scale_factor)) {
+    if (!('scale_factor' in effect)) {
       return undefined;
     }
 
@@ -559,7 +559,7 @@ function hasFormChangeUnitSkill<N extends FormChangeUnitNumbers>(
 function dropFormChangeEffect(
   { effect: { details } }: ApplicableAllSkillEffect
 ): boolean {
-  const hasFormChangeEffect = 'self' in details && !!details.self?.form_change;
+  const hasFormChangeEffect = 'self' in details && !!details.self.form_change;
   return !hasFormChangeEffect;
 }
 

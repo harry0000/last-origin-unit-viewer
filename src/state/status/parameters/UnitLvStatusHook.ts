@@ -93,7 +93,7 @@ export function useStatusParameterDecrement(status: EnhanceableStatus): [decreme
 export function useUnitRank(unit: RankUpUnitNumber): [
   currentRank: UnitRank,
   selectRank: (rank: UnitRank) => void,
-  rankItems: ReadonlyArray<{ rank: UnitRank, availableLv?: RankUpAvailableLv, disabled: boolean }>
+  rankItems: ReadonlyArray<{ rank: UnitRank, availableLv: RankUpAvailableLv | undefined, disabled: boolean }>
 ] {
   const currentRank = useRecoilValue(unitRank(unit));
   const rankEnabled = useRecoilValue(unitRankUpEnabled(unit));

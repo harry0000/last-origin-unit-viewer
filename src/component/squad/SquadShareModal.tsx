@@ -33,7 +33,7 @@ const ShareUrlCopyButton: React.FC<{
 };
 
 const TwitterShareButton: React.FC<{
-  url?: string,
+  url: string | undefined,
   disabled: boolean
 }> = ({ url, disabled }) => {
   const { t } = useTranslation();
@@ -91,7 +91,7 @@ const SquadShareModal: React.FC = () => {
             type="text"
             readOnly
             placeholder="Loading..."
-            value={shareUrl}
+            value={shareUrl ?? ''}
           />
           <ShareUrlCopyButton
             disabled={!shareUrl}

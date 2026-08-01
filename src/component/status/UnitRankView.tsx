@@ -57,7 +57,7 @@ const RankMenuItem: React.FC<{
   role: UnitRole,
   active: boolean,
   disabled: boolean,
-  availableLv?: RankUpAvailableLv
+  availableLv: RankUpAvailableLv | undefined
 }> = ({ rank, role, active, disabled, availableLv,...rest }) => {
   return (
     <Dropdown.Item

@@ -1,20 +1,25 @@
 // @ts-check
+import { defineConfig } from 'eslint/config';
 import eslint from '@eslint/js';
+import eslintReact from '@eslint-react/eslint-plugin';
 import globals from 'globals';
-import react from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
-  eslint.configs.recommended,
-  react.configs.flat.recommended,
-  ...tseslint.configs.recommended,
+export default defineConfig(
   {
     files: ['**/*.{ts,tsx}'],
+    extends: [
+      eslint.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooksPlugin.configs.flat.recommended,
+      eslintReact.configs['recommended-typescript'],
+      eslintReact.configs['disable-conflict-eslint-plugin-react-hooks']
+    ],
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.name,
+        jsxPragma: 'jsx',
         sourceType: 'module',
         ecmaVersion: 2022,
         ecmaFeatures: {
@@ -24,15 +29,6 @@ export default tseslint.config(
       globals: {
         ...globals.browser,
         ...globals.es2022
-      },
-    },
-    plugins: {
-      react,
-      'react-hooks': reactHooksPlugin
-    },
-    settings: {
-      react: {
-        version: 'detect',
       },
     },
     rules: {
@@ -60,15 +56,9 @@ export default tseslint.config(
         'error',
         'always'
       ],
-      'react/prop-types': 'off',
-      'react/no-is-mounted': 'off',
-      'react/no-unknown-property': [
-        'error',
-        { ignore: ['css', 'focusable'] }
-      ],
-      ...reactHooksPlugin.configs.recommended.rules,
-      'react-hooks/rules-of-hooks': 'off',
-      'react-hooks/exhaustive-deps': [
+      '@eslint-react/rules-of-hooks': 'off',
+      '@eslint-react/no-unnecessary-use-prefix': 'off',
+      '@eslint-react/exhaustive-deps': [
         'warn',
         { 'additionalHooks': '(useRecoilCallback|useRecoilTransaction_UNSTABLE)' }
       ]

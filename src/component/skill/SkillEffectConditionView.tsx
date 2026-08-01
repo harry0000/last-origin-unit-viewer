@@ -343,6 +343,12 @@ const SelfAndTargetStateView: React.FC<{
   );
 };
 
+const Separator: React.FC<{ show: boolean }> = ({ show }) => {
+  const { t } = useTranslation();
+
+  return (<React.Fragment>{ifTruthy(show, t('effect:and_symbolic_separator'))}</React.Fragment>);
+};
+
 const SquadStateView: React.FC<{
   state: ValueOf<SkillEffectActivationState, 'squad'>,
   unitNumber: UnitNumber
@@ -395,23 +401,19 @@ const SquadStateView: React.FC<{
         {t('effect:condition.target.squad')}
         {
           typedEntries(state).map((entry, i, array) => {
-            const Separator = () => (
-              <React.Fragment>{ifTruthy(needSeparator(array, i), t('effect:and_symbolic_separator'))}</React.Fragment>
-            );
-
             switch (entry[0]) {
             case EffectActivationState.InSquad:
               return (
                 <React.Fragment key={entry[0]}>
                   {unitStateView(EffectActivationState.InSquad, entry[1], unitNumber, t)}
-                  <Separator />
+                  <Separator show={needSeparator(array, i)} />
                 </React.Fragment>
               );
             case EffectActivationState.NotInSquad:
               return (
                 <React.Fragment key={entry[0]}>
                   {unitStateView(EffectActivationState.NotInSquad, entry[1], unitNumber, t)}
-                  <Separator />
+                  <Separator show={needSeparator(array, i)} />
                 </React.Fragment>
               );
             case EffectActivationState.NumOfUnits: {
@@ -420,14 +422,14 @@ const SquadStateView: React.FC<{
                 return (
                   <React.Fragment key={entry[0]}>
                     {numOfCrossAdjacent(squadState)}
-                    <Separator />
+                    <Separator show={needSeparator(array, i)} />
                   </React.Fragment>
                 );
               } else if (isNumOfDefenderAndArmoredBulgasariCondition(squadState)) {
                 return (
                   <React.Fragment key={entry[0]}>
                     {numOfDefenderAndArmoredBulgasari(squadState)}
-                    <Separator />
+                    <Separator show={needSeparator(array, i)} />
                   </React.Fragment>
                 );
               } else if (isNumOfUnitAliasCondition(squadState)) {
@@ -437,7 +439,7 @@ const SquadStateView: React.FC<{
                     {t('effect:except_preposition')}
                     <UnitAliasView unitAlias={squadState.unit} exceptUnit={unitNumber} />
                     {t('effect:condition.state.unit_alias_eq', squadState)}
-                    <Separator />
+                    <Separator show={needSeparator(array, i)} />
                   </React.Fragment>
                 );
               } else {
@@ -450,7 +452,7 @@ const SquadStateView: React.FC<{
                           t('effect:condition.state.num_of_units_ge', squadState) :
                           t('effect:condition.state.num_of_units_le', squadState)
                     }
-                    <Separator />
+                    <Separator show={needSeparator(array, i)} />
                   </React.Fragment>
                 );
               }
@@ -550,6 +552,36 @@ const TriggerView: React.FC<{
   }
 };
 
+const NotTargetStateView: React.FC<{
+  entry: Entry<SelfSkillEffectActivationState>,
+  unitNumber: UnitNumber,
+  needSeparator: boolean
+}> = ({ entry, unitNumber, needSeparator }) => {
+  const [key, value] = entry;
+  if (key === 'self') {
+    return (
+      <React.Fragment key={key}>
+        <SelfAndTargetStateView state={value} unitNumber={unitNumber} />
+        <Separator show={needSeparator} />
+      </React.Fragment>
+    );
+  } else if (key === 'squad') {
+    return (
+      <React.Fragment key={key}>
+        <SquadStateView key={key} state={value} unitNumber={unitNumber} />
+        <Separator show={needSeparator} />
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment key={key}>
+        <EnemyStateView state={value}/>
+        <Separator show={needSeparator} />
+      </React.Fragment>
+    );
+  }
+};
+
 const ConditionStateView: React.FC<{
   condition: SelfSkillEffectActivationCondition,
   unitNumber: UnitNumber
@@ -564,39 +596,6 @@ const ConditionStateView: React.FC<{
   if (!('state' in props.condition)) {
     return null;
   }
-
-  const Separator = ({ show }: { show: boolean }) => (
-    <React.Fragment>{ifTruthy(show, t('effect:and_symbolic_separator'))}</React.Fragment>
-  );
-  const NotTargetStateView = ({ entry, unitNumber, needSeparator }: {
-    entry: Entry<SelfSkillEffectActivationState>,
-    unitNumber: UnitNumber,
-    needSeparator: boolean
-  }) => {
-    const [key, value] = entry;
-    if (key === 'self') {
-      return (
-        <React.Fragment key={key}>
-          <SelfAndTargetStateView state={value} unitNumber={unitNumber} />
-          <Separator show={needSeparator} />
-        </React.Fragment>
-      );
-    } else if (key === 'squad') {
-      return (
-        <React.Fragment key={key}>
-          <SquadStateView key={key} state={value} unitNumber={unitNumber} />
-          <Separator show={needSeparator} />
-        </React.Fragment>
-      );
-    } else {
-      return (
-        <React.Fragment key={key}>
-          <EnemyStateView state={value}/>
-          <Separator show={needSeparator} />
-        </React.Fragment>
-      );
-    }
-  };
 
   return (
     <React.Fragment>

@@ -127,7 +127,7 @@ function getSkillName(
 }
 
 function buildSourceOfEffectLabel({ effect, value, affected_by }: BattleEffect): EffectLabel {
-  return 'tag' in value && value.tag && canUseTagAsSource(effect) ?
+  return 'tag' in value && canUseTagAsSource(effect) ?
     { tag: value.tag } :
     affected_by.type === 'equipment' ?
       { key: `equipment:${affected_by.id}` } :
@@ -181,7 +181,7 @@ function getUnitTargetKey(factor: ValueOf<SkillEffectScaleFactor, 'per_units'>):
 function buildScaled(
   effect: BattleEffect
 ): Pick<SquadUnitStatusEffectDetails, 'scaled'> | Record<string, never> {
-  if ('scaled' in effect && effect.scaled) {
+  if ('scaled' in effect) {
     const { by, value } = effect.scaled;
     if ('per_stack' in by) {
       return {
@@ -474,7 +474,7 @@ function buildEffectAdditions({ effect, value }: BattleEffectExcludeAPEffect): R
 }
 
 function getEffectTerm({ value }: BattleEffectExcludeAPEffect): ApplyingEffectTerm | undefined {
-  if ('term' in value && value.term) {
+  if ('term' in value) {
     return typeof value.term === 'string' ?
       { key: `status.effect.term.${value.term}` } :
       { key: 'status.effect.term.for_rounds', options: { rounds: value.term.for_rounds } };

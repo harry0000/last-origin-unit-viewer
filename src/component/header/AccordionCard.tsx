@@ -30,10 +30,10 @@ const AccordionHeader: React.FC<{ eventKey: string, children: ReactNode }> = ({ 
   );
 };
 
-const AccordionCard: React.FC<{ title: string, children: ReactNode } & CardProps> = ({ title, bg, text, border, body, children }) => {
+const AccordionCard: React.FC<{ title: string, children: ReactNode } & CardProps> = ({ title, children, ...cardProps }) => {
   return (
     <Accordion>
-      <Card bg={bg} text={text} border={border} body={body}>
+      <Card {...cardProps}>
         <AccordionHeader eventKey="0">
           {title}
         </AccordionHeader>

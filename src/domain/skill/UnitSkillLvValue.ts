@@ -16,9 +16,9 @@ class UnitSkillLvValue {
 
   readonly active1Lv: SkillLv;
   readonly active2Lv: SkillLv;
-  readonly passive1Lv?: SkillLv;
-  readonly passive2Lv?: SkillLv;
-  readonly passive3Lv?: SkillLv;
+  readonly passive1Lv: SkillLv | undefined;
+  readonly passive2Lv: SkillLv | undefined;
+  readonly passive3Lv: SkillLv | undefined;
 
   constructor(
     unit: UnitBasicInfo,

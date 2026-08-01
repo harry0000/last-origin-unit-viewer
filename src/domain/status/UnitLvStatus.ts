@@ -23,7 +23,7 @@ class UnitLvStatus {
   readonly unit: UnitNumber;
   readonly #lv: UnitLv;
   readonly #enhancements: UnitParameterEnhancementLv;
-  readonly #rank?: UnitRankState;
+  readonly #rank: UnitRankState | undefined;
 
   readonly remainPoints: number;
 

@@ -20,7 +20,7 @@ import { ifNonNullable } from '../../../util/react';
 import './CoreLinkSelector.css';
 
 const CoreLinkUnitItem: React.FC<{
-  eventKey?: string,
+  eventKey: string,
   active: boolean,
   unit: CoreLinkUnit
 }> = ({ eventKey, active, unit, ...rest }) => {

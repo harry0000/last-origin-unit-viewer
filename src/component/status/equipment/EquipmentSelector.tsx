@@ -69,7 +69,7 @@ type Props<S extends EquipmentSlot> = {
   id: string,
   slot: S,
   type: SlotEquipmentType<S>,
-  value?: CurrentEquipment<S>,
+  value: CurrentEquipment<S> | undefined,
   items: ReadonlyArray<SlotEquipment<S>>,
   onSelect: (equipment: SlotEquipment<S> | undefined) => void
 }
@@ -78,17 +78,21 @@ const EffectTypeHeader: React.FC<{ children: string }> = ({ children }) => {
   return (<div className="header">{children}</div>);
 };
 
+const EquipmentEnhancementLvSelectorButton: React.FC<{
+  slot: EquipmentSlot,
+  unit: UnitNumber,
+  enhanceLv: EquipmentEnhancementLevel
+}> = ({ slot, unit, enhanceLv }) => {
+  const [selected, select] = useEquipmentEnhanceLvSelector(slot, unit, enhanceLv);
+
+  return (<RoundedToggleButton selected={selected} onChange={select}>+&nbsp;{enhanceLv}</RoundedToggleButton>);
+};
+
 const EquipmentEnhancementLvSelector: React.FC<{ slot: EquipmentSlot, unit: UnitNumber }> = ({ slot, unit }) => {
-  const SelectorButton = ({ enhanceLv }: { enhanceLv: EquipmentEnhancementLevel }) => {
-    const [selected, select] = useEquipmentEnhanceLvSelector(slot, unit, enhanceLv);
-
-    return (<RoundedToggleButton selected={selected} onChange={select}>+&nbsp;{enhanceLv}</RoundedToggleButton>);
-  };
-
   return (
     <div className="equipment-enhancement">
       {([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const).map(n => (
-        <SelectorButton key={n} enhanceLv={n} />
+        <EquipmentEnhancementLvSelectorButton key={n} slot={slot} unit={unit} enhanceLv={n} />
       ))}
     </div>
   );

@@ -9,9 +9,9 @@ import './RoundedToggleButton.css';
 type RoundedToggleButtonProps = {
   css?: Interpolation<Theme>,
   className?: string,
-  disabled?: boolean,
+  disabled?: boolean | undefined,
   selected: boolean,
-  onChange?: React.ChangeEventHandler<HTMLInputElement>,
+  onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined,
   children: ReactNode
 }
 

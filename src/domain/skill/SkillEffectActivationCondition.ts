@@ -508,7 +508,7 @@ export function isUnitsInSquadCondition(
 export function isJangHwaActivationSquadState(
   arg: SpecialSquadConditions
 ): arg is JangHwaActivationSquadState {
-  return 'not_in_squad' in arg[0] && !!arg[0].not_in_squad;
+  return 'not_in_squad' in arg[0];
 }
 
 export type SelfSkillEffectActivationState =

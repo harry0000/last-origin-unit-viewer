@@ -235,7 +235,7 @@ function toDependencyRoot(battleEffect: AppliedBattleEffect): AppliedBattleEffec
     isAffectedSkillEffect(effect) && type !== SkillEffectType.General
   ) {
     return battleEffect;
-  } else if ('tag' in value && value.tag) {
+  } else if ('tag' in value) {
     // HACK: for activation tagged condition effects
     return {
       ...battleEffect,

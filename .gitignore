@@ -24,3 +24,6 @@ yarn-error.log*
 
 .eslintcache
 .idea
+
+# Claude Code local settings
+.claude/settings.local.json

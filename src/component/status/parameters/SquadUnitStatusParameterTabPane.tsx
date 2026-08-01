@@ -115,16 +115,16 @@ const EffectLabel: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({ e
 const EffectDetails: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({ effect: { description: { key, options }, additions } }) => {
   const { t } = useTranslation();
   const translateEffects = (): string => {
-    return 'effect' in options && options.effect ?
+    return 'effect' in options ?
       t(`effect:effect.name.${options.effect}`) :
-      'effects' in options && options.effects ?
+      'effects' in options ?
         options.effects.map(e => t(`effect:effect.name.${e}`)).join(t('effect:separator')) :
         '';
   };
   const translateAddition = (addition: SquadUnitApplyingEffectViewModel['additions'][number]): string  => {
     switch (addition.type) {
     case 'rate':
-      return t(`status.effect.rate.${addition.key}`, addition.options);
+      return t(`status.effect.rate.${addition.key}`, addition.options ?? {});
     case 'times':
       return t('effect:times', { count: addition.value });
     case 'cannot_be_dispelled':
@@ -153,7 +153,7 @@ const EffectDetails: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({
 const EffectTerm: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({ effect: { term } }) => {
   const { t } = useTranslation();
 
-  return (<div className="effect-term">{term ? t(term.key, term.options) : ''}</div>);
+  return (<div className="effect-term">{term ? t(term.key, term.options ?? {}) : ''}</div>);
 };
 
 const EffectSource: React.FC<{ effect: SquadUnitApplyingEffectViewModel }> = ({ effect: { type, affected } }) => {

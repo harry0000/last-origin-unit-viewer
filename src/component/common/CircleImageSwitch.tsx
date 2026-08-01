@@ -5,7 +5,7 @@ import { Image } from 'react-bootstrap';
 
 import './CircleImageSwitch.css';
 
-const CircleImageSwitch: React.FC<{
+const CircleImageSwitch = React.forwardRef<HTMLDivElement, {
   id: string,
   src: string,
   height: number,
@@ -14,7 +14,7 @@ const CircleImageSwitch: React.FC<{
   disabled?: boolean,
   selected?: boolean,
   onChange?: React.ChangeEventHandler<HTMLInputElement>
-}> = ({ id, src, height, width, alt, disabled, selected, onChange, ...rest }) => {
+}>(({ id, src, height, width, alt, disabled, selected, onChange, ...rest }, ref) => {
   const [active, setActive] = useState(selected);
   const [focus, setFocus] = useState(false);
 
@@ -28,7 +28,7 @@ const CircleImageSwitch: React.FC<{
   }
 
   return (
-    <div className="circle-image-check" {...rest}>
+    <div className="circle-image-check" {...rest} ref={ref}>
       <input
         type="checkbox"
         id={id}
@@ -56,6 +56,6 @@ const CircleImageSwitch: React.FC<{
       </label>
     </div>
   );
-};
+});
 
 export default CircleImageSwitch;
