@@ -18,8 +18,8 @@ import { equipmentData } from '../../data/equipmentData';
 
 import { EquipmentSlot, selectedEquipmentRankState } from './UnitEquipmentState';
 
-function pickEquipment(unit: UnitNumber, rank: EquipmentRank) {
-  return function<T extends EquipmentData>(equipment: T) {
+function pickEquipment(unit: UnitNumber, rank: EquipmentRank): <T extends EquipmentData>(equipment: T) => boolean {
+  return function<T extends EquipmentData>(equipment: T): boolean {
     return matchExclusive(unit, equipment) && availableRank(equipment, rank);
   };
 }
