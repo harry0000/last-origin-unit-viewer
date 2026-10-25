@@ -2,10 +2,9 @@ import { useRecoilCallback, useRecoilValue } from 'recoil';
 
 import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';
 import { UnitBasicInfo } from '../../domain/UnitBasicInfo';
-import UnitCoreLink, { CoreLinkSlotAvailableLv, CoreLinkUnit } from '../../domain/UnitCoreLink';
+import UnitCoreLink, { CoreLinkSlot, CoreLinkSlotAvailableLv, CoreLinkUnit } from '../../domain/UnitCoreLink';
 
 import {
-  CoreLinkSlot,
   coreLinkBonusEffectsState,
   coreLinkRateState,
   coreLinkSlotAvailableState,

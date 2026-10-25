@@ -8,10 +8,9 @@ import CoreLinkPlaceholder from './CoreLinkPlaceholder';
 import SlotUnavailableOverlay from '../SlotUnavailableOverlay';
 
 import CoreLinkUnitView from './CoreLinkUnitView';
-import { CoreLinkUnit } from '../../../domain/UnitCoreLink';
+import { CoreLinkSlot, CoreLinkUnit } from '../../../domain/UnitCoreLink';
 import { UnitBasicInfo } from '../../../domain/UnitBasicInfo';
 
-import { CoreLinkSlot } from '../../../state/corelink/UnitCoreLinkState';
 import { useAvailableCoreLinkUnit, useUnitCoreLink } from '../../../state/corelink/UnitCoreLinkHook';
 import { useSelectedUnit } from '../../../state/selector/UnitSelectorHook';
 

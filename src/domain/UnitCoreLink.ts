@@ -16,6 +16,7 @@ import { unitBasicData } from '../data/unitBasicData';
 
 export type CoreLinkCount = 0 | 1 | 2 | 3 | 4 | 5
 export type CoreLinkSlotAvailableLv = 10 | 30 | 50 | 70 | 90
+export type CoreLinkSlot = 'slot1' | 'slot2' | 'slot3' | 'slot4' | 'slot5'
 
 export type CoreLinkUnit = Readonly<{
   unit: UnitNumber,

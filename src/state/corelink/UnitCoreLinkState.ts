@@ -2,7 +2,7 @@ import { atomFamily, CallbackInterface, RecoilValueReadOnly } from 'recoil';
 import deepEqual from 'fast-deep-equal';
 
 import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';
-import UnitCoreLink, { CoreLinkCount, CoreLinkUnit } from '../../domain/UnitCoreLink';
+import UnitCoreLink, { CoreLinkCount, CoreLinkSlot, CoreLinkUnit } from '../../domain/UnitCoreLink';
 import UnitLv, { UnitLvValue } from '../../domain/status/UnitLv';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 
@@ -10,8 +10,6 @@ import { lvValueState } from '../status/parameters/UnitLvStatusState';
 import { updateUnitCoreLinkDependency } from '../transaction';
 
 import { getFromSnapshot, getValue, ValueOrUpdater } from '../../util/recoil';
-
-export type CoreLinkSlot = 'slot1' | 'slot2' | 'slot3' | 'slot4' | 'slot5'
 
 function createLinkedUnit(slot: CoreLinkSlot) {
   return atomFamily<CoreLinkUnit | undefined, UnitNumber>({
