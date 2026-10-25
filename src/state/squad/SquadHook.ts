@@ -33,7 +33,7 @@ import { restoreUnitEquipmentState, unitEquipmentResolver } from '../equipment/U
 import { restoreUnitPrimaryActiveSkill, unitPrimaryActiveSkillResolver } from '../skill/PrimaryActiveSkillState';
 import { restoreUnitSkill, unitSkillResolver } from '../skill/UnitSkillState';
 import { selectUnit } from '../selector/UnitSelectorState';
-import { useNotificationResister } from '../ui/NotificationState';
+import { useNotificationResister } from '../ui/NotificationHook';
 import { useUnitSelector } from '../selector/UnitSelectorHook';
 
 import { getFromSnapshot } from '../../util/recoil';

@@ -2,7 +2,7 @@ import { atomFamily, CallbackInterface, RecoilValueReadOnly } from 'recoil';
 import deepEqual from 'fast-deep-equal';
 
 import { CoreLinkBonus, FullLinkBonus } from '../../domain/UnitCoreLinkBonusData';
-import UnitCoreLink, { CoreLinkCount, CoreLinkUnit } from '../../domain/UnitCoreLink';
+import UnitCoreLink, { CoreLinkCount, CoreLinkSlot, CoreLinkUnit } from '../../domain/UnitCoreLink';
 import UnitLv, { UnitLvValue } from '../../domain/status/UnitLv';
 import { UnitNumber } from '../../domain/UnitBasicInfo';
 
@@ -11,8 +11,6 @@ import { updateUnitCoreLinkDependency } from '../transaction';
 
 import { getFromSnapshot, getValue, ValueOrUpdater } from '../../util/recoil';
 
-export type CoreLinkSlot = 'slot1' | 'slot2' | 'slot3' | 'slot4' | 'slot5'
-
 function createLinkedUnit(slot: CoreLinkSlot) {
   return atomFamily<CoreLinkUnit | undefined, UnitNumber>({
     key: `UnitCoreLinkState_linkedUnit_${slot}`,
@@ -20,20 +18,10 @@ function createLinkedUnit(slot: CoreLinkSlot) {
   });
 }
 
-function initialSlotAvailable(slot: CoreLinkSlot): boolean {
-  switch (slot) {
-  case 'slot1': return UnitCoreLink.isSlot1Available(UnitLv.initialState.value);
-  case 'slot2': return UnitCoreLink.isSlot2Available(UnitLv.initialState.value);
-  case 'slot3': return UnitCoreLink.isSlot3Available(UnitLv.initialState.value);
-  case 'slot4': return UnitCoreLink.isSlot4Available(UnitLv.initialState.value);
-  case 'slot5': return UnitCoreLink.isSlot5Available(UnitLv.initialState.value);
-  }
-}
-
 function createSlotAvailable(slot: CoreLinkSlot) {
   return atomFamily<boolean, UnitNumber>({
     key: `UnitCoreLinkState_slotAvailable_${slot}`,
-    default: initialSlotAvailable(slot)
+    default: UnitCoreLink.isSlotAvailable(slot, UnitLv.initialState.value)
   });
 }
 

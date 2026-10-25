@@ -1,14 +1,14 @@
-import { atom, useRecoilState, useSetRecoilState } from 'recoil';
+import { atom, CallbackInterface, RecoilValueReadOnly, selector } from 'recoil';
 
 export type NotificationLevel = 'info' | 'warn' | 'error'
-type NotificationKey =
+export type NotificationKey =
   'copied_squad_url' |
   'restore_squad_units' |
   'squad_is_empty' |
   'error_while_generating_squad_url' |
   'error_while_restoring_squad_url'
 
-type Notification = {
+export type Notification = {
   level: NotificationLevel,
   key: NotificationKey
 }
@@ -62,17 +62,15 @@ const notificationStoreState = atom<NotificationStore>({
   default: new NotificationStore()
 });
 
-export function useNotification(): [notifications: ReadonlyArray<Notification>, hideNotification: (key: NotificationKey) => void] {
-  const [store, setStore] =  useRecoilState(notificationStoreState);
+export const notificationsState: RecoilValueReadOnly<ReadonlyArray<Notification>> = selector({
+  key: 'notificationsState',
+  get: ({ get }) => get(notificationStoreState).notifications
+});
 
-  return [
-    store.notifications,
-    (key) => { setStore(s => s.removeNotification(key)); }
-  ];
-}
+export const addNotification = ({ set }: CallbackInterface) => (key: NotificationKey): void => {
+  set(notificationStoreState, s => s.addNotification(key));
+};
 
-export function useNotificationResister(): (key: NotificationKey) => void {
-  const setter = useSetRecoilState(notificationStoreState);
-
-  return (key) => { setter(s => s.addNotification(key)); };
-}
+export const removeNotification = ({ set }: CallbackInterface) => (key: NotificationKey): void => {
+  set(notificationStoreState, s => s.removeNotification(key));
+};

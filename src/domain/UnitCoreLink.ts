@@ -16,6 +16,7 @@ import { unitBasicData } from '../data/unitBasicData';
 
 export type CoreLinkCount = 0 | 1 | 2 | 3 | 4 | 5
 export type CoreLinkSlotAvailableLv = 10 | 30 | 50 | 70 | 90
+export type CoreLinkSlot = 'slot1' | 'slot2' | 'slot3' | 'slot4' | 'slot5'
 
 export type CoreLinkUnit = Readonly<{
   unit: UnitNumber,
@@ -126,11 +127,31 @@ class UnitCoreLink {
   static get slot4AvailableLv(): CoreLinkSlotAvailableLv { return 70; }
   static get slot5AvailableLv(): CoreLinkSlotAvailableLv { return 90; }
 
+  static slotAvailableLv(slot: CoreLinkSlot): CoreLinkSlotAvailableLv {
+    switch (slot) {
+    case 'slot1': return UnitCoreLink.slot1AvailableLv;
+    case 'slot2': return UnitCoreLink.slot2AvailableLv;
+    case 'slot3': return UnitCoreLink.slot3AvailableLv;
+    case 'slot4': return UnitCoreLink.slot4AvailableLv;
+    case 'slot5': return UnitCoreLink.slot5AvailableLv;
+    }
+  }
+
   static isSlot1Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot1AvailableLv; }
   static isSlot2Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot2AvailableLv; }
   static isSlot3Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot3AvailableLv; }
   static isSlot4Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot4AvailableLv; }
   static isSlot5Available(lv: UnitLvValue): boolean { return lv >= UnitCoreLink.slot5AvailableLv; }
+
+  static isSlotAvailable(slot: CoreLinkSlot, lv: UnitLvValue): boolean {
+    switch (slot) {
+    case 'slot1': return UnitCoreLink.isSlot1Available(lv);
+    case 'slot2': return UnitCoreLink.isSlot2Available(lv);
+    case 'slot3': return UnitCoreLink.isSlot3Available(lv);
+    case 'slot4': return UnitCoreLink.isSlot4Available(lv);
+    case 'slot5': return UnitCoreLink.isSlot5Available(lv);
+    }
+  }
 
   static emptyBonus(unit: UnitNumber): CoreLinkBonus { return calcBonus(0, unit); }
 

@@ -33,7 +33,7 @@ import {
 import { selectedUnitCurrentRankState } from '../status/parameters/UnitLvStatusState';
 import { selectedUnitState } from '../selector/UnitSelectorState';
 import { setPrimaryActiveSkill, unitPrimaryActiveSkillState } from './PrimaryActiveSkillState';
-import { useActiveSkillTab } from '../ui/UnitSkillTabState';
+import { useActiveSkillTab } from '../ui/UnitSkillTabHook';
 import { useSelectedUnit } from '../selector/UnitSelectorHook';
 
 import { AreaOfEffectCell, AreaOfEffectCells } from '../../component/skill/AreaOfEffectCellType';
