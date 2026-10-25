@@ -37,13 +37,7 @@ export function useUnitCoreLink({ no }: UnitBasicInfo, slot: CoreLinkSlot): [
   const available = useRecoilValue(coreLinkSlotAvailableState(no, slot));
   const callback = useRecoilCallback(linkSlot(no, slot));
 
-  switch (slot) {
-  case 'slot1': return [linkedUnit, callback, available, UnitCoreLink.slot1AvailableLv];
-  case 'slot2': return [linkedUnit, callback, available, UnitCoreLink.slot2AvailableLv];
-  case 'slot3': return [linkedUnit, callback, available, UnitCoreLink.slot3AvailableLv];
-  case 'slot4': return [linkedUnit, callback, available, UnitCoreLink.slot4AvailableLv];
-  case 'slot5': return [linkedUnit, callback, available, UnitCoreLink.slot5AvailableLv];
-  }
+  return [linkedUnit, callback, available, UnitCoreLink.slotAvailableLv(slot)];
 }
 
 export function useCoreLinkEffect({ no }: UnitBasicInfo): CoreLinkBonus {

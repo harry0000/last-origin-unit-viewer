@@ -18,20 +18,10 @@ function createLinkedUnit(slot: CoreLinkSlot) {
   });
 }
 
-function initialSlotAvailable(slot: CoreLinkSlot): boolean {
-  switch (slot) {
-  case 'slot1': return UnitCoreLink.isSlot1Available(UnitLv.initialState.value);
-  case 'slot2': return UnitCoreLink.isSlot2Available(UnitLv.initialState.value);
-  case 'slot3': return UnitCoreLink.isSlot3Available(UnitLv.initialState.value);
-  case 'slot4': return UnitCoreLink.isSlot4Available(UnitLv.initialState.value);
-  case 'slot5': return UnitCoreLink.isSlot5Available(UnitLv.initialState.value);
-  }
-}
-
 function createSlotAvailable(slot: CoreLinkSlot) {
   return atomFamily<boolean, UnitNumber>({
     key: `UnitCoreLinkState_slotAvailable_${slot}`,
-    default: initialSlotAvailable(slot)
+    default: UnitCoreLink.isSlotAvailable(slot, UnitLv.initialState.value)
   });
 }
 
