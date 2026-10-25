@@ -15,14 +15,13 @@ const CircleImageSwitch = React.forwardRef<HTMLDivElement, {
   selected?: boolean,
   onChange?: React.ChangeEventHandler<HTMLInputElement>
 }>(({ id, src, height, width, alt, disabled, selected, onChange, ...rest }, ref) => {
-  const [active, setActive] = useState(selected);
   const [focus, setFocus] = useState(false);
+  const active = selected && !disabled;
 
   const [prevDisabled, setPrevDisabled] = useState(disabled);
   if (disabled != prevDisabled) {
     setPrevDisabled(disabled);
     if (disabled) {
-      setActive(false);
       setFocus(false);
     }
   }
@@ -35,10 +34,7 @@ const CircleImageSwitch = React.forwardRef<HTMLDivElement, {
         className="visually-hidden circle-image-check-input"
         checked={selected}
         disabled={disabled}
-        onChange={e => {
-          setActive(e.target.checked);
-          onChange?.call(undefined, e);
-        }}
+        onChange={onChange}
         onFocus={() => { setFocus(true); }}
         onBlur={() => { setFocus(false); }}
       />
